@@ -53,15 +53,15 @@
   </database>
   <tool>
     <name>AMDA Tool</name>
-	  <description>A generic Web tool for Space Plasma Physics data analysis</description>
+	<description>A generic Web tool for Space Plasma Physics data analysis</description>
     <dns>cdpp-amda.cesr.fr</dns>
-	  <info>http://cdpp-amda.cesr.fr/DDHTML/HELP/about.html</info>
+	<info>http://cdpp-amda.cesr.fr/DDHTML/HELP/about.html</info>
   </tool>
   <tool>
     <name>ClWeb Tool</name>
-	  <description>Multimission Space Plasma data plotting tool</description>
+	<description>Multimission Space Plasma data plotting tool</description>
     <dns>clweb.cesr.fr</dns>
-	  <info>http://clweb.cesr.fr/clweb_poster.pdf</info>
+	<info>http://clweb.cesr.fr/clweb_poster.pdf</info>
   </tool>
   <tool>
     <name>3DView Tool</name>

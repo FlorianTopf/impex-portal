@@ -1,10 +1,9 @@
-package models
+package scalaxb
 
 import scala.xml.{Node, NodeSeq, NamespaceBinding, Elem, UnprefixedAttribute, PrefixedAttribute}
 import javax.xml.datatype.{XMLGregorianCalendar}
 import javax.xml.namespace.QName
 import javax.xml.bind.DatatypeConverter
-import models._
 
 object scalaxb {
   import annotation.implicitNotFound
