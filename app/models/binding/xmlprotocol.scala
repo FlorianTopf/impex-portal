@@ -1485,7 +1485,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumAccessRightsFormat = new DefaultBindingEnumAccessRightsFormat {}
@@ -1501,7 +1501,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumAnnotationTypeFormat = new DefaultBindingEnumAnnotationTypeFormat {}
@@ -1517,7 +1517,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumAssociationTypeFormat = new DefaultBindingEnumAssociationTypeFormat {}
@@ -1533,7 +1533,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumAvailabilityFormat = new DefaultBindingEnumAvailabilityFormat {}
@@ -1549,7 +1549,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumClassificationMethodFormat = new DefaultBindingEnumClassificationMethodFormat {}
@@ -1565,7 +1565,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumComponentFormat = new DefaultBindingEnumComponentFormat {}
@@ -1581,7 +1581,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumConfidenceRatingFormat = new DefaultBindingEnumConfidenceRatingFormat {}
@@ -1597,7 +1597,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumCoordinateRepresentationFormat = new DefaultBindingEnumCoordinateRepresentationFormat {}
@@ -1613,7 +1613,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumCoordinateSystemNameFormat = new DefaultBindingEnumCoordinateSystemNameFormat {}
@@ -1629,7 +1629,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumDirectionAngleFormat = new DefaultBindingEnumDirectionAngleFormat {}
@@ -1645,7 +1645,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumDisplayTypeFormat = new DefaultBindingEnumDisplayTypeFormat {}
@@ -1661,7 +1661,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumDocumentTypeFormat = new DefaultBindingEnumDocumentTypeFormat {}
@@ -1677,7 +1677,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumEarthFormat = new DefaultBindingEnumEarthFormat {}
@@ -1693,7 +1693,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumEncodingFormat = new DefaultBindingEnumEncodingFormat {}
@@ -1709,7 +1709,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumFieldQuantityFormat = new DefaultBindingEnumFieldQuantityFormat {}
@@ -1725,7 +1725,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumFormatFormat = new DefaultBindingEnumFormatFormat {}
@@ -1741,7 +1741,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumHardcopyFormat = new DefaultBindingEnumHardcopyFormat {}
@@ -1757,7 +1757,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumHashFunctionFormat = new DefaultBindingEnumHashFunctionFormat {}
@@ -1773,7 +1773,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumHeliosphereFormat = new DefaultBindingEnumHeliosphereFormat {}
@@ -1789,7 +1789,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumInstrumentTypeFormat = new DefaultBindingEnumInstrumentTypeFormat {}
@@ -1805,7 +1805,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumIntegralFormat = new DefaultBindingEnumIntegralFormat {}
@@ -1821,7 +1821,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumIonosphereFormat = new DefaultBindingEnumIonosphereFormat {}
@@ -1837,7 +1837,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumMagnetosphereFormat = new DefaultBindingEnumMagnetosphereFormat {}
@@ -1853,7 +1853,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumMeasurementTypeFormat = new DefaultBindingEnumMeasurementTypeFormat {}
@@ -1869,7 +1869,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumMixedQuantityFormat = new DefaultBindingEnumMixedQuantityFormat {}
@@ -1885,7 +1885,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumNearSurfaceFormat = new DefaultBindingEnumNearSurfaceFormat {}
@@ -1901,7 +1901,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumParticleQuantityFormat = new DefaultBindingEnumParticleQuantityFormat {}
@@ -1917,7 +1917,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumParticleTypeFormat = new DefaultBindingEnumParticleTypeFormat {}
@@ -1933,7 +1933,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumPhenomenonTypeFormat = new DefaultBindingEnumPhenomenonTypeFormat {}
@@ -1949,7 +1949,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumProcessingLevelFormat = new DefaultBindingEnumProcessingLevelFormat {}
@@ -1965,7 +1965,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumProjectionFormat = new DefaultBindingEnumProjectionFormat {}
@@ -1981,7 +1981,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumImpexSpecialRegionFormat = new DefaultBindingEnumImpexSpecialRegionFormat {}
@@ -1997,7 +1997,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumQualifierFormat = new DefaultBindingEnumQualifierFormat {}
@@ -2013,7 +2013,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumRegionFormat = new DefaultBindingEnumRegionFormat {}
@@ -2029,7 +2029,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumRenderingAxisFormat = new DefaultBindingEnumRenderingAxisFormat {}
@@ -2045,7 +2045,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumRoleFormat = new DefaultBindingEnumRoleFormat {}
@@ -2061,7 +2061,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumScaleTypeFormat = new DefaultBindingEnumScaleTypeFormat {}
@@ -2077,7 +2077,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumSourceTypeFormat = new DefaultBindingEnumSourceTypeFormat {}
@@ -2093,7 +2093,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumSpectralRangeFormat = new DefaultBindingEnumSpectralRangeFormat {}
@@ -2109,7 +2109,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumSunFormat = new DefaultBindingEnumSunFormat {}
@@ -2125,7 +2125,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumSupportQuantityFormat = new DefaultBindingEnumSupportQuantityFormat {}
@@ -2141,7 +2141,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumTextFormat = new DefaultBindingEnumTextFormat {}
@@ -2157,7 +2157,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumWaveQuantityFormat = new DefaultBindingEnumWaveQuantityFormat {}
@@ -2173,7 +2173,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumWaveTypeFormat = new DefaultBindingEnumWaveTypeFormat {}
@@ -2189,7 +2189,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumWavesFormat = new DefaultBindingEnumWavesFormat {}
@@ -2205,7 +2205,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultBindingGranuleFormat extends scalaxb.ElemNameParser[models.binding.Granule] {
@@ -3169,7 +3169,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumProcCoefTypeFormat = new DefaultBindingEnumProcCoefTypeFormat {}
@@ -3185,7 +3185,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumSymmetryFormat = new DefaultBindingEnumSymmetryFormat {}
@@ -3201,7 +3201,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumYNFormat = new DefaultBindingEnumYNFormat {}
@@ -3217,7 +3217,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumSimulationTypeFormat = new DefaultBindingEnumSimulationTypeFormat {}
@@ -3233,7 +3233,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumProductFormat = new DefaultBindingEnumProductFormat {}
@@ -3249,7 +3249,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumImpexQuantityFormat = new DefaultBindingEnumImpexQuantityFormat {}
@@ -3265,7 +3265,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultBindingParticleFormat extends scalaxb.ElemNameParser[models.binding.Particle] {
@@ -3512,7 +3512,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
 
