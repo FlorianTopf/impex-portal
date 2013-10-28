@@ -1,0 +1,5 @@
+@(databases: List[models.Database])
+
+@for(database <- databases) {
+<p>@database.name => http://@database.databaseoption(0).value@database.methods</p>
+}

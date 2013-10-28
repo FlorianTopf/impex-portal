@@ -1,0 +1,72 @@
+<?xml version="1.0"?>
+<impexconfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.impex.org/2012/configuration.xsd configuration.xsd"
+ xmlns="http://www.impex.org/2012/configuration.xsd">
+  <database type="simulation"> <!--  type="simulation|observation" -->
+    <name>FMI Hybrid Web Archive</name>
+	  <description>Hybrid simulation database for space plasma physics</description>
+    <dns>impex-fp7.fmi.fi</dns>
+    <methods>/ws/Methods_FMI.wsdl</methods>
+    <tree>/ws/Tree_FMI_HYB.xml</tree>
+    <tree>/ws/Tree_FMI_GUMICS.xml</tree>
+    <protocol>soap</protocol>
+    <protocol>http</protocol>
+    <info><!-- service documentation URL missing --></info>
+  </database>
+  <database type="simulation">
+    <name>LATMOS Hybrid Simulations</name>
+    <description>Hybrid simulation database for space plasma physics</description>
+    <dns>impex.latmos.ipsl.fr</dns>
+    <methods>/Methods_LATMOS.wsdl</methods>
+    <tree>/tree.xml</tree>
+    <protocol>soap</protocol>
+    <protocol>http</protocol>
+    <info><!-- service documentation URL missing --></info>
+  </database>
+  <database type="simulation">
+    <name>SINP Simulation Archive</name>
+    <description>Dynamic paraboloid model</description>
+    <dns>dec1.sinp.msu.ru</dns>
+    <methods>/~lucymu/paraboloid/SINP_methods.wsdl</methods>
+    <tree>/~lucymu/paraboloid/SINP_tree.xml</tree>
+    <protocol>soap</protocol>
+    <protocol>http</protocol>
+    <info>http://smdc.sinp.msu.ru/index.py?nav=model-para</info>
+  </database>
+  <database type="observation">
+    <name>AMDA Database</name>
+    <dns>cdpp1.cesr.fr</dns>
+    <methods>/AMDA-NG/public/wsdl/Methods_AMDA.wsdl</methods>
+    <tree>/AMDA-NG/php/rest/getObsDataTree.php?userID=impex</tree>
+    <protocol>soap</protocol>
+    <protocol>http</protocol>
+    <info><!-- service documentation URL missing --></info>
+  </database>
+  <database type="observation">
+    <name>ClWeb Database</name>
+    <dns>clweb.cesr.fr</dns>
+    <methods>/Methods_CLWEB.wsdl</methods>
+    <tree>/clweb_tree.xml</tree>
+    <protocol>soap</protocol>
+    <protocol>http</protocol>
+    <info><!-- service documentation URL missing --></info>
+  </database>
+  <tool>
+    <name>AMDA Tool</name>
+	  <description>A generic Web tool for Space Plasma Physics data analysis</description>
+    <dns>cdpp-amda.cesr.fr</dns>
+	  <info>http://cdpp-amda.cesr.fr/DDHTML/HELP/about.html</info>
+  </tool>
+  <tool>
+    <name>ClWeb Tool</name>
+	  <description>Multimission Space Plasma data plotting tool</description>
+    <dns>clweb.cesr.fr</dns>
+	  <info>http://clweb.cesr.fr/clweb_poster.pdf</info>
+  </tool>
+  <tool>
+    <name>3DView Tool</name>
+    <description>3D Multi-Mission Visualisation tool</description>
+    <dns>3dview.cesr.fr</dns>
+    <info>http://3dview.cesr.fr/other/cdpp3dview_tutorial.pdf</info>
+  </tool>
+</impexconfiguration>    

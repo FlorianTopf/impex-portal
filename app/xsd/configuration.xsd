@@ -1,0 +1,49 @@
+<xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified"
+  targetNamespace="http://www.impex.org/2012/configuration.xsd"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema"
+  xmlns:imp="http://www.impex.org/2012/configuration.xsd">
+  <xs:element name="impexconfiguration">
+    <xs:complexType>
+      <xs:choice maxOccurs="unbounded" minOccurs="0">
+        <xs:element name="database">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="name" minOccurs="1" maxOccurs="1"/>
+              <xs:element type="xs:string" name="description" minOccurs="0" maxOccurs="1"/>
+              <xs:choice maxOccurs="2" minOccurs="1">
+                <xs:element type="xs:string" name="ip" maxOccurs="1"/>
+                <xs:element type="xs:string" name="dns" maxOccurs="1"/>
+              </xs:choice>
+              <xs:element type="xs:string" name="methods" minOccurs="1" maxOccurs="unbounded"/>
+              <xs:element type="xs:string" name="tree" minOccurs="1" maxOccurs="unbounded"/>
+              <xs:element type="xs:string" name="protocol" maxOccurs="unbounded" minOccurs="1"/>
+              <xs:element type="xs:string" name="info" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+            <xs:attribute name="type" type="imp:databasetype"/>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="tool">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element type="xs:string" name="name" minOccurs="1" maxOccurs="1"/>
+              <xs:element type="xs:string" name="description" minOccurs="0" maxOccurs="1"/>
+              <xs:choice maxOccurs="2" minOccurs="1">
+                <xs:element type="xs:string" name="ip" maxOccurs="1"/>
+                <xs:element type="xs:string" name="dns" maxOccurs="1"/>
+              </xs:choice>
+              <xs:element type="xs:string" name="info" maxOccurs="1" minOccurs="1"/>
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+      </xs:choice>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="databasetype">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="simulation"/>
+      <xs:enumeration value="observation"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
