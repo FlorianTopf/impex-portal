@@ -4,20 +4,18 @@ package models
 case class Database(name: String,
   description: Option[String] = None,
   databaseoption: Seq[DataRecord[String]] = Nil,
-  methods: Option[String] = None,
-  tree: String,
+  methods: Seq[String] = Nil,
+  tree: Seq[String] = Nil,
   protocol: Seq[String] = Nil,
-  info: Option[String] = None,
-  typeValue: Option[models.Databasetype] = None) extends ImpexconfigurationOption
+  info: String,
+  typeValue: Option[Databasetype] = None) extends ImpexconfigurationOption
 
 trait DatabaseOption
 
 case class Tool(name: String,
   description: Option[String] = None,
   tooloption: Seq[DataRecord[String]] = Nil,
-  methods: String,
-  protocol: Seq[String] = Nil,
-  info: Option[String] = None) extends ImpexconfigurationOption
+  info: String) extends ImpexconfigurationOption
 
 trait ToolOption
 
@@ -30,6 +28,7 @@ object Databasetype {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): Databasetype = value match {
     case "simulation" => Simulation
     case "observation" => Observation
+
   }
 }
 

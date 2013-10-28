@@ -18,7 +18,7 @@ object Application extends Controller {
   
   def test = Action {
 
-    val config = scala.xml.XML.loadFile("configuration.xml")
+    val config = scala.xml.XML.loadFile("conf/configuration.xml")
 
     val configuration = scalaxb.fromXML[models.Impexconfiguration](config)
     
