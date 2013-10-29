@@ -40,20 +40,39 @@ object Application extends Controller {
   }
   
   def tree = Action {
-     //val promise = WS.url("http://impex.latmos.ipsl.fr/tree.xml").get()
-     val promise = WS.url("http://impex-fp7.fmi.fi/ws/Tree_FMI_HYB.xml").get()
+     val promise = WS.url("http://impex.latmos.ipsl.fr/tree.xml").get()
+     //val promise = WS.url("http://impex-fp7.fmi.fi/ws/Tree_FMI_HYB.xml").get()
      //val promise = WS.url("http://dec1.sinp.msu.ru/~lucymu/paraboloid/SINP_tree.xml").get()
     
     Async {
             promise map { response => 
               
               val tree = scalaxb.fromXML[Spase](response.xml)
+              //val simulationModel = response.xml \\ "SimulatioModel" \ "ResourceID"
               
-              println(tree)
-
-              val test = response.xml \\ "SimulationModel" \ "ResourceID"
+              // @TODO how we can extract from the sequence with matching the data records name?
+              // @TODO why must repository be casted to NodeSeq?
+              //val repository = scalaxb.fromXML[Repository](tree.ResourceEntity(1).value.asInstanceOf[NodeSeq])
               
-              Ok("OK: " + test.text)
+              val simulationModels: ListBuffer[SimulationModel] = ListBuffer()
+              val simulationRuns: ListBuffer[SimulationRun] = ListBuffer()
+              
+              for(element <- tree.ResourceEntity) element.key match {
+                case Some("SimulationModel") => simulationModels+=element.value.asInstanceOf[SimulationModel]
+                //@TODO why must simulation run be casted to NodeSeq? 
+                case Some("SimulationRun")  => simulationRuns+=scalaxb.fromXML[SimulationRun](element.value.asInstanceOf[NodeSeq])
+                case _ => println("something else")
+              } 
+              
+              println(simulationRuns(1))
+              
+              //Ok("OK: "+test.text+"<br/>"+
+              Ok("OK: First model: "+simulationModels(0).ResourceID+"; "+
+                  tree.ResourceEntity.length + " ResourceEntity elements found"+"; "+
+                  //"RepositoryID="+repository.ResourceID+"; "+
+                  simulationRuns.length+" SimulationRuns found ----->>>>>> "+ tree                   
+              )
+              
             }
      }
      
