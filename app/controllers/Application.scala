@@ -40,8 +40,8 @@ object Application extends Controller {
   }
   
   def tree = Action {
-     val promise = WS.url("http://impex.latmos.ipsl.fr/tree.xml").get()
-     //val promise = WS.url("http://impex-fp7.fmi.fi/ws/Tree_FMI_HYB.xml").get()
+     //val promise = WS.url("http://impex.latmos.ipsl.fr/tree.xml").get()
+     val promise = WS.url("http://impex-fp7.fmi.fi/ws/Tree_FMI_HYB.xml").get()
      //val promise = WS.url("http://dec1.sinp.msu.ru/~lucymu/paraboloid/SINP_tree.xml").get()
     
     Async {
