@@ -3,7 +3,8 @@
  xsi:schemaLocation="http://www.impex.org/2012/configuration.xsd configuration.xsd"
  xmlns="http://www.impex.org/2012/configuration.xsd">
   <database type="simulation">
-    <name>FMI Hybrid Web Archive</name>
+    <name>FMI</name>
+    <!-- <name>FMI Hybrid Web Archive</name> -->
     <description>
       Hybrid and MHD simulation database
 	</description>
@@ -16,7 +17,8 @@
     <info>http://hwa.fmi.fi/beta/login.php</info>
   </database>
   <database type="simulation">
-    <name>LATMOS Hybrid Simulations</name>
+    <name>LATMOS</name>
+    <!-- <name>LATMOS Hybrid Simulations</name> -->
     <description>
       Hybrid simulation database
     </description>
@@ -28,7 +30,8 @@
     <info>http://impex.latmos.ipsl.fr/LatHyS.htm</info>
   </database>
   <database type="simulation">
-    <name>SINP Simulation Archive</name>
+    <name>SINP</name>
+    <!-- <name>SINP Simulation Archive</name> -->
     <description>
       Paraboloid model simulation database
     </description>
@@ -44,7 +47,8 @@
     </info>
   </database>
   <database type="observation">
-    <name>AMDA Database</name>
+    <name>AMDA</name>
+	<!-- <name>AMDA Database</name> -->
     <dns>cdpp1.cesr.fr</dns>
     <methods>
       /AMDA-NG/public/wsdl/Methods_AMDA.wsdl
@@ -57,7 +61,8 @@
     <info>http://clweb.cesr.fr/webservice.html</info>
   </database>
   <database type="observation">
-    <name>ClWeb Database</name>
+    <name>ClWeb</name>
+    <!-- <name>ClWeb Database</name> -->
     <dns>clweb.cesr.fr</dns>
     <methods>/Methods_CLWEB.wsdl</methods>
     <tree>/clweb_tree.xml</tree>

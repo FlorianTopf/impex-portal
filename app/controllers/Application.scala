@@ -9,6 +9,9 @@ import views.html._
 import scala.xml._
 import scalaxb._
 import models.binding._
+import models.actor._
+import scala.concurrent.Future
+import scala.concurrent.Await
 
 object Application extends Controller {
   
@@ -17,26 +20,30 @@ object Application extends Controller {
   }
   
   def config = Action {
+   //val config = scala.xml.XML.loadFile("conf/configuration.xml")
 
-    val config = scala.xml.XML.loadFile("conf/configuration.xml")
-
-    val configuration = scalaxb.fromXML[Impexconfiguration](config)
+    //val configuration = scalaxb.fromXML[Impexconfiguration](config)
     
     //println(configuration)
     
-    val databases: ListBuffer[Database] = ListBuffer()
-    val tools: ListBuffer[Tool] = ListBuffer()
+    //val databases: ListBuffer[Database] = ListBuffer()
+    //val tools: ListBuffer[Tool] = ListBuffer()
     
-    configuration.impexconfigurationoption.foreach(c => {
+    //configuration.impexconfigurationoption.foreach(c => {
       //println(c.key.get +"="+ c.value)  
-      c.value match {
-        case x: Database => databases+=x; println(x)
-        case x: Tool => tools+=x
-      }
-    })
+      //c.value match {
+      //  case x: Database => databases+=x; println(x)
+      //  case x: Tool => tools+=x
+      //}
+    //})
+    val future = ConfigService.getConfig(Some("database"))
+    
+    Async {
+      future.map(databases => Ok(views.html.config(databases.asInstanceOf[List[Database]])))
+    }
 
     //Ok("OK: " + databases(1).databaseoption(0).value+databases(1).methods.get)
-    Ok(views.html.config(databases.toList))
+    //Ok(views.html.config(databases.toList))
   }
   
   def tree = Action {
@@ -70,7 +77,7 @@ object Application extends Controller {
               Ok("OK: First model: "+simulationModels(0).ResourceID+"; "+
                   tree.ResourceEntity.length + " ResourceEntity elements found"+"; "+
                   //"RepositoryID="+repository.ResourceID+"; "+
-                  simulationRuns.length+" SimulationRuns found ----->>>>>> "+ tree                   
+                  simulationRuns.length+" SimulationRuns found ----->>>>>> "+ simulationModels                   
               )
               
             }
@@ -79,7 +86,7 @@ object Application extends Controller {
   } 
   
   def test = Action {
-    val treeXml =
+    /*val treeXml =
       <Spase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://impex-fp7.oeaw.ac.at" xsi:schemaLocation="http://www.impex.latmos.ipsl.fr http://impex-fp7.oeaw.ac.at/fileadmin/impex+spase-1.0.xsd">
         <Version>2.2.2</Version>
         <SimulationModel>
@@ -120,7 +127,11 @@ object Application extends Controller {
       
      val treeObj = scalaxb.fromXML[Spase](treeXml)
     
-     Ok("OK:" + treeObj)
+     Ok("OK:" + treeObj)*/
+    
+    val tree = RegistryService.getDataTree(Some("FMI")).getOrElse("failed")
+    
+    Ok("OK:" + tree)
   }
   
 }

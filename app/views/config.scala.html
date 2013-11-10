@@ -1,5 +1,5 @@
 @(databases: List[models.binding.Database])
 
 @for(database <- databases) {
-<p>@database.name => http://@database.databaseoption(0).value@database.methods</p>
+<p>@database.name =&gt; http://@database.databaseoption(0).value@database.methods</p>
 }
