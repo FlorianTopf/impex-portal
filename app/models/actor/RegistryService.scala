@@ -18,7 +18,7 @@ object RegistryService {
     val config = Await.result((actor ? Some("database")), Duration.Inf)
     
     providerName match {
-      case Some(p: String) =>  Some(DataProvider.getResource(p))
+      case Some(p: String) =>  Some(scalaxb.fromXML[Spase](DataProvider.getResource(p)))
       case _ => None
     }
   }

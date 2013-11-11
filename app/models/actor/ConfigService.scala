@@ -31,12 +31,13 @@ class ConfigService extends Actor {
       }
     })
     
-    // @TODO provide messages for exposing in XML
+    // @TODO provide messages for exposing in XML/JSON (with option!)
     def receive = {
         case Some("database") => sender ! databases.toList
         case Some("tool") => sender ! tools.toList
         case None => sender ! configuration
-        case _ => sender ! Json.obj("error" -> "option not found")
+        //case _ => sender ! Json.obj("error" -> "option not found")
+        case _ => sender ! "<error>option not found</error>"
     }
     
 }
@@ -49,7 +50,8 @@ object ConfigService {
         actor.isTerminated match {
             case false => (actor ? option)
             case _ => Akka.future {
-                Json.obj("error" -> "actor terminated")
+                //Json.obj("error" -> "actor terminated")
+            	"<error>actor terminated</error>"
             } // @TODO create new actor
         }
     }

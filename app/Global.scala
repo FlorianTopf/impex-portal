@@ -8,7 +8,6 @@ import akka.pattern.ask
 import akka.util.Timeout
 import scala.concurrent.duration._
 import models.binding._
-import scala.collection.mutable._
 import play.api.libs.ws._
 
 object Global extends GlobalSettings {
@@ -26,18 +25,21 @@ object Global extends GlobalSettings {
       database => database.typeValue.get.toString() match {
         case "simulation" => {
           println("fetching tree from "+database.name)
+          
           val treeURL = "http://"+database.databaseoption.head.value+database.tree.head
           val methodsURL = "http://"+database.databaseoption.head.value+database.methods.head
+          
           println("treeURL="+treeURL)
           println("methodsURL="+methodsURL)
           
           // @TODO move this to actor later
           val promise = WS.url(treeURL).get()
-          val tree = scalaxb.fromXML[Spase](Await.result(promise, Duration.Inf).xml)
+          // @TODO change duration of Await
+          val tree = Await.result(promise, Duration.Inf).xml
           
           // @TODO exchange name with spaseID
           val actor: ActorRef = Akka.system.actorOf(
-              Props(new DataProvider(tree, treeURL, methodsURL)), 
+              Props(new DataProvider(SimTree(tree), treeURL, methodsURL)), 
               name = database.name)
               
           // @TODO initial delay will be switched later

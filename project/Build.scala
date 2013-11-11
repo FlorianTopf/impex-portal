@@ -13,7 +13,8 @@ object ApplicationBuild extends Build {
     // Add your project dependencies here,
     jdbc,
     anorm,
-    "org.scalaxb" %% "scalaxb" % "1.1.2"
+    "org.scalaxb" %% "scalaxb" % "1.1.2",
+    "net.databinder.dispatch" %% "dispatch-core" % "0.9.5"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
