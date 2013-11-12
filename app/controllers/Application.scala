@@ -129,7 +129,8 @@ object Application extends Controller {
     
      Ok("OK:" + treeObj)*/
     
-    val tree = RegistryService.getDataTree(Some("FMI")).getOrElse("failed")
+    //val tree = RegistryService.getDataTree(Some("AMDA"), "obs").getOrElse("failed")
+    val tree = scalaxb.fromXML[DataRoot](scala.xml.XML.loadFile("conf/getObsDataTree_LocalParams.xml"))
     
     Ok("OK:" + tree)
   }

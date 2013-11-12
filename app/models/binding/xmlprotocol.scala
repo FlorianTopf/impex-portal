@@ -9,11 +9,16 @@ val document = scalaxb.toXML[models.binding.Foo](obj, "foo", models.binding.defa
 object `package` extends XMLProtocol { }
 
 trait XMLProtocol extends scalaxb.XMLStandardTypes {
-  val defaultScope = scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at",
+  val defaultScope = scalaxb.toScope(None -> "http://www.impex.org/2012/configuration.xsd",
     Some("imp") -> "http://www.impex.org/2012/configuration.xsd",
     Some("tns") -> "http://impex-fp7.oeaw.ac.at",
+    Some("xml") -> "http://www.w3.org/XML/1998/namespace",
     Some("xs") -> "http://www.w3.org/2001/XMLSchema",
     Some("xsi") -> "http://www.w3.org/2001/XMLSchema-instance")
+  implicit lazy val BindingDatabaseFormat: scalaxb.XMLFormat[models.binding.Database] = new DefaultBindingDatabaseFormat {}
+  implicit lazy val BindingToolFormat: scalaxb.XMLFormat[models.binding.Tool] = new DefaultBindingToolFormat {}
+  implicit lazy val BindingImpexconfigurationFormat: scalaxb.XMLFormat[models.binding.Impexconfiguration] = new DefaultBindingImpexconfigurationFormat {}
+  implicit lazy val BindingDatabasetypeFormat: scalaxb.XMLFormat[models.binding.Databasetype] = new DefaultBindingDatabasetypeFormat {}
   implicit lazy val BindingSpaseFormat: scalaxb.XMLFormat[models.binding.Spase] = new DefaultBindingSpaseFormat {}
   implicit lazy val BindingCatalogFormat: scalaxb.XMLFormat[models.binding.Catalog] = new DefaultBindingCatalogFormat {}
   implicit lazy val BindingResourceHeaderFormat: scalaxb.XMLFormat[models.binding.ResourceHeader] = new DefaultBindingResourceHeaderFormat {}
@@ -24,7 +29,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingAccessURLFormat: scalaxb.XMLFormat[models.binding.AccessURL] = new DefaultBindingAccessURLFormat {}
   implicit lazy val BindingDataExtentFormat: scalaxb.XMLFormat[models.binding.DataExtent] = new DefaultBindingDataExtentFormat {}
   implicit lazy val BindingTimeSpanFormat: scalaxb.XMLFormat[models.binding.TimeSpan] = new DefaultBindingTimeSpanFormat {}
-  implicit lazy val BindingParameterFormat: scalaxb.XMLFormat[models.binding.Parameter] = new DefaultBindingParameterFormat {}
+  implicit lazy val BindingParameterTypeFormat: scalaxb.XMLFormat[models.binding.ParameterType] = new DefaultBindingParameterTypeFormat {}
   implicit lazy val BindingCoordinateSystemFormat: scalaxb.XMLFormat[models.binding.CoordinateSystem] = new DefaultBindingCoordinateSystemFormat {}
   implicit lazy val BindingRenderingHintsFormat: scalaxb.XMLFormat[models.binding.RenderingHints] = new DefaultBindingRenderingHintsFormat {}
   implicit lazy val BindingStructureFormat: scalaxb.XMLFormat[models.binding.Structure] = new DefaultBindingStructureFormat {}
@@ -46,7 +51,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingDocumentFormat: scalaxb.XMLFormat[models.binding.Document] = new DefaultBindingDocumentFormat {}
   implicit lazy val BindingSourceFormat: scalaxb.XMLFormat[models.binding.Source] = new DefaultBindingSourceFormat {}
   implicit lazy val BindingChecksumFormat: scalaxb.XMLFormat[models.binding.Checksum] = new DefaultBindingChecksumFormat {}
-  implicit lazy val BindingInstrumentFormat: scalaxb.XMLFormat[models.binding.Instrument] = new DefaultBindingInstrumentFormat {}
+  implicit lazy val BindingInstrumentTypeFormat: scalaxb.XMLFormat[models.binding.InstrumentType] = new DefaultBindingInstrumentTypeFormat {}
   implicit lazy val BindingOperatingSpanFormat: scalaxb.XMLFormat[models.binding.OperatingSpan] = new DefaultBindingOperatingSpanFormat {}
   implicit lazy val BindingObservatoryFormat: scalaxb.XMLFormat[models.binding.Observatory] = new DefaultBindingObservatoryFormat {}
   implicit lazy val BindingLocationFormat: scalaxb.XMLFormat[models.binding.Location] = new DefaultBindingLocationFormat {}
@@ -138,10 +143,114 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingInputValueFormat: scalaxb.XMLFormat[models.binding.InputValue] = new DefaultBindingInputValueFormat {}
   implicit lazy val BindingCubesDescriptionSequenceFormat: scalaxb.XMLFormat[models.binding.CubesDescriptionSequence] = new DefaultBindingCubesDescriptionSequenceFormat {}
   implicit lazy val BindingCutsDescriptionSequenceFormat: scalaxb.XMLFormat[models.binding.CutsDescriptionSequence] = new DefaultBindingCutsDescriptionSequenceFormat {}
-  implicit lazy val BindingDatabaseFormat: scalaxb.XMLFormat[models.binding.Database] = new DefaultBindingDatabaseFormat {}
-  implicit lazy val BindingToolFormat: scalaxb.XMLFormat[models.binding.Tool] = new DefaultBindingToolFormat {}
-  implicit lazy val BindingImpexconfigurationFormat: scalaxb.XMLFormat[models.binding.Impexconfiguration] = new DefaultBindingImpexconfigurationFormat {}
-  implicit lazy val BindingDatabasetypeFormat: scalaxb.XMLFormat[models.binding.Databasetype] = new DefaultBindingDatabasetypeFormat {}
+  implicit lazy val BindingDataRootFormat: scalaxb.XMLFormat[models.binding.DataRoot] = new DefaultBindingDataRootFormat {}
+  implicit lazy val BindingDataCenterFormat: scalaxb.XMLFormat[models.binding.DataCenter] = new DefaultBindingDataCenterFormat {}
+  implicit lazy val BindingMissionFormat: scalaxb.XMLFormat[models.binding.Mission] = new DefaultBindingMissionFormat {}
+  implicit lazy val BindingInstrumentFormat: scalaxb.XMLFormat[models.binding.Instrument] = new DefaultBindingInstrumentFormat {}
+  implicit lazy val BindingDatasetFormat: scalaxb.XMLFormat[models.binding.Dataset] = new DefaultBindingDatasetFormat {}
+  implicit lazy val BindingParameterFormat: scalaxb.XMLFormat[models.binding.Parameter] = new DefaultBindingParameterFormat {}
+  implicit lazy val BindingComponentFormat: scalaxb.XMLFormat[models.binding.Component] = new DefaultBindingComponentFormat {}
+  implicit lazy val BindingId2Format: scalaxb.AttributeGroupFormat[models.binding.Id2] = new DefaultBindingId2Format {}
+  implicit lazy val BindingIdFormat: scalaxb.AttributeGroupFormat[models.binding.Id] = new DefaultBindingIdFormat {}
+  implicit lazy val BindingId1Format: scalaxb.AttributeGroupFormat[models.binding.Id1] = new DefaultBindingId1Format {}
+
+  trait DefaultBindingDatabaseFormat extends scalaxb.ElemNameParser[models.binding.Database] {
+    val targetNamespace: Option[String] = Some("http://www.impex.org/2012/configuration.xsd")
+    
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Database] =
+      phrase((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "name")) ~ 
+      opt(scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "description")) ~ 
+      rep(((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "ip")) ^^ 
+      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)))) | 
+      ((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "dns")) ^^ 
+      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack))))) ~ 
+      rep(scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "methods")) ~ 
+      rep(scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "tree")) ~ 
+      rep(scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "protocol")) ~ 
+      (scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "info")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 =>
+      models.binding.Database(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        p3.toSeq,
+        p4.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        p5.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        p6.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String](p7, scalaxb.ElemName(node) :: stack),
+        (node \ "@type").headOption map { scalaxb.fromXML[models.binding.Databasetype](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    override def writesAttribute(__obj: models.binding.Database, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
+      var attr: scala.xml.MetaData  = scala.xml.Null
+      __obj.typeValue foreach { x => attr = scala.xml.Attribute(null, "type", x.toString, attr) }
+      attr
+    }
+
+    def writesChildNodes(__obj: models.binding.Database, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.name, Some("http://www.impex.org/2012/configuration.xsd"), Some("name"), __scope, false),
+        __obj.description map { scalaxb.toXML[String](_, Some("http://www.impex.org/2012/configuration.xsd"), Some("description"), __scope, false) } getOrElse {Nil},
+        __obj.databaseoption flatMap { x => scalaxb.toXML[scalaxb.DataRecord[String]](x, x.namespace, x.key, __scope, false) },
+        __obj.methods flatMap { scalaxb.toXML[String](_, Some("http://www.impex.org/2012/configuration.xsd"), Some("methods"), __scope, false) },
+        __obj.tree flatMap { scalaxb.toXML[String](_, Some("http://www.impex.org/2012/configuration.xsd"), Some("tree"), __scope, false) },
+        __obj.protocol flatMap { scalaxb.toXML[String](_, Some("http://www.impex.org/2012/configuration.xsd"), Some("protocol"), __scope, false) },
+        scalaxb.toXML[String](__obj.info, Some("http://www.impex.org/2012/configuration.xsd"), Some("info"), __scope, false))
+
+  }
+
+  trait DefaultBindingToolFormat extends scalaxb.ElemNameParser[models.binding.Tool] {
+    val targetNamespace: Option[String] = Some("http://www.impex.org/2012/configuration.xsd")
+    
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Tool] =
+      phrase((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "name")) ~ 
+      opt(scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "description")) ~ 
+      rep(((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "ip")) ^^ 
+      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)))) | 
+      ((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "dns")) ^^ 
+      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack))))) ~ 
+      (scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "info")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 =>
+      models.binding.Tool(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        p3.toSeq,
+        scalaxb.fromXML[String](p4, scalaxb.ElemName(node) :: stack)) })
+    
+    def writesChildNodes(__obj: models.binding.Tool, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.name, Some("http://www.impex.org/2012/configuration.xsd"), Some("name"), __scope, false),
+        __obj.description map { scalaxb.toXML[String](_, Some("http://www.impex.org/2012/configuration.xsd"), Some("description"), __scope, false) } getOrElse {Nil},
+        __obj.tooloption flatMap { x => scalaxb.toXML[scalaxb.DataRecord[String]](x, x.namespace, x.key, __scope, false) },
+        scalaxb.toXML[String](__obj.info, Some("http://www.impex.org/2012/configuration.xsd"), Some("info"), __scope, false))
+
+  }
+
+  trait DefaultBindingImpexconfigurationFormat extends scalaxb.ElemNameParser[models.binding.Impexconfiguration] {
+    val targetNamespace: Option[String] = Some("http://www.impex.org/2012/configuration.xsd")
+    
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Impexconfiguration] =
+      phrase(rep(((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "database")) ^^ 
+      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Database](x, scalaxb.ElemName(node) :: stack)))) | 
+      ((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "tool")) ^^ 
+      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Tool](x, scalaxb.ElemName(node) :: stack))))) ^^
+      { case p1 =>
+      models.binding.Impexconfiguration(p1.toSeq: _*) })
+    
+    def writesChildNodes(__obj: models.binding.Impexconfiguration, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      (__obj.impexconfigurationoption flatMap { x => scalaxb.toXML[scalaxb.DataRecord[models.binding.ImpexconfigurationOption]](x, x.namespace, x.key, __scope, false) })
+
+  }
+
+  def buildBindingDatabasetypeFormat = new DefaultBindingDatabasetypeFormat {}
+  trait DefaultBindingDatabasetypeFormat extends scalaxb.XMLFormat[models.binding.Databasetype] {
+    val targetNamespace: Option[String] = Some("http://www.impex.org/2012/configuration.xsd")
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.Databasetype] = seq match {
+      case elem: scala.xml.Elem => Right(models.binding.Databasetype.fromString(elem.text, elem.scope))
+      case _ => Right(models.binding.Databasetype.fromString(seq.text, scala.xml.TopScope))
+    }
+    
+    def writes(__obj: models.binding.Databasetype, __namespace: Option[String], __elementLabel: Option[String],
+        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
+      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
+        __elementLabel getOrElse { sys.error("missing element label.") },
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
+  }
 
   trait DefaultBindingSpaseFormat extends scalaxb.ElemNameParser[models.binding.Spase] {
     val targetNamespace: Option[String] = Some("http://impex-fp7.oeaw.ac.at")
@@ -180,7 +289,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "NumericalData")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.NumericalData](x, scalaxb.ElemName(node) :: stack)))) | 
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Instrument")) ^^ 
-      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Instrument](x, scalaxb.ElemName(node) :: stack)))) | 
+      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.InstrumentType](x, scalaxb.ElemName(node) :: stack)))) | 
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Observatory")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Observatory](x, scalaxb.ElemName(node) :: stack)))) | 
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Person")) ^^ 
@@ -200,7 +309,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "NumericalData")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.NumericalData](x, scalaxb.ElemName(node) :: stack)))) | 
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Instrument")) ^^ 
-      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Instrument](x, scalaxb.ElemName(node) :: stack)))) | 
+      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.InstrumentType](x, scalaxb.ElemName(node) :: stack)))) | 
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Observatory")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Observatory](x, scalaxb.ElemName(node) :: stack)))) | 
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Person")) ^^ 
@@ -263,7 +372,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p9.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p10.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p11.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        p12.toSeq map { scalaxb.fromXML[models.binding.Parameter](_, scalaxb.ElemName(node) :: stack) },
+        p12.toSeq map { scalaxb.fromXML[models.binding.ParameterType](_, scalaxb.ElemName(node) :: stack) },
         p13.toSeq map { scalaxb.fromXML[models.binding.Extension](_, scalaxb.ElemName(node) :: stack) }) })
     
     def writesChildNodes(__obj: models.binding.Catalog, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
@@ -278,7 +387,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __obj.Caveats map { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Caveats"), __scope, false) } getOrElse {Nil},
         __obj.Keyword flatMap { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Keyword"), __scope, false) },
         __obj.InputResourceID flatMap { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("InputResourceID"), __scope, false) },
-        __obj.Parameter flatMap { scalaxb.toXML[models.binding.Parameter](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Parameter"), __scope, false) },
+        __obj.Parameter flatMap { scalaxb.toXML[models.binding.ParameterType](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Parameter"), __scope, false) },
         __obj.Extension flatMap { scalaxb.toXML[models.binding.Extension](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Extension"), __scope, false) })
 
   }
@@ -501,12 +610,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   }
 
-  trait DefaultBindingParameterFormat extends scalaxb.ElemNameParser[models.binding.Parameter] {
+  trait DefaultBindingParameterTypeFormat extends scalaxb.ElemNameParser[models.binding.ParameterType] {
     val targetNamespace: Option[String] = Some("http://impex-fp7.oeaw.ac.at")
     
     override def typeName: Option[String] = Some("Parameter")
 
-    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Parameter] =
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ParameterType] =
       phrase((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Name")) ~ 
       rep(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Set")) ~ 
       opt(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "ParameterKey")) ~ 
@@ -544,7 +653,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Support](x, scalaxb.ElemName(node) :: stack))))) ~ 
       rep(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Property")) ^^
       { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 ~ p9 ~ p10 ~ p11 ~ p12 ~ p13 ~ p14 ~ p15 ~ p16 =>
-      models.binding.Parameter(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+      models.binding.ParameterType(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
         p2.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p3.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p4.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
@@ -561,7 +670,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p15,
         p16.toSeq map { scalaxb.fromXML[models.binding.Property](_, scalaxb.ElemName(node) :: stack) }) })
     
-    def writesChildNodes(__obj: models.binding.Parameter, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+    def writesChildNodes(__obj: models.binding.ParameterType, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
       Seq.concat(scalaxb.toXML[String](__obj.Name, Some("http://impex-fp7.oeaw.ac.at"), Some("Name"), __scope, false),
         __obj.Set flatMap { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Set"), __scope, false) },
         __obj.ParameterKey map { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("ParameterKey"), __scope, false) } getOrElse {Nil},
@@ -991,7 +1100,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p14.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p15.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p16.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        p17.toSeq map { scalaxb.fromXML[models.binding.Parameter](_, scalaxb.ElemName(node) :: stack) },
+        p17.toSeq map { scalaxb.fromXML[models.binding.ParameterType](_, scalaxb.ElemName(node) :: stack) },
         p18.toSeq map { scalaxb.fromXML[models.binding.Extension](_, scalaxb.ElemName(node) :: stack) }) })
     
     def writesChildNodes(__obj: models.binding.DisplayData, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
@@ -1011,7 +1120,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __obj.Caveats map { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Caveats"), __scope, false) } getOrElse {Nil},
         __obj.Keyword flatMap { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Keyword"), __scope, false) },
         __obj.InputResourceID flatMap { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("InputResourceID"), __scope, false) },
-        __obj.Parameter flatMap { scalaxb.toXML[models.binding.Parameter](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Parameter"), __scope, false) },
+        __obj.Parameter flatMap { scalaxb.toXML[models.binding.ParameterType](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Parameter"), __scope, false) },
         __obj.Extension flatMap { scalaxb.toXML[models.binding.Extension](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Extension"), __scope, false) })
 
   }
@@ -1076,7 +1185,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p13.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p14.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p15.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        p16.toSeq map { scalaxb.fromXML[models.binding.Parameter](_, scalaxb.ElemName(node) :: stack) },
+        p16.toSeq map { scalaxb.fromXML[models.binding.ParameterType](_, scalaxb.ElemName(node) :: stack) },
         p17.toSeq map { scalaxb.fromXML[models.binding.Extension](_, scalaxb.ElemName(node) :: stack) }) })
     
     def writesChildNodes(__obj: models.binding.NumericalData, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
@@ -1095,7 +1204,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __obj.Caveats map { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Caveats"), __scope, false) } getOrElse {Nil},
         __obj.Keyword flatMap { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Keyword"), __scope, false) },
         __obj.InputResourceID flatMap { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("InputResourceID"), __scope, false) },
-        __obj.Parameter flatMap { scalaxb.toXML[models.binding.Parameter](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Parameter"), __scope, false) },
+        __obj.Parameter flatMap { scalaxb.toXML[models.binding.ParameterType](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Parameter"), __scope, false) },
         __obj.Extension flatMap { scalaxb.toXML[models.binding.Extension](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Extension"), __scope, false) })
 
   }
@@ -1178,12 +1287,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   }
 
-  trait DefaultBindingInstrumentFormat extends scalaxb.ElemNameParser[models.binding.Instrument] {
+  trait DefaultBindingInstrumentTypeFormat extends scalaxb.ElemNameParser[models.binding.InstrumentType] {
     val targetNamespace: Option[String] = Some("http://impex-fp7.oeaw.ac.at")
     
     override def typeName: Option[String] = Some("Instrument")
 
-    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Instrument] =
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.InstrumentType] =
       phrase((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "ResourceID")) ~ 
       (scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "ResourceHeader")) ~ 
       rep(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "InstrumentType")) ~ 
@@ -1193,7 +1302,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       opt(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Caveats")) ~ 
       rep(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Extension")) ^^
       { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 =>
-      models.binding.Instrument(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+      models.binding.InstrumentType(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
         scalaxb.fromXML[models.binding.ResourceHeader](p2, scalaxb.ElemName(node) :: stack),
         p3.toSeq map { scalaxb.fromXML[models.binding.EnumInstrumentType](_, scalaxb.ElemName(node) :: stack) },
         p4.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
@@ -1202,7 +1311,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p7.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p8.toSeq map { scalaxb.fromXML[models.binding.Extension](_, scalaxb.ElemName(node) :: stack) }) })
     
-    def writesChildNodes(__obj: models.binding.Instrument, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+    def writesChildNodes(__obj: models.binding.InstrumentType, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
       Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://impex-fp7.oeaw.ac.at"), Some("ResourceID"), __scope, false),
         scalaxb.toXML[models.binding.ResourceHeader](__obj.ResourceHeader, Some("http://impex-fp7.oeaw.ac.at"), Some("ResourceHeader"), __scope, false),
         __obj.InstrumentType flatMap { scalaxb.toXML[models.binding.EnumInstrumentType](_, Some("http://impex-fp7.oeaw.ac.at"), Some("InstrumentType"), __scope, false) },
@@ -1949,7 +2058,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
         __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
+        scala.xml.Null, __scope, false,  scala.xml.Text(__obj.toString))
   }
 
   def buildBindingEnumProcessingLevelFormat = new DefaultBindingEnumProcessingLevelFormat {}
@@ -2294,7 +2403,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p13.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p14.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p15.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        p16.toSeq map { scalaxb.fromXML[models.binding.Parameter](_, scalaxb.ElemName(node) :: stack) },
+        p16.toSeq map { scalaxb.fromXML[models.binding.ParameterType](_, scalaxb.ElemName(node) :: stack) },
         scalaxb.fromXML[models.binding.EnumProduct](p17, scalaxb.ElemName(node) :: stack),
         p18.toSeq map { scalaxb.fromXML[models.binding.Property](_, scalaxb.ElemName(node) :: stack) },
         p19.headOption map { scalaxb.fromXML[models.binding.Extension](_, scalaxb.ElemName(node) :: stack) }) })
@@ -2315,7 +2424,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __obj.Caveats map { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Caveats"), __scope, false) } getOrElse {Nil},
         __obj.Keyword flatMap { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Keyword"), __scope, false) },
         __obj.InputResourceID flatMap { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("InputResourceID"), __scope, false) },
-        __obj.Parameter flatMap { scalaxb.toXML[models.binding.Parameter](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Parameter"), __scope, false) },
+        __obj.Parameter flatMap { scalaxb.toXML[models.binding.ParameterType](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Parameter"), __scope, false) },
         scalaxb.toXML[models.binding.EnumProduct](__obj.SimulationProduct, Some("http://impex-fp7.oeaw.ac.at"), Some("SimulationProduct"), __scope, false),
         __obj.Property flatMap { scalaxb.toXML[models.binding.Property](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Property"), __scope, false) },
         __obj.Extension map { scalaxb.toXML[models.binding.Extension](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Extension"), __scope, false) } getOrElse {Nil})
@@ -2368,7 +2477,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p14.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p15.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p16.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        p17.toSeq map { scalaxb.fromXML[models.binding.Parameter](_, scalaxb.ElemName(node) :: stack) },
+        p17.toSeq map { scalaxb.fromXML[models.binding.ParameterType](_, scalaxb.ElemName(node) :: stack) },
         scalaxb.fromXML[models.binding.EnumProduct](p18, scalaxb.ElemName(node) :: stack),
         p19.toSeq map { scalaxb.fromXML[models.binding.Property](_, scalaxb.ElemName(node) :: stack) },
         p20.headOption map { scalaxb.fromXML[models.binding.Extension](_, scalaxb.ElemName(node) :: stack) }) })
@@ -2390,7 +2499,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __obj.Caveats map { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Caveats"), __scope, false) } getOrElse {Nil},
         __obj.Keyword flatMap { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Keyword"), __scope, false) },
         __obj.InputResourceID flatMap { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("InputResourceID"), __scope, false) },
-        __obj.Parameter flatMap { scalaxb.toXML[models.binding.Parameter](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Parameter"), __scope, false) },
+        __obj.Parameter flatMap { scalaxb.toXML[models.binding.ParameterType](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Parameter"), __scope, false) },
         scalaxb.toXML[models.binding.EnumProduct](__obj.SimulationProduct, Some("http://impex-fp7.oeaw.ac.at"), Some("SimulationProduct"), __scope, false),
         __obj.Property flatMap { scalaxb.toXML[models.binding.Property](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Property"), __scope, false) },
         __obj.Extension map { scalaxb.toXML[models.binding.Extension](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Extension"), __scope, false) } getOrElse {Nil})
@@ -2465,10 +2574,10 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.OutputParameters] =
       phrase(rep(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Parameter")) ^^
       { case p1 =>
-      models.binding.OutputParameters(p1.toSeq map { scalaxb.fromXML[models.binding.Parameter](_, scalaxb.ElemName(node) :: stack) }: _*) })
+      models.binding.OutputParameters(p1.toSeq map { scalaxb.fromXML[models.binding.ParameterType](_, scalaxb.ElemName(node) :: stack) }: _*) })
     
     def writesChildNodes(__obj: models.binding.OutputParameters, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      (__obj.Parameter flatMap { scalaxb.toXML[models.binding.Parameter](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Parameter"), __scope, false) })
+      (__obj.Parameter flatMap { scalaxb.toXML[models.binding.ParameterType](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Parameter"), __scope, false) })
 
   }
 
@@ -3417,102 +3526,233 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   }
 
-  trait DefaultBindingDatabaseFormat extends scalaxb.ElemNameParser[models.binding.Database] {
-    val targetNamespace: Option[String] = Some("http://www.impex.org/2012/configuration.xsd")
+  trait DefaultBindingDataRootFormat extends scalaxb.ElemNameParser[models.binding.DataRoot] {
+    val targetNamespace: Option[String] = None
     
-    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Database] =
-      phrase((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "name")) ~ 
-      opt(scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "description")) ~ 
-      rep(((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "ip")) ^^ 
-      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "dns")) ^^ 
-      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack))))) ~ 
-      rep(scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "methods")) ~ 
-      rep(scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "tree")) ~ 
-      rep(scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "protocol")) ~ 
-      (scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "info")) ^^
-      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 =>
-      models.binding.Database(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
-        p2.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        p3.toSeq,
-        p4.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        p5.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        p6.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        scalaxb.fromXML[String](p7, scalaxb.ElemName(node) :: stack),
-        (node \ "@type").headOption map { scalaxb.fromXML[models.binding.Databasetype](_, scalaxb.ElemName(node) :: stack) }) })
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.DataRoot] =
+      phrase((scalaxb.ElemName(None, "dataCenter")) ^^
+      { case p1 =>
+      models.binding.DataRoot(scalaxb.fromXML[models.binding.DataCenter](p1, scalaxb.ElemName(node) :: stack)) })
     
-    override def writesAttribute(__obj: models.binding.Database, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
+    def writesChildNodes(__obj: models.binding.DataRoot, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      (scalaxb.toXML[models.binding.DataCenter](__obj.dataCenter, None, Some("dataCenter"), __scope, false))
+
+  }
+
+  trait DefaultBindingDataCenterFormat extends scalaxb.ElemNameParser[models.binding.DataCenter] {
+    val targetNamespace: Option[String] = None
+    
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.DataCenter] =
+      phrase(rep(scalaxb.ElemName(None, "mission")) ^^
+      { case p1 =>
+      models.binding.DataCenter(p1.toSeq map { scalaxb.fromXML[models.binding.Mission](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@desc"), scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[String]((node \ "@name"), scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[String]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)) })
+    
+    override def writesAttribute(__obj: models.binding.DataCenter, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.typeValue foreach { x => attr = scala.xml.Attribute(null, "type", x.toString, attr) }
+      attr = scala.xml.Attribute(null, "desc", __obj.desc.toString, attr)
+      attr = scala.xml.Attribute(null, "name", __obj.name.toString, attr)
+      attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "id", __obj.id.toString, attr)
       attr
     }
 
-    def writesChildNodes(__obj: models.binding.Database, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(scalaxb.toXML[String](__obj.name, Some("http://www.impex.org/2012/configuration.xsd"), Some("name"), __scope, false),
-        __obj.description map { scalaxb.toXML[String](_, Some("http://www.impex.org/2012/configuration.xsd"), Some("description"), __scope, false) } getOrElse {Nil},
-        __obj.databaseoption flatMap { x => scalaxb.toXML[scalaxb.DataRecord[String]](x, x.namespace, x.key, __scope, false) },
-        __obj.methods flatMap { scalaxb.toXML[String](_, Some("http://www.impex.org/2012/configuration.xsd"), Some("methods"), __scope, false) },
-        __obj.tree flatMap { scalaxb.toXML[String](_, Some("http://www.impex.org/2012/configuration.xsd"), Some("tree"), __scope, false) },
-        __obj.protocol flatMap { scalaxb.toXML[String](_, Some("http://www.impex.org/2012/configuration.xsd"), Some("protocol"), __scope, false) },
-        scalaxb.toXML[String](__obj.info, Some("http://www.impex.org/2012/configuration.xsd"), Some("info"), __scope, false))
+    def writesChildNodes(__obj: models.binding.DataCenter, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      (__obj.mission flatMap { scalaxb.toXML[models.binding.Mission](_, None, Some("mission"), __scope, false) })
 
   }
 
-  trait DefaultBindingToolFormat extends scalaxb.ElemNameParser[models.binding.Tool] {
-    val targetNamespace: Option[String] = Some("http://www.impex.org/2012/configuration.xsd")
+  trait DefaultBindingMissionFormat extends scalaxb.ElemNameParser[models.binding.Mission] {
+    val targetNamespace: Option[String] = None
     
-    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Tool] =
-      phrase((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "name")) ~ 
-      opt(scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "description")) ~ 
-      rep(((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "ip")) ^^ 
-      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "dns")) ^^ 
-      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack))))) ~ 
-      (scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "info")) ^^
-      { case p1 ~ p2 ~ p3 ~ p4 =>
-      models.binding.Tool(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
-        p2.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        p3.toSeq,
-        scalaxb.fromXML[String](p4, scalaxb.ElemName(node) :: stack)) })
-    
-    def writesChildNodes(__obj: models.binding.Tool, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(scalaxb.toXML[String](__obj.name, Some("http://www.impex.org/2012/configuration.xsd"), Some("name"), __scope, false),
-        __obj.description map { scalaxb.toXML[String](_, Some("http://www.impex.org/2012/configuration.xsd"), Some("description"), __scope, false) } getOrElse {Nil},
-        __obj.tooloption flatMap { x => scalaxb.toXML[scalaxb.DataRecord[String]](x, x.namespace, x.key, __scope, false) },
-        scalaxb.toXML[String](__obj.info, Some("http://www.impex.org/2012/configuration.xsd"), Some("info"), __scope, false))
-
-  }
-
-  trait DefaultBindingImpexconfigurationFormat extends scalaxb.ElemNameParser[models.binding.Impexconfiguration] {
-    val targetNamespace: Option[String] = Some("http://www.impex.org/2012/configuration.xsd")
-    
-    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Impexconfiguration] =
-      phrase(rep(((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "database")) ^^ 
-      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Database](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "tool")) ^^ 
-      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Tool](x, scalaxb.ElemName(node) :: stack))))) ^^
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Mission] =
+      phrase(rep(scalaxb.ElemName(None, "instrument")) ^^
       { case p1 =>
-      models.binding.Impexconfiguration(p1.toSeq: _*) })
+      models.binding.Mission(p1.toSeq map { scalaxb.fromXML[models.binding.Instrument](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@att").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@available").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@desc"), scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[String]((node \ "@name"), scalaxb.ElemName(node) :: stack),
+        (node \ "@target").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)) })
     
-    def writesChildNodes(__obj: models.binding.Impexconfiguration, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      (__obj.impexconfigurationoption flatMap { x => scalaxb.toXML[scalaxb.DataRecord[models.binding.ImpexconfigurationOption]](x, x.namespace, x.key, __scope, false) })
+    override def writesAttribute(__obj: models.binding.Mission, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
+      var attr: scala.xml.MetaData  = scala.xml.Null
+      __obj.att foreach { x => attr = scala.xml.Attribute(null, "att", x.toString, attr) }
+      __obj.available foreach { x => attr = scala.xml.Attribute(null, "available", x.toString, attr) }
+      attr = scala.xml.Attribute(null, "desc", __obj.desc.toString, attr)
+      attr = scala.xml.Attribute(null, "name", __obj.name.toString, attr)
+      __obj.target foreach { x => attr = scala.xml.Attribute(null, "target", x.toString, attr) }
+      attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "id", __obj.id.toString, attr)
+      attr
+    }
+
+    def writesChildNodes(__obj: models.binding.Mission, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      (__obj.instrument flatMap { scalaxb.toXML[models.binding.Instrument](_, None, Some("instrument"), __scope, false) })
 
   }
 
-  def buildBindingDatabasetypeFormat = new DefaultBindingDatabasetypeFormat {}
-  trait DefaultBindingDatabasetypeFormat extends scalaxb.XMLFormat[models.binding.Databasetype] {
-    val targetNamespace: Option[String] = Some("http://www.impex.org/2012/configuration.xsd")
+  trait DefaultBindingInstrumentFormat extends scalaxb.ElemNameParser[models.binding.Instrument] {
+    val targetNamespace: Option[String] = None
     
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.Databasetype] = seq match {
-      case elem: scala.xml.Elem => Right(models.binding.Databasetype.fromString(elem.text, elem.scope))
-      case _ => Right(models.binding.Databasetype.fromString(seq.text, scala.xml.TopScope))
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Instrument] =
+      phrase(rep(scalaxb.ElemName(None, "dataset")) ^^
+      { case p1 =>
+      models.binding.Instrument(p1.toSeq map { scalaxb.fromXML[models.binding.Dataset](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@att").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@desc"), scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[String]((node \ "@name"), scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[String]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)) })
+    
+    override def writesAttribute(__obj: models.binding.Instrument, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
+      var attr: scala.xml.MetaData  = scala.xml.Null
+      __obj.att foreach { x => attr = scala.xml.Attribute(null, "att", x.toString, attr) }
+      attr = scala.xml.Attribute(null, "desc", __obj.desc.toString, attr)
+      attr = scala.xml.Attribute(null, "name", __obj.name.toString, attr)
+      attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "id", __obj.id.toString, attr)
+      attr
+    }
+
+    def writesChildNodes(__obj: models.binding.Instrument, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      (__obj.dataset flatMap { scalaxb.toXML[models.binding.Dataset](_, None, Some("dataset"), __scope, false) })
+
+  }
+
+  trait DefaultBindingDatasetFormat extends scalaxb.ElemNameParser[models.binding.Dataset] {
+    val targetNamespace: Option[String] = None
+    
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Dataset] =
+      phrase(rep(scalaxb.ElemName(None, "parameter")) ^^
+      { case p1 =>
+      models.binding.Dataset(p1.toSeq map { scalaxb.fromXML[models.binding.Parameter](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@att").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@dataSource").headOption map { scalaxb.fromXML[java.net.URI](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@dataStart"), scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[String]((node \ "@dataStop"), scalaxb.ElemName(node) :: stack),
+        (node \ "@maxSampling").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@name"), scalaxb.ElemName(node) :: stack),
+        (node \ "@sampling").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@target").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)) })
+    
+    override def writesAttribute(__obj: models.binding.Dataset, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
+      var attr: scala.xml.MetaData  = scala.xml.Null
+      __obj.att foreach { x => attr = scala.xml.Attribute(null, "att", x.toString, attr) }
+      __obj.dataSource foreach { x => attr = scala.xml.Attribute(null, "dataSource", x.toString, attr) }
+      attr = scala.xml.Attribute(null, "dataStart", __obj.dataStart.toString, attr)
+      attr = scala.xml.Attribute(null, "dataStop", __obj.dataStop.toString, attr)
+      __obj.maxSampling foreach { x => attr = scala.xml.Attribute(null, "maxSampling", x.toString, attr) }
+      attr = scala.xml.Attribute(null, "name", __obj.name.toString, attr)
+      __obj.sampling foreach { x => attr = scala.xml.Attribute(null, "sampling", x.toString, attr) }
+      __obj.target foreach { x => attr = scala.xml.Attribute(null, "target", x.toString, attr) }
+      attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "id", __obj.id.toString, attr)
+      attr
+    }
+
+    def writesChildNodes(__obj: models.binding.Dataset, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      (__obj.parameter flatMap { scalaxb.toXML[models.binding.Parameter](_, None, Some("parameter"), __scope, false) })
+
+  }
+
+  trait DefaultBindingParameterFormat extends scalaxb.ElemNameParser[models.binding.Parameter] {
+    val targetNamespace: Option[String] = None
+    
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Parameter] =
+      phrase(rep(scalaxb.ElemName(None, "component")) ^^
+      { case p1 =>
+      models.binding.Parameter(p1.toSeq map { scalaxb.fromXML[models.binding.Component](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@desc").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@display_type").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@name"), scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[String]((node \ "@units"), scalaxb.ElemName(node) :: stack),
+        (node \ "@var").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)) })
+    
+    override def writesAttribute(__obj: models.binding.Parameter, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
+      var attr: scala.xml.MetaData  = scala.xml.Null
+      __obj.desc foreach { x => attr = scala.xml.Attribute(null, "desc", x.toString, attr) }
+      __obj.display_type foreach { x => attr = scala.xml.Attribute(null, "display_type", x.toString, attr) }
+      attr = scala.xml.Attribute(null, "name", __obj.name.toString, attr)
+      attr = scala.xml.Attribute(null, "units", __obj.units.toString, attr)
+      __obj.varValue foreach { x => attr = scala.xml.Attribute(null, "var", x.toString, attr) }
+      attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "id", __obj.id.toString, attr)
+      attr
+    }
+
+    def writesChildNodes(__obj: models.binding.Parameter, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      (__obj.component flatMap { scalaxb.toXML[models.binding.Component](_, None, Some("component"), __scope, false) })
+
+  }
+
+  trait DefaultBindingComponentFormat extends scalaxb.XMLFormat[models.binding.Component] with scalaxb.CanWriteChildNodes[models.binding.Component] {
+    val targetNamespace: Option[String] = None
+    import scalaxb.ElemName._
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.Component] = seq match {
+      case node: scala.xml.Node => Right(models.binding.Component(scalaxb.fromXML[String]((node \ "@name"), scalaxb.ElemName(node) :: stack),
+        (node \ "@var").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)))
+      case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
-    def writes(__obj: models.binding.Databasetype, __namespace: Option[String], __elementLabel: Option[String],
-        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
-      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
+    override def writesAttribute(__obj: models.binding.Component, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
+      var attr: scala.xml.MetaData  = scala.xml.Null
+      attr = scala.xml.Attribute(null, "name", __obj.name.toString, attr)
+      __obj.varValue foreach { x => attr = scala.xml.Attribute(null, "var", x.toString, attr) }
+      attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "id", __obj.id.toString, attr)
+      attr
+    }
+
+    def writesChildNodes(__obj: models.binding.Component, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Nil
+
+
+  }
+
+  trait DefaultBindingId2Format extends scalaxb.AttributeGroupFormat[models.binding.Id2] {
+    val targetNamespace: Option[String] = Some("http://www.w3.org/XML/1998/namespace")
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.Id2] = seq match {
+      case node: scala.xml.Node => Right(models.binding.Id2(scalaxb.fromXML[java.net.URI]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)))
+      case _ => Left("reads failed: seq must be scala.xml.Node")
+    }
+    
+    def toAttribute(__obj: models.binding.Id2, __attr: scala.xml.MetaData, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
+      var attr: scala.xml.MetaData  = __attr
+      attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "id", __obj.id.toString, attr)
+      attr
+    }
+  }
+
+  trait DefaultBindingIdFormat extends scalaxb.AttributeGroupFormat[models.binding.Id] {
+    val targetNamespace: Option[String] = Some("http://www.w3.org/XML/1998/namespace")
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.Id] = seq match {
+      case node: scala.xml.Node => Right(models.binding.Id(scalaxb.fromXML[String]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)))
+      case _ => Left("reads failed: seq must be scala.xml.Node")
+    }
+    
+    def toAttribute(__obj: models.binding.Id, __attr: scala.xml.MetaData, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
+      var attr: scala.xml.MetaData  = __attr
+      attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "id", __obj.id.toString, attr)
+      attr
+    }
+  }
+
+  trait DefaultBindingId1Format extends scalaxb.AttributeGroupFormat[models.binding.Id1] {
+    val targetNamespace: Option[String] = Some("http://www.w3.org/XML/1998/namespace")
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.Id1] = seq match {
+      case node: scala.xml.Node => Right(models.binding.Id1(scalaxb.fromXML[String]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)))
+      case _ => Left("reads failed: seq must be scala.xml.Node")
+    }
+    
+    def toAttribute(__obj: models.binding.Id1, __attr: scala.xml.MetaData, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
+      var attr: scala.xml.MetaData  = __attr
+      attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "id", __obj.id.toString, attr)
+      attr
+    }
   }
 
 

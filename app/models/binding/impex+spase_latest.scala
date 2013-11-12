@@ -41,7 +41,7 @@ case class Catalog(ResourceID: String,
   Caveats: Option[String] = None,
   Keyword: Seq[String] = Nil,
   InputResourceID: Seq[String] = Nil,
-  Parameter: Seq[models.binding.Parameter] = Nil,
+  Parameter: Seq[models.binding.ParameterType] = Nil,
   Extension: Seq[models.binding.Extension] = Nil)
 
 
@@ -150,7 +150,7 @@ case class TimeSpan(StartDate: javax.xml.datatype.XMLGregorianCalendar,
                or more parameters.
             
 */
-case class Parameter(Name: String,
+case class ParameterType(Name: String,
   Set: Seq[String] = Nil,
   ParameterKey: Option[String] = None,
   Description: Option[String] = None,
@@ -382,7 +382,7 @@ case class DisplayData(ResourceID: String,
   Caveats: Option[String] = None,
   Keyword: Seq[String] = Nil,
   InputResourceID: Seq[String] = Nil,
-  Parameter: Seq[models.binding.Parameter] = Nil,
+  Parameter: Seq[models.binding.ParameterType] = Nil,
   Extension: Seq[models.binding.Extension] = Nil)
 
 
@@ -424,7 +424,7 @@ case class NumericalData(ResourceID: String,
   Caveats: Option[String] = None,
   Keyword: Seq[String] = Nil,
   InputResourceID: Seq[String] = Nil,
-  Parameter: Seq[models.binding.Parameter] = Nil,
+  Parameter: Seq[models.binding.ParameterType] = Nil,
   Extension: Seq[models.binding.Extension] = Nil)
 
 
@@ -476,7 +476,7 @@ case class Checksum(HashValue: String,
                devices.
             
 */
-case class Instrument(ResourceID: String,
+case class InstrumentType(ResourceID: String,
   ResourceHeader: models.binding.ResourceHeader,
   InstrumentType: Seq[models.binding.EnumInstrumentType] = Nil,
   InvestigationName: Seq[String] = Nil,
@@ -1586,7 +1586,7 @@ object EnumQualifier {
     case "Characteristic" => Characteristic
     case "Circular" => Circular
     case "Column" => Column
-    case "Component" => Component
+    case "Component" => ComponentValue
     case "Component.I" => Componentu46I
     case "Component.J" => Componentu46J
     case "Component.K" => Componentu46K
@@ -1650,7 +1650,7 @@ case object Average extends EnumQualifier { override def toString = "Average" }
 case object Characteristic extends EnumQualifier { override def toString = "Characteristic" }
 case object Circular extends EnumQualifier { override def toString = "Circular" }
 case object Column extends EnumQualifier { override def toString = "Column" }
-case object Component extends EnumQualifier { override def toString = "Component" }
+case object ComponentValue extends EnumQualifier { override def toString = "Component" }
 case object Componentu46I extends EnumQualifier { override def toString = "Component.I" }
 case object Componentu46J extends EnumQualifier { override def toString = "Component.J" }
 case object Componentu46K extends EnumQualifier { override def toString = "Component.K" }
@@ -2138,7 +2138,7 @@ case class NumericalOutput(ResourceID: String,
   Caveats: Option[String] = None,
   Keyword: Seq[String] = Nil,
   InputResourceID: Seq[String] = Nil,
-  Parameter: Seq[models.binding.Parameter] = Nil,
+  Parameter: Seq[models.binding.ParameterType] = Nil,
   SimulationProduct: models.binding.EnumProduct,
   Property: Seq[models.binding.Property] = Nil,
   Extension: Option[models.binding.Extension] = None)
@@ -2176,7 +2176,7 @@ case class DisplayOutput(ResourceID: String,
   Caveats: Option[String] = None,
   Keyword: Seq[String] = Nil,
   InputResourceID: Seq[String] = Nil,
-  Parameter: Seq[models.binding.Parameter] = Nil,
+  Parameter: Seq[models.binding.ParameterType] = Nil,
   SimulationProduct: models.binding.EnumProduct,
   Property: Seq[models.binding.Property] = Nil,
   Extension: Option[models.binding.Extension] = None)
@@ -2201,7 +2201,7 @@ case class SimulationModel(ResourceID: String,
 case class InputProperties(Property: models.binding.Property*)
 
 
-case class OutputParameters(Parameter: models.binding.Parameter*)
+case class OutputParameters(Parameter: models.binding.ParameterType*)
 
 
 /** 

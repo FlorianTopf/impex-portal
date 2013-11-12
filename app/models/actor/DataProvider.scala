@@ -26,7 +26,10 @@ class DataProvider(var dataTree: Tree, val treeURL: String, val methodsURL: Stri
         case "update" => {
           val promise = WS.url(treeURL).get()
           // @TODO change duration of Await
-          dataTree = SimTree(Await.result(promise, Duration.Inf).xml)
+          dataTree = dataTree match {
+            case SimTree(_) => SimTree(Await.result(promise, Duration.Inf).xml)
+            case ObsTree(_) => ObsTree(Await.result(promise, Duration.Inf).xml)
+          }
           println("finished")
         }
         //case _ => sender ! Json.obj("error" -> "option not found")
@@ -39,7 +42,7 @@ object DataProvider {
     implicit val timeout = Timeout(1 second)
     
     // @TODO getResource will get tree or methods
-    def getResource(name: String) = {
+    def getResource(name: String): NodeSeq = {
         val actor: ActorRef = Akka.system.actorFor("user/"+name)
         Await.result((actor ? "tree"), Duration.Inf).asInstanceOf[NodeSeq]
     }

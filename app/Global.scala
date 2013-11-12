@@ -21,22 +21,24 @@ object Global extends GlobalSettings {
     
     //println(config)
     
+    // @TODO improve this statement
+    // @TODO how to handle timeout exceptions when data provider is down?
     config.asInstanceOf[List[Database]] map {
-      database => database.typeValue.get.toString() match {
+      database =>        
+        val treeURL = "http://"+database.databaseoption.head.value+database.tree.head
+        val methodsURL = "http://"+database.databaseoption.head.value+database.methods.head
+
+        println("treeURL="+treeURL)
+        println("methodsURL="+methodsURL)      
+        println("fetching tree from "+database.name)
+        
+        // @TODO move this to actor later
+        val promise = WS.url(treeURL).get()
+        // @TODO change duration of Await
+        val tree = Await.result(promise, Duration.Inf).xml
+        
+        database.typeValue.get.toString() match {
         case "simulation" => {
-          println("fetching tree from "+database.name)
-          
-          val treeURL = "http://"+database.databaseoption.head.value+database.tree.head
-          val methodsURL = "http://"+database.databaseoption.head.value+database.methods.head
-          
-          println("treeURL="+treeURL)
-          println("methodsURL="+methodsURL)
-          
-          // @TODO move this to actor later
-          val promise = WS.url(treeURL).get()
-          // @TODO change duration of Await
-          val tree = Await.result(promise, Duration.Inf).xml
-          
           // @TODO exchange name with spaseID
           val actor: ActorRef = Akka.system.actorOf(
               Props(new DataProvider(SimTree(tree), treeURL, methodsURL)), 
@@ -45,7 +47,16 @@ object Global extends GlobalSettings {
           // @TODO initial delay will be switched later
           Akka.system.scheduler.schedule(30.minutes, 24.hours, actor, "update")
         }
-        case "observation" => println("not yet implemented!")
+        case "observation" => {  
+          // @TODO exchange name with spaseID
+          val actor: ActorRef = Akka.system.actorOf(
+              Props(new DataProvider(ObsTree(tree), treeURL, methodsURL)), 
+              name = database.name)
+              
+          // @TODO initial delay will be switched later
+          Akka.system.scheduler.schedule(30.minutes, 24.hours, actor, "update")
+        }
+        
       } 
     }
     
