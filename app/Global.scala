@@ -27,6 +27,9 @@ object Global extends GlobalSettings {
       database =>        
         val treeURL = "http://"+database.databaseoption.head.value+database.tree.head
         val methodsURL = "http://"+database.databaseoption.head.value+database.methods.head
+        
+        // @TODO already returns list, so use this! => we can have more than one tree!
+        println("=>>>>"+database.tree)
 
         println("treeURL="+treeURL)
         println("methodsURL="+methodsURL)      

@@ -2,11 +2,5 @@
 package models.binding
 
 
-case class Id2(id: java.net.URI)
-
-
 case class Id(id: String)
-
-
-case class Id1(id: String)
 

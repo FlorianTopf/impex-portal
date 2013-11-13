@@ -150,9 +150,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingDatasetFormat: scalaxb.XMLFormat[models.binding.Dataset] = new DefaultBindingDatasetFormat {}
   implicit lazy val BindingParameterFormat: scalaxb.XMLFormat[models.binding.Parameter] = new DefaultBindingParameterFormat {}
   implicit lazy val BindingComponentFormat: scalaxb.XMLFormat[models.binding.Component] = new DefaultBindingComponentFormat {}
-  implicit lazy val BindingId2Format: scalaxb.AttributeGroupFormat[models.binding.Id2] = new DefaultBindingId2Format {}
   implicit lazy val BindingIdFormat: scalaxb.AttributeGroupFormat[models.binding.Id] = new DefaultBindingIdFormat {}
-  implicit lazy val BindingId1Format: scalaxb.AttributeGroupFormat[models.binding.Id1] = new DefaultBindingId1Format {}
 
   trait DefaultBindingDatabaseFormat extends scalaxb.ElemNameParser[models.binding.Database] {
     val targetNamespace: Option[String] = Some("http://www.impex.org/2012/configuration.xsd")
@@ -3627,14 +3625,14 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       { case p1 =>
       models.binding.Dataset(p1.toSeq map { scalaxb.fromXML[models.binding.Parameter](_, scalaxb.ElemName(node) :: stack) },
         (node \ "@att").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        (node \ "@dataSource").headOption map { scalaxb.fromXML[java.net.URI](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@dataSource").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         scalaxb.fromXML[String]((node \ "@dataStart"), scalaxb.ElemName(node) :: stack),
         scalaxb.fromXML[String]((node \ "@dataStop"), scalaxb.ElemName(node) :: stack),
         (node \ "@maxSampling").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         scalaxb.fromXML[String]((node \ "@name"), scalaxb.ElemName(node) :: stack),
         (node \ "@sampling").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         (node \ "@target").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        scalaxb.fromXML[java.net.URI]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)) })
+        scalaxb.fromXML[String]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)) })
     
     override def writesAttribute(__obj: models.binding.Dataset, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
@@ -3710,21 +3708,6 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   }
 
-  trait DefaultBindingId2Format extends scalaxb.AttributeGroupFormat[models.binding.Id2] {
-    val targetNamespace: Option[String] = Some("http://www.w3.org/XML/1998/namespace")
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.Id2] = seq match {
-      case node: scala.xml.Node => Right(models.binding.Id2(scalaxb.fromXML[java.net.URI]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)))
-      case _ => Left("reads failed: seq must be scala.xml.Node")
-    }
-    
-    def toAttribute(__obj: models.binding.Id2, __attr: scala.xml.MetaData, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
-      var attr: scala.xml.MetaData  = __attr
-      attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "id", __obj.id.toString, attr)
-      attr
-    }
-  }
-
   trait DefaultBindingIdFormat extends scalaxb.AttributeGroupFormat[models.binding.Id] {
     val targetNamespace: Option[String] = Some("http://www.w3.org/XML/1998/namespace")
     
@@ -3734,21 +3717,6 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     }
     
     def toAttribute(__obj: models.binding.Id, __attr: scala.xml.MetaData, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
-      var attr: scala.xml.MetaData  = __attr
-      attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "id", __obj.id.toString, attr)
-      attr
-    }
-  }
-
-  trait DefaultBindingId1Format extends scalaxb.AttributeGroupFormat[models.binding.Id1] {
-    val targetNamespace: Option[String] = Some("http://www.w3.org/XML/1998/namespace")
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.Id1] = seq match {
-      case node: scala.xml.Node => Right(models.binding.Id1(scalaxb.fromXML[String]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)))
-      case _ => Left("reads failed: seq must be scala.xml.Node")
-    }
-    
-    def toAttribute(__obj: models.binding.Id1, __attr: scala.xml.MetaData, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = __attr
       attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "id", __obj.id.toString, attr)
       attr

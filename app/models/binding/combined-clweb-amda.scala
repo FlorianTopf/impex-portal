@@ -29,14 +29,14 @@ case class Instrument(dataset: Seq[models.binding.Dataset] = Nil,
 
 case class Dataset(parameter: Seq[models.binding.Parameter] = Nil,
   att: Option[String] = None,
-  dataSource: Option[java.net.URI] = None,
+  dataSource: Option[String] = None,
   dataStart: String,
   dataStop: String,
   maxSampling: Option[String] = None,
   name: String,
   sampling: Option[String] = None,
   target: Option[String] = None,
-  id: java.net.URI)
+  id: String)
 
 
 case class Parameter(component: Seq[models.binding.Component] = Nil,

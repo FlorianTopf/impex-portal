@@ -9,6 +9,8 @@ import akka.pattern.ask
 import akka.util.Timeout
 
 // @TODO add respective actor here!
+// => this will be started at server startup => registering the data providers
+// dann einfach alle methoden getDataProvider etc. etc.
 
 object RegistryService {
   def getDataTree(providerName: Option[String], treeType: String) = {
