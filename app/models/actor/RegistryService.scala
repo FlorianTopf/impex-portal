@@ -5,7 +5,7 @@ import scala.concurrent.duration._
 import models.binding._
 import akka.actor._
 import play.libs._
-import akka.pattern.ask
+import akka.pattern._
 import akka.util.Timeout
 import scala.xml.NodeSeq
 import scala.language.postfixOps
@@ -15,6 +15,7 @@ import play.api.libs.concurrent.Execution.Implicits._
 trait RegistryMessage
 case class RegisterProvider(val props: Props, val name: String) extends RegistryMessage
 case class GetProviderTree(val name: Option[String]) extends RegistryMessage
+case class GetRepositories(val databases: Map[String, Database]) extends RegistryMessage
 
 // @TODO attention when updating the configuration!
 // @TODO improve error messages
@@ -26,6 +27,7 @@ class RegistryService extends Actor {
     // @TODO this must be safer => string
     case GetProviderTree(Some(p)) => sender ! getTreeXML(p)
     //case GetProviderTree(None) => sender ! getTreeXMLs
+    case GetRepositories(dbs: Map[String, Database]) => sender ! getRepositories(dbs)
     //case _ => sender ! Json.obj("error" -> "message not found")
     case _ => sender ! <error>message not found</error>
   }
@@ -54,15 +56,18 @@ class RegistryService extends Actor {
     Await.result((provider ? GetTrees()).mapTo[Seq[(Databasetype, Any)]], 1.second)
   }
   
-  private def getRepositories = {
-    
+  // gets repositories and datacenters (move getRepository to DataProvider?)
+  private def getRepositories(databases: Map[String, Database]) = {
+    databases map {database =>
+    val provider: ActorRef = context.actorFor(database._2.name)
+    Await.result((provider ? GetTrees()).mapTo[Seq[(Databasetype, Any)]], 1.second)}
   }
-  
   
 }
 
+// @TODO put all blocking tasks here! 
 object RegistryService {
-  implicit val timeout = Timeout(1 second)
+  implicit val timeout = Timeout(1 minute)
   
   val registry: ActorRef = Akka.system.actorFor("user/registry")
 
@@ -83,5 +88,11 @@ object RegistryService {
       case _ => future { <error>provider not found</error> }
     }
   }
-
+  
+  def getRepositories = {
+    val databases = Await.result(
+        ConfigService.request(GetDatabases).mapTo[Map[String, Database]], 1.second)
+    (registry ? GetRepositories(databases)).mapTo[Seq[(Databasetype, Any)]]
+  }
+  
 }

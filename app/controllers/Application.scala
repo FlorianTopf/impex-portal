@@ -12,6 +12,10 @@ import models.binding._
 import models.actor._
 import scala.concurrent._
 import scala.concurrent.duration._
+import akka.actor._
+import play.libs.Akka
+import akka.pattern.ask
+import akka.util.Timeout
 
 object Application extends Controller {
   
@@ -65,8 +69,8 @@ object Application extends Controller {
   } 
   
   def test = Action {
-    
-    val stripped1 = Await.result(
+      implicit val timeout = Timeout(1 second)
+   /* val stripped1 = Await.result(
         RegistryService.requestTreeXML(Some("AMDA")).mapTo[Seq[NodeSeq]], 1.second) map { tree => tree \\ "dataCenter" }
     
     val stripped2 = Await.result(
@@ -74,7 +78,15 @@ object Application extends Controller {
     
     val merged = <dataRoot>{stripped1}{stripped2}</dataRoot>
     
-    Ok("OK:" + merged)
+    Ok("OK:" + merged)*/
+      val registry: ActorRef = Akka.system.actorFor("user/registry")
+      val future = RegistryService.getRepositories
+      
+      Async {
+        future.map(f => Ok(f.toString))
+
+      }
+    
   }
   
 }

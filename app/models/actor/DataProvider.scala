@@ -10,6 +10,10 @@ import play.api.libs.ws._
 import scala.xml._
 import models.provider._
 import scala.language.postfixOps
+import akka.util.Timeout
+import play.libs.Akka
+import akka.pattern.ask
+import play.api.libs.concurrent.Execution.Implicits._
 
 // container for content
 case class Trees(var content: Seq[NodeSeq])
@@ -39,9 +43,9 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods) extends Acto
     }
 	
 	private def getMetaData: Database =
-	  Await.result(ConfigService.request(
-	      GetDatabase(self.path.name)).mapTo[Database], 
-	      1.second)
+		Await.result(ConfigService.request(
+		    GetDatabase(self.path.name)).mapTo[Database], 
+		    1.second)
     
     private def getTreeXMLs = dataTree.content
     
@@ -58,7 +62,7 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods) extends Acto
     
     private def updateTrees: Seq[NodeSeq] = {
       val dns: String = getMetaData.databaseoption.head.value
-      val treeURLs: Seq[String] = UrlProvider.getUrls(dns, getMetaData.tree)
+      val treeURLs: Seq[String] = UrlProvider.getUrls(dns, getMetaData.asInstanceOf[Database].tree)
       treeURLs flatMap { 
           treeURL => 
         	val promise = WS.url(treeURL).get()
@@ -68,6 +72,17 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods) extends Acto
         	  case e: TimeoutException => None
         	}
         }
+    }
+    
+}
+
+object DataProvider {
+    implicit val timeout = Timeout(1 second)
+    
+    // @TODO we need that later for updating the trees dynamically
+    def updateTrees(provider: String) = {
+    	val actor: ActorRef = Akka.system.actorFor("user/registry"+provider)
+    	Await.result((actor ? UpdateTrees), Duration.Inf)
     }
     
 }
