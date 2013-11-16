@@ -3,53 +3,71 @@ package models.actor
 import models.binding._
 import play.api._
 import play.api.libs.json._
-import play.api.libs.concurrent._
-import play.api.Play.current
-import play.api.libs.concurrent.Execution.Implicits._
-import akka.util.Timeout
-import akka.pattern.ask
 import akka.actor._
 import scala.concurrent._
 import scala.concurrent.duration._
 import play.api.libs.ws._
 import scala.xml._
+import models.provider._
+import scala.language.postfixOps
 
-trait Tree {
-  val content: Any
-}
-case class SimTree(val content: NodeSeq) extends Tree
-case class ObsTree(val content: NodeSeq) extends Tree
+// container for content
+case class Trees(var content: Seq[NodeSeq])
+case class Methods(var content: Seq[NodeSeq])
 
-class DataProvider(var dataTree: Tree, val treeURL: String, val methodsURL: String) extends Actor {
+// message formats
+case class GetTrees(val format: Option[String] = None)
+object GetMethods
+object UpdateTrees
+object GetType
+
+class DataProvider(val dataTree: Trees, val accessMethods: Methods) extends Actor {
+	//println(self.path.name)
+    // @TODO unified error messages
     def receive = {
-        case "tree" => sender ! dataTree.content
-        case "update" => {
-          val promise = WS.url(treeURL).get()
-          // @TODO change duration of Await
-          dataTree = dataTree match {
-            case SimTree(_) => SimTree(Await.result(promise, Duration.Inf).xml)
-            case ObsTree(_) => ObsTree(Await.result(promise, Duration.Inf).xml)
-          }
+        // @TODO return unified tree in XML
+        case GetTrees(Some("xml")) => sender ! getTreeXMLs
+        case GetTrees(None) => sender ! getTreeObjects
+        case GetMethods => sender ! getMethodsXMLs
+        case UpdateTrees => { 
+          dataTree.content = updateTrees
           println("finished")
         }
-        //case _ => sender ! Json.obj("error" -> "option not found")
-        case _ => sender ! "<error>option not found</error>"
+        //case GetType => getMetaData.typeValue.get
+        //case _ => sender ! Json.obj("error" -> "message not found")
+        case _ => sender ! <error>message not found</error>
+    }
+	
+	private def getMetaData: Database =
+	  Await.result(ConfigService.request(
+	      GetDatabase(self.path.name)).mapTo[Database], 
+	      1.second)
+    
+    private def getTreeXMLs = dataTree.content
+    
+    private def getMethodsXMLs = accessMethods.content
+    
+    private def getTreeObjects: Seq[(Databasetype, Any)] = {
+      dataTree.content map { tree => 
+         getMetaData.typeValue.get match {
+            case Simulation => (Simulation, scalaxb.fromXML[Spase](tree))
+            case Observation => (Observation, scalaxb.fromXML[DataRoot](tree))
+          }
+      }
     }
     
-}
-
-object DataProvider {
-    implicit val timeout = Timeout(1 second)
-    
-    // @TODO getResource will get tree or methods
-    def getResource(name: String): NodeSeq = {
-        val actor: ActorRef = Akka.system.actorFor("user/"+name)
-        Await.result((actor ? "tree"), Duration.Inf).asInstanceOf[NodeSeq]
-    }
-    
-    def update(name: String) = {
-    	val actor: ActorRef = Akka.system.actorFor("user/"+name)
-    	Await.result((actor ? "update"), Duration.Inf)
+    private def updateTrees: Seq[NodeSeq] = {
+      val dns: String = getMetaData.databaseoption.head.value
+      val treeURLs: Seq[String] = UrlProvider.getUrls(dns, getMetaData.tree)
+      treeURLs flatMap { 
+          treeURL => 
+        	val promise = WS.url(treeURL).get()
+        	try {
+        	  Some(Await.result(promise, 1.minute).xml)
+        	} catch {
+        	  case e: TimeoutException => None
+        	}
+        }
     }
     
 }

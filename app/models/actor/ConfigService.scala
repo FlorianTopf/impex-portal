@@ -1,57 +1,77 @@
 package models.actor
 
 import models.binding._
-import scala.collection.mutable.ListBuffer
 import play.api._
 import play.api.libs.json._
 import play.api.libs.concurrent._
 import play.libs.Akka._
 import play.api.Play.current
-import play.api.libs.concurrent.Execution.Implicits._
 import akka.util.Timeout
 import akka.pattern.ask
 import akka.actor._
-import scala.concurrent._
 import scala.concurrent.duration._
-import play.api.libs.ws._
+import scala.xml._
+import scala.collection.mutable.Map
+import scala.language.postfixOps
 
+// message formats
+trait ConfigMessage
+object GetConfig extends ConfigMessage
+object GetTools extends ConfigMessage
+object GetDatabases extends ConfigMessage
+case class GetDatabase(val name: String) extends ConfigMessage
+case class GetTool(val name: String) extends ConfigMessage
+
+// @TODO provide a possiblity for updating config
+//		 + saving to filesystem
 class ConfigService extends Actor {
-    val config = scala.xml.XML.loadFile("conf/configuration.xml")
+    private val databases: Map[String, Database] = Map()
+    private val tools: Map[String, Tool] = Map()
 
-    val configuration = scalaxb.fromXML[Impexconfiguration](config)
-    
-    val databases: ListBuffer[Database] = ListBuffer()
-    val tools: ListBuffer[Tool] = ListBuffer()
-    
-    configuration.impexconfigurationoption.foreach(c => {
+    // @TODO improve this (we cannot do updates now)
+    getConfig.impexconfigurationoption.map(c => {
       //println(c.key.get +"="+ c.value)  
       c.value match {
-        case d: Database => databases+=d//; println(d)
-        case t: Tool => tools+=t
+        case d: Database => databases+=(d.name -> d)//; println(d)
+        case t: Tool => tools+=(t.name -> t)
       }
     })
     
-    // @TODO provide messages for exposing in XML/JSON (with option!)
+    // @TODO provide messages for exposing in JSON
+    // @TODO unified error message 
     def receive = {
-        case Some("database") => sender ! databases.toList
-        case Some("tool") => sender ! tools.toList
-        case None => sender ! configuration
-        //case _ => sender ! Json.obj("error" -> "option not found")
-        case _ => sender ! "<error>option not found</error>"
+        case GetConfig => sender ! getConfigXML
+        case GetDatabases => sender ! databases.toMap
+        case GetTools => sender ! tools.toMap
+        case GetDatabase(n: String) => sender ! getDatabase(n)
+        case GetTool(n: String) => sender ! getTool(n)
+        //case _ => sender ! Json.obj("error" -> "message not found")
+        case _ => sender ! <error>message not found</error>
     }
     
+    private def getConfigXML: NodeSeq = scala.xml.XML.loadFile("conf/configuration.xml")
+    
+    private def getConfig: Impexconfiguration = scalaxb.fromXML[Impexconfiguration](getConfigXML)
+    
+    private def getDatabase(name: String): Database =
+       databases.toMap.get(name).get
+       
+    private def getTool(name: String): Tool =
+       tools.get(name).get
 }
 
 object ConfigService {
     implicit val timeout = Timeout(1 second)
     
-    def getConfig(option: Option[String] = None) = {
+    // @TODO always return the same type
+    // @TODO unified error message
+    def request(msg: ConfigMessage) = {
         val actor: ActorRef = Akka.system.actorFor("user/config")
         actor.isTerminated match {
-            case false => (actor ? option)
+            case false => (actor ? msg)
             case _ => Akka.future {
                 //Json.obj("error" -> "actor terminated")
-            	"<error>actor terminated</error>"
+            	<error>actor terminated</error>
             } // @TODO create new actor
         }
     }

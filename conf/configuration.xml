@@ -16,10 +16,10 @@
     <protocol>http</protocol>
     <info>http://hwa.fmi.fi/beta/login.php</info>
   </database>
-<!--  <database type="simulation">
+<!--   <database type="simulation">
     <name>LATMOS</name> -->
     <!-- <name>LATMOS Hybrid Simulations</name> -->
-<!--  <description>
+<!--     <description>
       Hybrid simulation database
     </description>
     <dns>impex.latmos.ipsl.fr</dns>

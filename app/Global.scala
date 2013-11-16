@@ -1,7 +1,6 @@
 import akka.actor._
 import play.libs.Akka
 import scala.concurrent._
-import play.api.libs.concurrent.Execution.Implicits._
 import play.api._
 import models.actor._
 import akka.pattern.ask
@@ -9,6 +8,9 @@ import akka.util.Timeout
 import scala.concurrent.duration._
 import models.binding._
 import play.api.libs.ws._
+import models.provider._
+import scala.xml._
+import scala.language.postfixOps
 
 object Global extends GlobalSettings {
   override def onStart(app: play.api.Application) {
@@ -17,50 +19,48 @@ object Global extends GlobalSettings {
     println("application has started")
     
     val actor: ActorRef = Akka.system.actorOf(Props(new ConfigService), name = "config")
-    val config = Await.result((actor ? Some("database")), Duration.Inf)
+    val config = Await.result((actor ? GetDatabases).mapTo[Map[String, Database]], 1.minute)
     
     //println(config)
     
-    // @TODO improve this statement
-    // @TODO how to handle timeout exceptions when data provider is down?
-    config.asInstanceOf[List[Database]] map {
+    Akka.system.actorOf(
+        Props(new RegistryService), 
+        name = "registry")
+    
+    config map {
       database =>        
-        val treeURL = "http://"+database.databaseoption.head.value+database.tree.head
-        val methodsURL = "http://"+database.databaseoption.head.value+database.methods.head
-        
-        // @TODO already returns list, so use this! => we can have more than one tree!
-        println("=>>>>"+database.tree)
+        val dns: String = database._2.databaseoption.head.value
+        val treeURLs: Seq[String] = UrlProvider.getUrls(dns, database._2.tree)
+        val methodsURLs: Seq[String] = UrlProvider.getUrls(dns, database._2.methods)
 
-        println("treeURL="+treeURL)
-        println("methodsURL="+methodsURL)      
-        println("fetching tree from "+database.name)
+        println("treeURL="+treeURLs)
+        println("methodsURL="+methodsURLs)      
+        println("fetching tree from "+database._1)
         
-        // @TODO move this to actor later
-        val promise = WS.url(treeURL).get()
-        // @TODO change duration of Await
-        val tree = Await.result(promise, Duration.Inf).xml
-        
-        database.typeValue.get.toString() match {
-        case "simulation" => {
-          // @TODO exchange name with spaseID
-          val actor: ActorRef = Akka.system.actorOf(
-              Props(new DataProvider(SimTree(tree), treeURL, methodsURL)), 
-              name = database.name)
-              
-          // @TODO initial delay will be switched later
-          Akka.system.scheduler.schedule(30.minutes, 24.hours, actor, "update")
-        }
-        case "observation" => {  
-          // @TODO exchange name with spaseID
-          val actor: ActorRef = Akka.system.actorOf(
-              Props(new DataProvider(ObsTree(tree), treeURL, methodsURL)), 
-              name = database.name)
-              
-          // @TODO initial delay will be switched later
-          Akka.system.scheduler.schedule(30.minutes, 24.hours, actor, "update")
+        val trees: Seq[NodeSeq] = treeURLs flatMap { 
+          treeURL => 
+        	val promise = WS.url(treeURL).get()
+        	try {
+        	  Some(Await.result(promise, 1.minute).xml)
+        	} catch {
+        	  case e: TimeoutException => println("timeout"); None
+        	}
         }
         
-      } 
+        val methods: Seq[NodeSeq] = methodsURLs flatMap { 
+          methodsURL => 
+        	val promise = WS.url(methodsURL).get()
+        	try {
+        	  Some(Await.result(promise, 1.minute).xml)
+        	} catch {
+        	  case e: TimeoutException => println("timeout"); None
+        	}
+        }
+        
+        // @TODO maybe exchange name with spaseID
+        RegistryService.register(
+            Props(new DataProvider(Trees(trees), Methods(methods))),
+            database._1)   
     }
     
   } 
