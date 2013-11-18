@@ -20,13 +20,10 @@ case class GetRepositories(val databases: Map[String, Database]) extends Registr
 // @TODO attention when updating the configuration!
 // @TODO improve error messages
 class RegistryService extends Actor {
-  implicit val timeout = Timeout(1 second)
+ implicit val timeout = Timeout(10 seconds)
 
   def receive = {
     case reg: RegisterProvider => sender ! register(reg)
-    // @TODO this must be safer => string
-    case GetProviderTree(Some(p)) => sender ! getTreeXML(p)
-    //case GetProviderTree(None) => sender ! getTreeXMLs
     case GetRepositories(dbs: Map[String, Database]) => sender ! getRepositories(dbs)
     //case _ => sender ! Json.obj("error" -> "message not found")
     case _ => sender ! <error>message not found</error>
@@ -37,62 +34,56 @@ class RegistryService extends Actor {
     // @TODO initial delay will be switched later
     Akka.system.scheduler.schedule(5.minutes, 24.hours, provider, UpdateTrees)
   }
-  
-  private def updateTrees = {
-    
-  }
-  
-  private def getTreeXMLs = {
 
-  }
-  
-  private def getTreeXML(providerName: String): Seq[NodeSeq] = {
-    val provider: ActorRef = context.actorFor(providerName)
-    Await.result((provider ? GetTrees(Some("xml"))).mapTo[Seq[NodeSeq]], 1.second)
-  }
-  
-  private def getTree(providerName: String) = {
-    val provider: ActorRef = context.actorFor(providerName)
-    Await.result((provider ? GetTrees()).mapTo[Seq[(Databasetype, Any)]], 1.second)
-  }
-  
   // gets repositories and datacenters (move getRepository to DataProvider?)
   private def getRepositories(databases: Map[String, Database]) = {
-    databases map {database =>
+   databases map {database =>
     val provider: ActorRef = context.actorFor(database._2.name)
-    Await.result((provider ? GetTrees()).mapTo[Seq[(Databasetype, Any)]], 1.second)}
+    Await.result((provider ? GetTrees()).mapTo[Seq[(Databasetype, Any)]], 10.seconds)}
   }
   
 }
 
-// @TODO put all blocking tasks here! 
+// @TODO we must provider exception handling here! => timeouts!
 object RegistryService {
   implicit val timeout = Timeout(1 minute)
   
   val registry: ActorRef = Akka.system.actorFor("user/registry")
-
+  
   def register(props: Props, name: String) = {
     (registry ? RegisterProvider(props, name))
   }
 
-  // @TODO this gets the data tree only in xml => and merged?
-  def requestTreeXML(providerName: Option[String] = None): Future[Seq[NodeSeq]] = {
-    val databases = Await.result(
-        ConfigService.request(GetDatabases).mapTo[Map[String, Database]], 1.second)
-    
-   providerName match {
-      case Some(p: String) if databases.contains(p) => {
-          (registry ? GetProviderTree(providerName)).mapTo[Seq[NodeSeq]]
+  // @TODO merge multiple trees here (in xml)
+  def getTreeXML(providerName: Option[String] = None): Future[Seq[NodeSeq]] = {
+    for {
+      databases <- ConfigService.request(GetDatabases).mapTo[Map[String, Database]]
+      provider <- { 
+        providerName match {
+          case Some(p: String) if databases.contains(p) =>
+          //@TODO maybe improve this path
+          val provider: ActorRef = Akka.system.actorFor("user/registry/"+providerName.get)
+          (provider ? GetTrees(Some("xml"))).mapTo[Seq[NodeSeq]]
+          //case None => // get all dataproviders
+          case _ => future { <error>provider not found</error> }
+        }
       }
-      //case None => // get all dataproviders
-      case _ => future { <error>provider not found</error> }
-    }
+    } yield provider
+  }
+  
+  def getTree(providerName: String) = {
+    //@TODO maybe improve this path
+    val provider: ActorRef =  Akka.system.actorFor("user/registry/"+providerName)
+    (provider ? GetTrees()).mapTo[Seq[(Databasetype, Any)]]
   }
   
   def getRepositories = {
-    val databases = Await.result(
-        ConfigService.request(GetDatabases).mapTo[Map[String, Database]], 1.second)
-    (registry ? GetRepositories(databases)).mapTo[Seq[(Databasetype, Any)]]
-  }
+    for {
+      databases <- ConfigService.request(GetDatabases).mapTo[Map[String, Database]]
+      provider <-  { 
+        (registry ? GetRepositories(databases)).mapTo[Seq[(Databasetype, Any)]]
+      }
+    } yield provider
+  } 
   
 }

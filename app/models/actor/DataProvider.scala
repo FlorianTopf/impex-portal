@@ -77,7 +77,7 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods) extends Acto
 }
 
 object DataProvider {
-    implicit val timeout = Timeout(1 second)
+    implicit val timeout = Timeout(10 seconds)
     
     // @TODO we need that later for updating the trees dynamically
     def updateTrees(provider: String) = {

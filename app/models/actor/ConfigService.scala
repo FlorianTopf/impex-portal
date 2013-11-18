@@ -11,6 +11,7 @@ import akka.pattern.ask
 import akka.actor._
 import scala.concurrent.duration._
 import scala.xml._
+//import scala.collection.immutable.Map
 import scala.collection.mutable.Map
 import scala.language.postfixOps
 
@@ -24,25 +25,13 @@ case class GetTool(val name: String) extends ConfigMessage
 
 // @TODO provide a possiblity for updating config
 //		 + saving to filesystem
-class ConfigService extends Actor {
-    private val databases: Map[String, Database] = Map()
-    private val tools: Map[String, Tool] = Map()
-
-    // @TODO improve this (we cannot do updates now)
-    getConfig.impexconfigurationoption.map(c => {
-      //println(c.key.get +"="+ c.value)  
-      c.value match {
-        case d: Database => databases+=(d.name -> d)//; println(d)
-        case t: Tool => tools+=(t.name -> t)
-      }
-    })
-    
+class ConfigService extends Actor {  
     // @TODO provide messages for exposing in JSON
     // @TODO unified error message 
     def receive = {
         case GetConfig => sender ! getConfigXML
-        case GetDatabases => sender ! databases.toMap
-        case GetTools => sender ! tools.toMap
+        case GetDatabases => sender ! getDatabases
+        case GetTools => sender ! getTools
         case GetDatabase(n: String) => sender ! getDatabase(n)
         case GetTool(n: String) => sender ! getTool(n)
         //case _ => sender ! Json.obj("error" -> "message not found")
@@ -52,16 +41,31 @@ class ConfigService extends Actor {
     private def getConfigXML: NodeSeq = scala.xml.XML.loadFile("conf/configuration.xml")
     
     private def getConfig: Impexconfiguration = scalaxb.fromXML[Impexconfiguration](getConfigXML)
+
+    private def getDatabases = {
+      val databases = getConfig.impexconfigurationoption.filter(c => c.key.get == "database")
+      val result = databases map (d => (d.as[Database].name,d.as[Database]))
+      result.toMap
+    }
     
-    private def getDatabase(name: String): Database =
-       databases.toMap.get(name).get
-       
-    private def getTool(name: String): Tool =
-       tools.get(name).get
+    private def getTools = {
+      val databases = getConfig.impexconfigurationoption.filter(c => c.key.get == "tool")
+      val result = databases map (d => (d.as[Tool].name,d.as[Tool]))
+      result.toMap
+    }
+    
+    private def getDatabase(name: String): Database = {
+       getDatabases.get(name).get
+    }
+    
+    private def getTool(name: String): Tool = {
+       getTools.get(name).get
+    }
+
 }
 
 object ConfigService {
-    implicit val timeout = Timeout(1 second)
+    implicit val timeout = Timeout(10 seconds)
     
     // @TODO always return the same type
     // @TODO unified error message

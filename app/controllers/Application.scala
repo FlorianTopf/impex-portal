@@ -16,6 +16,7 @@ import akka.actor._
 import play.libs.Akka
 import akka.pattern.ask
 import akka.util.Timeout
+import scala.language.postfixOps
 
 object Application extends Controller {
   
@@ -32,7 +33,7 @@ object Application extends Controller {
   }
   
   def tree = Action {
-     val future = RegistryService.requestTreeXML(Some("SINP"))
+     val future = RegistryService.getTreeXML(Some("SINP"))
     
      Async {
       future map { response =>
@@ -48,9 +49,9 @@ object Application extends Controller {
         val simulationRuns: ListBuffer[SimulationRun] = ListBuffer()
 
         for (element <- tree(0).ResourceEntity) element.key match {
-          case Some("SimulationModel") => simulationModels += element.value.asInstanceOf[SimulationModel]
+          case Some("SimulationModel") => simulationModels += element.as[SimulationModel]
           //@TODO why must simulation run be casted to NodeSeq? 
-          case Some("SimulationRun") => simulationRuns += scalaxb.fromXML[SimulationRun](element.value.asInstanceOf[NodeSeq])
+          case Some("SimulationRun") => simulationRuns += scalaxb.fromXML[SimulationRun](element.as[NodeSeq])
           case _ => println("something else")
         }
 
@@ -69,8 +70,8 @@ object Application extends Controller {
   } 
   
   def test = Action {
-      implicit val timeout = Timeout(1 second)
-   /* val stripped1 = Await.result(
+      //implicit val timeout = Timeout(10 seconds)
+ /*   val stripped1 = Await.result(
         RegistryService.requestTreeXML(Some("AMDA")).mapTo[Seq[NodeSeq]], 1.second) map { tree => tree \\ "dataCenter" }
     
     val stripped2 = Await.result(
@@ -78,14 +79,13 @@ object Application extends Controller {
     
     val merged = <dataRoot>{stripped1}{stripped2}</dataRoot>
     
-    Ok("OK:" + merged)*/
+    Ok("OK:" + merged) */
       val registry: ActorRef = Akka.system.actorFor("user/registry")
       val future = RegistryService.getRepositories
       
       Async {
         future.map(f => Ok(f.toString))
-
-      }
+      }  
     
   }
   

@@ -14,7 +14,7 @@ import scala.language.postfixOps
 
 object Global extends GlobalSettings {
   override def onStart(app: play.api.Application) {
-    implicit val timeout = Timeout(1 second)
+    implicit val timeout = Timeout(10 seconds)
     
     println("application has started")
     
