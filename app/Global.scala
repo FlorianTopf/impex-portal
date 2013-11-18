@@ -57,7 +57,6 @@ object Global extends GlobalSettings {
         	}
         }
 
-        // @TODO maybe exchange name with spaseID
         RegistryService.registerChild(
             Props(new DataProvider(Trees(trees), Methods(methods), database._2.typeValue.get)),
             database._1)   

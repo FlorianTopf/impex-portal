@@ -50,18 +50,20 @@ object Application extends Controller {
 
         for (element <- tree(0).ResourceEntity) element.key.get match {
           case "SimulationModel" => simulationModels += element.as[SimulationModel]
-          case "SimulationRun" => simulationRuns += element.as[SimulationRun]
+          //@TODO still the same problem with some XML elements
+          case "SimulationRun" => simulationRuns += 
+            scalaxb.fromXML[SimulationRun](element.value.asInstanceOf[NodeSeq])
           case _ => println("something else")
         }
 
         //println(simulationRuns(1))
 
         //Ok("OK: "+test.text+"<br/>"+
-        Ok("OK: First model: " + simulationModels(0).ResourceID + "; " +
+        Ok("OK: First model: " + simulationModels.head.ResourceID + "; " +
           simulationModels.length + " Models found ; " +
-          tree(0).ResourceEntity.length + " ResourceEntity elements found" + "; " +
+          tree.head.ResourceEntity.length + " ResourceEntity elements found" + "; " +
           //"RepositoryID="+repository.ResourceID+"; "+
-          simulationRuns.length + " SimulationRuns found ----->>>>>> " + simulationModels)
+          simulationRuns.length + " SimulationRuns found ----->>>>>> "+ simulationRuns)
 
       }
      }
@@ -85,6 +87,7 @@ object Application extends Controller {
       
       Async {
         future.map{ repositories =>
+          println(repositories)
           Ok(views.html.repository(repositories))
         }
       }  

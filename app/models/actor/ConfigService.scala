@@ -67,7 +67,6 @@ class ConfigService extends Actor {
 object ConfigService {
     implicit val timeout = Timeout(10 seconds)
     
-    // @TODO always return the same type
     // @TODO unified error message
     def request(msg: ConfigMessage) = {
         val actor: ActorRef = Akka.system.actorFor("user/config")
@@ -75,7 +74,7 @@ object ConfigService {
             case false => (actor ? msg)
             case _ => Akka.future {
                 //Json.obj("error" -> "actor terminated")
-            	<error>actor terminated</error>
+            	<error>config actor terminated</error>
             } // @TODO create new actor
         }
     }

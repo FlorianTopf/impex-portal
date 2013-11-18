@@ -17,15 +17,13 @@ case class RegisterProvider(val props: Props, val name: String) extends Registry
 case class GetProviderTree(val name: Option[String]) extends RegistryMessage
 case class GetRepositories(val databases: Seq[(String, Database)]) extends RegistryMessage
 
-// @TODO attention when updating the configuration!
-// @TODO improve error messages
 class RegistryService extends Actor {
  implicit val timeout = Timeout(10 seconds)
-
-  def receive = {
-    case reg: RegisterProvider => sender ! register(reg)
-    //case _ => sender ! Json.obj("error" -> "message not found")
-    case _ => sender ! <error>message not found in registry</error>
+   // @TODO unified error messages
+   def receive = {
+     case reg: RegisterProvider => sender ! register(reg)
+     //case _ => sender ! Json.obj("error" -> "message not found")
+     case _ => sender ! <error>message not found in registry</error>
   }
   
   private def register(msg: RegisterProvider) = {
@@ -65,13 +63,12 @@ object RegistryService {
     } yield provider
   }
   
-  // @TODO this routine needs to be improved
   def getRepository(pName: String): Future[Seq[(Databasetype, Any)]] = {
     val provider: ActorRef = getChild(pName)
     DataProvider.getRepository(provider)
   }
   
-  //@TODO this routine needs to be improved (no Await please)
+  //@TODO this routine needs to be improved (no Await if possible)
   def getRepositories: Future[Seq[(Databasetype, Any)]] = {
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Map[String, Database]]

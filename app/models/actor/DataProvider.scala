@@ -65,7 +65,7 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods, val dbType: 
 	    dbType match {
 	      case Simulation => { 
 	        tree._2.asInstanceOf[Spase].ResourceEntity.filter(c => c.key.get == "Repository") map {
-	          repository => (dbType, repository.as[Repository])
+	          repository => (dbType, scalaxb.fromXML[Repository](repository.value.asInstanceOf[NodeSeq]))
 	        }
 	      }
 	      case Observation => {
