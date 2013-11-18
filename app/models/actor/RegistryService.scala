@@ -15,7 +15,7 @@ import play.api.libs.concurrent.Execution.Implicits._
 trait RegistryMessage
 case class RegisterProvider(val props: Props, val name: String) extends RegistryMessage
 case class GetProviderTree(val name: Option[String]) extends RegistryMessage
-case class GetRepositories(val databases: Map[String, Database]) extends RegistryMessage
+case class GetRepositories(val databases: Seq[(String, Database)]) extends RegistryMessage
 
 // @TODO attention when updating the configuration!
 // @TODO improve error messages
@@ -24,9 +24,8 @@ class RegistryService extends Actor {
 
   def receive = {
     case reg: RegisterProvider => sender ! register(reg)
-    case GetRepositories(dbs: Map[String, Database]) => sender ! getRepositories(dbs)
     //case _ => sender ! Json.obj("error" -> "message not found")
-    case _ => sender ! <error>message not found</error>
+    case _ => sender ! <error>message not found in registry</error>
   }
   
   private def register(msg: RegisterProvider) = {
@@ -34,36 +33,31 @@ class RegistryService extends Actor {
     // @TODO initial delay will be switched later
     Akka.system.scheduler.schedule(5.minutes, 24.hours, provider, UpdateTrees)
   }
-
-  // gets repositories and datacenters (move getRepository to DataProvider?)
-  private def getRepositories(databases: Map[String, Database]) = {
-   databases map {database =>
-    val provider: ActorRef = context.actorFor(database._2.name)
-    Await.result((provider ? GetTrees()).mapTo[Seq[(Databasetype, Any)]], 10.seconds)}
-  }
-  
 }
 
 // @TODO we must provider exception handling here! => timeouts!
 object RegistryService {
   implicit val timeout = Timeout(1 minute)
   
-  val registry: ActorRef = Akka.system.actorFor("user/registry")
+  private val registry: ActorRef = Akka.system.actorFor("user/registry")
   
-  def register(props: Props, name: String) = {
+  private def getChild(name: String): ActorRef = {
+    Akka.system.actorFor(registry.path.child(name))
+  }
+  
+  def registerChild(props: Props, name: String) = {
     (registry ? RegisterProvider(props, name))
   }
 
   // @TODO merge multiple trees here (in xml)
-  def getTreeXML(providerName: Option[String] = None): Future[Seq[NodeSeq]] = {
+  def getTreeXML(pName: Option[String] = None): Future[Seq[NodeSeq]] = {
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Map[String, Database]]
       provider <- { 
-        providerName match {
+        pName match {
           case Some(p: String) if databases.contains(p) =>
-          //@TODO maybe improve this path
-          val provider: ActorRef = Akka.system.actorFor("user/registry/"+providerName.get)
-          (provider ? GetTrees(Some("xml"))).mapTo[Seq[NodeSeq]]
+            val provider: ActorRef = getChild(pName.get)
+            DataProvider.getTreeXML(provider)
           //case None => // get all dataproviders
           case _ => future { <error>provider not found</error> }
         }
@@ -71,17 +65,21 @@ object RegistryService {
     } yield provider
   }
   
-  def getTree(providerName: String) = {
-    //@TODO maybe improve this path
-    val provider: ActorRef =  Akka.system.actorFor("user/registry/"+providerName)
-    (provider ? GetTrees()).mapTo[Seq[(Databasetype, Any)]]
+  // @TODO this routine needs to be improved
+  def getRepository(pName: String): Future[Seq[(Databasetype, Any)]] = {
+    val provider: ActorRef = getChild(pName)
+    DataProvider.getRepository(provider)
   }
   
-  def getRepositories = {
+  //@TODO this routine needs to be improved (no Await please)
+  def getRepositories: Future[Seq[(Databasetype, Any)]] = {
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Map[String, Database]]
-      provider <-  { 
-        (registry ? GetRepositories(databases)).mapTo[Seq[(Databasetype, Any)]]
+      provider <- future {
+        databases.toSeq flatMap { database =>
+          val provider: ActorRef = getChild(database._1)
+          Await.result(DataProvider.getRepository(provider), 10.seconds)
+        }
       }
     } yield provider
   } 

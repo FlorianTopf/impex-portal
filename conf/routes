@@ -12,4 +12,4 @@ GET		/config						controllers.Application.config
 
 GET		/tree						controllers.Application.tree
 
-GET		/test						controllers.Application.test
+GET		/repo						controllers.Application.repo

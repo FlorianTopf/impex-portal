@@ -48,10 +48,9 @@ object Application extends Controller {
         val simulationModels: ListBuffer[SimulationModel] = ListBuffer()
         val simulationRuns: ListBuffer[SimulationRun] = ListBuffer()
 
-        for (element <- tree(0).ResourceEntity) element.key match {
-          case Some("SimulationModel") => simulationModels += element.as[SimulationModel]
-          //@TODO why must simulation run be casted to NodeSeq? 
-          case Some("SimulationRun") => simulationRuns += scalaxb.fromXML[SimulationRun](element.as[NodeSeq])
+        for (element <- tree(0).ResourceEntity) element.key.get match {
+          case "SimulationModel" => simulationModels += element.as[SimulationModel]
+          case "SimulationRun" => simulationRuns += element.as[SimulationRun]
           case _ => println("something else")
         }
 
@@ -69,7 +68,7 @@ object Application extends Controller {
      
   } 
   
-  def test = Action {
+  def repo = Action {
       //implicit val timeout = Timeout(10 seconds)
  /*   val stripped1 = Await.result(
         RegistryService.requestTreeXML(Some("AMDA")).mapTo[Seq[NodeSeq]], 1.second) map { tree => tree \\ "dataCenter" }
@@ -82,9 +81,12 @@ object Application extends Controller {
     Ok("OK:" + merged) */
       val registry: ActorRef = Akka.system.actorFor("user/registry")
       val future = RegistryService.getRepositories
+      //val future = RegistryService.getRepository("AMDA")
       
       Async {
-        future.map(f => Ok(f.toString))
+        future.map{ repositories =>
+          Ok(views.html.repository(repositories))
+        }
       }  
     
   }

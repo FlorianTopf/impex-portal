@@ -2,6 +2,8 @@
 
 @for(database <- databases) {
 <p>@database._1</p>
-<a href="http://@database._2.databaseoption(0).value@database._2.methods">@database._2.methods</a>
-<a href="http://@database._2.databaseoption(0).value@database._2.tree">@database._2.tree</a>
+<a href="http://@database._2.databaseoption(0).value@database._2.methods">@database._2.methods</a><br/>
+@for(tree <- database._2.tree) {
+<a href="http://@database._2.databaseoption(0).value@tree">@tree</a><br/>
+}
 }

@@ -35,7 +35,7 @@ class ConfigService extends Actor {
         case GetDatabase(n: String) => sender ! getDatabase(n)
         case GetTool(n: String) => sender ! getTool(n)
         //case _ => sender ! Json.obj("error" -> "message not found")
-        case _ => sender ! <error>message not found</error>
+        case _ => sender ! <error>message not found in config</error>
     }
     
     private def getConfigXML: NodeSeq = scala.xml.XML.loadFile("conf/configuration.xml")

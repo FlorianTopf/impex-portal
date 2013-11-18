@@ -56,10 +56,10 @@ object Global extends GlobalSettings {
         	  case e: TimeoutException => println("timeout"); None
         	}
         }
-        
+
         // @TODO maybe exchange name with spaseID
-        RegistryService.register(
-            Props(new DataProvider(Trees(trees), Methods(methods))),
+        RegistryService.registerChild(
+            Props(new DataProvider(Trees(trees), Methods(methods), database._2.typeValue.get)),
             database._1)   
     }
     

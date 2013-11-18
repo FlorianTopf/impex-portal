@@ -22,24 +22,24 @@ case class Methods(var content: Seq[NodeSeq])
 // message formats
 case class GetTrees(val format: Option[String] = None)
 object GetMethods
+object GetRepository
 object UpdateTrees
-object GetType
 
-class DataProvider(val dataTree: Trees, val accessMethods: Methods) extends Actor {
+class DataProvider(val dataTree: Trees, val accessMethods: Methods, val dbType: Databasetype) extends Actor {
 	//println(self.path.name)
     // @TODO unified error messages
     def receive = {
         // @TODO return unified tree in XML
-        case GetTrees(Some("xml")) => sender ! getTreeXMLs
+        case GetTrees(Some("xml")) => sender ! getTreeXML
         case GetTrees(None) => sender ! getTreeObjects
-        case GetMethods => sender ! getMethodsXMLs
+        case GetMethods => sender ! getMethodsXML
+        case GetRepository => sender ! getRepository
         case UpdateTrees => { 
           dataTree.content = updateTrees
           println("finished")
         }
-        //case GetType => getMetaData.typeValue.get
         //case _ => sender ! Json.obj("error" -> "message not found")
-        case _ => sender ! <error>message not found</error>
+        case _ => sender ! <error>message not found in data provider</error>
     }
 	
 	private def getMetaData: Database =
@@ -47,18 +47,34 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods) extends Acto
 		    GetDatabase(self.path.name)).mapTo[Database], 
 		    1.second)
     
-    private def getTreeXMLs = dataTree.content
+    private def getTreeXML = dataTree.content
     
-    private def getMethodsXMLs = accessMethods.content
+    private def getMethodsXML = accessMethods.content
     
     private def getTreeObjects: Seq[(Databasetype, Any)] = {
       dataTree.content map { tree => 
-         getMetaData.typeValue.get match {
-            case Simulation => (Simulation, scalaxb.fromXML[Spase](tree))
-            case Observation => (Observation, scalaxb.fromXML[DataRoot](tree))
+         dbType match {
+            case Simulation => (dbType, scalaxb.fromXML[Spase](tree))
+            case Observation => (dbType, scalaxb.fromXML[DataRoot](tree))
           }
       }
-    }
+	}
+	
+	private def getRepository: Seq[(Databasetype, Any)] = {
+	  getTreeObjects flatMap { tree =>
+	    dbType match {
+	      case Simulation => { 
+	        tree._2.asInstanceOf[Spase].ResourceEntity.filter(c => c.key.get == "Repository") map {
+	          repository => (dbType, repository.as[Repository])
+	        }
+	      }
+	      case Observation => {
+	        val repository = tree._2.asInstanceOf[DataRoot].dataCenter
+	        Seq((dbType, DataCenter(Nil, repository.desc, repository.name, repository.id)))
+	      }
+	    }
+	  }
+	}
     
     private def updateTrees: Seq[NodeSeq] = {
       val dns: String = getMetaData.databaseoption.head.value
@@ -76,13 +92,21 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods) extends Acto
     
 }
 
+// @TODO maybe move more stuff here
 object DataProvider {
     implicit val timeout = Timeout(10 seconds)
     
-    // @TODO we need that later for updating the trees dynamically
-    def updateTrees(provider: String) = {
-    	val actor: ActorRef = Akka.system.actorFor("user/registry"+provider)
-    	Await.result((actor ? UpdateTrees), Duration.Inf)
+    def getTreeXML(provider: ActorRef) = {
+      (provider ? GetTrees(Some("xml"))).mapTo[Seq[NodeSeq]]
+    }
+    
+    def getRepository(provider: ActorRef) = {
+      (provider ? GetRepository).mapTo[Seq[(Databasetype, Any)]]
+    }
+    
+    // @TODO we need that later for updating the trees dynamically (on user request
+    def updateTrees(provider: ActorRef) = {
+    	(provider ? UpdateTrees)
     }
     
 }

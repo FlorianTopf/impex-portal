@@ -4,10 +4,7 @@
  xmlns="http://www.impex.org/2012/configuration.xsd">
   <database type="simulation">
     <name>FMI</name>
-    <!-- <name>FMI Hybrid Web Archive</name> -->
-    <description>
-      Hybrid and MHD simulation database
-	</description>
+    <description>FMI Hybrid and MHD web archive</description>
     <dns>impex-fp7.fmi.fi</dns>
     <methods>/ws/Methods_FMI.wsdl</methods>
     <tree>/ws/Tree_FMI_HYB.xml</tree>
@@ -16,41 +13,31 @@
     <protocol>http</protocol>
     <info>http://hwa.fmi.fi/beta/login.php</info>
   </database>
-<!--   <database type="simulation">
-    <name>LATMOS</name> -->
-    <!-- <name>LATMOS Hybrid Simulations</name> -->
-<!--     <description>
-      Hybrid simulation database
-    </description>
+  <database type="simulation">
+    <name>LATMOS</name>
+    <description>LATMOS Hybrid simulations</description>
     <dns>impex.latmos.ipsl.fr</dns>
     <methods>/Methods_LATMOS.wsdl</methods>
     <tree>/tree.xml</tree>
     <protocol>soap</protocol>
     <protocol>http</protocol>
     <info>http://impex.latmos.ipsl.fr/LatHyS.htm</info>
-  </database> -->
+  </database>
   <database type="simulation">
     <name>SINP</name>
-    <!-- <name>SINP Simulation Archive</name> -->
-    <description>
-      Paraboloid model simulation database
-    </description>
+    <description>SINP Paraboloid Model simulations</description>
     <dns>dec1.sinp.msu.ru</dns>
     <methods>/~lucymu/paraboloid/SINP_methods.wsdl</methods>
     <tree>/~lucymu/paraboloid/SINP_tree.xml</tree>
     <protocol>soap</protocol>
     <protocol>http</protocol>
-    <info>
-      http://smdc.sinp.msu.ru/index.py?nav=model-para
-    </info>
+    <info>http://smdc.sinp.msu.ru/index.py?nav=model-para</info>
   </database>
   <database type="observation">
     <name>AMDA</name>
-	<!-- <name>AMDA Database</name> -->
+    <description>AMDA observational database</description>
     <dns>cdpp1.cesr.fr</dns>
     <methods>/AMDA-NG/public/wsdl/Methods_AMDA.wsdl</methods>
-    <!-- <tree>/AMDA-NG/php/rest/getObsDataTree.php?userID=impex</tree> -->
-    <!-- only local params atm -->
     <tree>/AMDA-NG/data/WSRESULT/getObsDataTree_LocalParams.xml</tree>
     <protocol>soap</protocol>
     <protocol>http</protocol>
@@ -58,7 +45,7 @@
   </database>
   <database type="observation">
     <name>ClWeb</name>
-    <!-- <name>ClWeb Database</name> -->
+    <description>ClWeb observational databases</description>
     <dns>clweb.cesr.fr</dns>
     <methods>/Methods_CLWEB.wsdl</methods>
     <tree>/clweb_tree.xml</tree>
@@ -68,27 +55,20 @@
   </database>
   <tool>
     <name>AMDA</name>
-    <description>
-      Multi-mission data analysis tool for space plasma physics
-    </description>
-    <dns>amda.cdpp.eu</dns>
-    <info>http://cdpp-amda.cesr.fr/DDHTML/HELP/about.html
-    </info>
+    <description>Multi-mission data analysis tool for space plasma physics</description>
+    <dns>http://amda.cdpp.eu/</dns>
+    <info>http://cdpp-amda.cesr.fr/DDHTML/HELP/about.html</info>
   </tool>
   <tool>
     <name>ClWeb</name>
-	<description>
-      Multi-mission space plasma data plotting tool
-	</description>
+	<description>Multi-mission space plasma data plotting tool</description>
     <dns>clweb.cesr.fr</dns>
     <info>http://clweb.cesr.fr/clweb_poster.pdf</info>
   </tool>
   <tool>
     <name>3DView</name>
-    <description>
-      3D multi-mission visualisation tool
-    </description>
-    <dns>3dview.cdpp.eu</dns>
+    <description>3D multi-mission visualisation tool</description>
+    <dns>http://3dview.cdpp.eu/</dns>
     <info>http://3dview.cesr.fr/other/cdpp3dview_tutorial.pdf</info>
   </tool>
 </impexconfiguration>    
