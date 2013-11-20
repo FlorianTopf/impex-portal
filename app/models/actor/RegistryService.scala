@@ -34,27 +34,34 @@ class RegistryService extends Actor {
 }
 
 // @TODO we must provider exception handling here! => timeouts!
+// @TODO rebuilt access with assumptions of Week 3 lectures 
+//       => maybe use try instead of future? we have no error recovery here!
 object RegistryService {
   implicit val timeout = Timeout(1 minute)
   
   private val registry: ActorRef = Akka.system.actorFor("user/registry")
   
-  private def getChild(name: String): ActorRef = {
-    Akka.system.actorFor(registry.path.child(name))
-  }
-  
   def registerChild(props: Props, name: String) = {
     (registry ? RegisterProvider(props, name))
+  }
+  
+  private def getChilds(databases: Seq[Database]): Seq[ActorRef] = {
+    databases map { database => getChild(database.name)}
+  }
+  
+  // @TODO check if child exists
+  private def getChild(name: String): ActorRef = {
+    Akka.system.actorFor(registry.path.child(name))
   }
 
   // @TODO merge multiple trees here (in xml)
   def getTreeXML(pName: Option[String] = None): Future[Seq[NodeSeq]] = {
     for {
-      databases <- ConfigService.request(GetDatabases).mapTo[Map[String, Database]]
+      databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- { 
         pName match {
-          case Some(p: String) if databases.contains(p) =>
-            val provider: ActorRef = getChild(pName.get)
+          case Some(p: String) if databases.exists(d => d.name == p) =>
+            val provider: ActorRef = getChild(p)
             DataProvider.getTreeXML(provider)
           //case None => // get all dataproviders
           case _ => future { <error>provider not found</error> }
@@ -63,18 +70,30 @@ object RegistryService {
     } yield provider
   }
   
+  // @TODO check here also if names exists
   def getRepository(pName: String): Future[Seq[(Databasetype, Any)]] = {
     val provider: ActorRef = getChild(pName)
     DataProvider.getRepository(provider)
   }
   
-  //@TODO this routine needs to be improved (no Await if possible)
+  //@TODO this routine needs to be improved (no Await/Blocking if possible)
+  def getRepositoryType(dType: Databasetype): Future[Seq[(Databasetype, Any)]] = {
+    for {
+      databases <- ConfigService.request(GetDatabaseType(dType)).mapTo[Seq[Database]]
+      provider <- future {
+        getChilds(databases) flatMap { provider =>
+          Await.result(DataProvider.getRepository(provider), 10.seconds)
+        }
+      }
+    } yield provider
+  }
+  
+  //@TODO this routine needs to be improved (no Await/Blocking if possible)
   def getRepositories: Future[Seq[(Databasetype, Any)]] = {
     for {
-      databases <- ConfigService.request(GetDatabases).mapTo[Map[String, Database]]
+      databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- future {
-        databases.toSeq flatMap { database =>
-          val provider: ActorRef = getChild(database._1)
+        getChilds(databases) flatMap { provider =>
           Await.result(DataProvider.getRepository(provider), 10.seconds)
         }
       }

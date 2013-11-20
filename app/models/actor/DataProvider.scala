@@ -25,7 +25,19 @@ object GetMethods
 object GetRepository
 object UpdateTrees
 
-class DataProvider(val dataTree: Trees, val accessMethods: Methods, val dbType: Databasetype) extends Actor {
+// @TODO provide a basic trait and then two for each provider (obs/sim)
+trait Provider {
+  val dataTree: Trees
+  val accessMethods: Methods
+  val dbType: Databasetype
+  
+  // predefined methods
+  protected def getTreeXML = dataTree.content
+  protected def getMethodsXML = accessMethods.content
+}
+
+class DataProvider(val dataTree: Trees, val accessMethods: Methods, 
+    val dbType: Databasetype) extends Actor with Provider {
 	//println(self.path.name)
     // @TODO unified error messages
     def receive = {
@@ -47,10 +59,6 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods, val dbType: 
 		    GetDatabase(self.path.name)).mapTo[Database], 
 		    1.second)
     
-    private def getTreeXML = dataTree.content
-    
-    private def getMethodsXML = accessMethods.content
-    
     private def getTreeObjects: Seq[(Databasetype, Any)] = {
       dataTree.content map { tree => 
          dbType match {
@@ -65,6 +73,7 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods, val dbType: 
 	    dbType match {
 	      case Simulation => { 
 	        tree._2.asInstanceOf[Spase].ResourceEntity.filter(c => c.key.get == "Repository") map {
+	           //@TODO still the same problem with some XML elements
 	          repository => (dbType, scalaxb.fromXML[Repository](repository.value.asInstanceOf[NodeSeq]))
 	        }
 	      }

@@ -19,7 +19,9 @@ object Global extends GlobalSettings {
     println("application has started")
     
     val actor: ActorRef = Akka.system.actorOf(Props(new ConfigService), name = "config")
-    val config = Await.result((actor ? GetDatabases).mapTo[Map[String, Database]], 1.minute)
+    val config = Await.result(
+        ConfigService.request(GetDatabases).mapTo[Seq[Database]], 
+        10.seconds)
     
     //println(config)
     
@@ -29,13 +31,13 @@ object Global extends GlobalSettings {
     
     config map {
       database =>        
-        val dns: String = database._2.databaseoption.head.value
-        val treeURLs: Seq[String] = UrlProvider.getUrls(dns, database._2.tree)
-        val methodsURLs: Seq[String] = UrlProvider.getUrls(dns, database._2.methods)
+        val dns: String = database.databaseoption.head.value
+        val treeURLs: Seq[String] = UrlProvider.getUrls(dns, database.tree)
+        val methodsURLs: Seq[String] = UrlProvider.getUrls(dns, database.methods)
 
         println("treeURL="+treeURLs)
         println("methodsURL="+methodsURLs)      
-        println("fetching tree from "+database._1)
+        println("fetching tree from "+database.name)
         
         val trees: Seq[NodeSeq] = treeURLs flatMap { 
           treeURL => 
@@ -58,8 +60,8 @@ object Global extends GlobalSettings {
         }
 
         RegistryService.registerChild(
-            Props(new DataProvider(Trees(trees), Methods(methods), database._2.typeValue.get)),
-            database._1)   
+            Props(new DataProvider(Trees(trees), Methods(methods), database.typeValue.get)),
+            database.name)   
     }
     
   } 

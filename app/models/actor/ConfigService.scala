@@ -11,9 +11,9 @@ import akka.pattern.ask
 import akka.actor._
 import scala.concurrent.duration._
 import scala.xml._
-//import scala.collection.immutable.Map
 import scala.collection.mutable.Map
 import scala.language.postfixOps
+import scala.concurrent.Future
 
 // message formats
 trait ConfigMessage
@@ -22,6 +22,7 @@ object GetTools extends ConfigMessage
 object GetDatabases extends ConfigMessage
 case class GetDatabase(val name: String) extends ConfigMessage
 case class GetTool(val name: String) extends ConfigMessage
+case class GetDatabaseType(val dtype: Databasetype) extends ConfigMessage
 
 // @TODO provide a possiblity for updating config
 //		 + saving to filesystem
@@ -31,6 +32,7 @@ class ConfigService extends Actor {
     def receive = {
         case GetConfig => sender ! getConfigXML
         case GetDatabases => sender ! getDatabases
+        case GetDatabaseType(dt: Databasetype) => sender ! getDatabaseType(dt)
         case GetTools => sender ! getTools
         case GetDatabase(n: String) => sender ! getDatabase(n)
         case GetTool(n: String) => sender ! getTool(n)
@@ -42,24 +44,27 @@ class ConfigService extends Actor {
     
     private def getConfig: Impexconfiguration = scalaxb.fromXML[Impexconfiguration](getConfigXML)
 
-    private def getDatabases = {
-      val databases = getConfig.impexconfigurationoption.filter(c => c.key.get == "database")
-      val result = databases map (d => (d.as[Database].name,d.as[Database]))
-      result.toMap
+    private def getDatabases: Seq[Database] = {
+      val databases = getConfig.impexconfigurationoption.filter(c => c.key.get == "database") 
+      databases map (d => d.as[Database])
     }
     
-    private def getTools = {
+    private def getTools: Seq[Tool] = {
       val databases = getConfig.impexconfigurationoption.filter(c => c.key.get == "tool")
-      val result = databases map (d => (d.as[Tool].name,d.as[Tool]))
-      result.toMap
+      databases map (d => (d.as[Tool]))
     }
     
-    private def getDatabase(name: String): Database = {
-       getDatabases.get(name).get
+    // @TODO provide messages for observation and simulation (TEST)
+    private def getDatabaseType(dType: Databasetype): Seq[Database] = {
+      getDatabases.filter(d => d.typeValue.get == dType)
     }
     
-    private def getTool(name: String): Tool = {
-       getTools.get(name).get
+    private def getDatabase(name: String): Option[Database] = {
+       getDatabases.find(p => p.name == name)
+    }
+    
+    private def getTool(name: String): Option[Tool] = {
+       getTools.find(p => p.name == name)
     }
 
 }
@@ -68,7 +73,7 @@ object ConfigService {
     implicit val timeout = Timeout(10 seconds)
     
     // @TODO unified error message
-    def request(msg: ConfigMessage) = {
+    def request(msg: ConfigMessage): Future[Any] = {
         val actor: ActorRef = Akka.system.actorFor("user/config")
         actor.isTerminated match {
             case false => (actor ? msg)

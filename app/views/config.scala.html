@@ -1,9 +1,11 @@
-@(databases: Map[String, models.binding.Database])
+@(databases: Seq[models.binding.Database])
 
 @for(database <- databases) {
-<p>@database._1</p>
-<a href="http://@database._2.databaseoption(0).value@database._2.methods">@database._2.methods</a><br/>
-@for(tree <- database._2.tree) {
-<a href="http://@database._2.databaseoption(0).value@tree">@tree</a><br/>
+<p>@database.name</p>
+@for(methods <- database.methods) {
+<a href="http://@database.databaseoption(0).value@database.methods">@methods</a><br/>
+}
+@for(tree <- database.tree) {
+<a href="http://@database.databaseoption(0).value@tree">@tree</a><br/>
 }
 }

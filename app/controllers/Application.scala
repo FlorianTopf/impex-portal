@@ -17,6 +17,8 @@ import play.libs.Akka
 import akka.pattern.ask
 import akka.util.Timeout
 import scala.language.postfixOps
+import play.api.Play.current
+import play.api.cache.Cache
 
 object Application extends Controller {
   
@@ -25,7 +27,7 @@ object Application extends Controller {
   }
   
   def config = Action {
-    val future = ConfigService.request(GetDatabases).mapTo[Map[String, Database]]
+    val future = ConfigService.request(GetDatabases).mapTo[Seq[Database]]
     
     Async {
       future.map(databases => Ok(views.html.config(databases)))
@@ -82,12 +84,13 @@ object Application extends Controller {
     
     Ok("OK:" + merged) */
       val registry: ActorRef = Akka.system.actorFor("user/registry")
-      val future = RegistryService.getRepositories
+      //val future = RegistryService.getRepositories
       //val future = RegistryService.getRepository("AMDA")
+      val future = RegistryService.getRepositoryType(Simulation)
       
       Async {
         future.map{ repositories =>
-          println(repositories)
+          //println(repositories)
           Ok(views.html.repository(repositories))
         }
       }  
