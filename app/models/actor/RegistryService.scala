@@ -33,7 +33,7 @@ class RegistryService extends Actor {
   }
 }
 
-// @TODO we must provider exception handling here! => timeouts!
+// @TODO we must improve exception handling here! => timeouts + responses
 // @TODO rebuilt access with assumptions of Week 3 lectures 
 //       => maybe use try instead of future? we have no error recovery here!
 object RegistryService {
@@ -64,40 +64,54 @@ object RegistryService {
             val provider: ActorRef = getChild(p)
             DataProvider.getTreeXML(provider)
           //case None => // get all dataproviders
-          case _ => future { <error>provider not found</error> }
+          case _ => future { Seq(<error>provider not found</error>) }
         }
       }
     } yield provider
   }
   
-  // @TODO check here also if names exists
-  def getRepository(pName: String): Future[Seq[(Databasetype, Any)]] = {
-    val provider: ActorRef = getChild(pName)
-    DataProvider.getRepository(provider)
+  def getMethodsXML(pName: String): Future[Seq[NodeSeq]] = {
+    for {
+      databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
+      provider <- { 
+        pName match {
+          case p: String if databases.exists(d => d.name == p) =>
+            val provider: ActorRef = getChild(p)
+            DataProvider.getMethodsXML(provider)
+          case _ => future { Seq(<error>provider not found</error>) }
+        }
+      }
+    } yield provider
   }
   
-  //@TODO this routine needs to be improved (no Await/Blocking if possible)
+  // @TODO this routine needs to be improved (no Await/Blocking if possible)
+  def getRepository(pName: Option[String] = None): Future[Seq[(Databasetype, Any)]] = {
+    for {
+      databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
+      provider <-
+        pName match {
+          case Some(p: String) if databases.exists(d => d.name == p) =>
+            val provider: ActorRef = getChild(p)
+            DataProvider.getRepository(provider)
+          case None => future {
+            getChilds(databases) flatMap { provider =>
+        	Await.result(DataProvider.getRepository(provider), 10.seconds) }
+          }
+          case _ => future { Seq((Simulation, <error>provider not found</error>)) }
+       }
+    } yield provider
+  }
+  
+  // @TODO this routine needs to be improved (no Await/Blocking if possible)
   def getRepositoryType(dType: Databasetype): Future[Seq[(Databasetype, Any)]] = {
     for {
       databases <- ConfigService.request(GetDatabaseType(dType)).mapTo[Seq[Database]]
       provider <- future {
         getChilds(databases) flatMap { provider =>
-          Await.result(DataProvider.getRepository(provider), 10.seconds)
+        Await.result(DataProvider.getRepository(provider), 10.seconds)
         }
       }
     } yield provider
   }
-  
-  //@TODO this routine needs to be improved (no Await/Blocking if possible)
-  def getRepositories: Future[Seq[(Databasetype, Any)]] = {
-    for {
-      databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
-      provider <- future {
-        getChilds(databases) flatMap { provider =>
-          Await.result(DataProvider.getRepository(provider), 10.seconds)
-        }
-      }
-    } yield provider
-  } 
   
 }

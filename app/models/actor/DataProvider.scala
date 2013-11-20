@@ -109,6 +109,10 @@ object DataProvider {
       (provider ? GetTrees(Some("xml"))).mapTo[Seq[NodeSeq]]
     }
     
+    def getMethodsXML(provider: ActorRef) = {
+      (provider ? GetMethods).mapTo[Seq[NodeSeq]]
+    }
+    
     def getRepository(provider: ActorRef) = {
       (provider ? GetRepository).mapTo[Seq[(Databasetype, Any)]]
     }

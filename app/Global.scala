@@ -58,7 +58,8 @@ object Global extends GlobalSettings {
         	  case e: TimeoutException => println("timeout"); None
         	}
         }
-
+        
+        //@TODO maybe change addressing to something else (ResourceID?)
         RegistryService.registerChild(
             Props(new DataProvider(Trees(trees), Methods(methods), database.typeValue.get)),
             database.name)   

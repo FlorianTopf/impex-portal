@@ -54,7 +54,6 @@ class ConfigService extends Actor {
       databases map (d => (d.as[Tool]))
     }
     
-    // @TODO provide messages for observation and simulation (TEST)
     private def getDatabaseType(dType: Databasetype): Seq[Database] = {
       getDatabases.filter(d => d.typeValue.get == dType)
     }

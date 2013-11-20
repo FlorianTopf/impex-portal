@@ -28,6 +28,9 @@ object Application extends Controller {
   
   def config = Action {
     val future = ConfigService.request(GetDatabases).mapTo[Seq[Database]]
+    //val f = RegistryService.getMethodsXML("SINP")
+    
+    //println(Await.result(f, 2.seconds))
     
     Async {
       future.map(databases => Ok(views.html.config(databases)))
@@ -84,9 +87,9 @@ object Application extends Controller {
     
     Ok("OK:" + merged) */
       val registry: ActorRef = Akka.system.actorFor("user/registry")
-      //val future = RegistryService.getRepositories
+      val future = RegistryService.getRepository()
       //val future = RegistryService.getRepository("AMDA")
-      val future = RegistryService.getRepositoryType(Simulation)
+      //val future = RegistryService.getRepositoryType(Simulation)
       
       Async {
         future.map{ repositories =>
