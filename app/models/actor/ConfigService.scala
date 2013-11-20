@@ -18,11 +18,12 @@ import scala.concurrent.Future
 // message formats
 trait ConfigMessage
 object GetConfig extends ConfigMessage
+// not used outside of the portal
 object GetTools extends ConfigMessage
 object GetDatabases extends ConfigMessage
+case class GetDatabaseType(val dtype: Databasetype) extends ConfigMessage
 case class GetDatabase(val name: String) extends ConfigMessage
 case class GetTool(val name: String) extends ConfigMessage
-case class GetDatabaseType(val dtype: Databasetype) extends ConfigMessage
 
 // @TODO provide a possiblity for updating config
 //		 + saving to filesystem
@@ -58,12 +59,12 @@ class ConfigService extends Actor {
       getDatabases.filter(d => d.typeValue.get == dType)
     }
     
-    private def getDatabase(name: String): Option[Database] = {
-       getDatabases.find(p => p.name == name)
+    private def getDatabase(name: String): Database = {
+       getDatabases.find(p => p.name == name).get
     }
     
-    private def getTool(name: String): Option[Tool] = {
-       getTools.find(p => p.name == name)
+    private def getTool(name: String): Tool = {
+       getTools.find(p => p.name == name).get
     }
 
 }

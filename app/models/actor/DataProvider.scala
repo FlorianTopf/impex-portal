@@ -37,7 +37,7 @@ trait Provider {
 }
 
 class DataProvider(val dataTree: Trees, val accessMethods: Methods, 
-    val dbType: Databasetype) extends Actor with Provider {
+    val dbType: Databasetype) extends Actor {
 	//println(self.path.name)
     // @TODO unified error messages
     def receive = {
@@ -53,7 +53,11 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods,
         //case _ => sender ! Json.obj("error" -> "message not found")
         case _ => sender ! <error>message not found in data provider</error>
     }
+    
+    private def getTreeXML = dataTree.content
+    private def getMethodsXML = accessMethods.content
 	
+    // @TODO improve this!
 	private def getMetaData: Database =
 		Await.result(ConfigService.request(
 		    GetDatabase(self.path.name)).mapTo[Database], 
@@ -87,7 +91,7 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods,
     
     private def updateTrees: Seq[NodeSeq] = {
       val dns: String = getMetaData.databaseoption.head.value
-      val treeURLs: Seq[String] = UrlProvider.getUrls(dns, getMetaData.asInstanceOf[Database].tree)
+      val treeURLs: Seq[String] = UrlProvider.getUrls(dns, getMetaData.tree)
       treeURLs flatMap { 
           treeURL => 
         	val promise = WS.url(treeURL).get()
@@ -117,7 +121,7 @@ object DataProvider {
       (provider ? GetRepository).mapTo[Seq[(Databasetype, Any)]]
     }
     
-    // @TODO we need that later for updating the trees dynamically (on user request
+    // @TODO we need that later for updating the trees dynamically (on admin request
     def updateTrees(provider: ActorRef) = {
     	(provider ? UpdateTrees)
     }
