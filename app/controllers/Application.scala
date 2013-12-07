@@ -28,9 +28,6 @@ object Application extends Controller {
   
   def config = Action {
     val future = ConfigService.request(GetDatabases).mapTo[Seq[Database]]
-    //val f = RegistryService.getMethodsXML("SINP")
-    
-    //println(Await.result(f, 2.seconds))
     
     Async {
       future.map(databases => Ok(views.html.config(databases)))
@@ -46,10 +43,6 @@ object Application extends Controller {
         val tree = response map { r => scalaxb.fromXML[Spase](r) }
         //val simulationModel = response.xml \\ "SimulatioModel" \ "ResourceID"
 
-        // @TODO how we can extract from the sequence with matching the data records name?
-        // @TODO why must repository be casted to NodeSeq?
-        //val repository = scalaxb.fromXML[Repository](tree.ResourceEntity(1).value.asInstanceOf[NodeSeq])
-
         val simulationModels: ListBuffer[SimulationModel] = ListBuffer()
         val simulationRuns: ListBuffer[SimulationRun] = ListBuffer()
 
@@ -58,7 +51,7 @@ object Application extends Controller {
           //@TODO still the same problem with some XML elements
           case "SimulationRun" => simulationRuns += 
             scalaxb.fromXML[SimulationRun](element.value.asInstanceOf[NodeSeq])
-          case _ => println("something else")
+          case _ => //println("something else")
         }
 
         //println(simulationRuns(1))
@@ -76,7 +69,6 @@ object Application extends Controller {
   } 
   
   def repo = Action {
-      //implicit val timeout = Timeout(10 seconds)
  /*   val stripped1 = Await.result(
         RegistryService.requestTreeXML(Some("AMDA")).mapTo[Seq[NodeSeq]], 1.second) map { tree => tree \\ "dataCenter" }
     
@@ -87,13 +79,12 @@ object Application extends Controller {
     
     Ok("OK:" + merged) */
       val registry: ActorRef = Akka.system.actorFor("user/registry")
-      val future = RegistryService.getRepository()
+      //val future = RegistryService.getRepository()
       //val future = RegistryService.getRepository("AMDA")
-      //val future = RegistryService.getRepositoryType(Simulation)
+      val future = RegistryService.getRepositoryType(Simulation)
       
       Async {
         future.map{ repositories =>
-          //println(repositories)
           Ok(views.html.repository(repositories))
         }
       }  

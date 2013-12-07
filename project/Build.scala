@@ -14,7 +14,8 @@ object ApplicationBuild extends Build {
     jdbc,
     anorm,
     "org.scalaxb" %% "scalaxb" % "1.1.2",
-    "net.databinder.dispatch" %% "dispatch-core" % "0.9.5"
+    "net.databinder.dispatch" %% "dispatch-core" % "0.9.5",
+    "org.scala-lang.modules" %% "scala-async" % "0.9.0-M4"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(

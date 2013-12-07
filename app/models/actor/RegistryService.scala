@@ -33,8 +33,9 @@ class RegistryService extends Actor {
   }
 }
 
-// @TODO we must improve exception handling here! => timeouts + responses
-// @TODO rebuilt access with assumptions of Week 3 lectures 
+// @TODO we must improve exception handling here! 
+//       => timeouts + responses => use promises here!
+// @TODO refactor access methods!
 //       => maybe use try instead of future? we have no error recovery here!
 object RegistryService {
   implicit val timeout = Timeout(1 minute)
@@ -84,7 +85,8 @@ object RegistryService {
     } yield provider
   }
   
-  // @TODO this routine needs to be improved (no Await/Blocking if possible)
+  // @TODO this routine needs to be improved (no blocking if possible)
+  // @TODO build up every routine like this => and see how we can improve that
   def getRepository(pName: Option[String] = None): Future[Seq[(Databasetype, Any)]] = {
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
@@ -102,16 +104,14 @@ object RegistryService {
     } yield provider
   }
   
-  // @TODO this routine needs to be improved (no Await/Blocking if possible)
   def getRepositoryType(dType: Databasetype): Future[Seq[(Databasetype, Any)]] = {
     for {
       databases <- ConfigService.request(GetDatabaseType(dType)).mapTo[Seq[Database]]
-      provider <- future {
-        getChilds(databases) flatMap { provider =>
-        Await.result(DataProvider.getRepository(provider), 10.seconds)
-        }
-      }
-    } yield provider
+      providers <- Future.sequence(getChilds(databases) map { provider =>
+        	DataProvider.getRepository(provider) })
+    } yield providers.flatten
   }
+  
+  
   
 }

@@ -15,7 +15,7 @@ import play.libs.Akka
 import akka.pattern.ask
 import play.api.libs.concurrent.Execution.Implicits._
 
-// container for content
+// container for XML content
 case class Trees(var content: Seq[NodeSeq])
 case class Methods(var content: Seq[NodeSeq])
 
@@ -36,6 +36,7 @@ trait Provider {
   protected def getMethodsXML = accessMethods.content
 }
 
+//@TODO integrate scheduled dump to harddisk, and use this then! block updating!
 class DataProvider(val dataTree: Trees, val accessMethods: Methods, 
     val dbType: Databasetype) extends Actor {
 	//println(self.path.name)
@@ -47,6 +48,7 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods,
         case GetMethods => sender ! getMethodsXML
         case GetRepository => sender ! getRepository
         case UpdateTrees => { 
+          //@TODO exception handling
           dataTree.content = updateTrees
           println("finished")
         }
@@ -105,7 +107,6 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods,
     
 }
 
-// @TODO maybe move more stuff here
 object DataProvider {
     implicit val timeout = Timeout(10 seconds)
     
@@ -121,7 +122,7 @@ object DataProvider {
       (provider ? GetRepository).mapTo[Seq[(Databasetype, Any)]]
     }
     
-    // @TODO we need that later for updating the trees dynamically (on admin request
+    // @TODO we need that later for updating the trees dynamically (on admin request)
     def updateTrees(provider: ActorRef) = {
     	(provider ? UpdateTrees)
     }
