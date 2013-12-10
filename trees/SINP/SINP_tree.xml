@@ -1,0 +1,4056 @@
+<Spase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://impex-fp7.oeaw.ac.at" xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex.latmos.ipsl.fr/doc/impex+spase_latest.xsd">
+  <Version>2.2.2</Version>
+  <!--  For static case Earth -->
+  <SimulationModel>
+    <ResourceID>impex://SINP/PMM/Earth/Static</ResourceID>
+    <ResourceHeader>
+      <ResourceName>MF-PARABOLOID_SINP</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>Paraboloid model calculates the magnetic fields in the Earth's magnetosphere depending on external conditions in solar wind and on geomagnetic activity level.</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+      <InformationURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </InformationURL>
+    </ResourceHeader>
+    <Versions>
+      <ModelVersion>
+        <VersionID>3.1</VersionID>
+        <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+        <Description>Public release</Description>
+      </ModelVersion>
+    </Versions>
+    <SimulationType>Paraboloid</SimulationType>
+    <CodeLanguage>Fortran77</CodeLanguage>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputProperties>
+      <Property>
+        <Name>SW_Speed</Name>
+        <PropertyQuantity>FlowSpeed</PropertyQuantity>
+        <Units>km/s</Units>
+        <UnitsConversion>1.0e+3>m/s</UnitsConversion>
+        <ValidMin>200</ValidMin>
+        <ValidMax>2000</ValidMax>
+      </Property>
+      <Property>
+        <Name>SW_Density</Name>
+        <PropertyQuantity>NumberDensity</PropertyQuantity>
+        <Units>cm^-3</Units>
+        <UnitsConversion>1.0e+6>m^-3</UnitsConversion>
+        <ValidMin>0</ValidMin>
+        <ValidMax>200</ValidMax>
+      </Property>
+      <Property>
+        <Name>IMF_B</Name>
+        <Description>IMF penetrated components in GSM coord</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Qualifier>Vector</Qualifier>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+      </Property>
+    </InputProperties>
+    <OutputParameters>
+      <Parameter>
+        <Name>url_Param</Name>
+        <Description>URL of the netcdf/VoTable file containing the 3D coordinates and values</Description>
+        <CoordinateSystem>
+          <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+          <CoordinateSystemName>GSM</CoordinateSystemName>
+        </CoordinateSystem>
+        <Field>
+          <FieldQuantity>Magnetic</FieldQuantity>
+        </Field>
+      </Parameter>
+    </OutputParameters>
+  </SimulationModel>
+  <!--  For static case Saturn -->
+  <SimulationModel>
+    <ResourceID>impex://SINP/PMM/Saturn/Static</ResourceID>
+    <ResourceHeader>
+      <ResourceName>MF-PARABOLOID_SINP</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>Paraboloid model calculates the magnetic fields in the Saturn's magnetosphere depending on external conditions in solar wind and on geomagnetic activity level.</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+      <InformationURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </InformationURL>
+    </ResourceHeader>
+    <Versions>
+      <ModelVersion>
+        <VersionID>3.1</VersionID>
+        <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+        <Description>Public release</Description>
+      </ModelVersion>
+    </Versions>
+    <SimulationType>Paraboloid</SimulationType>
+    <CodeLanguage>Fortran77</CodeLanguage>
+    <SimulatedRegion>Saturn</SimulatedRegion>
+    <InputProperties>
+      <Property>
+        <Name>BD</Name>
+        <Description>Magnetic field at magnetodisc outer edge</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>BT</Name>
+        <Description>Magnetic field at tail current inner edge</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>RD2</Name>
+        <Description>Distance to the external edge of MD</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>Rs</Units>
+        <UnitsConversion>6.0268e+7>m</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>RD1</Name>
+        <Description>Distance to the inner edge of MD</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Qualifier>Scalar</Qualifier>
+        <Units>Rs</Units>
+        <UnitsConversion>6.0268e+7>m</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>R2</Name>
+        <Description>Distance to the inner edge of tail current sheet</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Qualifier>Scalar</Qualifier>
+        <Units>Rs</Units>
+        <UnitsConversion>6.0268e+7>m</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>R1</Name>
+        <Description>Magnetopause stand-off distance</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Qualifier>Scalar</Qualifier>
+        <Units>Rs</Units>
+        <UnitsConversion>6.0268e+7>m</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>IMF_B</Name>
+        <Description>IMF penetrated components in KSM coord</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Qualifier>Vector</Qualifier>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+      </Property>
+    </InputProperties>
+    <OutputParameters>
+      <Parameter>
+        <Name>url_Param</Name>
+        <Description>URL of the netcdf/VoTable file containing the 3D coordinates and values</Description>
+        <CoordinateSystem>
+          <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+          <CoordinateSystemName>KSM</CoordinateSystemName>
+        </CoordinateSystem>
+        <Field>
+          <FieldQuantity>Magnetic</FieldQuantity>
+        </Field>
+      </Parameter>
+    </OutputParameters>
+  </SimulationModel>
+  <!-- For static case Mercury -->
+  <SimulationModel>
+    <ResourceID>impex://SINP/PMM/Mercury/Static</ResourceID>
+    <ResourceHeader>
+      <ResourceName>MF-PARABOLOID_SINP</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>Paraboloid model calculates the magnetic fields in the Mercury's magnetosphere depending on external conditions in solar wind and on magnetic activity level.</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+      <InformationURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </InformationURL>
+    </ResourceHeader>
+    <Versions>
+      <ModelVersion>
+        <VersionID>3.1</VersionID>
+        <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+        <Description>Public release</Description>
+      </ModelVersion>
+    </Versions>
+    <SimulationType>Paraboloid</SimulationType>
+    <CodeLanguage>Fortran77</CodeLanguage>
+    <SimulatedRegion>Mercury</SimulatedRegion>
+    <InputProperties>
+      <Property>
+        <Name>BD</Name>
+        <Description>Dipole field strength on the equator of the Mercury</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <ValidMin></ValidMin>
+        <ValidMax></ValidMax>
+      </Property>
+      <Property>
+        <Name>Flux</Name>
+        <Description>Field strength at the inner edge of the tail current</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>MWb</Units>
+        <UnitsConversion>1000000>Wb</UnitsConversion>
+        <ValidMin>2.3</ValidMin>
+        <ValidMax>5.0</ValidMax>
+      </Property>
+      <Property>
+        <Name>Rss</Name>
+        <Description>Sub-solar magnetopause distance in Mercury radii (2439km)</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>Rm</Units>
+        <UnitsConversion>2439000>m</UnitsConversion>
+        <ValidMin>1.1</ValidMin>
+        <ValidMax>2.2</ValidMax>
+      </Property>
+      <Property>
+        <Name>R2</Name>
+        <Description>Inner edge of the current sheet tail</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>Rm</Units>
+        <UnitsConversion>2439000>m</UnitsConversion>
+        <ValidMin>1.1</ValidMin>
+        <ValidMax>2.2</ValidMax>
+      </Property>
+      <Property>
+        <Name>DZ</Name>
+        <Description>Northern displacement of the dipole relative to the center of the Mercury</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>Rm</Units>
+        <UnitsConversion>2439000>m</UnitsConversion>
+        <ValidMin>0.0</ValidMin>
+        <ValidMax>0.0</ValidMax>
+      </Property>
+      <Property>
+        <Name>IMF_B</Name>
+        <Description>Penetrating IMF components in HSM coord</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Qualifier>Vector</Qualifier>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+      </Property>
+    </InputProperties>
+    <OutputParameters>
+      <Parameter>
+        <Name>url_Param</Name>
+        <Description>URL of the netcdf/VoTable file containing the 3D coordinates and values</Description>
+        <CoordinateSystem>
+          <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+          <!--CoordinateSystemName>HSM</CoordinateSystemName>-->
+          <CoordinateSystemName>MSO</CoordinateSystemName>
+        </CoordinateSystem>
+        <Field>
+          <FieldQuantity>Magnetic</FieldQuantity>
+        </Field>
+      </Parameter>
+    </OutputParameters>
+  </SimulationModel>
+  <!--  For on-fly Earth -->
+  <SimulationModel>
+    <ResourceID>impex://SINP/PMM/Earth/OnFly</ResourceID>
+    <ResourceHeader>
+      <ResourceName>MF-PARABOLOID_SINP</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>Paraboloid model calculates the magnetic fields in the Earth's magnetosphere depending on external conditions in solar wind and on geomagnetic activity level.</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+      <InformationURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </InformationURL>
+    </ResourceHeader>
+    <Versions>
+      <ModelVersion>
+        <VersionID>3.1</VersionID>
+        <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+        <Description>Public release</Description>
+      </ModelVersion>
+    </Versions>
+    <SimulationType>Paraboloid</SimulationType>
+    <CodeLanguage>Fortran77</CodeLanguage>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputProperties>
+      <Property>
+        <Name>SW_Speed</Name>
+        <PropertyQuantity>FlowSpeed</PropertyQuantity>
+        <Units>km/s</Units>
+        <UnitsConversion>1.0e+3>m/s</UnitsConversion>
+        <ValidMin>200</ValidMin>
+        <ValidMax>2000</ValidMax>
+      </Property>
+      <Property>
+        <Name>SW_Density</Name>
+        <PropertyQuantity>NumberDensity</PropertyQuantity>
+        <Units>cm^-3</Units>
+        <UnitsConversion>1.0e+6>m^-3</UnitsConversion>
+        <ValidMin>0</ValidMin>
+        <ValidMax>200</ValidMax>
+      </Property>
+      <Property>
+        <Name>IMF_B</Name>
+        <Description>IMF penetrated components in GSM coord</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Qualifier>Vector</Qualifier>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+      </Property>
+    </InputProperties>
+    <OutputParameters>
+      <Parameter>
+        <Name>url_Param</Name>
+        <Description>URL of the netcdf/VoTable file containing the 3D coordinates (GSM) and magnetic field vectors in this points</Description>
+        <CoordinateSystem>
+          <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+          <CoordinateSystemName>GSM</CoordinateSystemName>
+        </CoordinateSystem>
+        <Field>
+          <FieldQuantity>Magnetic</FieldQuantity>
+        </Field>
+      </Parameter>
+    </OutputParameters>
+  </SimulationModel>
+  <!--  For on-fly Saturn -->
+  <SimulationModel>
+    <ResourceID>impex://SINP/PMM/Saturn/OnFly</ResourceID>
+    <ResourceHeader>
+      <ResourceName>MF-PARABOLOID_SINP</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>Paraboloid model calculates the magnetic fields in the Saturn's magnetosphere depending on external conditions in solar wind and on geomagnetic activity level.</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+      <InformationURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </InformationURL>
+    </ResourceHeader>
+    <Versions>
+      <ModelVersion>
+        <VersionID>3.1</VersionID>
+        <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+        <Description>Public release</Description>
+      </ModelVersion>
+    </Versions>
+    <SimulationType>Paraboloid</SimulationType>
+    <CodeLanguage>Fortran77</CodeLanguage>
+    <SimulatedRegion>Saturn</SimulatedRegion>
+    <InputProperties>
+      <Property>
+        <Name>BD</Name>
+        <Description>Magnetic field at magnetodisc outer edge</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>BT</Name>
+        <Description>Magnetic field at tail current inner edge</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>RD2</Name>
+        <Description>Distance to the external edge of MD</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>Rs</Units>
+        <UnitsConversion>6.0268e+7>m</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>RD1</Name>
+        <Description>Distance to the inner edge of MD</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Qualifier>Scalar</Qualifier>
+        <Units>Rs</Units>
+        <UnitsConversion>6.0268e+7>m</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>R2</Name>
+        <Description>Distance to the inner edge of tail current sheet</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Qualifier>Scalar</Qualifier>
+        <Units>Rs</Units>
+        <UnitsConversion>6.0268e+7>m</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>R1</Name>
+        <Description>Magnetopause stand-off distance</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Qualifier>Scalar</Qualifier>
+        <Units>Rs</Units>
+        <UnitsConversion>6.0268e+7>m</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>IMF_B</Name>
+        <Description>IMF penetrated components in KSM coord</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Qualifier>Vector</Qualifier>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+      </Property>
+    </InputProperties>
+    <OutputParameters>
+      <Parameter>
+        <Name>url_Param</Name>
+        <Description>URL of the netcdf/VoTable file containing the 3D coordinates (KSM) and magnetic field vectors in this points</Description>
+        <CoordinateSystem>
+          <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+          <CoordinateSystemName>KSM</CoordinateSystemName>
+        </CoordinateSystem>
+        <Field>
+          <FieldQuantity>Magnetic</FieldQuantity>
+        </Field>
+      </Parameter>
+    </OutputParameters>
+  </SimulationModel>
+  <!--  For on-fly Mercury -->
+  <SimulationModel>
+    <ResourceID>impex://SINP/PMM/Mercury/OnFly</ResourceID>
+    <ResourceHeader>
+      <ResourceName>MF-PARABOLOID_SINP</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>Paraboloid model calculates the magnetic fields in the Mercury's magnetosphere depending on external conditions in solar wind and on geomagnetic activity level.</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+      <InformationURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </InformationURL>
+    </ResourceHeader>
+    <Versions>
+      <ModelVersion>
+        <VersionID>3.1</VersionID>
+        <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+        <Description>Public release</Description>
+      </ModelVersion>
+    </Versions>
+    <SimulationType>Paraboloid</SimulationType>
+    <CodeLanguage>Fortran77</CodeLanguage>
+    <SimulatedRegion>Mercury</SimulatedRegion>
+    <InputProperties>
+      <Property>
+        <Name>BD</Name>
+        <Description>Dipole field strength on the equator of the Mercury</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <ValidMin></ValidMin>
+        <ValidMax></ValidMax>
+      </Property>
+      <Property>
+        <Name>Flux</Name>
+        <Description>Field strength at the inner edge of the tail current</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>MWb</Units>
+        <UnitsConversion>1000000>Wb</UnitsConversion>
+        <ValidMin></ValidMin>
+        <ValidMax></ValidMax>
+      </Property>
+      <Property>
+        <Name>Rss</Name>
+        <Description>Sub-solar magnetopause distance in Mercury radii (2439km)</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>Rm</Units>
+        <UnitsConversion>2439000>m</UnitsConversion>
+        <ValidMin>1.1</ValidMin>
+        <ValidMax>2.2</ValidMax>
+      </Property>
+      <Property>
+        <Name>R2</Name>
+        <Description>Inner edge of the current sheet tail</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>Rm</Units>
+        <UnitsConversion>2439000>m</UnitsConversion>
+        <ValidMin>1.1</ValidMin>
+        <ValidMax>2.2</ValidMax>
+      </Property>
+      <Property>
+        <Name>DZ</Name>
+        <Description>Northern displacement of the dipole relative to the center of the Mercury</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>Rm</Units>
+        <UnitsConversion>2439000>m</UnitsConversion>
+        <ValidMin>0.0</ValidMin>
+        <ValidMax>0.0</ValidMax>
+      </Property>
+      <Property>
+        <Name>IMF_B</Name>
+        <Description>Penetrating IMF components in HSM coord</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Qualifier>Vector</Qualifier>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+      </Property>
+    </InputProperties>
+    <OutputParameters>
+      <Parameter>
+        <Name>url_Param</Name>
+        <Description>URL of the netcdf/VoTable file containing the 3D coordinates (HSM) and magnetic field vectors in this points</Description>
+        <CoordinateSystem>
+          <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+          <CoordinateSystemName>MSO</CoordinateSystemName>
+        </CoordinateSystem>
+        <Field>
+          <FieldQuantity>Magnetic</FieldQuantity>
+        </Field>
+      </Parameter>
+    </OutputParameters>
+  </SimulationModel>
+  
+  <Repository>
+    <ResourceID>impex://SINP/PMM</ResourceID>
+    <ResourceHeader>
+      <ResourceName>MF-PARABOLOID_SINP</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>Paraboloid model calculates the magnetic fields in the Earth's magnetosphere depending on external conditions in solar wind and on geomagnetic activity level.</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+      <InformationURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </InformationURL>
+    </ResourceHeader>
+    <AccessURL>
+      <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+    </AccessURL>
+  </Repository>
+  <!--  Simulation Run for all generated cubes  -->
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/OnFly/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2013-07-01T00:00:00</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS OnFly</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/OnFly</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime/>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+	  <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3"/>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s"/>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3"/>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s"/>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20080910/2008-09-10UT12/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2008/09/10 at UT12 (Quiet magnetosphere)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>12:00:00.000</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.8</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">456</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.8</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">456</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>-1.6 -1.4 1.1</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-9</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-21</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>68.1</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20100925/2010-09-25UT01/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2010/09/25 at UT01 (Quiet magnetosphere)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>01:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">6.1</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">400</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">6.1</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">400</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>3.0 0.0 -10.9</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-20</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-471</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>83.4</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-19UT23/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/19 at UT23 (Prestorm)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>23:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">4.9</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">447</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">4.9</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">447</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>-4.1 2.6 1.4</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-4</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-9</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>151.5</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-20UT12/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/20 at UT12 (SSC)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>12:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">7.4</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">643</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">7.4</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">643</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>8.4 38.7 -24.0</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-49</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-1271</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>171</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-20UT17/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/20 at UT17 (Initial)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>17:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">18.5</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">596</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">18.5</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">596</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>-10.0 -2.2 -44.4</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-329</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-1619</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>171</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-20UT21/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/20 at UT21 (Main)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>21:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">14.8</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">550</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">14.8</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">550</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>-3.6 -17.6 -17.8</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-422</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-1052</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>171</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-21UT00/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/21 at UT00 (Early recovery)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>00:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">6.7</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">535</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">6.7</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">535</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>1.4 -18.6 -5.5</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-309</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-374</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>172.8</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-21UT21/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/21 at UT21 (Late recovery)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>21:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">2.8</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">476</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">2.8</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">476</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>5.6 -4.6 -1.5</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-76</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-272</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>172.8</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-23UT18/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/23 at UT18 (Prestorm)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>18:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.3</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">441</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.3</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">441</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>-1.3 4.1 1.4</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-12</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-139</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>109.3</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT06/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/24 at UT06 (SSC)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>06:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">17.8</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">495</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">17.8</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">495</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>1.5 16.3 -0.7</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>32</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-231</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>100.7</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT10/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/24 at UT10 (Initial)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>10:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">20.5</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">623</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">20.5</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">623</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>-12.3 -15.8 -38.3</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-180</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-2452</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>100.7</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT11/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/24 at UT11 (Main)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>11:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">29.6</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">620</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">29.6</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">620</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>-2.4 -14.8 1.6</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-216</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-1311</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>100.7</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT19/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/24 at UT19 (Early recovery)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>19:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">4.4</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">623</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">4.4</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">623</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>11.0 -20.2 -3.7</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-152</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-997</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>100.7</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-25UT15/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/25 at UT15 (Late recovery)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>15:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">2.7</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">644</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">2.7</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">644</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>3.1 -1.6 -3.8</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-56</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-573</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>94.4</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-06UT10/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/06 at UT10 (Prestorm)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>10:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">7.0</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">385</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">7.0</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">385</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>1.4 -9.2 4.6</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-7</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-20</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>136</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-08UT11/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/08 at UT11 (SSC)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>11:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">13.8</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">701</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">13.8</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">701</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>-4.6 -6.8 14.1</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>26</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-250</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>137.5</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-09UT03/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/09 at UT03 (Initial)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>03:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">5.0</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">689</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">5.0</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">689</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>-3.4 4.0 -13.2</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-56</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-750</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>143.5</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-09UT08/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/09 at UT08 (Main)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>08:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.2</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">713</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.2</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">713</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>-9.4 7.0 -10.6</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-140</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-1500</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>143.5</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-10UT12/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/10 at UT12 (Early recovery)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>12:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.4</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">461</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.4</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">461</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>-1.7 2.8 -2.0</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-65</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-250</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>146.9</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-11UT12/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/11 at UT12 (Late recovery)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Earth/Static</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime>
+      <TimeStart>12:00:00</TimeStart>
+    </SimulationTime>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Re</Units>
+      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-40 -30 -30</ValidMin>
+      <ValidMax>20 30 30</ValidMax>
+      <GridStructure>Constant</GridStructure>
+      <GridCellSize>0.5 0.5 0.5</GridCellSize>
+      <Symmetry>None</Symmetry>
+    </SimulationDomain>
+    <InputPopulation>
+      <Name>SW_p</Name>
+      <Description>Solar wind protons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Proton</ParticleType>
+      <ChemicalFormula>H</ChemicalFormula>
+      <AtomicNumber>1</AtomicNumber>
+      <PopulationMassNumber>1.00728</PopulationMassNumber>
+      <PopulationChargeState>1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.8</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">422</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputPopulation>
+      <Name>SW_e-</Name>
+      <Description>Solar wind electrons</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <ParticleType>Electron</ParticleType>
+      <PopulationMassNumber>0</PopulationMassNumber>
+      <PopulationChargeState>-1</PopulationChargeState>
+      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.8</PopulationDensity>
+      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">422</PopulationFlowSpeed>
+    </InputPopulation>
+    <InputField>
+      <Name>IMF</Name>
+      <Description>Interplanetary Magnetic Field</Description>
+      <SimulatedRegion>Heliosphere</SimulatedRegion>
+      <FieldQuantity>Magnetic</FieldQuantity>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <InputLabel>Bx,By,Bz</InputLabel>
+      <FieldValue>-1.1 3.7 -0.8</FieldValue>
+    </InputField>
+    <InputParameter>
+      <Name>Geomagnetic Indices</Name>
+      <Description/>
+      <ParameterQuantity>ActivityIndex</ParameterQuantity>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-31</PropertyValue>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <PropertyValue>-150</PropertyValue>
+      </Property>
+      <Property>
+        <Name>UV flux</Name>
+        <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+        <PropertyValue>129.5</PropertyValue>
+      </Property>
+    </InputParameter>
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+
+  <!--  Simulation Run for all generated cubes for Mercury -->
+  <SimulationRun>
+    <ResourceID>impex://SINP/PMM/Mercury/OnFly/SimRun</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Paraboloid magnetic field model for Mercury</ResourceName>
+      <ReleaseDate>2013-07-01T00:00:00</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS OnFly</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/PMM/Mercury/OnFly</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Mercury</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime/>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>MSO</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Rm</Units>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-5.5 -4.1 -4.1</ValidMin>
+      <ValidMax>2.6 4.1 4.1</ValidMax>
+      <GridStructure>Constant</GridStructure>
+    </SimulationDomain>
+	<InputParameter>
+      <Name>BD</Name>
+      <Description>Dipole field strength on the equator of the Mercury</Description>
+      <SimulatedRegion>Mercury</SimulatedRegion>
+      <Qualifier>Scalar</Qualifier>
+      <ParameterQuantity>MagneticField</ParameterQuantity>
+      <Property>
+        <Name>BD</Name>
+        <Description>Dipole field strength on the equator of the Mercury</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <ValidMin></ValidMin>
+        <ValidMax></ValidMax>
+      </Property>
+    </InputParameter>
+    <InputParameter>
+      <Name>Flux</Name>
+      <Description>Field strength at the inner edge of the tail current</Description>
+      <SimulatedRegion>Mercury</SimulatedRegion>
+      <Qualifier>Scalar</Qualifier>
+      <ParameterQuantity>Other</ParameterQuantity>
+      <Property>
+        <Name>Flux</Name>
+        <Description>Field strength at the inner edge of the tail current</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>MWb</Units>
+        <UnitsConversion>1000000>Wb</UnitsConversion>
+        <ValidMin></ValidMin>
+        <ValidMax></ValidMax>
+      </Property>
+    </InputParameter>
+    <InputParameter>
+      <Name>Rss</Name>
+      <Description>Sub-solar magnetopause distance in Mercury radii (2439km)</Description>
+      <SimulatedRegion>Mercury</SimulatedRegion>
+      <Qualifier>Scalar</Qualifier>
+      <ParameterQuantity>Other</ParameterQuantity>
+      <Property>
+        <Name>Rss</Name>
+        <Description>Sub-solar magnetopause distance in Mercury radii (2439km)</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>Rm</Units>
+        <UnitsConversion>2439000>m</UnitsConversion>
+        <ValidMin>1.1</ValidMin>
+        <ValidMax>2.2</ValidMax>
+      </Property>
+    </InputParameter>
+    <InputParameter>
+      <Name>R2</Name>
+      <Description>Inner edge of the current sheet tail</Description>
+      <SimulatedRegion>Mercury</SimulatedRegion>
+      <Qualifier>Scalar</Qualifier>
+      <ParameterQuantity>Other</ParameterQuantity>
+      <Property>
+        <Name>R2</Name>
+        <Description>Inner edge of the current sheet tail</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>Rm</Units>
+        <UnitsConversion>2439000>m</UnitsConversion>
+        <ValidMin>1.1</ValidMin>
+        <ValidMax>2.2</ValidMax>
+      </Property>
+    </InputParameter>
+    <InputParameter>
+      <Name>DZ</Name>
+      <Description>Northern displacement of the dipole relative to the center of the Mercury</Description>
+      <SimulatedRegion>Mercury</SimulatedRegion>
+      <Qualifier>Scalar</Qualifier>
+      <ParameterQuantity>Other</ParameterQuantity>
+      <Property>
+        <Name>DZ</Name>
+        <Description>Northern displacement of the dipole relative to the center of the Mercury</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Qualifier>Scalar</Qualifier>
+        <Units>Rm</Units>
+        <UnitsConversion>2439000>m</UnitsConversion>
+        <PropertyLabel>X0,Y0,Z0</PropertyLabel>
+        <ValidMin>0.0</ValidMin>
+        <ValidMax>0.0</ValidMax>
+      </Property>
+    </InputParameter>
+    <InputParameter>
+      <Name>IMF_B</Name>
+      <Description>Penetrating IMF components in HSM coord</Description>
+      <SimulatedRegion>Mercury</SimulatedRegion>
+      <ParameterQuantity>MagneticField</ParameterQuantity>
+      <Property>
+        <Name>IMF_B</Name>
+        <Description>Penetrating IMF components in HSM coord</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Qualifier>Vector</Qualifier>
+        <Units>nT</Units>
+        <UnitsConversion>1000>T</UnitsConversion>
+        <ValidMin></ValidMin>
+        <ValidMax></ValidMax>
+      </Property>
+    </InputParameter>    
+    <RegionParameter>
+      <SimulatedRegion>Earth</SimulatedRegion>
+      <Description/>
+      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+    </RegionParameter>
+  </SimulationRun>
+
+  <!-- Generic NumericalOutput for OnFly Earth calculations -->
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/OnFly/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2013-07-01T00:00:00</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on OnFly</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/OnFly/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20080910/2008-09-10UT12/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2008/09/10 at UT12 (Quiet magnetosphere)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2008-09-10T12:00:00</StartDate>
+        <StopDate>2008-09-10T12:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20080910/2008-09-10UT12/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20100925/2010-09-25UT01/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2010/09/25 at UT01 (Quiet magnetosphere)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2010-09-25T01:00:00</StartDate>
+        <StopDate>2010-09-25T01:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20100925/2010-09-25UT01/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-19UT23/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/19 at UT23 (Prestorm)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2003-11-19T23:00:00</StartDate>
+        <StopDate>2003-11-19T23:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20031119/2003-11-19UT23/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-20UT12/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/20 at UT12 (SSC)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2003-11-20T12:00:00</StartDate>
+        <StopDate>2003-11-20T12:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20031119/2003-11-20UT12/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-20UT17/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/20 at UT17 (Initial)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2003-11-20T17:00:00</StartDate>
+        <StopDate>2003-11-19T23:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20031119/2003-11-20UT17/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-20UT21/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/20 at UT21 (Main)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2003-11-20T21:00:00</StartDate>
+        <StopDate>2003-11-20T21:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20031119/2003-11-20UT21/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-21UT00/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/21 at UT00 (Early recovery)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2003-11-21T00:00:00</StartDate>
+        <StopDate>2003-11-21T00:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20031119/2003-11-21UT00/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-21UT21/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/21 at UT21 (Late recovery)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2003-11-21T21:00:00</StartDate>
+        <StopDate>2003-11-21T21:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20031119/2003-11-21UT21/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-23UT18/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/23 at UT18 (Prestorm)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2005-08-23T18:00:00</StartDate>
+        <StopDate>2005-08-23T18:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20050823/2005-08-23UT18/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT06/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/24 at UT06 (SSC)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2005-08-24T06:00:00</StartDate>
+        <StopDate>2005-08-24T06:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT05/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT10/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/24 at UT10 (Initial)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2005-08-24T10:00:00</StartDate>
+        <StopDate>2005-08-24T10:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT10/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT11/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/24 at UT11 (Main)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2005-08-24T11:00:00</StartDate>
+        <StopDate>2005-08-24T11:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT11/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT19/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/24 at UT19 (Early recovery)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2005-08-24T19:00:00</StartDate>
+        <StopDate>2005-08-24T19:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT19/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-25UT15/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/25 at UT15 (Late recovery)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2005-08-25T15:00:00</StartDate>
+        <StopDate>2005-08-25T15:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20050823/2005-08-25UT15/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-06UT10/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/06 at UT10 (Prestorm)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2012-03-06T10:00:00</StartDate>
+        <StopDate>2012-03-06T10:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20120306/2012-03-06UT10/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-08UT11/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/08 at UT11 (SSC)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2012-03-08T11:00:00</StartDate>
+        <StopDate>2012-03-08T11:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20120306/2012-03-08UT11/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-09UT03/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/09 at UT03 (Initial)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2012-03-09T03:00:00</StartDate>
+        <StopDate>2012-03-09T03:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20120306/2012-03-09UT03/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-09UT08/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/09 at UT08 (Main)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2012-03-09T08:00:00</StartDate>
+        <StopDate>2012-03-09T08:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20120306/2012-03-09UT08/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-10UT12/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/10 at UT12 (Early recovery)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2012-03-10T12:00:00</StartDate>
+        <StopDate>2012-03-10T12:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20120306/2012-03-10UT12/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-11UT12/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/11 at UT12 (Late recovery)</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <TemporalDescription>
+      <TimeSpan>
+        <StartDate>2012-03-11T12:00:00</StartDate>
+        <StopDate>2012-03-11T12:00:00</StopDate>
+      </TimeSpan>
+    </TemporalDescription>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/20120306/2012-03-11UT12/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+
+  <!-- Generic NumericalOutput for OnFly Mercury calculations -->
+  <NumericalOutput>
+    <ResourceID>impex://SINP/PMM/Earth/OnFly/3D-cube</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2013-07-01T00:00:00</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on OnFly</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Earth/OnFly/SimRun</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1000>T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>GSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20080910/2008-09-10UT12</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20080910/2008-09-10UT12/3D-cube</ParentID>
+    <StartDate>2008-09-10T12:00:00.000</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2008-09-10UT12.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20100925/2010-09-25UT01</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20100925/2010-09-25UT01/3D-cube</ParentID>
+    <StartDate>2010-09-25T01:00:00.000</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2010-09-25UT01.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-19UT23</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20031119/2003-11-19UT23/3D-cube</ParentID>
+    <StartDate>2003-11-19T23:00:00.000</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-19UT23.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-20UT12</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20031119/2003-11-20UT12/3D-cube</ParentID>
+    <StartDate>2003-11-20T12:00:00.000</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-20UT12.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-20UT17</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20031119/2003-11-20UT17/3D-cube</ParentID>
+    <StartDate>2003-11-20T17:00:00</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-20UT17.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-20UT21</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20031119/2003-11-20UT21/3D-cube</ParentID>
+    <StartDate>2003-11-20T21:00:00</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-20UT21.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-20UT21</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20031119/2003-11-20UT21/3D-cube</ParentID>
+    <StartDate>2003-11-21T00:00:00</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-20UT21.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-21UT00</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20031119/2003-11-21UT00/3D-cube</ParentID>
+    <StartDate>2003-11-21T21:00:00</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-21UT00.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-23UT18</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20050823/2005-08-23UT18/3D-cube</ParentID>
+    <StartDate>2005-08-23T18:00:00</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-23UT18.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT06</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20050823/2005-08-24UT06/3D-cube</ParentID>
+    <StartDate>2005-08-24T06:00:00</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-24UT06.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT10</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20050823/2005-08-24UT10/3D-cube</ParentID>
+    <StartDate>2005-08-24T10:00:00</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-24UT10.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT11</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20050823/2005-08-24UT11/3D-cube</ParentID>
+    <StartDate>2005-08-24T11:00:00</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-24UT11.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT19</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20050823/2005-08-24UT19/3D-cube</ParentID>
+    <StartDate>2005-08-24T19:00:00</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-24UT19.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-25UT15</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20050823/2005-08-25UT15/3D-cube</ParentID>
+    <StartDate>2005-08-25T15:00:00</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-25UT15.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-06UT10</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20120306/3D-cube</ParentID>
+    <StartDate>2012-03-06T10:00:00</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-06UT10.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-08UT11</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20120306/2012-03-08UT11/3D-cube</ParentID>
+    <StartDate>2012-03-08T11:00:00</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-08UT11.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-09UT03</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20120306/2012-03-09UT03/3D-cube</ParentID>
+    <StartDate>2012-03-09T03:00:00</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-09UT03.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-09UT08</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20120306/2012-03-09UT08/3D-cube</ParentID>
+    <StartDate>2012-03-09T08:00:00</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-09UT08.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-10UT12</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20120306/2012-03-10UT12/3D-cube</ParentID>
+    <StartDate>2012-03-10T12:00:00</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-10UT12.nc</URL>
+    </Source>
+  </Granule>
+  <Granule>
+    <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-11UT12</ResourceID>
+    <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://SINP/PMM/Earth/20120306/2012-03-11UT12/3D-cube</ParentID>
+    <StartDate>2012-03-11T12:00:00</StartDate>
+    <Source>
+      <SourceType>Data</SourceType>
+      <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-11UT12.nc</URL>
+    </Source>
+  </Granule>
+</Spase>

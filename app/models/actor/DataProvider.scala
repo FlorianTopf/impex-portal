@@ -21,9 +21,9 @@ case class Methods(var content: Seq[NodeSeq])
 
 // message formats
 case class GetTrees(val format: Option[String] = None)
-object GetMethods
-object GetRepository
-object UpdateTrees
+case object GetMethods
+case object GetRepository
+case object UpdateTrees
 
 // @TODO provide a basic trait and then two for each provider (obs/sim)
 trait Provider {

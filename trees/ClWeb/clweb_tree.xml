@@ -1,0 +1,462 @@
+<?xml version="1.0"?>
+<dataRoot>
+  <dataCenter name="CLWeb" desc="CLWeb_Internal_Data_Base" xml:id="CLWeb">
+    <mission name="DEMETER" xml:id="DEMETER" desc="">
+      <instrument name="ephemeris" xml:id="DEMETER:ephemeris" desc="">
+        <dataset name="orbit" xml:id="DEMETER:ephemeris:orbit" dataStart="2004/07/05" dataStop="2011/03/14">
+          <parameter name="Orbit number" units="" xml:id="DEMETER_EPHEMERIS(1)" var="orbit" desc=""/>
+          <parameter name="Orbit subnumber (0:downward 1:upward)" units="" xml:id="DEMETER_EPHEMERIS(2)" var="suborb" desc=""/>
+          <parameter name="Position in GEO geographic coordinate system" units="m" xml:id="DEMETER_EPHEMERIS(3,4,5)" var="XGEO,YGEO,ZGEO" desc="m">
+            <component name="x" xml:id="DEMETER_EPHEMERIS(3)" var="XGEO"/>
+            <component name="y" xml:id="DEMETER_EPHEMERIS(4)" var="YGEO"/>
+            <component name="z" xml:id="DEMETER_EPHEMERIS(5)" var="ZGEO"/>
+          </parameter>
+          <parameter name="Velocity in GEO geographic coordinate system" units="m/s" xml:id="DEMETER_EPHEMERIS(6,7,8)" var="VXGEO,VYGEO,VZGEO" desc="m/s">
+            <component name="Vx" xml:id="DEMETER_EPHEMERIS(6)" var="VXGEO"/>
+            <component name="Vy" xml:id="DEMETER_EPHEMERIS(7)" var="VYGEO"/>
+            <component name="Vz" xml:id="DEMETER_EPHEMERIS(8)" var="VZGEO"/>
+          </parameter>
+          <parameter name="Position in GEI coordinate system" units="m" xml:id="DEMETER_EPHEMERIS(9,10,11)" var="XVEIS,YVEIS,ZVEIS" desc="m">
+            <component name="x" xml:id="DEMETER_EPHEMERIS(9)" var="XVEIS"/>
+            <component name="y" xml:id="DEMETER_EPHEMERIS(10)" var="YVEIS"/>
+            <component name="z" xml:id="DEMETER_EPHEMERIS(11)" var="ZVEIS"/>
+          </parameter>
+          <parameter name="Velocity in GEI coordinate system" units="m/s" xml:id="DEMETER_EPHEMERIS(12,13,14)" var="VXVEIS,VYVEIS,VZVEIS" desc="m/s">
+            <component name="Vx" xml:id="DEMETER_EPHEMERIS(12)" var="VXVEIS"/>
+            <component name="Vy" xml:id="DEMETER_EPHEMERIS(13)" var="VYVEIS"/>
+            <component name="Vz" xml:id="DEMETER_EPHEMERIS(14)" var="VZVEIS"/>
+          </parameter>
+          <parameter name="Geocentric latitude (from -90 to +90)" units="deg" xml:id="DEMETER_EPHEMERIS(15)" var="RLAT" desc="deg"/>
+          <parameter name="Geocentric longitude (from 0 to 360)" units="deg" xml:id="DEMETER_EPHEMERIS(16)" var="RLONG" desc="deg"/>
+          <parameter name="Altitude" units="km" xml:id="DEMETER_EPHEMERIS(17)" var="ALT" desc="km"/>
+          <parameter name="Local time of the first point of the data array" units="hour" xml:id="DEMETER_EPHEMERIS(18)" var="LTI" desc="hour"/>
+          <parameter name="Solar position in geographic coordinate system" units="" xml:id="DEMETER_EPHEMERIS(19,20,21)" var="XSUN,YSUN,ZSUN" desc="">
+            <component name="x" xml:id="DEMETER_EPHEMERIS(19)" var="XSUN"/>
+            <component name="y" xml:id="DEMETER_EPHEMERIS(20)" var="YSUN"/>
+            <component name="z" xml:id="DEMETER_EPHEMERIS(21)" var="ZSUN"/>
+          </parameter>
+          <parameter name="Geomagnetic latitude (-90, +90)" units="deg" xml:id="DEMETER_EPHEMERIS(22)" var="MLAT" desc="deg"/>
+          <parameter name="Geomagnetic longitude (0, 360)" units="deg" xml:id="DEMETER_EPHEMERIS(23)" var="MLON" desc="deg"/>
+          <parameter name="Magnetic local time of the first point" units="deg" xml:id="DEMETER_EPHEMERIS(24)" var="MLT" desc="deg"/>
+          <parameter name="Invariant latitude (-90, +90)" units="deg" xml:id="DEMETER_EPHEMERIS(25)" var="ILAT" desc="deg"/>
+          <parameter name="Mc Ilwain parameter L (0,999)" units="" xml:id="DEMETER_EPHEMERIS(26)" var="L" desc=""/>
+          <parameter name="Geocentric latitude of the conjugate point at the satellite altitude (-90, +90)" units="deg" xml:id="DEMETER_EPHEMERIS(27)" var="RLATC" desc="deg"/>
+          <parameter name="Geocentric longitude of the conjugate point at the_satellite altitude (0, 360)" units="deg" xml:id="DEMETER_EPHEMERIS(28)" var="RLONC" desc="deg"/>
+          <parameter name="Geocentric latitude of North conjugate point at altitude 110km (90, +90)" units="deg" xml:id="DEMETER_EPHEMERIS(29)" var="RLATNC100" desc="deg"/>
+          <parameter name="Geocentric longitude of North conjugate point at altitude 110km (0, 360)" units="deg" xml:id="DEMETER_EPHEMERIS(30)" var="RLONNC100" desc="deg"/>
+          <parameter name="Geocentric latitude of South conjugate point at altitude 110km (-90, +90)" units="deg" xml:id="DEMETER_EPHEMERIS(31)" var="RLATSC100" desc="deg"/>
+          <parameter name="Geocentric longitude of South conjugate point at altitude 110km (0, 360)" units="deg" xml:id="DEMETER_EPHEMERIS(32)" var="RLONSC100" desc="deg"/>
+          <parameter name="B model in geographic coordinate system" units="nT" xml:id="DEMETER_EPHEMERIS(33,34,35,36)" var="BX,BY,BZ,B" desc="nT">
+            <component name="Bx" xml:id="DEMETER_EPHEMERIS(33)" var="BX"/>
+            <component name="By" xml:id="DEMETER_EPHEMERIS(34)" var="BY"/>
+            <component name="Bz" xml:id="DEMETER_EPHEMERIS(35)" var="BZ"/>
+            <component name="|B|" xml:id="DEMETER_EPHEMERIS(36)" var="B"/>
+          </parameter>
+          <parameter name="Difference between Bmodel and Bdipole" units="nT" xml:id="DEMETER_EPHEMERIS(37)" var="DB" desc="nT"/>
+          <parameter name="Proton gyrofrequency at satellite point" units="Hz" xml:id="DEMETER_EPHEMERIS(38)" var="Pf" desc="Hz"/>
+          <parameter name="Length dipolar field lines" units="" xml:id="DEMETER_EPHEMERIS(39)" var="S" desc=""/>
+          <parameter name="1 over S square" units="" xml:id="DEMETER_EPHEMERIS(40)" var="F" desc=""/>
+          <parameter name="Pitch angle IDP" units="deg" xml:id="DEMETER_EPHEMERIS(41)" var="PI" desc="deg"/>
+        </dataset>
+      </instrument>
+      <instrument name="MAG" xml:id="DEMETER:MAG" desc="">
+        <dataset name="GEO_LGM" xml:id="DEMETER:MAG:GEO_LGM" dataStart="2004/07/13" dataStop="2011/03/14">
+          <parameter name="B in spacecraft coordinate system" units="nT" xml:id="DEMETER_MAG(1,2,3,4)" var="Bxsat_nT,Bysat_nT,Bzsat_nT,B_nT" desc="nT">
+            <component name="Bx" xml:id="DEMETER_MAG(1)" var="Bxsat_nT"/>
+            <component name="By" xml:id="DEMETER_MAG(2)" var="Bysat_nT"/>
+            <component name="Bz" xml:id="DEMETER_MAG(3)" var="Bzsat_nT"/>
+            <component name="|B|" xml:id="DEMETER_MAG(4)" var="B_nT"/>
+          </parameter>
+          <parameter name="B model in geographic coordinate system" units="nT" xml:id="DEMETER_MAG(5,6,7)" var="Bxgeo_nT,Bygeo_nT,Bzgeo_nT" desc="nT">
+            <component name="Bx" xml:id="DEMETER_MAG(5)" var="Bxgeo_nT"/>
+            <component name="By" xml:id="DEMETER_MAG(6)" var="Bygeo_nT"/>
+            <component name="Bz" xml:id="DEMETER_MAG(7)" var="Bzgeo_nT"/>
+          </parameter>
+          <parameter name="B model in geomagnetic coordinate system" units="nT" xml:id="DEMETER_MAG(8,9,10)" var="Bxlgm_nT,Bylgm_nT,Bzlgm_nT" desc="nT">
+            <component name="Bx" xml:id="DEMETER_MAG(8)" var="Bxlgm_nT"/>
+            <component name="By" xml:id="DEMETER_MAG(9)" var="Bylgm_nT"/>
+            <component name="Bz" xml:id="DEMETER_MAG(10)" var="Bzlgm_nT"/>
+          </parameter>
+          <parameter name="B - Bmodel in geographic coordinate system" units="nT" xml:id="DEMETER_MAG(11,12,13,14)" var="dBxgeo_nT,dBygeo_nT,dBzgeo_nT,dB_nT" desc="nT">
+            <component name="dBx" xml:id="DEMETER_MAG(11)" var="dBxgeo_nT"/>
+            <component name="dBy" xml:id="DEMETER_MAG(12)" var="dBygeo_nT"/>
+            <component name="dBz" xml:id="DEMETER_MAG(13)" var="dBzgeo_nT"/>
+            <component name="dB" xml:id="DEMETER_MAG(14)" var="dB_nT"/>
+          </parameter>
+        </dataset>
+      </instrument>
+      <instrument name="ICE" xml:id="DEMETER:ICE" desc="">
+        <dataset name="VLF_1024F_SPECTRO_TIME_FREQUENCY" xml:id="DEMETER:ICE:VLF_1024F_SPECTRO_TIME_FREQUENCY" dataStart="2004/07/05" dataStop="2011/03/14">
+          <parameter name="Power array" units="uV^2/m^2/Hz" xml:id="DEMETER_ICE_VLF_1024F_SPECTRO_TIME_FREQUENCY(0)" var="1d_data" desc="uV^2/m^2/Hz"/>
+        </dataset>
+        <dataset name="HF_1024F_SPECTRO_TIME_FREQUENCY" xml:id="DEMETER:ICE:HF_1024F_SPECTRO_TIME_FREQUENCY" dataStart="2004/07/05" dataStop="2011/03/14">
+          <parameter name="Power array" units="uV^2/m^2/Hz" xml:id="DEMETER_ICE_HF_1024F_SPECTRO_TIME_FREQUENCY(0)" var="1d_data" desc="uV^2/m^2/Hz"/>
+        </dataset>
+      </instrument>
+      <instrument name="IDP" xml:id="DEMETER:IDP" desc="">
+        <dataset name="Housekeeping" xml:id="DEMETER:IDP:Housekeeping" dataStart="2004/07/05" dataStop="2011/03/14">
+          <parameter name="Discrimination level" units="keV" xml:id="DEMETER_IDP(1)" var="Discri_level_keV" desc="keV"/>
+          <parameter name="Polarisation voltage" units="Volt" xml:id="DEMETER_IDP(2)" var="Polar_voltage_Volt" desc="Volt"/>
+          <parameter name="Temperature" units="deg" xml:id="DEMETER_IDP(3)" var="Temperature_deg" desc="deg"/>
+        </dataset>
+        <dataset name="BURST_SPECTRO_TIME_ENERGY" xml:id="DEMETER:IDP:BURST_SPECTRO_TIME_ENERGY" dataStart="2004/07/05" dataStop="2011/03/14">
+          <parameter name="flux" units="part/(sec.cm2.sr.keV)" xml:id="DEMETER_ICE_BURST_SPECTRO_TIME_ENERGY(4)" var="1d_data" desc="part/(sec.cm2.sr.keV)"/>
+        </dataset>
+        <dataset name="SURVEY_SPECTRO_TIME_ENERGY" xml:id="DEMETER:IDP:SURVEY_SPECTRO_TIME_ENERGY" dataStart="2004/07/05" dataStop="2011/03/14">
+          <parameter name="flux" units="part/(sec.cm2.sr.keV)" xml:id="DEMETER_ICE_SURVEY_SPECTRO_TIME_ENERGY(4)" var="1d_data" desc="part/(sec.cm2.sr.keV)"/>
+        </dataset>
+      </instrument>
+      <instrument name="ISL" xml:id="DEMETER:ISL" desc="">
+        <dataset name="Burst" xml:id="DEMETER:ISL:Burst" dataStart="2004/07/05" dataStop="2011/03/14">
+          <parameter name="Electron Density" units="1/cm3" xml:id="DEMETER_ISL_BURST(2)" var="N_electron_cm3" desc="1/cm3"/>
+          <parameter name="Ion Density" units="1/cm3" xml:id="DEMETER_ISL_BURST(3)" var="N_ion_cm3" desc="1/cm3"/>
+          <parameter name="Electron Temperature" units="deg K" xml:id="DEMETER_ISL_BURST(4)" var="T_electron_K" desc="deg K"/>
+          <parameter name="Plasma potential" units="Volt" xml:id="DEMETER_ISL_BURST(5)" var="Plasma_potential_V" desc="Volt"/>
+          <parameter name="Floating potential" units="Volt" xml:id="DEMETER_ISL_BURST(6)" var="Floating_potential_V" desc="Volt"/>
+          <parameter name="Spacecraft Potential" units="Volt" xml:id="DEMETER_ISL_BURST(7)" var="Satellite_potential_V" desc="Volt"/>
+        </dataset>
+        <dataset name="Survey" xml:id="DEMETER:ISL:Survey" dataStart="2004/07/16" dataStop="2011/03/14">
+          <parameter name="Electron Density" units="1/cm3" xml:id="DEMETER_ISL_SURVEY(2)" var="N_electron_cm3" desc="1/cm3"/>
+          <parameter name="Ion Density" units="1/cm3" xml:id="DEMETER_ISL_SURVEY(3)" var="N_ion_cm3" desc="1/cm3"/>
+          <parameter name="Electron Temperature" units="deg K" xml:id="DEMETER_ISL_SURVEY(4)" var="T_electron_K" desc="deg K"/>
+          <parameter name="Plasma potential" units="Volt" xml:id="DEMETER_ISL_SURVEY(5)" var="Plasma_potential_V" desc="Volt"/>
+          <parameter name="Floating potential" units="Volt" xml:id="DEMETER_ISL_SURVEY(6)" var="Floating_potential_V" desc="Volt"/>
+          <parameter name="Spacecraft Potential" units="Volt" xml:id="DEMETER_ISL_SURVEY(7)" var="Satellite_potential_V" desc="Volt"/>
+        </dataset>
+      </instrument>
+      <instrument name="IMSC" xml:id="DEMETER:IMSC" desc="">
+        <dataset name="VLF_1024F_SPECTRO_TIME_FREQUENCY" xml:id="DEMETER:IMSC:VLF_1024F_SPECTRO_TIME_FREQUENCY" dataStart="2004/07/05" dataStop="2011/03/14">
+          <parameter name="Power array" units="nT^2/Hz" xml:id="DEMETER_IMSC_VLF_1024F_SPECTRO_TIME_FREQUENCY(0)" var="1d_data" desc="nT^2/Hz"/>
+        </dataset>
+      </instrument>
+    </mission>
+    <mission name="INTERBALL-TAIL" xml:id="INTERBALL-TAIL" desc="">
+      <instrument name="ephemeris" xml:id="INTERBALL-TAIL:ephemeris" desc="">
+        <dataset name="orbit from FM3I" xml:id="INTERBALL-TAIL:ephemeris:FM3I" dataStart="1995/08/05" dataStop="2000/10/16">
+          <parameter name="position in GSM" units="Rt" xml:id="IT_EPHEMERIS_FM3I(1,2,3)" var="X_gsm_Rt,Y_gsm_Rt,Z_gsm_Rt" desc="Rt">
+            <component name="x" xml:id="IT_EPHEMERIS_FM3I(1)" var="X_gsm_Rt"/>
+            <component name="y" xml:id="IT_EPHEMERIS_FM3I(2)" var="Y_gsm_Rt"/>
+            <component name="z" xml:id="IT_EPHEMERIS_FM3I(3)" var="Z_gsm_Rt"/>
+          </parameter>
+        </dataset>
+        <dataset name="orbit from MIFM" xml:id="INTERBALL-TAIL:ephemeris:MIFM" dataStart="1995/08/06" dataStop="2000/10/16">
+          <parameter name="position in GSM" units="Rt" xml:id="IT_EPHEMERIS_MIFM(1,2,3)" var="X_gsm_Rt,Y_gsm_Rt,Z_gsm_Rt" desc="Rt">
+            <component name="x" xml:id="IT_EPHEMERIS_MIFM(1)" var="X_gsm_Rt"/>
+            <component name="y" xml:id="IT_EPHEMERIS_MIFM(2)" var="Y_gsm_Rt"/>
+            <component name="z" xml:id="IT_EPHEMERIS_MIFM(3)" var="Z_gsm_Rt"/>
+          </parameter>
+        </dataset>
+        <dataset name="orbit from ELECTRON" xml:id="INTERBALL-TAIL:ephemeris:ELECTRON" dataStart="1995/08/15" dataStop="2000/10/15">
+          <parameter name="position in GSM" units="Rt" xml:id="IT_EPHEMERIS_ELECTRON(1,2,3)" var="X_gsm_Rt,Y_gsm_Rt,Z_gsm_Rt" desc="Rt">
+            <component name="x" xml:id="IT_EPHEMERIS_ELECTRON(1)" var="X_gsm_Rt"/>
+            <component name="y" xml:id="IT_EPHEMERIS_ELECTRON(2)" var="Y_gsm_Rt"/>
+            <component name="z" xml:id="IT_EPHEMERIS_ELECTRON(3)" var="Z_gsm_Rt"/>
+          </parameter>
+        </dataset>
+        <dataset name="orbit detailed from ELECTRON" xml:id="INTERBALL-TAIL:ephemeris:ELECTRON-DETAILED" dataStart="1995/08/15" dataStop="2000/10/15">
+          <parameter name="Numero orbite" units="" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(1)" var="NORB" desc=""/>
+          <parameter name="Position geographique" units="km" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(2,3,4)" var="XG,YG,ZG" desc="km">
+            <component name="x" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(2)" var="XG"/>
+            <component name="y" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(3)" var="YG"/>
+            <component name="z" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(4)" var="ZG"/>
+          </parameter>
+          <parameter name="Vitesse geographique" units="km/sec" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(5,6,7)" var="VGX,VGY,VGZ" desc="km/sec">
+            <component name="Vx" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(5)" var="VGX"/>
+            <component name="Vy" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(6)" var="VGY"/>
+            <component name="Vz" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(7)" var="VGZ"/>
+          </parameter>
+          <parameter name="Altitude geographique" units="km" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(8)" var="ALT" desc="km"/>
+          <parameter name="Latitude geographique" units="deg" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(9)" var="DLATGR" desc="deg"/>
+          <parameter name="Longitude geographique" units="deg" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(10)" var="DLONR" desc="deg"/>
+          <parameter name="Distance" units="rayon geomagnetique" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(11)" var="RRE" desc="rayon geomagnetique"/>
+          <parameter name="Colatitude geocentrique" units="deg" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(12)" var="THETR" desc="deg"/>
+          <parameter name="Longitude geocentrique" units="deg" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(13)" var="PHIR" desc="deg"/>
+          <parameter name="Coordonnees solaire ecliptique" units="rayon geomagnetique" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(14,15,16)" var="XGSE,YGSE,ZGSE" desc="rayon geomagnetique">
+            <component name="x" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(14)" var="XGSE"/>
+            <component name="y" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(15)" var="YGSE"/>
+            <component name="z" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(16)" var="ZGSE"/>
+          </parameter>
+          <parameter name="Coordonnees solaire magnetoshperique" units="rayon geomagnetique" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(17,18,19)" var="XGSM,YGSM,ZGSM" desc="rayon geomagnetique">
+            <component name="x" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(17)" var="XGSM"/>
+            <component name="y" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(18)" var="YGSM"/>
+            <component name="z" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(19)" var="ZGSM"/>
+          </parameter>
+          <parameter name="Latitude geomagnetique" units="deg" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(20)" var="XLATGR" desc="deg"/>
+          <parameter name="Longitude geomagnetique" units="deg" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(21)" var="XLONGR" desc="deg"/>
+          <parameter name="Temps geomagnetique local du satellite" units="heure et fraction" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(22)" var="TGL" desc="heure et fraction"/>
+          <parameter name="Hauteur ombre" units="km" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(23)" var="HSL" desc="km"/>
+          <parameter name="champ magnetique local" units="gauss" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(24)" var="BB" desc="gauss"/>
+          <parameter name="Comp. sol. magnetoshperique du champ" units="gauss" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(25,26,27)" var="BXGSM,BYGSM,BZGSM" desc="gauss">
+            <component name="Bx" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(25)" var="BXGSM"/>
+            <component name="By" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(26)" var="BYGSM"/>
+            <component name="Bz" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(27)" var="BZGSM"/>
+          </parameter>
+          <parameter name="Comp. sol. ecliptique du champ" units="gauss" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(28,29,30)" var="BXSE,BYSE,BZSE" desc="gauss">
+            <component name="Bx" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(28)" var="BXSE"/>
+            <component name="By" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(29)" var="BYSE"/>
+            <component name="Bz" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(30)" var="BZSE"/>
+          </parameter>
+          <parameter name="Latitude invariante" units="deg" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(31)" var="XLAMB" desc="deg"/>
+          <parameter name="Temps geom. local du conjuge du satellite" units="heure et fraction" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(32)" var="TGLC" desc="heure et fraction"/>
+          <parameter name="Parametre de Mac Ilwain" units="" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(33)" var="FL" desc=""/>
+          <parameter name="Temps geom. local equateur" units="heure et fraction" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(34)" var="TGLEQ" desc="heure et fraction"/>
+          <parameter name="Distance geoc. du point equatorial" units="rayon geomagnetique" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(35)" var="REQ" desc="rayon geomagnetique"/>
+          <parameter name="Champ magnetique equateur" units="gauss" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(36)" var="BEQ" desc="gauss"/>
+          <parameter name="Longueur ligne de force" units="" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(37)" var="FLENGTH" desc=""/>
+          <parameter name="1/Longueur ligne de force ** 2" units="" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(38)" var="FLENGTH___2" desc=""/>
+          <parameter name="Potentiel electrique" units="kV" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(39)" var="PHIKV" desc="kV"/>
+          <parameter name="Distance a la magnetopause" units="rayon geomagnetique" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(40)" var="DMP" desc="rayon geomagnetique"/>
+          <parameter name="Distance a la bow-shock" units="rayon geomagnetique" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(41)" var="DBS" desc="rayon geomagnetique"/>
+          <parameter name="Distance a la neutral sheet" units="rayon geomagnetique" xml:id="IT_EPHEMERIS_ELECTRON-DETAILED(42)" var="DZNSH" desc="rayon geomagnetique"/>
+        </dataset>
+      </instrument>
+      <instrument name="FM3I" xml:id="INTERBALL-TAIL:FM3I" desc="">
+        <dataset name="Magnetic field FM3I coordinates" xml:id="INTERBALL-TAIL:FM3I:MAG" dataStart="1995/08/05" dataStop="2000/10/16">
+          <parameter name="spined magnetic field in FM3I coordinates" units="nT" xml:id="IT_FM3I_MAG(1,2,3,4)" var="Bx_sc_nT,By_sc_nT,Bz_sc_nT,B_nT" desc="nT">
+            <component name="Bx" xml:id="IT_FM3I_MAG(1)" var="Bx_sc_nT"/>
+            <component name="By" xml:id="IT_FM3I_MAG(2)" var="By_sc_nT"/>
+            <component name="Bz" xml:id="IT_FM3I_MAG(3)" var="Bz_sc_nT"/>
+            <component name="|B|" xml:id="IT_FM3I_MAG(4)" var="B_nT"/>
+          </parameter>
+        </dataset>
+        <dataset name="Magnetic field GSM coordinates" xml:id="INTERBALL-TAIL:FM3I:GSM" dataStart="1995/08/06" dataStop="2000/10/10">
+          <parameter name="magnetic field in GSM coordinates" units="nT" xml:id="IT_FM3I_GSM(1,2,3,4)" var="Bx_gsm_nT,By_gsm_nT,Bz_gsm_nT,B_nT" desc="nT">
+            <component name="Bx" xml:id="IT_FM3I_GSM(1)" var="Bx_gsm_nT"/>
+            <component name="By" xml:id="IT_FM3I_GSM(2)" var="By_gsm_nT"/>
+            <component name="Bz" xml:id="IT_FM3I_GSM(3)" var="Bz_gsm_nT"/>
+            <component name="|B|" xml:id="IT_FM3I_GSM(4)" var="B_nT"/>
+          </parameter>
+        </dataset>
+        <dataset name="Housekeeping" xml:id="INTERBALL-TAIL:FM3I:HK" dataStart="1995/08/05" dataStop="2000/10/16">
+          <parameter name="zero level of ADC" units="Volt" xml:id="IT_FM3I_HK(1)" var="ADV_Volt" desc="Volt"/>
+          <parameter name="Captor temperature" units="deg" xml:id="IT_FM3I_HK(2)" var="Temperature1_deg" desc="deg"/>
+          <parameter name="Electronic box temperature" units="deg" xml:id="IT_FM3I_HK(3)" var="Temperature2_deg" desc="deg"/>
+        </dataset>
+      </instrument>
+      <instrument name="MIFM" xml:id="INTERBALL-TAIL:MIFM" desc="">
+        <dataset name="Magnetic field MIFM coordinates" xml:id="INTERBALL-TAIL:MIFM:MAG" dataStart="1995/08/06" dataStop="2000/10/16">
+          <parameter name="spined magnetic field in MIFM coordinates" units="nT" xml:id="IT_MIFM_MAG(1,2,3,4)" var="Bx_sc_nT,By_sc_nT,Bz_sc_nT,B_nT" desc="nT">
+            <component name="Bx" xml:id="IT_MIFM_MAG(1)" var="Bx_sc_nT"/>
+            <component name="By" xml:id="IT_MIFM_MAG(2)" var="By_sc_nT"/>
+            <component name="Bz" xml:id="IT_MIFM_MAG(3)" var="Bz_sc_nT"/>
+            <component name="|B|" xml:id="IT_MIFM_MAG(4)" var="B_nT"/>
+          </parameter>
+        </dataset>
+        <dataset name="Magnetic field GSM coordinates" xml:id="INTERBALL-TAIL:MIFM:GSM" dataStart="1995/08/06" dataStop="2000/10/10">
+          <parameter name="magnetic field in GSM coordinates" units="nT" xml:id="IT_MIFM_GSM(1,2,3,4)" var="Bx_gsm_nT,By_gsm_nT,Bz_gsm_nT,B_nT" desc="nT">
+            <component name="Bx" xml:id="IT_MIFM_GSM(1)" var="Bx_gsm_nT"/>
+            <component name="By" xml:id="IT_MIFM_GSM(2)" var="By_gsm_nT"/>
+            <component name="Bz" xml:id="IT_MIFM_GSM(3)" var="Bz_gsm_nT"/>
+            <component name="|B|" xml:id="IT_MIFM_GSM(4)" var="B_nT"/>
+          </parameter>
+        </dataset>
+      </instrument>
+      <instrument name="ELECTRON" xml:id="INTERBALL-TAIL:ELECTRON" desc="">
+        <dataset name="Housekeeping from COT" xml:id="INTERBALL-TAIL:ELECTRON:COT" dataStart="1995/08/15" dataStop="2000/10/15">
+          <parameter name="Palier de la Haute tension" units="Volt" xml:id="IT_ELECTRON_COT(1)" var="HT_Volt" desc="Volt"/>
+          <parameter name="Controle de Temperature" units="degC" xml:id="IT_ELECTRON_COT(2)" var="Temperature_degC" desc="degC"/>
+        </dataset>
+        <dataset name="Housekeeping from TE2" xml:id="INTERBALL-TAIL:ELECTRON:TE2" dataStart="1995/08/15" dataStop="2000/10/15">
+          <parameter name="courant primaire" units="mA" xml:id="IT_ELECTRON_TE2(1)" var="Ip_mA" desc="mA"/>
+          <parameter name="temperature interne du convertisseur" units="degC" xml:id="IT_ELECTRON_TE2(2)" var="TemperatureC_degC" desc="degC"/>
+          <parameter name="temperature en un point du boitier" units="degC" xml:id="IT_ELECTRON_TE2(3)" var="Temperature1_degC" desc="degC"/>
+          <parameter name="temperature en un autre point du boitier" units="degC" xml:id="IT_ELECTRON_TE2(4)" var="Temperature2_degC" desc="degC"/>
+          <parameter name="tension primaire du convertisseur" units="Volt" xml:id="IT_ELECTRON_TE2(5)" var="Vp_Volt" desc="Volt"/>
+          <parameter name="indique si la PROM est sous tension" units="" xml:id="IT_ELECTRON_TE2(6)" var="Prom" desc=""/>
+          <parameter name="haute tension de la galette" units="Volt" xml:id="IT_ELECTRON_TE2(7)" var="Mcp_Volt" desc="Volt"/>
+          <parameter name="controle tension +28V" units="Volt" xml:id="IT_ELECTRON_TE2(8)" var="Plus28V_Volt" desc="Volt"/>
+          <parameter name="controle tension +10V" units="Volt" xml:id="IT_ELECTRON_TE2(9)" var="Plus10V_Volt" desc="Volt"/>
+          <parameter name="controle tension -10V" units="Volt" xml:id="IT_ELECTRON_TE2(10)" var="Minus10V_Volt" desc="Volt"/>
+          <parameter name="controle tension +5V" units="Volt" xml:id="IT_ELECTRON_TE2(11)" var="Plus5V_Volt" desc="Volt"/>
+          <parameter name="bouchon present" units="" xml:id="IT_ELECTRON_TE2(12)" var="Bouchon" desc=""/>
+        </dataset>
+        <dataset name="NFQE" xml:id="INTERBALL-TAIL:ELECTRON:NFQE" dataStart="1995/08/15" dataStop="2000/10/15">
+          <parameter name="numero de la table d'energie [0 1 2]" units="" xml:id="IT_ELECTRON_NFQE(1)" var="table" desc=""/>
+          <parameter name="densite MP1" units="cm-3" xml:id="IT_ELECTRON_NFQE(2)" var="NMP1_cm3" desc="cm-3"/>
+          <parameter name="densite voie1" units="cm-3" xml:id="IT_ELECTRON_NFQE(3)" var="N1_cm3" desc="cm-3"/>
+          <parameter name="densite voie2" units="cm-3" xml:id="IT_ELECTRON_NFQE(4)" var="N2_cm3" desc="cm-3"/>
+          <parameter name="densite voie3" units="cm-3" xml:id="IT_ELECTRON_NFQE(5)" var="N3_cm3" desc="cm-3"/>
+          <parameter name="densite voie4" units="cm-3" xml:id="IT_ELECTRON_NFQE(6)" var="N4_cm3" desc="cm-3"/>
+          <parameter name="densite voie5" units="cm-3" xml:id="IT_ELECTRON_NFQE(7)" var="N5_cm3" desc="cm-3"/>
+          <parameter name="densite voie6" units="cm-3" xml:id="IT_ELECTRON_NFQE(8)" var="N6_cm3" desc="cm-3"/>
+          <parameter name="densite voie7" units="cm-3" xml:id="IT_ELECTRON_NFQE(9)" var="N7_cm3" desc="cm-3"/>
+          <parameter name="densite voie8" units="cm-3" xml:id="IT_ELECTRON_NFQE(10)" var="N8_cm3" desc="cm-3"/>
+          <parameter name="flux integral d'energie MP1" units="cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(11)" var="FMP1_cm2_sec_sr_1" desc="cm-2.sec-1.sr-1"/>
+          <parameter name="flux integral d'energie voie1" units="cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(12)" var="F1_cm2_sec_sr_1" desc="cm-2.sec-1.sr-1"/>
+          <parameter name="flux integral d'energie voie2" units="cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(13)" var="F2_cm2_sec_sr_1" desc="cm-2.sec-1.sr-1"/>
+          <parameter name="flux integral d'energie voie3" units="cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(14)" var="F3_cm2_sec_sr_1" desc="cm-2.sec-1.sr-1"/>
+          <parameter name="flux integral d'energie voie4" units="cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(15)" var="F4_cm2_sec_sr_1" desc="cm-2.sec-1.sr-1"/>
+          <parameter name="flux integral d'energie voie5" units="cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(16)" var="F5_cm2_sec_sr_1" desc="cm-2.sec-1.sr-1"/>
+          <parameter name="flux integral d'energie voie6" units="cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(17)" var="F6_cm2_sec_sr_1" desc="cm-2.sec-1.sr-1"/>
+          <parameter name="flux integral d'energie voie7" units="cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(18)" var="F7_cm2_sec_sr_1" desc="cm-2.sec-1.sr-1"/>
+          <parameter name="flux integral d'energie voie8" units="cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(19)" var="F8_cm2_sec_sr_1" desc="cm-2.sec-1.sr-1"/>
+          <parameter name="flux d'energie MP1" units="keV.cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(20)" var="QMP1_kev_cm_2_sec_1_sr_1" desc="keV.cm-2.sec-1.sr-1"/>
+          <parameter name="flux d'energie voie1" units="keV.cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(21)" var="Q1_kev_cm_2_sec_1_sr_1" desc="keV.cm-2.sec-1.sr-1"/>
+          <parameter name="flux d'energie voie2" units="keV.cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(22)" var="Q2_kev_cm_2_sec_1_sr_1" desc="keV.cm-2.sec-1.sr-1"/>
+          <parameter name="flux d'energie voie3" units="keV.cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(23)" var="Q3_kev_cm_2_sec_1_sr_1" desc="keV.cm-2.sec-1.sr-1"/>
+          <parameter name="flux d'energie voie4" units="keV.cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(24)" var="Q4_kev_cm_2_sec_1_sr_1" desc="keV.cm-2.sec-1.sr-1"/>
+          <parameter name="flux d'energie voie5" units="keV.cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(25)" var="Q5_kev_cm_2_sec_1_sr_1" desc="keV.cm-2.sec-1.sr-1"/>
+          <parameter name="flux d'energie voie6" units="keV.cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(26)" var="Q6_kev_cm_2_sec_1_sr_1" desc="keV.cm-2.sec-1.sr-1"/>
+          <parameter name="flux d'energie voie7" units="keV.cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(27)" var="Q7_kev_cm_2_sec_1_sr_1" desc="keV.cm-2.sec-1.sr-1"/>
+          <parameter name="flux d'energie voie8" units="keV.cm-2.sec-1.sr-1" xml:id="IT_ELECTRON_NFQE(28)" var="Q8_kev_cm_2_sec_1_sr_1" desc="keV.cm-2.sec-1.sr-1"/>
+          <parameter name="energie moyenne MP1" units="keV" xml:id="IT_ELECTRON_NFQE(29)" var="EMP1_keV" desc="keV"/>
+          <parameter name="energie moyenne voie1" units="keV" xml:id="IT_ELECTRON_NFQE(30)" var="E1_keV" desc="keV"/>
+          <parameter name="energie moyenne voie2" units="keV" xml:id="IT_ELECTRON_NFQE(31)" var="E2_keV" desc="keV"/>
+          <parameter name="energie moyenne voie3" units="keV" xml:id="IT_ELECTRON_NFQE(32)" var="E3_keV" desc="keV"/>
+          <parameter name="energie moyenne voie4" units="keV" xml:id="IT_ELECTRON_NFQE(33)" var="E4_keV" desc="keV"/>
+          <parameter name="energie moyenne voie5" units="keV" xml:id="IT_ELECTRON_NFQE(34)" var="E5_keV" desc="keV"/>
+          <parameter name="energie moyenne voie6" units="keV" xml:id="IT_ELECTRON_NFQE(35)" var="E6_keV" desc="keV"/>
+          <parameter name="energie moyenne voie7" units="keV" xml:id="IT_ELECTRON_NFQE(36)" var="E7_keV" desc="keV"/>
+          <parameter name="energie moyenne voie8" units="keV" xml:id="IT_ELECTRON_NFQE(37)" var="E8_keV" desc="keV"/>
+          <parameter name="somme des comptages du spectre MP1" units="" xml:id="IT_ELECTRON_NFQE(38)" var="Summ_countMP1" desc=""/>
+          <parameter name="somme des comptages du spectre voie1" units="" xml:id="IT_ELECTRON_NFQE(39)" var="Summ_count1" desc=""/>
+          <parameter name="somme des comptages du spectre voie2" units="" xml:id="IT_ELECTRON_NFQE(40)" var="Summ_count2" desc=""/>
+          <parameter name="somme des comptages du spectre voie3" units="" xml:id="IT_ELECTRON_NFQE(41)" var="Summ_count3" desc=""/>
+          <parameter name="somme des comptages du spectre voie4" units="" xml:id="IT_ELECTRON_NFQE(42)" var="Summ_count4" desc=""/>
+          <parameter name="somme des comptages du spectre voie5" units="" xml:id="IT_ELECTRON_NFQE(43)" var="Summ_count5" desc=""/>
+          <parameter name="somme des comptages du spectre voie6" units="" xml:id="IT_ELECTRON_NFQE(44)" var="Summ_count6" desc=""/>
+          <parameter name="somme des comptages du spectre voie7" units="" xml:id="IT_ELECTRON_NFQE(45)" var="Summ_count7" desc=""/>
+          <parameter name="somme des comptages du spectre voie8" units="" xml:id="IT_ELECTRON_NFQE(46)" var="Summ_count8" desc=""/>
+        </dataset>
+        <dataset name="3D moments" xml:id="INTERBALL-TAIL:ELECTRON:3DMOMENTS" dataStart="1995/08/15" dataStop="2000/10/15">
+          <parameter name="density" units="cm-3" xml:id="IT_ELECTRON_3DMOMENTS(0)" var="N_cm3" desc="cm-3"/>
+          <parameter name="velocity in ELEC" units="km/sec" xml:id="IT_ELECTRON_3DMOMENTS(1,2,3,4)" var="Vx_km_sec,Vy_km_sec,Vz_km_sec,V_km_sec" desc="km/sec">
+            <component name="Vx" xml:id="IT_ELECTRON_3DMOMENTS(1)" var="Vx_km_sec"/>
+            <component name="Vy" xml:id="IT_ELECTRON_3DMOMENTS(2)" var="Vy_km_sec"/>
+            <component name="Vz" xml:id="IT_ELECTRON_3DMOMENTS(3)" var="Vz_km_sec"/>
+            <component name="|V]" xml:id="IT_ELECTRON_3DMOMENTS(4)" var="V_km_sec"/>
+          </parameter>
+          <parameter name="velocity in GSE" units="km/sec" xml:id="IT_ELECTRON_3DMOMENTS(5,6,7,4)" var="Vx_gse_km_sec,Vy_gse_km_sec,Vz_gse_km_sec,V_km_sec" desc="km/sec">
+            <component name="Vx" xml:id="IT_ELECTRON_3DMOMENTS(5)" var="Vx_gse_km_sec"/>
+            <component name="Vy" xml:id="IT_ELECTRON_3DMOMENTS(6)" var="Vy_gse_km_sec"/>
+            <component name="Vz" xml:id="IT_ELECTRON_3DMOMENTS(7)" var="Vz_gse_km_sec"/>
+          </parameter>
+          <parameter name="velocity in GSM" units="km/sec" xml:id="IT_ELECTRON_3DMOMENTS(8,9,10,4)" var="Vx_gsm_km_sec,Vy_gsm_km_sec,Vz_gsm_km_sec,V_km_sec" desc="km/sec">
+            <component name="Vx" xml:id="IT_ELECTRON_3DMOMENTS(8)" var="Vx_gsm_km_sec"/>
+            <component name="Vy" xml:id="IT_ELECTRON_3DMOMENTS(9)" var="Vy_gsm_km_sec"/>
+            <component name="Vz" xml:id="IT_ELECTRON_3DMOMENTS(10)" var="Vz_gsm_km_sec"/>
+          </parameter>
+          <parameter name="pressure with jacobi" units="eV/cm3" xml:id="IT_ELECTRON_3DMOMENTS(11,12,13)" var="Ppar_eV_cm3,Pper1_eV_cm3,Pper2_eV_cm3" desc="eV/cm3">
+            <component name="Ppar" xml:id="IT_ELECTRON_3DMOMENTS(11)" var="Ppar_eV_cm3"/>
+            <component name="Pper1" xml:id="IT_ELECTRON_3DMOMENTS(12)" var="Pper1_eV_cm3"/>
+            <component name="Pper2" xml:id="IT_ELECTRON_3DMOMENTS(13)" var="Pper2_eV_cm3"/>
+          </parameter>
+          <parameter name="temperature with jacobi" units="eV" xml:id="IT_ELECTRON_3DMOMENTS(14,15,16)" var="Tpar_eV,Tper1_eV,Tper2_eV" desc="eV">
+            <component name="Tpar" xml:id="IT_ELECTRON_3DMOMENTS(14)" var="Tpar_eV"/>
+            <component name="Tper1" xml:id="IT_ELECTRON_3DMOMENTS(15)" var="Tper1_eV"/>
+            <component name="Tper2" xml:id="IT_ELECTRON_3DMOMENTS(16)" var="Tper2_eV"/>
+          </parameter>
+          <parameter name="heat flux in ELEC" units="erg/(sec.cm2)" xml:id="IT_ELECTRON_3DMOMENTS(17,18,19,20)" var="Qx_erg_sec_cm2,Qy_erg_sec_cm2,Qz_erg_sec_cm2,Q_erg_sec_cm2" desc="erg/(sec.cm2)">
+            <component name="Qx" xml:id="IT_ELECTRON_3DMOMENTS(17)" var="Qx_erg_sec_cm2"/>
+            <component name="Qy" xml:id="IT_ELECTRON_3DMOMENTS(18)" var="Qy_erg_sec_cm2"/>
+            <component name="Qz" xml:id="IT_ELECTRON_3DMOMENTS(19)" var="Qz_erg_sec_cm2"/>
+            <component name="|Q|" xml:id="IT_ELECTRON_3DMOMENTS(20)" var="Q_erg_sec_cm2"/>
+          </parameter>
+          <parameter name="heat flux in GSE" units="erg/(sec.cm2)" xml:id="IT_ELECTRON_3DMOMENTS(21,22,23,20)" var="Qx_gse_erg_sec_cm2,Qy_gse_erg_sec_cm2,Qz_gse_erg_sec_cm2,Q_erg_sec_cm2" desc="erg/(sec.cm2)">
+            <component name="Qx" xml:id="IT_ELECTRON_3DMOMENTS(21)" var="Qx_gse_erg_sec_cm2"/>
+            <component name="Qy" xml:id="IT_ELECTRON_3DMOMENTS(22)" var="Qy_gse_erg_sec_cm2"/>
+            <component name="Qz" xml:id="IT_ELECTRON_3DMOMENTS(23)" var="Qz_gse_erg_sec_cm2"/>
+          </parameter>
+          <parameter name="heat flux in GSM" units="erg/(sec.cm2)" xml:id="IT_ELECTRON_3DMOMENTS(24,25,26,20)" var="Qx_gsm_erg_sec_cm2,Qy_gsm_erg_sec_cm2,Qz_gsm_erg_sec_cm2,Q_erg_sec_cm2" desc="erg/(sec.cm2)">
+            <component name="Qx" xml:id="IT_ELECTRON_3DMOMENTS(24)" var="Qx_gsm_erg_sec_cm2"/>
+            <component name="Qy" xml:id="IT_ELECTRON_3DMOMENTS(25)" var="Qy_gsm_erg_sec_cm2"/>
+            <component name="Qz" xml:id="IT_ELECTRON_3DMOMENTS(26)" var="Qz_gsm_erg_sec_cm2"/>
+          </parameter>
+          <parameter name="heat Flux along B" units="erg/(sec.cm2)" xml:id="IT_ELECTRON_3DMOMENTS(85,86,87,88)" var="Qxpar_erg_sec_cm2,Qypar_erg_sec_cm2,Qzpar_erg_sec_cm2,Qpar_erg_sec_cm2" desc="erg/(sec.cm2)">
+            <component name="Qx" xml:id="IT_ELECTRON_3DMOMENTS(85)" var="Qxpar_erg_sec_cm2"/>
+            <component name="Qy" xml:id="IT_ELECTRON_3DMOMENTS(86)" var="Qypar_erg_sec_cm2"/>
+            <component name="Qz" xml:id="IT_ELECTRON_3DMOMENTS(87)" var="Qzpar_erg_sec_cm2"/>
+            <component name="|Q|" xml:id="IT_ELECTRON_3DMOMENTS(88)" var="Qpar_erg_sec_cm2"/>
+          </parameter>
+          <parameter name="heat Flux perpendicular to B" units="erg/(sec.cm2)" xml:id="IT_ELECTRON_3DMOMENTS(89,90,91,92)" var="Qxper_erg_sec_cm2,Qyper_erg_sec_cm2,Qzper_erg_sec_cm2,Qper_erg_sec_cm2" desc="erg/(sec.cm2)">
+            <component name="Qx" xml:id="IT_ELECTRON_3DMOMENTS(89)" var="Qxper_erg_sec_cm2"/>
+            <component name="Qy" xml:id="IT_ELECTRON_3DMOMENTS(90)" var="Qyper_erg_sec_cm2"/>
+            <component name="Qz" xml:id="IT_ELECTRON_3DMOMENTS(91)" var="Qzper_erg_sec_cm2"/>
+            <component name="|Q|" xml:id="IT_ELECTRON_3DMOMENTS(92)" var="Qper_erg_sec_cm2"/>
+          </parameter>
+          <parameter name="pressor tensor in ELEC" units="eV/cm3" xml:id="IT_ELECTRON_3DMOMENTS(27,28,29,30,31,32)" var="Pxx_eV_cm3,Pxy_eV_cm3,Pxz_eV_cm3,Pyy_eV_cm3,Pyz_eV_cm3,Pzz_eV_cm3" desc="eV/cm3">
+            <component name="Pxx" xml:id="IT_ELECTRON_3DMOMENTS(27)" var="Pxx_eV_cm3"/>
+            <component name="Pxy" xml:id="IT_ELECTRON_3DMOMENTS(28)" var="Pxy_eV_cm3"/>
+            <component name="Pxz" xml:id="IT_ELECTRON_3DMOMENTS(29)" var="Pxz_eV_cm3"/>
+            <component name="Pyy" xml:id="IT_ELECTRON_3DMOMENTS(30)" var="Pyy_eV_cm3"/>
+            <component name="Pyz" xml:id="IT_ELECTRON_3DMOMENTS(31)" var="Pyz_eV_cm3"/>
+            <component name="Pzz" xml:id="IT_ELECTRON_3DMOMENTS(32)" var="Pzz_eV_cm3"/>
+          </parameter>
+          <parameter name="pressor tensor in (B,Z^B,B^(Z^B))" units="" xml:id="IT_ELECTRON_3DMOMENTS(70,71,72,73,74,75)" var="Pxx_eV_cm3_b,Pxy_eV_cm3_b,Pxz_eV_cm3_b,Pyy_eV_cm3_b,Pyz_eV_cm3_b,Pzz_eV_cm3_b" desc="">
+            <component name="Pxx" xml:id="IT_ELECTRON_3DMOMENTS(70)" var="Pxx_eV_cm3_b"/>
+            <component name="Pxy" xml:id="IT_ELECTRON_3DMOMENTS(71)" var="Pxy_eV_cm3_b"/>
+            <component name="Pxz" xml:id="IT_ELECTRON_3DMOMENTS(72)" var="Pxz_eV_cm3_b"/>
+            <component name="Pyy" xml:id="IT_ELECTRON_3DMOMENTS(73)" var="Pyy_eV_cm3_b"/>
+            <component name="Pyz" xml:id="IT_ELECTRON_3DMOMENTS(74)" var="Pyz_eV_cm3_b"/>
+            <component name="Pzz" xml:id="IT_ELECTRON_3DMOMENTS(75)" var="Pzz_eV_cm3_b"/>
+          </parameter>
+          <parameter name="internal energy (trace/2)" units="eV" xml:id="IT_ELECTRON_3DMOMENTS(33)" var="Ei_eV_cm3" desc="eV"/>
+          <parameter name="parallel eigen vector in GSE" units="unitless" xml:id="IT_ELECTRON_3DMOMENTS(38,39,40)" var="Ex_gse,Ey_gse,Ez_gse" desc="unitless">
+            <component name="Ex" xml:id="IT_ELECTRON_3DMOMENTS(38)" var="Ex_gse"/>
+            <component name="Ey" xml:id="IT_ELECTRON_3DMOMENTS(39)" var="Ey_gse"/>
+            <component name="Ez" xml:id="IT_ELECTRON_3DMOMENTS(40)" var="Ez_gse"/>
+          </parameter>
+          <parameter name="parallel eigen vector in GSM" units="unitless" xml:id="IT_ELECTRON_3DMOMENTS(41,42,43)" var="Ex_gsm,Ey_gsm,Ez_gsm" desc="unitless">
+            <component name="Ex" xml:id="IT_ELECTRON_3DMOMENTS(41)" var="Ex_gsm"/>
+            <component name="Ey" xml:id="IT_ELECTRON_3DMOMENTS(42)" var="Ey_gsm"/>
+            <component name="Ez" xml:id="IT_ELECTRON_3DMOMENTS(43)" var="Ez_gsm"/>
+          </parameter>
+          <parameter name="parallel velocity in ELEC" units="km/sec" xml:id="IT_ELECTRON_3DMOMENTS(44,45,46,47)" var="Vxpar_elec_km_sec,Vypar_elec_km_sec,Vzpar_elec_km_sec,Vpar_elec_km_sec" desc="km/sec">
+            <component name="Vx" xml:id="IT_ELECTRON_3DMOMENTS(44)" var="Vxpar_elec_km_sec"/>
+            <component name="Vy" xml:id="IT_ELECTRON_3DMOMENTS(45)" var="Vypar_elec_km_sec"/>
+            <component name="Vz" xml:id="IT_ELECTRON_3DMOMENTS(46)" var="Vzpar_elec_km_sec"/>
+            <component name="|V|" xml:id="IT_ELECTRON_3DMOMENTS(47)" var="Vpar_elec_km_sec"/>
+          </parameter>
+          <parameter name="perpendicular velocity in ELEC" units="km/sec" xml:id="IT_ELECTRON_3DMOMENTS(48,49,50,51)" var="Vxper_elec_km_sec,Vyper_elec_km_sec,Vzper_elec_km_sec,Vper_elec_km_sec" desc="km/sec">
+            <component name="Vx" xml:id="IT_ELECTRON_3DMOMENTS(48)" var="Vxper_elec_km_sec"/>
+            <component name="Vy" xml:id="IT_ELECTRON_3DMOMENTS(49)" var="Vyper_elec_km_sec"/>
+            <component name="Vz" xml:id="IT_ELECTRON_3DMOMENTS(50)" var="Vzper_elec_km_sec"/>
+            <component name="|V|" xml:id="IT_ELECTRON_3DMOMENTS(51)" var="Vper_elec_km_sec"/>
+          </parameter>
+          <parameter name="V^B in ELEC" units="mV/m" xml:id="IT_ELECTRON_3DMOMENTS(52,53,54,55)" var="Elx_elec_mV_m,Ely_elec_mV_m,Elz_elec_mV_m,El_elec_mV_m" desc="mV/m">
+            <component name="Ex" xml:id="IT_ELECTRON_3DMOMENTS(52)" var="Elx_elec_mV_m"/>
+            <component name="Ey" xml:id="IT_ELECTRON_3DMOMENTS(53)" var="Ely_elec_mV_m"/>
+            <component name="Zz" xml:id="IT_ELECTRON_3DMOMENTS(54)" var="Elz_elec_mV_m"/>
+            <component name="|E|" xml:id="IT_ELECTRON_3DMOMENTS(55)" var="El_elec_mV_m"/>
+          </parameter>
+          <parameter name="trace with jacobi" units="nPa" xml:id="IT_ELECTRON_3DMOMENTS(56)" var="Pp_nPa" desc="nPa"/>
+          <parameter name="magnetic pression B*B/(2*mu0)" units="nPa" xml:id="IT_ELECTRON_3DMOMENTS(57)" var="Pm_nPa" desc="nPa"/>
+          <parameter name="Pp_nPa / Pm_nPa" units="" xml:id="IT_ELECTRON_3DMOMENTS(58)" var="Beta" desc=""/>
+          <parameter name="alfven velocity in ELEC" units="km/sec" xml:id="IT_ELECTRON_3DMOMENTS(60,61,62,63)" var="Vxalfven_elec_km_sec,Vyalfven_elec_km_sec,Vzalfven_elec_km_sec,Valfven_km_sec" desc="km/sec">
+            <component name="Vx" xml:id="IT_ELECTRON_3DMOMENTS(60)" var="Vxalfven_elec_km_sec"/>
+            <component name="Vy" xml:id="IT_ELECTRON_3DMOMENTS(61)" var="Vyalfven_elec_km_sec"/>
+            <component name="Vz" xml:id="IT_ELECTRON_3DMOMENTS(62)" var="Vzalfven_elec_km_sec"/>
+            <component name="|V]" xml:id="IT_ELECTRON_3DMOMENTS(63)" var="Valfven_km_sec"/>
+          </parameter>
+          <parameter name="anisotropy MIN(Pxx,Pyy,Pzz)/MAX(Pxx,Pyy,Pzz) of pressor tensor in (B,Z^B,B^(Z^B)" units="" xml:id="IT_ELECTRON_3DMOMENTS(76)" var="An" desc=""/>
+          <parameter name="non gyrotropy MAX(Pxy,Pxz,Pyz)/(1/3.*(Pxx+Pyy+Pzz)) of pressor tensor in (B,Z^B,B^(Z^B)" units="" xml:id="IT_ELECTRON_3DMOMENTS(77)" var="Ng" desc=""/>
+          <parameter name="magnetic field in GSE used in moments computation" units="nT" xml:id="IT_ELECTRON_3DMOMENTS(96,97,98)" var="Bx_gse_nT,By_gse_nT,Bz_gse_nT" desc="nT">
+            <component name="Bx" xml:id="IT_ELECTRON_3DMOMENTS(96)" var="Bx_gse_nT"/>
+            <component name="By" xml:id="IT_ELECTRON_3DMOMENTS(97)" var="By_gse_nT"/>
+            <component name="Bz" xml:id="IT_ELECTRON_3DMOMENTS(98)" var="Bz_gse_nT"/>
+          </parameter>
+          <parameter name="magnetic field in GSM used in moments computation" units="nT" xml:id="IT_ELECTRON_3DMOMENTS(99,100,101)" var="Bx_gsm_nT,By_gsm_nT,Bz_gsm_nT" desc="nT">
+            <component name="Bx" xml:id="IT_ELECTRON_3DMOMENTS(99)" var="Bx_gsm_nT"/>
+            <component name="By" xml:id="IT_ELECTRON_3DMOMENTS(100)" var="By_gsm_nT"/>
+            <component name="Bz" xml:id="IT_ELECTRON_3DMOMENTS(101)" var="Bz_gsm_nT"/>
+          </parameter>
+        </dataset>
+        <dataset name="3D32E_SPECTRO_TIME_ENERGY" xml:id="INTERBALL-TAIL:ELECTRON:3D32E_SPECTRO_TIME_ENERGY" dataStart="1995/08/15" dataStop="2000/10/15">
+          <parameter name="c/s" units="part/sec" xml:id="IT_ELECTRON_3D32E_SPECTRO_TIME_ENERGY(3)" var="1d_data" desc="part/sec"/>
+          <parameter name="flux" units="part/(sec.cm2.sr.keV)" xml:id="IT_ELECTRON_3D32E_SPECTRO_TIME_ENERGY(4)" var="1d_data" desc="part/(sec.cm2.sr.keV)"/>
+          <parameter name="JE" units="keV/(sec.cm2.sr.keV)" xml:id="IT_ELECTRON_3D32E_SPECTRO_TIME_ENERGY(6)" var="1d_data" desc="keV/(sec.cm2.sr.keV)"/>
+        </dataset>
+        <dataset name="3D16E_SPECTRO_TIME_ENERGY" xml:id="INTERBALL-TAIL:ELECTRON:3D16E_SPECTRO_TIME_ENERGY" dataStart="1995/08/17" dataStop="2000/09/07">
+          <parameter name="c/s" units="part/sec" xml:id="IT_ELECTRON_3D16E_SPECTRO_TIME_ENERGY(3)" var="1d_data" desc="part/sec"/>
+          <parameter name="flux" units="part/(sec.cm2.sr.keV)" xml:id="IT_ELECTRON_3D16E_SPECTRO_TIME_ENERGY(4)" var="1d_data" desc="part/(sec.cm2.sr.keV)"/>
+          <parameter name="JE" units="keV/(sec.cm2.sr.keV)" xml:id="IT_ELECTRON_3D16E_SPECTRO_TIME_ENERGY(6)" var="1d_data" desc="keV/(sec.cm2.sr.keV)"/>
+        </dataset>
+        <dataset name="2D16E_SPECTRO_TIME_ENERGY" xml:id="INTERBALL-TAIL:ELECTRON:2D16E_SPECTRO_TIME_ENERGY" dataStart="1995/08/23" dataStop="1997/05/14">
+          <parameter name="c/s" units="part/sec" xml:id="IT_ELECTRON_2D16E_SPECTRO_TIME_ENERGY(3)" var="1d_data" desc="part/sec"/>
+          <parameter name="flux" units="part/(sec.cm2.sr.keV)" xml:id="IT_ELECTRON_2D16E_SPECTRO_TIME_ENERGY(4)" var="1d_data" desc="part/(sec.cm2.sr.keV)"/>
+          <parameter name="JE" units="keV/(sec.cm2.sr.keV)" xml:id="IT_ELECTRON_2D16E_SPECTRO_TIME_ENERGY(6)" var="1d_data" desc="keV/(sec.cm2.sr.keV)"/>
+        </dataset>
+      </instrument>
+    </mission>
+</dataCenter>
+</dataRoot>

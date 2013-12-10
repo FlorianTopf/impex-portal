@@ -17,10 +17,10 @@ import scala.concurrent.Future
 
 // message formats
 trait ConfigMessage
-object GetConfig extends ConfigMessage
+case object GetConfig extends ConfigMessage
 // not used in the REST interface of the portal
-object GetTools extends ConfigMessage
-object GetDatabases extends ConfigMessage
+case object GetTools extends ConfigMessage
+case object GetDatabases extends ConfigMessage
 case class GetDatabaseType(val dtype: Databasetype) extends ConfigMessage
 case class GetDatabase(val name: String) extends ConfigMessage
 case class GetTool(val name: String) extends ConfigMessage
