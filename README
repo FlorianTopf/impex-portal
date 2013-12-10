@@ -4,6 +4,7 @@ impex-portal
 IMPEx portal for access to scientific Web services
 
 Prototype version includes:
+- current IMPEx configuration file in XML format (conf directory)
 - default loading of remote resources and initialisation of actor system in Global.scala (default package)
 - development controller for tree exploitations in Application.scala (controllers)
 - initial actor system with ConfigService.scala, DataProvider.scala and RegistryService.scala (models.actor)
