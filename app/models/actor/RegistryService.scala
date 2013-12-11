@@ -40,19 +40,18 @@ class RegistryService extends Actor {
 object RegistryService {
   implicit val timeout = Timeout(1 minute)
   
-  private val registry: ActorRef = Akka.system.actorFor("user/registry")
-  
+  private val registry: ActorSelection = Akka.system.actorSelection("user/registry")
   def registerChild(props: Props, name: String) = {
     (registry ? RegisterProvider(props, name))
   }
   
-  private def getChilds(databases: Seq[Database]): Seq[ActorRef] = {
+  private def getChilds(databases: Seq[Database]): Seq[ActorSelection] = {
     databases map { database => getChild(database.name)}
   }
   
-  // @TODO check if child exists
-  private def getChild(name: String): ActorRef = {
-    Akka.system.actorFor(registry.path.child(name))
+  // @TODO check if child exists and is alive
+  private def getChild(name: String): ActorSelection = {
+    Akka.system.actorSelection("user/registry/"+name)  
   }
 
   // @TODO merge multiple trees here (in xml)
@@ -62,7 +61,7 @@ object RegistryService {
       provider <- { 
         pName match {
           case Some(p: String) if databases.exists(d => d.name == p) =>
-            val provider: ActorRef = getChild(p)
+            val provider: ActorSelection = getChild(p)
             DataProvider.getTreeXML(provider)
           //case None => // get all dataproviders
           case _ => future { Seq(<error>provider not found</error>) }
@@ -77,7 +76,7 @@ object RegistryService {
       provider <- { 
         pName match {
           case p: String if databases.exists(d => d.name == p) =>
-            val provider: ActorRef = getChild(p)
+            val provider: ActorSelection = getChild(p)
             DataProvider.getMethodsXML(provider)
           case _ => future { Seq(<error>provider not found</error>) }
         }
@@ -93,7 +92,7 @@ object RegistryService {
       provider <-
         pName match {
           case Some(p: String) if databases.exists(d => d.name == p) =>
-            val provider: ActorRef = getChild(p)
+            val provider: ActorSelection = getChild(p)
             DataProvider.getRepository(provider)
           case None => future {
             getChilds(databases) flatMap { provider =>

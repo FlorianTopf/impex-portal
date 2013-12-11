@@ -72,16 +72,11 @@ class ConfigService extends Actor {
 object ConfigService {
     implicit val timeout = Timeout(10 seconds)
     
+    // @TODO check if actor exists and is alive
     // @TODO unified error message
     def request(msg: ConfigMessage): Future[Any] = {
-        val actor: ActorRef = Akka.system.actorFor("user/config")
-        actor.isTerminated match {
-            case false => (actor ? msg)
-            case _ => Akka.future {
-                //Json.obj("error" -> "actor terminated")
-            	<error>config actor terminated</error>
-            } // @TODO create new actor
-        }
+        val actor: ActorSelection = Akka.system.actorSelection("user/config")
+        actor ? msg
     }
     
 }

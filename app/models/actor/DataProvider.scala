@@ -36,7 +36,7 @@ trait Provider {
   protected def getMethodsXML = accessMethods.content
 }
 
-//@TODO integrate scheduled dump to harddisk, and use this then! block updating!
+//@TODO integrate scheduled dump to hard disk, and use this then! block updating!
 class DataProvider(val dataTree: Trees, val accessMethods: Methods, 
     val dbType: Databasetype) extends Actor {
 	//println(self.path.name)
@@ -48,7 +48,7 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods,
         case GetMethods => sender ! getMethodsXML
         case GetRepository => sender ! getRepository
         case UpdateTrees => { 
-          //@TODO exception handling
+          //@TODO integrate exception handling here
           dataTree.content = updateTrees
           println("finished")
         }
@@ -98,9 +98,11 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods,
           treeURL => 
         	val promise = WS.url(treeURL).get()
         	try {
-        	  Some(Await.result(promise, 1.minute).xml)
+        	  Await.result(promise, 1.minute).xml
         	} catch {
-        	  case e: TimeoutException => None
+        	  case e: TimeoutException =>
+        	   scala.xml.XML.loadFile(
+        	       PathProvider.getTreePath(treeURL, getMetaData.name))
         	}
         }
     }
@@ -110,20 +112,20 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods,
 object DataProvider {
     implicit val timeout = Timeout(10 seconds)
     
-    def getTreeXML(provider: ActorRef) = {
+    def getTreeXML(provider: ActorSelection) = {
       (provider ? GetTrees(Some("xml"))).mapTo[Seq[NodeSeq]]
     }
     
-    def getMethodsXML(provider: ActorRef) = {
+    def getMethodsXML(provider: ActorSelection) = {
       (provider ? GetMethods).mapTo[Seq[NodeSeq]]
     }
     
-    def getRepository(provider: ActorRef) = {
+    def getRepository(provider: ActorSelection) = {
       (provider ? GetRepository).mapTo[Seq[(Databasetype, Any)]]
     }
     
     // @TODO we need that later for updating the trees dynamically (on admin request)
-    def updateTrees(provider: ActorRef) = {
+    def updateTrees(provider: ActorSelection) = {
     	(provider ? UpdateTrees)
     }
     

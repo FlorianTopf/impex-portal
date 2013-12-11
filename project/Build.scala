@@ -13,6 +13,7 @@ object ApplicationBuild extends Build {
     // Add your project dependencies here,
     jdbc,
     anorm,
+    cache,
     "org.scalaxb" %% "scalaxb" % "1.1.2",
     "net.databinder.dispatch" %% "dispatch-core" % "0.9.5",
     "org.scala-lang.modules" %% "scala-async" % "0.9.0-M4"

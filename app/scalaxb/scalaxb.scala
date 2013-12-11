@@ -4,6 +4,8 @@ import scala.xml.{Node, NodeSeq, NamespaceBinding, Elem, UnprefixedAttribute, Pr
 import javax.xml.datatype.{XMLGregorianCalendar}
 import javax.xml.namespace.QName
 import javax.xml.bind.DatatypeConverter
+//additional manual imports
+import scala.language.{postfixOps, existentials, implicitConversions}
 
 object `package` {
   import annotation.implicitNotFound

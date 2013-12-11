@@ -26,50 +26,45 @@ object Application extends Controller {
     Ok(views.html.index("Your new application is ready."))
   }
   
-  def config = Action {
+  def config = Action.async {
     val future = ConfigService.request(GetDatabases).mapTo[Seq[Database]]
     
-    Async {
-      future.map(databases => Ok(views.html.config(databases)))
-    }
+    future.map(databases => Ok(views.html.config(databases)))
   }
   
-  def tree = Action {
-     val future = RegistryService.getTreeXML(Some("SINP"))
-    
-     Async {
-      future map { response =>
+  def tree = Action.async {
+    val future = RegistryService.getTreeXML(Some("SINP"))
 
-        val tree = response map { r => scalaxb.fromXML[Spase](r) }
-        //val simulationModel = response.xml \\ "SimulatioModel" \ "ResourceID"
+    future map { response =>
 
-        val simulationModels: ListBuffer[SimulationModel] = ListBuffer()
-        val simulationRuns: ListBuffer[SimulationRun] = ListBuffer()
+      val tree = response map { r => scalaxb.fromXML[Spase](r) }
+      //val simulationModel = response.xml \\ "SimulatioModel" \ "ResourceID"
 
-        for (element <- tree(0).ResourceEntity) element.key.get match {
-          case "SimulationModel" => simulationModels += element.as[SimulationModel]
-          //@TODO still the same problem with some XML elements
-          case "SimulationRun" => simulationRuns += 
-            scalaxb.fromXML[SimulationRun](element.value.asInstanceOf[NodeSeq])
-          case _ => //println("something else")
-        }
+      val simulationModels: ListBuffer[SimulationModel] = ListBuffer()
+      val simulationRuns: ListBuffer[SimulationRun] = ListBuffer()
 
-        //println(simulationRuns(1))
-
-        //Ok("OK: "+test.text+"<br/>"+
-        Ok("OK: First model: " + simulationModels.head.ResourceID + "; " +
-          simulationModels.length + " Models found ; " +
-          tree.head.ResourceEntity.length + " ResourceEntity elements found" + "; " +
-          //"RepositoryID="+repository.ResourceID+"; "+
-          simulationRuns.length + " SimulationRuns found ----->>>>>> "+ simulationRuns)
-
+      for (element <- tree(0).ResourceEntity) element.key.get match {
+        case "SimulationModel" => simulationModels += element.as[SimulationModel]
+        //@TODO still the same problem with some XML elements
+        case "SimulationRun" => simulationRuns +=
+          scalaxb.fromXML[SimulationRun](element.value.asInstanceOf[NodeSeq])
+        case _ => //println("something else")
       }
-     }
+
+      //println(simulationRuns(1))
+
+      //Ok("OK: "+test.text+"<br/>"+
+      Ok("OK: First model: " + simulationModels.head.ResourceID + "; " +
+        simulationModels.length + " Models found ; " +
+        tree.head.ResourceEntity.length + " ResourceEntity elements found" + "; " +
+        //"RepositoryID="+repository.ResourceID+"; "+
+        simulationRuns.length + " SimulationRuns found ----->>>>>> " + simulationRuns)
+    }
      
   } 
   
-  def repo = Action {
- /*   val stripped1 = Await.result(
+  def repo = Action.async {
+    /*   val stripped1 = Await.result(
         RegistryService.requestTreeXML(Some("AMDA")).mapTo[Seq[NodeSeq]], 1.second) map { tree => tree \\ "dataCenter" }
     
     val stripped2 = Await.result(
@@ -78,16 +73,13 @@ object Application extends Controller {
     val merged = <dataRoot>{stripped1}{stripped2}</dataRoot>
     
     Ok("OK:" + merged) */
-      val registry: ActorRef = Akka.system.actorFor("user/registry")
-      //val future = RegistryService.getRepository()
-      //val future = RegistryService.getRepository("AMDA")
-      val future = RegistryService.getRepositoryType(Simulation)
-      
-      Async {
-        future.map{ repositories =>
-          Ok(views.html.repository(repositories))
-        }
-      }  
+    //val future = RegistryService.getRepository()
+    //val future = RegistryService.getRepository("AMDA")
+    val future = RegistryService.getRepositoryType(Simulation)
+
+    future.map { repositories =>
+      Ok(views.html.repository(repositories))
+    }
     
   }
   
