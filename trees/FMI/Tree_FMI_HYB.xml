@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Spase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://impex-fp7.oeaw.ac.at" xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex.latmos.ipsl.fr/test/impex+spase-1.0rc1.xsd">
+<Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex.latmos.ipsl.fr/test/impex+spase-1.0rc1.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <Version>2.2.2</Version>
 <SimulationModel>
 	<ResourceID>impex://FMI/HWA/HYB/</ResourceID>
@@ -71,7 +70,7 @@
 		<Duration>PT400.1S</Duration>
 		<TimeStart>00:00:00</TimeStart>
 		<TimeStep>PT0.0666667S</TimeStep>
-		<DiagnosisTimeStep TimeStart="00:00:00" Duration="PT20S"/>
+		<DiagnosisTimeStep Duration="PT20S" TimeStart="00:00:00"/>
 	</SimulationTime>
 	<SimulationDomain>
 		<CoordinateSystem>
@@ -769,7 +768,7 @@
 		<Duration>PT400.1S</Duration>
 		<TimeStart>00:00:00</TimeStart>
 		<TimeStep>PT0.04S</TimeStep>
-		<DiagnosisTimeStep TimeStart="00:00:00" Duration="PT20S"/>
+		<DiagnosisTimeStep Duration="PT20S" TimeStart="00:00:00"/>
 	</SimulationTime>
 	<SimulationDomain>
 		<CoordinateSystem>
@@ -1467,7 +1466,7 @@
 		<Duration>PT700.1S</Duration>
 		<TimeStart>00:00:00</TimeStart>
 		<TimeStep>PT0.04S</TimeStep>
-		<DiagnosisTimeStep TimeStart="00:00:00" Duration="PT20S"/>
+		<DiagnosisTimeStep Duration="PT20S" TimeStart="00:00:00"/>
 	</SimulationTime>
 	<SimulationDomain>
 		<CoordinateSystem>
@@ -2253,7 +2252,7 @@
 		<Duration>PT400.1S</Duration>
 		<TimeStart>00:00:00</TimeStart>
 		<TimeStep>PT0.0224066S</TimeStep>
-		<DiagnosisTimeStep TimeStart="00:00:00" Duration="PT20S"/>
+		<DiagnosisTimeStep Duration="PT20S" TimeStart="00:00:00"/>
 	</SimulationTime>
 	<SimulationDomain>
 		<CoordinateSystem>

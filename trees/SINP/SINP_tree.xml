@@ -1,6 +1,6 @@
-<Spase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://impex-fp7.oeaw.ac.at" xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex.latmos.ipsl.fr/doc/impex+spase_latest.xsd">
+<Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex.latmos.ipsl.fr/doc/impex+spase_latest.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Version>2.2.2</Version>
-  <!--  For static case Earth -->
+  
   <SimulationModel>
     <ResourceID>impex://SINP/PMM/Earth/Static</ResourceID>
     <ResourceHeader>
@@ -30,7 +30,7 @@
         <Name>SW_Speed</Name>
         <PropertyQuantity>FlowSpeed</PropertyQuantity>
         <Units>km/s</Units>
-        <UnitsConversion>1.0e+3>m/s</UnitsConversion>
+        <UnitsConversion>1.0e+3&gt;m/s</UnitsConversion>
         <ValidMin>200</ValidMin>
         <ValidMax>2000</ValidMax>
       </Property>
@@ -38,7 +38,7 @@
         <Name>SW_Density</Name>
         <PropertyQuantity>NumberDensity</PropertyQuantity>
         <Units>cm^-3</Units>
-        <UnitsConversion>1.0e+6>m^-3</UnitsConversion>
+        <UnitsConversion>1.0e+6&gt;m^-3</UnitsConversion>
         <ValidMin>0</ValidMin>
         <ValidMax>200</ValidMax>
       </Property>
@@ -48,19 +48,19 @@
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Qualifier>Vector</Qualifier>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
       </Property>
       <Property>
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
       </Property>
     </InputProperties>
     <OutputParameters>
@@ -77,7 +77,7 @@
       </Parameter>
     </OutputParameters>
   </SimulationModel>
-  <!--  For static case Saturn -->
+  
   <SimulationModel>
     <ResourceID>impex://SINP/PMM/Saturn/Static</ResourceID>
     <ResourceHeader>
@@ -108,21 +108,21 @@
         <Description>Magnetic field at magnetodisc outer edge</Description>
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
       </Property>
       <Property>
         <Name>BT</Name>
         <Description>Magnetic field at tail current inner edge</Description>
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
       </Property>
       <Property>
         <Name>RD2</Name>
         <Description>Distance to the external edge of MD</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rs</Units>
-        <UnitsConversion>6.0268e+7>m</UnitsConversion>
+        <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
       </Property>
       <Property>
         <Name>RD1</Name>
@@ -130,7 +130,7 @@
         <PropertyQuantity>Other</PropertyQuantity>
         <Qualifier>Scalar</Qualifier>
         <Units>Rs</Units>
-        <UnitsConversion>6.0268e+7>m</UnitsConversion>
+        <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
       </Property>
       <Property>
         <Name>R2</Name>
@@ -138,7 +138,7 @@
         <PropertyQuantity>Other</PropertyQuantity>
         <Qualifier>Scalar</Qualifier>
         <Units>Rs</Units>
-        <UnitsConversion>6.0268e+7>m</UnitsConversion>
+        <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
       </Property>
       <Property>
         <Name>R1</Name>
@@ -146,7 +146,7 @@
         <PropertyQuantity>Other</PropertyQuantity>
         <Qualifier>Scalar</Qualifier>
         <Units>Rs</Units>
-        <UnitsConversion>6.0268e+7>m</UnitsConversion>
+        <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
       </Property>
       <Property>
         <Name>IMF_B</Name>
@@ -154,7 +154,7 @@
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Qualifier>Vector</Qualifier>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
       </Property>
     </InputProperties>
     <OutputParameters>
@@ -171,7 +171,7 @@
       </Parameter>
     </OutputParameters>
   </SimulationModel>
-  <!-- For static case Mercury -->
+  
   <SimulationModel>
     <ResourceID>impex://SINP/PMM/Mercury/Static</ResourceID>
     <ResourceHeader>
@@ -202,16 +202,16 @@
         <Description>Dipole field strength on the equator of the Mercury</Description>
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
-        <ValidMin></ValidMin>
-        <ValidMax></ValidMax>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
+        <ValidMin/>
+        <ValidMax/>
       </Property>
       <Property>
         <Name>Flux</Name>
         <Description>Field strength at the inner edge of the tail current</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>MWb</Units>
-        <UnitsConversion>1000000>Wb</UnitsConversion>
+        <UnitsConversion>1000000&gt;Wb</UnitsConversion>
         <ValidMin>2.3</ValidMin>
         <ValidMax>5.0</ValidMax>
       </Property>
@@ -220,7 +220,7 @@
         <Description>Sub-solar magnetopause distance in Mercury radii (2439km)</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rm</Units>
-        <UnitsConversion>2439000>m</UnitsConversion>
+        <UnitsConversion>2439000&gt;m</UnitsConversion>
         <ValidMin>1.1</ValidMin>
         <ValidMax>2.2</ValidMax>
       </Property>
@@ -229,7 +229,7 @@
         <Description>Inner edge of the current sheet tail</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rm</Units>
-        <UnitsConversion>2439000>m</UnitsConversion>
+        <UnitsConversion>2439000&gt;m</UnitsConversion>
         <ValidMin>1.1</ValidMin>
         <ValidMax>2.2</ValidMax>
       </Property>
@@ -238,7 +238,7 @@
         <Description>Northern displacement of the dipole relative to the center of the Mercury</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rm</Units>
-        <UnitsConversion>2439000>m</UnitsConversion>
+        <UnitsConversion>2439000&gt;m</UnitsConversion>
         <ValidMin>0.0</ValidMin>
         <ValidMax>0.0</ValidMax>
       </Property>
@@ -248,7 +248,7 @@
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Qualifier>Vector</Qualifier>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
       </Property>
     </InputProperties>
     <OutputParameters>
@@ -257,7 +257,7 @@
         <Description>URL of the netcdf/VoTable file containing the 3D coordinates and values</Description>
         <CoordinateSystem>
           <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-          <!--CoordinateSystemName>HSM</CoordinateSystemName>-->
+          
           <CoordinateSystemName>MSO</CoordinateSystemName>
         </CoordinateSystem>
         <Field>
@@ -266,7 +266,7 @@
       </Parameter>
     </OutputParameters>
   </SimulationModel>
-  <!--  For on-fly Earth -->
+  
   <SimulationModel>
     <ResourceID>impex://SINP/PMM/Earth/OnFly</ResourceID>
     <ResourceHeader>
@@ -296,7 +296,7 @@
         <Name>SW_Speed</Name>
         <PropertyQuantity>FlowSpeed</PropertyQuantity>
         <Units>km/s</Units>
-        <UnitsConversion>1.0e+3>m/s</UnitsConversion>
+        <UnitsConversion>1.0e+3&gt;m/s</UnitsConversion>
         <ValidMin>200</ValidMin>
         <ValidMax>2000</ValidMax>
       </Property>
@@ -304,7 +304,7 @@
         <Name>SW_Density</Name>
         <PropertyQuantity>NumberDensity</PropertyQuantity>
         <Units>cm^-3</Units>
-        <UnitsConversion>1.0e+6>m^-3</UnitsConversion>
+        <UnitsConversion>1.0e+6&gt;m^-3</UnitsConversion>
         <ValidMin>0</ValidMin>
         <ValidMax>200</ValidMax>
       </Property>
@@ -314,19 +314,19 @@
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Qualifier>Vector</Qualifier>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
       </Property>
       <Property>
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
       </Property>
     </InputProperties>
     <OutputParameters>
@@ -343,7 +343,7 @@
       </Parameter>
     </OutputParameters>
   </SimulationModel>
-  <!--  For on-fly Saturn -->
+  
   <SimulationModel>
     <ResourceID>impex://SINP/PMM/Saturn/OnFly</ResourceID>
     <ResourceHeader>
@@ -374,21 +374,21 @@
         <Description>Magnetic field at magnetodisc outer edge</Description>
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
       </Property>
       <Property>
         <Name>BT</Name>
         <Description>Magnetic field at tail current inner edge</Description>
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
       </Property>
       <Property>
         <Name>RD2</Name>
         <Description>Distance to the external edge of MD</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rs</Units>
-        <UnitsConversion>6.0268e+7>m</UnitsConversion>
+        <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
       </Property>
       <Property>
         <Name>RD1</Name>
@@ -396,7 +396,7 @@
         <PropertyQuantity>Other</PropertyQuantity>
         <Qualifier>Scalar</Qualifier>
         <Units>Rs</Units>
-        <UnitsConversion>6.0268e+7>m</UnitsConversion>
+        <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
       </Property>
       <Property>
         <Name>R2</Name>
@@ -404,7 +404,7 @@
         <PropertyQuantity>Other</PropertyQuantity>
         <Qualifier>Scalar</Qualifier>
         <Units>Rs</Units>
-        <UnitsConversion>6.0268e+7>m</UnitsConversion>
+        <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
       </Property>
       <Property>
         <Name>R1</Name>
@@ -412,7 +412,7 @@
         <PropertyQuantity>Other</PropertyQuantity>
         <Qualifier>Scalar</Qualifier>
         <Units>Rs</Units>
-        <UnitsConversion>6.0268e+7>m</UnitsConversion>
+        <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
       </Property>
       <Property>
         <Name>IMF_B</Name>
@@ -420,7 +420,7 @@
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Qualifier>Vector</Qualifier>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
       </Property>
     </InputProperties>
     <OutputParameters>
@@ -437,7 +437,7 @@
       </Parameter>
     </OutputParameters>
   </SimulationModel>
-  <!--  For on-fly Mercury -->
+  
   <SimulationModel>
     <ResourceID>impex://SINP/PMM/Mercury/OnFly</ResourceID>
     <ResourceHeader>
@@ -468,25 +468,25 @@
         <Description>Dipole field strength on the equator of the Mercury</Description>
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
-        <ValidMin></ValidMin>
-        <ValidMax></ValidMax>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
+        <ValidMin/>
+        <ValidMax/>
       </Property>
       <Property>
         <Name>Flux</Name>
         <Description>Field strength at the inner edge of the tail current</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>MWb</Units>
-        <UnitsConversion>1000000>Wb</UnitsConversion>
-        <ValidMin></ValidMin>
-        <ValidMax></ValidMax>
+        <UnitsConversion>1000000&gt;Wb</UnitsConversion>
+        <ValidMin/>
+        <ValidMax/>
       </Property>
       <Property>
         <Name>Rss</Name>
         <Description>Sub-solar magnetopause distance in Mercury radii (2439km)</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rm</Units>
-        <UnitsConversion>2439000>m</UnitsConversion>
+        <UnitsConversion>2439000&gt;m</UnitsConversion>
         <ValidMin>1.1</ValidMin>
         <ValidMax>2.2</ValidMax>
       </Property>
@@ -495,7 +495,7 @@
         <Description>Inner edge of the current sheet tail</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rm</Units>
-        <UnitsConversion>2439000>m</UnitsConversion>
+        <UnitsConversion>2439000&gt;m</UnitsConversion>
         <ValidMin>1.1</ValidMin>
         <ValidMax>2.2</ValidMax>
       </Property>
@@ -504,7 +504,7 @@
         <Description>Northern displacement of the dipole relative to the center of the Mercury</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rm</Units>
-        <UnitsConversion>2439000>m</UnitsConversion>
+        <UnitsConversion>2439000&gt;m</UnitsConversion>
         <ValidMin>0.0</ValidMin>
         <ValidMax>0.0</ValidMax>
       </Property>
@@ -514,7 +514,7 @@
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Qualifier>Vector</Qualifier>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
       </Property>
     </InputProperties>
     <OutputParameters>
@@ -550,7 +550,7 @@
       <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
     </AccessURL>
   </Repository>
-  <!--  Simulation Run for all generated cubes  -->
+  
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/OnFly/SimRun</ResourceID>
     <ResourceHeader>
@@ -586,7 +586,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-	  <UnitsConversion>6.371e+6>m</UnitsConversion>
+	  <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -602,8 +602,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3"/>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s"/>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3"/>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s"/>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -612,8 +612,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3"/>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s"/>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3"/>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s"/>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -621,7 +621,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
     </InputField>
     <InputParameter>
@@ -632,13 +632,13 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
       </Property>
       <Property>
         <Name>UV flux</Name>
@@ -648,7 +648,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -688,7 +688,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -704,8 +704,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.8</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">456</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">3.8</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">456</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -714,8 +714,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.8</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">456</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">3.8</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">456</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -723,7 +723,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>-1.6 -1.4 1.1</FieldValue>
     </InputField>
@@ -735,14 +735,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-9</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-21</PropertyValue>
       </Property>
       <Property>
@@ -754,7 +754,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -794,7 +794,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -811,8 +811,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">6.1</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">400</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">6.1</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">400</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -821,8 +821,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">6.1</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">400</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">6.1</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">400</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -830,7 +830,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>3.0 0.0 -10.9</FieldValue>
     </InputField>
@@ -842,14 +842,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-20</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-471</PropertyValue>
       </Property>
       <Property>
@@ -861,7 +861,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -901,7 +901,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -918,8 +918,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">4.9</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">447</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">4.9</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">447</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -928,8 +928,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">4.9</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">447</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">4.9</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">447</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -937,7 +937,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>-4.1 2.6 1.4</FieldValue>
     </InputField>
@@ -949,14 +949,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-4</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-9</PropertyValue>
       </Property>
       <Property>
@@ -968,7 +968,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -1008,7 +1008,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -1025,8 +1025,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">7.4</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">643</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">7.4</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">643</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -1035,8 +1035,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">7.4</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">643</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">7.4</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">643</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -1044,7 +1044,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>8.4 38.7 -24.0</FieldValue>
     </InputField>
@@ -1056,14 +1056,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-49</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-1271</PropertyValue>
       </Property>
       <Property>
@@ -1075,7 +1075,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -1115,7 +1115,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -1132,8 +1132,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">18.5</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">596</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">18.5</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">596</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -1142,8 +1142,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">18.5</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">596</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">18.5</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">596</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -1151,7 +1151,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>-10.0 -2.2 -44.4</FieldValue>
     </InputField>
@@ -1163,14 +1163,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-329</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-1619</PropertyValue>
       </Property>
       <Property>
@@ -1182,7 +1182,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -1222,7 +1222,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -1239,8 +1239,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">14.8</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">550</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">14.8</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">550</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -1249,8 +1249,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">14.8</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">550</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">14.8</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">550</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -1258,7 +1258,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>-3.6 -17.6 -17.8</FieldValue>
     </InputField>
@@ -1270,14 +1270,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-422</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-1052</PropertyValue>
       </Property>
       <Property>
@@ -1289,7 +1289,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -1329,7 +1329,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -1346,8 +1346,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">6.7</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">535</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">6.7</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">535</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -1356,8 +1356,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">6.7</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">535</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">6.7</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">535</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -1365,7 +1365,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>1.4 -18.6 -5.5</FieldValue>
     </InputField>
@@ -1377,14 +1377,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-309</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-374</PropertyValue>
       </Property>
       <Property>
@@ -1396,7 +1396,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -1436,7 +1436,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -1453,8 +1453,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">2.8</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">476</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">2.8</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">476</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -1463,8 +1463,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">2.8</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">476</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">2.8</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">476</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -1472,7 +1472,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>5.6 -4.6 -1.5</FieldValue>
     </InputField>
@@ -1484,14 +1484,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-76</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-272</PropertyValue>
       </Property>
       <Property>
@@ -1503,7 +1503,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -1543,7 +1543,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -1560,8 +1560,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.3</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">441</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">3.3</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">441</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -1570,8 +1570,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.3</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">441</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">3.3</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">441</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -1579,7 +1579,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>-1.3 4.1 1.4</FieldValue>
     </InputField>
@@ -1591,14 +1591,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-12</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-139</PropertyValue>
       </Property>
       <Property>
@@ -1610,7 +1610,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -1650,7 +1650,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -1667,8 +1667,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">17.8</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">495</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">17.8</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">495</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -1677,8 +1677,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">17.8</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">495</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">17.8</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">495</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -1686,7 +1686,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>1.5 16.3 -0.7</FieldValue>
     </InputField>
@@ -1698,14 +1698,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>32</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-231</PropertyValue>
       </Property>
       <Property>
@@ -1717,7 +1717,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -1757,7 +1757,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -1774,8 +1774,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">20.5</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">623</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">20.5</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">623</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -1784,8 +1784,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">20.5</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">623</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">20.5</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">623</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -1793,7 +1793,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>-12.3 -15.8 -38.3</FieldValue>
     </InputField>
@@ -1805,14 +1805,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-180</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-2452</PropertyValue>
       </Property>
       <Property>
@@ -1824,7 +1824,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -1864,7 +1864,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -1881,8 +1881,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">29.6</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">620</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">29.6</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">620</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -1891,8 +1891,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">29.6</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">620</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">29.6</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">620</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -1900,7 +1900,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>-2.4 -14.8 1.6</FieldValue>
     </InputField>
@@ -1912,14 +1912,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-216</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-1311</PropertyValue>
       </Property>
       <Property>
@@ -1931,7 +1931,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -1971,7 +1971,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -1988,8 +1988,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">4.4</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">623</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">4.4</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">623</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -1998,8 +1998,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">4.4</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">623</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">4.4</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">623</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -2007,7 +2007,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>11.0 -20.2 -3.7</FieldValue>
     </InputField>
@@ -2019,14 +2019,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-152</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-997</PropertyValue>
       </Property>
       <Property>
@@ -2038,7 +2038,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -2078,7 +2078,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -2095,8 +2095,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">2.7</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">644</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">2.7</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">644</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -2105,8 +2105,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">2.7</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">644</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">2.7</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">644</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -2114,7 +2114,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>3.1 -1.6 -3.8</FieldValue>
     </InputField>
@@ -2126,14 +2126,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-56</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-573</PropertyValue>
       </Property>
       <Property>
@@ -2145,7 +2145,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -2185,7 +2185,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -2202,8 +2202,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">7.0</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">385</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">7.0</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">385</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -2212,8 +2212,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">7.0</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">385</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">7.0</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">385</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -2221,7 +2221,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>1.4 -9.2 4.6</FieldValue>
     </InputField>
@@ -2233,14 +2233,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-7</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-20</PropertyValue>
       </Property>
       <Property>
@@ -2252,7 +2252,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -2292,7 +2292,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -2309,8 +2309,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">13.8</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">701</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">13.8</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">701</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -2319,8 +2319,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">13.8</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">701</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">13.8</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">701</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -2328,7 +2328,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>-4.6 -6.8 14.1</FieldValue>
     </InputField>
@@ -2340,14 +2340,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>26</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-250</PropertyValue>
       </Property>
       <Property>
@@ -2359,7 +2359,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -2399,7 +2399,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -2416,8 +2416,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">5.0</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">689</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">5.0</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">689</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -2426,8 +2426,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">5.0</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">689</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">5.0</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">689</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -2435,7 +2435,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>-3.4 4.0 -13.2</FieldValue>
     </InputField>
@@ -2447,14 +2447,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-56</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-750</PropertyValue>
       </Property>
       <Property>
@@ -2466,7 +2466,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -2506,7 +2506,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -2523,8 +2523,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.2</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">713</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">3.2</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">713</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -2533,8 +2533,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.2</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">713</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">3.2</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">713</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -2542,7 +2542,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>-9.4 7.0 -10.6</FieldValue>
     </InputField>
@@ -2554,14 +2554,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-140</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-1500</PropertyValue>
       </Property>
       <Property>
@@ -2573,7 +2573,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -2613,7 +2613,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -2630,8 +2630,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.4</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">461</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">3.4</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">461</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -2640,8 +2640,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.4</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">461</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">3.4</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">461</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -2649,7 +2649,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>-1.7 2.8 -2.0</FieldValue>
     </InputField>
@@ -2661,14 +2661,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-65</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-250</PropertyValue>
       </Property>
       <Property>
@@ -2680,7 +2680,7 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
@@ -2720,7 +2720,7 @@
       <VelocityDimension>3</VelocityDimension>
       <FieldDimension>3</FieldDimension>
       <Units>Re</Units>
-      <UnitsConversion>6.371e+6>m</UnitsConversion>
+      <UnitsConversion>6.371e+6&gt;m</UnitsConversion>
       <CoordinatesLabel>X Y Z</CoordinatesLabel>
       <ValidMin>-40 -30 -30</ValidMin>
       <ValidMax>20 30 30</ValidMax>
@@ -2737,8 +2737,8 @@
       <AtomicNumber>1</AtomicNumber>
       <PopulationMassNumber>1.00728</PopulationMassNumber>
       <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.8</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">422</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">3.8</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">422</PopulationFlowSpeed>
     </InputPopulation>
     <InputPopulation>
       <Name>SW_e-</Name>
@@ -2747,8 +2747,8 @@
       <ParticleType>Electron</ParticleType>
       <PopulationMassNumber>0</PopulationMassNumber>
       <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity Units="cm^-3" UnitsConversion="1.0e+6>m^-3">3.8</PopulationDensity>
-      <PopulationFlowSpeed Units="km/s" UnitsConversion="1.0+3>m/s">422</PopulationFlowSpeed>
+      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3">3.8</PopulationDensity>
+      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s">422</PopulationFlowSpeed>
     </InputPopulation>
     <InputField>
       <Name>IMF</Name>
@@ -2756,7 +2756,7 @@
       <SimulatedRegion>Heliosphere</SimulatedRegion>
       <FieldQuantity>Magnetic</FieldQuantity>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <InputLabel>Bx,By,Bz</InputLabel>
       <FieldValue>-1.1 3.7 -0.8</FieldValue>
     </InputField>
@@ -2768,14 +2768,14 @@
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-31</PropertyValue>
       </Property>
       <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
         <PropertyValue>-150</PropertyValue>
       </Property>
       <Property>
@@ -2787,11 +2787,11 @@
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
 
-  <!--  Simulation Run for all generated cubes for Mercury -->
+  
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Mercury/OnFly/SimRun</ResourceID>
     <ResourceHeader>
@@ -2843,9 +2843,9 @@
         <Description>Dipole field strength on the equator of the Mercury</Description>
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
-        <ValidMin></ValidMin>
-        <ValidMax></ValidMax>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
+        <ValidMin/>
+        <ValidMax/>
       </Property>
     </InputParameter>
     <InputParameter>
@@ -2859,9 +2859,9 @@
         <Description>Field strength at the inner edge of the tail current</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>MWb</Units>
-        <UnitsConversion>1000000>Wb</UnitsConversion>
-        <ValidMin></ValidMin>
-        <ValidMax></ValidMax>
+        <UnitsConversion>1000000&gt;Wb</UnitsConversion>
+        <ValidMin/>
+        <ValidMax/>
       </Property>
     </InputParameter>
     <InputParameter>
@@ -2875,7 +2875,7 @@
         <Description>Sub-solar magnetopause distance in Mercury radii (2439km)</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rm</Units>
-        <UnitsConversion>2439000>m</UnitsConversion>
+        <UnitsConversion>2439000&gt;m</UnitsConversion>
         <ValidMin>1.1</ValidMin>
         <ValidMax>2.2</ValidMax>
       </Property>
@@ -2891,7 +2891,7 @@
         <Description>Inner edge of the current sheet tail</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rm</Units>
-        <UnitsConversion>2439000>m</UnitsConversion>
+        <UnitsConversion>2439000&gt;m</UnitsConversion>
         <ValidMin>1.1</ValidMin>
         <ValidMax>2.2</ValidMax>
       </Property>
@@ -2908,7 +2908,7 @@
         <PropertyQuantity>Other</PropertyQuantity>
         <Qualifier>Scalar</Qualifier>
         <Units>Rm</Units>
-        <UnitsConversion>2439000>m</UnitsConversion>
+        <UnitsConversion>2439000&gt;m</UnitsConversion>
         <PropertyLabel>X0,Y0,Z0</PropertyLabel>
         <ValidMin>0.0</ValidMin>
         <ValidMax>0.0</ValidMax>
@@ -2925,19 +2925,19 @@
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Qualifier>Vector</Qualifier>
         <Units>nT</Units>
-        <UnitsConversion>1000>T</UnitsConversion>
-        <ValidMin></ValidMin>
-        <ValidMax></ValidMax>
+        <UnitsConversion>1000&gt;T</UnitsConversion>
+        <ValidMin/>
+        <ValidMax/>
       </Property>
     </InputParameter>    
     <RegionParameter>
       <SimulatedRegion>Earth</SimulatedRegion>
       <Description/>
-      <Radius Units="km" UnitsConversion="1.0e+3>m">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
   </SimulationRun>
 
-  <!-- Generic NumericalOutput for OnFly Earth calculations -->
+  
   <NumericalOutput>
     <ResourceID>impex://SINP/PMM/Earth/OnFly/3D-cube</ResourceID>
     <ResourceHeader>
@@ -2963,7 +2963,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3005,7 +3005,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3047,7 +3047,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3089,7 +3089,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3131,7 +3131,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3173,7 +3173,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3215,7 +3215,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3257,7 +3257,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3299,7 +3299,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3341,7 +3341,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3383,7 +3383,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3425,7 +3425,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3467,7 +3467,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3509,7 +3509,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3551,7 +3551,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3593,7 +3593,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3635,7 +3635,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3677,7 +3677,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3719,7 +3719,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3761,7 +3761,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3803,7 +3803,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>
@@ -3815,7 +3815,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
 
-  <!-- Generic NumericalOutput for OnFly Mercury calculations -->
+  
   <NumericalOutput>
     <ResourceID>impex://SINP/PMM/Earth/OnFly/3D-cube</ResourceID>
     <ResourceHeader>
@@ -3841,7 +3841,7 @@
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
       <Units>nT</Units>
-      <UnitsConversion>1000>T</UnitsConversion>
+      <UnitsConversion>1000&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>GSM</CoordinateSystemName>

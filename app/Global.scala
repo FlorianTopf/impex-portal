@@ -39,16 +39,19 @@ object Global extends GlobalSettings {
         println("methodsURL="+methodsURLs)      
         println("fetching tree from "+database.name)
         
-        // @TODO improve this to save XML file offline at startup
         val trees: Seq[NodeSeq] = treeURLs flatMap { 
           treeURL => 
         	val promise = WS.url(treeURL).get()
         	try {
-        	  Some(Await.result(promise, 1.minute).xml)
+        	  val result = Await.result(promise, 1.minute).xml
+        	  scala.xml.XML.save(
+        	      PathProvider.getTreePath(treeURL, database.name), result, "UTF-8")
+        	  Some(result)
         	} catch {
         	  case e: TimeoutException => println("timeout"); None
         	}
         }
+        
         
         val methods: Seq[NodeSeq] = methodsURLs flatMap { 
           methodsURL => 
