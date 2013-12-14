@@ -21,17 +21,18 @@ import play.api.Play.current
 import play.api.cache.Cache
 
 object Application extends Controller {
+  import models.actor.ConfigService._
   
   def index = Action {
     Ok(views.html.index("Your new application is ready."))
   }
-  
+
   def config = Action.async {
     val future = ConfigService.request(GetDatabases).mapTo[Seq[Database]]
-    
+
     future.map(databases => Ok(views.html.config(databases)))
   }
-  
+
   def tree = Action.async {
     val future = RegistryService.getTreeXML(Some("SINP"))
 
@@ -60,9 +61,9 @@ object Application extends Controller {
         //"RepositoryID="+repository.ResourceID+"; "+
         simulationRuns.length + " SimulationRuns found ----->>>>>> " + simulationRuns)
     }
-     
-  } 
-  
+
+  }
+
   def repo = Action.async {
     /*   val stripped1 = Await.result(
         RegistryService.requestTreeXML(Some("AMDA")).mapTo[Seq[NodeSeq]], 1.second) map { tree => tree \\ "dataCenter" }
@@ -80,7 +81,7 @@ object Application extends Controller {
     future.map { repositories =>
       Ok(views.html.repository(repositories))
     }
-    
+
   }
-  
+
 }
