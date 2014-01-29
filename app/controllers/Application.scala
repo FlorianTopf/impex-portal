@@ -28,9 +28,10 @@ object Application extends Controller {
   }
 
   def config = Action.async {
-    val future = ConfigService.request(GetDatabases).mapTo[Seq[Database]]
-
-    future.map(databases => Ok(views.html.config(databases)))
+    //val future = ConfigService.request(GetDatabases).mapTo[Seq[Database]]
+    //future.map(databases => Ok(views.html.config(databases)))
+    val future = ConfigService.request(GetConfig).mapTo[NodeSeq]
+    future.map(config => Ok(config))
   }
 
   def tree = Action.async {

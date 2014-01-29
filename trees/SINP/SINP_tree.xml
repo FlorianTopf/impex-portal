@@ -203,8 +203,8 @@
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
         <UnitsConversion>1000&gt;T</UnitsConversion>
-        <ValidMin/>
-        <ValidMax/>
+        <ValidMin>196</ValidMin>
+        <ValidMax>196</ValidMax>
       </Property>
       <Property>
         <Name>Flux</Name>
@@ -248,7 +248,7 @@
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Qualifier>Vector</Qualifier>
         <Units>nT</Units>
-        <UnitsConversion>1000&gt;T</UnitsConversion>
+        <UnitsConversion>1.0e-9&gt;T</UnitsConversion>
       </Property>
     </InputProperties>
     <OutputParameters>

@@ -1442,7 +1442,7 @@
     </mission>
     <mission available="1" target="Venus" desc="Venus Express" xml:id="VEX" name="VEX" att="">
       <instrument desc="VEX Position" xml:id="VEX:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="IRAP" dataStop="2013/12/10" dataStart="2006/04/30" maxSampling="" sampling="60s" xml:id="vex:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="IRAP" dataStop="2013/12/14" dataStart="2006/04/30" maxSampling="" sampling="60s" xml:id="vex:orb:all" name="orbit" att="">
           <parameter xml:id="vex_xyz" display_type="" units="Rv" name="xyz_vso">
             <component xml:id="vex_xyz(0)" name="x"/>
             <component xml:id="vex_xyz(1)" name="y"/>
@@ -1451,11 +1451,11 @@
         </dataset>
       </instrument>
       <instrument desc="Ion_Mass_Analyser" xml:id="VEX:IMA" name="IMA" att="">
-        <dataset target="" dataSource="IRAP" dataStop="2012/12/31" dataStart="2005/06/08" maxSampling="" sampling="192s" xml:id="vex:ima:extra" name="imaextra_spectra" att="">
+        <dataset target="" dataSource="IRAP" dataStop="2013/12/15" dataStart="2005/06/08" maxSampling="" sampling="192s" xml:id="vex:ima:extra" name="imaextra_spectra" att="">
           <parameter xml:id="vex_h_spec" display_type="spectrogram" units="counts" name="protons"/>
           <parameter xml:id="vex_o_spec" display_type="spectrogram" units="counts" name="heavy_ions"/>
         </dataset>
-        <dataset target="" dataSource="IRAP" dataStop="2013/05/03" dataStart="2006/05/14" maxSampling="" sampling="192s" xml:id="vex:ima:param" name="imaextra_mom" att="parameters/VexMex">
+        <dataset target="" dataSource="IRAP" dataStop="2013/05/03" dataStart="2006/02/05" maxSampling="" sampling="192s" xml:id="vex:ima:param" name="imaextra_mom" att="parameters/VexMex">
           <parameter xml:id="vex_h_qual" display_type="" units="0-1" name="moments_quality_protons"/>
           <parameter xml:id="vex_o_qual" display_type="" units="0-1" name="moments_quality_heavy"/>
           <parameter xml:id="vex_h_dens" display_type="" units="cm-3" name="density_protons"/>
@@ -1480,10 +1480,28 @@
           <parameter xml:id="vex_els_spec" display_type="spectrogram" units="counts" name="spectra"/>
         </dataset>
       </instrument>
+      <instrument desc="Magnetometer" xml:id="VEX:MAG" name="MAG" att="parameters/VEXMAG">
+        <dataset target="" dataSource="PSA" dataStop="2011/01/01" dataStart="2006/04/24" maxSampling="" sampling="1s" xml:id="vex:mag:hz" name="mag_1s" att="">
+          <parameter xml:id="vex_mag_1s" display_type="" units="nT" name="b_vso">
+            <component xml:id="vex_mag_1s(0)" name="bx_vso"/>
+            <component xml:id="vex_mag_1s(1)" name="by_vso"/>
+            <component xml:id="vex_mag_1s(2)" name="bz_vso"/>
+          </parameter>
+          <parameter xml:id="vex_mag_1s_tot" display_type="" units="nT" name="|b|"/>
+        </dataset>
+        <dataset target="" dataSource="PSA" dataStop="2012/03/31" dataStart="2006/04/24" maxSampling="" sampling="4s" xml:id="vex:mag:all" name="mag_4s" att="">
+          <parameter xml:id="vex_mag_4s" display_type="" units="nT" name="b_vso">
+            <component xml:id="vex_mag_4s(0)" name="bx_vso"/>
+            <component xml:id="vex_mag_4s(1)" name="by_vso"/>
+            <component xml:id="vex_mag_4s(2)" name="bz_vso"/>
+          </parameter>
+          <parameter xml:id="vex_mag_4s_tot" display_type="" units="nT" name="|b|"/>
+        </dataset>
+      </instrument>
     </mission>
-    <mission available="1" target="Mars" desc="Mars Express" xml:id="MEX" name="MEX" att="">
+    <mission available="" target="Mars" desc="Mars Express" xml:id="MEX" name="MEX" att="">
       <instrument desc="MEX position" xml:id="MEX:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="IRAP" dataStop="2014/01/11" dataStart="2004/01/10" maxSampling="" sampling="60s" xml:id="mex:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="IRAP" dataStop="2014/01/15" dataStart="2004/01/10" maxSampling="" sampling="60s" xml:id="mex:orb:all" name="orbit" att="">
           <parameter xml:id="mex_xyz" display_type="" units="Rm" name="xyz_mso">
             <component xml:id="mex_xyz(0)" name="x"/>
             <component xml:id="mex_xyz(1)" name="y"/>
@@ -1504,7 +1522,7 @@
         </dataset>
       </instrument>
       <instrument desc="Ion_Mass_Analyser" xml:id="MEX:IMA" name="IMA" att="">
-        <dataset target="" dataSource="IRAP" dataStop="2013/03/27" dataStart="2004/01/05" maxSampling="" sampling="192s" xml:id="mex:ima:extra" name="imaextra_spectra_prelim" att="">
+        <dataset target="" dataSource="IRAP" dataStop="2013/10/28" dataStart="2004/01/05" maxSampling="" sampling="192s" xml:id="mex:ima:extra" name="imaextra_spectra_prelim" att="">
           <parameter xml:id="mex_h_spec" display_type="spectrogram" units="counts" name="protons"/>
           <parameter xml:id="mex_o_spec" display_type="spectrogram" units="counts" name="heavy_ions"/>
         </dataset>
@@ -1867,7 +1885,7 @@
           <parameter xml:id="qual1_sta" display_type="" units="0:B_inside" name="quality_MAG"/>
           <parameter xml:id="qual2_sta" display_type="" units="0:corrected_by_PLA" name="quality_PLA"/>
         </dataset>
-        <dataset target="" dataSource="IRAP" dataStop="2012/03/31" dataStart="2007/01/01" maxSampling="" sampling="20s" xml:id="sta:swea:pad" name="swea-PAD E:45-2000eV" att="">
+        <dataset target="" dataSource="IRAP" dataStop="2013/11/01" dataStart="2007/01/01" maxSampling="" sampling="20s" xml:id="sta:swea:pad" name="swea-PAD E:45-2000eV" att="">
           <parameter xml:id="sta_swea_pad" display_type="spectrogram" units="s3/km6" name="PA distribution for selected E"/>
           <parameter xml:id="quality1_sta" display_type="" units="0:B_inside" name="quality_MAG"/>
           <parameter xml:id="quality2_sta" display_type="" units="0:corrected_by_PLA" name="quality_PLA"/>
@@ -1933,7 +1951,7 @@
           <parameter xml:id="qual1_stb" display_type="" units="0:B_inside" name="quality_MAG"/>
           <parameter xml:id="qual2_stb" display_type="" units="0:corrected_by_PLA" name="quality_PLA"/>
         </dataset>
-        <dataset target="" dataSource="IRAP" dataStop="2012/03/31" dataStart="2007/01/01" maxSampling="" sampling="20s" xml:id="stb:swea:pad" name="swea-PAD E:45-2000eV" att="">
+        <dataset target="" dataSource="IRAP" dataStop="2013/11/01" dataStart="2007/01/01" maxSampling="" sampling="20s" xml:id="stb:swea:pad" name="swea-PAD E:45-2000eV" att="">
           <parameter xml:id="stb_swea_pad" display_type="spectrogram" units="s3/km6" name="PA distribution for selected E"/>
           <parameter xml:id="quality1_stb" display_type="" units="0:B_inside" name="quality_MAG"/>
           <parameter xml:id="quality2_stb" display_type="" units="0:corrected_by_PLA" name="quality_PLA"/>
@@ -2047,7 +2065,7 @@
         </dataset>
       </instrument>
       <instrument desc="Solar_Wind_Experiment" xml:id="WIND:SWE" name="SWE" att="">
-        <dataset target="" dataSource="CDAWeb" dataStop="2013/09/17" dataStart="1994/11/17" maxSampling="" sampling="90s" xml:id="wnd:swe:kp" name="swe_kp" att="">
+        <dataset target="" dataSource="CDAWeb" dataStop="2013/12/16" dataStart="1994/11/17" maxSampling="" sampling="90s" xml:id="wnd:swe:kp" name="swe_kp" att="">
           <parameter xml:id="wnd_swe_n" display_type="" units="cm-3" name="density"/>
           <parameter xml:id="wnd_swe_v" display_type="" units="km/s" name="v_gse">
             <component xml:id="wnd_swe_v(0)" name="vx"/>
@@ -2608,7 +2626,7 @@
           </parameter>
           <parameter xml:id="c1_btot" display_type="" units="" name="|b|"/>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2013/05/02" dataStart="2001/01/07" maxSampling="" sampling="0.2s" xml:id="clust1:fgm:high" name="fgm_5vps" att="">
+        <dataset target="" dataSource="CSA" dataStop="2013/05/02" dataStart="2001/01/07" maxSampling="" sampling="0.2s" xml:id="clust1:fgm:high" name="fgm_5vps" att="">
           <parameter xml:id="c1_b_5vps" display_type="" units="nT" name="b_gse">
             <component xml:id="c1_b_5vps(0)" name="bx"/>
             <component xml:id="c1_b_5vps(1)" name="by"/>
@@ -2636,7 +2654,7 @@
             <component xml:id="c1_pp_t(1)" name="t_perp"/>
           </parameter>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2011/12/31" dataStart="2001/01/10" maxSampling="" sampling="4s" xml:id="clust1:hia:mom" name="hia_mom" att="">
+        <dataset target="" dataSource="CSA" dataStop="2012/12/28" dataStart="2001/01/10" maxSampling="" sampling="4s" xml:id="clust1:hia:mom" name="hia_mom" att="">
           <parameter xml:id="c1_hia_dens" display_type="" units="cm-3" name="density"/>
           <parameter xml:id="c1_hia_v" display_type="" units="km/s" name="v_gse">
             <component xml:id="c1_hia_v(0)" name="vx_gse"/>
@@ -2685,7 +2703,7 @@
         </dataset>
       </instrument>
       <instrument desc="Plasma_Electron_And_Current_Experiment" xml:id="CLUSTER1:PEACE" name="PEACE" att="">
-        <dataset target="" dataSource="CAA" dataStop="2006/12/30" dataStart="2001/01/10" maxSampling="160s" sampling="4s" xml:id="clust1:pea:mom" name="peace_moments" att="">
+        <dataset target="" dataSource="CSA" dataStop="2012/07/18" dataStart="2001/01/10" maxSampling="160s" sampling="4s" xml:id="clust1:pea:mom" name="peace_moments" att="">
           <parameter xml:id="c1_pea_dens" display_type="" units="cm-3" name="density"/>
           <parameter xml:id="c1_pea_vgse" display_type="" units="km/s" name="v_gse">
             <component xml:id="c1_pea_vgse(0)" name="vx_gse"/>
@@ -2732,10 +2750,10 @@
         </dataset>
       </instrument>
       <instrument desc="Research_with_Adaptive_Particle_Imaging_Detector" xml:id="CLUSTER1:RAPID" name="RAPID" att="">
-        <dataset target="" dataSource="CAA" dataStop="2006/12/31" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust1:rap:elsp" name="rap_e_flux" att="">
+        <dataset target="" dataSource="CSA" dataStop="2006/12/31" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust1:rap:elsp" name="rap_e_flux" att="">
           <parameter xml:id="c1_rap_e" display_type="spectrogram" units="1/cm^2_sr_s_keV" name="diff_flux"/>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2006/12/31" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust1:rap:psp" name="rap_pr_flux" att="">
+        <dataset target="" dataSource="CSA" dataStop="2006/12/31" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust1:rap:psp" name="rap_pr_flux" att="">
           <parameter xml:id="c1_rap_p" display_type="spectrogram" units="1/cm^2_sr_s_keV" name="diff_flux"/>
         </dataset>
       </instrument>
@@ -2746,7 +2764,7 @@
           <parameter xml:id="c1_efw_f1" display_type="" units="(V/m)^2/Hz,0.3-10Hz" name="e_spectral_density_F1"/>
           <parameter xml:id="c1_efw_f2" display_type="" units="(V/m)^2/Hz,10-180Hz" name="e_spectral_density_F2"/>
         </dataset>
-        <dataset target="" dataSource="CAA:L3" dataStop="2011/12/31" dataStart="2001/02/01" maxSampling="" sampling="4s" xml:id="clust1:efw:gse" name="efw_3d" att="parameters/EFWgse">
+        <dataset target="" dataSource="CSA:L3" dataStop="2011/12/31" dataStart="2001/02/01" maxSampling="" sampling="4s" xml:id="clust1:efw:gse" name="efw_3d" att="parameters/EFWgse">
           <parameter xml:id="c1_e_gse" display_type="" units="mV/m" name="e_gse">
             <component xml:id="c1_e_gse(0)" name="ex"/>
             <component xml:id="c1_e_gse(1)" name="ey"/>
@@ -2761,17 +2779,17 @@
           <parameter xml:id="c1_e_gse_qual" display_type="" units="" name="e_gse_quality"/>
           <parameter xml:id="c1_ez_error" display_type="" units="" name="ez_gse_error"/>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2011/12/31" dataStart="2001/02/01" maxSampling="" sampling="4s" xml:id="clust1:efw:sr2" name="efw_isr2" att="parameters/EFWisr2">
+        <dataset target="" dataSource="CSA" dataStop="2011/12/31" dataStart="2001/02/01" maxSampling="" sampling="4s" xml:id="clust1:efw:sr2" name="efw_isr2" att="parameters/EFWisr2">
           <parameter xml:id="c1_e_sr2" display_type="" units="mV/m" name="e_sr2">
             <component xml:id="c1_e_sr2(0)" name="ex"/>
             <component xml:id="c1_e_sr2(1)" name="ey"/>
           </parameter>
           <parameter xml:id="c1_e_sr2_qual" display_type="" units="" name="e_sr2_quality"/>
         </dataset>
-        <dataset target="" dataSource="CSA" dataStop="2012/12/31" dataStart="2001/01/01" maxSampling="" sampling="5Hz" xml:id="clust1:pot:full" name="sc_pot_full" att="">
+        <dataset target="" dataSource="CSA" dataStop="2013/09/30" dataStart="2001/01/01" maxSampling="" sampling="5Hz" xml:id="clust1:pot:full" name="sc_pot_full" att="">
           <parameter xml:id="c1_potfull" display_type="" units="V" name="sc_pot"/>
         </dataset>
-        <dataset target="" dataSource="CSA" dataStop="2013/09/30" dataStart="2001/01/01" maxSampling="" sampling="4" xml:id="clust1:pot:spin" name="sc_pot_spin" att="">
+        <dataset target="" dataSource="CSA" dataStop="2013/09/30" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust1:pot:spin" name="sc_pot_spin" att="">
           <parameter xml:id="c1_potspin" display_type="" units="V" name="sc_pot"/>
         </dataset>
       </instrument>
@@ -2781,7 +2799,7 @@
           <parameter xml:id="c1_whipp_f5" display_type="" units="(V/m)^2/Hz,10-20kHz" name="e_spectral_density_F5"/>
           <parameter xml:id="c1_whipp_f6" display_type="" units="(V/m)^2/Hz,20-80kHz" name="e_spectral_density_F6"/>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2008/06/30" dataStart="2001/02/04" maxSampling="" sampling="1.5s" xml:id="clust1:whi:whi" name="whisper_l2" att="parameters/Whisper">
+        <dataset target="" dataSource="CSA" dataStop="2013/03/31" dataStart="2001/02/04" maxSampling="" sampling="1.5s" xml:id="clust1:whi:whi" name="whisper_l2" att="parameters/Whisper">
           <parameter xml:id="c1_whi_ne" display_type="" units="cm-3" name="el_density"/>
           <parameter xml:id="c1_whi_ne_qual" display_type="" units="no" name="el_density_contrast"/>
         </dataset>
@@ -2848,7 +2866,7 @@
           </parameter>
           <parameter xml:id="c2_btot" display_type="" units="" name="|b|"/>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2013/05/02" dataStart="2001/01/07" maxSampling="" sampling="0.2s" xml:id="clust2:fgm:high" name="fgm_5vps" att="">
+        <dataset target="" dataSource="CSA" dataStop="2013/05/02" dataStart="2001/01/07" maxSampling="" sampling="0.2s" xml:id="clust2:fgm:high" name="fgm_5vps" att="">
           <parameter xml:id="c2_b_5vps" display_type="" units="nT" name="b_gse">
             <component xml:id="c2_b_5vps(0)" name="bx"/>
             <component xml:id="c2_b_5vps(1)" name="by"/>
@@ -2858,7 +2876,7 @@
         </dataset>
       </instrument>
       <instrument desc="Plasma_Electron_And_Current_Experiment" xml:id="CLUSTER2:PEACE" name="PEACE" att="">
-        <dataset target="" dataSource="CAA" dataStop="2006/12/30" dataStart="2001/01/10" maxSampling="160s" sampling="4s" xml:id="clust2:pea:mom" name="peace_moments" att="">
+        <dataset target="" dataSource="CSA" dataStop="2012/07/16" dataStart="2001/01/10" maxSampling="160s" sampling="4s" xml:id="clust2:pea:mom" name="peace_moments" att="">
           <parameter xml:id="c2_pea_dens" display_type="" units="cm-3" name="density"/>
           <parameter xml:id="c2_pea_vgse" display_type="" units="km/s" name="v_gse">
             <component xml:id="c2_pea_vgse(0)" name="vx_gse"/>
@@ -2905,10 +2923,10 @@
         </dataset>
       </instrument>
       <instrument desc="Research_with_Adaptive_Particle_Imaging_Detector" xml:id="CLUSTER2:RAPID" name="RAPID" att="">
-        <dataset target="" dataSource="CAA" dataStop="2006/12/31" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust2:rap:elsp" name="rap_e_flux" att="">
+        <dataset target="" dataSource="CSA" dataStop="2006/12/31" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust2:rap:elsp" name="rap_e_flux" att="">
           <parameter xml:id="c2_rap_e" display_type="spectrogram" units="1/cm^2_sr_s_keV" name="diff_flux"/>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2006/12/31" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust2:rap:psp" name="rap_pr_flux" att="">
+        <dataset target="" dataSource="CSA" dataStop="2006/12/31" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust2:rap:psp" name="rap_pr_flux" att="">
           <parameter xml:id="c2_rap_p" display_type="spectrogram" units="1/cm^2_sr_s_keV" name="diff_flux"/>
         </dataset>
       </instrument>
@@ -2919,7 +2937,7 @@
           <parameter xml:id="c2_efw_f1" display_type="" units="(V/m)^2/Hz,0.3-10Hz" name="e_spectral_density_F1"/>
           <parameter xml:id="c2_efw_f2" display_type="" units="(V/m)^2/Hz,10-180Hz" name="e_spectral_density_F2"/>
         </dataset>
-        <dataset target="" dataSource="CAA:L3" dataStop="2011/12/31" dataStart="2001/02/01" maxSampling="" sampling="4s" xml:id="clust2:efw:gse" name="efw_3d" att="parameters/EFWgse">
+        <dataset target="" dataSource="CSA:L3" dataStop="2011/12/31" dataStart="2001/02/01" maxSampling="" sampling="4s" xml:id="clust2:efw:gse" name="efw_3d" att="parameters/EFWgse">
           <parameter xml:id="c2_e_gse" display_type="" units="mV/m" name="e_gse">
             <component xml:id="c2_e_gse(0)" name="ex"/>
             <component xml:id="c2_e_gse(1)" name="ey"/>
@@ -2934,17 +2952,17 @@
           <parameter xml:id="c2_e_gse_qual" display_type="" units="" name="e_gse_quality"/>
           <parameter xml:id="c2_ez_error" display_type="" units="" name="ez_gse_error"/>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2011/12/31" dataStart="2001/02/01" maxSampling="" sampling="4s" xml:id="clust2:efw:sr2" name="efw_isr2" att="parameters/EFWisr2">
+        <dataset target="" dataSource="CSA" dataStop="2011/12/31" dataStart="2001/02/01" maxSampling="" sampling="4s" xml:id="clust2:efw:sr2" name="efw_isr2" att="parameters/EFWisr2">
           <parameter xml:id="c2_e_sr2" display_type="" units="mV/m" name="e_sr2">
             <component xml:id="c2_e_sr2(0)" name="ex"/>
             <component xml:id="c2_e_sr2(1)" name="ey"/>
           </parameter>
           <parameter xml:id="c2_e_sr2_qual" display_type="" units="" name="e_sr2_quality"/>
         </dataset>
-        <dataset target="" dataSource="CSA" dataStop="2009/12/31" dataStart="2001/01/01" maxSampling="" sampling="5Hz" xml:id="clust2:pot:full" name="sc_pot_full" att="">
+        <dataset target="" dataSource="CSA" dataStop="2013/09/30" dataStart="2001/01/01" maxSampling="" sampling="5Hz" xml:id="clust2:pot:full" name="sc_pot_full" att="">
           <parameter xml:id="c2_potfull" display_type="" units="V" name="sc_pot"/>
         </dataset>
-        <dataset target="" dataSource="CSA" dataStop="1970/01/01" dataStart="1970/01/01" maxSampling="" sampling="4" xml:id="clust2:pot:spin" name="sc_pot_spin" att="">
+        <dataset target="" dataSource="CSA" dataStop="2013/09/30" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust2:pot:spin" name="sc_pot_spin" att="">
           <parameter xml:id="c2_potspin" display_type="" units="V" name="sc_pot"/>
         </dataset>
       </instrument>
@@ -2954,7 +2972,7 @@
           <parameter xml:id="c2_whipp_f5" display_type="" units="(V/m)^2/Hz,10-20kHz" name="e_spectral_density_F5"/>
           <parameter xml:id="c2_whipp_f6" display_type="" units="(V/m)^2/Hz,20-80kHz" name="e_spectral_density_F6"/>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2008/06/30" dataStart="2001/02/07" maxSampling="" sampling="1.5s" xml:id="clust2:whi:whi" name="whisper_l2" att="parameters/Whisper">
+        <dataset target="" dataSource="CSA" dataStop="2013/03/31" dataStart="2001/02/07" maxSampling="" sampling="1.5s" xml:id="clust2:whi:whi" name="whisper_l2" att="parameters/Whisper">
           <parameter xml:id="c2_whi_ne" display_type="" units="cm-3" name="el_density"/>
           <parameter xml:id="c2_whi_ne_qual" display_type="" units="no" name="el_density_contrast"/>
         </dataset>
@@ -3021,7 +3039,7 @@
           </parameter>
           <parameter xml:id="c3_btot" display_type="" units="" name="|b|"/>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2013/05/02" dataStart="2001/01/07" maxSampling="" sampling="0.2s" xml:id="clust3:fgm:high" name="fgm_5vps" att="">
+        <dataset target="" dataSource="CSA" dataStop="2013/05/02" dataStart="2001/01/07" maxSampling="" sampling="0.2s" xml:id="clust3:fgm:high" name="fgm_5vps" att="">
           <parameter xml:id="c3_b_5vps" display_type="" units="nT" name="b_gse">
             <component xml:id="c3_b_5vps(0)" name="bx"/>
             <component xml:id="c3_b_5vps(1)" name="by"/>
@@ -3049,7 +3067,7 @@
             <component xml:id="c3_pp_t(1)" name="t_perp"/>
           </parameter>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2009/11/11" dataStart="2001/01/09" maxSampling="" sampling="4s" xml:id="clust3:hia:mom" name="hia_mom" att="">
+        <dataset target="" dataSource="CSA" dataStop="2009/11/11" dataStart="2001/01/09" maxSampling="" sampling="4s" xml:id="clust3:hia:mom" name="hia_mom" att="">
           <parameter xml:id="c3_hia_dens" display_type="" units="cm-3" name="density"/>
           <parameter xml:id="c3_hia_v" display_type="" units="km/s" name="v_gse">
             <component xml:id="c3_hia_v(0)" name="vx_gse"/>
@@ -3098,7 +3116,7 @@
         </dataset>
       </instrument>
       <instrument desc="Plasma_Electron_And_Current_Experiment" xml:id="CLUSTER3:PEACE" name="PEACE" att="">
-        <dataset target="" dataSource="CAA" dataStop="2006/12/30" dataStart="2001/01/09" maxSampling="160s" sampling="4s" xml:id="clust3:pea:mom" name="peace_moments" att="">
+        <dataset target="" dataSource="CSA" dataStop="2012/07/20" dataStart="2001/01/09" maxSampling="160s" sampling="4s" xml:id="clust3:pea:mom" name="peace_moments" att="">
           <parameter xml:id="c3_pea_dens" display_type="" units="cm-3" name="density"/>
           <parameter xml:id="c3_pea_vgse" display_type="" units="km/s" name="v_gse">
             <component xml:id="c3_pea_vgse(0)" name="vx_gse"/>
@@ -3145,10 +3163,10 @@
         </dataset>
       </instrument>
       <instrument desc="Research_with_Adaptive_Particle_Imaging_Detector" xml:id="CLUSTER3:RAPID" name="RAPID" att="">
-        <dataset target="" dataSource="CAA" dataStop="2006/12/31" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust3:rap:elsp" name="rap_e_flux" att="">
+        <dataset target="" dataSource="CSA" dataStop="2006/12/31" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust3:rap:elsp" name="rap_e_flux" att="">
           <parameter xml:id="c3_rap_e" display_type="spectrogram" units="1/cm^2_sr_s_keV" name="diff_flux"/>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2006/12/31" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust3:rap:psp" name="rap_pr_flux" att="">
+        <dataset target="" dataSource="CSA" dataStop="2006/12/31" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust3:rap:psp" name="rap_pr_flux" att="">
           <parameter xml:id="c3_rap_p" display_type="spectrogram" units="1/cm^2_sr_s_keV" name="diff_flux"/>
         </dataset>
       </instrument>
@@ -3159,7 +3177,7 @@
           <parameter xml:id="c3_efw_f1" display_type="" units="(V/m)^2/Hz,0.3-10Hz" name="e_spectral_density_F1"/>
           <parameter xml:id="c3_efw_f2" display_type="" units="(V/m)^2/Hz,10-180Hz" name="e_spectral_density_F2"/>
         </dataset>
-        <dataset target="" dataSource="CAA:L3" dataStop="2011/12/31" dataStart="2001/02/01" maxSampling="" sampling="4s" xml:id="clust3:efw:gse" name="efw_3d" att="parameters/EFWgse">
+        <dataset target="" dataSource="CSA:L3" dataStop="2011/12/31" dataStart="2001/02/01" maxSampling="" sampling="4s" xml:id="clust3:efw:gse" name="efw_3d" att="parameters/EFWgse">
           <parameter xml:id="c3_e_gse" display_type="" units="mV/m" name="e_gse">
             <component xml:id="c3_e_gse(0)" name="ex"/>
             <component xml:id="c3_e_gse(1)" name="ey"/>
@@ -3174,17 +3192,17 @@
           <parameter xml:id="c3_e_gse_qual" display_type="" units="" name="e_gse_quality"/>
           <parameter xml:id="c3_ez_error" display_type="" units="" name="ez_gse_error"/>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2011/12/31" dataStart="2001/02/01" maxSampling="" sampling="4s" xml:id="clust3:efw:sr2" name="efw_isr2" att="parameters/EFWisr2">
+        <dataset target="" dataSource="CSA" dataStop="2011/12/31" dataStart="2001/02/01" maxSampling="" sampling="4s" xml:id="clust3:efw:sr2" name="efw_isr2" att="parameters/EFWisr2">
           <parameter xml:id="c3_e_sr2" display_type="" units="mV/m" name="e_sr2">
             <component xml:id="c3_e_sr2(0)" name="ex"/>
             <component xml:id="c3_e_sr2(1)" name="ey"/>
           </parameter>
           <parameter xml:id="c3_e_sr2_qual" display_type="" units="" name="e_sr2_quality"/>
         </dataset>
-        <dataset target="" dataSource="CSA" dataStop="2004/03/31" dataStart="2003/04/16" maxSampling="" sampling="5Hz" xml:id="clust3:pot:full" name="sc_pot_full" att="">
+        <dataset target="" dataSource="CSA" dataStop="2013/09/30" dataStart="2001/01/01" maxSampling="" sampling="5Hz" xml:id="clust3:pot:full" name="sc_pot_full" att="">
           <parameter xml:id="c3_potfull" display_type="" units="V" name="sc_pot"/>
         </dataset>
-        <dataset target="" dataSource="CSA" dataStop="1970/01/01" dataStart="1970/01/01" maxSampling="" sampling="4" xml:id="clust3:pot:spin" name="sc_pot_spin" att="">
+        <dataset target="" dataSource="CSA" dataStop="2013/09/30" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust3:pot:spin" name="sc_pot_spin" att="">
           <parameter xml:id="c3_potspin" display_type="" units="V" name="sc_pot"/>
         </dataset>
       </instrument>
@@ -3194,7 +3212,7 @@
           <parameter xml:id="c3_whipp_f5" display_type="" units="(V/m)^2/Hz,10-20kHz" name="e_spectral_density_F5"/>
           <parameter xml:id="c3_whipp_f6" display_type="" units="(V/m)^2/Hz,20-80kHz" name="e_spectral_density_F6"/>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2004/12/30" dataStart="2001/02/07" maxSampling="" sampling="1.5s" xml:id="clust3:whi:whi" name="whisper_l2" att="parameters/Whisper">
+        <dataset target="" dataSource="CSA" dataStop="2013/03/31" dataStart="2001/02/07" maxSampling="" sampling="1.5s" xml:id="clust3:whi:whi" name="whisper_l2" att="parameters/Whisper">
           <parameter xml:id="c3_whi_ne" display_type="" units="cm-3" name="el_density"/>
           <parameter xml:id="c3_whi_ne_qual" display_type="" units="no" name="el_density_contrast"/>
         </dataset>
@@ -3261,7 +3279,7 @@
           </parameter>
           <parameter xml:id="c4_btot" display_type="" units="" name="|b|"/>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2013/05/02" dataStart="2001/01/07" maxSampling="" sampling="0.2s" xml:id="clust4:fgm:high" name="fgm_5vps" att="">
+        <dataset target="" dataSource="CSA" dataStop="2013/05/02" dataStart="2001/01/07" maxSampling="" sampling="0.2s" xml:id="clust4:fgm:high" name="fgm_5vps" att="">
           <parameter xml:id="c4_b_5vps" display_type="" units="nT" name="b_gse">
             <component xml:id="c4_b_5vps(0)" name="bx"/>
             <component xml:id="c4_b_5vps(1)" name="by"/>
@@ -3292,7 +3310,7 @@
         </dataset>
       </instrument>
       <instrument desc="Plasma_Electron_And_Current_Experiment" xml:id="CLUSTER4:PEACE" name="PEACE" att="">
-        <dataset target="" dataSource="CAA" dataStop="2006/12/26" dataStart="2001/01/09" maxSampling="160s" sampling="4s" xml:id="clust4:pea:mom" name="peace_moments" att="">
+        <dataset target="" dataSource="CSA" dataStop="2012/07/20" dataStart="2001/01/09" maxSampling="160s" sampling="4s" xml:id="clust4:pea:mom" name="peace_moments" att="">
           <parameter xml:id="c4_pea_dens" display_type="" units="cm-3" name="density"/>
           <parameter xml:id="c4_pea_vgse" display_type="" units="km/s" name="v_gse">
             <component xml:id="c4_pea_vgse(0)" name="vx_gse"/>
@@ -3339,10 +3357,10 @@
         </dataset>
       </instrument>
       <instrument desc="Research_with_Adaptive_Particle_Imaging_Detector" xml:id="CLUSTER4:RAPID" name="RAPID" att="">
-        <dataset target="" dataSource="CAA" dataStop="2006/12/31" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust4:rap:elsp" name="rap_e_flux" att="">
+        <dataset target="" dataSource="CSA" dataStop="2006/12/31" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust4:rap:elsp" name="rap_e_flux" att="">
           <parameter xml:id="c4_rap_e" display_type="spectrogram" units="1/cm^2_sr_s_keV" name="diff_flux"/>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2006/12/31" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust4:rap:psp" name="rap_pr_flux" att="">
+        <dataset target="" dataSource="CSA" dataStop="2006/12/31" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust4:rap:psp" name="rap_pr_flux" att="">
           <parameter xml:id="c4_rap_p" display_type="spectrogram" units="1/cm^2_sr_s_keV" name="diff_flux"/>
         </dataset>
       </instrument>
@@ -3353,7 +3371,7 @@
           <parameter xml:id="c4_efw_f1" display_type="" units="(V/m)^2/Hz,0.3-10Hz" name="e_spectral_density_F1"/>
           <parameter xml:id="c4_efw_f2" display_type="" units="(V/m)^2/Hz,10-180Hz" name="e_spectral_density_F2"/>
         </dataset>
-        <dataset target="" dataSource="CAA:L3" dataStop="2011/12/31" dataStart="2001/02/01" maxSampling="" sampling="4s" xml:id="clust4:efw:gse" name="efw_3d" att="parameters/EFWgse">
+        <dataset target="" dataSource="CSA:L3" dataStop="2011/12/31" dataStart="2001/02/01" maxSampling="" sampling="4s" xml:id="clust4:efw:gse" name="efw_3d" att="parameters/EFWgse">
           <parameter xml:id="c4_e_gse" display_type="" units="mV/m" name="e_gse">
             <component xml:id="c4_e_gse(0)" name="ex"/>
             <component xml:id="c4_e_gse(1)" name="ey"/>
@@ -3368,17 +3386,17 @@
           <parameter xml:id="c4_e_gse_qual" display_type="" units="" name="e_gse_quality"/>
           <parameter xml:id="c4_ez_error" display_type="" units="" name="ez_gse_error"/>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2011/12/31" dataStart="2001/02/01" maxSampling="" sampling="4s" xml:id="clust4:efw:sr2" name="efw_isr2" att="parameters/EFWisr2">
+        <dataset target="" dataSource="CSA" dataStop="2011/12/31" dataStart="2001/02/01" maxSampling="" sampling="4s" xml:id="clust4:efw:sr2" name="efw_isr2" att="parameters/EFWisr2">
           <parameter xml:id="c4_e_sr2" display_type="" units="mV/m" name="e_sr2">
             <component xml:id="c4_e_sr2(0)" name="ex"/>
             <component xml:id="c4_e_sr2(1)" name="ey"/>
           </parameter>
           <parameter xml:id="c4_e_sr2_qual" display_type="" units="" name="e_sr2_quality"/>
         </dataset>
-        <dataset target="" dataSource="CSA" dataStop="2004/03/31" dataStart="2003/04/16" maxSampling="" sampling="5Hz" xml:id="clust4:pot:full" name="sc_pot_full" att="">
+        <dataset target="" dataSource="CSA" dataStop="2013/09/30" dataStart="2001/01/01" maxSampling="" sampling="5Hz" xml:id="clust4:pot:full" name="sc_pot_full" att="">
           <parameter xml:id="c4_potfull" display_type="" units="V" name="sc_pot"/>
         </dataset>
-        <dataset target="" dataSource="CSA" dataStop="1970/01/01" dataStart="1970/01/01" maxSampling="" sampling="4" xml:id="clust4:pot:spin" name="sc_pot_spin" att="">
+        <dataset target="" dataSource="CSA" dataStop="2013/09/30" dataStart="2001/01/01" maxSampling="" sampling="4s" xml:id="clust4:pot:spin" name="sc_pot_spin" att="">
           <parameter xml:id="c4_potspin" display_type="" units="V" name="sc_pot"/>
         </dataset>
       </instrument>
@@ -3388,7 +3406,7 @@
           <parameter xml:id="c4_whipp_f5" display_type="" units="(V/m)^2/Hz,10-20kHz" name="e_spectral_density_F5"/>
           <parameter xml:id="c4_whipp_f6" display_type="" units="(V/m)^2/Hz,20-80kHz" name="e_spectral_density_F6"/>
         </dataset>
-        <dataset target="" dataSource="CAA" dataStop="2008/06/30" dataStart="2001/02/07" maxSampling="" sampling="1.5s" xml:id="clust4:whi:whi" name="whisper_l2" att="parameters/Whisper">
+        <dataset target="" dataSource="CSA" dataStop="2013/03/31" dataStart="2001/02/07" maxSampling="" sampling="1.5s" xml:id="clust4:whi:whi" name="whisper_l2" att="parameters/Whisper">
           <parameter xml:id="c4_whi_ne" display_type="" units="cm-3" name="el_density"/>
           <parameter xml:id="c4_whi_ne_qual" display_type="" units="no" name="el_density_contrast"/>
         </dataset>
@@ -3713,14 +3731,14 @@
     </mission>
     <mission available="1" target="Earth.Surface" desc="All_Indices" xml:id="Indices" name="Indices" att="">
       <instrument desc="Final/Provisional/QuickLook" xml:id="Indices:Ground_Based" name="Ground_Based" att="">
-        <dataset target="" dataSource="WDC_Kyoto" dataStop="2012/05/31" dataStart="1977/12/31" maxSampling="" sampling="60s" xml:id="ground:based:aei" name="Auroral_Electrojet" att="">
+        <dataset target="" dataSource="WDC_Kyoto" dataStop="2013/08/31" dataStart="1975/01/01" maxSampling="" sampling="60s" xml:id="ground:based:aei" name="Auroral_Electrojet" att="">
           <parameter xml:id="ae" display_type="" units="nT" name="AE/AL/AU">
             <component xml:id="ae(0)" name="AE"/>
             <component xml:id="ae(1)" name="AL"/>
             <component xml:id="ae(2)" name="AU"/>
           </parameter>
         </dataset>
-        <dataset target="" dataSource="WDC_Kyoto" dataStop="2012/06/30" dataStart="1977/01/01" maxSampling="" sampling="60m" xml:id="ground:based:dst" name="Dst" att="">
+        <dataset target="" dataSource="WDC_Kyoto" dataStop="2013/12/31" dataStart="1970/01/01" maxSampling="" sampling="60m" xml:id="ground:based:dst" name="Dst" att="parameters/DST">
           <parameter xml:id="dst" display_type="" units="nT" name="dst"/>
         </dataset>
         <dataset target="" dataSource="WDC_Kyoto" dataStop="2012/07/31" dataStart="1981/01/01" maxSampling="" sampling="60s" xml:id="ground:based:asy" name="ASY-SYM" att="">
@@ -3767,7 +3785,7 @@
     </mission>
     <mission available="1" target="" desc="Solar_Wind_Data and Indices" xml:id="OMNI" name="OMNI" att="">
       <instrument desc="Near_Earth_Data" xml:id="OMNI:imf/sw/indices" name="imf/sw/indices" att="">
-        <dataset target="" dataSource="OMNIWeb" dataStop="2013/03/14" dataStart="1970/01/01" maxSampling="" sampling="1h" xml:id="omni:hour:all" name="one_hour" att="">
+        <dataset target="" dataSource="OMNIWeb" dataStop="2013/12/02" dataStart="1970/01/01" maxSampling="" sampling="1h" xml:id="omni:hour:all" name="one_hour" att="">
           <parameter xml:id="omni_imf_mag" display_type="" units="nT" name="imf_average_magn"/>
           <parameter xml:id="omni_imf_mag_vec" display_type="" units="nT" name="imf_average_vec_magn"/>
           <parameter xml:id="omni_imf" display_type="" units="nT" name="imf_gse">
@@ -3788,7 +3806,7 @@
           <parameter xml:id="omni_dst" display_type="" units="nT" name="Dst"/>
           <parameter xml:id="omni_sunspots" display_type="" units="no" name="Sunspot Number"/>
         </dataset>
-        <dataset target="" dataSource="OMNIWeb" dataStop="2013/02/20" dataStart="1995/01/01" maxSampling="" sampling="5m" xml:id="omni:5min:all" name="five_min" att="">
+        <dataset target="" dataSource="OMNIWeb" dataStop="2013/11/30" dataStart="1990/01/01" maxSampling="" sampling="5m" xml:id="omni:5min:all" name="five_min" att="">
           <parameter xml:id="omni5_imf_mag" display_type="" units="nT" name="imf_average_magn"/>
           <parameter xml:id="omni5_imf" display_type="" units="nT" name="imf_gse">
             <component xml:id="omni5_imf(0)" name="Bx"/>
