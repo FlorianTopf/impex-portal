@@ -1,55 +1,50 @@
 <?xml version="1.0"?>
 <impexconfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.impex.org/2012/configuration.xsd configuration.xsd"
+ xsi:schemaLocation="http://www.impex.org/2012/configuration.xsd configuration-1_0_0.xsd"
  xmlns="http://www.impex.org/2012/configuration.xsd">
-  <database type="simulation">
+  <database type="simulation" id="impex://FMI">
     <name>FMI</name>
     <description>FMI Hybrid and MHD web archive</description>
     <dns>impex-fp7.fmi.fi</dns>
     <methods>/ws/Methods_FMI.wsdl</methods>
     <tree>/ws/Tree_FMI_HYB.xml</tree>
     <tree>/ws/Tree_FMI_GUMICS.xml</tree>
-    <protocol>soap</protocol>
     <protocol>http</protocol>
     <info>http://hwa.fmi.fi/beta/login.php</info>
   </database>
-  <database type="simulation">
+  <database type="simulation" id="impex://LATMOS">
     <name>LATMOS</name>
     <description>LATMOS Hybrid simulations</description>
     <dns>impex.latmos.ipsl.fr</dns>
     <methods>/Methods_LATMOS.wsdl</methods>
     <tree>/tree.xml</tree>
-    <protocol>soap</protocol>
     <protocol>http</protocol>
     <info>http://impex.latmos.ipsl.fr/LatHyS.htm</info>
   </database>
-  <database type="simulation">
+  <database type="simulation" id="impex://SINP/PMM">
     <name>SINP</name>
     <description>SINP Paraboloid Model simulations</description>
     <dns>dec1.sinp.msu.ru</dns>
     <methods>/~lucymu/paraboloid/SINP_methods.wsdl</methods>
     <tree>/~lucymu/paraboloid/SINP_tree.xml</tree>
-    <protocol>soap</protocol>
     <protocol>http</protocol>
     <info>http://smdc.sinp.msu.ru/index.py?nav=model-para</info>
   </database>
-  <database type="observation">
+  <database type="observation" id="impex://AMDA">
     <name>AMDA</name>
     <description>AMDA observational database</description>
     <dns>cdpp1.cesr.fr</dns>
     <methods>/AMDA-NG/public/wsdl/Methods_AMDA.wsdl</methods>
     <tree>/AMDA-NG/data/WSRESULT/getObsDataTree_LocalParams.xml</tree>
-    <protocol>soap</protocol>
     <protocol>http</protocol>
     <info>http://clweb.cesr.fr/webservice.html</info>
   </database>
-  <database type="observation">
-    <name>ClWeb</name>
-    <description>ClWeb observational databases</description>
+  <database type="observation" id="impex://CLWEB">
+    <name>CLWeb</name>
+    <description>CLWeb observational databases</description>
     <dns>clweb.cesr.fr</dns>
     <methods>/Methods_CLWEB.wsdl</methods>
     <tree>/clweb_tree.xml</tree>
-    <protocol>soap</protocol>
     <protocol>http</protocol>
     <info>http://clweb.cesr.fr/webservice.html</info>
   </database>
@@ -60,7 +55,7 @@
     <info>http://cdpp-amda.cesr.fr/DDHTML/HELP/about.html</info>
   </tool>
   <tool>
-    <name>ClWeb</name>
+    <name>CLWeb</name>
 	<description>Multi-mission space plasma data plotting tool</description>
     <dns>clweb.cesr.fr</dns>
     <info>http://clweb.cesr.fr/clweb_poster.pdf</info>

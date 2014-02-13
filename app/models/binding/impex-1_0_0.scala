@@ -1756,6 +1756,7 @@ object EnumRegion {
     case "Sun.TransitionRegion" => Sunu46TransitionRegion
     case "Uranus" => Uranus
     case "Venus" => Venus
+    case "Ganymede" => Ganymede
 
   }
 }
@@ -1807,6 +1808,7 @@ case object Sunu46Photosphere extends EnumRegion { override def toString = "Sun.
 case object Sunu46TransitionRegion extends EnumRegion { override def toString = "Sun.TransitionRegion" }
 case object Uranus extends EnumRegion { override def toString = "Uranus" }
 case object Venus extends EnumRegion { override def toString = "Venus" }
+case object Ganymede extends EnumRegion { override def toString = "Ganymede" }
 
 trait EnumRenderingAxis
 
@@ -2185,7 +2187,7 @@ trait DisplayOutputOption
 
 /** Descriptor of a simulation model: type of numerical scheme, versions,...
 */
-case class SimulationModel(ResourceID: String,
+case class SimulationModelType(ResourceID: String,
   ResourceHeader: models.binding.ResourceHeader,
   Versions: Option[models.binding.Versions] = None,
   SimulationType: models.binding.EnumSimulationType,

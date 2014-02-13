@@ -66,7 +66,7 @@ object Global extends GlobalSettings {
 
         //@TODO maybe change addressing to something else (ResourceID?)
         RegistryService.registerChild(
-          Props(new DataProvider(Trees(trees), Methods(methods), database.typeValue.get)),
+          Props(new DataProvider(Trees(trees), Methods(methods), database.typeValue)),
           database.name)
     }
 

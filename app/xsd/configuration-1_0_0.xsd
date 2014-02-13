@@ -19,7 +19,8 @@
               <xs:element type="xs:string" name="protocol" maxOccurs="unbounded" minOccurs="1"/>
               <xs:element type="xs:string" name="info" maxOccurs="1" minOccurs="1"/>
             </xs:sequence>
-            <xs:attribute name="type" type="imp:databasetype"/>
+            <xs:attribute name="type" use="required" type="imp:databasetype"/>
+            <xs:attribute name="id" use="required" type="xs:anyURI"/>
           </xs:complexType>
         </xs:element>
         <xs:element name="tool">

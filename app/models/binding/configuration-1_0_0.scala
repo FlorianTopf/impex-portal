@@ -9,7 +9,8 @@ case class Database(name: String,
   tree: Seq[String] = Nil,
   protocol: Seq[String] = Nil,
   info: String,
-  typeValue: Option[models.binding.Databasetype] = None) extends ImpexconfigurationOption
+  typeValue: models.binding.Databasetype,
+  id: java.net.URI) extends ImpexconfigurationOption
 
 trait DatabaseOption
 

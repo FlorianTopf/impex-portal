@@ -35,18 +35,18 @@ object Application extends Controller {
   }
 
   def tree = Action.async {
-    val future = RegistryService.getTreeXML(Some("SINP"))
+    val future = RegistryService.getTreeXML(Some("FMI"))
 
     future map { response =>
 
       val tree = response map { r => scalaxb.fromXML[Spase](r) }
       //val simulationModel = response.xml \\ "SimulatioModel" \ "ResourceID"
 
-      val simulationModels: ListBuffer[SimulationModel] = ListBuffer()
+      val simulationModels: ListBuffer[SimulationModelType] = ListBuffer()
       val simulationRuns: ListBuffer[SimulationRun] = ListBuffer()
 
       for (element <- tree(0).ResourceEntity) element.key.get match {
-        case "SimulationModel" => simulationModels += element.as[SimulationModel]
+        case "SimulationModel" => simulationModels += element.as[SimulationModelType]
         //@TODO still the same problem with some XML elements
         case "SimulationRun" => simulationRuns +=
           scalaxb.fromXML[SimulationRun](element.value.asInstanceOf[NodeSeq])
@@ -76,8 +76,8 @@ object Application extends Controller {
     
     Ok("OK:" + merged) */
     //val future = RegistryService.getRepository()
-    //val future = RegistryService.getRepository("AMDA")
-    val future = RegistryService.getRepositoryType(Simulation)
+    //val future = RegistryService.getRepository(Some("SINP"))
+    val future = RegistryService.getRepository(Some("AMDA"))
 
     future.map { repositories =>
       Ok(views.html.repository(repositories))

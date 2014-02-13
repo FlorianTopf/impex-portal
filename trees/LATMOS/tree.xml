@@ -18788,14 +18788,14 @@ Adiabatic profile below 10.75cm^-3, hydrostatic above.</Profile>
 <URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_01_13/The_14_01_13_MGS_ephem_2006_07_90.0.xml</URL>
 </Source>
 </Granule><Granule>
-<ResourceID>impex://LATMOS/Hybrid/Mars_14_01_13/The/3D/Thew_14_01_13_t00600</ResourceID>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_01_13/The/3D/Thew_14_01_13_t00150</ResourceID>
 <ReleaseDate>2013-06-11T00:00:00.000</ReleaseDate>
 <ParentID>impex://LATMOS/Hybrid/Mars_14_01_13/The/3D</ParentID>
 <RegionBegin>   -7180.1   -15879.1   -15879.1 </RegionBegin>
 <RegionEnd>    9555.1    16100.0    16100.0 </RegionEnd>
 <Source>
 <SourceType>Data</SourceType>
-<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_01_13/Thew_14_01_13_t00600.nc</URL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_01_13/Thew_14_01_13_t00150.nc</URL>
 </Source>
 </Granule><Granule>
 <ResourceID>impex://LATMOS/Hybrid/Mars_14_01_13/The/2D/XY/Thew_XY_14_01_13</ResourceID>
@@ -57536,5 +57536,2298 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Source>
 <SourceType>Data</SourceType>
 <URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_09_01_14/Thew_YZ_09_01_14.xml</URL>
+</Source>
+</Granule><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Ele/2D/XY</ResourceID>
+<ResourceHeader>
+<ResourceName>Ele_XY</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>ElectricField</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  0.00  1.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>TotalElectricField</Name>
+<ParameterKey>Etot</ParameterKey>
+<Units>mV.m-1</Units>
+<UnitsConversion> 1.e-3 &gt; V.m^-1 </UnitsConversion>
+<Field>
+<Qualifier>Total</Qualifier>
+<FieldQuantity>Electric</FieldQuantity>
+</Field>
+</Parameter>
+<Parameter>
+<Name>ElectricField</Name>
+<ParameterKey>Ex Ey Ez</ParameterKey>
+<Units>mV.m-1</Units>
+<UnitsConversion> 1.e-3 &gt; V.m^-1 </UnitsConversion>
+<Field>
+<Qualifier>Vector</Qualifier>
+<FieldQuantity>Electric</FieldQuantity>
+</Field>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Ele/2D/XZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Ele_XZ</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>ElectricField</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  1.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>TotalElectricField</Name>
+<ParameterKey>Etot</ParameterKey>
+<Units>mV.m-1</Units>
+<UnitsConversion> 1.e-3 &gt; V.m^-1 </UnitsConversion>
+<Field>
+<Qualifier>Total</Qualifier>
+<FieldQuantity>Electric</FieldQuantity>
+</Field>
+</Parameter>
+<Parameter>
+<Name>ElectricField</Name>
+<ParameterKey>Ex Ey Ez</ParameterKey>
+<Units>mV.m-1</Units>
+<UnitsConversion> 1.e-3 &gt; V.m^-1 </UnitsConversion>
+<Field>
+<Qualifier>Vector</Qualifier>
+<FieldQuantity>Electric</FieldQuantity>
+</Field>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Ele/2D/YZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Ele_YZ</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>ElectricField</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 1.00  0.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>TotalElectricField</Name>
+<ParameterKey>Etot</ParameterKey>
+<Units>mV.m-1</Units>
+<UnitsConversion> 1.e-3 &gt; V.m^-1 </UnitsConversion>
+<Field>
+<Qualifier>Total</Qualifier>
+<FieldQuantity>Electric</FieldQuantity>
+</Field>
+</Parameter>
+<Parameter>
+<Name>ElectricField</Name>
+<ParameterKey>Ex Ey Ez</ParameterKey>
+<Units>mV.m-1</Units>
+<UnitsConversion> 1.e-3 &gt; V.m^-1 </UnitsConversion>
+<Field>
+<Qualifier>Vector</Qualifier>
+<FieldQuantity>Electric</FieldQuantity>
+</Field>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput>
+    <NumericalOutput>
+        <ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Ele/3D</ResourceID>
+        <ResourceHeader>
+            <ResourceName>Ele/3D</ResourceName>
+            <ReleaseDate>2014-01-31T00:00:00.000</ReleaseDate>
+            <Description/>
+            <Contact>
+                <PersonID>LATMOS</PersonID>
+                <Role>DataProducer</Role>
+            </Contact>
+        </ResourceHeader>
+        <AccessInformation>
+            <RepositoryID>impex://LATMOS</RepositoryID>
+            <AccessURL>
+                <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+            </AccessURL>
+            <Format>NetCDF</Format>
+        </AccessInformation>
+        <MeasurementType>ElectricField</MeasurementType>
+        <SpatialDescription>
+            <Dimension>3</Dimension>
+            <CoordinateSystem>
+                <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+                <CoordinateSystemName>J2000</CoordinateSystemName>
+            </CoordinateSystem>
+            <Units>km</Units>
+            <UnitsConversion>1000 &gt; m</UnitsConversion>
+            <RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+            <RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+        </SpatialDescription>
+        <SimulatedRegion>Ganymede</SimulatedRegion>
+        <InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+        <Parameter>
+            <Name>MagneticField</Name>
+            <ParameterKey>Ex Ey Ez</ParameterKey>
+            <Units>mV.m-1</Units>
+            <UnitsConversion> 1.e-3 &gt; V.m^-1 </UnitsConversion>
+            <Field>
+                <Qualifier>Vector</Qualifier>
+                <FieldQuantity>Electric</FieldQuantity>
+            </Field>
+        </Parameter>
+        <SimulationProduct>3DCubes</SimulationProduct>
+    </NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Mag/2D/XY</ResourceID>
+<ResourceHeader>
+<ResourceName>Mag_XY</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>MagneticField</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  0.00  1.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>TotalMagneticField</Name>
+<ParameterKey>Btot</ParameterKey>
+<Units>nT</Units>
+<UnitsConversion> 1.e-9 &gt; T </UnitsConversion>
+<Field>
+<Qualifier>Total</Qualifier>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+<Parameter>
+<Name>MagneticField</Name>
+<ParameterKey>Bx By Bz</ParameterKey>
+<Units>nT</Units>
+<UnitsConversion> 1.e-9 &gt; T </UnitsConversion>
+<Field>
+<Qualifier>Vector</Qualifier>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Mag/2D/XZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Mag_XZ</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>MagneticField</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  1.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>TotalMagneticField</Name>
+<ParameterKey>Btot</ParameterKey>
+<Units>nT</Units>
+<UnitsConversion> 1.e-9 &gt; T </UnitsConversion>
+<Field>
+<Qualifier>Total</Qualifier>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+<Parameter>
+<Name>MagneticField</Name>
+<ParameterKey>Bx By Bz</ParameterKey>
+<Units>nT</Units>
+<UnitsConversion> 1.e-9 &gt; T </UnitsConversion>
+<Field>
+<Qualifier>Vector</Qualifier>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Mag/2D/YZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Mag_YZ</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>MagneticField</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 1.00  0.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>TotalMagneticField</Name>
+<ParameterKey>Btot</ParameterKey>
+<Units>nT</Units>
+<UnitsConversion> 1.e-9 &gt; T </UnitsConversion>
+<Field>
+<Qualifier>Total</Qualifier>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+<Parameter>
+<Name>MagneticField</Name>
+<ParameterKey>Bx By Bz</ParameterKey>
+<Units>nT</Units>
+<UnitsConversion> 1.e-9 &gt; T </UnitsConversion>
+<Field>
+<Qualifier>Vector</Qualifier>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+    <ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Mag/3D</ResourceID>
+    <ResourceHeader>
+        <ResourceName>Mag/3D</ResourceName>
+        <ReleaseDate>2014-01-31T00:00:00.000</ReleaseDate>
+        <Description/>
+        <Contact>
+            <PersonID>LATMOS</PersonID>
+            <Role>DataProducer</Role>
+        </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+        <RepositoryID>impex://LATMOS</RepositoryID>
+        <AccessURL>
+            <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+        </AccessURL>
+        <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <SpatialDescription>
+        <Dimension>3</Dimension>
+        <CoordinateSystem>
+            <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+            <CoordinateSystemName>J2000</CoordinateSystemName>
+        </CoordinateSystem>
+        <Units>km</Units>
+        <UnitsConversion>1000 &gt; m</UnitsConversion>
+        <RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+        <RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+    </SpatialDescription>
+    <SimulatedRegion>Ganymede</SimulatedRegion>
+    <InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+    <Parameter>
+        <Name>MagneticField</Name>
+        <ParameterKey>Bx By Bz</ParameterKey>
+        <Units>nT</Units>
+        <UnitsConversion> 1.e-9 &gt; T </UnitsConversion>
+        <Field>
+            <Qualifier>Vector</Qualifier>
+            <FieldQuantity>Magnetic</FieldQuantity>
+        </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+    <NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Hjv/2D/XY</ResourceID>
+<ResourceHeader>
+<ResourceName>Jovian_H+_XY</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  0.00  1.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Jovian_H+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Jovian_H+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Jovian_H+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Jovian_H+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Hjv/2D/XZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Jovian_H+_XZ</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  1.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Jovian_H+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Jovian_H+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Jovian_H+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Jovian_H+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Hjv/2D/YZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Jovian_H+_YZ</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 1.00  0.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Jovian_H+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Jovian_H+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Jovian_H+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Jovian_H+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput>    
+    <NumericalOutput>
+        <ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Hjv/3D</ResourceID>
+        <ResourceHeader>
+            <ResourceName>Jovian_H+/3D</ResourceName>
+            <ReleaseDate>2014-01-31T00:00:00.000</ReleaseDate>
+            <Description/>
+            <Contact>
+                <PersonID>LATMOS</PersonID>
+                <Role>DataProducer</Role>
+            </Contact>
+        </ResourceHeader>
+        <AccessInformation>
+            <RepositoryID>impex://LATMOS</RepositoryID>
+            <AccessURL>
+                <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+            </AccessURL>
+            <Format>NetCDF</Format>
+        </AccessInformation>
+        <MeasurementType>IonComposition</MeasurementType>
+        <SpatialDescription>
+            <Dimension>3</Dimension>
+            <CoordinateSystem>
+                <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+                <CoordinateSystemName>J2000</CoordinateSystemName>
+            </CoordinateSystem>
+            <Units>km</Units>
+            <UnitsConversion>1000 &gt; m</UnitsConversion>
+            <RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+            <RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+        </SpatialDescription>
+        <SimulatedRegion>Ganymede</SimulatedRegion>
+        <InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+        <Parameter>
+            <Name>n_i</Name>
+            <ParameterKey>Density</ParameterKey>
+            <Units>cm^-3</Units>
+            <UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+            <Particle>
+                <PopulationID>Jovian_H+</PopulationID>
+                <ParticleType>Ion</ParticleType>
+                <ParticleQuantity>NumberDensity</ParticleQuantity>
+                <ChemicalFormula>H</ChemicalFormula>
+                <AtomicNumber>1</AtomicNumber>
+                <PopulationMassNumber>1</PopulationMassNumber>
+                <PopulationChargeState>1</PopulationChargeState>
+            </Particle>
+        </Parameter>
+        <Parameter>
+            <Name>U_i</Name>
+            <ParameterKey>Ux Uy Uz</ParameterKey>
+            <Units>km.s^-1</Units>
+            <UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+            <Particle>
+                <PopulationID>Jovian_H+</PopulationID>
+                <ParticleType>Ion</ParticleType>
+                <Qualifier>Vector</Qualifier>
+                <ParticleQuantity>Velocity</ParticleQuantity>
+                <ChemicalFormula>H</ChemicalFormula>
+                <AtomicNumber>1</AtomicNumber>
+                <PopulationMassNumber>1</PopulationMassNumber>
+                <PopulationChargeState>1</PopulationChargeState>
+            </Particle>
+        </Parameter>
+        <Parameter>
+            <Name>T_i</Name>
+            <ParameterKey>Temperature</ParameterKey>
+            <Units>eV</Units>
+            <Particle>
+                <PopulationID>Jovian_H+</PopulationID>
+                <ParticleType>Ion</ParticleType>
+                <ParticleQuantity>Temperature</ParticleQuantity>
+                <ChemicalFormula>H</ChemicalFormula>
+                <AtomicNumber>1</AtomicNumber>
+                <PopulationMassNumber>1</PopulationMassNumber>
+                <PopulationChargeState>1</PopulationChargeState>
+            </Particle>
+        </Parameter>
+        <SimulationProduct>3DCubes</SimulationProduct>
+    </NumericalOutput>
+    <NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Ojv/2D/XY</ResourceID>
+<ResourceHeader>
+<ResourceName>Jovian_O+_XY</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  0.00  1.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Jovian_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Jovian_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Jovian_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Jovian_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Ojv/2D/XZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Jovian_O+_XZ</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  1.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Jovian_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Jovian_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Jovian_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Jovian_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Ojv/2D/YZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Jovian_O+_YZ</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 1.00  0.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Jovian_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Jovian_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Jovian_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Jovian_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput>    
+    <NumericalOutput>
+        <ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Ojv/3D</ResourceID>
+        <ResourceHeader>
+            <ResourceName>Jovian_O+/3D</ResourceName>
+            <ReleaseDate>2014-01-31T00:00:00.000</ReleaseDate>
+            <Description/>
+            <Contact>
+                <PersonID>LATMOS</PersonID>
+                <Role>DataProducer</Role>
+            </Contact>
+        </ResourceHeader>
+        <AccessInformation>
+            <RepositoryID>impex://LATMOS</RepositoryID>
+            <AccessURL>
+                <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+            </AccessURL>
+            <Format>NetCDF</Format>
+        </AccessInformation>
+        <MeasurementType>IonComposition</MeasurementType>
+        <SpatialDescription>
+            <Dimension>3</Dimension>
+            <CoordinateSystem>
+                <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+                <CoordinateSystemName>J2000</CoordinateSystemName>
+            </CoordinateSystem>
+            <Units>km</Units>
+            <UnitsConversion>1000 &gt; m</UnitsConversion>
+            <RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+            <RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+        </SpatialDescription>
+        <SimulatedRegion>Ganymede</SimulatedRegion>
+        <InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+        <Parameter>
+            <Name>n_i</Name>
+            <ParameterKey>Density</ParameterKey>
+            <Units>cm^-3</Units>
+            <UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+            <Particle>
+                <PopulationID>Jovian_O+</PopulationID>
+                <ParticleType>Ion</ParticleType>
+                <ParticleQuantity>NumberDensity</ParticleQuantity>
+                <ChemicalFormula>O</ChemicalFormula>
+                <AtomicNumber>8</AtomicNumber>
+                <PopulationMassNumber>16</PopulationMassNumber>
+                <PopulationChargeState>1</PopulationChargeState>
+            </Particle>
+        </Parameter>
+        <Parameter>
+            <Name>U_i</Name>
+            <ParameterKey>Ux Uy Uz</ParameterKey>
+            <Units>km.s^-1</Units>
+            <UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+            <Particle>
+                <PopulationID>Jovian_O+</PopulationID>
+                <ParticleType>Ion</ParticleType>
+                <Qualifier>Vector</Qualifier>
+                <ParticleQuantity>Velocity</ParticleQuantity>
+                <ChemicalFormula>O</ChemicalFormula>
+                <AtomicNumber>8</AtomicNumber>
+                <PopulationMassNumber>16</PopulationMassNumber>
+                <PopulationChargeState>1</PopulationChargeState>
+            </Particle>
+        </Parameter>
+        <Parameter>
+            <Name>T_i</Name>
+            <ParameterKey>Temperature</ParameterKey>
+            <Units>eV</Units>
+            <Particle>
+                <PopulationID>Jovian_O+</PopulationID>
+                <ParticleType>Ion</ParticleType>
+                <ParticleQuantity>Temperature</ParticleQuantity>
+                <ChemicalFormula>O</ChemicalFormula>
+                <AtomicNumber>8</AtomicNumber>
+                <PopulationMassNumber>16</PopulationMassNumber>
+                <PopulationChargeState>1</PopulationChargeState>
+            </Particle>
+        </Parameter>
+        <SimulationProduct>3DCubes</SimulationProduct>
+    </NumericalOutput>
+    <NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Opl/2D/XY</ResourceID>
+<ResourceHeader>
+<ResourceName>Planetary_O+_XY</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  0.00  1.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Opl/2D/XZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Planetary_O+_XZ</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  1.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Opl/2D/YZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Planetary_O+_YZ</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 1.00  0.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+    <ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Opl/3D</ResourceID>
+    <ResourceHeader>
+        <ResourceName>Planetary_O+/3D</ResourceName>
+        <ReleaseDate>2014-01-31T00:00:00.000</ReleaseDate>
+        <Description/>
+        <Contact>
+            <PersonID>LATMOS</PersonID>
+            <Role>DataProducer</Role>
+        </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+        <RepositoryID>impex://LATMOS</RepositoryID>
+        <AccessURL>
+            <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+        </AccessURL>
+        <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>IonComposition</MeasurementType>
+    <SpatialDescription>
+        <Dimension>3</Dimension>
+        <CoordinateSystem>
+            <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+            <CoordinateSystemName>J2000</CoordinateSystemName>
+        </CoordinateSystem>
+        <Units>km</Units>
+        <UnitsConversion>1000 &gt; m</UnitsConversion>
+        <RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+        <RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+    </SpatialDescription>
+    <SimulatedRegion>Ganymede</SimulatedRegion>
+    <InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+    <Parameter>
+        <Name>n_i</Name>
+        <ParameterKey>Density</ParameterKey>
+        <Units>cm^-3</Units>
+        <UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+        <Particle>
+            <PopulationID>Planetary_O+</PopulationID>
+            <ParticleType>Ion</ParticleType>
+            <ParticleQuantity>NumberDensity</ParticleQuantity>
+            <ChemicalFormula>O</ChemicalFormula>
+            <AtomicNumber>8</AtomicNumber>
+            <PopulationMassNumber>16</PopulationMassNumber>
+            <PopulationChargeState>1</PopulationChargeState>
+        </Particle>
+    </Parameter>
+    <Parameter>
+        <Name>U_i</Name>
+        <ParameterKey>Ux Uy Uz</ParameterKey>
+        <Units>km.s^-1</Units>
+        <UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+        <Particle>
+            <PopulationID>Planetary_O+</PopulationID>
+            <ParticleType>Ion</ParticleType>
+            <Qualifier>Vector</Qualifier>
+            <ParticleQuantity>Velocity</ParticleQuantity>
+            <ChemicalFormula>O</ChemicalFormula>
+            <AtomicNumber>8</AtomicNumber>
+            <PopulationMassNumber>16</PopulationMassNumber>
+            <PopulationChargeState>1</PopulationChargeState>
+        </Particle>
+    </Parameter>
+    <Parameter>
+        <Name>T_i</Name>
+        <ParameterKey>Temperature</ParameterKey>
+        <Units>eV</Units>
+        <Particle>
+            <PopulationID>Planetary_O+</PopulationID>
+            <ParticleType>Ion</ParticleType>
+            <ParticleQuantity>Temperature</ParticleQuantity>
+            <ChemicalFormula>O</ChemicalFormula>
+            <AtomicNumber>8</AtomicNumber>
+            <PopulationMassNumber>16</PopulationMassNumber>
+            <PopulationChargeState>1</PopulationChargeState>
+        </Particle>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/The/2D/XY</ResourceID>
+<ResourceHeader>
+<ResourceName>The_XY</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>ThermalPlasma</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  0.00  1.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>n_e</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<ParticleType>Electron</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units> km.s^-1 </Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_e</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<ParticleType>Electron</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/The/2D/XZ</ResourceID>
+<ResourceHeader>
+<ResourceName>The_XZ</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>ThermalPlasma</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  1.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>n_e</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<ParticleType>Electron</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units> km.s^-1 </Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_e</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<ParticleType>Electron</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/The/2D/YZ</ResourceID>
+<ResourceHeader>
+<ResourceName>The_YZ</ResourceName>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>ThermalPlasma</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 1.00  0.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+<Parameter>
+<Name>n_e</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<ParticleType>Electron</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units> km.s^-1 </Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_e</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<ParticleType>Electron</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+    <ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/The/3D</ResourceID>
+    <ResourceHeader>
+        <ResourceName>The/3D</ResourceName>
+        <ReleaseDate>2014-01-31T00:00:00.000</ReleaseDate>
+        <Description/>
+        <Contact>
+            <PersonID>LATMOS</PersonID>
+            <Role>DataProducer</Role>
+        </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+        <RepositoryID>impex://LATMOS</RepositoryID>
+        <AccessURL>
+            <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+        </AccessURL>
+        <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>ThermalPlasma</MeasurementType>
+    <SpatialDescription>
+        <Dimension>3</Dimension>
+        <CoordinateSystem>
+            <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+            <CoordinateSystemName>J2000</CoordinateSystemName>
+        </CoordinateSystem>
+        <Units>km</Units>
+        <UnitsConversion>1000 &gt; m</UnitsConversion>
+        <RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+        <RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+    </SpatialDescription>
+    <SimulatedRegion>Ganymede</SimulatedRegion>
+    <InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
+    <Parameter>
+        <Name>n_e</Name>
+        <ParameterKey>Density</ParameterKey>
+        <Units>cm^-3</Units>
+        <UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+        <Particle>
+            <ParticleType>Electron</ParticleType>
+            <Qualifier>Total</Qualifier>
+            <ParticleQuantity>NumberDensity</ParticleQuantity>
+        </Particle>
+    </Parameter>
+    <Parameter>
+        <Name>U</Name>
+        <ParameterKey>Ux Uy Uz</ParameterKey>
+        <Units>km.s^-1</Units>
+        <UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+        <Particle>
+            <ParticleType>Ion</ParticleType>
+            <Qualifier>Vector</Qualifier>
+            <ParticleQuantity>Velocity</ParticleQuantity>
+        </Particle>
+    </Parameter>
+    <Parameter>
+        <Name>T_e</Name>
+        <ParameterKey>Temperature</ParameterKey>
+        <Units>eV</Units>
+        <Particle>
+            <ParticleType>Electron</ParticleType>
+            <ParticleQuantity>Temperature</ParticleQuantity>
+        </Particle>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput><SimulationRun>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</ResourceID>
+<ResourceHeader>
+    <ResourceName>LatHyS_Gany_24_10_13</ResourceName>
+<ReleaseDate>2013-10-24T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<Model>
+<ModelID>impex://LATMOS/Hybrid</ModelID>
+</Model>
+<TemporalDependence>No</TemporalDependence>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+ <LikelihoodRating>Strong</LikelihoodRating>
+ <SimulationTime>
+ <Duration>PT222.642S</Duration>
+ <TimeStart>00:00:00</TimeStart>
+ <TimeStep>PT0.007S</TimeStep>
+ </SimulationTime>
+ <SimulationDomain>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>J2000</CoordinateSystemName>
+</CoordinateSystem>
+<SpatialDimension>3</SpatialDimension>
+<VelocityDimension>3</VelocityDimension>
+<FieldDimension>3</FieldDimension>
+<Units>km</Units>
+<CoordinatesLabel>X Y Z</CoordinatesLabel>
+<ValidMin>-32155.0  -48719.7  -73079.5</ValidMin>
+<ValidMax>16564.7   48719.7   73079.5</ValidMax>
+<GridStructure>Constant</GridStructure>
+<GridCellSize>243.6   243.6   243.6</GridCellSize>
+<Symmetry>Axial</Symmetry>
+<BoundaryConditions>
+<ParticleBoundary>
+<FrontWall> absorbing </FrontWall>
+<BackWall> absorbing </BackWall>
+<SideWall> absorbing </SideWall>
+<Obstacle> absorbing </Obstacle>
+</ParticleBoundary>
+<FieldBoundary>
+<FrontWall> jovian </FrontWall>
+<BackWall> Neuman zero-gradient </BackWall>
+<SideWall> periodic </SideWall>
+<Obstacle> absorbing </Obstacle>
+</FieldBoundary>
+</BoundaryConditions>
+</SimulationDomain>
+<RegionParameter>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<Radius Units="km">2631.00</Radius>
+<SubLongitude>-1.00</SubLongitude>
+<Property>
+<Name>Exobase Altitude</Name>
+<Description>Altitude of the exobase</Description>
+<PropertyQuantity>Positional</PropertyQuantity>
+<Units>km</Units>
+<PropertyValue>2631.00</PropertyValue>
+</Property>
+<Property>
+<Name>Ionopause Altitude</Name>
+<Description>Altitude of the ionopause in the model
+That is the altitude below which ion densities are computed analytically</Description>
+<PropertyQuantity>Positional</PropertyQuantity>
+<Units>km</Units>
+<PropertyValue>3631.00</PropertyValue>
+</Property>
+</RegionParameter>
+<InputField>
+<Name>jovian</Name>
+<Description>Interplanetary Magnetic Field</Description>
+<SimulatedRegion>Jupiter</SimulatedRegion>
+<FieldQuantity>Magnetic</FieldQuantity>
+<Units>nT</Units>
+<InputLabel>Bx By Bz</InputLabel>
+<FieldValue>0.00  -79.00  -79.00</FieldValue>
+<ValidMin>111.72</ValidMin>
+<ValidMax>111.72</ValidMax>
+</InputField>
+<InputPopulation>
+<Name>Jovian electrons</Name>
+<Description>jovian electron fluid</Description>
+<SimulatedRegion>Jupiter</SimulatedRegion>
+<ParticleType>Electron</ParticleType>
+<PopulationMassNumber>0</PopulationMassNumber>
+<PopulationChargeState>-1</PopulationChargeState>
+<PopulationDensity Units="cm-3">4.00E+00</PopulationDensity>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">77.53</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">140.00</PopulationFlowSpeed>
+<Distribution>Maxwellian</Distribution>
+<Profile>Isothermal</Profile>
+</InputPopulation>
+<InputPopulation>
+<Name>jovian O+</Name>
+<Description>jovian O+</Description>
+<SimulatedRegion>Jupiter</SimulatedRegion>
+<ParticleType>Ion</ParticleType>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+<PopulationDensity Units="cm-3">3.47E+00</PopulationDensity>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">357.81</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">140.00</PopulationFlowSpeed>
+<Distribution>Maxwellian</Distribution>
+</InputPopulation>
+<InputPopulation>
+<Name>jovian H+</Name>
+<Description>jovian H+</Description>
+<SimulatedRegion>Jupiter</SimulatedRegion>
+<ParticleType>Ion</ParticleType> 
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+<PopulationDensity Units="cm-3">5.34E-01</PopulationDensity>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">34.89</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">140.00</PopulationFlowSpeed>
+<Distribution>Maxwellian</Distribution>
+</InputPopulation>
+<InputPopulation>
+<Name>Ionospheric electrons</Name>
+<Description>Electron fluid in the planet ionosphere</Description>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<ParticleType>Electron</ParticleType>    
+<PopulationMassNumber>0</PopulationMassNumber>
+<PopulationChargeState>-1</PopulationChargeState>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0.08</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
+<Profile>Isothermal profile</Profile>
+</InputPopulation>
+<InputPopulation>
+<Name>Ionospheric O+</Name>
+<Description>Ionospheric O+</Description>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<ParticleType>Ion</ParticleType>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
+<Distribution>Dirac</Distribution>
+</InputPopulation>
+<InputPopulation>
+<Name>Ionospheric H2+</Name>
+<Description>Ionospheric H2+</Description>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<ParticleType>Ion</ParticleType>   
+<PopulationMassNumber>2</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
+<Distribution>Dirac</Distribution>
+</InputPopulation>
+<InputPopulation>
+<Name>Exospheric H</Name>
+<Description>Exospheric H</Description>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<ParticleType>Atom</ParticleType>   
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>0</PopulationChargeState>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
+<Distribution>Dirac</Distribution>
+</InputPopulation>
+<InputPopulation>
+<Name>Exospheric H2</Name>
+<Description>Exospheric H2</Description>
+<SimulatedRegion>Ganymede</SimulatedRegion>
+<ParticleType>Molecule</ParticleType>
+<PopulationMassNumber>2</PopulationMassNumber>
+<PopulationChargeState>0</PopulationChargeState>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
+<Distribution>Dirac</Distribution>
+</InputPopulation>
+<InputParameter>
+<Name>Solar Uv Flux</Name>
+<ParameterQuantity>SolarUVFlux</ParameterQuantity>
+ <Property>
+ <Name>Solar UV Flux @ 10.7</Name>
+ <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+ <Units>Index</Units>
+ <PropertyValue>0.00</PropertyValue>
+ </Property>
+ <Property>
+ <Name>Solar UV Flux @ 10.7 Average</Name>
+ <PropertyQuantity>ActivityIndex</PropertyQuantity>
+ <Units>Index</Units>
+ <PropertyValue>0.00</PropertyValue>
+ </Property>
+ </InputParameter>
+ <InputParameter>
+ <Name>Derived Parameters</Name>
+ <ParameterQuantity>Other</ParameterQuantity>
+ <Property>
+ <Name>Alfven Speed</Name>
+ <PropertyQuantity>AlfvenVelocity</PropertyQuantity>
+ <Units>km/s</Units>
+ <PropertyValue>328.24</PropertyValue>
+ </Property>
+ <Property>
+ <Name>Alfven Mach Number</Name>
+ <PropertyQuantity>AlfvenMachNumber</PropertyQuantity>
+ <PropertyValue>0.43</PropertyValue>
+ </Property>
+ <Property>
+ <Name>Ion Inertial Length</Name>
+ <PropertyQuantity>Other</PropertyQuantity>
+ <Units>km</Units>
+ <PropertyValue>487.20</PropertyValue>
+ </Property>
+ </InputParameter>
+</SimulationRun>
+    <Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Mag/3D/Magw_24_10_13_t00150</ResourceID>
+    <ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Mag/3D</ParentID>
+    <RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+    <RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Magw_24_10_13_t00150.nc</URL>
+    </Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Mag/2D/XY/Bfield_XY_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Mag/2D/XY</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Bfield_XY_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Mag/2D/XZ/Bfield_XZ_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Mag/2D/XZ</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Bfield_XZ_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Mag/2D/YZ/Bfield_YZ_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Mag/2D/YZ</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Bfield_YZ_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Ele/3D/Elew_24_10_13_t00150</ResourceID>
+    <ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Ele/3D</ParentID>
+    <RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+    <RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Elew_24_10_13_t00150.nc</URL>
+    </Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Ele/2D/XY/Efield_XY_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Ele/2D/XY</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Efield_XY_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Ele/2D/XZ/Efield_XZ_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Ele/2D/XZ</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Efield_XZ_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Ele/2D/YZ/Efield_YZ_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Ele/2D/YZ</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Efield_YZ_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/H2pl/3D/H2pl_24_10_13_t00150</ResourceID>
+    <ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/H2pl/3D</ParentID>
+    <RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+    <RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/H2pl_24_10_13_t00150.nc</URL>
+    </Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/H2p/2D/XY/H2pl_XY_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/H2p/2D/XY</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/H2pl_XY_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/H2p/2D/XZ/H2pl_XZ_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/H2p/2D/XZ</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/H2pl_XZ_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/H2p/2D/YZ/H2pl_YZ_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/H2p/2D/YZ</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/H2pl_YZ_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Hjv/3D/Hjv_24_10_13_t00150</ResourceID>
+    <ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Hjv/3D</ParentID>
+    <RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+    <RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Hjv_24_10_13_t00150.nc</URL>
+    </Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Hjv/2D/XY/Hjv__XY_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Hjv/2D/XY</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Hjv__XY_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Hjv/2D/XZ/Hjv__XZ_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Hjv/2D/XZ</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+    <URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Hjv__XZ_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Hjv/2D/YZ/Hjv__YZ_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Hjv/2D/YZ</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+    <URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Hjv__YZ_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Jcu/2D/XY/Jcurre__XY_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Jcu/2D/XY</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+    <URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Jcurre__XY_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Jcu/2D/XZ/Jcurre__XZ_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Jcu/2D/XZ</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+    <URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Jcurre__XZ_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Jcu/2D/YZ/Jcurre__YZ_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Jcu/2D/YZ</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+    <URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Jcurre__YZ_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Ojv/3D/Ojv_24_10_13_t00150</ResourceID>
+    <ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Ojv/3D</ParentID>
+    <RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+    <RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Ojv_24_10_13_t00150.nc</URL>
+    </Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Ojv/2D/XY/Ojv__XY_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Ojv/2D/XY</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+    <URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Ojv__XY_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Ojv/2D/XZ/Ojv__XZ_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Ojv/2D/XZ</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+    <URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Ojv__XZ_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Ojv/2D/YZ/Ojv__YZ_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Ojv/2D/YZ</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+    <URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Ojv__YZ_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Opl/3D/Opl_24_10_13_t00150</ResourceID>
+    <ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Opl/3D</ParentID>
+    <RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+    <RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Opl_24_10_13_t00150.nc</URL>
+    </Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Opl/2D/XY/Opl__XY_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Opl/2D/XY</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Opl__XY_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Opl/2D/XZ/Opl__XZ_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Opl/2D/XZ</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Opl__XZ_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/Opl/2D/YZ/Opl__YZ_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/Opl/2D/YZ</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Opl__YZ_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/The/3D/Thew_24_10_13_t00150</ResourceID>
+    <ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/The/3D</ParentID>
+    <RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+    <RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Thew_24_10_13_t00150.nc</URL>
+    </Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/The/2D/XY/Thew_XY_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/The/2D/XY</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Thew_XY_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/The/2D/XZ/Thew_XZ_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/The/2D/XZ</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Thew_XZ_24_10_13.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/The/2D/YZ/Thew_YZ_24_10_13</ResourceID>
+<ReleaseDate>2014-01-30T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Gany_24_10_13/The/2D/YZ</ParentID>
+<RegionBegin>  -32155.0   -48719.7   -73079.5 </RegionBegin>
+<RegionEnd>   17051.9    49206.9    73566.7 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Thew_YZ_24_10_13.xml</URL>
 </Source>
 </Granule></Spase>

@@ -48,7 +48,7 @@ class ConfigService extends Actor {
   }
 
   private def getDatabaseType(dType: Databasetype): Seq[Database] = {
-    getDatabases.filter(d => d.typeValue.get == dType)
+    getDatabases.filter(d => d.typeValue == dType)
   }
 
   private def getDatabase(name: String): Database = {

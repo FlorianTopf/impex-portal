@@ -1,4 +1,4 @@
-<Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex.latmos.ipsl.fr/doc/impex+spase_latest.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_0.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Version>2.2.2</Version>
   
   <SimulationModel>

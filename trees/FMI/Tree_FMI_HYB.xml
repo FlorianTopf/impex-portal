@@ -1,4 +1,4 @@
-<Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex.latmos.ipsl.fr/test/impex+spase-1.0rc1.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_0.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <Version>2.2.2</Version>
 <SimulationModel>
 	<ResourceID>impex://FMI/HWA/HYB/</ResourceID>

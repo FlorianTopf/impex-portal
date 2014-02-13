@@ -77,12 +77,14 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods,
         case Simulation => {
           tree._2.asInstanceOf[Spase].ResourceEntity.filter(c => c.key.get == "Repository") map {
             //@TODO still the same problem with some XML elements
-            repository => (dbType, scalaxb.fromXML[Repository](repository.value.asInstanceOf[NodeSeq]))
+            repo => (dbType, scalaxb.fromXML[Repository](repo.value.asInstanceOf[NodeSeq]))
           }
         }
         case Observation => {
-          val repository = tree._2.asInstanceOf[DataRoot].dataCenter
-          Seq((dbType, DataCenter(Nil, repository.desc, repository.name, repository.id)))
+          tree._2.asInstanceOf[DataRoot].dataCenter map {
+            repo => (dbType, DataCenter(repo.datacenteroption, repo.available, repo.desc,
+                repo.group, repo.id1, repo.isSimulation, repo.name, repo.id))
+          }
         }
       }
     }

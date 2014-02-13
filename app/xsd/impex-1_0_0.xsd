@@ -224,7 +224,7 @@
          <xsd:element ref="ValidMax" minOccurs="0" maxOccurs="1"/>
          <xsd:element ref="FillValue" minOccurs="0" maxOccurs="1"/>
          <xsd:element ref="ParameterEntity" minOccurs="1" maxOccurs="1"/>
-         <xsd:element maxOccurs="unbounded" minOccurs="0" ref="Property"/>
+         <xsd:element ref="Property" maxOccurs="unbounded" minOccurs="0"/>
       </xsd:sequence>
    </xsd:complexType>
 
@@ -2599,11 +2599,31 @@ of a set of typically orthogonal axes.
                </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
+         <xsd:enumeration value="KSM">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Kronian Solar Magnetospheric - A coordinate
+            system where the X axis is from Saturn to Sun,
+            Z axis is northward in a plane containing
+            the X axis and the Kronian dipole axis.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
          <xsd:enumeration value="JSO">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
                   Coordinate Sytem Related to Jupiter
                   Jovian Solar Orbital (X anti-sunward, Y along the orbital velocity direction)
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="JSM">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Jovian Solar Magnetospheric - A coordinate
+            system where the X axis is from Jupiter to Sun,
+            Z axis is northward in a plane containing
+            the X axis and the Jovian dipole axis.
                </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
@@ -6616,6 +6636,14 @@ which may be occupied or observed.
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
             The second planet from the sun in our solar
+            system.
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Ganymede">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            The biggest moon of Jupiter planet in our solar
             system.
          </xsd:documentation>
             </xsd:annotation>
