@@ -136,7 +136,7 @@
       <xs:attribute name="AccessURL" type="xs:anyURI"/>
       <xs:attribute name="att"/>
       <xs:attribute name="coordinateSystem" type="xs:NCName"/>
-      <xs:attribute name="dataSource" type="xs:anyURI"/>
+      <xs:attribute name="dataSource" type="xs:string"/>
       <xs:attribute name="dataStart"/>
       <xs:attribute name="dataStop"/>
       <xs:attribute name="desc" type="xs:anyURI"/>
