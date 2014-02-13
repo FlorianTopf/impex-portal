@@ -77,7 +77,7 @@ object Application extends Controller {
     Ok("OK:" + merged) */
     //val future = RegistryService.getRepository()
     //val future = RegistryService.getRepository(Some("SINP"))
-    val future = RegistryService.getRepository(Some("AMDA"))
+    val future = RegistryService.getRepository()
 
     future.map { repositories =>
       Ok(views.html.repository(repositories))

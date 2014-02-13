@@ -61,7 +61,7 @@ case class Mission(missionoption: Seq[scalaxb.DataRecord[models.binding.MissionO
   desc: String,
   name: String,
   target: Option[String] = None,
-  id: java.net.URI) extends DataCenterOption with RunIDOption
+  id: String) extends DataCenterOption with RunIDOption
 
 trait MissionOption
 

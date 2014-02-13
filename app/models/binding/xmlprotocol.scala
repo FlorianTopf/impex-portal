@@ -375,7 +375,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         scalaxb.fromXML[String]((node \ "@desc"), scalaxb.ElemName(node) :: stack),
         scalaxb.fromXML[String]((node \ "@name"), scalaxb.ElemName(node) :: stack),
         (node \ "@target").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        scalaxb.fromXML[java.net.URI]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)) })
+        scalaxb.fromXML[String]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)) })
     
     override def writesAttribute(__obj: models.binding.Mission, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null

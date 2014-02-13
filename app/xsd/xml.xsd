@@ -8,6 +8,6 @@
     <xs:attribute name="id" use="required" form="qualified" type="xs:anyURI"/>
   </xs:attributeGroup>
   <xs:attributeGroup name="id2">
-    <xs:attribute name="id" use="required" form="qualified"/>
+    <xs:attribute name="id" use="required" form="qualified" type="xs:string"/>
   </xs:attributeGroup>
 </xs:schema>

@@ -78,7 +78,7 @@
       <xs:attribute name="desc" use="required"/>
       <xs:attribute name="name" use="required"/>
       <xs:attribute name="target"/>
-      <xs:attributeGroup ref="xml:id1"/>
+      <xs:attributeGroup ref="xml:id2"/>
     </xs:complexType>
   </xs:element>
   <xs:element name="instrument">
