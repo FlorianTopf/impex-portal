@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <impexconfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.impex.org/2012/configuration.xsd configuration-1_0_0.xsd"
+ xsi:schemaLocation="http://www.impex.org/2012/configuration.xsd http://impex-fp7.oeaw.ac.at/xsd/configuration-1_0_0.xsd"
  xmlns="http://www.impex.org/2012/configuration.xsd">
   <database type="simulation" id="impex://FMI">
     <name>FMI</name>

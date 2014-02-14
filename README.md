@@ -19,7 +19,7 @@ Prototype version includes:
 - initial bindings for the IMPEx configuration file, observational and 
   simulation data trees (models.binding package)
 - auxiliary sources for the scalaxb library (scalaxb package, see: http://scalaxb.org/)
-- helper services (models.provider pacage)
+- helper services (models.provider package)
 - development views enabled with the inbuilt Play template engine (views directory)
 - all used XML Schemas in bindings (xsd directory)
 - preliminary specs for all components (test directory)
