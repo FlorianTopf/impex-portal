@@ -1,0 +1,1025 @@
+<wsdl:definitions targetNamespace="http://cdpp-irap/IMPEX/v0.1" name="Methods_AMDA" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://cdpp-irap/IMPEX/v0.1" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <wsdl:types>
+        <xs:schema version="1.0" targetNamespace="http://cdpp-irap/IMPEX/v0.1" elementFormDefault="unqualified" xmlns:tns="http://cdpp-irap/IMPEX/v0.1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:element name="emptyElement">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element type="tns:getTimeTablesList" name="getTimeTablesList"/>
+            <xs:element type="tns:getTimeTablesListResponse" name="getTimeTablesListResponse"/>
+
+            <xs:element type="tns:getTimeTable" name="getTimeTable"/>
+            <xs:element type="tns:getTimeTableResponse" name="getTimeTableResponse"/>
+
+            <xs:element type="tns:getParameterList" name="getParameterList"/>
+            <xs:element type="tns:getParameterListResponse" name="getParameterListResponse"/>
+
+            <xs:element type="tns:getParameter" name="getParameter"/>
+            <xs:element type="tns:getParameterResponse" name="getParameterResponse"/>
+            
+            <xs:element type="tns:getOrbites" name="getOrbites"/>
+            <xs:element type="tns:getOrbitesResponse" name="getOrbitesResponse"/> 
+
+            <xs:element type="tns:getObsDataTreeResponse" name="getObsDataTreeResponse"/>
+
+            <xs:complexType name="getObsDataTreeResponse">
+                <xs:sequence>
+                    <xs:element type="xs:boolean" maxOccurs="1" minOccurs="0" name="success">
+                        <xs:annotation>
+                            <xs:documentation>Url of TimeTables storage file with TimeTables
+                                ID's.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="tns:WorkSpace" name="WorkSpace">
+                        <xs:annotation>
+                            <xs:documentation>Url's of AmdaUserTree file which must be generated
+                                after connections. Contents: AMDA local parameters, Remote
+                                Parameters, Shared Predefined Parameters. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="getTimeTablesList">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="userID">
+                        <xs:annotation>
+                            <xs:documentation>ID of AMDA user storing in the 3DView. Must TBD. If no
+                                user ID, result is shared Timetables from IMPEX user.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="password">
+                        <xs:annotation>
+                            <xs:documentation>Crypt Password of AMDA user storing in the 3DView.
+                                Must TBD encryption types</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="getTimeTablesListResponse">
+                <xs:sequence>
+                    <xs:element type="xs:boolean" maxOccurs="1" minOccurs="0" name="success">
+                        <xs:annotation>
+                            <xs:documentation>Url of TimeTables storage file with TimeTables
+                                ID's.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:anyURI" maxOccurs="1" minOccurs="0" name="TimeTablesList">
+                        <xs:annotation>
+                            <xs:documentation>Url of TimeTables storage file with TimeTables
+                                ID's.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="getParameterList">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="userID">
+                        <xs:annotation>
+                            <xs:documentation>ID of AMDA user storing in the 3DView. Must
+                                TBD</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="password">
+                        <xs:annotation>
+                            <xs:documentation>Crypt Password of AMDA user storing in the 3DView.
+                                Must TBD encryption types</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="getParameterListResponse">
+                <xs:sequence>
+                    <xs:element type="xs:boolean" maxOccurs="1" minOccurs="0" name="success">
+                        <xs:annotation>
+                            <xs:documentation>Url of TimeTables storage file with TimeTables
+                                ID's.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="tns:ParameterList" name="ParameterList">
+                        <xs:annotation>
+                            <xs:documentation>Url of AmdaUserTree file which must be generated after
+                                the user connections Contents: User groups local parameters, User
+                                remote parameters, user predefined parameters. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:simpleType name="enumSpacecraft">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Cassini_Public"/>
+                    <xs:enumeration value="Galileo"/>
+                    <xs:enumeration value="Voyager_1"/>
+                    <xs:enumeration value="Voyager_2"/>
+                    <xs:enumeration value="Pioneer_10"/>
+                    <xs:enumeration value="Pioneer_11"/>
+                    <xs:enumeration value="PVO"/>
+                    <xs:enumeration value="ACE"/>
+                    <xs:enumeration value="VEX"/>
+                    <xs:enumeration value="MEX"/>
+                    <xs:enumeration value="MGS"/>
+                    <xs:enumeration value="MAVEN"/>
+                    <xs:enumeration value="MESSENGER"/>
+                    <xs:enumeration value="ULYSSES"/>
+                    <xs:enumeration value="Stereo-A"/>
+                    <xs:enumeration value="Stereo-B"/>
+                    <xs:enumeration value="WIND"/>
+                    <xs:enumeration value="THEMIS-A"/>
+                    <xs:enumeration value="THEMIS-B"/>
+                    <xs:enumeration value="THEMIS-C"/>
+                    <xs:enumeration value="THEMIS-D"/>
+                    <xs:enumeration value="THEMIS-E"/>
+                    <xs:enumeration value="CLUSTER1"/>
+                    <xs:enumeration value="CLUSTER2"/>
+                    <xs:enumeration value="CLUSTER3"/>
+                    <xs:enumeration value="CLUSTER4"/>
+                    <xs:enumeration value="DoubleStar1"/>
+                    <xs:enumeration value="IMP-8"/>
+                    <xs:enumeration value="GEOTAIL"/>
+                    <xs:enumeration value="POLAR"/>
+                    <xs:enumeration value="INTERBALL-Tail"/>
+                    <xs:enumeration value="ISEE-1"/>
+                    <xs:enumeration value="ISEE-2"/>
+                </xs:restriction>
+            </xs:simpleType>
+
+            <xs:simpleType name="WorkSpaceValue">
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="TimeTables"/>
+                    <xs:enumeration value="UserDefinedParameters"/>
+                    <xs:enumeration value="LocalDataBaseParameters"/>
+                    <xs:enumeration value="RemoteDataBaseParameters"/>
+                </xs:restriction>
+            </xs:simpleType>
+            
+              
+   <xsd:simpleType name="enumCoordinateSystemName">
+      <xsd:annotation>
+         <xsd:documentation xml:lang="en">
+               Identifiers of the origin and orientation
+               of a set of typically orthogonal axes.
+            </xsd:documentation>
+      </xsd:annotation>
+      <xsd:restriction base="xsd:string">
+         <xs:enumeration value="CPHIO"/>
+         <xs:enumeration value="GPHIO"/>
+         <xs:enumeration value="IPHIO"/>
+         <xs:enumeration value="EPHIO"/> 
+         <xs:enumeration value="Equatorial"/> 
+         <xsd:enumeration value="CGM">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Corrected Geomagnetic - A coordinate system
+            from a spatial point with GEO radial distance
+            and geomagnetic latitude and longitude, follow
+            the epoch-appropriate IGRF/DGRF model field
+            vector through to the point where the field
+            line crosses the geomagnetic dipole equatorial
+            plane. Then trace the dipole magnetic field
+            vector Earthward from that point on the equatorial
+            plane, in the same hemisphere as the original
+            point, until the initial radial distance is
+            reached. Designate the dipole latitude and
+            longitude at that point as the CGM latitude
+            and longitude of the original point. See &lt;http://nssdc.gsfc.nasa.gov/space/cgm/cgmm_des.html&gt;
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Carrington">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            A coordinate system which is centered at the
+            Sun and is &quot;fixed&quot; with respect to the synodic
+            rotation rate; the mean synodic value is about
+            27.2753 days. The Astronomical Almanac gives
+            a value for Carrington longitude of 349.03
+            degrees at 0000 UT on 1 January 1995.
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="DM">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Dipole Meridian - A coordinate system centered
+            at the observation point. Z axis is parallel
+            to the Earth's dipole axis, positive northward.
+            X is in the plane defined by Z and the line
+            linking the observation point with the Earth's
+            center. Y is positive eastward. See &lt;http://cdpp.cnes.fr/00428.pdf&gt;
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="GEI">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Geocentric Equatorial Inertial - A coordinate
+            system where the Z axis is along Earth's spin
+            vector, positive northward. X axis points
+            towards the first point of Aries (from the
+            Earth towards the Sun at the vernal equinox).
+            See Russell, 1971
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="GEO">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Geographic - geocentric corotating - A coordinate
+            system where the Z axis is along Earth's spin
+            vector, positive northward. X axis lies in
+            Greenwich meridian, positive towards Greenwich.
+            See Russell, 1971.
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="GSE">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Geocentric Solar Ecliptic - A coordinate system
+            where the X axis is from Earth to Sun. Z axis
+            is normal to the ecliptic, positive northward.
+            See Russell, 1971.
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="GSEQ">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Geocentric Solar Equatorial - A coordinate
+            system where the X axis is from Earth to Sun.
+            Y axis is parallel to solar equatorial plane.
+            Z axis is positive northward. See Russell,
+            1971
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="GSM">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Geocentric Solar Magnetospheric - A coordinate
+            system where the X axis is from Earth to Sun,
+            Z axis is northward in a plane containing
+            the X axis and the geomagnetic dipole axis.
+            See Russell, 1971
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="HAE">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Heliocentric Aries Ecliptic - A coordinate
+            system where the Z axis is normal to the ecliptic
+            plane, positive northward. X axis is positive
+            towards the first point of Aries (from Earth
+            to Sun at vernal equinox). Same as SE below.
+            See Hapgood, 1992.
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="HCC">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Heliocentric Cartesian - A 3-D orthonormal
+            coordinate system that is primarily intended
+            to specify with two dimensions a point on
+            the solar disk. The Z axis points toward the
+            observer. The Y axis lies in the plane defined
+            by the solar spin vector and the Z axis, positive
+            northward. The X axis is perpendicular to
+            the Y and Z axes, positive toward solar west.
+            Standard representation for this system is
+            via the point's x and y values, expressed
+            either as physical distances or as fractions
+            of the solar disk radius.
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="HCI">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Heliographic Carrington Inertial.
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="HCR">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Heliocentric Radial - A 3-D orthonormal coordinate
+            system that is primarily intended to specify
+            with two dimensions a point on the solar disk.
+            The Z axis points toward the observer. The
+            Y axis lies in the plane defined by the solar
+            spin vector and the Z axis, positive northward.
+            The X axis is perpendicular to the Y and Z
+            axes, positive toward solar west. Standard
+            representation for this system is via the
+            point's distance rho from the Z axis [Rho
+            = SQRT(x**2 + y**2)] and its phase angle psi
+            measured counterclockwise from the +Y axis
+            [psi = arctan (-y/x)]
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="HEE">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Heliocentric Earth Ecliptic - A coordinate
+            system where the Z axis is normal to the ecliptic
+            plane, positive northward. X axis points from
+            Sun to Earth. See Hapgood, 1992
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="HEEQ">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Heliocentric Earth Equatorial - A coordinate
+            system where the Z axis is normal to the solar
+            equatorial plane, positive northward. X axis
+            is generally Earthward in the plane defined
+            by the Z axis and the Sun-Earth direction.
+            See Hapgood, 1992.
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="HG">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Heliographic - A heliocentric rotating coordinate
+            system where the Z axis is normal to the solar
+            equatorial plane, positive northward. X, Y
+            axes rotate with a 25.38 day period. The zero
+            longitude (X axis) is defined as the longitude
+            that passed through the ascending node of
+            the solar equator on the ecliptic plane on
+            1 January, 1854 at 12 UT. See &lt;http://nssdc.gsfc.nasa.gov/space/helios/coor_des.html&gt;
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="HGI">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Heliographic Inertial - A heliocentric coordinate
+            system where the Z axis is normal to the solar
+            equatorial plane, positive northward. X axis
+            is along the intersection line between solar
+            equatorial and ecliptic planes. The X axis
+            was positive at SE longitude of 74.367 deg
+            on Jan 1, 1900. (See SE below.) See &lt;http://nssdc.gsfc.nasa.gov/space/helios/coor_des.html&gt;
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="HPC">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Helioprojective Cartesian = A 3-D orthonormal
+            (left-handed) coordinate system that is primarily
+            intended to specify with two dimensions a
+            point on the solar disk. The Z axis points
+            from the observer to the center of the solar
+            disk. The Y axis lies in the plane defined
+            by the solar spin vector and the Z axis, positive
+            northward. The X axis is perpendicular to
+            the Y and Z axes, positive toward solar west.
+            Given as the distance between the observer
+            and the center of the solar disk, the standard
+            representation of an (x,y) point on the solar
+            disk is via the point's longitude angle [arctan
+            (x/d)] and latitude angle [arctan y/d].
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="HPR">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Helioprojective Radial - A 3-D orthonormal
+            (left-handed) coordinate system that is primarily
+            intended to specify with two dimensions a
+            point on the solar disk. The Z axis points
+            from the observer to the center of the solar
+            disk. The Y axis lies in the plane defined
+            by the solar spin vector and the Z axis, positive
+            northward. The X axis is perpendicular to
+            the Y and Z axes, positive toward solar west.
+            Given as the distance between the observer
+            and the center of the solar disk, the standard
+            representation for this system of an (x,y)
+            point on the solar disk is via the point's
+            latitude angle theta {= arctan [SQRT(x**2
+            + y**2)]/d]} or equivalent declination parameter
+            delta (= theta - 90 deg), and its phase angle
+            psi as measured counter- clockwise from the
+            +Y axis [psi = arctan (-y/x)].
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="J2000">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            An astronomical coordinate system which uses
+            the mean equator and equinox of Julian date
+            2451545.0 TT (Terrestrial Time), or January
+            1, 2000, noon TT. (aka J2000) to define a
+            celestial reference frame.
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="LGM">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Local Geomagnetic - A coordinate system used
+            mainly for Earth surface or near Earth surface
+            magnetic field data. X axis northward from
+            observation point in a geographic meridian.
+            Z axis downward towards Earth's center. In
+            this system, H (total horizontal component)
+            = SQRT (Bx^2 + By^2) and D (declination angle)
+            = arctan (By/Bx)
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="MAG">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Geomagnetic - geocentric. Z axis is parallel
+            to the geomagnetic dipole axis, positive north.
+            X is in the plane defined by the Z axis and
+            the Earth's rotation axis. If N is a unit
+            vector from the Earth's center to the north
+            geographic pole, the signs of the X and Y
+            axes are given by Y = N x Z, X = Y x Z.. See
+            Russell, 1971, and &lt;http://cdpp.cnes.fr/00428.pdf&gt;
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="MFA">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Magnetic Field Aligned - A coordinate system
+            spacecraft-centered system with Z in the direction
+            of the ambient magnetic field vector. X is
+            in the plane defined by Z and the spacecraft-Sun
+            line, positive sunward. See &lt;http://cdpp.cnes.fr/00428.pdf&gt;
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="RTN">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Radial Tangential Normal. Typically centered
+            at a spacecraft. Used for IMF and plasma V
+            vectors. R (radial) axis is radially away
+            from the Sun, T (tangential) axis is normal
+            to the plane formed by R and the Sun's spin
+            vector, positive in the direction of planetary
+            motion. N (normal) is R x T.
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="SC">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Spacecraft - A coordinate system defined by
+            the spacecraft geometry and/or spin. Often
+            has Z axis parallel to spacecraft spin vector.
+            X and Y axes may or may not corotate with
+            the spacecraft. See SR and SR2 below.
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="SE">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Solar Ecliptic - A heliocentric coordinate
+            system where the Z axis is normal to the ecliptic
+            plane, positive northward. X axis is positive
+            towards the first point of Aries (from Earth
+            to Sun at vernal equinox). Same as HAE above.
+            See &lt;http://nssdc.gsfc.nasa.gov/space/helios/coor_des.html&gt;
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="SM">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Solar Magnetic - A geocentric coordinate system
+            where the Z axis is northward along Earth's
+            dipole axis, X axis is in plane of z axis
+            and Earth-Sun line, positive sunward. See
+            Russell, 1971.
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="SR">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Spin Reference - A special case of a Spacecraft
+            (SC) coordinate system for a spinning spacecraft.
+            Z is parallel to the spacecraft spin vector.
+            X and Y rotate with the spacecraft. See &lt;http://cdpp.cnes.fr/00428.pdf&gt;
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="SR2">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Spin Reference 2 - A special case of a Spacecraft
+            (SC) coordinate system for a spinning spacecraft.
+            Z is parallel to the spacecraft spin vector.
+            X is in the plane defined by Z and the spacecraft-Sun
+            line, positive sunward. See &lt;http://cdpp.cnes.fr/00428.pdf&gt;
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="SSE">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Spacecraft Solar Ecliptic - A coordinate system
+            used for deep space spacecraft, for example
+            Helios. - X axis from spacecraft to Sun. Z
+            axis normal to ecliptic plane, positive northward.
+            Note: Angle between normals to ecliptic and
+            to Helios orbit plane ~ 0.25 deg.
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="SSE_L">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            Selenocentric Solar Ecliptic.  The X axis
+            points from the center of the Earth's moon
+            to the sun, the Z axis is normal to the ecliptic
+            plane, positive northward.  And the Y axis
+            completes the right-handed set of axes.
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="SpacecraftOrbitPlane">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            A coordinate system where X lies in the plane
+            normal to and in the direction of motion of
+            the spacecraft, Z is normal to this plane
+            and Y completes the triad in a right-handed
+            coordinate system.
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="WGS84">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+            The World Geodetic System (WGS) defines a
+            reference frame for the earth, for use in
+            geodesy and navigation. The WGS84 uses the
+            zero meridian as defined by the Bureau International
+            de l'Heure.
+         </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="MSO">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+                  Coordinate Sytem Related to Mars or Mercury
+                  Depending on the Targeted Region
+        </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="VSO">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+                  Coordinate Sytem Related to Venus
+        </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+      </xsd:restriction>
+   </xsd:simpleType>
+
+            <xs:complexType name="ParameterList">
+                <xs:sequence>
+                    <xs:element type="xs:anyURI" name="UserDefinedParameters" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:anyURI" name="LocalDataBaseParameters" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:anyURI" name="RemoteDataBaseParameters" maxOccurs="1" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+
+
+            <xs:complexType name="WorkSpace">
+                <xs:sequence>
+                    <xs:element type="xs:anyURI" name="LocalDataBaseParameters" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:anyURI" name="RemoteDataBaseParameters" maxOccurs="1" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="getParameter">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="startTime">
+                        <xs:annotation>
+                            <xs:documentation>Start time in ISO 8601 format</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="stopTime">
+                        <xs:annotation>
+                            <xs:documentation>Stop time in ISO 8601 format</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="parameterID">
+                        <xs:annotation>
+                            <xs:documentation>Id of parameter defined in
+                                AmdaUserTree.xml</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:float" name="sampling">
+                        <xs:annotation>
+                            <xs:documentation>Sampling or average time in sec</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="userID">
+                        <xs:annotation>
+                            <xs:documentation>ID of AMDA user storing in the 3DView. Must TBD For
+                                public data is optional. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="password">
+                        <xs:annotation>
+                            <xs:documentation>Crypt Password of AMDA user storing in the 3DView.
+                                Must TBD encryption types Required for predefined parameters.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" name="outputFormat">
+                        <xs:annotation>
+                            <xs:documentation> Choice is possible between the two formats: netCDF,
+                                ASCII and VOTable. If the format is not specified it will be netCDF
+                                by default</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="netCDF"/>
+                                <xs:enumeration value="VOTable"/>
+                                <xs:enumeration value="ASCII"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" name="timeFormat">
+                        <xs:annotation>
+                            <xs:documentation> Choice is possible between the two formats: ISO 8601
+                                or unixtime. If the format is not specified it will be ISO 8601 by
+                                default</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="ISO8601"/>
+                                <xs:enumeration value="unixtime"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element type="xs:integer" maxOccurs="1" minOccurs="0" name="gzip">
+                        <xs:annotation>
+                            <xs:documentation>1 to compress data with gzip (0 by
+                                default)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="getParameterResponse">
+                <xs:sequence>
+                    <xs:element type="xs:boolean" maxOccurs="1" minOccurs="0" name="success">
+                        <xs:annotation>
+                            <xs:documentation>Url of TimeTables storage file with TimeTables
+                                ID's.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:anyURI" name="dataFileURLs" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:documentation>URLs of results data files. If not URLs - not data for
+                                required parameters</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            
+            <xs:complexType name="getOrbites">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="startTime">
+                        <xs:annotation>
+                            <xs:documentation>Start time in ISO 8601 format</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="stopTime">
+                        <xs:annotation>
+                            <xs:documentation>Stop time in ISO 8601 format</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element minOccurs="1" maxOccurs="1" type="tns:enumSpacecraft" name="spacecraft">
+                        <xs:annotation>
+                            <xs:documentation>List of spavecrafts from AMDA</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="tns:enumCoordinateSystemName" name="coordinateSystem">
+                        <xs:annotation>
+                            <xs:documentation>Coordinate System Name</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" name="units">
+                        <xs:annotation>
+                            <xs:documentation>Units of orbits: radius or km. By default km</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="km"/>
+                                <xs:enumeration value="Rs"/>
+                                <xs:enumeration value="Rj"/>
+                                <xs:enumeration value="Rca"/>
+                                <xs:enumeration value="Rga"/>
+                                <xs:enumeration value="Rio"/>
+                                <xs:enumeration value="Reu"/>
+                                <xs:enumeration value="Rv"/>
+                                <xs:enumeration value="Rm"/>
+                                <xs:enumeration value="Re"/>
+                                <xs:enumeration value="AU"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:float" name="sampling">
+                        <xs:annotation>
+                            <xs:documentation>Sampling or average time in sec</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="userID">
+                        <xs:annotation>
+                            <xs:documentation>ID of AMDA user storing in the 3DView. Must TBD For
+                                public data is optional. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="password">
+                        <xs:annotation>
+                            <xs:documentation>Crypt Password of AMDA user storing in the 3DView.
+                                Must TBD encryption types Required for predefined parameters.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" name="outputFormat">
+                        <xs:annotation>
+                            <xs:documentation> Choice is possible between the two formats: netCDF,
+                                ASCII and VOTable. If the format is not specified it will be netCDF
+                                by default</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="netCDF"/>
+                                <xs:enumeration value="VOTable"/>
+                                <xs:enumeration value="ASCII"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" name="timeFormat">
+                        <xs:annotation>
+                            <xs:documentation> Choice is possible between the two formats: ISO 8601
+                                or unixtime. If the format is not specified it will be ISO 8601 by
+                                default</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="ISO8601"/>
+                                <xs:enumeration value="unixtime"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element type="xs:integer" maxOccurs="1" minOccurs="0" name="gzip">
+                        <xs:annotation>
+                            <xs:documentation>1 to compress data with gzip (0 by
+                                default)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="getOrbitesResponse">
+                <xs:sequence>
+                    <xs:element type="xs:boolean" maxOccurs="1" minOccurs="0" name="success">
+                        <xs:annotation>
+                            <xs:documentation>Url of TimeTables storage file with TimeTables
+                                ID's.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:anyURI" name="dataFileURLs" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:documentation>URLs of results data files. If not URLs - not data for
+                                required parameters</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            
+            <xs:complexType name="getTimeTable">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="userID">
+                        <xs:annotation>
+                            <xs:documentation>ID of AMDA user storing in the 3DView. Must
+                                TBD</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="password">
+                        <xs:annotation>
+                            <xs:documentation>Crypt Password of AMDA user storing in the 3DView.
+                                Must TBD encryption types Required for predefined parameters.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="ttID">
+                        <xs:annotation>
+                            <xs:documentation>Id of time tables(TT) defined in
+                                AmdaUserTree.xml</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getTimeTableResponse">
+                <xs:sequence>
+                    <xs:element type="xs:boolean" maxOccurs="1" minOccurs="0" name="success">
+                        <xs:annotation>
+                            <xs:documentation>Url of TimeTables storage file with TimeTables
+                                ID's.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:anyURI" name="ttFileURL">
+                        <xs:annotation>
+                            <xs:documentation>URL of TT file</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+        </xs:schema>
+    </wsdl:types>
+
+    
+
+    
+
+    <wsdl:message name="getObsDataTree">
+        <wsdl:part element="tns:emptyElement" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getObsDataTreeResponse">
+        <wsdl:part element="tns:getObsDataTreeResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getTimeTablesList">
+        <wsdl:part element="tns:getTimeTablesList" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getTimeTablesListResponse">
+        <wsdl:part element="tns:getTimeTablesListResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getParameterList">
+        <wsdl:part element="tns:getParameterList" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getParameterListResponse">
+        <wsdl:part element="tns:getParameterListResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getParameter">
+        <wsdl:part element="tns:getParameter" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getParameterResponse">
+        <wsdl:part element="tns:getParameterResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getOrbites">
+        <wsdl:part element="tns:getOrbites" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getOrbitesResponse">
+        <wsdl:part element="tns:getOrbitesResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getTimeTable">
+        <wsdl:part element="tns:getTimeTable" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getTimeTableResponse">
+        <wsdl:part element="tns:getTimeTableResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+
+    
+
+    <wsdl:portType name="Methods_AMDA">
+        <wsdl:operation name="getObsDataTree">
+            <wsdl:input message="tns:getObsDataTree"> </wsdl:input>
+            <wsdl:output message="tns:getObsDataTreeResponse"> </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getTimeTablesList">
+            <wsdl:input message="tns:getTimeTablesList"> </wsdl:input>
+            <wsdl:output message="tns:getTimeTablesListResponse"> </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getParameterList">
+            <wsdl:input message="tns:getParameterList"> </wsdl:input>
+            <wsdl:output message="tns:getParameterListResponse"> </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getParameter">
+            <wsdl:input message="tns:getParameter"> </wsdl:input>
+            <wsdl:output message="tns:getParameterResponse"> </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getOrbites">
+            <wsdl:input message="tns:getOrbites"> </wsdl:input>
+            <wsdl:output message="tns:getOrbitesResponse"> </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getTimeTable">
+            <wsdl:input message="tns:getTimeTable"> </wsdl:input>
+            <wsdl:output message="tns:getTimeTableResponse"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+
+
+    
+
+    <wsdl:binding type="tns:Methods_AMDA" name="Methods_AMDASoapBinding">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+
+        <wsdl:operation name="getObsDataTree">
+            <soap:operation style="document" soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getTimeTablesList">
+            <soap:operation style="document" soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getParameterList">
+            <soap:operation style="document" soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getParameter">
+            <soap:operation style="document" soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+ 
+        <wsdl:operation name="getOrbites">
+            <soap:operation style="document" soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="getTimeTable">
+            <soap:operation style="document" soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    
+
+    <wsdl:service name="Methods_AMDA">
+        <wsdl:port binding="tns:Methods_AMDASoapBinding" name="Methods_AMDAPort">
+            <soap:address location="http://cdpp1.cesr.fr/AMDA-NG/php/AMDA_METHODS_WSDL.php"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

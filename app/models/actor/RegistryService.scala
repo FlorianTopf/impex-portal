@@ -12,11 +12,11 @@ import scala.language.postfixOps
 import play.api.libs.concurrent.Execution.Implicits._
 
 class RegistryService extends Actor {  
-  implicit val timeout = Timeout(10 seconds)
-  
   import models.actor.RegistryService._
   import models.actor.DataProvider._
   
+  implicit val timeout = Timeout(10 seconds)
+
   // @TODO unified error messages
   def receive = {
     case reg: RegisterProvider => sender ! register(reg)
@@ -47,6 +47,7 @@ object RegistryService {
   case class GetRepositories(val databases: Seq[(String, Database)]) extends RegistryMessage
 
   private val registry: ActorSelection = Akka.system.actorSelection("user/registry")
+  
   def registerChild(props: Props, name: String) = {
     (registry ? RegisterProvider(props, name))
   }

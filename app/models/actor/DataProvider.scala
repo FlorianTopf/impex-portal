@@ -30,7 +30,6 @@ trait Provider {
   protected def getMethodsXML = accessMethods.content
 }
 
-//@TODO integrate scheduled dump to hard disk, and use this then! block updating!
 class DataProvider(val dataTree: Trees, val accessMethods: Methods,
   val dbType: Databasetype) extends Actor {
   import models.actor.DataProvider._
@@ -82,6 +81,7 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods,
         }
         case Observation => {
           tree._2.asInstanceOf[DataRoot].dataCenter map {
+            //@TODO this returns the whole data center element (we don't want that)
             repo => (dbType, DataCenter(repo.datacenteroption, repo.available, repo.desc,
                 repo.group, repo.id1, repo.isSimulation, repo.name, repo.id))
           }
@@ -101,7 +101,7 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods,
         } catch {
           case e: TimeoutException =>
             scala.xml.XML.loadFile(
-              PathProvider.getTreePath(treeURL, getMetaData.name))
+              PathProvider.getPath("trees", treeURL, getMetaData.name))
         }
     }
   }

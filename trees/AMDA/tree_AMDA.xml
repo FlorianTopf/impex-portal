@@ -2009,7 +2009,7 @@
           </parameter>
           <parameter xml:id="imf_mag" display_type="" units="nT" name="imf_mag"/>
         </dataset>
-        <dataset target="" dataSource="NOAA" dataStop="2014/02/12" dataStart="2014/01/06" maxSampling="" sampling="60s" xml:id="ace:mag:real" name="imf_real_time" att="">
+        <dataset target="" dataSource="NOAA" dataStop="2014/02/20" dataStart="2014/01/06" maxSampling="" sampling="60s" xml:id="ace:mag:real" name="imf_real_time" att="">
           <parameter xml:id="imf_real_gse" display_type="" units="nT" name="imf_real_gse">
             <component xml:id="imf_real_gse(0)" name="bx_gse"/>
             <component xml:id="imf_real_gse(1)" name="by_gse"/>
@@ -2046,7 +2046,7 @@
             <component xml:id="sw_v_gsm(2)" name="vz_gsm"/>
           </parameter>
         </dataset>
-        <dataset target="" dataSource="NOAA" dataStop="2014/02/12" dataStart="2014/01/06" maxSampling="" sampling="60s" xml:id="ace:swepam:real" name="swe_real_time" att="">
+        <dataset target="" dataSource="NOAA" dataStop="2014/02/20" dataStart="2014/01/06" maxSampling="" sampling="60s" xml:id="ace:swepam:real" name="swe_real_time" att="">
           <parameter xml:id="sw_n_real" display_type="" units="cm-3" name="density"/>
           <parameter xml:id="sw_v_real" display_type="" units="km/s" name="v_bulk"/>
           <parameter xml:id="sw_t_real" display_type="" units="eV" name="t_ion"/>
@@ -2083,7 +2083,7 @@
         </dataset>
       </instrument>
       <instrument desc="Solar_Wind_Experiment" xml:id="WIND:SWE" name="SWE" att="">
-        <dataset target="" dataSource="CDAWeb" dataStop="2014/02/09" dataStart="1994/11/17" maxSampling="" sampling="90s" xml:id="wnd:swe:kp" name="swe_kp" att="">
+        <dataset target="" dataSource="CDAWeb" dataStop="2014/02/12" dataStart="1994/11/17" maxSampling="" sampling="90s" xml:id="wnd:swe:kp" name="swe_kp" att="">
           <parameter xml:id="wnd_swe_n" display_type="" units="cm-3" name="density"/>
           <parameter xml:id="wnd_swe_v" display_type="" units="km/s" name="v_gse">
             <component xml:id="wnd_swe_v(0)" name="vx"/>
@@ -2401,7 +2401,7 @@
     </mission>
     <mission available="1" target="Earth.Magnetosheath" desc="NASA_Time_History_of_Events_and Macroscale_Interaction_during_Substorms" xml:id="THEMIS-D" name="THEMIS-D" att="">
       <instrument desc="SC_Positions" xml:id="THEMIS-D:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="IRAP_THEMIS" dataStop="2014/02/07" dataStart="2007/02/17" maxSampling="" sampling="60s" xml:id="thd:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="IRAP_THEMIS" dataStop="2014/02/13" dataStart="2007/02/17" maxSampling="" sampling="60s" xml:id="thd:orb:all" name="orbit" att="">
           <parameter xml:id="thd_xyz" display_type="" units="Re" name="xyz_gse">
             <component xml:id="thd_xyz(0)" name="x"/>
             <component xml:id="thd_xyz(1)" name="y"/>
@@ -2472,7 +2472,7 @@
         </dataset>
       </instrument>
       <instrument desc="Fluxgate_Magnetometer" xml:id="THEMIS-D:FGM" name="FGM" att="">
-        <dataset target="" dataSource="IRAP_THEMIS" dataStop="2014/02/05" dataStart="2007/02/28" maxSampling="" sampling="3s" xml:id="thd:fgm:s" name="spin" att="">
+        <dataset target="" dataSource="IRAP_THEMIS" dataStop="2014/02/11" dataStart="2007/02/28" maxSampling="" sampling="3s" xml:id="thd:fgm:s" name="spin" att="">
           <parameter xml:id="thd_bs" display_type="" units="nT" name="b_gse">
             <component xml:id="thd_bs(0)" name="bx"/>
             <component xml:id="thd_bs(1)" name="by"/>
@@ -2843,7 +2843,7 @@
     </mission>
     <mission available="1" target="Earth.Magnetosphere" desc="ESA_Magnetospheric_Mission" xml:id="CLUSTER2" name="CLUSTER2" att="">
       <instrument desc="Cl2_Positions" xml:id="CLUSTER2:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="IRAP" dataStop="2014/01/31" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust2:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="IRAP" dataStop="2014/02/04" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust2:orb:all" name="orbit" att="">
           <parameter xml:id="c2_xyz" display_type="" units="Re" name="xyz_gse">
             <component xml:id="c2_xyz(0)" name="x_gse"/>
             <component xml:id="c2_xyz(1)" name="y_gse"/>
@@ -3016,7 +3016,7 @@
     </mission>
     <mission available="1" target="Earth.Magnetosphere" desc="ESA_Magnetospheric_Mission" xml:id="CLUSTER3" name="CLUSTER3" att="">
       <instrument desc="Cl3_Positions" xml:id="CLUSTER3:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="IRAP" dataStop="2014/01/31" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust3:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="IRAP" dataStop="2014/02/04" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust3:orb:all" name="orbit" att="">
           <parameter xml:id="c3_xyz" display_type="" units="Re" name="xyz_gse">
             <component xml:id="c3_xyz(0)" name="x_gse"/>
             <component xml:id="c3_xyz(1)" name="y_gse"/>
@@ -3256,7 +3256,7 @@
     </mission>
     <mission available="1" target="Earth.Magnetosphere" desc="ESA_Magnetospheric_Mission" xml:id="CLUSTER4" name="CLUSTER4" att="">
       <instrument desc="Cl4_Positions" xml:id="CLUSTER4:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="IRAP" dataStop="2014/02/07" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust4:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="IRAP" dataStop="2014/02/10" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust4:orb:all" name="orbit" att="">
           <parameter xml:id="c4_xyz" display_type="" units="Re" name="xyz_gse">
             <component xml:id="c4_xyz(0)" name="x_gse"/>
             <component xml:id="c4_xyz(1)" name="y_gse"/>
@@ -3562,7 +3562,7 @@
         </dataset>
       </instrument>
       <instrument desc="Magnetic_Field" xml:id="GEOTAIL:MGF" name="MGF" att="">
-        <dataset target="" dataSource="CDAWeb" dataStop="2014/02/09" dataStart="1992/09/04" maxSampling="" sampling="64s" xml:id="gtl:mgf:k0" name="mgf_prelim" att="">
+        <dataset target="" dataSource="CDAWeb" dataStop="2014/02/12" dataStart="1992/09/04" maxSampling="" sampling="64s" xml:id="gtl:mgf:k0" name="mgf_prelim" att="">
           <parameter xml:id="gtl_b" display_type="" units="nT" name="b_gse">
             <component xml:id="gtl_b(0)" name="bx"/>
             <component xml:id="gtl_b(1)" name="by"/>

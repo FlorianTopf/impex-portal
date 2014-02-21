@@ -11,7 +11,7 @@ object ProviderSpecs extends Specification {
       val testPath = "/AMDA-NG/data/WSRESULT/getObsDataTree_LocalParams.xml"
       val folderName = "AMDA"
       
-      val result = PathProvider.getTreePath(testPath, folderName)
+      val result = PathProvider.getPath("trees",testPath, folderName)
       val expectedResult = "trees/AMDA/getObsDataTree_LocalParams.xml"
       
       result must be equalTo expectedResult

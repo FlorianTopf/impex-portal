@@ -1,0 +1,316 @@
+<wsdl:definitions targetNamespace="http://clweb.cesr.fr" name="Methods_CLWEB" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://clweb.cesr.fr" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <wsdl:types>
+        <xs:schema version="1.0" targetNamespace="http://clweb.cesr.fr" elementFormDefault="unqualified" xmlns:tns="http://clweb.cesr.fr" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:element name="emptyElement">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
+            <xs:element type="tns:getTimeTablesList" name="getTimeTablesList"/>
+            <xs:element type="tns:getTimeTablesListResponse" name="getTimeTablesListResponse"/>
+
+            <xs:element type="tns:getTimeTable" name="getTimeTable"/>
+            <xs:element type="tns:getTimeTableResponse" name="getTimeTableResponse"/>
+
+            <xs:element type="tns:getParameter" name="getParameter"/>
+            <xs:element type="tns:getParameterResponse" name="getParameterResponse"/>
+
+            <xs:element type="tns:getObsDataTreeResponse" name="getObsDataTreeResponse"/>
+
+            <xs:complexType name="getObsDataTreeResponse">
+                <xs:sequence>
+                    <xs:element type="xs:boolean" maxOccurs="1" minOccurs="0" name="success">
+                        <xs:annotation>
+                            <xs:documentation>Url of TimeTables storage file with TimeTables
+                                ID's.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:anyURI" name="Tree">
+                        <xs:annotation>
+                            <xs:documentation>Url's of AmdaUserTree file which must be generated
+                                after connections. Contents: AMDA local parameters, Remote
+                                Parameters, Shared Predefined Parameters. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="getTimeTablesList">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="userID">
+                        <xs:annotation>
+                            <xs:documentation>ID of AMDA user storing in the 3DView. Must TBD. If no
+                                user ID, result is shared Timetables from IMPEX user.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="password">
+                        <xs:annotation>
+                            <xs:documentation>Crypt Password of AMDA user storing in the 3DView.
+                                Must TBD encryption types</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="getTimeTablesListResponse">
+                <xs:sequence>
+                    <xs:element type="xs:boolean" maxOccurs="1" minOccurs="0" name="success">
+                        <xs:annotation>
+                            <xs:documentation>Url of TimeTables storage file with TimeTables
+                                ID's.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:anyURI" maxOccurs="1" minOccurs="0" name="TimeTablesList">
+                        <xs:annotation>
+                            <xs:documentation>Url of TimeTables storage file with TimeTables
+                                ID's.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="getParameter">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="startTime">
+                        <xs:annotation>
+                            <xs:documentation>Start time in ISO 8601 format</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="stopTime">
+                        <xs:annotation>
+                            <xs:documentation>Stop time in ISO 8601 format</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="parameterID">
+                        <xs:annotation>
+                            <xs:documentation>Id of parameter defined in
+                                AmdaUserTree.xml</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:float" name="sampling">
+                        <xs:annotation>
+                            <xs:documentation>Sampling or average time in sec</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="userID">
+                        <xs:annotation>
+                            <xs:documentation>ID of AMDA user storing in the 3DView. Must TBD For
+                                public data is optional. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="password">
+                        <xs:annotation>
+                            <xs:documentation>Crypt Password of AMDA user storing in the 3DView.
+                                Must TBD encryption types Required for predefined parameters.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" name="outputFormat">
+                        <xs:annotation>
+                            <xs:documentation> Choice is possible between the two formats: netCDF,
+                                ASCII and VOTable. If the format is not specified it will be netCDF
+                                by default</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="netCDF"/>
+                                <xs:enumeration value="VOTable"/>
+                                <xs:enumeration value="ASCII"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" name="timeFormat">
+                        <xs:annotation>
+                            <xs:documentation> Choice is possible between the two formats: ISO 8601
+                                or unixtime. If the format is not specified it will be ISO 8601 by
+                                default</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="ISO8601"/>
+                                <xs:enumeration value="unixtime"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element type="xs:integer" maxOccurs="1" minOccurs="0" name="gzip">
+                        <xs:annotation>
+                            <xs:documentation>1 to compress data with gzip (0 by
+                                default)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="getParameterResponse">
+                <xs:sequence>
+                    <xs:element type="xs:boolean" maxOccurs="1" minOccurs="0" name="success">
+                        <xs:annotation>
+                            <xs:documentation>Url of TimeTables storage file with TimeTables
+                                ID's.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:anyURI" name="dataFileURLs" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:documentation>URLs of results data files. If not URLs - not data for
+                                required parameters</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getTimeTable">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="userID">
+                        <xs:annotation>
+                            <xs:documentation>ID of AMDA user storing in the 3DView. Must
+                                TBD</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="password">
+                        <xs:annotation>
+                            <xs:documentation>Crypt Password of AMDA user storing in the 3DView.
+                                Must TBD encryption types Required for predefined parameters.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="ttID">
+                        <xs:annotation>
+                            <xs:documentation>Id of time tables(TT) defined in
+                                AmdaUserTree.xml</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="getTimeTableResponse">
+                <xs:sequence>
+                    <xs:element type="xs:boolean" maxOccurs="1" minOccurs="0" name="success">
+                        <xs:annotation>
+                            <xs:documentation>Url of TimeTables storage file with TimeTables
+                                ID's.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:anyURI" name="ttFileURL">
+                        <xs:annotation>
+                            <xs:documentation>URL of TT file</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+        </xs:schema>
+    </wsdl:types>
+
+    
+
+    <wsdl:message name="getObsDataTree">
+        <wsdl:part element="tns:emptyElement" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getObsDataTreeResponse">
+        <wsdl:part element="tns:getObsDataTreeResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getTimeTablesList">
+        <wsdl:part element="tns:getTimeTablesList" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getTimeTablesListResponse">
+        <wsdl:part element="tns:getTimeTablesListResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getParameter">
+        <wsdl:part element="tns:getParameter" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getParameterResponse">
+        <wsdl:part element="tns:getParameterResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getTimeTable">
+        <wsdl:part element="tns:getTimeTable" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getTimeTableResponse">
+        <wsdl:part element="tns:getTimeTableResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+
+    
+
+    <wsdl:portType name="Methods_CLWEB">
+        <wsdl:operation name="getObsDataTree">
+            <wsdl:input message="tns:getObsDataTree"> </wsdl:input>
+            <wsdl:output message="tns:getObsDataTreeResponse"> </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getTimeTablesList">
+            <wsdl:input message="tns:getTimeTablesList"> </wsdl:input>
+            <wsdl:output message="tns:getTimeTablesListResponse"> </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getParameter">
+            <wsdl:input message="tns:getParameter"> </wsdl:input>
+            <wsdl:output message="tns:getParameterResponse"> </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getTimeTable">
+            <wsdl:input message="tns:getTimeTable"> </wsdl:input>
+            <wsdl:output message="tns:getTimeTableResponse"> </wsdl:output>
+        </wsdl:operation>
+    </wsdl:portType>
+
+
+    
+
+    <wsdl:binding type="tns:Methods_CLWEB" name="Methods_CLWEBSoapBinding">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+
+        <wsdl:operation name="getObsDataTree">
+            <soap:operation style="document" soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getTimeTablesList">
+            <soap:operation style="document" soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getParameter">
+            <soap:operation style="document" soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getTimeTable">
+            <soap:operation style="document" soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+    
+
+    <wsdl:service name="Methods_CLWEB">
+        <wsdl:port binding="tns:Methods_CLWEBSoapBinding" name="Methods_CLWEBPort">
+            <soap:address location="http://clweb.cesr.fr/CLWEB_METHODS_WSDL.php"/>
+        </wsdl:port>
+    </wsdl:service>
+</wsdl:definitions>

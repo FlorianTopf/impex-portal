@@ -39,37 +39,34 @@ object Global extends GlobalSettings {
 
         println("treeURL=" + treeURLs)
         println("methodsURL=" + methodsURLs)
-        println("fetching tree from " + database.name)
+        println("fetching files from " + database.name)
 
-        val trees: Seq[NodeSeq] = treeURLs flatMap {
-          treeURL =>
-            val promise = WS.url(treeURL).get()
-            try {
-              val result = Await.result(promise, 1.minute).xml
-              scala.xml.XML.save(
-                PathProvider.getTreePath(treeURL, database.name), result, "UTF-8")
-              Some(result)
-            } catch {
-              case e: TimeoutException => println("timeout"); None
-            }
-        }
+        val trees: Seq[NodeSeq] = fetchAndSaveFiles(treeURLs, "trees", database)
+        val methods: Seq[NodeSeq] = fetchAndSaveFiles(methodsURLs, "methods", database)
 
-        val methods: Seq[NodeSeq] = methodsURLs flatMap {
-          methodsURL =>
-            val promise = WS.url(methodsURL).get()
-            try {
-              Some(Await.result(promise, 1.minute).xml)
-            } catch {
-              case e: TimeoutException => println("timeout"); None
-            }
-        }
-
-        //@TODO maybe change addressing to something else (ResourceID?)
         RegistryService.registerChild(
           Props(new DataProvider(Trees(trees), Methods(methods), database.typeValue)),
           database.name)
     }
 
+  }
+  
+  private def fetchAndSaveFiles(URLs: Seq[String], folder: String, db: Database): Seq[NodeSeq] = { 
+    URLs map {
+      URL => 
+        val promise = WS.url(URL).get()
+        try {
+          val result = Await.result(promise, 1.minute).xml
+          scala.xml.XML.save(
+            PathProvider.getPath(folder, db.name, URL), result, "UTF-8")
+          result
+        } catch {
+          case e: TimeoutException => {
+            println("timeout: fallback on local file at "+db.name)
+            scala.xml.XML.load(PathProvider.getPath(folder, db.name, URL))
+          }
+        }
+    }
   }
 
 }
