@@ -14,6 +14,7 @@ import akka.util.Timeout
 import play.libs.Akka
 import akka.pattern.ask
 import play.api.libs.concurrent.Execution.Implicits._
+import java.net.URI
 
 // container for XML content
 case class Trees(var content: Seq[NodeSeq])
@@ -55,11 +56,15 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods,
   private def getTreeXML = dataTree.content
   private def getMethodsXML = accessMethods.content
 
-  // @TODO improve this!
-  private def getMetaData: Database =
-    Await.result(ConfigService.request(
-      GetDatabase(self.path.name)).mapTo[Database],
-      1.second)
+  private def getMetaData: Database = {
+    try {
+      Await.result(ConfigService.request(GetDatabase(self.path.name)).mapTo[Database], 5.seconds)
+    } catch {
+      // if config service fails just provide what is there!
+      case e: TimeoutException => Database(self.path.name, None, Nil, Nil, Nil, Nil, 
+          "", dbType, UrlProvider.getURI("impex", self.path.name))
+    }
+  }
 
   private def getTreeObjects: Seq[(Databasetype, Any)] = {
     dataTree.content map { tree =>
@@ -90,18 +95,20 @@ class DataProvider(val dataTree: Trees, val accessMethods: Methods,
     }
   }
 
+  // @TODO improve this
   private def updateTrees: Seq[NodeSeq] = {
     val dns: String = getMetaData.databaseoption.head.value
-    val treeURLs: Seq[String] = UrlProvider.getUrls(dns, getMetaData.tree)
+    val protocol: String = getMetaData.protocol.head
+    val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, getMetaData.tree)
     treeURLs flatMap {
       treeURL =>
-        val promise = WS.url(treeURL).get()
+        val promise = WS.url(treeURL.toString).get()
         try {
           Await.result(promise, 1.minute).xml
         } catch {
           case e: TimeoutException =>
             scala.xml.XML.loadFile(
-              PathProvider.getPath("trees", treeURL, getMetaData.name))
+              PathProvider.getPath("trees", treeURL.toString, getMetaData.name))
         }
     }
   }

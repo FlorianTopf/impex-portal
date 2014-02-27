@@ -11,6 +11,7 @@ import scala.xml.NodeSeq
 import scala.language.postfixOps
 import play.api.libs.concurrent.Execution.Implicits._
 
+// @TODO add supervising strategy
 class RegistryService extends Actor {  
   import models.actor.RegistryService._
   import models.actor.DataProvider._

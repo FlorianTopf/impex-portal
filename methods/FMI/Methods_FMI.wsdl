@@ -1,4 +1,4 @@
-<wsdl:definitions targetNamespace="http://impex-fp7.fmi.fi" name="Methods_FMI" xmlns="http://impex-fp7.fmi.fi" xmlns:vot="http://www.ivoa.net/xml/VOTable/v1.2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<wsdl:definitions targetNamespace="http://impex-fp7.fmi.fi" name="Methods_FMI" xmlns="http://impex-fp7.fmi.fi" xmlns:vot="http://www.ivoa.net/xml/VOTable/v1.2" xmlns:idm="http://impex-fp7.oeaw.ac.at" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
 
 

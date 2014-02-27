@@ -1547,7 +1547,7 @@
 </SpatialDescription>
 <SimulatedRegion>Mars</SimulatedRegion>
 <InputResourceID>impex://LATMOS/Hybrid/Mars_14_01_13/SimRun</InputResourceID>
-<Parameter>
+    <Parameter>
 <Name>ElectricField</Name>
 <ParameterKey>Ex,Ey,Ez</ParameterKey>
 <Units>mV.km-1</Units>
@@ -7241,7 +7241,7 @@
 </SpatialDescription>
 <SimulatedRegion>Mars</SimulatedRegion>
 <InputResourceID>impex://LATMOS/Hybrid/Mars_14_01_13/SimRun</InputResourceID>
-<Parameter>
+    <Parameter>
 <Name>MagneticField</Name>
 <ParameterKey>Bx,By,Bz</ParameterKey>
 <Units>nT</Units>
@@ -11185,7 +11185,7 @@
 <Qualifier>Total</Qualifier>
 <ParticleQuantity>NumberDensity</ParticleQuantity>
 </Particle>
-</Parameter>
+</Parameter>    
 <Parameter>
 <Name>PlasmaBulkVelocityVector</Name>
 <ParameterKey>Ux,Uy,Uz</ParameterKey>

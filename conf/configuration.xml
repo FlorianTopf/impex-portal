@@ -56,7 +56,7 @@
   </tool>
   <tool>
     <name>CLWeb</name>
-	<description>Multi-mission space plasma data plotting tool</description>
+    <description>Multi-mission space plasma data plotting tool</description>
     <dns>clweb.cesr.fr</dns>
     <info>http://clweb.cesr.fr/clweb_poster.pdf</info>
   </tool>

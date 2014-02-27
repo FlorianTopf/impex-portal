@@ -17,8 +17,7 @@ import play.libs.Akka
 import akka.pattern.ask
 import akka.util.Timeout
 import scala.language.postfixOps
-import play.api.Play.current
-import play.api.cache.Cache
+import play.api.libs.json._
 
 object Application extends Controller {
   import models.actor.ConfigService._
@@ -27,11 +26,12 @@ object Application extends Controller {
     Ok(views.html.index("Your new application is ready."))
   }
 
-  def config = Action.async {
-    //val future = ConfigService.request(GetDatabases).mapTo[Seq[Database]]
-    //future.map(databases => Ok(views.html.config(databases)))
-    val future = ConfigService.request(GetConfig).mapTo[NodeSeq]
-    future.map(config => Ok(config))
+  def config(fmt: String = "xml") = Action.async {
+    val future = ConfigService.request(GetConfig(fmt))
+    fmt.toLowerCase match {
+      case "xml" => future.mapTo[NodeSeq].map(config => Ok(config))
+      case "json" => future.mapTo[JsValue].map(config => Ok(config))
+    }
   }
 
   def tree = Action.async {

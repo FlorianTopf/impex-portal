@@ -2,7 +2,7 @@
 
 	<wsdl:types>
 		<xs:schema version="0.0" targetNamespace="http://impex.latmos.ipsl.fr" elementFormDefault="unqualified" xmlns:vot="http://www.ivoa.net/xml/VOTable/v1.2" xmlns:idm="http://impex-fp7.oeaw.ac.at" xmlns="http://impex.latmos.ipsl.fr" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-			<xs:import schemaLocation="http://impex.latmos.ipsl.fr/doc/impex+spase_latest.xsd" namespace="http://impex-fp7.oeaw.ac.at"/>
+			<xs:import schemaLocation="http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_0.xsd" namespace="http://impex-fp7.oeaw.ac.at"/>
                         <xs:import schemaLocation="http://www.ivoa.net/xml/VOTable/VOTable-1.2.xsd" namespace="http://www.ivoa.net/xml/VOTable/v1.2"/>
 
 			

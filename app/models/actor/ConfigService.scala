@@ -23,7 +23,12 @@ class ConfigService extends Actor {
   // @TODO provide messages for exposing in JSON
   // @TODO unified error message 
   def receive = {
-    case GetConfig => sender ! getConfigXML
+    case GetConfig(fmt: String) => fmt.toLowerCase match {
+      case "xml" => sender ! getConfigXML
+      case "json" => sender ! getConfigJSON
+      // @TODO error case
+    }
+    // not used in the REST interface of the portal
     case GetDatabases => sender ! getDatabases
     case GetDatabaseType(dt: Databasetype) => sender ! getDatabaseType(dt)
     case GetTools => sender ! getTools
@@ -36,6 +41,8 @@ class ConfigService extends Actor {
   private def getConfigXML: NodeSeq = scala.xml.XML.loadFile("conf/configuration.xml")
 
   private def getConfig: Impexconfiguration = scalaxb.fromXML[Impexconfiguration](getConfigXML)
+  
+  private def getConfigJSON: JsValue = Json.toJson(getConfig)
 
   private def getDatabases: Seq[Database] = {
     val databases = getConfig.impexconfigurationoption.filter(c => c.key.get == "database")
@@ -66,7 +73,7 @@ object ConfigService {
   
   // message formats
   trait ConfigMessage
-  case object GetConfig extends ConfigMessage
+  case class GetConfig(val format: String = "xml") extends ConfigMessage
   // not used in the REST interface of the portal
   case object GetTools extends ConfigMessage
   case object GetDatabases extends ConfigMessage

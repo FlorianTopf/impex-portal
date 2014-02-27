@@ -2,7 +2,7 @@
 
   <wsdl:types>
     <xs:schema version="0.0" targetNamespace="http://smdc.sinp.msu.ru" elementFormDefault="unqualified" xmlns:vot="http://www.ivoa.net/xml/VOTable/v1.2" xmlns:idm="http://impex-fp7.oeaw.ac.at" xmlns="http://smdc.sinp.msu.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:import schemaLocation="http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_0.xsd" namespace="http://impex-fp7.oeaw.ac.at"/>
+      <xs:import schemaLocation="http://dec1.sinp.msu.ru/~lucymu/paraboloid/impex_spase-1.0.xsd" namespace="http://impex-fp7.oeaw.ac.at"/>
       <xs:import schemaLocation="http://www.ivoa.net/xml/VOTable/VOTable-1.2.xsd" namespace="http://www.ivoa.net/xml/VOTable/v1.2"/>
 
       
@@ -74,8 +74,8 @@
           <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
-      
-      
+	  
+	  
       <xs:element type="extraParams_calculateDataPointValueMercury" name="extraParams_calculateDataPointValueMercury"/>
       <xs:complexType name="extraParams_calculateDataPointValueMercury">
         <xs:annotation>

@@ -11,6 +11,7 @@ import play.api.libs.ws._
 import models.provider._
 import scala.xml._
 import scala.language.postfixOps
+import java.net.URI
 
 object Global extends GlobalSettings {
   override def onStart(app: play.api.Application) {
@@ -34,12 +35,13 @@ object Global extends GlobalSettings {
     config map {
       database =>
         val dns: String = database.databaseoption.head.value
-        val treeURLs: Seq[String] = UrlProvider.getUrls(dns, database.tree)
-        val methodsURLs: Seq[String] = UrlProvider.getUrls(dns, database.methods)
+        val protocol: String = database.protocol.head
+        val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.tree)
+        val methodsURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.methods)
 
-        println("treeURL=" + treeURLs)
-        println("methodsURL=" + methodsURLs)
-        println("fetching files from " + database.name)
+        println("treeURL="+treeURLs)
+        println("methodsURL="+methodsURLs)
+        println("fetching files from "+database.name)
 
         val trees: Seq[NodeSeq] = fetchAndSaveFiles(treeURLs, "trees", database)
         val methods: Seq[NodeSeq] = fetchAndSaveFiles(methodsURLs, "methods", database)
@@ -51,19 +53,20 @@ object Global extends GlobalSettings {
 
   }
   
-  private def fetchAndSaveFiles(URLs: Seq[String], folder: String, db: Database): Seq[NodeSeq] = { 
+  private def fetchAndSaveFiles(URLs: Seq[URI], folder: String, db: Database): Seq[NodeSeq] = { 
     URLs map {
       URL => 
-        val promise = WS.url(URL).get()
+        // @FIXME just for testing (without update)
+        val promise = WS.url(URL.toString).get()
         try {
           val result = Await.result(promise, 1.minute).xml
           scala.xml.XML.save(
-            PathProvider.getPath(folder, db.name, URL), result, "UTF-8")
+            PathProvider.getPath(folder, db.name, URL.toString), result, "UTF-8")
           result
         } catch {
           case e: TimeoutException => {
             println("timeout: fallback on local file at "+db.name)
-            scala.xml.XML.load(PathProvider.getPath(folder, db.name, URL))
+            scala.xml.XML.load(PathProvider.getPath(folder, db.name, URL.toString))
           }
         }
     }
