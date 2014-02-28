@@ -1,23 +1,13 @@
 package controllers
 
-import play.api._
+import models.actor._
+import models.binding._
 import play.api.mvc._
-import play.api.libs.ws._
+import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
+import scala.xml._
 import scala.collection.mutable.ListBuffer
 import views.html._
-import scala.xml._
-import scalaxb._
-import models.binding._
-import models.actor._
-import scala.concurrent._
-import scala.concurrent.duration._
-import akka.actor._
-import play.libs.Akka
-import akka.pattern.ask
-import akka.util.Timeout
-import scala.language.postfixOps
-import play.api.libs.json._
 
 object Application extends Controller {
   import models.actor.ConfigService._
@@ -28,17 +18,35 @@ object Application extends Controller {
 
   def config(fmt: String = "xml") = Action.async {
     val future = ConfigService.request(GetConfig(fmt))
+    
     fmt.toLowerCase match {
       case "xml" => future.mapTo[NodeSeq].map(config => Ok(config))
       case "json" => future.mapTo[JsValue].map(config => Ok(config))
     }
   }
-
-  def tree = Action.async {
+  
+  // @TODO return in json/xml
+  def simulations = Action.async {
+     val future = RegistryService.getRepositoryType(Simulation).mapTo[Seq[Repository]]
+     future.map(simulations => Ok(views.html.sim(simulations)))
+  }
+  
+  // @TODO return in json/xml
+  def observations = Action.async {
+     val future = RegistryService.getRepositoryType(Observation).mapTo[Seq[DataCenter]]
+     future.map(observations => Ok(views.html.obs(observations)))
+  }
+  
+  def repository(name: String) = Action.async {
+    val future = RegistryService.getRepository(name)
+    future.map{repository => println(repository); Ok("test")}
+  }
+  
+  // route for testing
+  def test = Action.async {
     val future = RegistryService.getTreeXML(Some("FMI"))
 
     future map { response =>
-
       val tree = response map { r => scalaxb.fromXML[Spase](r) }
       //val simulationModel = response.xml \\ "SimulatioModel" \ "ResourceID"
 
@@ -61,26 +69,6 @@ object Application extends Controller {
         tree.head.ResourceEntity.length + " ResourceEntity elements found" + "; " +
         //"RepositoryID="+repository.ResourceID+"; "+
         simulationRuns.length + " SimulationRuns found ----->>>>>> " + simulationRuns)
-    }
-
-  }
-
-  def repo = Action.async {
-    /*   val stripped1 = Await.result(
-        RegistryService.requestTreeXML(Some("AMDA")).mapTo[Seq[NodeSeq]], 1.second) map { tree => tree \\ "dataCenter" }
-    
-    val stripped2 = Await.result(
-        RegistryService.requestTreeXML(Some("ClWeb")).mapTo[Seq[NodeSeq]], 1.second) map { tree => tree \\ "dataCenter" }
-    
-    val merged = <dataRoot>{stripped1}{stripped2}</dataRoot>
-    
-    Ok("OK:" + merged) */
-    //val future = RegistryService.getRepository()
-    //val future = RegistryService.getRepository(Some("SINP"))
-    val future = RegistryService.getRepository()
-
-    future.map { repositories =>
-      Ok(views.html.repository(repositories))
     }
 
   }

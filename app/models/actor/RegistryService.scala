@@ -1,22 +1,28 @@
 package models.actor
 
+import models.binding._
+import play.libs._
 import scala.concurrent._
 import scala.concurrent.duration._
-import models.binding._
+import scala.xml._
 import akka.actor._
-import play.libs._
+import akka.actor.SupervisorStrategy._
 import akka.pattern._
 import akka.util.Timeout
-import scala.xml.NodeSeq
-import scala.language.postfixOps
+
 import play.api.libs.concurrent.Execution.Implicits._
 
-// @TODO add supervising strategy
 class RegistryService extends Actor {  
   import models.actor.RegistryService._
   import models.actor.DataProvider._
   
-  implicit val timeout = Timeout(10 seconds)
+  implicit val timeout = Timeout(10.seconds)
+  
+  override val supervisorStrategy = OneForOneStrategy() {
+    case _: ActorInitializationException => Stop
+    case _: ActorKilledException => Stop
+    case _: Exception => Restart
+  }
 
   // @TODO unified error messages
   def receive = {
@@ -28,7 +34,7 @@ class RegistryService extends Actor {
   private def register(msg: RegisterProvider) = {
     val provider: ActorRef = context.actorOf(msg.props, msg.name)
     // @TODO initial delay will be switched later
-    Akka.system.scheduler.schedule(30.minutes, 24.hours, provider, UpdateTrees)
+    Akka.system.scheduler.schedule(5.minutes, 24.hours, provider, UpdateTrees)
   }
 }
 
@@ -39,7 +45,7 @@ class RegistryService extends Actor {
 object RegistryService {
   import models.actor.ConfigService._
   
-  implicit val timeout = Timeout(1 minute)
+  implicit val timeout = Timeout(1.minute)
   
   // message formats
   trait RegistryMessage
@@ -53,8 +59,8 @@ object RegistryService {
     (registry ? RegisterProvider(props, name))
   }
 
-  private def getChilds(databases: Seq[Database]): Seq[ActorSelection] = {
-    databases map { database => getChild(database.name) }
+  private def getChilds(databases: Seq[Database]): Seq[(Databasetype, ActorSelection)] = {
+    databases map { database => (database.typeValue, getChild(database.name)) }
   }
 
   // @TODO check if child exists and is alive
@@ -68,10 +74,10 @@ object RegistryService {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- {
         pName match {
-          case Some(p: String) if databases.exists(d => d.name == p) =>
+          case Some(p: String) if databases.exists(d => d.name == p) => {
             val provider: ActorSelection = getChild(p)
             DataProvider.getTreeXML(provider)
-          //case None => // get all dataproviders
+          }
           case _ => future { Seq(<error>provider not found</error>) }
         }
       }
@@ -83,39 +89,38 @@ object RegistryService {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- {
         pName match {
-          case p: String if databases.exists(d => d.name == p) =>
+          case p: String if databases.exists(d => d.name == p) => {
             val provider: ActorSelection = getChild(p)
             DataProvider.getMethodsXML(provider)
+          }
           case _ => future { Seq(<error>provider not found</error>) }
         }
       }
     } yield provider
   }
 
-  // @TODO this routine needs to be improved (no blocking if possible)
-  // @TODO build up every routine like this => and see how we can improve that
-  def getRepository(pName: Option[String] = None): Future[Seq[(Databasetype, Any)]] = {
+  def getRepository(pName: String): Future[Seq[Any]] = {
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- pName match {
-        case Some(p: String) if databases.exists(d => d.name == p) =>
+        case p: String if databases.exists(d => d.name == p && d.typeValue == Simulation) => {
           val provider: ActorSelection = getChild(p)
-          DataProvider.getRepository(provider)
-        case None => future {
-          getChilds(databases) flatMap { provider =>
-            Await.result(DataProvider.getRepository(provider), 10.seconds)
-          }
+          DataProvider.getRepository(provider, Simulation)
         }
-        case _ => future { Seq((Simulation, <error>provider not found</error>)) }
+        case p: String if databases.exists(d => d.name == p && d.typeValue == Observation) => {
+          val provider: ActorSelection = getChild(p)
+          DataProvider.getRepository(provider, Observation)
+        }
+        case _ => future { Seq(<error>provider not found</error>) }
       }
     } yield provider
   }
 
-  def getRepositoryType(dType: Databasetype): Future[Seq[(Databasetype, Any)]] = {
+  def getRepositoryType(dbType: Databasetype): Future[Seq[Any]] = {
     for {
-      databases <- ConfigService.request(GetDatabaseType(dType)).mapTo[Seq[Database]]
+      databases <- ConfigService.request(GetDatabaseType(dbType)).mapTo[Seq[Database]]
       providers <- Future.sequence(getChilds(databases) map { provider =>
-        DataProvider.getRepository(provider)
+        DataProvider.getRepository(provider._2, dbType)
       })
     } yield providers.flatten
   }

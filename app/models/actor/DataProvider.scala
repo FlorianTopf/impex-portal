@@ -1,129 +1,65 @@
 package models.actor
 
 import models.binding._
-import play.api._
-import play.api.libs.json._
-import akka.actor._
-import scala.concurrent._
-import scala.concurrent.duration._
+import models.provider._
 import play.api.libs.ws._
 import scala.xml._
-import models.provider._
-import scala.language.postfixOps
-import akka.util.Timeout
-import play.libs.Akka
+import scala.concurrent._
+import scala.concurrent.duration._
+import akka.actor._
 import akka.pattern.ask
-import play.api.libs.concurrent.Execution.Implicits._
+import akka.util.Timeout
 import java.net.URI
+
 
 // container for XML content
 case class Trees(var content: Seq[NodeSeq])
 case class Methods(var content: Seq[NodeSeq])
 
-// @TODO provide a basic trait and then two for each provider (obs/sim)
-trait Provider {
+// basic trait for data provider actors (sim / obs)
+trait DataProvider[A] {
   val dataTree: Trees
   val accessMethods: Methods
-  val dbType: Databasetype
 
   // predefined methods
   protected def getTreeXML = dataTree.content
   protected def getMethodsXML = accessMethods.content
-}
-
-class DataProvider(val dataTree: Trees, val accessMethods: Methods,
-  val dbType: Databasetype) extends Actor {
-  import models.actor.DataProvider._
-  import models.actor.ConfigService._
+  protected def getTreeObjects: Seq[A]
+  protected def getMetaData: Database
+  protected def getRepository: Seq[Any]
   
-  //println(self.path.name)
-  // @TODO unified error messages
-  def receive = {
-    // @TODO return unified tree in XML
-    case GetTrees(Some("xml")) => sender ! getTreeXML
-    case GetTrees(None) => sender ! getTreeObjects
-    case GetMethods => sender ! getMethodsXML
-    case GetRepository => sender ! getRepository
-    case UpdateTrees => {
-      //@TODO integrate exception handling here
-      dataTree.content = updateTrees
-      println("finished")
-    }
-    //case _ => sender ! Json.obj("error" -> "message not found")
-    case _ => sender ! <error>message not found in data provider</error>
-  }
-
-  private def getTreeXML = dataTree.content
-  private def getMethodsXML = accessMethods.content
-
-  private def getMetaData: Database = {
-    try {
-      Await.result(ConfigService.request(GetDatabase(self.path.name)).mapTo[Database], 5.seconds)
-    } catch {
-      // if config service fails just provide what is there!
-      case e: TimeoutException => Database(self.path.name, None, Nil, Nil, Nil, Nil, 
-          "", dbType, UrlProvider.getURI("impex", self.path.name))
-    }
-  }
-
-  private def getTreeObjects: Seq[(Databasetype, Any)] = {
-    dataTree.content map { tree =>
-      dbType match {
-        case Simulation => (dbType, scalaxb.fromXML[Spase](tree))
-        case Observation => (dbType, scalaxb.fromXML[DataRoot](tree))
-      }
-    }
-  }
-
-  private def getRepository: Seq[(Databasetype, Any)] = {
-    getTreeObjects flatMap { tree =>
-      dbType match {
-        case Simulation => {
-          tree._2.asInstanceOf[Spase].ResourceEntity.filter(c => c.key.get == "Repository") map {
-            //@TODO still the same problem with some XML elements
-            repo => (dbType, scalaxb.fromXML[Repository](repo.value.asInstanceOf[NodeSeq]))
-          }
-        }
-        case Observation => {
-          tree._2.asInstanceOf[DataRoot].dataCenter map {
-            //@TODO this returns the whole data center element (we don't want that)
-            repo => (dbType, DataCenter(repo.datacenteroption, repo.available, repo.desc,
-                repo.group, repo.id1, repo.isSimulation, repo.name, repo.id))
-          }
-        }
-      }
-    }
-  }
-
-  // @TODO improve this
-  private def updateTrees: Seq[NodeSeq] = {
+  // @TODO update methods too!
+  protected def updateTrees: Seq[NodeSeq] = {
     val dns: String = getMetaData.databaseoption.head.value
     val protocol: String = getMetaData.protocol.head
-    val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, getMetaData.tree)
-    treeURLs flatMap {
-      treeURL =>
-        val promise = WS.url(treeURL.toString).get()
+    val URLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, getMetaData.tree)
+    URLs flatMap {
+      URL =>
+        val promise = WS.url(URL.toString).get()
         try {
-          Await.result(promise, 1.minute).xml
+          val result = Await.result(promise, 2.minutes).xml
+          scala.xml.XML.save(
+              PathProvider.getPath("trees", getMetaData.name, URL.toString), result, "UTF-8")
+          result
         } catch {
           case e: TimeoutException =>
+            println("timeout: fallback on local file at "+getMetaData.name)
             scala.xml.XML.loadFile(
-              PathProvider.getPath("trees", treeURL.toString, getMetaData.name))
+              PathProvider.getPath("trees", getMetaData.name, URL.toString))
         }
     }
   }
-
 }
 
 object DataProvider {
-  implicit val timeout = Timeout(10 seconds)
-
-  // message formats
+  implicit val timeout = Timeout(10.seconds)
+  
+  // common message formats
   case class GetTrees(val format: Option[String] = None)
   case object GetMethods
   case object GetRepository
   case object UpdateTrees
-
+  
   def getTreeXML(provider: ActorSelection) = {
     (provider ? GetTrees(Some("xml"))).mapTo[Seq[NodeSeq]]
   }
@@ -131,14 +67,18 @@ object DataProvider {
   def getMethodsXML(provider: ActorSelection) = {
     (provider ? GetMethods).mapTo[Seq[NodeSeq]]
   }
-
-  def getRepository(provider: ActorSelection) = {
-    (provider ? GetRepository).mapTo[Seq[(Databasetype, Any)]]
+  
+  def getRepository(provider: ActorSelection, dbType: Databasetype) = {
+    val result = (provider ? GetRepository)
+    dbType match {
+      case Simulation => result.mapTo[Seq[Repository]]
+      case Observation => result.mapTo[Seq[DataCenter]]
+    }
   }
-
+  
   // @TODO we need that later for updating the trees dynamically (on admin request)
   def updateTrees(provider: ActorSelection) = {
     (provider ? UpdateTrees)
   }
-
+  
 }

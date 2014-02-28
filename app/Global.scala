@@ -1,21 +1,19 @@
-import akka.actor._
-import play.libs.Akka
-import scala.concurrent._
-import play.api._
 import models.actor._
-import akka.pattern.ask
-import akka.util.Timeout
-import scala.concurrent.duration._
 import models.binding._
-import play.api.libs.ws._
 import models.provider._
+import play.libs.Akka
+import play.api._
+import play.api.libs.ws._
+import scala.concurrent._
+import scala.concurrent.duration._
 import scala.xml._
-import scala.language.postfixOps
+import akka.actor._
+import akka.util.Timeout
 import java.net.URI
 
 object Global extends GlobalSettings {
   override def onStart(app: play.api.Application) {
-    implicit val timeout = Timeout(10 seconds)
+    implicit val timeout = Timeout(10.seconds)
     
     import models.actor.ConfigService._
 
@@ -25,8 +23,6 @@ object Global extends GlobalSettings {
     val config = Await.result(
       ConfigService.request(GetDatabases).mapTo[Seq[Database]],
       10.seconds)
-
-    //println(config)
 
     Akka.system.actorOf(
       Props(new RegistryService),
@@ -45,10 +41,15 @@ object Global extends GlobalSettings {
 
         val trees: Seq[NodeSeq] = fetchAndSaveFiles(treeURLs, "trees", database)
         val methods: Seq[NodeSeq] = fetchAndSaveFiles(methodsURLs, "methods", database)
-
-        RegistryService.registerChild(
-          Props(new DataProvider(Trees(trees), Methods(methods), database.typeValue)),
-          database.name)
+        
+        database.typeValue match {
+          case Simulation => RegistryService.registerChild(
+              Props(new SimDataProvider(Trees(trees), Methods(methods))),
+              database.name)
+          case Observation => RegistryService.registerChild(
+              Props(new ObsDataProvider(Trees(trees), Methods(methods))),
+              database.name)
+        }
     }
 
   }
@@ -57,18 +58,18 @@ object Global extends GlobalSettings {
     URLs map {
       URL => 
         // @FIXME just for testing (without update)
-        val promise = WS.url(URL.toString).get()
-        try {
-          val result = Await.result(promise, 1.minute).xml
-          scala.xml.XML.save(
-            PathProvider.getPath(folder, db.name, URL.toString), result, "UTF-8")
-          result
-        } catch {
-          case e: TimeoutException => {
-            println("timeout: fallback on local file at "+db.name)
+        //val promise = WS.url(URL.toString).get()
+        //try {
+        //  val result = Await.result(promise, 1.minute).xml
+        //  scala.xml.XML.save(
+        //    PathProvider.getPath(folder, db.name, URL.toString), result, "UTF-8")
+        //  result
+        //} catch {
+        //  case e: TimeoutException => {
+        //    println("timeout: fallback on local file at "+db.name)
             scala.xml.XML.load(PathProvider.getPath(folder, db.name, URL.toString))
-          }
-        }
+        //  }
+        //}
     }
   }
 

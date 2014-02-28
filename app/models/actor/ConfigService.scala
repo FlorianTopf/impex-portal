@@ -1,26 +1,20 @@
 package models.actor
 
 import models.binding._
-import play.api._
+import play.api.Play._
 import play.api.libs.json._
 import play.api.libs.concurrent._
-import play.libs.Akka._
-import play.api.Play.current
-import akka.util.Timeout
-import akka.pattern.ask
 import akka.actor._
+import akka.pattern.ask
+import akka.util.Timeout
+import scala.concurrent._
 import scala.concurrent.duration._
 import scala.xml._
-import scala.collection.mutable.Map
-import scala.language.postfixOps
-import scala.concurrent.Future
 
-// @TODO provide a possiblity for updating config
-//		 + saving to filesystem
+// @TODO provide a possiblity for updating config + saving to filesystem
 class ConfigService extends Actor {
   import models.actor.ConfigService._
   
-  // @TODO provide messages for exposing in JSON
   // @TODO unified error message 
   def receive = {
     case GetConfig(fmt: String) => fmt.toLowerCase match {
@@ -69,11 +63,11 @@ class ConfigService extends Actor {
 }
 
 object ConfigService {
-  implicit val timeout = Timeout(10 seconds)
+  implicit val timeout = Timeout(10.seconds)
   
   // message formats
   trait ConfigMessage
-  case class GetConfig(val format: String = "xml") extends ConfigMessage
+  case class GetConfig(val fmt: String = "xml") extends ConfigMessage
   // not used in the REST interface of the portal
   case object GetTools extends ConfigMessage
   case object GetDatabases extends ConfigMessage

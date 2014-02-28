@@ -10,6 +10,10 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET		/config						controllers.Application.config(fmt: String ?= "xml")
 
-GET		/tree						controllers.Application.tree
+GET 	/simulations				controllers.Application.simulations
 
-GET		/repo						controllers.Application.repo
+GET		/observations				controllers.Application.observations
+
+GET		/repository/:name			controllers.Application.repository(name: String)
+
+GET		/test						controllers.Application.test

@@ -9,12 +9,13 @@ Current library versions used:
 - Akka: 2.2.0
 
 Prototype version includes:
-- current IMPEx configuration file in XML format (conf directory)
-- offline versions of the XML metadata trees (trees directory)
+- current IMPEx configuration file in XML/JSON format (conf directory)
+- offline versions of the XML metadata trees and WSDL files (trees/methods directory)
 - default loading of remote resources and initialisation of actor system in 
   Global.scala (default package)
-- development controller for tree exploitations in Application.scala (controllers package)
-- initial actor system with ConfigService.scala, DataProvider.scala and 
+- controller for config/tree exploitations in Application.scala (controllers package)
+- initial actor system with ConfigService.scala, DataProvider.scala 
+  (ObsDataProvider.scala/SimDataprovider.scala) and 
   RegistryService.scala (models.actor package)
 - initial bindings for the IMPEx configuration file, observational and 
   simulation data trees (models.binding package)
