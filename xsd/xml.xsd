@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.w3.org/XML/1998/namespace">
-  <xs:import schemaLocation="clweb-amda-1_0_0.xsd"/>
+  <xs:import schemaLocation="clweb-amda-1_0_1.xsd"/>
   <xs:attributeGroup name="id">
-    <xs:attribute name="id" use="required" form="qualified" type="xs:NCName"/>
-  </xs:attributeGroup>
-  <xs:attributeGroup name="id1">
-    <xs:attribute name="id" use="required" form="qualified" type="xs:anyURI"/>
-  </xs:attributeGroup>
-  <xs:attributeGroup name="id2">
     <xs:attribute name="id" use="required" form="qualified" type="xs:string"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="iduri">
+    <xs:attribute name="id" use="required" form="qualified" type="xs:string"/>
+  </xs:attributeGroup>
+  <xs:attributeGroup name="idopt">
+    <xs:attribute name="id" use="optional" form="qualified" type="xs:string"/>
   </xs:attributeGroup>
 </xs:schema>
