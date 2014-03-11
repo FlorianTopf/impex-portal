@@ -37,9 +37,13 @@ object Application extends Controller {
      future.map(observations => Ok(views.html.obs(observations)))
   }
   
+  // @TODO return in json
   def repository(name: String) = Action.async {
     val future = RegistryService.getRepository(name)
-    future.map{repository => println(repository); Ok("test")}
+    future.map{repository => { 
+      // @TODO get all available respositories from one provider
+      Ok(scalaxb.toXML[Repository](repository(0), "Repository", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at"))) }
+    }
   }
   
   // route for testing

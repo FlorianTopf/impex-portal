@@ -2,7 +2,6 @@ package models.actor
 
 import models.binding._
 import models.provider._
-import models.actor.DataProvider._
 import akka.actor._
 import akka.pattern.ask
 import scala.xml._
@@ -12,6 +11,7 @@ import scala.concurrent.duration._
 class SimDataProvider(val dataTree: Trees, val accessMethods: Methods) 
 extends Actor with DataProvider[Spase] {
   import models.actor.ConfigService._
+  import models.actor.DataProvider._
   
   // @TODO unified error messages
   def receive = {
@@ -30,7 +30,7 @@ extends Actor with DataProvider[Spase] {
 
   protected def getMetaData: Database = {
     try {
-      Await.result(ConfigService.request(GetDatabase(self.path.name)).mapTo[Database], 5.seconds)
+      Await.result(ConfigService.request(GetDatabaseByName(self.path.name)).mapTo[Database], 5.seconds)
     } catch {
       // if config service fails just provide what is there!
       case e: TimeoutException => Database(self.path.name, None, Nil, Nil, Nil, Nil, "", 
@@ -50,6 +50,14 @@ extends Actor with DataProvider[Spase] {
       }
     }
   }
+  
+  protected def getSimulationModel = ???
+  
+  protected def getSimulationRun = ???
+  
+  protected def getNumericalOutput = ???
+  
+  protected def getGranule = ???
 
 }
 

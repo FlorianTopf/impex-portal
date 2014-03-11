@@ -3,7 +3,7 @@ package models.binding
 
 
 case class DataRoot(dataCenter: Seq[models.binding.DataCenter] = Nil,
-  id: String)
+  id: Option[String] = None)
 
 
 case class DataCenter(datacenteroption: Seq[scalaxb.DataRecord[models.binding.DataCenterOption]] = Nil,
@@ -16,28 +16,28 @@ case class DataCenter(datacenteroption: Seq[scalaxb.DataRecord[models.binding.Da
   id: String)
 
 trait DataCenterOption
+trait DataCenterOption2 extends DataCenterOption
 
-case class SimulationModel(simulationmodeloption: Seq[scalaxb.DataRecord[models.binding.SimulationModelOption]] = Nil,
+case class SimulationModel(runID: Seq[models.binding.RunID] = Nil,
   desc: String,
   name: java.net.URI,
-  id: java.net.URI) extends DataCenterOption
+  id: String) extends DataCenterOption
 
-trait SimulationModelOption
 
-case class RunID(runidoption: Seq[scalaxb.DataRecord[models.binding.RunIDOption]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends SimulationModelOption {
-  lazy val FieldValue_Bx = attributes.get("@FieldValue_Bx") map { _.as[String] }
-  lazy val FieldValue_By = attributes.get("@FieldValue_By") map { _.as[String] }
-  lazy val FieldValue_Bz = attributes.get("@FieldValue_Bz") map { _.as[String] }
-  lazy val GridCellSize_X = attributes.get("@GridCellSize_X") map { _.as[BigDecimal] }
-  lazy val GridCellSize_Y = attributes.get("@GridCellSize_Y") map { _.as[BigDecimal] }
-  lazy val GridCellSize_Z = attributes.get("@GridCellSize_Z") map { _.as[BigDecimal] }
+case class RunID(mission: Seq[models.binding.Mission] = Nil,
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
+  lazy val FieldValue_Bx = attributes("@FieldValue_Bx").as[BigDecimal]
+  lazy val FieldValue_By = attributes("@FieldValue_By").as[BigDecimal]
+  lazy val FieldValue_Bz = attributes("@FieldValue_Bz").as[BigDecimal]
+  lazy val GridCellSize_X = attributes("@GridCellSize_X").as[BigDecimal]
+  lazy val GridCellSize_Y = attributes("@GridCellSize_Y").as[BigDecimal]
+  lazy val GridCellSize_Z = attributes("@GridCellSize_Z").as[BigDecimal]
   lazy val LikelihoodRating = attributes("@LikelihoodRating").as[String]
   lazy val ReleaseDate = attributes("@ReleaseDate").as[javax.xml.datatype.XMLGregorianCalendar]
   lazy val SimulationType = attributes("@SimulationType").as[String]
-  lazy val SolarUVFlux = attributes.get("@SolarUVFlux") map { _.as[String] }
-  lazy val Solar_Wind_Hu45Density = attributes("@Solar_Wind_H-Density").as[String]
-  lazy val Solar_Wind_Hu45FlowSpeed = attributes("@Solar_Wind_H-FlowSpeed").as[String]
+  lazy val SolarUVFlux = attributes.get("@SolarUVFlux") map { _.as[BigDecimal] }
+  lazy val Solar_Wind_Hu45Density = attributes("@Solar_Wind_H-Density").as[Double]
+  lazy val Solar_Wind_Hu45FlowSpeed = attributes("@Solar_Wind_H-FlowSpeed").as[BigDecimal]
   lazy val Solar_Wind_Hu45Temperature = attributes("@Solar_Wind_H-Temperature").as[String]
   lazy val Solar_Wind_Heu45Density = attributes("@Solar_Wind_He-Density").as[String]
   lazy val Solar_Wind_Heu45FlowSpeed = attributes("@Solar_Wind_He-FlowSpeed").as[String]
@@ -48,22 +48,28 @@ case class RunID(runidoption: Seq[scalaxb.DataRecord[models.binding.RunIDOption]
   lazy val TemporalDependence = attributes("@TemporalDependence").as[String]
   lazy val desc = attributes("@desc").as[String]
   lazy val name = attributes("@name").as[String]
-  lazy val id = attributes("@id").as[java.net.URI]
+  lazy val id = attributes("@id").as[String]
 }
 
 
-trait RunIDOption
 
 case class Mission(missionoption: Seq[scalaxb.DataRecord[models.binding.MissionOption]] = Nil,
   SimulatedRegion: Option[String] = None,
   att: Option[String] = None,
-  available: Option[String] = None,
+  available: Option[BigInt] = None,
   desc: String,
   name: String,
   target: Option[String] = None,
-  id: String) extends DataCenterOption with RunIDOption
+  targets: Option[String] = None,
+  id: String) extends DataCenterOption2
 
 trait MissionOption
+
+case class MeasurementType(dataset: Seq[models.binding.Dataset] = Nil,
+  desc: String,
+  name: String,
+  id: String) extends MissionOption
+
 
 case class Instrument(dataset: Seq[models.binding.Dataset] = Nil,
   att: Option[String] = None,
@@ -72,10 +78,18 @@ case class Instrument(dataset: Seq[models.binding.Dataset] = Nil,
   id: String) extends MissionOption
 
 
-case class MeasurementType(dataset: Seq[models.binding.Dataset] = Nil,
-  desc: String,
+case class Dataset(parameter: Seq[models.binding.Parameter] = Nil,
+  att: Option[String] = None,
+  dataSource: Option[String] = None,
+  dataStart: Option[String] = None,
+  dataStop: Option[String] = None,
+  desc: Option[String] = None,
+  maxSampling: Option[String] = None,
   name: String,
-  id: java.net.URI) extends RunIDOption with MissionOption
+  rem_id: Option[String] = None,
+  sampling: Option[String] = None,
+  target: Option[String] = None,
+  id: String) extends DataCenterOption2
 
 
 case class Parameter(component: Seq[models.binding.Component] = Nil,
@@ -89,29 +103,12 @@ case class Parameter(component: Seq[models.binding.Component] = Nil,
   size: Option[BigInt] = None,
   units: Option[String] = None,
   varValue: Option[String] = None,
-  id: String) extends SimulationModelOption
+  id: String)
 
 
-case class Component(name: String,
+case class Component(mission: Option[String] = None,
+  name: String,
   parentID: Option[java.net.URI] = None,
   varValue: Option[String] = None,
-  id: java.net.URI)
-
-
-case class Dataset(parameter: Seq[models.binding.Parameter] = Nil,
-  AccessURL: Option[java.net.URI] = None,
-  att: Option[String] = None,
-  coordinateSystem: Option[String] = None,
-  dataSource: Option[String] = None,
-  dataStart: Option[String] = None,
-  dataStop: Option[String] = None,
-  desc: Option[String] = None,
-  domainUnits: Option[String] = None,
-  maxSampling: Option[String] = None,
-  name: String,
-  obsolete: Option[BigInt] = None,
-  rem_id: Option[String] = None,
-  sampling: Option[String] = None,
-  target: Option[String] = None,
-  id: java.net.URI)
+  id: String)
 

@@ -2,11 +2,11 @@
 package models.binding
 
 
-case class Id2(id: String)
+case class Idopt(id: Option[String] = None)
 
 
 case class Id(id: String)
 
 
-case class Id1(id: java.net.URI)
+case class Iduri(id: String)
 

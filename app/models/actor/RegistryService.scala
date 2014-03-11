@@ -9,8 +9,8 @@ import akka.actor._
 import akka.actor.SupervisorStrategy._
 import akka.pattern._
 import akka.util.Timeout
-
 import play.api.libs.concurrent.Execution.Implicits._
+import java.net.URI
 
 class RegistryService extends Actor {  
   import models.actor.RegistryService._
@@ -44,6 +44,7 @@ class RegistryService extends Actor {
 //       => maybe use try instead of future? we have no error recovery here!
 object RegistryService {
   import models.actor.ConfigService._
+  import models.actor.DataProvider._
   
   implicit val timeout = Timeout(1.minute)
   
@@ -54,13 +55,13 @@ object RegistryService {
   case class GetRepositories(val databases: Seq[(String, Database)]) extends RegistryMessage
 
   private val registry: ActorSelection = Akka.system.actorSelection("user/registry")
-  
-  def registerChild(props: Props, name: String) = {
-    (registry ? RegisterProvider(props, name))
-  }
 
   private def getChilds(databases: Seq[Database]): Seq[(Databasetype, ActorSelection)] = {
     databases map { database => (database.typeValue, getChild(database.name)) }
+  }
+  
+  def registerChild(props: Props, name: String) = {
+    (registry ? RegisterProvider(props, name))
   }
 
   // @TODO check if child exists and is alive
@@ -70,13 +71,14 @@ object RegistryService {
 
   // @TODO merge multiple trees here (in xml)
   def getTreeXML(pName: Option[String] = None): Future[Seq[NodeSeq]] = {
+    implicit val timeout = Timeout(10.seconds)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- {
         pName match {
           case Some(p: String) if databases.exists(d => d.name == p) => {
             val provider: ActorSelection = getChild(p)
-            DataProvider.getTreeXML(provider)
+            (provider ? GetTrees(Some("xml"))).mapTo[Seq[NodeSeq]]
           }
           case _ => future { Seq(<error>provider not found</error>) }
         }
@@ -85,13 +87,14 @@ object RegistryService {
   }
 
   def getMethodsXML(pName: String): Future[Seq[NodeSeq]] = {
+    implicit val timeout = Timeout(10.seconds)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- {
         pName match {
           case p: String if databases.exists(d => d.name == p) => {
             val provider: ActorSelection = getChild(p)
-            DataProvider.getMethodsXML(provider)
+            (provider ? GetMethods).mapTo[Seq[NodeSeq]]
           }
           case _ => future { Seq(<error>provider not found</error>) }
         }
@@ -99,30 +102,44 @@ object RegistryService {
     } yield provider
   }
 
-  def getRepository(pName: String): Future[Seq[Any]] = {
+  //@TODO add possibility for fetching all repositories
+  def getRepository(pName: String): Future[Seq[Repository]] = {
+    implicit val timeout = Timeout(10.seconds)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- pName match {
-        case p: String if databases.exists(d => d.name == p && d.typeValue == Simulation) => {
+        case p: String if databases.exists(d => d.name == p) => {
           val provider: ActorSelection = getChild(p)
-          DataProvider.getRepository(provider, Simulation)
+          (provider ? GetRepository).mapTo[Seq[Repository]]
         }
-        case p: String if databases.exists(d => d.name == p && d.typeValue == Observation) => {
-          val provider: ActorSelection = getChild(p)
-          DataProvider.getRepository(provider, Observation)
-        }
-        case _ => future { Seq(<error>provider not found</error>) }
+        //case _ => future { Seq(<error>provider not found</error>) }
       }
     } yield provider
   }
 
-  def getRepositoryType(dbType: Databasetype): Future[Seq[Any]] = {
+  def getRepositoryType(dbType: Databasetype): Future[Seq[Repository]] = {
+    implicit val timeout = Timeout(10.seconds)
     for {
       databases <- ConfigService.request(GetDatabaseType(dbType)).mapTo[Seq[Database]]
       providers <- Future.sequence(getChilds(databases) map { provider =>
-        DataProvider.getRepository(provider._2, dbType)
+        val result = (provider._2 ? GetRepository)
+        result.mapTo[Seq[Repository]]
       })
     } yield providers.flatten
   }
-
+  
+  def getSimulationModel(id: Option[URI], repository: Option[URI]): Seq[SimulationModel] = ???
+  
+  def getSimulationRun(id: Option[URI], model: Option[URI]): Seq[SimulationRun] = ???
+  
+  def getNumericalOutput(id: Option[URI], output: Option[URI]): Seq[NumericalOutput] = ???
+  
+  def getGranule(id: Option[URI], run: Option[URI]): Seq[Granule] = ???
+  
+  def getObservatory = ???
+  
+  def getInstrument = ???
+  
+  def getNumericalData = ???
+  
 }

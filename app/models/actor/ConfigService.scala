@@ -10,6 +10,7 @@ import akka.util.Timeout
 import scala.concurrent._
 import scala.concurrent.duration._
 import scala.xml._
+import java.net.URI
 
 // @TODO provide a possiblity for updating config + saving to filesystem
 class ConfigService extends Actor {
@@ -26,7 +27,7 @@ class ConfigService extends Actor {
     case GetDatabases => sender ! getDatabases
     case GetDatabaseType(dt: Databasetype) => sender ! getDatabaseType(dt)
     case GetTools => sender ! getTools
-    case GetDatabase(n: String) => sender ! getDatabase(n)
+    case GetDatabaseByName(n: String) => sender ! getDatabaseByName(n)
     case GetTool(n: String) => sender ! getTool(n)
     //case _ => sender ! Json.obj("error" -> "message not found")
     case _ => sender ! <error>message not found in config</error>
@@ -52,8 +53,14 @@ class ConfigService extends Actor {
     getDatabases.filter(d => d.typeValue == dType)
   }
 
-  private def getDatabase(name: String): Database = {
+  // @FIXME return an option type
+  private def getDatabaseByName(name: String): Database = {
     getDatabases.find(p => p.name == name).get
+  }
+  
+  // @FIXME return an option type
+  private def getDatabaseById(resID: URI): Database = {
+    getDatabases.find(p => (resID.toString().indexOf(p.id) != -1)).get
   }
 
   private def getTool(name: String): Tool = {
@@ -72,7 +79,8 @@ object ConfigService {
   case object GetTools extends ConfigMessage
   case object GetDatabases extends ConfigMessage
   case class GetDatabaseType(val dtype: Databasetype) extends ConfigMessage
-  case class GetDatabase(val name: String) extends ConfigMessage
+  case class GetDatabaseByName(val name: String) extends ConfigMessage
+  case class GetDatabaseByID(val id: URI) extends ConfigMessage
   case class GetTool(val name: String) extends ConfigMessage
 
   // @TODO check if actor exists and is alive
