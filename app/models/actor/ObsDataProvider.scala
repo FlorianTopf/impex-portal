@@ -45,7 +45,6 @@ extends Actor with DataProvider[DataRoot] {
   // @TODO improve this (scalaxb stuff) => transform to repository
   protected def getRepository: Seq[Repository] = {
     getTreeObjects flatMap { tree => {
-        println(tree.dataCenter)
     	tree.dataCenter map { dataCenter => 
           val contact = Contact(dataCenter.name, Seq(ArchiveSpecialist))
     	  val resourceHeader = ResourceHeader(dataCenter.id.toString, Nil, TimeProvider.getISONow, 
