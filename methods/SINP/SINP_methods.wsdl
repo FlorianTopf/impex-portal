@@ -277,8 +277,7 @@
 		  <xs:element type="xs:integer" name="z_low" maxOccurs="1" minOccurs="0"/>
 		  <xs:element type="xs:integer" name="z_high" maxOccurs="1" minOccurs="0"/>
         </xs:sequence>
-      </xs:complexType>
-	  
+      </xs:complexType>	  
       <xs:element type="OutputFormat" name="OutputFileType"/>
       <xs:simpleType name="OutputFormat">
         <xs:annotation>
@@ -401,27 +400,6 @@
       </xs:complexType>
 
       
-      <xs:element type="calculateDataPointValueSpacecraft" name="calculateDataPointValueSpacecraft"/>
-      <xs:complexType name="calculateDataPointValueSpacecraft">
-        <xs:sequence>
-          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element ref="Spacecraft_name" maxOccurs="1" minOccurs="1"/>
-          <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
-          <xs:element ref="StopTime" maxOccurs="1" minOccurs="1"/>
-          <xs:element ref="Sampling" maxOccurs="1" minOccurs="1"/>
-          <xs:element type="extraParams_calculateDataPointValueSpacecraft" name="extraParams" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>OutputFiletype only</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:complexType>
-
-      
       <xs:element type="calculateDataPointValue" name="calculateDataPointValue"/>
       <xs:complexType name="calculateDataPointValue">
         <xs:sequence>
@@ -490,6 +468,27 @@
             </xs:annotation>
           </xs:element>
           <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="0"/>
+        </xs:sequence>
+      </xs:complexType>
+	  
+      
+      <xs:element type="calculateDataPointValueSpacecraft" name="calculateDataPointValueSpacecraft"/>
+      <xs:complexType name="calculateDataPointValueSpacecraft">
+        <xs:sequence>
+          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element ref="Spacecraft_name" maxOccurs="1" minOccurs="1"/>
+          <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+          <xs:element ref="StopTime" maxOccurs="1" minOccurs="1"/>
+          <xs:element ref="Sampling" maxOccurs="1" minOccurs="1"/>
+          <xs:element type="extraParams_calculateDataPointValueSpacecraft" name="extraParams" maxOccurs="1" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>OutputFiletype only</xs:documentation>
+            </xs:annotation>
+          </xs:element>
         </xs:sequence>
       </xs:complexType>
 
@@ -572,6 +571,11 @@
   </wsdl:message>
 
   
+  <wsdl:message name="calculateDataPointValueFixedTime_Request">
+    <wsdl:part element="calculateDataPointValueFixedTime" name="parameters"/>
+  </wsdl:message>
+
+  
   <wsdl:message name="calculateDataPointValue_Request">
     <wsdl:part element="calculateDataPointValue" name="parameters"/>
   </wsdl:message>
@@ -592,18 +596,13 @@
   </wsdl:message>
 
   
-  <wsdl:message name="calculateFieldLine_Request">
-    <wsdl:part element="calculateFieldLine" name="parameters"/>
-  </wsdl:message>
-
-  
   <wsdl:message name="calculateDataPointValueSpacecraft_Request">
     <wsdl:part element="calculateDataPointValueSpacecraft" name="parameters"/>
   </wsdl:message>
 
   
-  <wsdl:message name="calculateDataPointValueFixedTime_Request">
-    <wsdl:part element="calculateDataPointValueFixedTime" name="parameters"/>
+  <wsdl:message name="calculateFieldLine_Request">
+    <wsdl:part element="calculateFieldLine" name="parameters"/>
   </wsdl:message>
   
   
@@ -633,6 +632,10 @@
       <wsdl:input message="DataPointValue_Request"> </wsdl:input>
       <wsdl:output message="Generic_Response"> </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="calculateDataPointValueFixedTime">
+      <wsdl:input message="calculateDataPointValueFixedTime_Request"> </wsdl:input>
+      <wsdl:output message="Generic_Response"> </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="calculateDataPointValue">
       <wsdl:input message="calculateDataPointValue_Request"> </wsdl:input>
       <wsdl:output message="Generic_Response"> </wsdl:output>
@@ -649,16 +652,12 @@
       <wsdl:input message="calculateDataPointValueJupiter_Request"> </wsdl:input>
       <wsdl:output message="Generic_Response"> </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="calculateFieldLine">
-      <wsdl:input message="calculateFieldLine_Request"> </wsdl:input>
-      <wsdl:output message="Generic_Response"> </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="calculateDataPointValueSpacecraft">
       <wsdl:input message="calculateDataPointValueSpacecraft_Request"> </wsdl:input>
       <wsdl:output message="Generic_Response"> </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="calculateDataPointValueFixedTime">
-      <wsdl:input message="calculateDataPointValueFixedTime_Request"> </wsdl:input>
+    <wsdl:operation name="calculateFieldLine">
+      <wsdl:input message="calculateFieldLine_Request"> </wsdl:input>
       <wsdl:output message="Generic_Response"> </wsdl:output>
     </wsdl:operation>
     <wsdl:operation name="calculateCube">
@@ -681,6 +680,15 @@
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
     <wsdl:operation name="getDataPointValue">
       <soap:operation soapAction="DataPointValue"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="calculateDataPointValueFixedTime">
+      <soap:operation soapAction="calculateDataPointValueFixedTime"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -724,15 +732,6 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="calculateFieldLine">
-      <soap:operation soapAction="calculateFieldLine"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="calculateDataPointValueSpacecraft">
       <soap:operation soapAction="calculateDataPointValueSpacecraft"/>
       <wsdl:input>
@@ -742,8 +741,8 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="calculateDataPointValueFixedTime">
-      <soap:operation soapAction="calculateDataPointValueFixedTime"/>
+    <wsdl:operation name="calculateFieldLine">
+      <soap:operation soapAction="calculateFieldLine"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>
@@ -779,7 +778,7 @@
   
   <wsdl:service name="Methods_SINP">
     <wsdl:port binding="Methods_SINPSoapBinding" name="Methods_SINP">
-      <soap:address location="http://dec1.sinp.msu.ru/~lucymu/paraboloid/WebServiceAttempt12.php"/>
+      <soap:address location="http://dec1.sinp.msu.ru/~lucymu/paraboloid/SINPWebServiceServer.php"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

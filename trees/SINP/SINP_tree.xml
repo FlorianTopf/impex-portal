@@ -469,8 +469,8 @@
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
         <UnitsConversion>1000&gt;T</UnitsConversion>
-        <ValidMin/>
-        <ValidMax/>
+        <ValidMin>150</ValidMin>
+        <ValidMax>340</ValidMax>
       </Property>
       <Property>
         <Name>Flux</Name>
@@ -478,8 +478,8 @@
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>MWb</Units>
         <UnitsConversion>1000000&gt;Wb</UnitsConversion>
-        <ValidMin/>
-        <ValidMax/>
+        <ValidMin>2.3</ValidMin>
+        <ValidMax>5.0</ValidMax>
       </Property>
       <Property>
         <Name>Rss</Name>
