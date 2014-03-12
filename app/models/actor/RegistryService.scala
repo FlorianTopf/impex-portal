@@ -104,22 +104,22 @@ object RegistryService {
     } yield provider
   }
   
-  def getRepository(pName: Option[String] = None) = {
+  def getRepository(pName: Option[String] = None): Future[Either[Spase, RequestError]] = {
     implicit val timeout = Timeout(10.seconds)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- pName match {
         case Some(p) if databases.exists(d => d.name == p) => {
           val provider: ActorSelection = getChild(p)
-          (provider ? GetRepository).mapTo[Spase]
+          (provider ? GetRepository).mapTo[Spase] map { entry => Left(entry)}
         }
         case None => {
           val result = Future.sequence(getChilds(databases) map { provider =>
-            (provider._2 ? GetRepository).mapTo[Spase] map(entry => entry.ResourceEntity)
+            (provider._2 ? GetRepository).mapTo[Spase] map { entry => entry.ResourceEntity }
           })
-          result.map(records => Spase(Number2u462u462, records.flatten, "en"))
+          result.map(records => Left(Spase(Number2u462u462, records.flatten, "en")))
         } 
-        case _ => future { RequestError(ERequestError.UNKOWN_PROVIDER) }
+        case _ => future { Right(RequestError(ERequestError.UNKOWN_PROVIDER)) }
       }
     } yield provider
   }

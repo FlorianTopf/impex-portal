@@ -48,8 +48,8 @@ object Application extends Controller {
     val future = RegistryService.getRepository(id)
     future.map{ repository => 
       repository match {
-        case spase: Spase => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
-        case error: RequestError => BadRequest(Json.toJson(error))
+        case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+        case Right(error) => BadRequest(Json.toJson(error))
       }
     }
   }
