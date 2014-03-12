@@ -26,7 +26,7 @@ trait DataProvider[A] {
   protected def getMethodsXML: Seq[NodeSeq] = accessMethods.content
   protected def getTreeObjects: Seq[A]
   protected def getMetaData: Database
-  protected def getRepository: Seq[Any]
+  protected def getRepository: Spase
   
   // @TODO update methods too!
   protected def updateTrees: Seq[NodeSeq] = {

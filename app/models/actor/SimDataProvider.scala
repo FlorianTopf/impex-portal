@@ -7,6 +7,7 @@ import akka.pattern.ask
 import scala.xml._
 import scala.concurrent._
 import scala.concurrent.duration._
+import scalaxb.DataRecord
 
 class SimDataProvider(val dataTree: Trees, val accessMethods: Methods) 
 extends Actor with DataProvider[Spase] {
@@ -43,12 +44,13 @@ extends Actor with DataProvider[Spase] {
   }
 
   // @TODO improve this (scalaxb stuff)
-  protected def getRepository: Seq[Repository] = {
-    getTreeObjects flatMap { 
+  protected def getRepository: Spase = {
+    val records = getTreeObjects flatMap { 
       tree => tree.ResourceEntity.filter(c => c.key.get == "Repository") map {
-        repo => (scalaxb.fromXML[Repository](repo.as[NodeSeq]))
+        repo => DataRecord(None, Some("Repository"), (scalaxb.fromXML[Repository](repo.as[NodeSeq])))
       }
     }
+    Spase(Number2u462u462, records, "en")
   }
   
   protected def getSimulationModel = ???

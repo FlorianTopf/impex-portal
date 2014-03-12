@@ -8,6 +8,7 @@ import play.api.libs.concurrent.Execution.Implicits._
 import scala.xml._
 import scala.collection.mutable.ListBuffer
 import views.html._
+import models.enums._
 
 object Application extends Controller {
   import models.actor.ConfigService._
@@ -38,11 +39,18 @@ object Application extends Controller {
   }
   
   // @TODO return in json
-  def repository(name: String) = Action.async {
-    val future = RegistryService.getRepository(name)
-    future.map{repository => { 
-      // @TODO get all available respositories from one provider
-      Ok(scalaxb.toXML[Repository](repository(0), "Repository", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at"))) }
+  def repository = Action.async { implicit request =>
+    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
+    val id: Option[String] = for {
+      id <- req.get("id")
+    } yield id
+    
+    val future = RegistryService.getRepository(id)
+    future.map{ repository => 
+      repository match {
+        case spase: Spase => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+        case error: RequestError => BadRequest(Json.toJson(error))
+      }
     }
   }
   

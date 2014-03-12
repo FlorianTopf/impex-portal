@@ -7,6 +7,7 @@ import akka.pattern.ask
 import scala.xml._
 import scala.concurrent._
 import scala.concurrent.duration._
+import scalaxb.DataRecord
 
 class ObsDataProvider(val dataTree: Trees, val accessMethods: Methods) 
 extends Actor with DataProvider[DataRoot] {
@@ -42,18 +43,18 @@ extends Actor with DataProvider[DataRoot] {
     dataTree.content map { tree => scalaxb.fromXML[DataRoot](tree) }
   }
 
-  // @TODO improve this (scalaxb stuff) => transform to repository
-  protected def getRepository: Seq[Repository] = {
-    getTreeObjects flatMap { tree => {
+  protected def getRepository: Spase = {
+    val records = getTreeObjects flatMap { tree => {
     	tree.dataCenter map { dataCenter => 
           val contact = Contact(dataCenter.name, Seq(ArchiveSpecialist))
     	  val resourceHeader = ResourceHeader(dataCenter.id.toString, Nil, TimeProvider.getISONow, 
     	      None, dataCenter.name, None, Seq(contact))
     	  val accessURL = AccessURL(None , getMetaData.info)
-    	  Repository(getMetaData.id.toString, resourceHeader, accessURL)
+    	  DataRecord(None, Some("Repository"), Repository(getMetaData.id.toString, resourceHeader, accessURL))
     	}
       }
     }
+    Spase(Number2u462u462, records, "en")
   }
   
   protected def getObservatory = ???

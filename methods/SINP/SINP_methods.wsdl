@@ -261,6 +261,7 @@
           <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="1"/>
           <xs:element type="xs:double" name="DZ" maxOccurs="1" minOccurs="1"/>
           <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="1"/>
+		  <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 	  

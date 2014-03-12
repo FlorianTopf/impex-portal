@@ -11,6 +11,8 @@ import akka.pattern._
 import akka.util.Timeout
 import play.api.libs.concurrent.Execution.Implicits._
 import java.net.URI
+import scalaxb.DataRecord
+import models.enums._
 
 class RegistryService extends Actor {  
   import models.actor.RegistryService._
@@ -101,18 +103,23 @@ object RegistryService {
       }
     } yield provider
   }
-
-  //@TODO add possibility for fetching all repositories
-  def getRepository(pName: String): Future[Seq[Repository]] = {
+  
+  def getRepository(pName: Option[String] = None) = {
     implicit val timeout = Timeout(10.seconds)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- pName match {
-        case p: String if databases.exists(d => d.name == p) => {
+        case Some(p) if databases.exists(d => d.name == p) => {
           val provider: ActorSelection = getChild(p)
-          (provider ? GetRepository).mapTo[Seq[Repository]]
+          (provider ? GetRepository).mapTo[Spase]
         }
-        //case _ => future { Seq(<error>provider not found</error>) }
+        case None => {
+          val result = Future.sequence(getChilds(databases) map { provider =>
+            (provider._2 ? GetRepository).mapTo[Spase] map(entry => entry.ResourceEntity)
+          })
+          result.map(records => Spase(Number2u462u462, records.flatten, "en"))
+        } 
+        case _ => future { RequestError(ERequestError.UNKOWN_PROVIDER) }
       }
     } yield provider
   }
