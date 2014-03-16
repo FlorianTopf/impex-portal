@@ -1,0 +1,28 @@
+<table class="table table-striped">
+	<thead>
+		<tr>
+			<th>id</th>
+			<th>type</th>
+			<th>name</th>
+			<th>methods</th>
+			<th>trees</th>
+		</tr>
+    </thead>
+    <tbody>
+		<tr ng-repeat="database in vm.config.databases">
+			<td>{{ database.id }}</td>
+			<td>{{ database.type }}</td>
+			<td>{{ database.name }}</td>
+			<td>
+				<span ng-repeat="method in database.methods">
+					<a href="{{ database.protocol[0]+'://'+database.dns[0]+method }}">{{ method }}</a><br/>
+				</span>
+			</td>
+			<td>
+				<span ng-repeat="tree in database.tree">
+					<a href="{{ database.protocol[0]+'://'+database.dns[0]+tree }}">{{ tree }}</a><br/>
+				</span>
+			</td>
+		</tr>
+	</tbody>
+</table>

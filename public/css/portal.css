@@ -1,0 +1,98 @@
+body {
+	overflow-y: scroll;
+    -webkit-transform: translate3d(0, 0, 0);
+    background: #fff;
+}
+
+.head {
+	margin-bottom: 5%;
+}
+
+.loading {
+	position: absolute;
+	z-index: 9999;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #fff;
+	
+}
+.loadingImg {
+	margin: auto;
+	position: relative;
+}
+
+.container {
+	min-width: 468px;
+	margin-top: 2%;
+}
+
+/** for all (max-width 480px) */
+@media (max-width: 480px) {
+	.container {
+		max-width: 480px;
+	}
+	
+	.loadingImg { 
+		width: 40px;
+		top: 70px;
+	}
+}
+
+
+/** for devices (max-width 480px) */
+@media (max-device-width: 480px) {
+	.container {
+		max-width: 468px;
+	}
+}
+
+/* for all (width: 480px - 767px) */
+@media (min-width: 481px) {
+	.loadingImg { 
+		width: 50px;
+		top: 100px;
+	}
+}
+
+/* for all (width: 768px - 991px) */
+@media (min-width: 768px) {	
+	.loadingImg { 
+		width: 70px;
+		top: 120px;
+	}
+}
+
+/* for all (width: 992px - 1199px) */
+@media (min-width: 992px) {
+	.loadingImg { 
+		width: 100px;
+		top: 125px;
+	}
+
+}
+
+/* for all (width: 1200px - 1599px) */
+@media (min-width: 1200px) {
+  	.container {
+		max-width: 1178px;
+  	}
+
+	.loadingImg { 
+		width: 150px;
+		top: 150px;
+	}
+}
+
+/* for all (width: 1600px - xx) */
+@media (min-width: 1600px) {
+	.container {
+		max-width: 1578px;
+	}
+	
+	.loadingImg { 
+		width: 200px;
+		top: 200px;
+	}
+}

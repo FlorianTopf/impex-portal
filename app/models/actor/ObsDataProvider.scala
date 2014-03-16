@@ -47,6 +47,8 @@ extends Actor with DataProvider[DataRoot] {
     val records = getTreeObjects flatMap { tree => {
     	tree.dataCenter map { dataCenter => 
           val contact = Contact(dataCenter.name, Seq(ArchiveSpecialist))
+          // resource name is the "real" id for the proprietary data model of AMDA and CLWeb
+          // this will be mapped all the time when calling web services.
     	  val resourceHeader = ResourceHeader(dataCenter.id.toString, Nil, TimeProvider.getISONow, 
     	      None, dataCenter.name, None, Seq(contact))
     	  val accessURL = AccessURL(None , getMetaData.info)

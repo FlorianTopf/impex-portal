@@ -776,6 +776,8 @@ object EnumCoordinateSystemName {
     case "KSM" => KSM
     case "JSO" => JSO
     case "JSM" => JSM
+    // added for LATMOS
+    case "GPHIO" => GPHIO
 
   }
 }
@@ -818,6 +820,8 @@ case object KSO extends EnumCoordinateSystemName { override def toString = "KSO"
 case object KSM extends EnumCoordinateSystemName { override def toString = "KSM" }
 case object JSO extends EnumCoordinateSystemName { override def toString = "JSO" }
 case object JSM extends EnumCoordinateSystemName { override def toString = "JSM" }
+// added for LATMOS
+case object GPHIO extends EnumCoordinateSystemName { override def toString = "GPHIO" }
 
 trait EnumDirectionAngle
 

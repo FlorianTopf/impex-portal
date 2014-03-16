@@ -42,15 +42,11 @@ case object Observation extends Databasetype { override def toString = "observat
 // additions for JSON conversion
 object Impexconfiguration {
   implicit val impexconfigurationWrites: Writes[Impexconfiguration] = new Writes[Impexconfiguration] {
-    def writes(c: Impexconfiguration): JsValue = Json.obj("impexconfiguration" -> c.impexconfigurationoption)
-  }
-  
-  implicit val impexconfigurationOptionWrites: Writes[scalaxb.DataRecord[ImpexconfigurationOption]] = 
-    new Writes[scalaxb.DataRecord[ImpexconfigurationOption]] {
-      def writes(d: scalaxb.DataRecord[ImpexconfigurationOption]): JsValue = d.key.get match {
-    	case "tool" => Json.obj(d.key.get -> d.as[Tool])
-    	case "database" => Json.obj(d.key.get -> d.as[Database])
-      }  
+    def writes(c: Impexconfiguration): JsValue = {
+      val tools = c.impexconfigurationoption.filter(d => d.key.get == "tool").map(d => d.as[Tool])
+      val dbs = c.impexconfigurationoption.filter(d => d.key.get == "database").map(d => d.as[Database])
+      Json.obj("impexconfiguration" -> Json.obj("databases" -> dbs, "tools" -> tools))
+    }
   }
   
   implicit val stringWrites: Writes[scalaxb.DataRecord[String]] = 
@@ -67,7 +63,7 @@ object Impexconfiguration {
   
   implicit val databaseWrites: Writes[Database] = new Writes[Database] {
     def writes(d: Database): JsValue =  
-      Json.obj("name" -> d.name, "description" -> d.description, "dns" -> d.databaseoption, 
+      Json.obj("id" -> d.id.toString, "type" -> d.typeValue.toString, "name" -> d.name, "description" -> d.description, "dns" -> d.databaseoption, 
           "methods" -> d.methods, "tree" -> d.tree, "protocol" -> d.protocol, "info" -> d.info)
   }
 

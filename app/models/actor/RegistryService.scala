@@ -58,8 +58,8 @@ object RegistryService {
 
   private val registry: ActorSelection = Akka.system.actorSelection("user/registry")
 
-  private def getChilds(databases: Seq[Database]): Seq[(Databasetype, ActorSelection)] = {
-    databases map { database => (database.typeValue, getChild(database.name)) }
+  private def getChilds(databases: Seq[Database]): Seq[ActorSelection] = {
+    databases map { database => getChild(database.name) }
   }
   
   def registerChild(props: Props, name: String) = {
@@ -115,7 +115,7 @@ object RegistryService {
         }
         case None => {
           val result = Future.sequence(getChilds(databases) map { provider =>
-            (provider._2 ? GetRepository).mapTo[Spase] map { entry => entry.ResourceEntity }
+            (provider ? GetRepository).mapTo[Spase] map { entry => entry.ResourceEntity }
           })
           result.map(records => Left(Spase(Number2u462u462, records.flatten, "en")))
         } 
@@ -124,15 +124,17 @@ object RegistryService {
     } yield provider
   }
 
-  def getRepositoryType(dbType: Databasetype): Future[Seq[Repository]] = {
+  def getRepositoryType(dbType: Databasetype): Future[Spase] = {
     implicit val timeout = Timeout(10.seconds)
     for {
       databases <- ConfigService.request(GetDatabaseType(dbType)).mapTo[Seq[Database]]
-      providers <- Future.sequence(getChilds(databases) map { provider =>
-        val result = (provider._2 ? GetRepository)
-        result.mapTo[Seq[Repository]]
-      })
-    } yield providers.flatten
+      providers <- { 
+        val result = Future.sequence(getChilds(databases) map { provider =>
+        	(provider ? GetRepository).mapTo[Spase] map { entry => entry.ResourceEntity }
+        })
+        result.map(records => Spase(Number2u462u462, records.flatten, "en"))
+      }
+    } yield providers
   }
   
   def getSimulationModel(id: Option[URI], repository: Option[URI]): Seq[SimulationModel] = ???

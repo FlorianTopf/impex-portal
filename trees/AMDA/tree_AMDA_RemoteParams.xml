@@ -3,7 +3,7 @@
   <dataCenter available="1" xml:id="MAPSKP" desc="Cassini MAPS_Key_Parameters" name="MAPSKP@IRAP">
     <mission xml:id="MAPSKP-Cassini" desc="Cassini Mission to Saturn" name="Cassini">
       <instrument xml:id="MAPSKP-TRAJ" desc="TRAJ" name="TRAJ">
-        <dataset desc="01/09/2003-20/09/2017 CASS" xml:id="MAPSKP-TRAJ_CASS" name="TRAJ_CASS">
+        <dataset desc="Sampling:60.0s 01-09-2003:20-09-2017" xml:id="MAPSKP-TRAJ_CASS" name="TRAJ_CASS">
           <parameter units="km" xml:id="MAPSKP:TRAJ_CASS:POSITION_KG" name="POSITION_KG">
             <component name="X" xml:id="MAPSKP:TRAJ_CASS:POSITION_KG(0)"/>
             <component name="Y" xml:id="MAPSKP:TRAJ_CASS:POSITION_KG(1)"/>
@@ -38,10 +38,10 @@
       </instrument>
       <instrument xml:id="MAPSKP-INMS" desc="INMS" name="INMS"/>
       <instrument xml:id="MAPSKP-CAPS" desc="CAPS" name="CAPS">
-        <dataset desc="01/01/2004-02/06/2012 ISPC" xml:id="MAPSKP-CAPS_ISPC" name="CAPS_ISPC">
+        <dataset desc="Sampling:60.0s 01-01-2004:02-06-2012" xml:id="MAPSKP-CAPS_ISPC" name="CAPS_ISPC">
           <parameter display_type="spectrogram" needsArgs="1" units="counts" xml:id="MAPSKP:CAPS_ISPC:ION_COUNTS" name="ION_COUNTS"/>
         </dataset>
-        <dataset desc="01/01/2004-02/06/2012 ESPC" xml:id="MAPSKP-CAPS_ESPC" name="CAPS_ESPC">
+        <dataset desc="Sampling:60.0s 01-01-2004:02-06-2012" xml:id="MAPSKP-CAPS_ESPC" name="CAPS_ESPC">
           <parameter display_type="spectrogram" needsArgs="1" units="counts" xml:id="MAPSKP:CAPS_ESPC:ELECTRON_COUNTS" name="ELECTRON_COUNTS"/>
         </dataset>
         <dataset desc="05/06/2004-02/06/2012 EMNT" xml:id="MAPSKP-CAPS_EMNT" name="CAPS_EMNT">
@@ -56,7 +56,7 @@
         </dataset>
       </instrument>
       <instrument xml:id="MAPSKP-MAG" desc="MAG" name="MAG">
-        <dataset desc="21/12/2003-08/06/2004 RTN" xml:id="MAPSKP-MAG_RTN" name="MAG_RTN">
+        <dataset desc="Sampling:60.0s 21-12-2003:08-06-2004" xml:id="MAPSKP-MAG_RTN" name="MAG_RTN">
           <parameter units="nT" xml:id="MAPSKP:MAG_RTN:VECTOR" name="VECTOR">
             <component name="Bx" xml:id="MAPSKP:MAG_RTN:VECTOR(0)"/>
             <component name="By" xml:id="MAPSKP:MAG_RTN:VECTOR(1)"/>
@@ -64,7 +64,7 @@
           </parameter>
           <parameter units="nT" xml:id="MAPSKP:MAG_RTN:MAGNITUDE" name="MAGNITUDE"/>
         </dataset>
-        <dataset desc="14/07/2003-05/03/2014 KSO" xml:id="MAPSKP-MAG_KSO" name="MAG_KSO">
+        <dataset desc="Sampling:60.0s 14-07-2003:05-03-2014" xml:id="MAPSKP-MAG_KSO" name="MAG_KSO">
           <parameter units="nT" xml:id="MAPSKP:MAG_KSO:VECTOR" name="VECTOR">
             <component name="Bx" xml:id="MAPSKP:MAG_KSO:VECTOR(0)"/>
             <component name="By" xml:id="MAPSKP:MAG_KSO:VECTOR(1)"/>
@@ -72,7 +72,7 @@
           </parameter>
           <parameter units="nT" xml:id="MAPSKP:MAG_KSO:MAGNITUDE" name="MAGNITUDE"/>
         </dataset>
-        <dataset desc="29/02/2004-05/03/2014 KG" xml:id="MAPSKP-MAG_KG" name="MAG_KG">
+        <dataset desc="Sampling:60.0s 29-02-2004:05-03-2014" xml:id="MAPSKP-MAG_KG" name="MAG_KG">
           <parameter units="nT" xml:id="MAPSKP:MAG_KG:VECTOR" name="VECTOR">
             <component name="Bx" xml:id="MAPSKP:MAG_KG:VECTOR(0)"/>
             <component name="By" xml:id="MAPSKP:MAG_KG:VECTOR(1)"/>
@@ -80,7 +80,7 @@
           </parameter>
           <parameter units="nT" xml:id="MAPSKP:MAG_KG:MAGNITUDE" name="MAGNITUDE"/>
         </dataset>
-        <dataset desc="14/07/2003-05/03/2014 KSM" xml:id="MAPSKP-MAG_KSM" name="MAG_KSM">
+        <dataset desc="Sampling:60.0s 14-07-2003:05-03-2014" xml:id="MAPSKP-MAG_KSM" name="MAG_KSM">
           <parameter units="nT" xml:id="MAPSKP:MAG_KSM:VECTOR" name="VECTOR">
             <component name="Bx" xml:id="MAPSKP:MAG_KSM:VECTOR(0)"/>
             <component name="By" xml:id="MAPSKP:MAG_KSM:VECTOR(1)"/>
@@ -88,7 +88,7 @@
           </parameter>
           <parameter units="nT" xml:id="MAPSKP:MAG_KSM:MAGNITUDE" name="MAGNITUDE"/>
         </dataset>
-        <dataset desc="16/08/1999-05/03/2014 SC" xml:id="MAPSKP-MAG_SC" name="MAG_SC">
+        <dataset desc="Sampling:60.0s 16-08-1999:05-03-2014" xml:id="MAPSKP-MAG_SC" name="MAG_SC">
           <parameter units="nT" xml:id="MAPSKP:MAG_SC:VECTOR" name="VECTOR">
             <component name="Bx" xml:id="MAPSKP:MAG_SC:VECTOR(0)"/>
             <component name="By" xml:id="MAPSKP:MAG_SC:VECTOR(1)"/>
@@ -99,14 +99,14 @@
       </instrument>
       <instrument xml:id="MAPSKP-CDA" desc="CDA" name="CDA"/>
       <instrument xml:id="MAPSKP-RPWS" desc="RPWS" name="RPWS">
-        <dataset desc="25/10/1997-05/03/2014 KEY" xml:id="MAPSKP-RPWS_KEY" name="RPWS_KEY">
+        <dataset desc="Sampling:60.0s 25-10-1997:05-03-2014" xml:id="MAPSKP-RPWS_KEY" name="RPWS_KEY">
           <parameter units="no" xml:id="MAPSKP:RPWS_KEY:QUALITY_FLAG" name="QUALITY_FLAG"/>
           <parameter display_type="spectrogram" needsArgs="1" units="V**2/M**2/HZ" xml:id="MAPSKP:RPWS_KEY:ELECTRIC_SPECTRAL_DENSITIES" name="ELECTRIC_SPECTRAL_DENSITIES"/>
           <parameter display_type="spectrogram" needsArgs="1" units="NT**2/HZ" xml:id="MAPSKP:RPWS_KEY:MAGNETIC_SPECTRAL_DENSITIES" name="MAGNETIC_SPECTRAL_DENSITIES"/>
         </dataset>
       </instrument>
       <instrument xml:id="MAPSKP-MIMI" desc="MIMI" name="MIMI">
-        <dataset desc="01/01/1999-06/08/2007 KEY" xml:id="MAPSKP-MIMI_KEY" name="MIMI_KEY">
+        <dataset desc="Sampling:60.0s 01-01-1999:06-08-2007" xml:id="MAPSKP-MIMI_KEY" name="MIMI_KEY">
           <parameter display_type="spectrogram" needsArgs="1" units="counts/seconds" xml:id="MAPSKP:MIMI_KEY:LEMMS_A" name="LEMMS_A"/>
           <parameter display_type="spectrogram" needsArgs="1" units="counts/seconds" xml:id="MAPSKP:MIMI_KEY:LEMMS_C" name="LEMMS_C"/>
           <parameter display_type="spectrogram" needsArgs="1" units="counts/seconds" xml:id="MAPSKP:MIMI_KEY:LEMMS_P" name="LEMMS_P"/>

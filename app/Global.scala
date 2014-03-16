@@ -58,18 +58,18 @@ object Global extends GlobalSettings {
     URLs map {
       URL => 
         // @FIXME just for testing (without update)
-        //val promise = WS.url(URL.toString).get()
-        //try {
-        //  val result = Await.result(promise, 1.minute).xml
-        //  scala.xml.XML.save(
-        //    PathProvider.getPath(folder, db.name, URL.toString), result, "UTF-8")
-        //  result
-        //} catch {
-        //  case e: TimeoutException => {
-        //    println("timeout: fallback on local file at "+db.name)
+//        val promise = WS.url(URL.toString).get()
+//        try {
+//          val result = Await.result(promise, 1.minute).xml
+//          scala.xml.XML.save(
+//            PathProvider.getPath(folder, db.name, URL.toString), result, "UTF-8")
+//          result
+//        } catch {
+//          case e: TimeoutException => {
+//            println("timeout: fallback on local file at "+db.name)
             scala.xml.XML.load(PathProvider.getPath(folder, db.name, URL.toString))
-        //  }
-        //}
+//          }
+//        }
     }
   }
 

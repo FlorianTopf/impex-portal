@@ -14,7 +14,7 @@ object Application extends Controller {
   import models.actor.ConfigService._
   
   def index = Action {
-    Ok(views.html.index("Your new application is ready."))
+    Ok(views.html.portal())
   }
 
   def config(fmt: String = "xml") = Action.async {
@@ -28,14 +28,18 @@ object Application extends Controller {
   
   // @TODO return in json/xml
   def simulations = Action.async {
-     val future = RegistryService.getRepositoryType(Simulation).mapTo[Seq[Repository]]
-     future.map(simulations => Ok(views.html.sim(simulations)))
+     val future = RegistryService.getRepositoryType(Simulation).mapTo[Spase]
+     future.map { spase => 
+       Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+     }
   }
   
   // @TODO return in json/xml
   def observations = Action.async {
-     val future = RegistryService.getRepositoryType(Observation).mapTo[Seq[DataCenter]]
-     future.map(observations => Ok(views.html.obs(observations)))
+     val future = RegistryService.getRepositoryType(Observation).mapTo[Spase]
+     future.map { spase => 
+       Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+     } 
   }
   
   // @TODO return in json
@@ -46,7 +50,7 @@ object Application extends Controller {
     } yield id
     
     val future = RegistryService.getRepository(id)
-    future.map{ repository => 
+    future.map { repository => 
       repository match {
         case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
         case Right(error) => BadRequest(Json.toJson(error))

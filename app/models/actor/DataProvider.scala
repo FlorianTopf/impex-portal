@@ -35,6 +35,8 @@ trait DataProvider[A] {
     val URLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, getMetaData.tree)
     URLs flatMap {
       URL =>
+        // sometimes there is no file (e.g. at AMDA)
+        // this must be recreated by calling getAvailableData
         val promise = WS.url(URL.toString).get()
         try {
           val result = Await.result(promise, 2.minutes).xml

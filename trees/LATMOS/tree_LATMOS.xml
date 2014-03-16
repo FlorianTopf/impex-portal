@@ -57127,7 +57127,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -57180,7 +57180,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -57234,7 +57234,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
             <Dimension>3</Dimension>
             <CoordinateSystem>
                 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-                <CoordinateSystemName>J2000</CoordinateSystemName>
+                <CoordinateSystemName>GPHIO</CoordinateSystemName>
             </CoordinateSystem>
             <Units>km</Units>
             <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -57244,7 +57244,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
         <SimulatedRegion>Ganymede</SimulatedRegion>
         <InputResourceID>impex://LATMOS/Hybrid/Gany_24_10_13/SimRun</InputResourceID>
         <Parameter>
-            <Name>MagneticField</Name>
+            <Name>ElectricField</Name>
             <ParameterKey>Ex Ey Ez</ParameterKey>
             <Units>mV.m-1</Units>
             <UnitsConversion> 1.e-3 &gt; V.m^-1 </UnitsConversion>
@@ -57277,7 +57277,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -57330,7 +57330,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -57383,7 +57383,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -57436,7 +57436,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
         <Dimension>3</Dimension>
         <CoordinateSystem>
             <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-            <CoordinateSystemName>J2000</CoordinateSystemName>
+            <CoordinateSystemName>GPHIO</CoordinateSystemName>
         </CoordinateSystem>
         <Units>km</Units>
         <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -57480,7 +57480,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -57573,7 +57573,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -57666,7 +57666,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -57760,7 +57760,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
             <Dimension>3</Dimension>
             <CoordinateSystem>
                 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-                <CoordinateSystemName>J2000</CoordinateSystemName>
+                <CoordinateSystemName>GPHIO</CoordinateSystemName>
             </CoordinateSystem>
             <Units>km</Units>
             <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -57839,7 +57839,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -57932,7 +57932,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -58025,7 +58025,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -58119,7 +58119,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
             <Dimension>3</Dimension>
             <CoordinateSystem>
                 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-                <CoordinateSystemName>J2000</CoordinateSystemName>
+                <CoordinateSystemName>GPHIO</CoordinateSystemName>
             </CoordinateSystem>
             <Units>km</Units>
             <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -58198,7 +58198,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -58291,7 +58291,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -58384,7 +58384,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -58477,7 +58477,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
         <Dimension>3</Dimension>
         <CoordinateSystem>
             <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-            <CoordinateSystemName>J2000</CoordinateSystemName>
+            <CoordinateSystemName>GPHIO</CoordinateSystemName>
         </CoordinateSystem>
         <Units>km</Units>
         <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -58555,7 +58555,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -58630,7 +58630,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -58705,7 +58705,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <Dimension>2</Dimension>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <Units>km</Units>
 <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -58780,7 +58780,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
         <Dimension>3</Dimension>
         <CoordinateSystem>
             <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-            <CoordinateSystemName>J2000</CoordinateSystemName>
+            <CoordinateSystemName>GPHIO</CoordinateSystemName>
         </CoordinateSystem>
         <Units>km</Units>
         <UnitsConversion>1000 &gt; m</UnitsConversion>
@@ -58846,7 +58846,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
  <SimulationDomain>
 <CoordinateSystem>
 <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-<CoordinateSystemName>J2000</CoordinateSystemName>
+<CoordinateSystemName>GPHIO</CoordinateSystemName>
 </CoordinateSystem>
 <SpatialDimension>3</SpatialDimension>
 <VelocityDimension>3</VelocityDimension>

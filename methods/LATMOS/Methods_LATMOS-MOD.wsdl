@@ -1,0 +1,493 @@
+<wsdl:definitions targetNamespace="http://impex.latmos.ipsl.fr" name="LATMOS_HYB_methods" 
+	xmlns="http://impex.latmos.ipsl.fr" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" 
+	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<wsdl:types>
+		
+		<xs:schema version="0.0" targetNamespace="http://impex.latmos.ipsl.fr" 
+			elementFormDefault="unqualified" xmlns="http://impex.latmos.ipsl.fr" 
+			xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+			
+
+			<!-- Taken from IMPEx DM 1_0_0 BEGIN 
+			First test to overcome errors in Taverna
+			-->
+			<xs:simpleType name="FloatSequence">
+				<xs:list itemType="xs:float"/>
+			</xs:simpleType>
+			
+			<xs:simpleType name="PlanePoint">
+				<xs:restriction base="FloatSequence"/>
+			</xs:simpleType>
+			
+			<xs:simpleType name="PlaneNormalVector">
+				<xs:restriction base="FloatSequence"/>
+			</xs:simpleType>
+			
+			<xs:simpleType name="ParameterKey">
+				<xs:restriction base="xs:string"/>
+			</xs:simpleType>
+			
+			<xs:simpleType name="PopulationID">
+				<xs:restriction base="xs:string"/>
+			</xs:simpleType>
+			
+			<xs:simpleType name="BandName">
+				<xs:restriction base="xs:string"/>
+			</xs:simpleType>
+			<!-- Taken from IMPEx DM 1_0_0 END -->
+
+
+
+			<xs:element type="xs:anyURI" name="ResourceID"/>
+			<xs:element type="xs:string" name="Variable"/>
+			<xs:element type="xs:double" name="IMFClockAngle"/>
+			<xs:element type="xs:string" name="OutputFileType"/>
+			<xs:element type="xs:anyURI" name="url_XYZ">
+				<xs:annotation>
+					<xs:documentation>URL of the VOTable file containing the 3D coordinates.
+						Suggested field name according to
+						Spase/SimulationRun/SimulationDomain/CoordinatesLabel. The coordinate system
+						must be Spase/SimulationRun/SimulationDomain/CoordinateSystem. Time is
+						optional in the Input VOTable with a FIELD ucd=&quot;Time&quot; </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:dateTime" name="StartTime"/>
+			<xs:element type="xs:dateTime" name="StopTime"/>
+			<xs:element type="xs:duration" name="Sampling"/>
+			<xs:element type="Population" name="Population"/>
+			<xs:element type="EnergyChannel" name="EnergyChannel"/>
+			<xs:element type="PlanePoint" name="PlanePoint"/>
+			<xs:element type="PlaneNormalVector" name="PlaneNormalVector"/>
+			<xs:element type="xs:double" name="Resolution"/>
+			<xs:element type="xs:double" name="StepSize"/>
+			<xs:element type="xs:string" name="Spacecraft_name"/>
+			
+
+
+			<!--xs:simpleType name="Variable">
+				<xs:annotation>
+					<xs:documentation>List of individual parameters from the selected
+						NumericalOutput separated by a comma. Identified by the ParameterKey. By
+						default: all parameters within the NumericalOutput are
+						returned</xs:documentation>
+				</xs:annotation>
+				<xs:list itemType="ParameterKey"/>
+			</xs:simpleType-->
+
+			<xs:simpleType name="Population">
+				<xs:annotation>
+					<xs:documentation>List of population species from the selected NumericalOutput
+						separated by a comma. Identified by the PopulationId. By default: all
+						populations within the NumericalOutput are returned </xs:documentation>
+				</xs:annotation>
+				<xs:list itemType="PopulationID"/>
+			</xs:simpleType>
+
+			<xs:simpleType name="EnergyChannel">
+				<xs:annotation>
+					<xs:documentation>A list of Energy channel number (Ch0, Ch1, Ch2,...) separated
+						by commas. The Energy of each energy channel is defined in the tree.xml. By
+						default all energy channels are selected</xs:documentation>
+				</xs:annotation>
+				<xs:list itemType="BandName"/>
+			</xs:simpleType>
+
+			<!--xs:simpleType name="OutputFormat">
+				<xs:annotation>
+					<xs:documentation> two format supported </xs:documentation>
+				</xs:annotation>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="netCDF"/>
+					<xs:enumeration value="VOTable"/>
+				</xs:restriction>
+			</xs:simpleType-->
+
+			<!--xs:simpleType name="Spacecraft">
+				<xs:annotation>
+					<xs:documentation> Currently three spacecraft: MarsExpress,MarsGlobalSurveyor
+						and VenusExpress. </xs:documentation>
+				</xs:annotation>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="MarsExpress"/>
+					<xs:enumeration value="MarsGlobalSurveyor"/>
+					<xs:enumeration value="VenusExpress"/>
+				</xs:restriction>
+			</xs:simpleType-->
+
+
+
+			<!-- CHANGED TO OVERCOME TAVERNA PROBLEMS -->
+			<!-- Generic Response definition -->
+			<xs:element name='genResponse' type='xs:anyURI'/>
+			
+			<xs:element type="DataPointValue" name="getDataPointValue"/>
+
+			<xs:complexType name="DataPointValue">
+				<xs:sequence>
+					<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>ResourceID of the NumericalOutput describing the 3D
+								cube in which the interpolation is performed</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="Variable" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
+					
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointValue" name="extraParams">
+						<xs:annotation>
+							<xs:documentation>An associative array of (key,value) pairs defining
+								SMDB specific parameters</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+		
+			<xs:complexType name="extraParams_getDataPointValue">
+				<xs:sequence>
+					<xs:element ref="IMFClockAngle" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="OutputFileType" maxOccurs="1" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+
+
+			
+			<xs:element type="DataPointSpectra" name="getDataPointSpectra"/>
+
+			<xs:complexType name="DataPointSpectra">
+				<xs:sequence>
+					<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>If xpath=Spase/Simulation/ResourceID then the method
+								applies to all species. If xpath = Spase/NumericalOutput/ResourceID
+								then the method applies to the species </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="Population" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointSpectra" name="extraParams"> 
+						<xs:annotation>
+							<xs:documentation>An associative array of (key,value) pairs defining
+								SMDB specific parameters</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="extraParams_getDataPointSpectra">
+				<xs:sequence>
+					<xs:element ref="IMFClockAngle" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="OutputFileType" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="EnergyChannel" maxOccurs="1" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+
+
+			
+			<xs:element type="Surface" name="getSurface"/>
+
+			<xs:complexType name="Surface">
+				<xs:sequence>
+					<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>ResourceID of the NumericalOutput describing the 3D
+								cube in which the interpolation is performed</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="Variable" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="PlanePoint" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="PlaneNormalVector" maxOccurs="1" minOccurs="1"/>
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getSurface" name="extraParams">
+						<xs:annotation>
+							<xs:documentation>An associative array of (key,value) pairs defining
+								SMDB specific parameters</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="extraParams_getSurface">
+				<xs:sequence>
+					<xs:element ref="Resolution" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="IMFClockAngle" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="OutputFileType" maxOccurs="1" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+
+
+			
+			<xs:element type="DataPointValue_Spacecraft" name="getDataPointValue_Spacecraft"/>
+
+			<xs:complexType name="DataPointValue_Spacecraft">
+				<xs:sequence>
+					<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>ResourceID of the NumericalOutput describing the 3D
+								cube in which the interpolation is performed</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="Variable" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="Spacecraft_name" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="StopTime" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="Sampling" maxOccurs="1" minOccurs="1"/>
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointValue" name="extraParams">
+						<xs:annotation>
+							<xs:documentation>An associative array of (key,value) pairs defining
+								SMDB specific parameters</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			
+
+
+			<xs:element type="DataPointSpectra_Spacecraft" name="getDataPointSpectra_Spacecraft"/>
+
+			<xs:complexType name="DataPointSpectra_Spacecraft">
+				<xs:sequence>
+					<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>If xpath=Spase/SimulationRun/ResourceID then the
+								method applies to all species. If xpath =
+								Spase/NumericalOutput/ResourceID then the method applies to the
+								species </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="Population" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="Spacecraft_name" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="StopTime" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="Sampling" maxOccurs="1" minOccurs="1"/>
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointSpectra" name="extraParams">
+						<xs:annotation>
+							<xs:documentation>An associative array of (key,value) pairs defining
+								SMDB specific parameters</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+
+
+			<xs:element type="FileURL" name="getFileURL"/>
+
+			<xs:complexType name="FileURL">
+				<xs:sequence>
+					<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>xpath=Spase/SimulationRun/ResourceID
+							</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="StopTime" maxOccurs="1" minOccurs="1"/>
+				</xs:sequence>
+			</xs:complexType>
+
+
+			
+			<xs:element type="FieldLine" name="getFieldLine"/>
+
+			<xs:complexType name="FieldLine">
+				<xs:sequence>
+					<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>If xpath=Spase/SimulationRun/ResourceID then the
+								method applies to all species. If xpath =
+								Spase/NumericalOutput/ResourceID then the method applies to the
+								species </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="Variable" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
+					
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getFieldLine" name="extraParams">
+						<xs:annotation>
+							<xs:documentation>An associative array of (key,value) pairs defining
+								SMDB specific parameters</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="extraParams_getFieldLine">
+				<xs:sequence>
+					<xs:element ref="Direction" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="StepSize" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="OutputFileType" maxOccurs="1" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+
+
+
+			<xs:element type="enumDirection" name="Direction" default="Both"/>
+			<xs:simpleType name="enumDirection">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Both"/>
+					<xs:enumeration value="Forward"/>
+					<xs:enumeration value="Backward"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:schema>
+		
+	</wsdl:types>
+
+
+
+	<wsdl:message name="DataPointValue_Request">
+		<wsdl:part element="getDataPointValue" name="parameters"/>
+	</wsdl:message>
+
+	<!-- CHANGED TO OVERCOME TAVERNA PROBLEMS -->
+	<!-- Message Generic_Response -->
+	<wsdl:message name="Generic_Response">
+		<wsdl:part element="genResponse" name="url_Param"/>
+	</wsdl:message>
+
+	<wsdl:message name="DataPointSpectra_Request">
+		<wsdl:part element="getDataPointSpectra" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:message name="Surface_Request">
+		<wsdl:part element="getSurface" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:message name="DataPointValue_Spacecraft_Request">
+		<wsdl:part element="getDataPointValue_Spacecraft" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:message name="DataPointSpectra_Spacecraft_Request">
+		<wsdl:part element="getDataPointSpectra_Spacecraft" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:message name="FileURL_Request">
+		<wsdl:part element="getFileURL" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="FileURL_Response">
+		<wsdl:part element="genResponse" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:message name="FieldLine_Request">
+		<wsdl:part element="getFieldLine" name="parameters"/>
+	</wsdl:message>
+
+	
+
+	<wsdl:portType name="Methods_LATMOS">
+		<wsdl:operation name="getDataPointValue">
+			<wsdl:input message="DataPointValue_Request"> </wsdl:input>
+			<wsdl:output message="Generic_Response"> </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getDataPointSpectra">
+			<wsdl:input message="DataPointSpectra_Request"> </wsdl:input>
+			<wsdl:output message="Generic_Response"> </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getSurface">
+			<wsdl:input message="Surface_Request"> </wsdl:input>
+			<wsdl:output message="Generic_Response"> </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getDataPointValue_Spacecraft">
+			<wsdl:input message="DataPointValue_Spacecraft_Request"> </wsdl:input>
+			<wsdl:output message="Generic_Response"> </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getDataPointSpectra_Spacecraft">
+			<wsdl:input message="DataPointSpectra_Spacecraft_Request"> </wsdl:input>
+			<wsdl:output message="Generic_Response"> </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getFileURL">
+			<wsdl:input message="FileURL_Request"> </wsdl:input>
+			<wsdl:output message="FileURL_Response"> </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getFieldLine">
+			<wsdl:input message="FieldLine_Request"> </wsdl:input>
+			<wsdl:output message="Generic_Response"> </wsdl:output>
+		</wsdl:operation>
+	</wsdl:portType>
+
+
+
+	<wsdl:binding type="Methods_LATMOS" name="Methods_LATMOSSoapBinding">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		<wsdl:operation name="getDataPointValue">
+			<soap:operation soapAction="DataPointValue"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="getDataPointSpectra">
+			<soap:operation soapAction="DataPointSpectra"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="getSurface">
+			<soap:operation soapAction="Surface"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="getDataPointValue_Spacecraft">
+			<soap:operation soapAction="DataPointValue_Spacecraft"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="getDataPointSpectra_Spacecraft">
+			<soap:operation soapAction="DataPointSpectra_Spacecraft"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="getFileURL">
+			<soap:operation soapAction="FileURL"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+		<wsdl:operation name="getFieldLine">
+			<soap:operation soapAction="FieldLine"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>	
+
+
+		
+	<wsdl:service name="Methods_LATMOS">
+		<wsdl:port binding="Methods_LATMOSSoapBinding" name="Methods_LATMOSPort">
+				
+			<soap:address location="http://impex.latmos.ipsl.fr/IMPExWS.php"/>	  
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>

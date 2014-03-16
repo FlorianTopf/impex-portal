@@ -2009,7 +2009,7 @@
           </parameter>
           <parameter xml:id="imf_mag" display_type="" units="nT" name="imf_mag"/>
         </dataset>
-        <dataset target="" dataSource="NOAA" dataStop="2014/03/11" dataStart="2014/01/06" maxSampling="" sampling="60s" xml:id="ace:mag:real" name="imf_real_time" att="">
+        <dataset target="" dataSource="NOAA" dataStop="2014/03/14" dataStart="2014/01/06" maxSampling="" sampling="60s" xml:id="ace:mag:real" name="imf_real_time" att="">
           <parameter xml:id="imf_real_gse" display_type="" units="nT" name="imf_real_gse">
             <component xml:id="imf_real_gse(0)" name="bx_gse"/>
             <component xml:id="imf_real_gse(1)" name="by_gse"/>
@@ -2046,7 +2046,7 @@
             <component xml:id="sw_v_gsm(2)" name="vz_gsm"/>
           </parameter>
         </dataset>
-        <dataset target="" dataSource="NOAA" dataStop="2014/03/11" dataStart="2014/01/06" maxSampling="" sampling="60s" xml:id="ace:swepam:real" name="swe_real_time" att="">
+        <dataset target="" dataSource="NOAA" dataStop="2014/03/14" dataStart="2014/01/06" maxSampling="" sampling="60s" xml:id="ace:swepam:real" name="swe_real_time" att="">
           <parameter xml:id="sw_n_real" display_type="" units="cm-3" name="density"/>
           <parameter xml:id="sw_v_real" display_type="" units="km/s" name="v_bulk"/>
           <parameter xml:id="sw_t_real" display_type="" units="eV" name="t_ion"/>
