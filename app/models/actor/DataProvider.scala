@@ -53,7 +53,6 @@ trait DataProvider[A] {
   }
 }
 
-
 object DataProvider {
   implicit val timeout = Timeout(10.seconds)
   
@@ -61,7 +60,15 @@ object DataProvider {
   case class GetTrees(val format: Option[String] = None)
   case object GetMethods
   case object GetRepository
-  case object GetSimulationModel
+  case class GetSimulationModel(val id: Option[String] = None)
+  case class GetSimulationRun(val id: Option[String] = None)
+  case class GetNumericalOutput(val id: Option[String] = None)
+  case class GetGranule(val id: Option[String] = None)
+  case class GetObservatory(val id: Option[String] = None)
+  case class GetInstrument(val id: Option[String] = None)
+  case class GetNumericalData(val id: Option[String] = None)
+  // @TODO maybe needed
+  case class GetParameter(val id: Option[String] = None)
   case object UpdateTrees
   
   // @TODO we need that later for updating the trees dynamically (on admin request)

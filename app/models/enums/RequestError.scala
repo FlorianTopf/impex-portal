@@ -9,8 +9,8 @@ object ERequestError extends Enumeration {
     val MISSING_VALUE = Value(400, "MISSING_VALUE")
     val MALFORMED_VALUE = Value(402, "MALFORMED_VALUE")
     val UNKNOWN_MSG = Value(403, "unknown message")
-    val NO_ENTITY = Value(404, "unknown message")
-    val UNKOWN_PROVIDER = Value(501, "unkown provider")
+    val UNKNOWN_ENTITY = Value(404, "unknown element")
+    val UNKNOWN_PROVIDER = Value(501, "unkown provider")
     val INACTIVE = Value(505, "no active session")
 
     // does not work on enums :/

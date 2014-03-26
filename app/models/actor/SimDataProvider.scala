@@ -21,7 +21,10 @@ extends Actor with DataProvider[Spase] {
     case GetTrees(None) => sender ! getTreeObjects
     case GetMethods => sender ! getMethodsXML
     case GetRepository => sender ! getRepository
-    case GetSimulationModel => sender ! getSimulationModel
+    case GetSimulationModel(id) => sender ! getSimulationModel(id)
+    case GetSimulationRun(id) => sender ! getSimulationRun(id)
+    case GetNumericalOutput(id) => sender ! getNumericalOutput(id)
+    case GetGranule(id) => sender ! getGranule(id)
     case UpdateTrees => {
       dataTree.content = updateTrees
       // @TODO update also methods
@@ -48,33 +51,42 @@ extends Actor with DataProvider[Spase] {
     val records = getTreeObjects flatMap { 
       tree => tree.ResourceEntity.filter(c => c.key.get == "Repository") map {
         // @TODO still we have to do it like this, why?
-        repo => DataRecord(None, Some("Repository"), (scalaxb.fromXML[Repository](repo.as[NodeSeq])))
+        repo => DataRecord(None, Some("Repository"), scalaxb.fromXML[Repository](repo.as[NodeSeq]))
       }
     }
     Spase(Number2u462u462, records, "en")
   }
   
-  protected def getSimulationModel: Spase = {
+  // @TODO getSimulationElement with type classes
+  protected def getSimulationModel(id: Option[String]): Spase = {
     val records = getTreeObjects flatMap {
       tree => tree.ResourceEntity.filter(c => c.key.get == "SimulationModel") map {
-        model => DataRecord(None, Some("SimulationModel"), model.as[SimulationModelType])
+        model => model.as[SimulationModelType]
       }
     }
-    Spase(Number2u462u462, records, "en")
+    val models = id match {
+      case Some(id) => records.filter(m => m.ResourceID == id)
+      case None => records
+    }
+    Spase(Number2u462u462, models.map(m => DataRecord(None, Some("SimulationModel"), m)), "en")
   }
   
-  protected def getSimulationRun: Spase = {
+  protected def getSimulationRun(id: Option[String]): Spase = {
     val records = getTreeObjects flatMap {
       tree => tree.ResourceEntity.filter(c => c.key.get == "SimulationRun") map {
-        run => DataRecord(None, Some("SimulationRun"), run.as[SimulationRun])
+        run => scalaxb.fromXML[SimulationRun](run.as[NodeSeq])
       }
     }
-    Spase(Number2u462u462, records, "en")
+    val runs = id match {
+      case Some(id) => records.filter(r => r.ResourceID == id)
+      case None => records
+    }
+    Spase(Number2u462u462, runs.map(r => DataRecord(None, Some("SimulationRun"), r)), "en")
   }
   
-  protected def getNumericalOutput: Spase = ???
+  protected def getNumericalOutput(id: Option[String]): Spase = ???
   
-  protected def getGranule: Spase = ???
+  protected def getGranule(id: Option[String]): Spase = ???
 
 }
 

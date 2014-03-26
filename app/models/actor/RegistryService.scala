@@ -39,7 +39,6 @@ class RegistryService extends Actor {
   }
 }
 
-
 // @TODO we must improve exception handling here! 
 //       => timeouts + responses => use promises here!
 // @TODO refactor access methods!
@@ -104,13 +103,13 @@ object RegistryService {
     } yield provider
   }
   
-  def getRepository(pName: Option[String] = None): Future[Either[Spase, RequestError]] = {
+  def getRepository(id: Option[String] = None): Future[Either[Spase, RequestError]] = {
     implicit val timeout = Timeout(10.seconds)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
-      provider <- pName match {
-        case Some(p: String) if databases.exists(d => d.name == p) => {
-          val provider: ActorSelection = getChild(p)
+      provider <- id match {
+        case Some(id: String) if databases.exists(d => d.id.toString == id) => {
+          val provider: ActorSelection = getChild(databases.find(d => d.id.toString == id).get.name)
           (provider ? GetRepository).mapTo[Spase] map { entry => Left(entry) }
         }
         case None => {
@@ -119,7 +118,7 @@ object RegistryService {
           })
           result.map(records => Left(Spase(Number2u462u462, records.flatten, "en")))
         } 
-        case _ => future { Right(RequestError(ERequestError.UNKOWN_PROVIDER)) }
+        case _ => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
       }
     } yield provider
   }
@@ -137,6 +136,7 @@ object RegistryService {
     } yield providers
   }
   
+  // @TODO getSimulationElement with type classes
   // @TODO improve this routine (with config service)
   def getSimulationModel(id: Option[String], repository: Option[String]): Future[Either[Spase, RequestError]] = {
     implicit val timeout = Timeout(10.seconds)
@@ -146,26 +146,26 @@ object RegistryService {
          case (Some(id), Some(r)) if (id.contains(r) && databases.exists(d => d.id.toString == r)) => {
           val db: Database = databases.find(d => d.id.toString == r).get
           val provider: ActorSelection = getChild(db.name)
-          (provider ? GetSimulationModel).mapTo[Spase] map { entry => Left(entry) }
+          (provider ? GetSimulationModel(Some(id))).mapTo[Spase] map { entry => Left(entry) }
         }
-        case (Some(id), None) if(databases.exists(d => id.contains(d.id))) => {
-          val db: Database = databases.find(d => id.contains(d.id)).get
+        case (Some(id), None) if(databases.exists(d => id.contains(d.id.toString))) => {
+          val db: Database = databases.find(d => id.contains(d.id.toString)).get
           val provider: ActorSelection = getChild(db.name)
-          (provider ? GetSimulationModel).mapTo[Spase] map { entry => Left(entry) }
+          (provider ? GetSimulationModel(Some(id))).mapTo[Spase] map { entry => Left(entry) }
         }
         case (None, Some(r)) if(databases.exists(d => d.id.toString == r)) => {
           val db: Database = databases.find(d => d.id.toString == r).get
           val provider: ActorSelection = getChild(db.name)
-          (provider ? GetSimulationModel).mapTo[Spase] map { entry => Left(entry) }
+          (provider ? GetSimulationModel()).mapTo[Spase] map { entry => Left(entry) }
         } 
         case (None, None) => {
           val result = Future.sequence(getChilds(databases.filter(d => d.typeValue == Simulation)) map { provider =>
-            (provider ? GetSimulationModel).mapTo[Spase] map { entry => entry.ResourceEntity }
+            (provider ? GetSimulationModel()).mapTo[Spase] map { entry => entry.ResourceEntity }
           })
           result.map(records => Left(Spase(Number2u462u462, records.flatten, "en"))) 
         }
         // @TODO change error message
-        case _ => future { Right(RequestError(ERequestError.UNKOWN_PROVIDER)) }
+        case _ => future { Right(RequestError(ERequestError.UNKNOWN_ENTITY)) }
       }
     } yield provider 
   }
@@ -179,26 +179,26 @@ object RegistryService {
          case (Some(id), Some(m)) if (id.contains(m) && databases.exists(d => d.id.toString == m)) => {
           val db: Database = databases.find(d => d.id.toString == m).get
           val provider: ActorSelection = getChild(db.name)
-          (provider ? GetSimulationModel).mapTo[Spase] map { entry => Left(entry) }
+          (provider ? GetSimulationRun(Some(id))).mapTo[Spase] map { entry => Left(entry) }
         }
-        case (Some(id), None) if(databases.exists(d => id.contains(d.id))) => {
-          val db: Database = databases.find(d => id.contains(d.id)).get
+        case (Some(id), None) if(databases.exists(d => id.contains(d.id.toString))) => {
+          val db: Database = databases.find(d => id.contains(d.id.toString)).get
           val provider: ActorSelection = getChild(db.name)
-          (provider ? GetSimulationModel).mapTo[Spase] map { entry => Left(entry) }
+          (provider ? GetSimulationRun(Some(id))).mapTo[Spase] map { entry => Left(entry) }
         }
-        case (None, Some(m)) if(databases.exists(d => m.contains(d.id))) => {
-          val db: Database = databases.find(d => m.contains(d.id)).get
+        case (None, Some(m)) if(databases.exists(d => m.contains(d.id.toString))) => {
+          val db: Database = databases.find(d => m.contains(d.id.toString)).get
           val provider: ActorSelection = getChild(db.name)
-          (provider ? GetSimulationModel).mapTo[Spase] map { entry => Left(entry) }
+          (provider ? GetSimulationRun()).mapTo[Spase] map { entry => Left(entry) }
         } 
         case (None, None) => {
           val result = Future.sequence(getChilds(databases.filter(d => d.typeValue == Simulation)) map { provider =>
-            (provider ? GetSimulationModel).mapTo[Spase] map { entry => entry.ResourceEntity }
+            (provider ? GetSimulationRun()).mapTo[Spase] map { entry => entry.ResourceEntity }
           })
           result.map(records => Left(Spase(Number2u462u462, records.flatten, "en"))) 
         }
         // @TODO change error message
-        case _ => future { Right(RequestError(ERequestError.UNKOWN_PROVIDER)) }
+        case _ => future { Right(RequestError(ERequestError.UNKNOWN_ENTITY)) }
       }
     } yield provider 
   }

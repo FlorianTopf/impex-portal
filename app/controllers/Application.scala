@@ -19,7 +19,6 @@ object Application extends Controller {
 
   def config(fmt: String = "xml") = Action.async {
     val future = ConfigService.request(GetConfig(fmt))
-    
     fmt.toLowerCase match {
       case "xml" => future.mapTo[NodeSeq].map(config => Ok(config))
       case "json" => future.mapTo[JsValue].map(config => Ok(config))
@@ -45,7 +44,6 @@ object Application extends Controller {
   // @TODO return in json
   def repository = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    
     val future = RegistryService.getRepository(req.get("id"))
     future.map { repository => 
       repository match {
@@ -58,10 +56,21 @@ object Application extends Controller {
   // @TODO return in json
   def simulationmodel = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    
     val future = RegistryService.getSimulationModel(req.get("id"), req.get("repository"))
-    future.map { repository => 
-      repository match {
+    future.map { model => 
+      model match {
+        case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+        case Right(error) => BadRequest(Json.toJson(error))
+      }
+    }
+  }
+  
+  // @TODO return in json
+  def simulationrun = Action.async { implicit request =>
+    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
+    val future = RegistryService.getSimulationRun(req.get("id"), req.get("simulationmodel"))
+    future.map { run => 
+      run match {
         case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
         case Right(error) => BadRequest(Json.toJson(error))
       }

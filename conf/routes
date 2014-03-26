@@ -21,4 +21,6 @@ GET		/repository					controllers.Application.repository
 
 GET		/simulationmodel			controllers.Application.simulationmodel
 
+GET		/simulationrun  			controllers.Application.simulationrun
+
 GET		/test						controllers.Application.test

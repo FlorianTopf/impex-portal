@@ -554,7 +554,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/OnFly/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000--Earth On the Fly</ResourceName>
       <ReleaseDate>2013-07-01T00:00:00</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS OnFly</Description>
       <Contact>
@@ -654,7 +654,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20080910/2008-09-10UT12/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2008-09-10 UT12</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2008/09/10 at UT12 (Quiet magnetosphere)</Description>
       <Contact>
@@ -760,7 +760,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20100925/2010-09-25UT01/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2010-09-25 UT01</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2010/09/25 at UT01 (Quiet magnetosphere)</Description>
       <Contact>
@@ -867,7 +867,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-19UT23/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2003-11-19 UT23</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/19 at UT23 (Prestorm)</Description>
       <Contact>
@@ -974,7 +974,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-20UT12/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2003-11-20 UT12</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/20 at UT12 (SSC)</Description>
       <Contact>
@@ -1081,7 +1081,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-20UT17/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2003-11-20 UT17</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/20 at UT17 (Initial)</Description>
       <Contact>
@@ -1188,7 +1188,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-20UT21/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2003-11-20 UT21</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/20 at UT21 (Main)</Description>
       <Contact>
@@ -1295,7 +1295,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-21UT00/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2003-11-21 UT00</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/21 at UT00 (Early recovery)</Description>
       <Contact>
@@ -1402,7 +1402,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20031119/2003-11-21UT21/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2003-11-21 UT21</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2003/11/21 at UT21 (Late recovery)</Description>
       <Contact>
@@ -1509,7 +1509,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-23UT18/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2005-08-23 UT18</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/23 at UT18 (Prestorm)</Description>
       <Contact>
@@ -1616,7 +1616,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT06/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2005-08-24 UT06</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/24 at UT06 (SSC)</Description>
       <Contact>
@@ -1723,7 +1723,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT10/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2005-08-24 UT10</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/24 at UT10 (Initial)</Description>
       <Contact>
@@ -1830,7 +1830,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT11/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2005-08-24 UT11</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/24 at UT11 (Main)</Description>
       <Contact>
@@ -1937,7 +1937,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT19/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2005-08-24 UT19</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/24 at UT19 (Early recovery)</Description>
       <Contact>
@@ -2044,7 +2044,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20050823/2005-08-25UT15/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2005-08-25 UT15</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2005/08/25 at UT15 (Late recovery)</Description>
       <Contact>
@@ -2151,7 +2151,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-06UT10/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2012-03-06 UT10</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/06 at UT10 (Prestorm)</Description>
       <Contact>
@@ -2258,7 +2258,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-08UT11/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2012-03-08 UT11</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/08 at UT11 (SSC)</Description>
       <Contact>
@@ -2365,7 +2365,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-09UT03/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2012-03-09 UT03</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/09 at UT03 (Initial)</Description>
       <Contact>
@@ -2472,7 +2472,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-09UT08/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2012-03-09 UT08</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/09 at UT08 (Main)</Description>
       <Contact>
@@ -2579,7 +2579,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-10UT12/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2012-03-10 UT12</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/10 at UT12 (Early recovery)</Description>
       <Contact>
@@ -2686,7 +2686,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Earth/20120306/2012-03-11UT12/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model A2000</ResourceName>
+      <ResourceName>A2000 Run 2012-03-11 UT12</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS on 2012/03/11 at UT12 (Late recovery)</Description>
       <Contact>
@@ -2795,7 +2795,7 @@
   <SimulationRun>
     <ResourceID>impex://SINP/PMM/Mercury/OnFly/SimRun</ResourceID>
     <ResourceHeader>
-      <ResourceName>Paraboloid magnetic field model for Mercury</ResourceName>
+      <ResourceName>A2000--Mercury On the Fly</ResourceName>
       <ReleaseDate>2013-07-01T00:00:00</ReleaseDate>
       <Description>MAGNETIC FIELD CALCULATIONS OnFly</Description>
       <Contact>
@@ -2931,7 +2931,7 @@
       </Property>
     </InputParameter>    
     <RegionParameter>
-      <SimulatedRegion>Earth</SimulatedRegion>
+      <SimulatedRegion>Mercury</SimulatedRegion>
       <Description/>
       <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
     </RegionParameter>
@@ -2988,7 +2988,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2008-09-10UT12.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3030,7 +3030,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2010-09-25UT01.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3072,7 +3072,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-19UT23.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3114,7 +3114,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-20UT12.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3156,7 +3156,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-20UT17.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3198,7 +3198,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-20UT21.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3240,7 +3240,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-21UT00.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3282,7 +3282,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-21UT21.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3324,7 +3324,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-23UT18.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3366,7 +3366,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-24UT06.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3378,7 +3378,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT05/SimRun</InputResourceID>
+    <InputResourceID>impex://SINP/PMM/Earth/20050823/2005-08-24UT06/SimRun</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3408,7 +3408,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-24UT10.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3450,7 +3450,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-24UT11.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3492,7 +3492,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-24UT19.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3534,7 +3534,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-25UT15.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3576,7 +3576,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-06UT10.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3618,7 +3618,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-08UT11.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3660,7 +3660,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-09UT03.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3702,7 +3702,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-09UT08.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3744,7 +3744,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-10UT12.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>
@@ -3786,7 +3786,7 @@
     <AccessInformation>
       <RepositoryID>impex://SINP</RepositoryID>
       <AccessURL>
-        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-11UT12.nc</URL>
       </AccessURL>
       <Format>NetCDF</Format>
     </AccessInformation>

@@ -21,6 +21,9 @@ extends Actor with DataProvider[DataRoot] {
     case GetTrees(None) => sender ! getTreeObjects
     case GetMethods => sender ! getMethodsXML
     case GetRepository => sender ! getRepository
+    case GetObservatory(id) => sender ! getObservatory(id)
+    case GetInstrument(id) => sender ! getInstrument(id)
+    case GetNumericalData(id) => sender ! getNumericalData(id)
     // @TODO update also methods
     case UpdateTrees => {
       dataTree.content = updateTrees
@@ -60,11 +63,11 @@ extends Actor with DataProvider[DataRoot] {
     Spase(Number2u462u462, records, "en")
   }
   
-  protected def getObservatory: Spase = ???
+  protected def getObservatory(id: Option[String]): Spase = ???
   
-  protected def getInstrument: Spase = ???
+  protected def getInstrument(id: Option[String]): Spase = ???
   
-  protected def getNumericalData: Spase = ???
+  protected def getNumericalData(id: Option[String]): Spase = ???
 
 }
 
