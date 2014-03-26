@@ -53,7 +53,7 @@ trait DataProvider[A] {
   }
 }
 
-// @TODO some things maybe obsolete
+
 object DataProvider {
   implicit val timeout = Timeout(10.seconds)
   
@@ -61,23 +61,8 @@ object DataProvider {
   case class GetTrees(val format: Option[String] = None)
   case object GetMethods
   case object GetRepository
+  case object GetSimulationModel
   case object UpdateTrees
-  /*
-  def getTreeXML(provider: ActorSelection) = {
-    (provider ? GetTrees(Some("xml"))).mapTo[Seq[NodeSeq]]
-  }
-
-  def getMethodsXML(provider: ActorSelection) = {
-    (provider ? GetMethods).mapTo[Seq[NodeSeq]]
-  }
-  
-  def getRepository(provider: ActorSelection, dbType: Databasetype) = {
-    val result = (provider ? GetRepository)
-    dbType match {
-      case Simulation => result.mapTo[Seq[Repository]]
-      case Observation => result.mapTo[Seq[DataCenter]]
-    }
-  }*/
   
   // @TODO we need that later for updating the trees dynamically (on admin request)
   def updateTrees(provider: ActorSelection) = {

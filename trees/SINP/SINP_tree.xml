@@ -3817,7 +3817,7 @@
 
   
   <NumericalOutput>
-    <ResourceID>impex://SINP/PMM/Earth/OnFly/3D-cube</ResourceID>
+    <ResourceID>impex://SINP/PMM/Mercury/OnFly/3D-cube</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2013-07-01T00:00:00</ReleaseDate>
@@ -3835,8 +3835,8 @@
       <Format>NetCDF</Format>
     </AccessInformation>
     <MeasurementType>MagneticField</MeasurementType>
-    <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/PMM/Earth/OnFly/SimRun</InputResourceID>
+    <SimulatedRegion>Mercury.Magnetosphere</SimulatedRegion>
+    <InputResourceID>impex://SINP/PMM/Mercury/OnFly/SimRun</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3844,7 +3844,7 @@
       <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-        <CoordinateSystemName>GSM</CoordinateSystemName>
+        <CoordinateSystemName>HSM</CoordinateSystemName>
       </CoordinateSystem>
       <Field>
         <FieldQuantity>Magnetic</FieldQuantity>

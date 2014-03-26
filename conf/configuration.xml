@@ -36,8 +36,7 @@
     <dns>cdpp1.cesr.fr</dns>
     <methods>/AMDA/php/AMDA_METHODS_WSDL.php?wsdl</methods>
     <tree>/AMDA/data/WSRESULT/getObsDataTree_LocalParams.xml</tree>
-    <!-- TODO has multiple datacenter objects => the same ID -->
-    <tree>/AMDA/data/WSRESULT/getObsDataTree_RemoteParams.xml</tree>
+    <!--  tree>/AMDA/data/WSRESULT/getObsDataTree_RemoteParams.xml</tree -->
     <protocol>http</protocol>
     <info>http://clweb.cesr.fr/webservice.html</info>
   </database>

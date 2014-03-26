@@ -19,4 +19,6 @@ GET		/observations				controllers.Application.observations
 
 GET		/repository					controllers.Application.repository
 
+GET		/simulationmodel			controllers.Application.simulationmodel
+
 GET		/test						controllers.Application.test

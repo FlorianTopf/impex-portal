@@ -21,6 +21,7 @@ extends Actor with DataProvider[Spase] {
     case GetTrees(None) => sender ! getTreeObjects
     case GetMethods => sender ! getMethodsXML
     case GetRepository => sender ! getRepository
+    case GetSimulationModel => sender ! getSimulationModel
     case UpdateTrees => {
       dataTree.content = updateTrees
       // @TODO update also methods
@@ -43,23 +44,37 @@ extends Actor with DataProvider[Spase] {
     dataTree.content map { tree => scalaxb.fromXML[Spase](tree) }
   }
 
-  // @TODO improve this (scalaxb stuff)
   protected def getRepository: Spase = {
     val records = getTreeObjects flatMap { 
       tree => tree.ResourceEntity.filter(c => c.key.get == "Repository") map {
+        // @TODO still we have to do it like this, why?
         repo => DataRecord(None, Some("Repository"), (scalaxb.fromXML[Repository](repo.as[NodeSeq])))
       }
     }
     Spase(Number2u462u462, records, "en")
   }
   
-  protected def getSimulationModel = ???
+  protected def getSimulationModel: Spase = {
+    val records = getTreeObjects flatMap {
+      tree => tree.ResourceEntity.filter(c => c.key.get == "SimulationModel") map {
+        model => DataRecord(None, Some("SimulationModel"), model.as[SimulationModelType])
+      }
+    }
+    Spase(Number2u462u462, records, "en")
+  }
   
-  protected def getSimulationRun = ???
+  protected def getSimulationRun: Spase = {
+    val records = getTreeObjects flatMap {
+      tree => tree.ResourceEntity.filter(c => c.key.get == "SimulationRun") map {
+        run => DataRecord(None, Some("SimulationRun"), run.as[SimulationRun])
+      }
+    }
+    Spase(Number2u462u462, records, "en")
+  }
   
-  protected def getNumericalOutput = ???
+  protected def getNumericalOutput: Spase = ???
   
-  protected def getGranule = ???
+  protected def getGranule: Spase = ???
 
 }
 

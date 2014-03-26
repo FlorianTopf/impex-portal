@@ -45,11 +45,21 @@ object Application extends Controller {
   // @TODO return in json
   def repository = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    val id: Option[String] = for {
-      id <- req.get("id")
-    } yield id
     
-    val future = RegistryService.getRepository(id)
+    val future = RegistryService.getRepository(req.get("id"))
+    future.map { repository => 
+      repository match {
+        case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+        case Right(error) => BadRequest(Json.toJson(error))
+      }
+    }
+  }
+  
+  // @TODO return in json
+  def simulationmodel = Action.async { implicit request =>
+    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
+    
+    val future = RegistryService.getSimulationModel(req.get("id"), req.get("repository"))
     future.map { repository => 
       repository match {
         case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))

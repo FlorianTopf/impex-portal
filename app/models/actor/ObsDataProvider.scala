@@ -47,23 +47,24 @@ extends Actor with DataProvider[DataRoot] {
     val records = getTreeObjects flatMap { tree => {
     	tree.dataCenter map { dataCenter => 
           val contact = Contact(dataCenter.name, Seq(ArchiveSpecialist))
-          // resource name is the "real" id for the proprietary data model of AMDA and CLWeb
-          // this will be mapped all the time when calling web services.
     	  val resourceHeader = ResourceHeader(dataCenter.id.toString, Nil, TimeProvider.getISONow, 
     	      None, dataCenter.name, None, Seq(contact))
     	  val accessURL = AccessURL(None , getMetaData.info)
-    	  DataRecord(None, Some("Repository"), Repository(getMetaData.id.toString, resourceHeader, accessURL))
+    	  // resource name is the "real" id for the proprietary data model of AMDA and CLWeb
+          // this will be mapped all the time when calling web services.
+    	  val resourceID = getMetaData.id.toString+"/"+dataCenter.id.toString
+    	  DataRecord(None, Some("Repository"), Repository(resourceID, resourceHeader, accessURL))
     	}
       }
     }
     Spase(Number2u462u462, records, "en")
   }
   
-  protected def getObservatory = ???
+  protected def getObservatory: Spase = ???
   
-  protected def getInstrument = ???
+  protected def getInstrument: Spase = ???
   
-  protected def getNumericalData = ???
+  protected def getNumericalData: Spase = ???
 
 }
 

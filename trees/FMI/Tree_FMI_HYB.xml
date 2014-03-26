@@ -1,4 +1,4 @@
-<Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_0.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex.latmos.ipsl.fr/test/impex+spase-1.0rc1.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <Version>2.2.2</Version>
 <SimulationModel>
 	<ResourceID>impex://FMI/HWA/HYB/</ResourceID>
@@ -9560,6 +9560,1642 @@
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
 	<InputResourceID>impex://FMI/HWA/HYB/mars/spiral_angle_runset_20130607_mars_90deg</InputResourceID>
+	<Parameter>
+		<Name>TotalMagnetic field</Name>
+		<ParameterKey>Btot</ParameterKey>
+		<Description>TotalMagnetic field</Description>
+		<Units>T</Units>
+		<Field>
+			<Qualifier>Total</Qualifier>
+			<FieldQuantity>Magnetic</FieldQuantity>
+		</Field>
+	</Parameter>
+	<Parameter>
+		<Name>Magnetic field components</Name>
+		<ParameterKey>Bx,By,Bz</ParameterKey>
+		<Description>Magnetic field components</Description>
+		<Units>T</Units>
+		<Field>
+			<Qualifier>Vector</Qualifier>
+			<FieldQuantity>Magnetic</FieldQuantity>
+		</Field>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<SimulationRun>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_1.3AU_20140315</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_1.3AU_20140315</ResourceName>
+		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
+		<Description>
+		</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<AccessURL>
+			<URL/>
+		</AccessURL>
+		<Format>XML</Format>
+	</AccessInformation>
+	<Model>
+		<ModelID>impex://FMI/HWA/HYB/</ModelID>
+		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
+	</Model>
+	<TemporalDependence>No</TemporalDependence>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<LikelihoodRating>Probable</LikelihoodRating>
+	<SimulationTime>
+		<Duration>PT200.1S</Duration>
+		<TimeStart>00:00:00</TimeStart>
+		<TimeStep>PT0.1S</TimeStep>
+		<DiagnosisTimeStep Duration="PT10S" TimeStart="00:00:00"/>
+	</SimulationTime>
+	<SimulationDomain>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<SpatialDimension>3</SpatialDimension>
+		<VelocityDimension>3</VelocityDimension>
+		<FieldDimension>3</FieldDimension>
+		<Units>m</Units>
+		<CoordinatesLabel>X Y Z</CoordinatesLabel>
+		<ValidMin>-18155400 -18155400 -18155400</ValidMin>
+		<ValidMax>18155400 18155400 18155400</ValidMax>
+		<GridStructure>Variable. 2 levels.  GridCellSize gives the size of the smallest grid cell. GRID REFINEMENT FUNCTION: refineSpherical 0 1.21036e+07 0 6.0518e+06 0 3.0259e+06 0 1.51295e+06</GridStructure>
+		<GridCellSize>605180 605180 605180</GridCellSize>
+		<Symmetry>Axial</Symmetry>
+		<BoundaryConditions>
+			<ParticleBoundary>
+				<FrontWall>absorbing</FrontWall>
+				<BackWall>absorbing</BackWall>
+				<SideWall>absorbing</SideWall>
+				<Obstacle>absorbing</Obstacle>
+			</ParticleBoundary>
+			<FieldBoundary>
+				<FrontWall>IMF</FrontWall>
+				<BackWall>Neuman zero-gradient</BackWall>
+				<SideWall>Neuman zero-gradient</SideWall>
+				<Obstacle>zero Ue</Obstacle>
+			</FieldBoundary>
+		</BoundaryConditions>
+	</SimulationDomain>
+	<RegionParameter>
+		<SimulatedRegion>Comet</SimulatedRegion>
+		<Radius Units="m">6051800</Radius>
+		<Property>
+			<Name>Exobase Altitude</Name>
+			<Description>Altitude of the exobase from the center of the object</Description>
+			<PropertyQuantity>Other</PropertyQuantity>
+			<Units>m</Units>
+			<PropertyValue>0</PropertyValue>
+		</Property>
+	</RegionParameter>
+	<InputField>
+		<Name>IMF</Name>
+		<Description>Interplanetary Magnetic Field</Description>
+		<SimulatedRegion>Heliosphere</SimulatedRegion>
+		<FieldQuantity>Magnetic</FieldQuantity>
+		<Units>T</Units>
+		<InputLabel>Bx By Bz</InputLabel>
+		<FieldValue>0 4.9E-9 0</FieldValue>
+	</InputField>
+	<InputPopulation>
+		<Name>solarwind_H+</Name>
+		<Description>H+ ions in solar wind</Description>
+		<SimulatedRegion>Heliosphere</SimulatedRegion>
+		<ParticleType>Proton</ParticleType>
+		<ChemicalFormula>H</ChemicalFormula>
+		<AtomicNumber>1</AtomicNumber>
+		<PopulationMassNumber>1.00728</PopulationMassNumber>
+		<PopulationChargeState>1</PopulationChargeState>
+		<PopulationDensity Units="m^-3">6000000</PopulationDensity>
+		<PopulationTemperature Units="K">100000</PopulationTemperature>
+		<PopulationFlowSpeed Units="m/s">400000</PopulationFlowSpeed>
+	</InputPopulation>
+	<InputPopulation>
+		<Name>exospheric_H2O+</Name>
+		<Description>H2O+ ions originating from ionosphere</Description>
+		<SimulatedRegion>Comet</SimulatedRegion>
+		<ParticleType>Ion</ParticleType>
+		<ChemicalFormula>H2O</ChemicalFormula>
+		<AtomicNumber>10</AtomicNumber>
+		<PopulationMassNumber>18.014</PopulationMassNumber>
+		<PopulationChargeState>1</PopulationChargeState>
+		<PopulationTemperature Units="K">6000</PopulationTemperature>
+		<Distribution>Maxwellian</Distribution>
+		<TotalProductionRate Units="1/s">1.7635e+25</TotalProductionRate>
+	</InputPopulation>
+	<InputParameter>
+		<Name>Electrons</Name>
+		<ParameterQuantity>Electron</ParameterQuantity>
+		<Property>
+			<PropertyQuantity>Temperature</PropertyQuantity>
+			<Units>K</Units>
+			<PropertyValue>0</PropertyValue>
+		</Property>
+	</InputParameter>
+</SimulationRun>
+<NumericalOutput>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_1.3AU_20140315/H2O+_hybstate</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_1.3AU_20140315/H2O+_hybstate</ResourceName>
+		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
+		<Description>H2O+ computed physical quantities</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_1.3AU_20140315/H2O+_hybstate_00200000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>3155911</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>IonComposition</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-18155400 -18155400 -18155400</RegionBegin>
+		<RegionEnd>18155400 18155400 18155400</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>impex://FMI/HWA/HYB/comet/comet_1.3AU_20140315</InputResourceID>
+	<Parameter>
+		<Name>H2O+ number density</Name>
+		<ParameterKey>Density</ParameterKey>
+		<Description>H2O+ number density</Description>
+		<Units>m^-3</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<ParticleQuantity>NumberDensity</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ velocity</Name>
+		<ParameterKey>Ux,Uy,Uz</ParameterKey>
+		<Description>H2O+ velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<Qualifier>Vector</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ total velocity</Name>
+		<ParameterKey>Utot</ParameterKey>
+		<Description>H2O+ total velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<Qualifier>Total</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ thermal pressure</Name>
+		<ParameterKey>Pressure</ParameterKey>
+		<Description>H2O+ thermal pressure</Description>
+		<Units>Pa</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<ParticleQuantity>Pressure</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ temperature</Name>
+		<ParameterKey>Temperature</ParameterKey>
+		<Description>H2O+ temperature</Description>
+		<Units>K</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<ParticleQuantity>Temperature</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<NumericalOutput>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_1.3AU_20140315/H+_hybstate</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_1.3AU_20140315/H+_hybstate</ResourceName>
+		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
+		<Description>H+ computed physical quantities</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_1.3AU_20140315/H+_hybstate_00200000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>3155906</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>IonComposition</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-18155400 -18155400 -18155400</RegionBegin>
+		<RegionEnd>18155400 18155400 18155400</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>impex://FMI/HWA/HYB/comet/comet_1.3AU_20140315</InputResourceID>
+	<Parameter>
+		<Name>H+ number density</Name>
+		<ParameterKey>Density</ParameterKey>
+		<Description>H+ number density</Description>
+		<Units>m^-3</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<ParticleQuantity>NumberDensity</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ velocity</Name>
+		<ParameterKey>Ux,Uy,Uz</ParameterKey>
+		<Description>H+ velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<Qualifier>Vector</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ total velocity</Name>
+		<ParameterKey>Utot</ParameterKey>
+		<Description>H+ total velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<Qualifier>Total</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ thermal pressure</Name>
+		<ParameterKey>Pressure</ParameterKey>
+		<Description>H+ thermal pressure</Description>
+		<Units>Pa</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<ParticleQuantity>Pressure</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ temperature</Name>
+		<ParameterKey>Temperature</ParameterKey>
+		<Description>H+ temperature</Description>
+		<Units>K</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<ParticleQuantity>Temperature</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<NumericalOutput>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_1.3AU_20140315/Mag</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_1.3AU_20140315/Mag</ResourceName>
+		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
+		<Description>Magnetic field vector</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_1.3AU_20140315/H+_hybstate_00200000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>3155906</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>MagneticField</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-18155400 -18155400 -18155400</RegionBegin>
+		<RegionEnd>18155400 18155400 18155400</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>impex://FMI/HWA/HYB/comet/comet_1.3AU_20140315</InputResourceID>
+	<Parameter>
+		<Name>TotalMagnetic field</Name>
+		<ParameterKey>Btot</ParameterKey>
+		<Description>TotalMagnetic field</Description>
+		<Units>T</Units>
+		<Field>
+			<Qualifier>Total</Qualifier>
+			<FieldQuantity>Magnetic</FieldQuantity>
+		</Field>
+	</Parameter>
+	<Parameter>
+		<Name>Magnetic field components</Name>
+		<ParameterKey>Bx,By,Bz</ParameterKey>
+		<Description>Magnetic field components</Description>
+		<Units>T</Units>
+		<Field>
+			<Qualifier>Vector</Qualifier>
+			<FieldQuantity>Magnetic</FieldQuantity>
+		</Field>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<SimulationRun>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_2.0AU_20140315</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_2.0AU_20140315</ResourceName>
+		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
+		<Description>
+		</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<AccessURL>
+			<URL/>
+		</AccessURL>
+		<Format>XML</Format>
+	</AccessInformation>
+	<Model>
+		<ModelID>impex://FMI/HWA/HYB/</ModelID>
+		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
+	</Model>
+	<TemporalDependence>No</TemporalDependence>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<LikelihoodRating>Probable</LikelihoodRating>
+	<SimulationTime>
+		<Duration>PT200.1S</Duration>
+		<TimeStart>00:00:00</TimeStart>
+		<TimeStep>PT0.1S</TimeStep>
+		<DiagnosisTimeStep Duration="PT10S" TimeStart="00:00:00"/>
+	</SimulationTime>
+	<SimulationDomain>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<SpatialDimension>3</SpatialDimension>
+		<VelocityDimension>3</VelocityDimension>
+		<FieldDimension>3</FieldDimension>
+		<Units>m</Units>
+		<CoordinatesLabel>X Y Z</CoordinatesLabel>
+		<ValidMin>-18155400 -18155400 -18155400</ValidMin>
+		<ValidMax>18155400 18155400 18155400</ValidMax>
+		<GridStructure>Variable. 2 levels.  GridCellSize gives the size of the smallest grid cell. GRID REFINEMENT FUNCTION: refineSpherical 0 1.21036e+07 0 6.0518e+06 0 3.0259e+06 0 1.51295e+06</GridStructure>
+		<GridCellSize>605180 605180 605180</GridCellSize>
+		<Symmetry>Axial</Symmetry>
+		<BoundaryConditions>
+			<ParticleBoundary>
+				<FrontWall>absorbing</FrontWall>
+				<BackWall>absorbing</BackWall>
+				<SideWall>absorbing</SideWall>
+				<Obstacle>absorbing</Obstacle>
+			</ParticleBoundary>
+			<FieldBoundary>
+				<FrontWall>IMF</FrontWall>
+				<BackWall>Neuman zero-gradient</BackWall>
+				<SideWall>Neuman zero-gradient</SideWall>
+				<Obstacle>zero Ue</Obstacle>
+			</FieldBoundary>
+		</BoundaryConditions>
+	</SimulationDomain>
+	<RegionParameter>
+		<SimulatedRegion>Comet</SimulatedRegion>
+		<Radius Units="m">6051800</Radius>
+		<Property>
+			<Name>Exobase Altitude</Name>
+			<Description>Altitude of the exobase from the center of the object</Description>
+			<PropertyQuantity>Other</PropertyQuantity>
+			<Units>m</Units>
+			<PropertyValue>0</PropertyValue>
+		</Property>
+	</RegionParameter>
+	<InputField>
+		<Name>IMF</Name>
+		<Description>Interplanetary Magnetic Field</Description>
+		<SimulatedRegion>Heliosphere</SimulatedRegion>
+		<FieldQuantity>Magnetic</FieldQuantity>
+		<Units>T</Units>
+		<InputLabel>Bx By Bz</InputLabel>
+		<FieldValue>0 2.0E-9 0</FieldValue>
+	</InputField>
+	<InputPopulation>
+		<Name>solarwind_H+</Name>
+		<Description>H+ ions in solar wind</Description>
+		<SimulatedRegion>Heliosphere</SimulatedRegion>
+		<ParticleType>Proton</ParticleType>
+		<ChemicalFormula>H</ChemicalFormula>
+		<AtomicNumber>1</AtomicNumber>
+		<PopulationMassNumber>1.00728</PopulationMassNumber>
+		<PopulationChargeState>1</PopulationChargeState>
+		<PopulationDensity Units="m^-3">1400000</PopulationDensity>
+		<PopulationTemperature Units="K">100000</PopulationTemperature>
+		<PopulationFlowSpeed Units="m/s">400000</PopulationFlowSpeed>
+	</InputPopulation>
+	<InputPopulation>
+		<Name>exospheric_H2O+</Name>
+		<Description>H2O+ ions originating from ionosphere</Description>
+		<SimulatedRegion>Comet</SimulatedRegion>
+		<ParticleType>Ion</ParticleType>
+		<ChemicalFormula>H2O</ChemicalFormula>
+		<AtomicNumber>10</AtomicNumber>
+		<PopulationMassNumber>18.014</PopulationMassNumber>
+		<PopulationChargeState>1</PopulationChargeState>
+		<PopulationTemperature Units="K">6000</PopulationTemperature>
+		<Distribution>Maxwellian</Distribution>
+		<TotalProductionRate Units="1/s">1.011e+23</TotalProductionRate>
+	</InputPopulation>
+	<InputParameter>
+		<Name>Electrons</Name>
+		<ParameterQuantity>Electron</ParameterQuantity>
+		<Property>
+			<PropertyQuantity>Temperature</PropertyQuantity>
+			<Units>K</Units>
+			<PropertyValue>0</PropertyValue>
+		</Property>
+	</InputParameter>
+</SimulationRun>
+<NumericalOutput>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_2.0AU_20140315/H2O+_hybstate</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_2.0AU_20140315/H2O+_hybstate</ResourceName>
+		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
+		<Description>H2O+ computed physical quantities</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_2.0AU_20140315/H2O+_hybstate_00200000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>3155911</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>IonComposition</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-18155400 -18155400 -18155400</RegionBegin>
+		<RegionEnd>18155400 18155400 18155400</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>impex://FMI/HWA/HYB/comet/comet_2.0AU_20140315</InputResourceID>
+	<Parameter>
+		<Name>H2O+ number density</Name>
+		<ParameterKey>Density</ParameterKey>
+		<Description>H2O+ number density</Description>
+		<Units>m^-3</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<ParticleQuantity>NumberDensity</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ velocity</Name>
+		<ParameterKey>Ux,Uy,Uz</ParameterKey>
+		<Description>H2O+ velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<Qualifier>Vector</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ total velocity</Name>
+		<ParameterKey>Utot</ParameterKey>
+		<Description>H2O+ total velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<Qualifier>Total</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ thermal pressure</Name>
+		<ParameterKey>Pressure</ParameterKey>
+		<Description>H2O+ thermal pressure</Description>
+		<Units>Pa</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<ParticleQuantity>Pressure</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ temperature</Name>
+		<ParameterKey>Temperature</ParameterKey>
+		<Description>H2O+ temperature</Description>
+		<Units>K</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<ParticleQuantity>Temperature</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<NumericalOutput>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_2.0AU_20140315/H+_hybstate</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_2.0AU_20140315/H+_hybstate</ResourceName>
+		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
+		<Description>H+ computed physical quantities</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_2.0AU_20140315/H+_hybstate_00200000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>3155906</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>IonComposition</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-18155400 -18155400 -18155400</RegionBegin>
+		<RegionEnd>18155400 18155400 18155400</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>impex://FMI/HWA/HYB/comet/comet_2.0AU_20140315</InputResourceID>
+	<Parameter>
+		<Name>H+ number density</Name>
+		<ParameterKey>Density</ParameterKey>
+		<Description>H+ number density</Description>
+		<Units>m^-3</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<ParticleQuantity>NumberDensity</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ velocity</Name>
+		<ParameterKey>Ux,Uy,Uz</ParameterKey>
+		<Description>H+ velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<Qualifier>Vector</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ total velocity</Name>
+		<ParameterKey>Utot</ParameterKey>
+		<Description>H+ total velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<Qualifier>Total</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ thermal pressure</Name>
+		<ParameterKey>Pressure</ParameterKey>
+		<Description>H+ thermal pressure</Description>
+		<Units>Pa</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<ParticleQuantity>Pressure</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ temperature</Name>
+		<ParameterKey>Temperature</ParameterKey>
+		<Description>H+ temperature</Description>
+		<Units>K</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<ParticleQuantity>Temperature</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<NumericalOutput>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_2.0AU_20140315/Mag</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_2.0AU_20140315/Mag</ResourceName>
+		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
+		<Description>Magnetic field vector</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_2.0AU_20140315/H+_hybstate_00200000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>3155906</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>MagneticField</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-18155400 -18155400 -18155400</RegionBegin>
+		<RegionEnd>18155400 18155400 18155400</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>impex://FMI/HWA/HYB/comet/comet_2.0AU_20140315</InputResourceID>
+	<Parameter>
+		<Name>TotalMagnetic field</Name>
+		<ParameterKey>Btot</ParameterKey>
+		<Description>TotalMagnetic field</Description>
+		<Units>T</Units>
+		<Field>
+			<Qualifier>Total</Qualifier>
+			<FieldQuantity>Magnetic</FieldQuantity>
+		</Field>
+	</Parameter>
+	<Parameter>
+		<Name>Magnetic field components</Name>
+		<ParameterKey>Bx,By,Bz</ParameterKey>
+		<Description>Magnetic field components</Description>
+		<Units>T</Units>
+		<Field>
+			<Qualifier>Vector</Qualifier>
+			<FieldQuantity>Magnetic</FieldQuantity>
+		</Field>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<SimulationRun>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_2.7AU_manual_20140315</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_2.7AU_manual_20140315</ResourceName>
+		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
+		<Description>
+		</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<AccessURL>
+			<URL/>
+		</AccessURL>
+		<Format>XML</Format>
+	</AccessInformation>
+	<Model>
+		<ModelID>impex://FMI/HWA/HYB/</ModelID>
+		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
+	</Model>
+	<TemporalDependence>No</TemporalDependence>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<LikelihoodRating>Probable</LikelihoodRating>
+	<SimulationTime>
+		<Duration>PT300.1S</Duration>
+		<TimeStart>00:00:00</TimeStart>
+		<TimeStep>PT0.1S</TimeStep>
+		<DiagnosisTimeStep Duration="PT20S" TimeStart="00:00:00"/>
+	</SimulationTime>
+	<SimulationDomain>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<SpatialDimension>3</SpatialDimension>
+		<VelocityDimension>3</VelocityDimension>
+		<FieldDimension>3</FieldDimension>
+		<Units>m</Units>
+		<CoordinatesLabel>X Y Z</CoordinatesLabel>
+		<ValidMin>-18155400 -18155400 -18155400</ValidMin>
+		<ValidMax>18155400 18155400 18155400</ValidMax>
+		<GridStructure>Variable. 2 levels.  GridCellSize gives the size of the smallest grid cell. GRID REFINEMENT FUNCTION: refineSpherical 0 1.21036e+07 0 6.0518e+06 0 3.0259e+06 0 1.51295e+06</GridStructure>
+		<GridCellSize>605180 605180 605180</GridCellSize>
+		<Symmetry>Axial</Symmetry>
+		<BoundaryConditions>
+			<ParticleBoundary>
+				<FrontWall>absorbing</FrontWall>
+				<BackWall>absorbing</BackWall>
+				<SideWall>absorbing</SideWall>
+				<Obstacle>absorbing</Obstacle>
+			</ParticleBoundary>
+			<FieldBoundary>
+				<FrontWall>IMF</FrontWall>
+				<BackWall>Neuman zero-gradient</BackWall>
+				<SideWall>Neuman zero-gradient</SideWall>
+				<Obstacle>zero Ue</Obstacle>
+			</FieldBoundary>
+		</BoundaryConditions>
+	</SimulationDomain>
+	<RegionParameter>
+		<SimulatedRegion>Comet</SimulatedRegion>
+		<Radius Units="m">6051800</Radius>
+		<Property>
+			<Name>Exobase Altitude</Name>
+			<Description>Altitude of the exobase from the center of the object</Description>
+			<PropertyQuantity>Other</PropertyQuantity>
+			<Units>m</Units>
+			<PropertyValue>0</PropertyValue>
+		</Property>
+	</RegionParameter>
+	<InputField>
+		<Name>IMF</Name>
+		<Description>Interplanetary Magnetic Field</Description>
+		<SimulatedRegion>Heliosphere</SimulatedRegion>
+		<FieldQuantity>Magnetic</FieldQuantity>
+		<Units>T</Units>
+		<InputLabel>Bx By Bz</InputLabel>
+		<FieldValue>0 2.0E-9 0</FieldValue>
+	</InputField>
+	<InputPopulation>
+		<Name>solarwind_H+</Name>
+		<Description>H+ ions in solar wind</Description>
+		<SimulatedRegion>Heliosphere</SimulatedRegion>
+		<ParticleType>Proton</ParticleType>
+		<ChemicalFormula>H</ChemicalFormula>
+		<AtomicNumber>1</AtomicNumber>
+		<PopulationMassNumber>1.00728</PopulationMassNumber>
+		<PopulationChargeState>1</PopulationChargeState>
+		<PopulationDensity Units="m^-3">2000000</PopulationDensity>
+		<PopulationTemperature Units="K">100000</PopulationTemperature>
+		<PopulationFlowSpeed Units="m/s">400000</PopulationFlowSpeed>
+	</InputPopulation>
+	<InputPopulation>
+		<Name>exospheric_H2O+</Name>
+		<Description>H2O+ ions originating from ionosphere</Description>
+		<SimulatedRegion>Comet</SimulatedRegion>
+		<ParticleType>Ion</ParticleType>
+		<ChemicalFormula>H2O</ChemicalFormula>
+		<AtomicNumber>10</AtomicNumber>
+		<PopulationMassNumber>18.014</PopulationMassNumber>
+		<PopulationChargeState>1</PopulationChargeState>
+		<PopulationTemperature Units="K">6000</PopulationTemperature>
+		<Distribution>Maxwellian</Distribution>
+		<TotalProductionRate Units="1/s">1.631e+22</TotalProductionRate>
+	</InputPopulation>
+	<InputParameter>
+		<Name>Electrons</Name>
+		<ParameterQuantity>Electron</ParameterQuantity>
+		<Property>
+			<PropertyQuantity>Temperature</PropertyQuantity>
+			<Units>K</Units>
+			<PropertyValue>0</PropertyValue>
+		</Property>
+	</InputParameter>
+</SimulationRun>
+<NumericalOutput>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_2.7AU_manual_20140315/H2O+_hybstate</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_2.7AU_manual_20140315/H2O+_hybstate</ResourceName>
+		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
+		<Description>H2O+ computed physical quantities</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_2.7AU_manual_20140315/H2O+_hybstate_00300000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>3155929</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>IonComposition</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-18155400 -18155400 -18155400</RegionBegin>
+		<RegionEnd>18155400 18155400 18155400</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>impex://FMI/HWA/HYB/comet/comet_2.7AU_manual_20140315</InputResourceID>
+	<Parameter>
+		<Name>H2O+ number density</Name>
+		<ParameterKey>Density</ParameterKey>
+		<Description>H2O+ number density</Description>
+		<Units>m^-3</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<ParticleQuantity>NumberDensity</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ velocity</Name>
+		<ParameterKey>Ux,Uy,Uz</ParameterKey>
+		<Description>H2O+ velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<Qualifier>Vector</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ total velocity</Name>
+		<ParameterKey>Utot</ParameterKey>
+		<Description>H2O+ total velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<Qualifier>Total</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ thermal pressure</Name>
+		<ParameterKey>Pressure</ParameterKey>
+		<Description>H2O+ thermal pressure</Description>
+		<Units>Pa</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<ParticleQuantity>Pressure</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ temperature</Name>
+		<ParameterKey>Temperature</ParameterKey>
+		<Description>H2O+ temperature</Description>
+		<Units>K</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<ParticleQuantity>Temperature</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<NumericalOutput>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_2.7AU_manual_20140315/H+_hybstate</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_2.7AU_manual_20140315/H+_hybstate</ResourceName>
+		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
+		<Description>H+ computed physical quantities</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_2.7AU_manual_20140315/H+_hybstate_00300000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>3155924</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>IonComposition</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-18155400 -18155400 -18155400</RegionBegin>
+		<RegionEnd>18155400 18155400 18155400</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>impex://FMI/HWA/HYB/comet/comet_2.7AU_manual_20140315</InputResourceID>
+	<Parameter>
+		<Name>H+ number density</Name>
+		<ParameterKey>Density</ParameterKey>
+		<Description>H+ number density</Description>
+		<Units>m^-3</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<ParticleQuantity>NumberDensity</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ velocity</Name>
+		<ParameterKey>Ux,Uy,Uz</ParameterKey>
+		<Description>H+ velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<Qualifier>Vector</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ total velocity</Name>
+		<ParameterKey>Utot</ParameterKey>
+		<Description>H+ total velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<Qualifier>Total</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ thermal pressure</Name>
+		<ParameterKey>Pressure</ParameterKey>
+		<Description>H+ thermal pressure</Description>
+		<Units>Pa</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<ParticleQuantity>Pressure</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ temperature</Name>
+		<ParameterKey>Temperature</ParameterKey>
+		<Description>H+ temperature</Description>
+		<Units>K</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<ParticleQuantity>Temperature</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<NumericalOutput>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_2.7AU_manual_20140315/Mag</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_2.7AU_manual_20140315/Mag</ResourceName>
+		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
+		<Description>Magnetic field vector</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_2.7AU_manual_20140315/H+_hybstate_00300000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>3155924</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>MagneticField</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-18155400 -18155400 -18155400</RegionBegin>
+		<RegionEnd>18155400 18155400 18155400</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>impex://FMI/HWA/HYB/comet/comet_2.7AU_manual_20140315</InputResourceID>
+	<Parameter>
+		<Name>TotalMagnetic field</Name>
+		<ParameterKey>Btot</ParameterKey>
+		<Description>TotalMagnetic field</Description>
+		<Units>T</Units>
+		<Field>
+			<Qualifier>Total</Qualifier>
+			<FieldQuantity>Magnetic</FieldQuantity>
+		</Field>
+	</Parameter>
+	<Parameter>
+		<Name>Magnetic field components</Name>
+		<ParameterKey>Bx,By,Bz</ParameterKey>
+		<Description>Magnetic field components</Description>
+		<Units>T</Units>
+		<Field>
+			<Qualifier>Vector</Qualifier>
+			<FieldQuantity>Magnetic</FieldQuantity>
+		</Field>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<SimulationRun>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_3.25AU_manual_20140315</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_3.25AU_manual_20140315</ResourceName>
+		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
+		<Description>
+		</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<AccessURL>
+			<URL/>
+		</AccessURL>
+		<Format>XML</Format>
+	</AccessInformation>
+	<Model>
+		<ModelID>impex://FMI/HWA/HYB/</ModelID>
+		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
+	</Model>
+	<TemporalDependence>No</TemporalDependence>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<LikelihoodRating>Probable</LikelihoodRating>
+	<SimulationTime>
+		<Duration>PT200.1S</Duration>
+		<TimeStart>00:00:00</TimeStart>
+		<TimeStep>PT0.1S</TimeStep>
+		<DiagnosisTimeStep Duration="PT10S" TimeStart="00:00:00"/>
+	</SimulationTime>
+	<SimulationDomain>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<SpatialDimension>3</SpatialDimension>
+		<VelocityDimension>3</VelocityDimension>
+		<FieldDimension>3</FieldDimension>
+		<Units>m</Units>
+		<CoordinatesLabel>X Y Z</CoordinatesLabel>
+		<ValidMin>-18155400 -18155400 -18155400</ValidMin>
+		<ValidMax>18155400 18155400 18155400</ValidMax>
+		<GridStructure>Variable. 2 levels.  GridCellSize gives the size of the smallest grid cell. GRID REFINEMENT FUNCTION: refineSpherical 0 1.21036e+07 0 6.0518e+06 0 3.0259e+06 0 1.51295e+06</GridStructure>
+		<GridCellSize>605180 605180 605180</GridCellSize>
+		<Symmetry>Axial</Symmetry>
+		<BoundaryConditions>
+			<ParticleBoundary>
+				<FrontWall>absorbing</FrontWall>
+				<BackWall>absorbing</BackWall>
+				<SideWall>absorbing</SideWall>
+				<Obstacle>absorbing</Obstacle>
+			</ParticleBoundary>
+			<FieldBoundary>
+				<FrontWall>IMF</FrontWall>
+				<BackWall>Neuman zero-gradient</BackWall>
+				<SideWall>Neuman zero-gradient</SideWall>
+				<Obstacle>zero Ue</Obstacle>
+			</FieldBoundary>
+		</BoundaryConditions>
+	</SimulationDomain>
+	<RegionParameter>
+		<SimulatedRegion>Comet</SimulatedRegion>
+		<Radius Units="m">6051800</Radius>
+		<Property>
+			<Name>Exobase Altitude</Name>
+			<Description>Altitude of the exobase from the center of the object</Description>
+			<PropertyQuantity>Other</PropertyQuantity>
+			<Units>m</Units>
+			<PropertyValue>0</PropertyValue>
+		</Property>
+	</RegionParameter>
+	<InputField>
+		<Name>IMF</Name>
+		<Description>Interplanetary Magnetic Field</Description>
+		<SimulatedRegion>Heliosphere</SimulatedRegion>
+		<FieldQuantity>Magnetic</FieldQuantity>
+		<Units>T</Units>
+		<InputLabel>Bx By Bz</InputLabel>
+		<FieldValue>0 1.6E-9 0</FieldValue>
+	</InputField>
+	<InputPopulation>
+		<Name>solarwind_H+</Name>
+		<Description>H+ ions in solar wind</Description>
+		<SimulatedRegion>Heliosphere</SimulatedRegion>
+		<ParticleType>Proton</ParticleType>
+		<ChemicalFormula>H</ChemicalFormula>
+		<AtomicNumber>1</AtomicNumber>
+		<PopulationMassNumber>1.00728</PopulationMassNumber>
+		<PopulationChargeState>1</PopulationChargeState>
+		<PopulationDensity Units="m^-3">900000</PopulationDensity>
+		<PopulationTemperature Units="K">100000</PopulationTemperature>
+		<PopulationFlowSpeed Units="m/s">400000</PopulationFlowSpeed>
+	</InputPopulation>
+	<InputPopulation>
+		<Name>exospheric_H2O+</Name>
+		<Description>H2O+ ions originating from ionosphere</Description>
+		<SimulatedRegion>Comet</SimulatedRegion>
+		<ParticleType>Ion</ParticleType>
+		<ChemicalFormula>H2O</ChemicalFormula>
+		<AtomicNumber>10</AtomicNumber>
+		<PopulationMassNumber>18.014</PopulationMassNumber>
+		<PopulationChargeState>1</PopulationChargeState>
+		<PopulationTemperature Units="K">6000</PopulationTemperature>
+		<Distribution>Maxwellian</Distribution>
+		<TotalProductionRate Units="1/s">1.631e+22</TotalProductionRate>
+	</InputPopulation>
+	<InputParameter>
+		<Name>Electrons</Name>
+		<ParameterQuantity>Electron</ParameterQuantity>
+		<Property>
+			<PropertyQuantity>Temperature</PropertyQuantity>
+			<Units>K</Units>
+			<PropertyValue>0</PropertyValue>
+		</Property>
+	</InputParameter>
+</SimulationRun>
+<NumericalOutput>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_3.25AU_manual_20140315/H2O+_hybstate</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_3.25AU_manual_20140315/H2O+_hybstate</ResourceName>
+		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
+		<Description>H2O+ computed physical quantities</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_3.25AU_manual_20140315/H2O+_hybstate_00200000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>3155911</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>IonComposition</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-18155400 -18155400 -18155400</RegionBegin>
+		<RegionEnd>18155400 18155400 18155400</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>impex://FMI/HWA/HYB/comet/comet_3.25AU_manual_20140315</InputResourceID>
+	<Parameter>
+		<Name>H2O+ number density</Name>
+		<ParameterKey>Density</ParameterKey>
+		<Description>H2O+ number density</Description>
+		<Units>m^-3</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<ParticleQuantity>NumberDensity</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ velocity</Name>
+		<ParameterKey>Ux,Uy,Uz</ParameterKey>
+		<Description>H2O+ velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<Qualifier>Vector</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ total velocity</Name>
+		<ParameterKey>Utot</ParameterKey>
+		<Description>H2O+ total velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<Qualifier>Total</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ thermal pressure</Name>
+		<ParameterKey>Pressure</ParameterKey>
+		<Description>H2O+ thermal pressure</Description>
+		<Units>Pa</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<ParticleQuantity>Pressure</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ temperature</Name>
+		<ParameterKey>Temperature</ParameterKey>
+		<Description>H2O+ temperature</Description>
+		<Units>K</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<ParticleQuantity>Temperature</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<NumericalOutput>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_3.25AU_manual_20140315/H+_hybstate</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_3.25AU_manual_20140315/H+_hybstate</ResourceName>
+		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
+		<Description>H+ computed physical quantities</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_3.25AU_manual_20140315/H+_hybstate_00200000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>3155906</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>IonComposition</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-18155400 -18155400 -18155400</RegionBegin>
+		<RegionEnd>18155400 18155400 18155400</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>impex://FMI/HWA/HYB/comet/comet_3.25AU_manual_20140315</InputResourceID>
+	<Parameter>
+		<Name>H+ number density</Name>
+		<ParameterKey>Density</ParameterKey>
+		<Description>H+ number density</Description>
+		<Units>m^-3</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<ParticleQuantity>NumberDensity</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ velocity</Name>
+		<ParameterKey>Ux,Uy,Uz</ParameterKey>
+		<Description>H+ velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<Qualifier>Vector</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ total velocity</Name>
+		<ParameterKey>Utot</ParameterKey>
+		<Description>H+ total velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<Qualifier>Total</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ thermal pressure</Name>
+		<ParameterKey>Pressure</ParameterKey>
+		<Description>H+ thermal pressure</Description>
+		<Units>Pa</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<ParticleQuantity>Pressure</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ temperature</Name>
+		<ParameterKey>Temperature</ParameterKey>
+		<Description>H+ temperature</Description>
+		<Units>K</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<ParticleQuantity>Temperature</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<NumericalOutput>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_3.25AU_manual_20140315/Mag</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_3.25AU_manual_20140315/Mag</ResourceName>
+		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
+		<Description>Magnetic field vector</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_3.25AU_manual_20140315/H+_hybstate_00200000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>3155906</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>MagneticField</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-18155400 -18155400 -18155400</RegionBegin>
+		<RegionEnd>18155400 18155400 18155400</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>impex://FMI/HWA/HYB/comet/comet_3.25AU_manual_20140315</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
