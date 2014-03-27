@@ -59,17 +59,25 @@ object DataProvider {
   // common message formats
   case class GetTrees(val format: Option[String] = None)
   case object GetMethods
-  case object GetRepository
-  case class GetSimulationModel(val id: Option[String] = None)
-  case class GetSimulationRun(val id: Option[String] = None)
-  case class GetNumericalOutput(val id: Option[String] = None)
-  case class GetGranule(val id: Option[String] = None)
-  case class GetObservatory(val id: Option[String] = None)
-  case class GetInstrument(val id: Option[String] = None)
-  case class GetNumericalData(val id: Option[String] = None)
+  // elements of the data model
+  trait SimElement
+  case object SimulationModel extends SimElement
+  case object SimulationRun extends SimElement
+  case object NumericalOutput extends SimElement
+  case object Granule extends SimElement
+  // @TODO maybe needed 
+  case object SimParameter extends SimElement
+  trait ObsElement
+  case object Observatory extends ObsElement
+  case object Instrument extends ObsElement
+  case object NumericalData extends ObsElement
   // @TODO maybe needed
-  case class GetParameter(val id: Option[String] = None)
-  case object UpdateTrees
+  case object ObsParameter extends ObsElement 
+  // generic message for elements
+  case object GetRepository 
+  case class GetSimElement(val sType: SimElement, val id: Option[String] = None) 
+  case class GetObsElement(val oType: ObsElement, val id: Option[String] = None) 
+  case object UpdateTrees 
   
   // @TODO we need that later for updating the trees dynamically (on admin request)
   def updateTrees(provider: ActorSelection) = {

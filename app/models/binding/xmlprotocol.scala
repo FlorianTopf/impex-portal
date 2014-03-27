@@ -2716,6 +2716,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
+  // ATTENTION WE HAVE CHANGED THE RegionBegin/RegionEnd element to String from Float
   trait DefaultBindingGranuleFormat extends scalaxb.ElemNameParser[models.binding.Granule] {
     val targetNamespace: Option[String] = Some("http://impex-fp7.oeaw.ac.at")
     
@@ -2730,11 +2731,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       (((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "StartDate")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](x, scalaxb.ElemName(node) :: stack)))) | 
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "RegionBegin")) ^^ 
-      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[Float](x, scalaxb.ElemName(node) :: stack))))) ~ 
+      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack))))) ~ 
       opt(((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "StopDate")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](x, scalaxb.ElemName(node) :: stack)))) | 
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "RegionEnd")) ^^ 
-      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[Float](x, scalaxb.ElemName(node) :: stack))))) ~ 
+      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack))))) ~ 
       rep(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Source")) ^^
       { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 =>
       models.binding.Granule(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),

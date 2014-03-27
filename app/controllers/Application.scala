@@ -76,6 +76,30 @@ object Application extends Controller {
       }
     }
   }
+
+  // @TODO return in json
+  def numericaloutput = Action.async { implicit request =>
+    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
+    val future = RegistryService.getNumericalOutput(req.get("id"), req.get("simulationrun"))
+    future.map { run => 
+      run match {
+        case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+        case Right(error) => BadRequest(Json.toJson(error))
+      }
+    }
+  }
+  
+  // @TODO return in json
+  def granule = Action.async { implicit request =>
+    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
+    val future = RegistryService.getGranule(req.get("id"), req.get("numericaloutput"))
+    future.map { run => 
+      run match {
+        case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+        case Right(error) => BadRequest(Json.toJson(error))
+      }
+    }
+  }
   
   // route for testing
   def test = Action.async {

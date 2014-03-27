@@ -21,9 +21,11 @@ extends Actor with DataProvider[DataRoot] {
     case GetTrees(None) => sender ! getTreeObjects
     case GetMethods => sender ! getMethodsXML
     case GetRepository => sender ! getRepository
-    case GetObservatory(id) => sender ! getObservatory(id)
-    case GetInstrument(id) => sender ! getInstrument(id)
-    case GetNumericalData(id) => sender ! getNumericalData(id)
+    case GetObsElement(oType, id) => oType match {
+      case Observatory => sender ! getObservatory(id)
+      case Instrument => sender ! getInstrument(id)
+      case NumericalData => sender ! getNumericalData(id)
+    }
     // @TODO update also methods
     case UpdateTrees => {
       dataTree.content = updateTrees

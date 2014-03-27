@@ -23,4 +23,8 @@ GET		/simulationmodel			controllers.Application.simulationmodel
 
 GET		/simulationrun  			controllers.Application.simulationrun
 
+GET		/numericaloutput  			controllers.Application.numericaloutput
+
+GET		/granule		  			controllers.Application.granule
+
 GET		/test						controllers.Application.test
