@@ -139,11 +139,12 @@ object RegistryService {
   
   def getRepository(id: Option[String] = None): Future[Either[Spase, RequestError]] = {
     implicit val timeout = Timeout(10.seconds)
+    println("HELLO "+id)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
-      provider <- id match {
-        case Some(id: String) if databases.exists(d => d.id.toString == id) => {
-          val provider: ActorSelection = getChild(databases.find(d => d.id.toString == id).get.name)
+      provider <-id match {
+        case Some(id) if databases.exists(d => id.contains(d.id.toString)) => {
+          val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.name)
           (provider ? GetRepository).mapTo[Spase] map { entry => Left(entry) }
         }
         case None => {
