@@ -7,10 +7,121 @@
 
       
       <xs:element type="idm:ResourceID" name="ResourceID"/>
+	  <xs:element type="Variable" name="Variable"/>
+      <xs:element type="OutputFormat" name="OutputFileType"/>
+      <xs:element type="xs:anyURI" name="url_XYZ">
+        <xs:annotation>
+          <xs:documentation>URL of the ASCII file containing the 3D coordinates. The coordinate system must be GSM.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element type="xs:dateTime" name="StartTime"/>
+      <xs:element type="xs:dateTime" name="StopTime"/>
+      <xs:element type="xs:duration" name="Sampling"/>
+      <xs:element type="Population" name="Population"/>
+      <xs:element type="idm:PlanePoint" name="PlanePoint"/>
+      <xs:element type="idm:PlaneNormalVector" name="PlaneNormalVector"/>
+      <xs:element type="xs:double" name="Resolution"/>
+      <xs:element type="xs:double" name="StepSize"/>
+	  <xs:element type="Spacecraft" name="Spacecraft_name"/>
+      <xs:element type="cube_size_array" name="cube_size_array"/>
+      <xs:element type="Interpolation" name="InterpolationMethod"/>
+      <xs:element type="ListOfDouble" name="ListOfDouble"/>
+      <xs:element type="CoordinateSystemName" name="CoordinateSystemName"/>
+	
+	  <xs:simpleType name="OutputFormat">
+        <xs:annotation>
+          <xs:documentation>
+            two formats supported
+          </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="netCDF"/>
+          <xs:enumeration value="VOTable"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="Interpolation">
+        <xs:annotation>
+          <xs:documentation>
+            interpolation supported supported : right now only one
+          </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="linear"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="Population">
+        <xs:annotation>
+          <xs:documentation>List of population species from the selected NumericalOutput separated by a comma. Identified by the PopulationId. By default: all populations within the NumericalOutput are returned </xs:documentation>
+        </xs:annotation>
+        <xs:list itemType="idm:PopulationID"/>
+      </xs:simpleType>
+      <xs:simpleType name="Spacecraft">
+        <xs:annotation>
+          <xs:documentation>
+            Names of spacecrafts
+          </xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="ClusterA"/>
+          <xs:enumeration value="ClusterB"/>
+          <xs:enumeration value="ClusterC"/>
+          <xs:enumeration value="ClusterD"/>
+          <xs:enumeration value="Polar"/>
+          <xs:enumeration value="Cassini"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:simpleType name="Variable">
+        <xs:annotation>
+          <xs:documentation>List of individual parameters from the selected NumericalOutput and Simulation Run, separated by a comma. By default: SimulatedRegion from Simulation Run; TemporalDescription and all parameters within the NumericalOutput</xs:documentation>
+        </xs:annotation>
+        <xs:list itemType="idm:ParameterKey"/>
+      </xs:simpleType>
+	  <xs:simpleType name="CoordinateSystemName">
+		<xs:annotation>
+			<xs:documentation xml:lang="en">Identifiers of the origin and orientation of a set of typically orthogonal axes.</xs:documentation>
+		</xs:annotation>
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="GSM">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Geocentric Solar Magnetospheric - A coordinate system where the X axis is from Earth to Sun, Z axis is northward in a plane containing the X axis and the geomagnetic dipole axis. See Russell, 1971</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="GSE">
+				<xs:annotation>
+					<xs:documentation xml:lang="en">Geocentric Solar Ecliptic - A coordinate system where the X axis is from Earth to Sun. Z axis is normal to the ecliptic, positive northward. See Russell, 1971.</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
 
+      <xs:complexType name="ListOfDouble">
+        <xs:annotation>
+          <xs:documentation>x,y,z</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element type="xs:double" maxOccurs="1" minOccurs="0" name="x"/>
+          <xs:element type="xs:double" maxOccurs="1" minOccurs="0" name="y"/>
+          <xs:element type="xs:double" maxOccurs="1" minOccurs="0" name="z"/>
+        </xs:sequence>
+      </xs:complexType>
+	  <xs:complexType name="cube_size_array">
+        <xs:annotation>
+          <xs:documentation>List with sizes of a cube</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element type="xs:integer" name="x_low" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:integer" name="x_high" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:integer" name="y_low" maxOccurs="1" minOccurs="0"/>
+		  <xs:element type="xs:integer" name="y_high" maxOccurs="1" minOccurs="0"/>
+		  <xs:element type="xs:integer" name="z_low" maxOccurs="1" minOccurs="0"/>
+		  <xs:element type="xs:integer" name="z_high" maxOccurs="1" minOccurs="0"/>
+        </xs:sequence>
+      </xs:complexType>	  
+      
+	
       
       
-      <xs:element type="extraParams_getDataPointValue" name="extraParams_getDataPointValue"/>
+      
       <xs:complexType name="extraParams_getDataPointValue">
         <xs:sequence>
           <xs:element ref="OutputFileType" maxOccurs="1" minOccurs="0"/>
@@ -19,7 +130,7 @@
       </xs:complexType>
 
       
-      <xs:element type="extraParams_calculateDataPointValueFixedTime" name="extraParams_calculateDataPointValueFixedTime"/>
+      
       <xs:complexType name="extraParams_calculateDataPointValueFixedTime">
         <xs:annotation>
           <xs:documentation>List of individual parameters: SW Density, SW Velocity, IMF_B (Bx,By,Bz), Dst, AL, BD, BT, RD2, RD1, R2, R1.</xs:documentation>
@@ -65,18 +176,19 @@
       </xs:complexType>
 
       
-      <xs:element type="extraParams_calculateDataPointValue" name="extraParams_calculateDataPointValue"/>
+      
       <xs:complexType name="extraParams_calculateDataPointValue">
         <xs:annotation>
           <xs:documentation>Only OutputFileType for now.</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="OutputFormat" maxOccurs="1" minOccurs="0" name="OutputFileType"/>
+		  <xs:element type="CoordinateSystemName" maxOccurs="1" minOccurs="0" name="CoordinateSystem"/>
         </xs:sequence>
       </xs:complexType>
 	  
 	  
-      <xs:element type="extraParams_calculateDataPointValueMercury" name="extraParams_calculateDataPointValueMercury"/>
+      
       <xs:complexType name="extraParams_calculateDataPointValueMercury">
         <xs:annotation>
           <xs:documentation/>
@@ -117,7 +229,7 @@
       </xs:complexType>
       
       
-      <xs:element type="extraParams_calculateDataPointValueSaturn" name="extraParams_calculateDataPointValueSaturn"/>
+      
       <xs:complexType name="extraParams_calculateDataPointValueSaturn">
         <xs:annotation>
           <xs:documentation/>
@@ -154,7 +266,7 @@
               <xs:documentation>Distance to the inner edge of tail current sheet</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element type="xs:double" name="R1" maxOccurs="1" minOccurs="0">
+          <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Distance to the magnetopause subsolar point</xs:documentation>
             </xs:annotation>
@@ -163,7 +275,7 @@
       </xs:complexType>
 
       
-      <xs:element type="extraParams_calculateDataPointValueJupiter" name="extraParams_calculateDataPointValueJupiter"/>
+      
       <xs:complexType name="extraParams_calculateDataPointValueJupiter">
         <xs:annotation>
           <xs:documentation/>
@@ -200,7 +312,7 @@
               <xs:documentation>Distance to the inner edge of tail current sheet</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element type="xs:double" name="R1" maxOccurs="1" minOccurs="0">
+          <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Distance to the magnetopause subsolar point</xs:documentation>
             </xs:annotation>
@@ -209,7 +321,7 @@
       </xs:complexType>
       
       
-      <xs:element type="extraParams_calculateDataPointValueSpacecraft" name="extraParams_calculateDataPointValueSpacecraft"/>
+      
       <xs:complexType name="extraParams_calculateDataPointValueSpacecraft">
         <xs:annotation>
           <xs:documentation>Only OutputFileType for now.</xs:documentation>
@@ -220,7 +332,7 @@
       </xs:complexType>
 
       
-      <xs:element type="extraParams_calculateFieldLine" name="extraParams_calculateFieldLine"/>
+      
       <xs:complexType name="extraParams_calculateFieldLine">
         <xs:annotation>
           <xs:documentation>Only OutputFileType for now.</xs:documentation>
@@ -233,7 +345,7 @@
       </xs:complexType>
 
       
-      <xs:element type="extraParams_calculateCube" name="extraParams_calculateCube"/>
+      
       <xs:complexType name="extraParams_calculateCube">
         <xs:annotation>
           <xs:documentation>List of individual parameters:SW Density,SW Velocity,IMF_B(Bx,By,Bz),Dst,AL.</xs:documentation>
@@ -249,7 +361,7 @@
       </xs:complexType>
 
       
-      <xs:element type="extraParams_calculateCubeMercury" name="extraParams_calculateCubeMercury"/>
+      
       <xs:complexType name="extraParams_calculateCubeMercury">
         <xs:annotation>
           <xs:documentation>List of parameters: BD,Flux,Rss,R2,DZ,IMF_B.</xs:documentation>
@@ -265,97 +377,6 @@
         </xs:sequence>
       </xs:complexType>
 	  
-      <xs:element type="cube_size_array" name="cube_size_array"/>
-      <xs:complexType name="cube_size_array">
-        <xs:annotation>
-          <xs:documentation>List with sizes of a cube</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element type="xs:integer" name="x_low" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:integer" name="x_high" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:integer" name="y_low" maxOccurs="1" minOccurs="0"/>
-		  <xs:element type="xs:integer" name="y_high" maxOccurs="1" minOccurs="0"/>
-		  <xs:element type="xs:integer" name="z_low" maxOccurs="1" minOccurs="0"/>
-		  <xs:element type="xs:integer" name="z_high" maxOccurs="1" minOccurs="0"/>
-        </xs:sequence>
-      </xs:complexType>	  
-      <xs:element type="OutputFormat" name="OutputFileType"/>
-      <xs:simpleType name="OutputFormat">
-        <xs:annotation>
-          <xs:documentation>
-            two formats supported
-          </xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="netCDF"/>
-          <xs:enumeration value="VOTable"/>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:element type="Interpolation" name="InterpolationMethod"/>
-      <xs:simpleType name="Interpolation">
-        <xs:annotation>
-          <xs:documentation>
-            interpolation supported supported : right now only one
-          </xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="linear"/>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:element type="xs:anyURI" name="url_XYZ">
-        <xs:annotation>
-          <xs:documentation>URL of the ASCII file containing the 3D coordinates. The coordinate system must be GSM.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element type="xs:dateTime" name="StartTime"/>
-      <xs:element type="xs:dateTime" name="StopTime"/>
-      <xs:element type="xs:duration" name="Sampling"/>
-      <xs:element type="Population" name="Population"/>
-      <xs:simpleType name="Population">
-        <xs:annotation>
-          <xs:documentation>List of population species from the selected NumericalOutput separated by a comma. Identified by the PopulationId. By default: all populations within the NumericalOutput are returned </xs:documentation>
-        </xs:annotation>
-        <xs:list itemType="idm:PopulationID"/>
-      </xs:simpleType>
-      <xs:element type="idm:PlanePoint" name="PlanePoint"/>
-      <xs:element type="idm:PlaneNormalVector" name="PlaneNormalVector"/>
-      <xs:element type="xs:double" name="Resolution"/>
-      <xs:element type="Spacecraft" name="Spacecraft_name"/>
-      <xs:simpleType name="Spacecraft">
-        <xs:annotation>
-          <xs:documentation>
-            Names of spacecrafts
-          </xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="ClusterA"/>
-          <xs:enumeration value="ClusterB"/>
-          <xs:enumeration value="ClusterC"/>
-          <xs:enumeration value="ClusterD"/>
-          <xs:enumeration value="Polar"/>
-          <xs:enumeration value="Cassini"/>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:element type="Variable" name="Variable"/>
-      <xs:simpleType name="Variable">
-        <xs:annotation>
-          <xs:documentation>List of individual parameters from the selected NumericalOutput and Simulation Run, separated by a comma. By default: SimulatedRegion from Simulation Run; TemporalDescription and all parameters within the NumericalOutput</xs:documentation>
-        </xs:annotation>
-        <xs:list itemType="idm:ParameterKey"/>
-      </xs:simpleType>
-
-      <xs:element type="ListOfDouble" name="ListOfDouble"/>
-      <xs:complexType name="ListOfDouble">
-        <xs:annotation>
-          <xs:documentation>x,y,z</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element type="xs:double" maxOccurs="1" minOccurs="0" name="x"/>
-          <xs:element type="xs:double" maxOccurs="1" minOccurs="0" name="y"/>
-          <xs:element type="xs:double" maxOccurs="1" minOccurs="0" name="z"/>
-        </xs:sequence>
-      </xs:complexType>
-
       
 
       
@@ -778,8 +799,8 @@
 
   
   <wsdl:service name="Methods_SINP">
-    <wsdl:port binding="Methods_SINPSoapBinding" name="Methods_SINP">
-      <soap:address location="http://dec1.sinp.msu.ru/~lucymu/paraboloid/SINPWebServiceServer.php"/>
+    <wsdl:port binding="Methods_SINPSoapBinding" name="Methods_SINPPort">
+      <soap:address location="http://smdc.sinp.msu.ru/impex/SINPWebServiceServer.php"/>
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

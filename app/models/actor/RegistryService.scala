@@ -66,7 +66,8 @@ object RegistryService {
     Akka.system.actorSelection("user/registry/" + name)
   }
   
-  private def getSimulationElement(msg: GetSimElement, parent: Option[String]): Future[Either[Spase, RequestError]] = {
+  // @TODO improve this!
+  private def getElement(msg: GetElement, parent: Option[String]): Future[Either[Spase, RequestError]] = {
     implicit val timeout = Timeout(30.seconds)
     
     println("Requested ID: "+msg.id)
@@ -74,8 +75,8 @@ object RegistryService {
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- (msg.id, parent) match {
-         case (Some(id), Some(p)) if (id.contains(p) && databases.exists(d => d.id.toString == p)) => {
-          val db: Database = databases.find(d => d.id.toString == p).get
+         case (Some(id), Some(p)) if (id.contains(p) && databases.exists(_.id.toString == p)) => {
+          val db: Database = databases.find(_.id.toString == p).get
           val provider: ActorSelection = getChild(db.name)
           (provider ? msg).mapTo[Spase] map { entry => Left(entry) }
         }
@@ -90,9 +91,14 @@ object RegistryService {
           (provider ? msg).mapTo[Spase] map { entry => Left(entry) }
         } 
         case (None, None) => {
-          val result = Future.sequence(getChilds(databases.filter(d => d.typeValue == Simulation)) map { 
+          val result = msg.dType match {
+            case m: SimElement => Future.sequence(getChilds(databases.filter(_.typeValue == Simulation)) map { 
             provider => (provider ? msg).mapTo[Spase] map { entry => entry.ResourceEntity }
-          })
+            })
+            case m: ObsElement => Future.sequence(getChilds(databases.filter(_.typeValue == Observation)) map { 
+            provider => (provider ? msg).mapTo[Spase] map { entry => entry.ResourceEntity }
+            })     
+          }
           result.map(records => Left(Spase(Number2u462u462, records.flatten, "en"))) 
         }
         case _ => future { Right(RequestError(ERequestError.UNKNOWN_ENTITY)) }
@@ -139,7 +145,6 @@ object RegistryService {
   
   def getRepository(id: Option[String] = None): Future[Either[Spase, RequestError]] = {
     implicit val timeout = Timeout(10.seconds)
-    println("HELLO "+id)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <-id match {
@@ -172,18 +177,21 @@ object RegistryService {
   }
 
   def getSimulationModel(id: Option[String], repository: Option[String]): Future[Either[Spase, RequestError]] =
-    getSimulationElement(GetSimElement(SimulationModel, id), repository)
+    getElement(GetElement(SimulationModel, id), repository)
   
   def getSimulationRun(id: Option[String], model: Option[String]): Future[Either[Spase, RequestError]] = 
-    getSimulationElement(GetSimElement(SimulationRun, id), model)
+    getElement(GetElement(SimulationRun, id), model)
   
   def getNumericalOutput(id: Option[String], run: Option[String]): Future[Either[Spase, RequestError]] = 
-    getSimulationElement(GetSimElement(NumericalOutput, id), run)
+    getElement(GetElement(NumericalOutput, id), run)
   
   def getGranule(id: Option[String], output: Option[String]): Future[Either[Spase, RequestError]] =
-    getSimulationElement(GetSimElement(Granule, id), output)
+    getElement(GetElement(Granule, id), output)
   
-  def getObservatory(id: Option[String], repository: Option[String]): Future[Either[Spase, RequestError]] = ???
+  // @TODO this doesn't work, because we do not encode the provider reference in the id
+    // maybe we create an artificial id? e.g. impex://AMDA/AMDA/Cassini_Public?
+  def getObservatory(id: Option[String], repository: Option[String]): Future[Either[Spase, RequestError]] = 
+    getElement(GetElement(Observatory, id), repository)
   
   def getInstrument(id: Option[String], observatory: Option[String]): Future[Either[Spase, RequestError]] = ???
   

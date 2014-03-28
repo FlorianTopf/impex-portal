@@ -27,4 +27,6 @@ GET		/numericaloutput  			controllers.Application.numericaloutput
 
 GET		/granule		  			controllers.Application.granule
 
+GET 	/observatory				controllers.Application.observatory
+
 GET		/test						controllers.Application.test

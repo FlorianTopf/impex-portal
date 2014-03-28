@@ -21,7 +21,7 @@ extends Actor with DataProvider[DataRoot] {
     case GetTrees(None) => sender ! getTreeObjects
     case GetMethods => sender ! getMethodsXML
     case GetRepository => sender ! getRepository
-    case GetObsElement(oType, id) => oType match {
+    case GetElement(dType, id) => dType match {
       case Observatory => sender ! getObservatory(id)
       case Instrument => sender ! getInstrument(id)
       case NumericalData => sender ! getNumericalData(id)
@@ -49,23 +49,43 @@ extends Actor with DataProvider[DataRoot] {
   }
 
   protected def getRepository: Spase = {
-    val records = getTreeObjects flatMap { tree => {
-    	tree.dataCenter map { dataCenter => 
-          val contact = Contact(dataCenter.name, Seq(ArchiveSpecialist))
-    	  val resourceHeader = ResourceHeader(dataCenter.id.toString, Nil, TimeProvider.getISONow, 
-    	      None, dataCenter.name, None, Seq(contact))
-    	  val accessURL = AccessURL(None , getMetaData.info)
-    	  // resource name is the "real" id for the proprietary data model of AMDA and CLWeb
-          // this will be mapped all the time when calling web services.
-    	  val resourceID = getMetaData.id.toString+"/"+dataCenter.id.toString
-    	  DataRecord(None, Some("Repository"), Repository(resourceID, resourceHeader, accessURL))
-    	}
+    val records = getTreeObjects flatMap { _.dataCenter map { dataCenter => 
+        val contact = Contact(getMetaData.id.toString, Seq(ArchiveSpecialist))
+        val resourceHeader = ResourceHeader(dataCenter.id.toString, Nil, TimeProvider.getISONow, 
+           None, dataCenter.name, None, Seq(contact))
+        val accessURL = AccessURL(None , getMetaData.info)
+        // resource name is the "real" id for the proprietary data model of AMDA and CLWeb
+        // this will be mapped all the time when calling web services.
+        //val resourceID = getMetaData.id.toString+"/"+dataCenter.id.toString
+        // @TODO atm we do not need this => has only one datacenter
+        val resourceID = getMetaData.id.toString
+        DataRecord(None, Some("Repository"), Repository(resourceID, resourceHeader, accessURL))
       }
     }
     Spase(Number2u462u462, records, "en")
   }
   
-  protected def getObservatory(id: Option[String]): Spase = ???
+  //@TODO finalise this and continue ONLY with sim-stuff
+  protected def getObservatory(id: Option[String]) = {
+    val records = getTreeObjects flatMap { _.dataCenter map { 
+        _.datacenteroption.filter(_.key.get == "mission").map(_.as[Mission])   
+      }
+    }
+    val missions = id match {
+      case Some(id) => records.flatten.filter(_.id == id)
+      case None => records.flatten
+    }
+    missions map { mission => 
+      val contact = Contact(getMetaData.id.toString, Seq(ArchiveSpecialist))
+      val informationURL = InformationURL(None, getMetaData.info)
+      val resourceHeader = ResourceHeader(mission.name, Nil, TimeProvider.getISONow, 
+           None, mission.desc, None, Seq(contact))
+      val resourceID = getMetaData.id.toString+"/"+mission.id.toString
+      
+      
+    }
+
+  }
   
   protected def getInstrument(id: Option[String]): Spase = ???
   

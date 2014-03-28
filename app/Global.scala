@@ -10,6 +10,7 @@ import scala.xml._
 import akka.actor._
 import akka.util.Timeout
 import java.net.URI
+import java.io._
 
 object Global extends GlobalSettings {
   override def onStart(app: play.api.Application) {
@@ -57,19 +58,22 @@ object Global extends GlobalSettings {
   private def fetchAndSaveFiles(URLs: Seq[URI], folder: String, db: Database): Seq[NodeSeq] = { 
     URLs map {
       URL => 
-        // @FIXME just for testing (without update)
-//        val promise = WS.url(URL.toString).get()
-//        try {
-//          val result = Await.result(promise, 1.minute).xml
-//          scala.xml.XML.save(
-//            PathProvider.getPath(folder, db.name, URL.toString), result, "UTF-8")
-//          result
-//        } catch {
-//          case e: TimeoutException => {
-//            println("timeout: fallback on local file at "+db.name)
-            scala.xml.XML.load(PathProvider.getPath(folder, db.name, URL.toString))
-//          }
-//        }
+        val fileName = PathProvider.getPath(folder, db.name, URL.toString)
+        val fileDir = new File(folder+"/"+db.name)
+        if(!fileDir.exists) fileDir.mkdir()
+        val file = new File(fileName)
+        if(!file.exists) file.createNewFile()
+        val promise = WS.url(URL.toString).get()
+        //try {
+        //  val result = Await.result(promise, 1.minute).xml
+        //  scala.xml.XML.save(fileName, result, "UTF-8")
+        //  result
+        //} catch {
+        //  case e: TimeoutException => {
+        //    println("timeout: fallback on local file at "+db.name)
+            scala.xml.XML.load(fileName)
+        //  }
+        //}
     }
   }
 

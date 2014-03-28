@@ -21,7 +21,7 @@ extends Actor with DataProvider[Spase] {
     case GetTrees(None) => sender ! getTreeObjects
     case GetMethods => sender ! getMethodsXML
     case GetRepository => sender ! getRepository
-    case GetSimElement(sType, id) => sType match {
+    case GetElement(dType, id) => dType match {
       case SimulationModel => sender ! getSimulationModel(id)
       case SimulationRun => sender ! getSimulationRun(id)
       case NumericalOutput => sender ! getNumericalOutput(id)
@@ -51,7 +51,7 @@ extends Actor with DataProvider[Spase] {
 
   protected def getRepository: Spase = {
     val records = getTreeObjects flatMap { 
-      tree => tree.ResourceEntity.filter(c => c.key.get == "Repository") map {
+      _.ResourceEntity.filter(_.key.get == "Repository") map {
         // @TODO still we have to do it like this, why?
         repo => DataRecord(None, Some("Repository"), scalaxb.fromXML[Repository](repo.as[NodeSeq]))
       }
@@ -62,12 +62,12 @@ extends Actor with DataProvider[Spase] {
   // @TODO getSimulationElement with type classes
   protected def getSimulationModel(id: Option[String]): Spase = {
     val records = getTreeObjects flatMap {
-      tree => tree.ResourceEntity.filter(c => c.key.get == "SimulationModel") map {
-        model => model.as[SimulationModelType]
+      _.ResourceEntity.filter(_.key.get == "SimulationModel") map {
+        _.as[SimulationModelType]
       }
     }
     val models = id match {
-      case Some(id) => records.filter(m => m.ResourceID == id)
+      case Some(id) => records.filter(_.ResourceID == id)
       case None => records
     }
     Spase(Number2u462u462, models.map(m => DataRecord(None, Some("SimulationModel"), m)), "en")
@@ -75,13 +75,13 @@ extends Actor with DataProvider[Spase] {
   
   protected def getSimulationRun(id: Option[String]): Spase = {
     val records = getTreeObjects flatMap {
-      tree => tree.ResourceEntity.filter(c => c.key.get == "SimulationRun") map {
+      _.ResourceEntity.filter(_.key.get == "SimulationRun") map {
         // @TODO still doesn't work the correct way
         run => scalaxb.fromXML[SimulationRun](run.as[NodeSeq])
       }
     }
     val runs = id match {
-      case Some(id) => records.filter(r => r.ResourceID == id)
+      case Some(id) => records.filter(_.ResourceID == id)
       case None => records
     }
     Spase(Number2u462u462, runs.map(r => DataRecord(None, Some("SimulationRun"), r)), "en")
@@ -89,15 +89,12 @@ extends Actor with DataProvider[Spase] {
   
   protected def getNumericalOutput(id: Option[String]): Spase = {
     val records = getTreeObjects flatMap {
-      tree => tree.ResourceEntity.filter(c => c.key.get == "NumericalOutput") map {
-        output => {
-          println("output: "+output)
-          output.as[NumericalOutput]
-        }
+      _.ResourceEntity.filter(_.key.get == "NumericalOutput") map {
+        _.as[NumericalOutput]
       }
     }
     val outputs = id match {
-      case Some(id) => records.filter(r => r.ResourceID == id)
+      case Some(id) => records.filter(_.ResourceID == id)
       case None => records
     }
     Spase(Number2u462u462, outputs.map(r => DataRecord(None, Some("NumericalOutput"), r)), "en")
@@ -105,7 +102,7 @@ extends Actor with DataProvider[Spase] {
   
   protected def getGranule(id: Option[String]): Spase = {
     val records = getTreeObjects flatMap {
-      tree => tree.ResourceEntity.filter(c => c.key.get == "Granule") map {
+      _.ResourceEntity.filter(_.key.get == "Granule") map {
         granule => {
           // @TODO still doesn't work the correct way
           scalaxb.fromXML[Granule](granule.as[NodeSeq])
@@ -113,7 +110,7 @@ extends Actor with DataProvider[Spase] {
       }
     }
     val granules = id match {
-      case Some(id) => records.filter(r => r.ResourceID == id)
+      case Some(id) => records.filter(_.ResourceID == id)
       case None => records
     }
     Spase(Number2u462u462, granules.map(r => DataRecord(None, Some("Granule"), r)), "en")

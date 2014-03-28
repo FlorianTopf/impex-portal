@@ -40,22 +40,22 @@ class ConfigService extends Actor {
   private def getConfigJSON: JsValue = Json.toJson(getConfig)
 
   private def getDatabases: Seq[Database] = {
-    val databases = getConfig.impexconfigurationoption.filter(c => c.key.get == "database")
-    databases map (d => d.as[Database])
+    val databases = getConfig.impexconfigurationoption.filter(_.key.get == "database")
+    databases map (_.as[Database])
   }
 
   private def getTools: Seq[Tool] = {
-    val databases = getConfig.impexconfigurationoption.filter(c => c.key.get == "tool")
-    databases map (d => (d.as[Tool]))
+    val databases = getConfig.impexconfigurationoption.filter(_.key.get == "tool")
+    databases map (_.as[Tool])
   }
 
   private def getDatabaseType(dType: Databasetype): Seq[Database] = {
-    getDatabases.filter(d => d.typeValue == dType)
+    getDatabases.filter(_.typeValue == dType)
   }
 
   // @FIXME return an option type
   private def getDatabaseByName(name: String): Database = {
-    getDatabases.find(p => p.name == name).get
+    getDatabases.find(_.name == name).get
   }
   
   // @FIXME return an option type
@@ -64,7 +64,7 @@ class ConfigService extends Actor {
   }
 
   private def getTool(name: String): Tool = {
-    getTools.find(p => p.name == name).get
+    getTools.find(_.name == name).get
   }
 
 }

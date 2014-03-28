@@ -4,7 +4,7 @@ import java.net.URI
 
 object UrlProvider {
   def getUrls(protocol: String, dns: String, paths: Seq[String]): Seq[URI] = {
-    paths map { path =>
+    paths.filter(!_.isEmpty) map { path =>
       new URI(protocol+"://"+dns+path)
     }
   }

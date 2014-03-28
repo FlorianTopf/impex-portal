@@ -9,6 +9,10 @@ import scala.xml._
 import scala.collection.mutable.ListBuffer
 import views.html._
 import models.enums._
+import akka.actor._
+import akka.pattern.ask
+import play.libs.Akka
+
 
 object Application extends Controller {
   import models.actor.ConfigService._
@@ -45,8 +49,7 @@ object Application extends Controller {
   def repository = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getRepository(req.get("id"))
-    future.map { repository => 
-      repository match {
+    future.map { _ match {
         case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
         case Right(error) => BadRequest(Json.toJson(error))
       }
@@ -57,8 +60,7 @@ object Application extends Controller {
   def simulationmodel = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getSimulationModel(req.get("id"), req.get("repository"))
-    future.map { model => 
-      model match {
+    future.map { _ match {
         case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
         case Right(error) => BadRequest(Json.toJson(error))
       }
@@ -69,8 +71,7 @@ object Application extends Controller {
   def simulationrun = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getSimulationRun(req.get("id"), req.get("simulationmodel"))
-    future.map { run => 
-      run match {
+    future.map { _ match {
         case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
         case Right(error) => BadRequest(Json.toJson(error))
       }
@@ -81,8 +82,7 @@ object Application extends Controller {
   def numericaloutput = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getNumericalOutput(req.get("id"), req.get("simulationrun"))
-    future.map { run => 
-      run match {
+    future.map { _ match {
         case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
         case Right(error) => BadRequest(Json.toJson(error))
       }
@@ -93,12 +93,22 @@ object Application extends Controller {
   def granule = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getGranule(req.get("id"), req.get("numericaloutput"))
-    future.map { run => 
-      run match {
+    future.map { _ match {
         case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
         case Right(error) => BadRequest(Json.toJson(error))
       }
     }
+  }
+  
+  def observatory = Action.async { implicit request => 
+    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
+    import models.actor.DataProvider._
+    val actor = Akka.system.actorSelection("user/registry/AMDA")
+    val result = (actor ? GetElement(Observatory, req.get("id"))).mapTo[Seq[Mission]]
+    result map { response => 
+      Ok(response(0).id)
+    }
+    
   }
   
   // route for testing

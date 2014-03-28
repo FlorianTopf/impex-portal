@@ -1,8 +1,8 @@
-<?xml version="1.0"?>
-<impexconfiguration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
- xsi:schemaLocation="http://www.impex.org/2012/configuration.xsd http://impex-fp7.oeaw.ac.at/xsd/configuration-1_0_0.xsd"
- xmlns="http://www.impex.org/2012/configuration.xsd">
-  <database type="simulation" id="impex://FMI">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- IMPEx configuration file -->
+<!-- updated 2014-3-28T10:34:00 UTC-->
+<impexconfiguration xsi:schemaLocation="http://www.impex.org/2012/configuration.xsd http://impex-fp7.oeaw.ac.at/xsd/configuration-1_0_0.xsd" xmlns="http://www.impex.org/2012/configuration.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <database id="impex://FMI" type="simulation">
     <name>FMI</name>
     <description>FMI Hybrid and MHD web archive</description>
     <dns>impex-fp7.fmi.fi</dns>
@@ -12,7 +12,7 @@
     <protocol>http</protocol>
     <info>http://hwa.fmi.fi/beta/login.php</info>
   </database>
-  <database type="simulation" id="impex://LATMOS">
+  <database id="impex://LATMOS" type="simulation">
     <name>LATMOS</name>
     <description>LATMOS Hybrid simulations</description>
     <dns>impex.latmos.ipsl.fr</dns>
@@ -21,26 +21,53 @@
     <protocol>http</protocol>
     <info>http://impex.latmos.ipsl.fr/LatHyS.htm</info>
   </database>
-  <database type="simulation" id="impex://SINP/PMM">
+  <database id="impex://SINP/PMM" type="simulation">
     <name>SINP</name>
     <description>SINP Paraboloid Model simulations</description>
-    <dns>dec1.sinp.msu.ru</dns>
-    <methods>/~lucymu/paraboloid/SINP_methods.wsdl</methods>
-    <tree>/~lucymu/paraboloid/SINP_tree.xml</tree>
+    <dns>smdc.sinp.msu.ru</dns>
+    <methods>/impex/SINP_methods.wsdl</methods>
+    <tree>/impex/SINP_tree.xml</tree>
     <protocol>http</protocol>
     <info>http://smdc.sinp.msu.ru/index.py?nav=model-para</info>
   </database>
-  <database type="observation" id="impex://AMDA">
+  <database id="impex://CCMC" type="simulation">
+    <name>CCMC</name>
+    <description>CCMC simulations</description>
+    <dns>apus.cesr.fr</dns>
+    <methods/>
+    <tree>/AMDA-IMPEX/public/trees/Tree_CCMC.xml</tree>
+    <protocol>http</protocol>
+    <info>http://ccmc.gsfc.nasa.gov/</info>
+  </database>
+  <database id="impex://UCLA" type="simulation">
+    <name>UCLA</name>
+    <description>UCLA simulations</description>
+    <dns>apus.cesr.fr</dns>
+    <methods/>
+    <tree>/AMDA-IMPEX/public/trees/Tree_UCLA.xml</tree>
+    <protocol>http</protocol>
+    <info/>
+  </database>
+  <!-- database id="impex://LESIA" type="simulation">
+    <name>LESIA</name>
+    <description>LESIA simulations</description>
+    <dns>typhon.obspm.fr</dns>
+    <methods>/maser/IMPExWS/Methods_LESIA-Mag.wsdl</methods>
+    <tree>/maser/IMPExWS/tree_Mag.xml</tree>
+    <protocol>http</protocol>
+    <info/>
+  </database-->
+  <database id="impex://AMDA" type="observation">
     <name>AMDA</name>
     <description>AMDA observational database</description>
     <dns>cdpp1.cesr.fr</dns>
     <methods>/AMDA/php/AMDA_METHODS_WSDL.php?wsdl</methods>
     <tree>/AMDA/data/WSRESULT/getObsDataTree_LocalParams.xml</tree>
-    <!--  tree>/AMDA/data/WSRESULT/getObsDataTree_RemoteParams.xml</tree -->
+    <!-- tree>/AMDA/data/WSRESULT/getObsDataTree_RemoteParams.xml</tree-->
     <protocol>http</protocol>
     <info>http://clweb.cesr.fr/webservice.html</info>
   </database>
-  <database type="observation" id="impex://CLWEB">
+  <database id="impex://CLWEB" type="observation">
     <name>CLWeb</name>
     <description>CLWeb observational databases</description>
     <dns>clweb.cesr.fr</dns>
@@ -67,4 +94,4 @@
     <dns>http://3dview.cdpp.eu/</dns>
     <info>http://3dview.cesr.fr/other/cdpp3dview_tutorial.pdf</info>
   </tool>
-</impexconfiguration>    
+</impexconfiguration> 

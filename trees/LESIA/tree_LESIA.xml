@@ -1,0 +1,84 @@
+<Spase>
+<Repository>
+<ResourceID>SILFE://LESIA/MASER</ResourceID>
+<ResourceHeader>
+<ResourceName>LESIA MASER</ResourceName>
+<ReleaseDate>2013-11-06T13:20:32.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LESIA</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessURL>
+<URL>http://typhon.obspm.fr/maser</URL>
+</AccessURL>
+</Repository>
+<SimulationModel>
+<ResourceID>impex://LESIA/MAG/Jupiter</ResourceID>
+<ResourceHeader>
+<ResourceName>Magnetic field models</ResourceName>
+<ReleaseDate>2013-06-12T00:00:00.000</ReleaseDate>
+<Description>
+</Description>            
+<Contact>
+<PersonID>LESIA</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+<InformationURL>
+<URL>http://typhon.obspm.fr/maser</URL>
+</InformationURL>
+</ResourceHeader>
+<SimulationType>Analytic</SimulationType>
+<CodeLanguage>PHP</CodeLanguage>
+<SimulatedRegion>Jupiter</SimulatedRegion>
+<InputProperties>
+<Property>
+<Name>InternalField</Name>
+<Description>Model of the internal magnetic field of Jupiter. Mandatory: No default value</Description>
+<PropertyQuantity>Magnetic</PropertyQuantity>
+<PropertyValue>O6 VIP4 VIT4 VIPAL</PropertyValue>
+</Property>
+<Property>
+<Name>CurrentSheet</Name>
+<Description>Model of the Jovian magnetopshere current sheet contribution to the total magnetic field. Default is none.</Description>
+<PropertyQuantity>Magnetic</PropertyQuantity>
+<PropertyValue>None Connerney Khurana</PropertyValue>
+</Property>
+<Property>
+<Name>IMF</Name>
+<Description>Interplanetary Magnetic Field vector, each of the three component must be given in nT in the JSO coordinate system. Default value is 0,0,0</Description>
+<PropertyQuantity>Magnetic</PropertyQuantity>
+<Units>nT</Units>
+<UnitsConversion>1e-9 &gt; T</UnitsConversion>
+</Property>
+<Property>
+<Name>CoordinateSystem</Name>
+<Description>Coordinate system in which the vectors and positions will be sent back, and in which the positions must be given when needed. Note: PlanetaryCartesian and PlanetarySpherical are right-handed coordinate systems, whereas Planetographic is left-handed (e.g. SystemIII).</Description>
+<PropertyQuantity>Positional</PropertyQuantity>
+<PropertyValue>PlanetaryCartesian PlanetarySpherical Planetographic JSO JSM JSS</PropertyValue>
+</Property>
+</InputProperties>
+<OutputParameters>
+<Parameter>
+<Name>Magnetic field</Name>
+<ParameterKey>Bx,By,Bz</ParameterKey>
+<Description>Vector magnetic field. Note that for spherical coordinate system, labal do not change but Bx stands for the radial component, By for the  co-latitudinal one and Bz for the longitudinal one.</Description>
+<Units>nT</Units>
+<UnitsConversion>1e-9 &gt; T</UnitsConversion>
+<Field>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+<Parameter>
+<Name>Magnetic field</Name>
+<ParameterKey>Btot</ParameterKey>
+<Units>nT</Units>
+<UnitsConversion>1e-9 &gt; T</UnitsConversion>
+<Field>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+</OutputParameters>
+</SimulationModel>
+</Spase>

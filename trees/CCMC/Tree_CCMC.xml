@@ -1,0 +1,2321 @@
+<Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_0.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<Version>2.2.2</Version>
+	<SimulationModel>
+	<ResourceID>impex://CCMC/BATSRUS/</ResourceID>
+	<ResourceHeader>
+		<ResourceName>MHD_CCMC</ResourceName>
+		<ReleaseDate>2000-01-01T00:00:00.000</ReleaseDate>
+		<Description>
+		       BATSRUS with RCM v8.01
+		</Description>
+		<Contact>
+			<PersonID>CCMC</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+		<InformationURL>
+			<URL>http://ccmc.gsfc.nasa.gov/models/modelinfo.php?model=BATS-R-US</URL>
+		</InformationURL>
+	</ResourceHeader>
+	<Versions>
+		<ModelVersion>
+			<VersionID>8.01</VersionID>
+			<ReleaseDate>2000-01-01T00:00:00.000</ReleaseDate>
+			<Description>First public release</Description>
+		</ModelVersion>
+	</Versions>
+	<SimulationType>MHD</SimulationType>
+	<CodeLanguage>Fortran90</CodeLanguage>
+</SimulationModel>
+<Repository>
+	<ResourceID>impex://CCMC</ResourceID>
+	<ResourceHeader>
+		<ResourceName>CCMC_Simulation_Database</ResourceName>
+		<ReleaseDate>2000-01-01T00:00:00</ReleaseDate>
+		<Description>CCMC simulation database</Description>
+		<Contact>
+			<PersonID>CCMC</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessURL>
+		<URL>http://ccmc.gsfc.nasa.gov/requests/GM/user_registration.php</URL>
+	</AccessURL>
+</Repository>
+<SimulationRun>
+	<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</ResourceID>
+	<ResourceHeader>
+		<ResourceName>Vincent_Genot_012610_1</ResourceName>
+		<ReleaseDate>2010-01-26T00:00:00</ReleaseDate>
+		<Description>
+			A BATSRUS run
+			Solar Wind input data (time series plot) : http://ccmc.gsfc.nasa.gov/RoR_WWW/GM/SWMF/2010/Vincent_Genot_012610_1/Vincent_Genot_012610_1_sw.gif
+			Format description for the input file : http://ccmc.gsfc.nasa.gov/requests/SW_Input_Format.php
+		</Description>
+		<Contact>
+			<PersonID>CCMC</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://CCMC</RepositoryID>
+		<AccessURL>
+			<URL>http://ccmc.gsfc.nasa.gov/results/viewrun.php?domain=GM&amp;runnumber=Vincent_Genot_012610_1</URL>
+		</AccessURL>
+		<Format>HTML</Format>
+	</AccessInformation>
+	<Model>
+		<ModelID>impex://CCMC/BATSRUS/</ModelID>
+		<VersionID>BATSRUS</VersionID>
+	</Model>
+	<TemporalDependence>Yes</TemporalDependence>
+	<SimulatedRegion>Earth</SimulatedRegion>
+	<LikelihoodRating>Strong</LikelihoodRating>
+	<SimulationTime>
+		<Duration>P1D</Duration>
+		<TimeStart>04:00:00</TimeStart>
+		<TimeStep>PT300S</TimeStep>
+		<DiagnosisTimeStep Duration="PT300S" TimeStart="04:00:00"/>
+	</SimulationTime>
+	<SimulationDomain>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>GSM</CoordinateSystemName>
+		</CoordinateSystem>
+		<SpatialDimension>3</SpatialDimension>
+		<VelocityDimension>3</VelocityDimension>
+		<FieldDimension>3</FieldDimension>
+		<Units>R_E</Units>
+		<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+		<CoordinatesLabel>X Y Z</CoordinatesLabel>
+		<ValidMin>-255 -48 -48</ValidMin>
+		<ValidMax>33 48 48</ValidMax>
+		<GridStructure>constant</GridStructure>
+		<Symmetry>None</Symmetry>
+	</SimulationDomain>
+	<RegionParameter>
+		<SimulatedRegion>Earth</SimulatedRegion>
+		<Radius Units="m">6371200</Radius>
+		<Property>
+			<Name>Inner boundary altitude from the center of the Earth</Name>
+			<Description>No resulting quantities are computed below this altitude</Description>
+			<PropertyQuantity>Other</PropertyQuantity>
+			<Units>R_E</Units>
+			<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+			<PropertyValue>3</PropertyValue>
+		</Property>
+	</RegionParameter>
+	<InputField>
+		<Name>IMF</Name>
+		<Description>Interplanetary Magnetic Field</Description>
+		<SimulatedRegion>Heliosphere</SimulatedRegion>
+		<Qualifier>Vector</Qualifier>
+		<FieldQuantity>Magnetic</FieldQuantity>
+		<Units>nT</Units>
+		<InputLabel>Bx By Bz</InputLabel>
+		<InputTableURL>http://ccmc.gsfc.nasa.gov/RoR_WWW/GM/SWMF/2010/Vincent_Genot_012610_1/Vincent_Genot_012610_1_IMF.txt</InputTableURL>
+		<ValidMin>-100 -100 -100</ValidMin>
+		<ValidMax>100 100 100</ValidMax>
+	</InputField>
+	<InputPopulation>
+		<Name>solarwind_H+</Name>
+		<Description>H+ ions in solar wind</Description>
+		<SimulatedRegion>Heliosphere</SimulatedRegion>
+		<ParticleType>Proton</ParticleType>
+		<ChemicalFormula>H</ChemicalFormula>
+		<AtomicNumber>1</AtomicNumber>
+		<PopulationMassNumber>1.00728</PopulationMassNumber>
+		<PopulationChargeState>1</PopulationChargeState>
+		<InputTableURL>http://ccmc.gsfc.nasa.gov/RoR_WWW/GM/SWMF/2010/Vincent_Genot_012610_1/Vincent_Genot_012610_1_IMF.txt</InputTableURL>
+	</InputPopulation>
+	<InputParameter>
+		<Name>SolarFlux</Name>
+		<ParameterQuantity>ActivityIndex</ParameterQuantity>
+		<Property>
+			<Name>Solar UV Flux @ 10.7</Name>
+			<PropertyQuantity>SolarUVFlux</PropertyQuantity>
+			<Units>1E-22 Wm^-2Hz^-1</Units>
+			<PropertyValue>66</PropertyValue>
+		</Property>
+	</InputParameter>
+	<InputParameter>
+		<Name>Derived Parameters</Name>
+		<ParameterQuantity>Other</ParameterQuantity>
+		<Property>
+			<Name>Tilt angle on the xz plane</Name>
+			<Description>Tilt angle of the Earthâs magnetic dipole in the GSE XZ plane. Positive when the Northern hemisphere points toward the Sun. Value at Time Start. Varies with time.</Description>
+			<PropertyQuantity>Other</PropertyQuantity>
+			<Units>degree</Units>
+			<PropertyValue>-15.7</PropertyValue>
+		</Property>
+		<Property>
+			<Name>Tilt angle on the yz plane</Name>
+			<Description>Tilt angle of the Earthâs magnetic dipole in the GSE YZ plane. The angle increases clockwise when viewed from the Sun.</Description>
+			<PropertyQuantity>Other</PropertyQuantity>
+			<Units>degree</Units>
+			<PropertyValue>-21.5</PropertyValue>
+		</Property>
+	</InputParameter>
+</SimulationRun>
+<NumericalOutput>
+		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-1/GSM</ResourceID>
+		<ResourceHeader>
+			<ResourceName>CCMC/BATSRUS along CLUSTER-1 trajectory in GSM </ResourceName>
+			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
+			<Description>BATSRUS event run from CCMC interpolated along CLUSTER-1 trajectory in GSM </Description>
+			<Contact>
+				<PersonID>Vincent GÃ©not</PersonID>
+				<Role>DataProducer</Role>
+			</Contact>
+		</ResourceHeader>
+		<AccessInformation>
+			<RepositoryID>impex://CCMC</RepositoryID>
+			<AccessURL>
+				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Cluster-1/GSM_extract.txt</URL>
+			</AccessURL>
+			<Format>VOTable</Format>
+		</AccessInformation>
+	    <MeasurementType>MagneticField</MeasurementType>
+		<MeasurementType>ThermalPlasma</MeasurementType>
+		<MeasurementType>Ephemeris</MeasurementType>
+		<TemporalDescription>
+			<TimeSpan>
+				<StartDate>2008-10-02T04:00:00.000</StartDate>
+				<StopDate>2008-10-03T04:00:00.000</StopDate>
+			</TimeSpan>
+		</TemporalDescription>
+		<SimulatedRegion>Earth</SimulatedRegion>
+		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<Parameter>
+			<Name>Position</Name>
+			<ParameterKey>X,Y,Z</ParameterKey>
+			<Units>R_E</Units>
+			<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Support>
+				<SupportQuantity>Positional</SupportQuantity>
+			</Support>
+		</Parameter>
+		<Parameter>
+			<Name>Density</Name>
+			<ParameterKey>rho</ParameterKey>
+			<Units>cm^-3</Units>
+			<UnitsConversion> 1.E6 &gt; m^-3</UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>NumberDensity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Velocity</Name>
+			<ParameterKey>Ux,Uy,Uz</ParameterKey>
+			<Units>km/s</Units>
+			<UnitsConversion> 1.E3 &gt; m/s</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<Qualifier>Vector</Qualifier>
+				<ParticleQuantity>FlowVelocity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>MagneticField</Name>
+			<ParameterKey>Bx,By,Bz</ParameterKey>
+			<Units>nT</Units>
+			<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Magnetic</FieldQuantity>
+			</Field>
+		</Parameter>
+		<Parameter>
+			<Name>Pressure</Name>
+			<ParameterKey>p</ParameterKey>
+			<Units>nPa</Units>
+			<UnitsConversion> 1.E-9 &gt; Pa </UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>Pressure</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Current</Name>
+			<ParameterKey>jx,jy,jz</ParameterKey>
+			<Units>muA/m^2</Units>
+			<UnitsConversion> 1.E-6 &gt; A/m^2 </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Current</FieldQuantity>
+			</Field>
+		</Parameter>
+		<SimulationProduct>TimeSeries</SimulationProduct>
+		<Property>
+			<Name>Spacecraft</Name>
+			<PropertyQuantity>Platform</PropertyQuantity>
+			<PropertyValue>CLUSTER1</PropertyValue>
+		</Property>
+</NumericalOutput>
+<NumericalOutput>
+		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-1/GSE</ResourceID>
+		<ResourceHeader>
+			<ResourceName>CCMC/BATSRUS along CLUSTER-1 trajectory in GSE </ResourceName>
+			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
+			<Description>BATSRUS event run from CCMC interpolated along CLUSTER-1 trajectory in GSE </Description>
+			<Contact>
+				<PersonID>Vincent GÃ©not</PersonID>
+				<Role>DataProducer</Role>
+			</Contact>
+		</ResourceHeader>
+		<AccessInformation>
+			<RepositoryID>impex://CCMC</RepositoryID>
+			<AccessURL>
+				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Cluster-1/GSE_extract.txt</URL>
+			</AccessURL>
+			<Format>VOTable</Format>
+		</AccessInformation>
+		<MeasurementType>MagneticField</MeasurementType>
+		<MeasurementType>ThermalPlasma</MeasurementType>
+		<MeasurementType>Ephemeris</MeasurementType>
+		<TemporalDescription>
+			<TimeSpan>
+				<StartDate>2008-10-02T04:00:00.000</StartDate>
+				<StopDate>2008-10-03T04:00:00.000</StopDate>
+			</TimeSpan>
+		</TemporalDescription>
+		<SimulatedRegion>Earth</SimulatedRegion>
+		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<Parameter>
+			<Name>Position</Name>
+			<ParameterKey>X,Y,Z</ParameterKey>
+			<Units>R_E</Units>
+			<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Support>
+				<SupportQuantity>Positional</SupportQuantity>
+			</Support>
+		</Parameter>
+		<Parameter>
+			<Name>Density</Name>
+			<ParameterKey>rho</ParameterKey>
+			<Units>cm^-3</Units>
+			<UnitsConversion> 1.E6 &gt; m^-3</UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>NumberDensity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Velocity</Name>
+			<ParameterKey>Ux,Uy,Uz</ParameterKey>
+			<Units>km/s</Units>
+			<UnitsConversion> 1.E3 &gt; m/s</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<Qualifier>Vector</Qualifier>
+				<ParticleQuantity>FlowVelocity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>MagneticField</Name>
+			<ParameterKey>Bx,By,Bz</ParameterKey>
+			<Units>nT</Units>
+			<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Magnetic</FieldQuantity>
+			</Field>
+		</Parameter>
+		<Parameter>
+			<Name>Pressure</Name>
+			<ParameterKey>p</ParameterKey>
+			<Units>nPa</Units>
+			<UnitsConversion> 1.E-9 &gt; Pa </UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>Pressure</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Current</Name>
+			<ParameterKey>jx,jy,jz</ParameterKey>
+			<Units>muA/m^2</Units>
+			<UnitsConversion> 1.E-6 &gt; A/m^2 </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Current</FieldQuantity>
+			</Field>
+		</Parameter>
+		<SimulationProduct>TimeSeries</SimulationProduct>
+		<Property>
+			<Name>Spacecraft</Name>
+			<PropertyQuantity>Platform</PropertyQuantity>
+			<PropertyValue>CLUSTER1</PropertyValue>
+		</Property>
+</NumericalOutput>
+<NumericalOutput>
+		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-1/SM</ResourceID>
+		<ResourceHeader>
+			<ResourceName>CCMC/BATSRUS along CLUSTER-1 trajectory in SM </ResourceName>
+			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
+			<Description>BATSRUS event run from CCMC interpolated along CLUSTER-1 trajectory in SM </Description>
+			<Contact>
+				<PersonID>Vincent GÃ©not</PersonID>
+				<Role>DataProducer</Role>
+			</Contact>
+		</ResourceHeader>
+		<AccessInformation>
+			<RepositoryID>impex://CCMC</RepositoryID>
+			<AccessURL>
+				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Cluster-1/SM_extract.txt</URL>
+			</AccessURL>
+			<Format>VOTable</Format>
+		</AccessInformation>
+		<MeasurementType>MagneticField</MeasurementType>
+		<MeasurementType>ThermalPlasma</MeasurementType>
+		<MeasurementType>Ephemeris</MeasurementType>
+		<TemporalDescription>
+			<TimeSpan>
+				<StartDate>2008-10-02T04:00:00.000</StartDate>
+				<StopDate>2008-10-03T04:00:00.000</StopDate>
+			</TimeSpan>
+		</TemporalDescription>
+		<SimulatedRegion>Earth</SimulatedRegion>
+		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<Parameter>
+			<Name>Position</Name>
+			<ParameterKey>X,Y,Z</ParameterKey>
+			<Units>R_E</Units>
+			<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Support>
+				<SupportQuantity>Positional</SupportQuantity>
+			</Support>
+		</Parameter>
+		<Parameter>
+			<Name>Density</Name>
+			<ParameterKey>rho</ParameterKey>
+			<Units>cm^-3</Units>
+			<UnitsConversion> 1.E6 &gt; m^-3</UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>NumberDensity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Velocity</Name>
+			<ParameterKey>Ux,Uy,Uz</ParameterKey>
+			<Units>km/s</Units>
+			<UnitsConversion> 1.E3 &gt; m/s</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<Qualifier>Vector</Qualifier>
+				<ParticleQuantity>FlowVelocity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>MagneticField</Name>
+			<ParameterKey>Bx,By,Bz</ParameterKey>
+			<Units>nT</Units>
+			<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Magnetic</FieldQuantity>
+			</Field>
+		</Parameter>
+		<Parameter>
+			<Name>Pressure</Name>
+			<ParameterKey>p</ParameterKey>
+			<Units>nPa</Units>
+			<UnitsConversion> 1.E-9 &gt; Pa </UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>Pressure</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Current</Name>
+			<ParameterKey>jx,jy,jz</ParameterKey>
+			<Units>muA/m^2</Units>
+			<UnitsConversion> 1.E-6 &gt; A/m^2 </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Current</FieldQuantity>
+			</Field>
+		</Parameter>
+		<SimulationProduct>TimeSeries</SimulationProduct>
+		<Property>
+			<Name>Spacecraft</Name>
+			<PropertyQuantity>Platform</PropertyQuantity>
+			<PropertyValue>CLUSTER1</PropertyValue>
+		</Property>
+</NumericalOutput>
+<NumericalOutput>
+		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-2/GSM</ResourceID>
+		<ResourceHeader>
+			<ResourceName>CCMC/BATSRUS along CLUSTER-2 trajectory in GSM </ResourceName>
+			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
+			<Description>BATSRUS event run from CCMC interpolated along CLUSTER-2 trajectory in GSM </Description>
+			<Contact>
+				<PersonID>Vincent GÃ©not</PersonID>
+				<Role>DataProducer</Role>
+			</Contact>
+		</ResourceHeader>
+		<AccessInformation>
+			<RepositoryID>impex://CCMC</RepositoryID>
+			<AccessURL>
+				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Cluster-2/GSM_extract.txt</URL>
+			</AccessURL>
+			<Format>VOTable</Format>
+		</AccessInformation>
+	    <MeasurementType>MagneticField</MeasurementType>
+		<MeasurementType>ThermalPlasma</MeasurementType>
+		<MeasurementType>Ephemeris</MeasurementType>
+		<TemporalDescription>
+			<TimeSpan>
+				<StartDate>2008-10-02T04:00:00.000</StartDate>
+				<StopDate>2008-10-03T04:00:00.000</StopDate>
+			</TimeSpan>
+		</TemporalDescription>
+		<SimulatedRegion>Earth</SimulatedRegion>
+		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<Parameter>
+			<Name>Position</Name>
+			<ParameterKey>X,Y,Z</ParameterKey>
+			<Units>R_E</Units>
+			<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Support>
+				<SupportQuantity>Positional</SupportQuantity>
+			</Support>
+		</Parameter>
+		<Parameter>
+			<Name>Density</Name>
+			<ParameterKey>rho</ParameterKey>
+			<Units>cm^-3</Units>
+			<UnitsConversion> 1.E6 &gt; m^-3</UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>NumberDensity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Velocity</Name>
+			<ParameterKey>Ux,Uy,Uz</ParameterKey>
+			<Units>km/s</Units>
+			<UnitsConversion> 1.E3 &gt; m/s</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<Qualifier>Vector</Qualifier>
+				<ParticleQuantity>FlowVelocity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>MagneticField</Name>
+			<ParameterKey>Bx,By,Bz</ParameterKey>
+			<Units>nT</Units>
+			<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Magnetic</FieldQuantity>
+			</Field>
+		</Parameter>
+		<Parameter>
+			<Name>Pressure</Name>
+			<ParameterKey>p</ParameterKey>
+			<Units>nPa</Units>
+			<UnitsConversion> 1.E-9 &gt; Pa </UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>Pressure</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Current</Name>
+			<ParameterKey>jx,jy,jz</ParameterKey>
+			<Units>muA/m^2</Units>
+			<UnitsConversion> 1.E-6 &gt; A/m^2 </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Current</FieldQuantity>
+			</Field>
+		</Parameter>
+		<SimulationProduct>TimeSeries</SimulationProduct>
+		<Property>
+			<Name>Spacecraft</Name>
+			<PropertyQuantity>Platform</PropertyQuantity>
+			<PropertyValue>CLUSTER2</PropertyValue>
+		</Property>
+</NumericalOutput>
+<NumericalOutput>
+		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-2/GSE</ResourceID>
+		<ResourceHeader>
+			<ResourceName>CCMC/BATSRUS along CLUSTER-2 trajectory in GSE </ResourceName>
+			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
+			<Description>BATSRUS event run from CCMC interpolated along CLUSTER-2 trajectory in GSE </Description>
+			<Contact>
+				<PersonID>Vincent GÃ©not</PersonID>
+				<Role>DataProducer</Role>
+			</Contact>
+		</ResourceHeader>
+		<AccessInformation>
+			<RepositoryID>impex://CCMC</RepositoryID>
+			<AccessURL>
+				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Cluster-2/GSE_extract.txt</URL>
+			</AccessURL>
+			<Format>VOTable</Format>
+		</AccessInformation>
+		<MeasurementType>MagneticField</MeasurementType>
+		<TemporalDescription>
+			<TimeSpan>
+				<StartDate>2008-10-02T04:00:00.000</StartDate>
+				<StopDate>2008-10-03T04:00:00.000</StopDate>
+			</TimeSpan>
+		</TemporalDescription>
+		<SimulatedRegion>Earth</SimulatedRegion>
+		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<Parameter>
+			<Name>Position</Name>
+			<ParameterKey>X,Y,Z</ParameterKey>
+			<Units>R_E</Units>
+			<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Support>
+				<SupportQuantity>Positional</SupportQuantity>
+			</Support>
+		</Parameter>
+		<Parameter>
+			<Name>Density</Name>
+			<ParameterKey>rho</ParameterKey>
+			<Units>cm^-3</Units>
+			<UnitsConversion> 1.E6 &gt; m^-3</UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>NumberDensity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Velocity</Name>
+			<ParameterKey>Ux,Uy,Uz</ParameterKey>
+			<Units>km/s</Units>
+			<UnitsConversion> 1.E3 &gt; m/s</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<Qualifier>Vector</Qualifier>
+				<ParticleQuantity>FlowVelocity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>MagneticField</Name>
+			<ParameterKey>Bx,By,Bz</ParameterKey>
+			<Units>nT</Units>
+			<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Magnetic</FieldQuantity>
+			</Field>
+		</Parameter>
+		<Parameter>
+			<Name>Pressure</Name>
+			<ParameterKey>p</ParameterKey>
+			<Units>nPa</Units>
+			<UnitsConversion> 1.E-9 &gt; Pa </UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>Pressure</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Current</Name>
+			<ParameterKey>jx,jy,jz</ParameterKey>
+			<Units>muA/m^2</Units>
+			<UnitsConversion> 1.E-6 &gt; A/m^2 </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Current</FieldQuantity>
+			</Field>
+		</Parameter>
+		<SimulationProduct>TimeSeries</SimulationProduct>
+		<Property>
+			<Name>Spacecraft</Name>
+			<PropertyQuantity>Platform</PropertyQuantity>
+			<PropertyValue>CLUSTER2</PropertyValue>
+		</Property>
+</NumericalOutput>
+<NumericalOutput>
+		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-2/SM</ResourceID>
+		<ResourceHeader>
+			<ResourceName>CCMC/BATSRUS along CLUSTER-2 trajectory in SM </ResourceName>
+			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
+			<Description>BATSRUS event run from CCMC interpolated along CLUSTER-2 trajectory in SM </Description>
+			<Contact>
+				<PersonID>Vincent GÃ©not</PersonID>
+				<Role>DataProducer</Role>
+			</Contact>
+		</ResourceHeader>
+		<AccessInformation>
+			<RepositoryID>impex://CCMC</RepositoryID>
+			<AccessURL>
+				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Cluster-2/SM_extract.txt</URL>
+			</AccessURL>
+			<Format>VOTable</Format>
+		</AccessInformation>
+		<MeasurementType>MagneticField</MeasurementType>
+		<MeasurementType>ThermalPlasma</MeasurementType>
+		<MeasurementType>Ephemeris</MeasurementType>
+		<TemporalDescription>
+			<TimeSpan>
+				<StartDate>2008-10-02T04:00:00.000</StartDate>
+				<StopDate>2008-10-03T04:00:00.000</StopDate>
+			</TimeSpan>
+		</TemporalDescription>
+		<SimulatedRegion>Earth</SimulatedRegion>
+		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<Parameter>
+			<Name>Position</Name>
+			<ParameterKey>X,Y,Z</ParameterKey>
+			<Units>R_E</Units>
+			<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Support>
+				<SupportQuantity>Positional</SupportQuantity>
+			</Support>
+		</Parameter>
+		<Parameter>
+			<Name>Density</Name>
+			<ParameterKey>rho</ParameterKey>
+			<Units>cm^-3</Units>
+			<UnitsConversion> 1.E6 &gt; m^-3</UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>NumberDensity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Velocity</Name>
+			<ParameterKey>Ux,Uy,Uz</ParameterKey>
+			<Units>km/s</Units>
+			<UnitsConversion> 1.E3 &gt; m/s</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<Qualifier>Vector</Qualifier>
+				<ParticleQuantity>FlowVelocity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>MagneticField</Name>
+			<ParameterKey>Bx,By,Bz</ParameterKey>
+			<Units>nT</Units>
+			<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Magnetic</FieldQuantity>
+			</Field>
+		</Parameter>
+		<Parameter>
+			<Name>Pressure</Name>
+			<ParameterKey>p</ParameterKey>
+			<Units>nPa</Units>
+			<UnitsConversion> 1.E-9 &gt; Pa </UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>Pressure</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Current</Name>
+			<ParameterKey>jx,jy,jz</ParameterKey>
+			<Units>muA/m^2</Units>
+			<UnitsConversion> 1.E-6 &gt; A/m^2 </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Current</FieldQuantity>
+			</Field>
+		</Parameter>
+		<SimulationProduct>TimeSeries</SimulationProduct>
+		<Property>
+			<Name>Spacecraft</Name>
+			<PropertyQuantity>Platform</PropertyQuantity>
+			<PropertyValue>CLUSTER2</PropertyValue>
+		</Property>
+</NumericalOutput>
+<NumericalOutput>
+		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-3/GSM</ResourceID>
+		<ResourceHeader>
+			<ResourceName>CCMC/BATSRUS along CLUSTER-3 trajectory in GSM </ResourceName>
+			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
+			<Description>BATSRUS event run from CCMC interpolated along CLUSTER-3 trajectory in GSM </Description>
+			<Contact>
+				<PersonID>Vincent GÃ©not</PersonID>
+				<Role>DataProducer</Role>
+			</Contact>
+		</ResourceHeader>
+		<AccessInformation>
+			<RepositoryID>impex://CCMC</RepositoryID>
+			<AccessURL>
+				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Cluster-3/GSM_extract.txt</URL>
+			</AccessURL>
+			<Format>VOTable</Format>
+		</AccessInformation>
+	    <MeasurementType>MagneticField</MeasurementType>
+		<MeasurementType>ThermalPlasma</MeasurementType>
+		<MeasurementType>Ephemeris</MeasurementType>
+		<TemporalDescription>
+			<TimeSpan>
+				<StartDate>2008-10-02T04:00:00.000</StartDate>
+				<StopDate>2008-10-03T04:00:00.000</StopDate>
+			</TimeSpan>
+		</TemporalDescription>
+		<SimulatedRegion>Earth</SimulatedRegion>
+		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<Parameter>
+			<Name>Position</Name>
+			<ParameterKey>X,Y,Z</ParameterKey>
+			<Units>R_E</Units>
+			<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Support>
+				<SupportQuantity>Positional</SupportQuantity>
+			</Support>
+		</Parameter>
+		<Parameter>
+			<Name>Density</Name>
+			<ParameterKey>rho</ParameterKey>
+			<Units>cm^-3</Units>
+			<UnitsConversion> 1.E6 &gt; m^-3</UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>NumberDensity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Velocity</Name>
+			<ParameterKey>Ux,Uy,Uz</ParameterKey>
+			<Units>km/s</Units>
+			<UnitsConversion> 1.E3 &gt; m/s</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<Qualifier>Vector</Qualifier>
+				<ParticleQuantity>FlowVelocity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>MagneticField</Name>
+			<ParameterKey>Bx,By,Bz</ParameterKey>
+			<Units>nT</Units>
+			<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Magnetic</FieldQuantity>
+			</Field>
+		</Parameter>
+		<Parameter>
+			<Name>Pressure</Name>
+			<ParameterKey>p</ParameterKey>
+			<Units>nPa</Units>
+			<UnitsConversion> 1.E-9 &gt; Pa </UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>Pressure</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Current</Name>
+			<ParameterKey>jx,jy,jz</ParameterKey>
+			<Units>muA/m^2</Units>
+			<UnitsConversion> 1.E-6 &gt; A/m^2 </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Current</FieldQuantity>
+			</Field>
+		</Parameter>
+		<SimulationProduct>TimeSeries</SimulationProduct>
+		<Property>
+			<Name>Spacecraft</Name>
+			<PropertyQuantity>Platform</PropertyQuantity>
+			<PropertyValue>CLUSTER3</PropertyValue>
+		</Property>
+</NumericalOutput>
+<NumericalOutput>
+		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-3/GSE</ResourceID>
+		<ResourceHeader>
+			<ResourceName>CCMC/BATSRUS along CLUSTER-3 trajectory in GSE </ResourceName>
+			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
+			<Description>BATSRUS event run from CCMC interpolated along CLUSTER-3 trajectory in GSE </Description>
+			<Contact>
+				<PersonID>Vincent GÃ©not</PersonID>
+				<Role>DataProducer</Role>
+			</Contact>
+		</ResourceHeader>
+		<AccessInformation>
+			<RepositoryID>impex://CCMC</RepositoryID>
+			<AccessURL>
+				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Cluster-3/GSE_extract.txt</URL>
+			</AccessURL>
+			<Format>VOTable</Format>
+		</AccessInformation>
+		<MeasurementType>MagneticField</MeasurementType>
+		<MeasurementType>ThermalPlasma</MeasurementType>
+		<MeasurementType>Ephemeris</MeasurementType>
+		<TemporalDescription>
+			<TimeSpan>
+				<StartDate>2008-10-02T04:00:00.000</StartDate>
+				<StopDate>2008-10-03T04:00:00.000</StopDate>
+			</TimeSpan>
+		</TemporalDescription>
+		<SimulatedRegion>Earth</SimulatedRegion>
+		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<Parameter>
+			<Name>Position</Name>
+			<ParameterKey>X,Y,Z</ParameterKey>
+			<Units>R_E</Units>
+			<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Support>
+				<SupportQuantity>Positional</SupportQuantity>
+			</Support>
+		</Parameter>
+		<Parameter>
+			<Name>Density</Name>
+			<ParameterKey>rho</ParameterKey>
+			<Units>cm^-3</Units>
+			<UnitsConversion> 1.E6 &gt; m^-3</UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>NumberDensity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Velocity</Name>
+			<ParameterKey>Ux,Uy,Uz</ParameterKey>
+			<Units>km/s</Units>
+			<UnitsConversion> 1.E3 &gt; m/s</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<Qualifier>Vector</Qualifier>
+				<ParticleQuantity>FlowVelocity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>MagneticField</Name>
+			<ParameterKey>Bx,By,Bz</ParameterKey>
+			<Units>nT</Units>
+			<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Magnetic</FieldQuantity>
+			</Field>
+		</Parameter>
+		<Parameter>
+			<Name>Pressure</Name>
+			<ParameterKey>p</ParameterKey>
+			<Units>nPa</Units>
+			<UnitsConversion> 1.E-9 &gt; Pa </UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>Pressure</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Current</Name>
+			<ParameterKey>jx,jy,jz</ParameterKey>
+			<Units>muA/m^2</Units>
+			<UnitsConversion> 1.E-6 &gt; A/m^2 </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Current</FieldQuantity>
+			</Field>
+		</Parameter>
+		<SimulationProduct>TimeSeries</SimulationProduct>
+		<Property>
+			<Name>Spacecraft</Name>
+			<PropertyQuantity>Platform</PropertyQuantity>
+			<PropertyValue>CLUSTER3</PropertyValue>
+		</Property>
+</NumericalOutput>
+<NumericalOutput>
+		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-3/SM</ResourceID>
+		<ResourceHeader>
+			<ResourceName>CCMC/BATSRUS along CLUSTER-3 trajectory in SM </ResourceName>
+			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
+			<Description>BATSRUS event run from CCMC interpolated along CLUSTER-3 trajectory in SM </Description>
+			<Contact>
+				<PersonID>Vincent GÃ©not</PersonID>
+				<Role>DataProducer</Role>
+			</Contact>
+		</ResourceHeader>
+		<AccessInformation>
+			<RepositoryID>impex://CCMC</RepositoryID>
+			<AccessURL>
+				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Cluster-3/SM_extract.txt</URL>
+			</AccessURL>
+			<Format>VOTable</Format>
+		</AccessInformation>
+		<MeasurementType>MagneticField</MeasurementType>
+		<MeasurementType>ThermalPlasma</MeasurementType>
+		<MeasurementType>Ephemeris</MeasurementType>
+		<TemporalDescription>
+			<TimeSpan>
+				<StartDate>2008-10-02T04:00:00.000</StartDate>
+				<StopDate>2008-10-03T04:00:00.000</StopDate>
+			</TimeSpan>
+		</TemporalDescription>
+		<SimulatedRegion>Earth</SimulatedRegion>
+		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<Parameter>
+			<Name>Position</Name>
+			<ParameterKey>X,Y,Z</ParameterKey>
+			<Units>R_E</Units>
+			<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Support>
+				<SupportQuantity>Positional</SupportQuantity>
+			</Support>
+		</Parameter>
+		<Parameter>
+			<Name>Density</Name>
+			<ParameterKey>rho</ParameterKey>
+			<Units>cm^-3</Units>
+			<UnitsConversion> 1.E6 &gt; m^-3</UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>NumberDensity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Velocity</Name>
+			<ParameterKey>Ux,Uy,Uz</ParameterKey>
+			<Units>km/s</Units>
+			<UnitsConversion> 1.E3 &gt; m/s</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<Qualifier>Vector</Qualifier>
+				<ParticleQuantity>FlowVelocity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>MagneticField</Name>
+			<ParameterKey>Bx,By,Bz</ParameterKey>
+			<Units>nT</Units>
+			<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Magnetic</FieldQuantity>
+			</Field>
+		</Parameter>
+		<Parameter>
+			<Name>Pressure</Name>
+			<ParameterKey>p</ParameterKey>
+			<Units>nPa</Units>
+			<UnitsConversion> 1.E-9 &gt; Pa </UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>Pressure</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Current</Name>
+			<ParameterKey>jx,jy,jz</ParameterKey>
+			<Units>muA/m^2</Units>
+			<UnitsConversion> 1.E-6 &gt; A/m^2 </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Current</FieldQuantity>
+			</Field>
+		</Parameter>
+		<SimulationProduct>TimeSeries</SimulationProduct>
+		<Property>
+			<Name>Spacecraft</Name>
+			<PropertyQuantity>Platform</PropertyQuantity>
+			<PropertyValue>CLUSTER3</PropertyValue>
+		</Property>
+</NumericalOutput>
+<NumericalOutput>
+		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-4/GSM</ResourceID>
+		<ResourceHeader>
+			<ResourceName>CCMC/BATSRUS along CLUSTER-4 trajectory in GSM </ResourceName>
+			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
+			<Description>BATSRUS event run from CCMC interpolated along CLUSTER-4 trajectory in GSM </Description>
+			<Contact>
+				<PersonID>Vincent GÃ©not</PersonID>
+				<Role>DataProducer</Role>
+			</Contact>
+		</ResourceHeader>
+		<AccessInformation>
+			<RepositoryID>impex://CCMC</RepositoryID>
+			<AccessURL>
+				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Cluster-4/GSM_extract.txt</URL>
+			</AccessURL>
+			<Format>VOTable</Format>
+		</AccessInformation>
+	    <MeasurementType>MagneticField</MeasurementType>
+		<MeasurementType>ThermalPlasma</MeasurementType>
+		<MeasurementType>Ephemeris</MeasurementType>
+		<TemporalDescription>
+			<TimeSpan>
+				<StartDate>2008-10-02T04:00:00.000</StartDate>
+				<StopDate>2008-10-03T04:00:00.000</StopDate>
+			</TimeSpan>
+		</TemporalDescription>
+		<SimulatedRegion>Earth</SimulatedRegion>
+		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<Parameter>
+			<Name>Position</Name>
+			<ParameterKey>X,Y,Z</ParameterKey>
+			<Units>R_E</Units>
+			<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Support>
+				<SupportQuantity>Positional</SupportQuantity>
+			</Support>
+		</Parameter>
+		<Parameter>
+			<Name>Density</Name>
+			<ParameterKey>rho</ParameterKey>
+			<Units>cm^-3</Units>
+			<UnitsConversion> 1.E6 &gt; m^-3</UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>NumberDensity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Velocity</Name>
+			<ParameterKey>Ux,Uy,Uz</ParameterKey>
+			<Units>km/s</Units>
+			<UnitsConversion> 1.E3 &gt; m/s</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<Qualifier>Vector</Qualifier>
+				<ParticleQuantity>FlowVelocity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>MagneticField</Name>
+			<ParameterKey>Bx,By,Bz</ParameterKey>
+			<Units>nT</Units>
+			<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Magnetic</FieldQuantity>
+			</Field>
+		</Parameter>
+		<Parameter>
+			<Name>Pressure</Name>
+			<ParameterKey>p</ParameterKey>
+			<Units>nPa</Units>
+			<UnitsConversion> 1.E-9 &gt; Pa </UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>Pressure</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Current</Name>
+			<ParameterKey>jx,jy,jz</ParameterKey>
+			<Units>muA/m^2</Units>
+			<UnitsConversion> 1.E-6 &gt; A/m^2 </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Current</FieldQuantity>
+			</Field>
+		</Parameter>
+		<SimulationProduct>TimeSeries</SimulationProduct>
+		<Property>
+			<Name>Spacecraft</Name>
+			<PropertyQuantity>Platform</PropertyQuantity>
+			<PropertyValue>CLUSTER4</PropertyValue>
+		</Property>
+</NumericalOutput>
+<NumericalOutput>
+		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-4/GSE</ResourceID>
+		<ResourceHeader>
+			<ResourceName>CCMC/BATSRUS along CLUSTER-4 trajectory in GSE </ResourceName>
+			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
+			<Description>BATSRUS event run from CCMC interpolated along CLUSTER-4 trajectory in GSE </Description>
+			<Contact>
+				<PersonID>Vincent GÃ©not</PersonID>
+				<Role>DataProducer</Role>
+			</Contact>
+		</ResourceHeader>
+		<AccessInformation>
+			<RepositoryID>impex://CCMC</RepositoryID>
+			<AccessURL>
+				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Cluster-4/GSE_extract.txt</URL>
+			</AccessURL>
+			<Format>VOTable</Format>
+		</AccessInformation>
+		<MeasurementType>MagneticField</MeasurementType>
+		<MeasurementType>ThermalPlasma</MeasurementType>
+		<MeasurementType>Ephemeris</MeasurementType>
+		<TemporalDescription>
+			<TimeSpan>
+				<StartDate>2008-10-02T04:00:00.000</StartDate>
+				<StopDate>2008-10-03T04:00:00.000</StopDate>
+			</TimeSpan>
+		</TemporalDescription>
+		<SimulatedRegion>Earth</SimulatedRegion>
+		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<Parameter>
+			<Name>Position</Name>
+			<ParameterKey>X,Y,Z</ParameterKey>
+			<Units>R_E</Units>
+			<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Support>
+				<SupportQuantity>Positional</SupportQuantity>
+			</Support>
+		</Parameter>
+		<Parameter>
+			<Name>Density</Name>
+			<ParameterKey>rho</ParameterKey>
+			<Units>cm^-3</Units>
+			<UnitsConversion> 1.E6 &gt; m^-3</UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>NumberDensity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Velocity</Name>
+			<ParameterKey>Ux,Uy,Uz</ParameterKey>
+			<Units>km/s</Units>
+			<UnitsConversion> 1.E3 &gt; m/s</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<Qualifier>Vector</Qualifier>
+				<ParticleQuantity>FlowVelocity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>MagneticField</Name>
+			<ParameterKey>Bx,By,Bz</ParameterKey>
+			<Units>nT</Units>
+			<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Magnetic</FieldQuantity>
+			</Field>
+		</Parameter>
+		<Parameter>
+			<Name>Pressure</Name>
+			<ParameterKey>p</ParameterKey>
+			<Units>nPa</Units>
+			<UnitsConversion> 1.E-9 &gt; Pa </UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>Pressure</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Current</Name>
+			<ParameterKey>jx,jy,jz</ParameterKey>
+			<Units>muA/m^2</Units>
+			<UnitsConversion> 1.E-6 &gt; A/m^2 </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Current</FieldQuantity>
+			</Field>
+		</Parameter>
+		<SimulationProduct>TimeSeries</SimulationProduct>
+		<Property>
+			<Name>Spacecraft</Name>
+			<PropertyQuantity>Platform</PropertyQuantity>
+			<PropertyValue>CLUSTER4</PropertyValue>
+		</Property>
+</NumericalOutput>
+<NumericalOutput>
+		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-4/SM</ResourceID>
+		<ResourceHeader>
+			<ResourceName>CCMC/BATSRUS along CLUSTER-4 trajectory in SM </ResourceName>
+			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
+			<Description>BATSRUS event run from CCMC interpolated along CLUSTER-4 trajectory in SM </Description>
+			<Contact>
+				<PersonID>Vincent GÃ©not</PersonID>
+				<Role>DataProducer</Role>
+			</Contact>
+		</ResourceHeader>
+		<AccessInformation>
+			<RepositoryID>impex://CCMC</RepositoryID>
+			<AccessURL>
+				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Cluster-4/SM_extract.txt</URL>
+			</AccessURL>
+			<Format>VOTable</Format>
+		</AccessInformation>
+		<MeasurementType>MagneticField</MeasurementType>
+		<MeasurementType>ThermalPlasma</MeasurementType>
+		<MeasurementType>Ephemeris</MeasurementType>
+		<TemporalDescription>
+			<TimeSpan>
+				<StartDate>2008-10-02T04:00:00.000</StartDate>
+				<StopDate>2008-10-03T04:00:00.000</StopDate>
+			</TimeSpan>
+		</TemporalDescription>
+		<SimulatedRegion>Earth</SimulatedRegion>
+		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<Parameter>
+			<Name>Position</Name>
+			<ParameterKey>X,Y,Z</ParameterKey>
+			<Units>R_E</Units>
+			<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Support>
+				<SupportQuantity>Positional</SupportQuantity>
+			</Support>
+		</Parameter>
+		<Parameter>
+			<Name>Density</Name>
+			<ParameterKey>rho</ParameterKey>
+			<Units>cm^-3</Units>
+			<UnitsConversion> 1.E6 &gt; m^-3</UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>NumberDensity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Velocity</Name>
+			<ParameterKey>Ux,Uy,Uz</ParameterKey>
+			<Units>km/s</Units>
+			<UnitsConversion> 1.E3 &gt; m/s</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<Qualifier>Vector</Qualifier>
+				<ParticleQuantity>FlowVelocity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>MagneticField</Name>
+			<ParameterKey>Bx,By,Bz</ParameterKey>
+			<Units>nT</Units>
+			<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Magnetic</FieldQuantity>
+			</Field>
+		</Parameter>
+		<Parameter>
+			<Name>Pressure</Name>
+			<ParameterKey>p</ParameterKey>
+			<Units>nPa</Units>
+			<UnitsConversion> 1.E-9 &gt; Pa </UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>Pressure</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Current</Name>
+			<ParameterKey>jx,jy,jz</ParameterKey>
+			<Units>muA/m^2</Units>
+			<UnitsConversion> 1.E-6 &gt; A/m^2 </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Current</FieldQuantity>
+			</Field>
+		</Parameter>
+		<SimulationProduct>TimeSeries</SimulationProduct>
+		<Property>
+			<Name>Spacecraft</Name>
+			<PropertyQuantity>Platform</PropertyQuantity>
+			<PropertyValue>CLUSTER4</PropertyValue>
+		</Property>
+</NumericalOutput><NumericalOutput>
+		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Geotail/GSM</ResourceID>
+		<ResourceHeader>
+			<ResourceName>CCMC/BATSRUS along Geotail trajectory in GSM </ResourceName>
+			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
+			<Description>BATSRUS event run from CCMC interpolated along Geotail trajectory in GSM </Description>
+			<Contact>
+				<PersonID>Vincent GÃ©not</PersonID>
+				<Role>DataProducer</Role>
+			</Contact>
+		</ResourceHeader>
+		<AccessInformation>
+			<RepositoryID>impex://CCMC</RepositoryID>
+			<AccessURL>
+				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Geotail/GSM_extract.txt</URL>
+			</AccessURL>
+			<Format>VOTable</Format>
+		</AccessInformation>
+	    <MeasurementType>MagneticField</MeasurementType>
+		<MeasurementType>ThermalPlasma</MeasurementType>
+		<MeasurementType>Ephemeris</MeasurementType>
+		<TemporalDescription>
+			<TimeSpan>
+				<StartDate>2008-10-02T04:00:00.000</StartDate>
+				<StopDate>2008-10-03T04:00:00.000</StopDate>
+			</TimeSpan>
+		</TemporalDescription>
+		<SimulatedRegion>Earth</SimulatedRegion>
+		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<Parameter>
+			<Name>Position</Name>
+			<ParameterKey>X,Y,Z</ParameterKey>
+			<Units>R_E</Units>
+			<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Support>
+				<SupportQuantity>Positional</SupportQuantity>
+			</Support>
+		</Parameter>
+		<Parameter>
+			<Name>Density</Name>
+			<ParameterKey>rho</ParameterKey>
+			<Units>cm^-3</Units>
+			<UnitsConversion> 1.E6 &gt; m^-3</UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>NumberDensity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Velocity</Name>
+			<ParameterKey>Ux,Uy,Uz</ParameterKey>
+			<Units>km/s</Units>
+			<UnitsConversion> 1.E3 &gt; m/s</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<Qualifier>Vector</Qualifier>
+				<ParticleQuantity>FlowVelocity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>MagneticField</Name>
+			<ParameterKey>Bx,By,Bz</ParameterKey>
+			<Units>nT</Units>
+			<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Magnetic</FieldQuantity>
+			</Field>
+		</Parameter>
+		<Parameter>
+			<Name>Pressure</Name>
+			<ParameterKey>p</ParameterKey>
+			<Units>nPa</Units>
+			<UnitsConversion> 1.E-9 &gt; Pa </UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>Pressure</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Current</Name>
+			<ParameterKey>jx,jy,jz</ParameterKey>
+			<Units>muA/m^2</Units>
+			<UnitsConversion> 1.E-6 &gt; A/m^2 </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Current</FieldQuantity>
+			</Field>
+		</Parameter>
+		<SimulationProduct>TimeSeries</SimulationProduct>
+		<Property>
+			<Name>Spacecraft</Name>
+			<PropertyQuantity>Platform</PropertyQuantity>
+			<PropertyValue>GEOTAIL</PropertyValue>
+		</Property>
+</NumericalOutput><NumericalOutput>
+		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Geotail/GSE</ResourceID>
+		<ResourceHeader>
+			<ResourceName>CCMC/BATSRUS along Geotail trajectory in GSE </ResourceName>
+			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
+			<Description>BATSRUS event run from CCMC interpolated along Geotail trajectory in GSE </Description>
+			<Contact>
+				<PersonID>Vincent GÃ©not</PersonID>
+				<Role>DataProducer</Role>
+			</Contact>
+		</ResourceHeader>
+		<AccessInformation>
+			<RepositoryID>impex://CCMC</RepositoryID>
+			<AccessURL>
+				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Geotail/GSE_extract.txt</URL>
+			</AccessURL>
+			<Format>VOTable</Format>
+		</AccessInformation>
+		<MeasurementType>MagneticField</MeasurementType>
+		<MeasurementType>ThermalPlasma</MeasurementType>
+		<MeasurementType>Ephemeris</MeasurementType>
+		<TemporalDescription>
+			<TimeSpan>
+				<StartDate>2008-10-02T04:00:00.000</StartDate>
+				<StopDate>2008-10-03T04:00:00.000</StopDate>
+			</TimeSpan>
+		</TemporalDescription>
+		<SimulatedRegion>Earth</SimulatedRegion>
+		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<Parameter>
+			<Name>Position</Name>
+			<ParameterKey>X,Y,Z</ParameterKey>
+			<Units>R_E</Units>
+			<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Support>
+				<SupportQuantity>Positional</SupportQuantity>
+			</Support>
+		</Parameter>
+		<Parameter>
+			<Name>Density</Name>
+			<ParameterKey>rho</ParameterKey>
+			<Units>cm^-3</Units>
+			<UnitsConversion> 1.E6 &gt; m^-3</UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>NumberDensity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Velocity</Name>
+			<ParameterKey>Ux,Uy,Uz</ParameterKey>
+			<Units>km/s</Units>
+			<UnitsConversion> 1.E3 &gt; m/s</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<Qualifier>Vector</Qualifier>
+				<ParticleQuantity>FlowVelocity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>MagneticField</Name>
+			<ParameterKey>Bx,By,Bz</ParameterKey>
+			<Units>nT</Units>
+			<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Magnetic</FieldQuantity>
+			</Field>
+		</Parameter>
+		<Parameter>
+			<Name>Pressure</Name>
+			<ParameterKey>p</ParameterKey>
+			<Units>nPa</Units>
+			<UnitsConversion> 1.E-9 &gt; Pa </UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>Pressure</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Current</Name>
+			<ParameterKey>jx,jy,jz</ParameterKey>
+			<Units>muA/m^2</Units>
+			<UnitsConversion> 1.E-6 &gt; A/m^2 </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>GSE</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Current</FieldQuantity>
+			</Field>
+		</Parameter>
+		<SimulationProduct>TimeSeries</SimulationProduct>
+		<Property>
+			<Name>Spacecraft</Name>
+			<PropertyQuantity>Platform</PropertyQuantity>
+			<PropertyValue>GEOTAIL</PropertyValue>
+		</Property>
+</NumericalOutput><NumericalOutput>
+		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Geotail/SM</ResourceID>
+		<ResourceHeader>
+			<ResourceName>CCMC/BATSRUS along Geotail trajectory in SM </ResourceName>
+			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
+			<Description>BATSRUS event run from CCMC interpolated along Geotail trajectory in SM </Description>
+			<Contact>
+				<PersonID>Vincent GÃ©not</PersonID>
+				<Role>DataProducer</Role>
+			</Contact>
+		</ResourceHeader>
+		<AccessInformation>
+			<RepositoryID>impex://CCMC</RepositoryID>
+			<AccessURL>
+				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Geotail/SM_extract.txt</URL>
+			</AccessURL>
+			<Format>VOTable</Format>
+		</AccessInformation>
+		<MeasurementType>MagneticField</MeasurementType>
+		<MeasurementType>ThermalPlasma</MeasurementType>
+		<MeasurementType>Ephemeris</MeasurementType>
+		<TemporalDescription>
+			<TimeSpan>
+				<StartDate>2008-10-02T04:00:00.000</StartDate>
+				<StopDate>2008-10-03T04:00:00.000</StopDate>
+			</TimeSpan>
+		</TemporalDescription>
+		<SimulatedRegion>Earth</SimulatedRegion>
+		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<Parameter>
+			<Name>Position</Name>
+			<ParameterKey>X,Y,Z</ParameterKey>
+			<Units>R_E</Units>
+			<UnitsConversion> 6371200 &gt; m</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Support>
+				<SupportQuantity>Positional</SupportQuantity>
+			</Support>
+		</Parameter>
+		<Parameter>
+			<Name>Density</Name>
+			<ParameterKey>rho</ParameterKey>
+			<Units>cm^-3</Units>
+			<UnitsConversion> 1.E6 &gt; m^-3</UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>NumberDensity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Velocity</Name>
+			<ParameterKey>Ux,Uy,Uz</ParameterKey>
+			<Units>km/s</Units>
+			<UnitsConversion> 1.E3 &gt; m/s</UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<Qualifier>Vector</Qualifier>
+				<ParticleQuantity>FlowVelocity</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>MagneticField</Name>
+			<ParameterKey>Bx,By,Bz</ParameterKey>
+			<Units>nT</Units>
+			<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Magnetic</FieldQuantity>
+			</Field>
+		</Parameter>
+		<Parameter>
+			<Name>Pressure</Name>
+			<ParameterKey>p</ParameterKey>
+			<Units>nPa</Units>
+			<UnitsConversion> 1.E-9 &gt; Pa </UnitsConversion>
+			<Particle>
+				<ParticleType>Ion</ParticleType>
+				<ParticleQuantity>Pressure</ParticleQuantity>
+			</Particle>
+		</Parameter>
+		<Parameter>
+			<Name>Current</Name>
+			<ParameterKey>jx,jy,jz</ParameterKey>
+			<Units>muA/m^2</Units>
+			<UnitsConversion> 1.E-6 &gt; A/m^2 </UnitsConversion>
+			<CoordinateSystem>
+				<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+				<CoordinateSystemName>SM</CoordinateSystemName>
+			</CoordinateSystem>
+			<Field>
+				<Qualifier>Vector</Qualifier>
+				<FieldQuantity>Current</FieldQuantity>
+			</Field>
+		</Parameter>
+		<SimulationProduct>TimeSeries</SimulationProduct>
+		<Property>
+			<Name>Spacecraft</Name>
+			<PropertyQuantity>Platform</PropertyQuantity>
+			<PropertyValue>GEOTAIL</PropertyValue>
+		</Property>
+</NumericalOutput>
+
+<SimulationModel>
+<ResourceID>impex://VMO/MHD</ResourceID>
+<ResourceHeader>
+<ResourceName>UCLA's MHD model</ResourceName>
+<ReleaseDate>2012-01-01T00:00:00.000</ReleaseDate>
+<Description>Model from Ogino et al. 1998 adapted to Saturn</Description>
+<Contact>
+<PersonID>Fukazawa</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+<InformationURL>
+<URL>http://ucla.edu</URL>
+</InformationURL>
+</ResourceHeader>
+<Versions>
+<ModelVersion>
+<VersionID>Fukazawa</VersionID>
+<ReleaseDate>2012-01-01T00:00:00.000</ReleaseDate>
+<Description>Original Jovian model adapted to Saturn, see Fukazawa et al. 2007</Description>
+</ModelVersion>
+</Versions>
+<SimulationType>MHD</SimulationType>
+<CodeLanguage>C++</CodeLanguage>
+<TemporalDependence>Yes</TemporalDependence>
+<ModelURL>http://dx.doi.org/10.1029/97JA02247</ModelURL>
+</SimulationModel>
+<Repository>
+<ResourceID>spase://SMWG/Repository/UCLA/VMO</ResourceID>
+<ResourceHeader>
+<ResourceName>Plasma Virtual Magnetospheric Observatory Data Repository.</ResourceName>
+<AlternateName>Plasma VMO Data Repository hosted by the IGPP, UCLA.</AlternateName>
+<ReleaseDate>2010-01-25T12:34:56.789</ReleaseDate>
+<Description>The Virtual Magnetospheric Observatory Data Repository hosted by the Institute of Geophysics and Planetary Physics, University of California, Los Angeles.</Description>
+<Acknowledgement>If data downloaded from the VMO Data Repository are used in publication kindly acknowledge the Virtual Magnetospheric Observatory, Institute of Geophysics and Planetary Physics, University of California, Los Angeles for providing access to the data.</Acknowledgement>
+<Contact>
+<PersonID>spase://SMWG/Person/Raymond.J.Walker</PersonID>
+<Role>PrincipalInvestigator</Role>
+</Contact>
+<Contact>
+<PersonID>spase://SMWG/Person/Lee.Frost.Bargatze</PersonID>
+<Role>MetadataContact</Role>
+</Contact>
+<InformationURL>
+<Name>Plasma VMO Data Repository Web Site</Name>
+<URL>http://vmo-repository.igpp.ucla.edu</URL>
+<Description>The main web page for information concerning data holdings hosted by the Virtual Magnetospheric Observatory Data Repository.</Description>
+</InformationURL>
+</ResourceHeader>
+<AccessURL>
+<URL>http://vmo.igpp.ucla.edu/data1</URL>
+</AccessURL>
+</Repository>
+<SimulationRun>
+<ResourceID>impex://VMO/Run1/SimRun</ResourceID>
+<ResourceHeader>
+<ResourceName>Fukazawa, GRL, 2007</ResourceName>
+<ReleaseDate>2013-01-14T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>spase://Fukazawa</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<Model>
+<ModelID>impex://VMO/MHD</ModelID>
+<VersionID>Fukazawa</VersionID>
+</Model>
+<TemporalDependence>Yes</TemporalDependence>
+<SimulatedRegion>Saturn</SimulatedRegion>
+<LikelihoodRating>Probable</LikelihoodRating>
+<SimulationTime>
+<Duration>PT60H</Duration>
+<TimeStart>00:00:00</TimeStart>
+<TimeStep>PT4M25S</TimeStep>
+</SimulationTime>
+<SimulationDomain>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>KSM</CoordinateSystemName>
+</CoordinateSystem>
+<SpatialDimension>3</SpatialDimension>
+<VelocityDimension>3</VelocityDimension>
+<FieldDimension>3</FieldDimension>
+<Units>Rs</Units>
+<UnitsConversion>60040000 &gt; m</UnitsConversion>
+<CoordinatesLabel>X Y Z</CoordinatesLabel>
+<ValidMin>-120 -60 0</ValidMin>
+<ValidMax>60 60 60</ValidMax>
+<GridStructure>Constant</GridStructure>
+<GridCellSize>0.3 0.3 0.3</GridCellSize>
+<Symmetry>None</Symmetry>
+<BoundaryConditions>
+<FieldBoundary>
+<FrontWall>IMF</FrontWall>
+<BackWall>free</BackWall>
+<SideWall>free, except Z=0 (mirror)</SideWall>
+<Obstacle>Mag. field, density and pressure fixed</Obstacle>
+</FieldBoundary>
+</BoundaryConditions>
+</SimulationDomain>
+<RegionParameter>
+<SimulatedRegion>Saturn</SimulatedRegion>
+<Radius Units="km">60040</Radius>
+<Property>
+<Name>Inner Boundary</Name>
+<Description>Altitude to which the simulation is performed</Description>
+<PropertyQuantity>Positional</PropertyQuantity>
+<Units>Rs</Units>
+<UnitsConversion>60040000 &gt; m</UnitsConversion>
+<PropertyValue>5</PropertyValue>
+</Property>
+</RegionParameter>
+<InputField>
+<Name>IMF</Name>
+<Description>Interplanetary Magnetic Field</Description>
+<SimulatedRegion>Heliosphere</SimulatedRegion>
+<FieldQuantity>Magnetic</FieldQuantity>
+<Units>nT</Units>
+<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+<InputLabel>Bx,By,Bz</InputLabel>
+<FieldValue>0 0 0.4</FieldValue>
+</InputField>
+<InputField>
+<Name>Internal Field</Name>
+<SimulatedRegion>Mars</SimulatedRegion>
+<FieldQuantity>Magnetic</FieldQuantity>
+<FieldModel>Axisymmetric dipole, 20000 nT/Rs^3 magnetic moment</FieldModel>
+</InputField>
+<InputPopulation>
+<Name>Solar Wind</Name>
+<Description>Solar wind population</Description>
+<SimulatedRegion>Heliosphere</SimulatedRegion>
+<SimulatedRegion>Incident</SimulatedRegion>
+<ParticleType>Proton</ParticleType>
+<ChemicalFormula>H</ChemicalFormula>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+<PopulationDensity Units="cm^-3">0.056</PopulationDensity>
+<PopulationTemperature Units="K">200000</PopulationTemperature>
+<PopulationFlowSpeed Units="km*s^-1">300.00</PopulationFlowSpeed>
+</InputPopulation>
+<InputPopulation>
+<Name>Ionospheric population</Name>
+<Description>Plasma population from Saturn's ionosphere</Description>
+<SimulatedRegion>Saturn</SimulatedRegion>
+<ParticleType>Proton</ParticleType>
+<ChemicalFormula>H</ChemicalFormula>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+<PopulationDensity Units="cm^-3">10000</PopulationDensity>
+<PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
+</InputPopulation>
+<InputPopulation>
+<Name>Enceladus Water Ions</Name>
+<Description>H2O+ Ions from the Magnetosphere, production is given across an inner sphere of 7 Rs radius.</Description>
+<SimulatedRegion>Saturn</SimulatedRegion>
+<ParticleType>Ion</ParticleType>
+<ChemicalFormula>H2O</ChemicalFormula>
+<PopulationMassNumber>18</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+<TotalProductionRate Units="s-1">1.1E28</TotalProductionRate>
+</InputPopulation>
+<InputParameter>
+<Name>Normalizing Parameters</Name>
+<Qualifier>Characteristic</Qualifier>
+<ParameterQuantity>Other</ParameterQuantity>
+<Property>
+<Name>Magnetic Field: Dipole value</Name>
+<PropertyQuantity>Magnetic</PropertyQuantity>
+<Qualifier>Characteristic</Qualifier>
+<Units>nT</Units>
+<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+<PropertyValue>20000</PropertyValue>
+</Property>
+<Property>
+<Name>Velocity: Alfven Speed</Name>
+<PropertyQuantity>AlfvenVelocity</PropertyQuantity>
+<Qualifier>Characteristic</Qualifier>
+<Units>km*s^-1</Units>
+<UnitsConversion> 1000 &gt; m.s^-1 </UnitsConversion>
+<PropertyValue>4359</PropertyValue>
+</Property>
+<Property>
+<Name>Density: Ionosphere mass density</Name>
+<PropertyQuantity>MassDensity</PropertyQuantity>
+<Qualifier>Characteristic</Qualifier>
+<Units>kg*m^-3</Units>
+<PropertyValue>1.67E-17</PropertyValue>
+</Property>
+<Property>
+<Name>Pressure: Pressure at surface</Name>
+<PropertyQuantity>Pressure</PropertyQuantity>
+<Qualifier>Characteristic</Qualifier>
+<Units>Pa</Units>
+<PropertyValue>3.19E-4</PropertyValue>
+</Property>
+</InputParameter>
+</SimulationRun>
+<SimulationRun>
+<ResourceID>impex://VMO/Run2/SimRun</ResourceID>
+<ResourceHeader>
+<ResourceName>Fukazawa, JGR, 2012</ResourceName>
+<ReleaseDate>2013-01-14T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>spase://Fukazawa</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<Model>
+<ModelID>impex://VMO/MHD</ModelID>
+<VersionID>Fukazawa</VersionID>
+</Model>
+<TemporalDependence>Yes</TemporalDependence>
+<SimulatedRegion>Saturn</SimulatedRegion>
+<LikelihoodRating>Probable</LikelihoodRating>
+<SimulationTime>
+<Duration>PT60H</Duration>
+<TimeStart>00:00:00</TimeStart>
+<TimeStep>PT4M25S</TimeStep>
+</SimulationTime>
+<SimulationDomain>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>KSM</CoordinateSystemName>
+</CoordinateSystem>
+<SpatialDimension>3</SpatialDimension>
+<VelocityDimension>3</VelocityDimension>
+<FieldDimension>3</FieldDimension>
+<Units>Rs</Units>
+<UnitsConversion>60040000 &gt; m</UnitsConversion>
+<CoordinatesLabel>X Y Z</CoordinatesLabel>
+<ValidMin>-120 -60 0</ValidMin>
+<ValidMax>60 60 60</ValidMax>
+<GridStructure>Constant</GridStructure>
+<GridCellSize>0.1 0.1 0.1</GridCellSize>
+<Symmetry>None</Symmetry>
+<BoundaryConditions>
+<FieldBoundary>
+<FrontWall>IMF</FrontWall>
+<BackWall>free</BackWall>
+<SideWall>free, except Z=0 (mirror)</SideWall>
+<Obstacle>Mag. field, density and pressure fixed</Obstacle>
+</FieldBoundary>
+</BoundaryConditions>
+</SimulationDomain>
+<RegionParameter>
+<SimulatedRegion>Saturn</SimulatedRegion>
+<Radius Units="km">60040</Radius>
+<Property>
+<Name>Inner Boundary</Name>
+<Description>Altitude to which the simulation is performed</Description>
+<PropertyQuantity>Positional</PropertyQuantity>
+<Units>Rs</Units>
+<UnitsConversion>60040000 &gt; m</UnitsConversion>
+<PropertyValue>5</PropertyValue>
+</Property>
+</RegionParameter>
+<InputField>
+<Name>IMF</Name>
+<Description>Interplanetary Magnetic Field</Description>
+<SimulatedRegion>Heliosphere</SimulatedRegion>
+<FieldQuantity>Magnetic</FieldQuantity>
+<Units>nT</Units>
+<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+<InputLabel>Bx,By,Bz</InputLabel>
+<FieldValue>0 0 0.4</FieldValue>
+</InputField>
+<InputField>
+<Name>Internal Field</Name>
+<SimulatedRegion>Mars</SimulatedRegion>
+<FieldQuantity>Magnetic</FieldQuantity>
+<FieldModel>Axisymmetric dipole, 20000 nT/Rs^3 magnetic moment</FieldModel>
+</InputField>
+<InputPopulation>
+<Name>Solar Wind</Name>
+<Description>Solar wind population</Description>
+<SimulatedRegion>Heliosphere</SimulatedRegion>
+<SimulatedRegion>Incident</SimulatedRegion>
+<ParticleType>Proton</ParticleType>
+<ChemicalFormula>H</ChemicalFormula>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+<PopulationDensity Units="cm^-3">0.056</PopulationDensity>
+<PopulationTemperature Units="K">200000</PopulationTemperature>
+<PopulationFlowSpeed Units="km*s^-1">300.00</PopulationFlowSpeed>
+</InputPopulation>
+<InputPopulation>
+<Name>Ionospheric population</Name>
+<Description>Plasma population from Saturn's ionosphere</Description>
+<SimulatedRegion>Saturn</SimulatedRegion>
+<ParticleType>Proton</ParticleType>
+<ChemicalFormula>H</ChemicalFormula>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+<PopulationDensity Units="cm^-3">10000</PopulationDensity>
+<PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
+</InputPopulation>
+<InputPopulation>
+<Name>Enceladus Water Ions</Name>
+<Description>H2O+ Ions from the Magnetosphere, production is given across an inner sphere of 7 Rs radius.</Description>
+<SimulatedRegion>Saturn</SimulatedRegion>
+<ParticleType>Ion</ParticleType>
+<ChemicalFormula>H2O</ChemicalFormula>
+<PopulationMassNumber>18</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+<TotalProductionRate Units="s-1">2.75E27</TotalProductionRate>
+</InputPopulation>
+<InputParameter>
+<Name>Normalizing Parameters</Name>
+<Qualifier>Characteristic</Qualifier>
+<ParameterQuantity>Other</ParameterQuantity>
+<Property>
+<Name>Magnetic Field: Dipole value</Name>
+<PropertyQuantity>Magnetic</PropertyQuantity>
+<Qualifier>Characteristic</Qualifier>
+<Units>nT</Units>
+<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+<PropertyValue>20000</PropertyValue>
+</Property>
+<Property>
+<Name>Velocity: Alfven Speed</Name>
+<PropertyQuantity>AlfvenVelocity</PropertyQuantity>
+<Qualifier>Characteristic</Qualifier>
+<Units>km*s^-1</Units>
+<UnitsConversion> 1000 &gt; m.s^-1 </UnitsConversion>
+<PropertyValue>4359</PropertyValue>
+</Property>
+<Property>
+<Name>Density: Ionosphere mass density</Name>
+<PropertyQuantity>MassDensity</PropertyQuantity>
+<Qualifier>Characteristic</Qualifier>
+<Units>kg*m^-3</Units>
+<PropertyValue>1.67E-17</PropertyValue>
+</Property>
+<Property>
+<Name>Pressure: Pressure at surface</Name>
+<PropertyQuantity>Pressure</PropertyQuantity>
+<Qualifier>Characteristic</Qualifier>
+<Units>Pa</Units>
+<PropertyValue>3.19E-4</PropertyValue>
+</Property>
+</InputParameter>
+</SimulationRun>
+<NumericalOutput>
+<ResourceID>impex://VMO/MHD/Run1/Mag/3D</ResourceID>
+<ResourceHeader>
+<ResourceName>Mag/3D</ResourceName>
+<ReleaseDate>2013-06-11T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>Fukazawa</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>spase://SMWG/Repository/UCLA/VMO</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>NetCDF</Format>
+</AccessInformation>
+<MeasurementType>MagneticField</MeasurementType>
+<SpatialDescription>
+<Dimension>3</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>KSM</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion> 1000 &gt; m </UnitsConversion>
+<RegionBegin>-120 -60 0</RegionBegin>
+<RegionEnd>60 60 60</RegionEnd>
+</SpatialDescription>
+<SimulatedRegion>Saturn</SimulatedRegion>
+<InputResourceID>impex://VMO/Run1/SimRun</InputResourceID>
+<Parameter>
+<Name>MagneticField</Name>
+<ParameterKey>Bx,By,Bz</ParameterKey>
+<Units>nT</Units>
+<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+<Field>
+<Qualifier>Vector</Qualifier>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<NumericalOutput>
+<ResourceID>impex://VMO/MHD/Run2/Mag/3D</ResourceID>
+<ResourceHeader>
+<ResourceName>Mag/3D</ResourceName>
+<ReleaseDate>2013-06-11T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>Fukazawa</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>spase://SMWG/Repository/UCLA/VMO</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>NetCDF</Format>
+</AccessInformation>
+<MeasurementType>MagneticField</MeasurementType>
+<SpatialDescription>
+<Dimension>3</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>KSM</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion> 1000 &gt; m </UnitsConversion>
+<RegionBegin>-120 -60 0</RegionBegin>
+<RegionEnd>60 60 60</RegionEnd>
+</SpatialDescription>
+<SimulatedRegion>Saturn</SimulatedRegion>
+<InputResourceID>impex://VMO/Run2/SimRun</InputResourceID>
+<Parameter>
+<Name>MagneticField</Name>
+<ParameterKey>Bx,By,Bz</ParameterKey>
+<Units>nT</Units>
+<UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
+<Field>
+<Qualifier>Vector</Qualifier>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<NumericalOutput>
+<ResourceID>impex://VMO/MHD/Run2/Mag/2D/XY</ResourceID>
+<ResourceHeader>
+<ResourceName>Mag/2D/XY</ResourceName>
+<ReleaseDate>2013-06-11T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>UCLA</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>spase://SMWG/Repository/UCLA/VMO</RepositoryID>
+<AccessURL>
+<URL/>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>MagneticField</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>KSM</CoordinateSystemName>
+</CoordinateSystem>
+<Units>Rs</Units>
+<UnitsConversion>60400000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  0.00  1.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Saturn</SimulatedRegion>
+<InputResourceID>impex://VMO/Run2/SimRun</InputResourceID>
+<Parameter>
+<Name>Magnetic Field By</Name>
+<ParameterKey>Btot</ParameterKey>
+<Units>T</Units>
+<Field>
+<Qualifier>Component</Qualifier>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput>
+<Granule>
+<ResourceID>impex://VMO/MHD/Run2/Mag/2D/XY/Table</ResourceID>
+<ReleaseDate>2013-06-11T00:00:00.000</ReleaseDate>
+<ParentID>impex://VMO/MHD/Run2/Mag/2D/XY</ParentID>
+<RegionBegin>-120 -60 0</RegionBegin>
+<RegionEnd>60 60 60</RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://www.igpp.ucla.edu/public/tking/test2.xml</URL>
+</Source>
+</Granule>
+</Spase>

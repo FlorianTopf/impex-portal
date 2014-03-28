@@ -1,0 +1,407 @@
+<wsdl:definitions targetNamespace="http://impex.latmos.ipsl.fr" name="LESIA_MAG_methods" xmlns="http://impex.latmos.ipsl.fr" xmlns:vot="http://www.ivoa.net/xml/VOTable/v1.2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+	<wsdl:types>
+		<xs:schema version="0.0" targetNamespace="http://impex.latmos.ipsl.fr" elementFormDefault="unqualified" xmlns:vot="http://www.ivoa.net/xml/VOTable/v1.2" xmlns:idm="http://impex-fp7.oeaw.ac.at" xmlns="http://impex.latmos.ipsl.fr" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+			<xs:import schemaLocation="http://impex.latmos.ipsl.fr/doc/impex+spase_latest.xsd" namespace="http://impex-fp7.oeaw.ac.at"/>
+                        <xs:import schemaLocation="http://www.ivoa.net/xml/VOTable/VOTable-1.2.xsd" namespace="http://www.ivoa.net/xml/VOTable/v1.2"/>
+
+			
+
+			<xs:element type="idm:ResourceID" name="ResourceID"/>
+			<xs:element type="Variable" name="Variable"/>
+			<xs:element type="DoubleSequence" name="IMF"/>
+			<xs:simpleType name="DoubleSequence">
+			      <xs:list itemType="xs:integer"/>
+			</xs:simpleType>
+			<xs:element type="enumInternal" name="InternalModel"/>
+			<xs:element type="enumSheet" name="CurrentSheet"/>
+			<xs:element type="enumCC" name="CoordinateSystem"/>
+
+			<xs:element type="OutputFormat" name="OutputFileType"/>
+			<xs:element type="xs:anyURI" name="url_XYZ">
+				<xs:annotation>
+					<xs:documentation>URL of the VOTable file containing the 3D coordinates.
+						Suggested field name according to
+						Spase/SimulationRun/SimulationDomain/CoordinatesLabel. The coordinate system
+						must be Spase/SimulationRun/SimulationDomain/CoordinateSystem. Time is
+						optional in the Input VOTable with a FIELD ucd=&quot;Time&quot; </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element type="xs:dateTime" name="StartTime"/>
+			<xs:element type="xs:dateTime" name="StopTime"/>
+			<xs:element type="xs:duration" name="Sampling"/>
+			<xs:element type="idm:PlanePoint" name="PlanePoint"/>
+			<xs:element type="idm:PlaneNormalVector" name="PlaneNormalVector"/>
+			<xs:element type="xs:double" name="Resolution"/>
+			<xs:element type="xs:double" name="StepSize"/>
+
+			<xs:element type="Spacecraft" name="Spacecraft_name"/>
+			<xs:simpleType name="Variable">
+				<xs:annotation>
+					<xs:documentation>List of individual parameters from the selected
+						NumericalOutput separated by a comma. Identified by the ParameterKey. By
+						default: all parameters within the NumericalOutput are
+						returned</xs:documentation>
+				</xs:annotation>
+				<xs:list itemType="idm:ParameterKey"/>
+			</xs:simpleType>
+			<xs:simpleType name="OutputFormat">
+				<xs:annotation>
+					<xs:documentation> two format supported </xs:documentation>
+				</xs:annotation>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="netCDF"/>
+					<xs:enumeration value="VOTable"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="Spacecraft">
+				<xs:annotation>
+					<xs:documentation> Currently three spacecraft: MarsExpress,MarsGlobalSurveyor
+						and VenusExpress. </xs:documentation>
+				</xs:annotation>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Cassini"/>
+					<xs:enumeration value="Galileo"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="enumInternal">
+				<xs:annotation>
+					<xs:documentation>Known internal magnetic field model. </xs:documentation>
+				</xs:annotation>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="O6"/>
+					<xs:enumeration value="VIP4"/>
+					<xs:enumeration value="VIT4"/>
+					<xs:enumeration value="VIPAL"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="enumSheet">
+				<xs:annotation>
+					<xs:documentation>Known current sheet magnetic field model. </xs:documentation>
+				</xs:annotation>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value=""/>
+					<xs:enumeration value="None"/>
+					<xs:enumeration value="Connerney"/>
+					<xs:enumeration value="Khurana"/>
+				</xs:restriction>
+			</xs:simpleType>
+			<xs:simpleType name="enumCC">
+				<xs:annotation>
+					<xs:documentation>Known coordinateSystem. </xs:documentation>
+				</xs:annotation>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="PlanetaryCartesian"/>
+					<xs:enumeration value="PlanetarySpherical"/>
+					<xs:enumeration value="Planetarographic"/>
+					<xs:enumeration value="JSO"/>
+					<xs:enumeration value="JSM"/>
+					<xs:enumeration value="JSS"/>
+				</xs:restriction>
+			</xs:simpleType>
+
+
+
+
+			
+			<xs:element type="DataPointValue" name="calculateDataPointValue"/>
+			<xs:complexType name="DataPointValue">
+				<xs:sequence>
+					<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>ResourceID of the NumericalOutput describing the 3D
+								cube in which the interpolation is performed</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="Variable" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+					
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_calculateDataPointValue" name="extraParams">
+						<xs:annotation>
+							<xs:documentation>An associative array of (key,value) pairs defining
+								SMDB specific parameters</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			
+			<xs:complexType name="extraParams_calculateDataPointValue">
+				<xs:sequence>
+					<xs:element ref="IMF" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="InternalModel" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="CurrentSheet" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="CoordinateSystem" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="OutputFileType" maxOccurs="1" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+
+			
+			<xs:element type="Surface" name="calculateSurface"/>
+
+			<xs:complexType name="Surface">
+				<xs:sequence>
+					<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>ResourceID of the NumericalOutput describing the 3D
+								cube in which the interpolation is performed</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="Variable" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="PlanePoint" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="PlaneNormalVector" maxOccurs="1" minOccurs="1"/>
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_calculateSurface" name="extraParams"> </xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			
+			<xs:complexType name="extraParams_calculateSurface">
+				<xs:sequence>
+					<xs:element ref="Resolution" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="IMF" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="InternalModel" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="CurrentSheet" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="CoordinateSystem" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="OutputFileType" maxOccurs="1" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+
+
+
+			
+			<xs:element type="DataPointValue_Spacecraft" name="calculateDataPointValue_Spacecraft"/>
+
+			<xs:complexType name="DataPointValue_Spacecraft">
+				<xs:sequence>
+					<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>ResourceID of the NumericalOutput describing the 3D
+								cube in which the interpolation is performed</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="Variable" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="Spacecraft_name" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="StopTime" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="Sampling" maxOccurs="1" minOccurs="1"/>
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_calculateDataPointValue" name="extraParams"> </xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			
+			<xs:element type="FieldLine" name="calculateFieldLine"/>
+			<xs:complexType name="FieldLine">
+				<xs:sequence>
+					<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>If xpath=Spase/SimulationRun/ResourceID then the
+								method applies to all species. If xpath =
+								Spase/NumericalOutput/ResourceID then the method applies to the
+								species </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="Variable" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+					
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getFieldLine" name="extraParams">
+						<xs:annotation>
+							<xs:documentation>An associative array of (key,value) pairs defining
+								SMDB specific parameters</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			<xs:element type="FieldLine_Spacecraft" name="calculateFieldLine_Spacecraft"/>
+			<xs:complexType name="FieldLine_Spacecraft">
+				<xs:sequence>
+					<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>If xpath=Spase/SimulationRun/ResourceID then the
+								method applies to all species. If xpath =
+								Spase/NumericalOutput/ResourceID then the method applies to the
+								species </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="Variable" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="Spacecraft_name" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="StopTime" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="Sampling" maxOccurs="1" minOccurs="1"/>
+					
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getFieldLine" name="extraParams">
+						<xs:annotation>
+							<xs:documentation>An associative array of (key,value) pairs defining
+								SMDB specific parameters</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+				</xs:sequence>
+			</xs:complexType>
+			
+			<xs:complexType name="extraParams_getFieldLine">
+				<xs:sequence>
+					<xs:element ref="Direction" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="StepSize" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="IMF" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="InternalModel" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="CurrentSheet" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="CoordinateSystem" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="OutputFileType" maxOccurs="1" minOccurs="0"/>
+				</xs:sequence>
+			</xs:complexType>
+			<xs:element type="enumDirection" name="Direction" default="Both"/>
+			<xs:simpleType name="enumDirection">
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Both"/>
+					<xs:enumeration value="Forward"/>
+					<xs:enumeration value="Backward"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:schema>
+	</wsdl:types>
+
+
+
+	
+	<wsdl:message name="DataPointValue_Request">
+		<wsdl:part element="calculateDataPointValue" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:message name="Generic_Response">
+		<wsdl:part type="xs:anyURI" name="url_Param"/>
+	</wsdl:message>
+
+	<wsdl:message name="DataPointSpectra_Request">
+		<wsdl:part element="calculateDataPointSpectra" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:message name="Surface_Request">
+		<wsdl:part element="calculateSurface" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:message name="DataPointValue_Spacecraft_Request">
+		<wsdl:part element="calculateDataPointValue_Spacecraft" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:message name="DataPointSpectra_Spacecraft_Request">
+		<wsdl:part element="calculateDataPointSpectra_Spacecraft" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:message name="FileURL_Request">
+		<wsdl:part element="getFileURL" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="FileURL_Response">
+		<wsdl:part element="vot:VOTABLE" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="FieldLine_Request">
+		<wsdl:part element="calculateFieldLine" name="parameters"/>
+	</wsdl:message>
+	<wsdl:message name="FieldLine_Spacecraft_Request">
+		<wsdl:part element="calculateFieldLine_Spacecraft" name="parameters"/>
+	</wsdl:message>
+
+	
+
+	
+	<wsdl:portType name="Methods_LESIA_MAG_Port">
+		<wsdl:operation name="calculateDataPointValue">
+			<wsdl:input message="DataPointValue_Request"> </wsdl:input>
+			<wsdl:output message="Generic_Response"> </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="calculateSurface">
+			<wsdl:input message="Surface_Request"> </wsdl:input>
+			<wsdl:output message="Generic_Response"> </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="calculateDataPointValue_Spacecraft">
+			<wsdl:input message="DataPointValue_Spacecraft_Request"> </wsdl:input>
+			<wsdl:output message="Generic_Response"> </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getFileURL">
+			<wsdl:input message="FileURL_Request"> </wsdl:input>
+			<wsdl:output message="FileURL_Response"> </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="calculateFieldLine">
+			<wsdl:input message="FieldLine_Request"> </wsdl:input>
+			<wsdl:output message="Generic_Response"> </wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="calculateFieldLine_Spacecraft">
+			<wsdl:input message="FieldLine_Spacecraft_Request"> </wsdl:input>
+			<wsdl:output message="Generic_Response"> </wsdl:output>
+		</wsdl:operation>	</wsdl:portType>
+
+
+
+	
+
+	<wsdl:binding type="Methods_LESIA_MAG_Port" name="Methods_LESIA_MAG_SoapBinding">
+		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+		<wsdl:operation name="calculateDataPointValue">
+			<soap:operation soapAction="DataPointValue"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="calculateSurface">
+			<soap:operation soapAction="Surface"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="calculateDataPointValue_Spacecraft">
+			<soap:operation soapAction="DataPointValue_Spacecraft"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="getFileURL">
+			<soap:operation soapAction="FileURL"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal" namespace="http://www.ivoa.net/xml/VOTable/v1.2"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="calculateFieldLine">
+			<soap:operation soapAction="FieldLine"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+		<wsdl:operation name="calculateFieldLine_Spacecraft">
+			<soap:operation soapAction="FieldLine_Spacecraft"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+	</wsdl:binding>	
+
+
+	
+	
+	
+	<wsdl:service name="Methods_LESIA_MAG">
+		<wsdl:port binding="Methods_LESIA_MAG_SoapBinding" name="Methods_LESIA_MAG_Port">
+			<soap:address location="http://typhon.obspm.fr/maser/IMPExWS/IMPExWS_MAG.php"/>	  
+		</wsdl:port>
+	</wsdl:service>
+
+</wsdl:definitions>
