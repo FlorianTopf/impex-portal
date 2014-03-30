@@ -67,7 +67,6 @@ extends Actor with DataProvider[Spase] {
     Spase(Number2u462u462, records, "en")
   }
   
-  // @TODO getSimulationElement with type classes
   protected def getSimulationModel(id: Option[String]): Spase = {
     val records = getTreeObjects flatMap {
       _.ResourceEntity.filter(_.key.get == "SimulationModel") map {

@@ -63,11 +63,12 @@ object RegistryService {
   }
   
   // @FIXME improve this! should return error if element is not in the repository
+  // we need to use the real id for actor selection e.g. impex___LATMOS
+  // we do not really need the parent id => when we can work with parts of the ID
+  // we can use parent for returning also the parent element (with only boolean choice)
   private def getElement(msg: GetElement, parent: Option[String]): Future[Either[Spase, RequestError]] = {
     implicit val timeout = Timeout(30.seconds)
-    
     println("Requested ID: "+msg.id)
-    
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- (msg.id, parent) match {

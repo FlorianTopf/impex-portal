@@ -29,7 +29,7 @@ object Application extends Controller {
     }
   }
   
-  // @TODO return in json/xml
+  // @TODO return in json
   def simulations = Action.async {
      val future = RegistryService.getRepositoryType(Simulation).mapTo[Spase]
      future.map { spase => 
@@ -37,7 +37,7 @@ object Application extends Controller {
      }
   }
   
-  // @TODO return in json/xml
+  // @TODO return in json
   def observations = Action.async {
      val future = RegistryService.getRepositoryType(Observation).mapTo[Spase]
      future.map { spase => 
@@ -60,14 +60,14 @@ object Application extends Controller {
       case "true" => { 
         val future = RegistryService.getTreeXML(req.get("id"))
         future.map { _ match {
-          case Left(tree) => Ok(tree)
+           case Left(tree) => Ok(tree)
            case Right(error) => BadRequest(Json.toJson(error))
         }}
       }
     }
   }
   
-  // @TODO return in json
+  // @TODO return in json and recursive
   def simulationmodel = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getSimulationModel(req.get("id"), req.get("repository"))
@@ -78,7 +78,7 @@ object Application extends Controller {
     }
   }
   
-  // @TODO return in json
+  // @TODO return in json and recursive
   def simulationrun = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getSimulationRun(req.get("id"), req.get("simulationmodel"))
@@ -89,7 +89,7 @@ object Application extends Controller {
     }
   }
 
-  // @TODO return in json
+  // @TODO return in json and recursive
   def numericaloutput = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getNumericalOutput(req.get("id"), req.get("simulationrun"))
@@ -100,7 +100,7 @@ object Application extends Controller {
     }
   }
   
-  // @TODO return in json
+  // @TODO return in json and recursive
   def granule = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getGranule(req.get("id"), req.get("numericaloutput"))
@@ -111,7 +111,7 @@ object Application extends Controller {
     }
   }
   
-  // @TODO return in json
+  // @TODO return in json and recursive
   def observatory = Action.async { implicit request => 
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getObservatory(req.get("id") , None)
