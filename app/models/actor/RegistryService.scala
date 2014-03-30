@@ -83,6 +83,9 @@ object RegistryService {
             case m: ObsElement => Future.sequence(getChilds(databases.filter(_.typeValue == Observation)) map { 
             	provider => (provider ? msg).mapTo[Spase] map { _.ResourceEntity }
             })
+            case r: Element => Future.sequence(getChilds(databases) map { 
+            	provider => (provider ? msg).mapTo[Spase] map { _.ResourceEntity }
+            })
           }
           result.map(records => Left(Spase(Number2u462u462, records.flatten, "en"))) 
         }
