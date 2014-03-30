@@ -135,12 +135,13 @@ object RegistryService {
 	      databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
 	      provider <- id match {
 	        case Some(id) if databases.exists(d => id.contains(d.id.toString)) => {
-	          val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.name)
-	          (provider ? GetRepository).mapTo[Spase] map { Left(_) }
+	          val db: Database = databases.find(d => id.contains(d.id.toString)).get
+	          val provider: ActorSelection = getChild(db.name)
+	          (provider ? GetElement(ERepository, None)).mapTo[Spase] map { Left(_) }
 	        }
 	        case None => {
 	          val result = Future.sequence(getChilds(databases) map { provider =>
-	            (provider ? GetRepository).mapTo[Spase] map { _.ResourceEntity }
+	            (provider ? GetElement(ERepository, None)).mapTo[Spase] map { _.ResourceEntity }
 	          })
 	          result.map(records => Left(Spase(Number2u462u462, records.flatten, "en")))
 	        } 
@@ -155,7 +156,7 @@ object RegistryService {
 	      databases <- ConfigService.request(GetDatabaseType(dbType)).mapTo[Seq[Database]]
 	      providers <- { 
 	        val result = Future.sequence(getChilds(databases) map { provider =>
-	        	(provider ? GetRepository).mapTo[Spase] map { _.ResourceEntity }
+	        	(provider ? GetElement(ERepository, None)).mapTo[Spase] map { _.ResourceEntity }
 	        })
 	        result.map(records => Spase(Number2u462u462, records.flatten, "en"))
 	      }

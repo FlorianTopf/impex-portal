@@ -19,8 +19,8 @@ extends Actor with DataProvider[Spase] {
     case GetTrees(Some("xml")) => sender ! getTreeXML
     case GetTrees(None) => sender ! getTreeObjects
     case GetMethods => sender ! getMethodsXML
-    case GetRepository => sender ! getRepository(None)
     case GetElement(dType, id, r) => dType match {
+      case ERepository => sender ! getRepository(None)
       case ESimulationModel => sender ! getSimulationModel(id, r)
       case ESimulationRun => sender ! getSimulationRun(id, r)
       case ENumericalOutput => sender ! getNumericalOutput(id, r)

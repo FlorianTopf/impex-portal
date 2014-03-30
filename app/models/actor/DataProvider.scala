@@ -77,7 +77,6 @@ object DataProvider {
   // @TODO maybe needed
   case object ObsParameter extends ObsElement 
   // generic message for elements
-  case object GetRepository 
   case class GetElement(
       val dType: Element, 
       val id: Option[String], 
