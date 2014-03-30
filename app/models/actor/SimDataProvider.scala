@@ -20,7 +20,7 @@ extends Actor with DataProvider[Spase] {
     case GetTrees(None) => sender ! getTreeObjects
     case GetMethods => sender ! getMethodsXML
     case GetElement(dType, id, r) => dType match {
-      case ERepository => sender ! getRepository(None)
+      case ERepository => sender ! getRepository(id)
       case ESimulationModel => sender ! getSimulationModel(id, r)
       case ESimulationRun => sender ! getSimulationRun(id, r)
       case ENumericalOutput => sender ! getNumericalOutput(id, r)
@@ -59,16 +59,17 @@ extends Actor with DataProvider[Spase] {
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]] = {
     getTreeObjects flatMap { _.ResourceEntity.filter(_.key.get == element) }
   }
-    
-  // @FIXME must search for an specific ID (multiple Repositories per Authority)
+  
   protected def getRepository(id: Option[String]): Spase = {
-    val records = getTreeObjects flatMap { 
-      _.ResourceEntity.filter(_.key.get == "Repository") map {
-	    // @TODO still we have to do it like this, why?
-	    repo => DataRecord(None, Some("Repository"), scalaxb.fromXML[Repository](repo.as[NodeSeq]))
-	  }
+    println("RepositoryID="+id)
+    val records = getTreeObjects("Repository") map {
+	  repo => scalaxb.fromXML[Repository](repo.as[NodeSeq])
     }
-	Spase(Number2u462u462, records, "en")
+    val repos = id match {
+      case Some(id) => records.filter(_.ResourceID.contains(id))
+      case None => records
+    }
+	Spase(Number2u462u462, repos.map(r => DataRecord(None, Some("SimulationModel"), r)), "en")
   }
   
   private def getSimulationModel(id: Option[String], recursive: Boolean): Spase = {
@@ -90,7 +91,6 @@ extends Actor with DataProvider[Spase] {
   
   private def getSimulationRun(id: Option[String], recursive: Boolean): Spase = {
     val records = getTreeObjects("SimulationRun") map {
-      // @FIXME still doesn't work the correct way
       run => scalaxb.fromXML[SimulationRun](run.as[NodeSeq])
     }
     val runs = id match {
@@ -127,7 +127,6 @@ extends Actor with DataProvider[Spase] {
   
   private def getGranule(id: Option[String], recursive: Boolean): Spase = {
     val records = getTreeObjects("Granule") map {
-      // @FIXME still doesn't work the correct way
       granule => scalaxb.fromXML[Granule](granule.as[NodeSeq])
     }
     val granules = id match {

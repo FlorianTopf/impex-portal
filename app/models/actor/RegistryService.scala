@@ -129,39 +129,21 @@ object RegistryService {
     } yield provider
   }
   
-  def getRepository(id: Option[String] = None): Future[Either[Spase, RequestError]] = {
-	    implicit val timeout = Timeout(10.seconds)
-	    for {
-	      databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
-	      provider <- id match {
-	        case Some(id) if databases.exists(d => id.contains(d.id.toString)) => {
-	          val db: Database = databases.find(d => id.contains(d.id.toString)).get
-	          val provider: ActorSelection = getChild(db.name)
-	          (provider ? GetElement(ERepository, None)).mapTo[Spase] map { Left(_) }
-	        }
-	        case None => {
-	          val result = Future.sequence(getChilds(databases) map { provider =>
-	            (provider ? GetElement(ERepository, None)).mapTo[Spase] map { _.ResourceEntity }
-	          })
-	          result.map(records => Left(Spase(Number2u462u462, records.flatten, "en")))
-	        } 
-	        case _ => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
-	      }
-	    } yield provider
-	  }
+  def getRepository(id: Option[String] = None): Future[Either[Spase, RequestError]] =
+    getElement(GetElement(ERepository, id))
 
   def getRepositoryType(dbType: Databasetype): Future[Spase] = {
-	    implicit val timeout = Timeout(10.seconds)
-	    for {
-	      databases <- ConfigService.request(GetDatabaseType(dbType)).mapTo[Seq[Database]]
-	      providers <- { 
-	        val result = Future.sequence(getChilds(databases) map { provider =>
-	        	(provider ? GetElement(ERepository, None)).mapTo[Spase] map { _.ResourceEntity }
-	        })
-	        result.map(records => Spase(Number2u462u462, records.flatten, "en"))
-	      }
-	    } yield providers
+    implicit val timeout = Timeout(10.seconds)
+	for {
+	  databases <- ConfigService.request(GetDatabaseType(dbType)).mapTo[Seq[Database]]
+	  providers <- { 
+	    val result = Future.sequence(getChilds(databases) map { provider =>
+	     	(provider ? GetElement(ERepository, None)).mapTo[Spase] map { _.ResourceEntity }
+	    })
+	    result.map(records => Spase(Number2u462u462, records.flatten, "en"))
 	  }
+	} yield providers
+  }
 
   // simulations methods
   def getSimulationModel(id: Option[String], recursive: String): Future[Either[Spase, RequestError]] =

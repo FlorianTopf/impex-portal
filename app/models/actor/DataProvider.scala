@@ -10,6 +10,7 @@ import akka.actor._
 import akka.pattern.ask
 import akka.util.Timeout
 import java.net.URI
+import scalaxb.DataRecord
 
 
 // container for XML content
@@ -27,6 +28,7 @@ trait DataProvider[A] {
   protected def getMetaData: Database
   protected def getTreeObjects: Seq[A]
   protected def getRepository(id: Option[String] = None): Spase
+  protected def getTreeObjects(element: String): Seq[DataRecord[Any]]
   
   // @FIXME update methods too!
   protected def updateTrees: Seq[NodeSeq] = {

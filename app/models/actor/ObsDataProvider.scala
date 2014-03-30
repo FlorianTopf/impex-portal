@@ -21,7 +21,7 @@ extends Actor with DataProvider[DataRoot] {
     case GetTrees(None) => sender ! getTreeObjects
     case GetMethods => sender ! getMethodsXML
     case GetElement(dType, id, r) => dType match {
-      case ERepository => sender ! getRepository(None)
+      case ERepository => sender ! getRepository(id)
       case EObservatory => sender ! getObservatory(id)
       case EInstrument => sender ! getInstrument(id)
       case ENumericalData => sender ! getNumericalData(id)
@@ -54,8 +54,15 @@ extends Actor with DataProvider[DataRoot] {
     dataTree.content map { tree => scalaxb.fromXML[DataRoot](tree) }
   }
 
+  protected def getTreeObjects(element: String): Seq[DataRecord[Any]] = {
+    val records = getTreeObjects flatMap { _.dataCenter map { 
+      _.datacenteroption.filter(_.key.get == element) }}
+    records.flatten
+  }
+
   // @FIXME must search for an specific ID (multiple Repositories per Authority)
   protected def getRepository(id: Option[String]): Spase = {
+    println("RepositoryID="+id)
     val records = getTreeObjects flatMap { _.dataCenter map { dataCenter => 
         val contact = Contact(getMetaData.id.toString, Seq(ArchiveSpecialist))
         val resourceHeader = ResourceHeader(dataCenter.id.toString, Nil, TimeProvider.getISONow, 
@@ -64,18 +71,12 @@ extends Actor with DataProvider[DataRoot] {
         // resource name is the "real" id for the proprietary data model of AMDA and CLWeb
         // this will be mapped all the time when calling web services.
         //val resourceID = getMetaData.id.toString+"/"+dataCenter.id.toString
-        // @FIXME atm we only take one datacenter per file
+        // @FIXME ATM we only take one datacenter per file
         val resourceID = getMetaData.id.toString
         DataRecord(None, Some("Repository"), Repository(resourceID, resourceHeader, accessURL))
       }
     }
     Spase(Number2u462u462, records, "en")
-  }
-  
-  private def getTreeObjects(element: String): Seq[DataRecord[Any]] = {
-    val records = getTreeObjects flatMap { _.dataCenter map { 
-      _.datacenteroption.filter(_.key.get == element) }}
-    records.flatten
   }
   
   private def getObservatory(id: Option[String]): Spase = {
