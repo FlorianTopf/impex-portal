@@ -69,7 +69,7 @@ extends Actor with DataProvider[Spase] {
       case Some(id) => records.filter(_.ResourceID.contains(id))
       case None => records
     }
-	Spase(Number2u462u462, repos.map(r => DataRecord(None, Some("SimulationModel"), r)), "en")
+	Spase(Number2u462u462, repos.map(r => DataRecord(None, Some("Repository"), r)), "en")
   }
   
   private def getSimulationModel(id: Option[String], recursive: Boolean): Spase = {
