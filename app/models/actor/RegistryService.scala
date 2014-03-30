@@ -64,37 +64,25 @@ object RegistryService {
   
   // @FIXME improve this! should return error if element is not in the repository
   // we need to use the real id for actor selection e.g. impex___LATMOS
-  // we do not really need the parent id => when we can work with parts of the ID
-  // we can use parent for returning also the parent element (with only boolean choice)
-  private def getElement(msg: GetElement, parent: Option[String]): Future[Either[Spase, RequestError]] = {
+  private def getElement(msg: GetElement): Future[Either[Spase, RequestError]] = {
     implicit val timeout = Timeout(30.seconds)
-    println("Requested ID: "+msg.id)
+    println("ResourceID="+msg.id)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
-      provider <- (msg.id, parent) match {
-         case (Some(id), Some(p)) if (id.contains(p) && databases.exists(_.id.toString == p)) => {
-          val db: Database = databases.find(_.id.toString == p).get
-          val provider: ActorSelection = getChild(db.name)
-          (provider ? msg).mapTo[Spase] map { Left(_) }
-        }
-        case (Some(id), None) if(databases.exists(d => id.contains(d.id.toString))) => {
+      provider <- msg.id match {
+        case Some(id) if(databases.exists(d => id.contains(d.id.toString))) => {
           val db: Database = databases.find(d => id.contains(d.id.toString)).get
           val provider: ActorSelection = getChild(db.name)
           (provider ? msg).mapTo[Spase] map { Left(_) }
         }
-        case (None, Some(p)) if(databases.exists(d => p.contains(d.id.toString))) => {
-          val db: Database = databases.find(d => p.contains(d.id.toString)).get
-          val provider: ActorSelection = getChild(db.name)
-          (provider ? msg).mapTo[Spase] map { Left(_) }
-        } 
-        case (None, None) => {
+        case None => {
           val result = msg.dType match {
             case m: SimElement => Future.sequence(getChilds(databases.filter(_.typeValue == Simulation)) map { 
-            provider => (provider ? msg).mapTo[Spase] map { _.ResourceEntity }
+            	provider => (provider ? msg).mapTo[Spase] map { _.ResourceEntity }
             })
             case m: ObsElement => Future.sequence(getChilds(databases.filter(_.typeValue == Observation)) map { 
-            provider => (provider ? msg).mapTo[Spase] map { _.ResourceEntity }
-            })     
+            	provider => (provider ? msg).mapTo[Spase] map { _.ResourceEntity }
+            })
           }
           result.map(records => Left(Spase(Number2u462u462, records.flatten, "en"))) 
         }
@@ -106,7 +94,8 @@ object RegistryService {
   def registerChild(props: Props, name: String) = {
     (registry ? RegisterProvider(props, name))
   }
-
+ 
+  // general methods
   def getTreeXML(id: Option[String] = None): Future[Either[NodeSeq, RequestError]] = {
     implicit val timeout = Timeout(10.seconds)
     for {
@@ -141,57 +130,57 @@ object RegistryService {
   }
   
   def getRepository(id: Option[String] = None): Future[Either[Spase, RequestError]] = {
-    implicit val timeout = Timeout(10.seconds)
-    for {
-      databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
-      provider <- id match {
-        case Some(id) if databases.exists(d => id.contains(d.id.toString)) => {
-          val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.name)
-          (provider ? GetRepository).mapTo[Spase] map { Left(_) }
-        }
-        case None => {
-          val result = Future.sequence(getChilds(databases) map { provider =>
-            (provider ? GetRepository).mapTo[Spase] map { _.ResourceEntity }
-          })
-          result.map(records => Left(Spase(Number2u462u462, records.flatten, "en")))
-        } 
-        case _ => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
-      }
-    } yield provider
-  }
+	    implicit val timeout = Timeout(10.seconds)
+	    for {
+	      databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
+	      provider <- id match {
+	        case Some(id) if databases.exists(d => id.contains(d.id.toString)) => {
+	          val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.name)
+	          (provider ? GetRepository).mapTo[Spase] map { Left(_) }
+	        }
+	        case None => {
+	          val result = Future.sequence(getChilds(databases) map { provider =>
+	            (provider ? GetRepository).mapTo[Spase] map { _.ResourceEntity }
+	          })
+	          result.map(records => Left(Spase(Number2u462u462, records.flatten, "en")))
+	        } 
+	        case _ => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
+	      }
+	    } yield provider
+	  }
 
   def getRepositoryType(dbType: Databasetype): Future[Spase] = {
-    implicit val timeout = Timeout(10.seconds)
-    for {
-      databases <- ConfigService.request(GetDatabaseType(dbType)).mapTo[Seq[Database]]
-      providers <- { 
-        val result = Future.sequence(getChilds(databases) map { provider =>
-        	(provider ? GetRepository).mapTo[Spase] map { _.ResourceEntity }
-        })
-        result.map(records => Spase(Number2u462u462, records.flatten, "en"))
-      }
-    } yield providers
-  }
+	    implicit val timeout = Timeout(10.seconds)
+	    for {
+	      databases <- ConfigService.request(GetDatabaseType(dbType)).mapTo[Seq[Database]]
+	      providers <- { 
+	        val result = Future.sequence(getChilds(databases) map { provider =>
+	        	(provider ? GetRepository).mapTo[Spase] map { _.ResourceEntity }
+	        })
+	        result.map(records => Spase(Number2u462u462, records.flatten, "en"))
+	      }
+	    } yield providers
+	  }
 
   // simulations methods
-  def getSimulationModel(id: Option[String], repository: Option[String]): Future[Either[Spase, RequestError]] =
-    getElement(GetElement(SimulationModel, id), repository)
+  def getSimulationModel(id: Option[String], recursive: String): Future[Either[Spase, RequestError]] =
+    getElement(GetElement(ESimulationModel, id, recursive.toBoolean))
   
-  def getSimulationRun(id: Option[String], model: Option[String]): Future[Either[Spase, RequestError]] = 
-    getElement(GetElement(SimulationRun, id), model)
+  def getSimulationRun(id: Option[String], recursive: String): Future[Either[Spase, RequestError]] = 
+    getElement(GetElement(ESimulationRun, id, recursive.toBoolean))
   
-  def getNumericalOutput(id: Option[String], run: Option[String]): Future[Either[Spase, RequestError]] = 
-    getElement(GetElement(NumericalOutput, id), run)
+  def getNumericalOutput(id: Option[String], recursive: String): Future[Either[Spase, RequestError]] = 
+    getElement(GetElement(ENumericalOutput, id, recursive.toBoolean))
   
-  def getGranule(id: Option[String], output: Option[String]): Future[Either[Spase, RequestError]] =
-    getElement(GetElement(Granule, id), output)
+  def getGranule(id: Option[String], recursive: String): Future[Either[Spase, RequestError]] =
+    getElement(GetElement(EGranule, id, recursive.toBoolean))
   
   // observations methods
-  def getObservatory(id: Option[String], repository: Option[String]): Future[Either[Spase, RequestError]] = 
-    getElement(GetElement(Observatory, id), repository)
+  def getObservatory(id: Option[String]): Future[Either[Spase, RequestError]] = 
+    getElement(GetElement(EObservatory, id))
   
-  def getInstrument(id: Option[String], observatory: Option[String]): Future[Either[Spase, RequestError]] = ???
+  def getInstrument(id: Option[String]): Future[Either[Spase, RequestError]] = ???
   
-  def getNumericalData(id: Option[String], instrument: Option[String]): Future[Either[Spase, RequestError]] = ???
+  def getNumericalData(id: Option[String]): Future[Either[Spase, RequestError]] = ???
   
 }

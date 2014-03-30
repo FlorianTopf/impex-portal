@@ -24,9 +24,9 @@ trait DataProvider[A] {
   // predefined methods
   protected def getTreeXML: NodeSeq
   protected def getMethodsXML: Seq[NodeSeq] = accessMethods.content
-  protected def getTreeObjects: Seq[A]
   protected def getMetaData: Database
-  protected def getRepository: Spase
+  protected def getTreeObjects: Seq[A]
+  protected def getRepository(id: Option[String] = None): Spase
   
   // @FIXME update methods too!
   protected def updateTrees: Seq[NodeSeq] = {
@@ -51,6 +51,7 @@ trait DataProvider[A] {
         }
     }
   }
+  
 }
 
 object DataProvider {
@@ -61,22 +62,27 @@ object DataProvider {
   case object GetMethods
   // elements of the data model
   trait Element
+  case object ERepository extends Element
   trait SimElement extends Element
-  case object SimulationModel extends SimElement
-  case object SimulationRun extends SimElement
-  case object NumericalOutput extends SimElement
-  case object Granule extends SimElement
+  case object ESimulationModel extends SimElement
+  case object ESimulationRun extends SimElement
+  case object ENumericalOutput extends SimElement
+  case object EGranule extends SimElement
   // @TODO maybe needed 
   case object SimParameter extends SimElement
   trait ObsElement extends Element
-  case object Observatory extends ObsElement
-  case object Instrument extends ObsElement
-  case object NumericalData extends ObsElement
+  case object EObservatory extends ObsElement
+  case object EInstrument extends ObsElement
+  case object ENumericalData extends ObsElement
   // @TODO maybe needed
   case object ObsParameter extends ObsElement 
   // generic message for elements
   case object GetRepository 
-  case class GetElement(val dType: Element, val id: Option[String])
+  case class GetElement(
+      val dType: Element, 
+      val id: Option[String], 
+      val recursive: Boolean = false
+  )
   case object UpdateTrees 
   
   // @TODO we need that later for updating the trees dynamically (on admin request)

@@ -20,11 +20,12 @@ extends Actor with DataProvider[DataRoot] {
     case GetTrees(Some("xml")) => sender ! getTreeXML
     case GetTrees(None) => sender ! getTreeObjects
     case GetMethods => sender ! getMethodsXML
-    case GetRepository => sender ! getRepository
-    case GetElement(dType, id) => dType match {
-      case Observatory => sender ! getObservatory(id)
-      case Instrument => sender ! getInstrument(id)
-      case NumericalData => sender ! getNumericalData(id)
+    case GetRepository => sender ! getRepository(None)
+    case GetElement(dType, id, r) => dType match {
+      case ERepository => sender ! getRepository(None)
+      case EObservatory => sender ! getObservatory(id)
+      case EInstrument => sender ! getInstrument(id)
+      case ENumericalData => sender ! getNumericalData(id)
     }
     // @TODO update also methods
     case UpdateTrees => {
@@ -54,7 +55,8 @@ extends Actor with DataProvider[DataRoot] {
     dataTree.content map { tree => scalaxb.fromXML[DataRoot](tree) }
   }
 
-  protected def getRepository: Spase = {
+  // @FIXME must search for an specific ID (multiple Repositories per Authority)
+  protected def getRepository(id: Option[String]): Spase = {
     val records = getTreeObjects flatMap { _.dataCenter map { dataCenter => 
         val contact = Contact(getMetaData.id.toString, Seq(ArchiveSpecialist))
         val resourceHeader = ResourceHeader(dataCenter.id.toString, Nil, TimeProvider.getISONow, 
@@ -63,7 +65,7 @@ extends Actor with DataProvider[DataRoot] {
         // resource name is the "real" id for the proprietary data model of AMDA and CLWeb
         // this will be mapped all the time when calling web services.
         //val resourceID = getMetaData.id.toString+"/"+dataCenter.id.toString
-        // @TODO atm we do not need this => has only one datacenter
+        // @FIXME atm we only take one datacenter per file
         val resourceID = getMetaData.id.toString
         DataRecord(None, Some("Repository"), Repository(resourceID, resourceHeader, accessURL))
       }
@@ -71,19 +73,22 @@ extends Actor with DataProvider[DataRoot] {
     Spase(Number2u462u462, records, "en")
   }
   
+  private def getTreeObjects(element: String): Seq[DataRecord[Any]] = {
+    val records = getTreeObjects flatMap { _.dataCenter map { 
+      _.datacenteroption.filter(_.key.get == element) }}
+    records.flatten
+  }
+  
   private def getObservatory(id: Option[String]): Spase = {
     import models.binding.Observatory
-    val records = getTreeObjects flatMap { _.dataCenter map { 
-        _.datacenteroption.filter(_.key.get == "mission").map(_.as[Mission])   
-      }
-    }
+    val records = getTreeObjects("mission").map(_.as[Mission])   
     val missions = id match {
       case Some(id) if(id != getMetaData.id.toString) => { 
         // matching the proprietary ID
         val propID = id.replace(getMetaData.id.toString+"/", "")
-        records.flatten.filter(_.id.replaceAll(" ", "_") == propID)
+        records.filter(_.id.replaceAll(" ", "_") == propID)
       }
-      case _ => records.flatten
+      case _ => records
     }
    Spase(Number2u462u462, missions map { mission => 
       val contact = Contact(getMetaData.id.toString, Seq(ArchiveSpecialist))
