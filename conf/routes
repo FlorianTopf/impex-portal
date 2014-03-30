@@ -29,4 +29,6 @@ GET		/granule		  			controllers.Application.granule
 
 GET 	/observatory				controllers.Application.observatory
 
+GET		/methods					controllers.Application.methods
+
 GET		/test						controllers.Application.test

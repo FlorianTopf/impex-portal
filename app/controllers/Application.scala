@@ -48,10 +48,21 @@ object Application extends Controller {
   // @TODO return in json
   def repository = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    val future = RegistryService.getRepository(req.get("id"))
-    future.map { _ match {
-        case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
-        case Right(error) => BadRequest(Json.toJson(error))
+    val recursive = req.get("r").getOrElse("false")
+    recursive match { 
+      case "false" => {   
+        val future = RegistryService.getRepository(req.get("id"))
+        future.map { _ match {
+          case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+          case Right(error) => BadRequest(Json.toJson(error))
+        }}
+      }
+      case "true" => { 
+        val future = RegistryService.getTreeXML(req.get("id"))
+        future.map { _ match {
+          case Left(tree) => Ok(tree)
+           case Right(error) => BadRequest(Json.toJson(error))
+        }}
       }
     }
   }
@@ -100,46 +111,36 @@ object Application extends Controller {
     }
   }
   
+  // @TODO return in json
   def observatory = Action.async { implicit request => 
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    import models.actor.DataProvider._
-    val actor = Akka.system.actorSelection("user/registry/AMDA")
-    val result = (actor ? GetElement(Observatory, req.get("id"))).mapTo[Seq[Mission]]
-    result map { response => 
-      Ok(response(0).id)
-    }
-    
+    val future = RegistryService.getObservatory(req.get("id") , None)
+    future map { _ match {
+        case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+        case Right(error) => BadRequest(Json.toJson(error))
+      }
+    }  
+  }
+  
+  // @TODO return in json 
+  def methods = Action.async { implicit request =>
+    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
+    val future = RegistryService.getMethodsXML(req.get("id"))
+    future.map { _ match {
+      case Left(tree) => Ok(tree.reduce(_++_))
+      case Right(error) => BadRequest(Json.toJson(error))
+    }}
   }
   
   // route for testing
   def test = Action.async {
-    val future = RegistryService.getTreeXML(Some("FMI"))
-
-    future map { response =>
-      val tree = response map { r => scalaxb.fromXML[Spase](r) }
-      //val simulationModel = response.xml \\ "SimulatioModel" \ "ResourceID"
-
-      val simulationModels: ListBuffer[SimulationModelType] = ListBuffer()
-      val simulationRuns: ListBuffer[SimulationRun] = ListBuffer()
-
-      for (element <- tree(0).ResourceEntity) element.key.get match {
-        case "SimulationModel" => simulationModels += element.as[SimulationModelType]
-        //@TODO still the same problem with some XML elements
-        case "SimulationRun" => simulationRuns +=
-          scalaxb.fromXML[SimulationRun](element.value.asInstanceOf[NodeSeq])
-        case _ => //println("something else")
+    val future = RegistryService.getMethodsXML(Some("impex://FMI"))
+    future.map { _ match {
+      case Left(tree) => {
+        Ok(tree.reduce(_++_))
       }
-
-      //println(simulationRuns(1))
-
-      //Ok("OK: "+test.text+"<br/>"+
-      Ok("OK: First model: " + simulationModels.head.ResourceID + "; " +
-        simulationModels.length + " Models found ; " +
-        tree.head.ResourceEntity.length + " ResourceEntity elements found" + "; " +
-        //"RepositoryID="+repository.ResourceID+"; "+
-        simulationRuns.length + " SimulationRuns found ----->>>>>> " + simulationRuns)
-    }
-
+      case Right(error) => BadRequest(Json.toJson(error))
+    }}
   }
 
 }

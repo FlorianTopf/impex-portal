@@ -22,13 +22,13 @@ trait DataProvider[A] {
   val accessMethods: Methods
 
   // predefined methods
-  protected def getTreeXML: Seq[NodeSeq] = dataTree.content
+  protected def getTreeXML: NodeSeq
   protected def getMethodsXML: Seq[NodeSeq] = accessMethods.content
   protected def getTreeObjects: Seq[A]
   protected def getMetaData: Database
   protected def getRepository: Spase
   
-  // @TODO update methods too!
+  // @FIXME update methods too!
   protected def updateTrees: Seq[NodeSeq] = {
     val dns: String = getMetaData.databaseoption.head.value
     val protocol: String = getMetaData.protocol.head
@@ -36,7 +36,7 @@ trait DataProvider[A] {
     URLs flatMap {
       URL =>
         // sometimes there is no file (e.g. at AMDA)
-        // this must be recreated by calling getAvailableData
+        // this must be recreated by calling getObsDataTree
         val promise = WS.url(URL.toString).get()
         try {
           val result = Await.result(promise, 2.minutes).xml
@@ -77,7 +77,6 @@ object DataProvider {
   // generic message for elements
   case object GetRepository 
   case class GetElement(val dType: Element, val id: Option[String])
-  //case class GetObsElement(val oType: ObsElement, val id: Option[String])
   case object UpdateTrees 
   
   // @TODO we need that later for updating the trees dynamically (on admin request)

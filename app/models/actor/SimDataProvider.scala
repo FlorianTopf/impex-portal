@@ -16,7 +16,6 @@ extends Actor with DataProvider[Spase] {
   
   // @TODO unified error messages
   def receive = {
-    // @TODO return unified tree in XML
     case GetTrees(Some("xml")) => sender ! getTreeXML
     case GetTrees(None) => sender ! getTreeObjects
     case GetMethods => sender ! getMethodsXML
@@ -34,6 +33,15 @@ extends Actor with DataProvider[Spase] {
     //case _ => sender ! Json.obj("error" -> "message not found")
     case _ => sender ! <error>message not found in data provider</error>
   }
+  
+  // @TODO improve header later (namespaces)
+  protected def getTreeXML: NodeSeq = {
+    val trees = dataTree.content
+    <Spase xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+      { trees(0).\("_").filter(_.label == "Version") }
+      { trees.map(tree => tree.\("_").filter(_.label != "Version")) }
+    </Spase>
+  }
 
   protected def getMetaData: Database = {
     try {
@@ -46,7 +54,7 @@ extends Actor with DataProvider[Spase] {
   }
 
   protected def getTreeObjects: Seq[Spase] = {
-    dataTree.content map { tree => scalaxb.fromXML[Spase](tree) }
+    dataTree.content map { scalaxb.fromXML[Spase](_) }
   }
 
   protected def getRepository: Spase = {
@@ -67,7 +75,7 @@ extends Actor with DataProvider[Spase] {
       }
     }
     val models = id match {
-      case Some(id) => records.filter(_.ResourceID == id)
+      case Some(id) => records.filter(_.ResourceID.contains(id))
       case None => records
     }
     Spase(Number2u462u462, models.map(m => DataRecord(None, Some("SimulationModel"), m)), "en")
@@ -76,12 +84,12 @@ extends Actor with DataProvider[Spase] {
   protected def getSimulationRun(id: Option[String]): Spase = {
     val records = getTreeObjects flatMap {
       _.ResourceEntity.filter(_.key.get == "SimulationRun") map {
-        // @TODO still doesn't work the correct way
+        // @FIXME still doesn't work the correct way
         run => scalaxb.fromXML[SimulationRun](run.as[NodeSeq])
       }
     }
     val runs = id match {
-      case Some(id) => records.filter(_.ResourceID == id)
+      case Some(id) => records.filter(_.ResourceID.contains(id))
       case None => records
     }
     Spase(Number2u462u462, runs.map(r => DataRecord(None, Some("SimulationRun"), r)), "en")
@@ -94,7 +102,7 @@ extends Actor with DataProvider[Spase] {
       }
     }
     val outputs = id match {
-      case Some(id) => records.filter(_.ResourceID == id)
+      case Some(id) => records.filter(_.ResourceID.contains(id))
       case None => records
     }
     Spase(Number2u462u462, outputs.map(r => DataRecord(None, Some("NumericalOutput"), r)), "en")
@@ -104,13 +112,13 @@ extends Actor with DataProvider[Spase] {
     val records = getTreeObjects flatMap {
       _.ResourceEntity.filter(_.key.get == "Granule") map {
         granule => {
-          // @TODO still doesn't work the correct way
+          // @FIXME still doesn't work the correct way
           scalaxb.fromXML[Granule](granule.as[NodeSeq])
         }
       }
     }
     val granules = id match {
-      case Some(id) => records.filter(_.ResourceID == id)
+      case Some(id) => records.filter(_.ResourceID.contains(id))
       case None => records
     }
     Spase(Number2u462u462, granules.map(r => DataRecord(None, Some("Granule"), r)), "en")

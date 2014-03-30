@@ -39,10 +39,6 @@ class RegistryService extends Actor {
   }
 }
 
-// @TODO we must improve exception handling here! 
-//       => timeouts + responses => use promises here!
-// @TODO refactor access methods!
-//       => maybe use try instead of future? we have no error recovery here!
 object RegistryService {
   import models.actor.ConfigService._
   import models.actor.DataProvider._
@@ -66,7 +62,7 @@ object RegistryService {
     Akka.system.actorSelection("user/registry/" + name)
   }
   
-  // @TODO improve this!
+  // @FIXME improve this! should return error if element is not in the repository
   private def getElement(msg: GetElement, parent: Option[String]): Future[Either[Spase, RequestError]] = {
     implicit val timeout = Timeout(30.seconds)
     
@@ -78,25 +74,25 @@ object RegistryService {
          case (Some(id), Some(p)) if (id.contains(p) && databases.exists(_.id.toString == p)) => {
           val db: Database = databases.find(_.id.toString == p).get
           val provider: ActorSelection = getChild(db.name)
-          (provider ? msg).mapTo[Spase] map { entry => Left(entry) }
+          (provider ? msg).mapTo[Spase] map { Left(_) }
         }
         case (Some(id), None) if(databases.exists(d => id.contains(d.id.toString))) => {
           val db: Database = databases.find(d => id.contains(d.id.toString)).get
           val provider: ActorSelection = getChild(db.name)
-          (provider ? msg).mapTo[Spase] map { entry => Left(entry) }
+          (provider ? msg).mapTo[Spase] map { Left(_) }
         }
         case (None, Some(p)) if(databases.exists(d => p.contains(d.id.toString))) => {
           val db: Database = databases.find(d => p.contains(d.id.toString)).get
           val provider: ActorSelection = getChild(db.name)
-          (provider ? msg).mapTo[Spase] map { entry => Left(entry) }
+          (provider ? msg).mapTo[Spase] map { Left(_) }
         } 
         case (None, None) => {
           val result = msg.dType match {
             case m: SimElement => Future.sequence(getChilds(databases.filter(_.typeValue == Simulation)) map { 
-            provider => (provider ? msg).mapTo[Spase] map { entry => entry.ResourceEntity }
+            provider => (provider ? msg).mapTo[Spase] map { _.ResourceEntity }
             })
             case m: ObsElement => Future.sequence(getChilds(databases.filter(_.typeValue == Observation)) map { 
-            provider => (provider ? msg).mapTo[Spase] map { entry => entry.ResourceEntity }
+            provider => (provider ? msg).mapTo[Spase] map { _.ResourceEntity }
             })     
           }
           result.map(records => Left(Spase(Number2u462u462, records.flatten, "en"))) 
@@ -110,34 +106,34 @@ object RegistryService {
     (registry ? RegisterProvider(props, name))
   }
 
-  // @TODO merge multiple trees here (in xml)
-  def getTreeXML(pName: Option[String] = None): Future[Seq[NodeSeq]] = {
+  def getTreeXML(id: Option[String] = None): Future[Either[NodeSeq, RequestError]] = {
     implicit val timeout = Timeout(10.seconds)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- {
-        pName match {
-          case Some(p: String) if databases.exists(d => d.name == p) => {
-            val provider: ActorSelection = getChild(p)
-            (provider ? GetTrees(Some("xml"))).mapTo[Seq[NodeSeq]]
+        id match {
+          // @TODO improve this check everywhere
+          case Some(id) if databases.exists(d => id.contains(d.id.toString)) => {
+            val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.name)
+            (provider ? GetTrees(Some("xml"))).mapTo[NodeSeq] map { Left(_) }
           }
-          case _ => future { Seq(<error>provider not found</error>) }
+          case None => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
         }
       }
     } yield provider
   }
 
-  def getMethodsXML(pName: String): Future[Seq[NodeSeq]] = {
+  def getMethodsXML(id: Option[String] = None): Future[Either[Seq[NodeSeq], RequestError]] = {
     implicit val timeout = Timeout(10.seconds)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- {
-        pName match {
-          case p: String if databases.exists(d => d.name == p) => {
-            val provider: ActorSelection = getChild(p)
-            (provider ? GetMethods).mapTo[Seq[NodeSeq]]
+        id match {
+          case Some(id) if databases.exists(d => id.contains(d.id.toString)) => {
+            val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.name)
+            (provider ? GetMethods).mapTo[Seq[NodeSeq]] map { Left(_) } 
           }
-          case _ => future { Seq(<error>provider not found</error>) }
+          case None => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
         }
       }
     } yield provider
@@ -147,14 +143,14 @@ object RegistryService {
     implicit val timeout = Timeout(10.seconds)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
-      provider <-id match {
+      provider <- id match {
         case Some(id) if databases.exists(d => id.contains(d.id.toString)) => {
           val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.name)
-          (provider ? GetRepository).mapTo[Spase] map { entry => Left(entry) }
+          (provider ? GetRepository).mapTo[Spase] map { Left(_) }
         }
         case None => {
           val result = Future.sequence(getChilds(databases) map { provider =>
-            (provider ? GetRepository).mapTo[Spase] map { entry => entry.ResourceEntity }
+            (provider ? GetRepository).mapTo[Spase] map { _.ResourceEntity }
           })
           result.map(records => Left(Spase(Number2u462u462, records.flatten, "en")))
         } 
@@ -169,13 +165,14 @@ object RegistryService {
       databases <- ConfigService.request(GetDatabaseType(dbType)).mapTo[Seq[Database]]
       providers <- { 
         val result = Future.sequence(getChilds(databases) map { provider =>
-        	(provider ? GetRepository).mapTo[Spase] map { entry => entry.ResourceEntity }
+        	(provider ? GetRepository).mapTo[Spase] map { _.ResourceEntity }
         })
         result.map(records => Spase(Number2u462u462, records.flatten, "en"))
       }
     } yield providers
   }
 
+  // simulations methods
   def getSimulationModel(id: Option[String], repository: Option[String]): Future[Either[Spase, RequestError]] =
     getElement(GetElement(SimulationModel, id), repository)
   
@@ -188,8 +185,7 @@ object RegistryService {
   def getGranule(id: Option[String], output: Option[String]): Future[Either[Spase, RequestError]] =
     getElement(GetElement(Granule, id), output)
   
-  // @TODO this doesn't work, because we do not encode the provider reference in the id
-    // maybe we create an artificial id? e.g. impex://AMDA/AMDA/Cassini_Public?
+  // observations methods
   def getObservatory(id: Option[String], repository: Option[String]): Future[Either[Spase, RequestError]] = 
     getElement(GetElement(Observatory, id), repository)
   

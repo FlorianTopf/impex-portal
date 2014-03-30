@@ -33,6 +33,12 @@ extends Actor with DataProvider[DataRoot] {
     //case _ => sender ! Json.obj("error" -> "message not found")
     case _ => sender ! <error>message not found in data provider</error>
   }
+  
+  protected def getTreeXML: NodeSeq = {
+    val trees = dataTree.content 
+    // @FIXME we only serve the first tree atm
+    trees(0)
+  }
 
   protected def getMetaData: Database = {
     try {
@@ -65,31 +71,36 @@ extends Actor with DataProvider[DataRoot] {
     Spase(Number2u462u462, records, "en")
   }
   
-  //@TODO finalise this and continue ONLY with sim-stuff
-  protected def getObservatory(id: Option[String]) = {
+  private def getObservatory(id: Option[String]): Spase = {
+    import models.binding.Observatory
     val records = getTreeObjects flatMap { _.dataCenter map { 
         _.datacenteroption.filter(_.key.get == "mission").map(_.as[Mission])   
       }
     }
     val missions = id match {
-      case Some(id) => records.flatten.filter(_.id == id)
-      case None => records.flatten
+      case Some(id) if(id != getMetaData.id.toString) => { 
+        // matching the proprietary ID
+        val propID = id.replace(getMetaData.id.toString+"/", "")
+        records.flatten.filter(_.id.replaceAll(" ", "_") == propID)
+      }
+      case _ => records.flatten
     }
-    missions map { mission => 
+   Spase(Number2u462u462, missions map { mission => 
       val contact = Contact(getMetaData.id.toString, Seq(ArchiveSpecialist))
       val informationURL = InformationURL(None, getMetaData.info)
       val resourceHeader = ResourceHeader(mission.name, Nil, TimeProvider.getISONow, 
            None, mission.desc, None, Seq(contact))
-      val resourceID = getMetaData.id.toString+"/"+mission.id.toString
-      
-      
-    }
-
+      // replace all whitespaces with underscore
+      val resourceID = getMetaData.id.toString+"/"+mission.id.toString.replaceAll(" ", "_")
+      // @FIXME this is very tricky => we can only manually crosscheck!
+      val location = Location(Seq(Earth))
+      DataRecord(None, Some("Observatory"), Observatory(resourceID, resourceHeader, Nil, location, None, Nil))    
+    }, "en")
   }
   
-  protected def getInstrument(id: Option[String]): Spase = ???
+  private def getInstrument(id: Option[String]): Spase = ???
   
-  protected def getNumericalData(id: Option[String]): Spase = ???
+  private def getNumericalData(id: Option[String]): Spase = ???
 
 }
 

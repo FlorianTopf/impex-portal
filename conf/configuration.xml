@@ -21,7 +21,7 @@
     <protocol>http</protocol>
     <info>http://impex.latmos.ipsl.fr/LatHyS.htm</info>
   </database>
-  <database id="impex://SINP/PMM" type="simulation">
+  <database id="impex://SINP" type="simulation">
     <name>SINP</name>
     <description>SINP Paraboloid Model simulations</description>
     <dns>smdc.sinp.msu.ru</dns>
@@ -39,7 +39,7 @@
     <protocol>http</protocol>
     <info>http://ccmc.gsfc.nasa.gov/</info>
   </database>
-  <database id="impex://UCLA" type="simulation">
+  <database id="spase://SMWG" type="simulation">
     <name>UCLA</name>
     <description>UCLA simulations</description>
     <dns>apus.cesr.fr</dns>
