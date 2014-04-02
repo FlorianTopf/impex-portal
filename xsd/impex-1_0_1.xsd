@@ -2627,6 +2627,24 @@ of a set of typically orthogonal axes.
                </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
+         <xsd:enumeration value="GPHIO">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="HSM">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="CSO">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
       </xsd:restriction>
    </xsd:simpleType>
    <!-- ==========================
@@ -6542,6 +6560,12 @@ which may be occupied or observed.
          </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
+         <xsd:enumeration value="Mercury.Magnetosphere">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
          <xsd:enumeration value="Neptune">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
@@ -8661,6 +8685,12 @@ numerical scheme used in the simulation.
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
          </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Analytic">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+               </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
       </xsd:restriction>
