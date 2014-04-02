@@ -51,6 +51,7 @@ object Global extends GlobalSettings {
   private def fetchAndSaveFiles(URLs: Seq[URI], folder: String, db: Database): Seq[NodeSeq] = { 
     URLs map { URL => 
       val fileName = PathProvider.getPath(folder, db.name, URL.toString)
+      // @TODO we do not download in DEV
 //      
 //      val fileDir = new File(folder+"/"+db.name)
 //      if(!fileDir.exists) fileDir.mkdir()

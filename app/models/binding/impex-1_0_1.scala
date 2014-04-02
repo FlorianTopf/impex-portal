@@ -9,9 +9,9 @@ package models.binding
                SPASE metadata.
             
 */
-case class Spase(Version: models.binding.EnumVersion,
-  ResourceEntity: Seq[scalaxb.DataRecord[Any]] = Nil,
-  lang: String)
+//case class Spase(Version: models.binding.EnumVersion,
+//  ResourceEntity: Seq[scalaxb.DataRecord[Any]] = Nil,
+//  lang: String)
 
 
 /** 
@@ -2549,7 +2549,8 @@ object EnumSimulationType {
     case "PIC" => PIC
     case "Test_Particle" => Test_Particle
     case "Paraboloid" => Paraboloid
-
+    // additions for LESIA
+    case "Analytic" => Analytic
   }
 }
 
@@ -2558,6 +2559,7 @@ case object MHD extends EnumSimulationType { override def toString = "MHD" }
 case object PIC extends EnumSimulationType { override def toString = "PIC" }
 case object Test_Particle extends EnumSimulationType { override def toString = "Test_Particle" }
 case object Paraboloid extends EnumSimulationType { override def toString = "Paraboloid" }
+case object Analytic extends EnumSimulationType { override def toString = "Analytic" }
 
 trait EnumProduct
 

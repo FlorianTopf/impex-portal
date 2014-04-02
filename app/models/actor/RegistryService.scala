@@ -35,7 +35,7 @@ class RegistryService extends Actor {
   private def register(msg: RegisterProvider) = {
     val provider: ActorRef = context.actorOf(msg.props, msg.name)
     // @TODO initial delay will be switched later
-    Akka.system.scheduler.schedule(5.minutes, 24.hours, provider, UpdateTrees)
+    //Akka.system.scheduler.schedule(5.minutes, 24.hours, provider, UpdateTrees)
   }
 }
 

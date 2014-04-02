@@ -29,35 +29,40 @@ object Application extends Controller {
     }
   }
   
-  // @TODO return in json
-  def simulations = Action.async {
+  def simulations(fmt: String = "xml") = Action.async { 
      val future = RegistryService.getRepositoryType(Simulation).mapTo[Spase]
      future.map { spase => 
-       Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+       fmt match {
+         case "json" => Ok(Json.toJson(spase))
+         case _ => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+       }
      }
   }
   
-  // @TODO return in json
-  def observations = Action.async {
+  def observations(fmt: String = "xml") = Action.async {
      val future = RegistryService.getRepositoryType(Observation).mapTo[Spase]
      future.map { spase => 
-       Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+       fmt match {
+         case "json" => Ok(Json.toJson(spase))
+         case _ => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+       }
      } 
   }
   
-  // @TODO return in json
   def repository = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    val recursive = req.get("r").getOrElse("false")
+    val recursive = req.get("r").getOrElse("false").toBoolean
+    val format = req.get("fmt").getOrElse("xml")
     recursive match { 
-      case "false" => {   
+      case false => {   
         val future = RegistryService.getRepository(req.get("id"))
-        future.map { _ match {
-          case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
-          case Right(error) => BadRequest(Json.toJson(error))
+        future.map { (_, format) match {
+          case (Left(spase), "json") => Ok(Json.toJson(spase))
+          case (Left(spase), _) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+          case (Right(error), _) => BadRequest(Json.toJson(error))
         }}
       }
-      case "true" => { 
+      case true => { 
         val future = RegistryService.getTreeXML(req.get("id"))
         future.map { _ match {
            case Left(tree) => Ok(tree)
@@ -67,50 +72,54 @@ object Application extends Controller {
     }
   }
   
-  // @TODO return in json and recursive
   def simulationmodel = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val recursive = req.get("r").getOrElse("false")
+    val format = req.get("fmt").getOrElse("xml")
     val future = RegistryService.getSimulationModel(req.get("id"), recursive)
-    future.map { _ match {
-        case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
-        case Right(error) => BadRequest(Json.toJson(error))
+    future.map { (_, format) match {
+        case (Left(spase), "json") => Ok(Json.toJson(spase))
+        case (Left(spase), _) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+        case (Right(error), _) => BadRequest(Json.toJson(error))
       }
     }
   }
   
-  // @TODO return in json and recursive
   def simulationrun = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val recursive = req.get("r").getOrElse("false")
+    val format = req.get("fmt").getOrElse("xml")
     val future = RegistryService.getSimulationRun(req.get("id"), recursive)
-    future.map { _ match {
-        case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
-        case Right(error) => BadRequest(Json.toJson(error))
+    future.map { (_, format) match {
+        case (Left(spase), "json") => Ok(Json.toJson(spase))
+        case (Left(spase), _) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+        case (Right(error), _) => BadRequest(Json.toJson(error))
       }
     }
   }
 
-  // @TODO return in json and recursive
   def numericaloutput = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val recursive = req.get("r").getOrElse("false")
+    val format = req.get("fmt").getOrElse("xml")
     val future = RegistryService.getNumericalOutput(req.get("id"), recursive)
-    future.map { _ match {
-        case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
-        case Right(error) => BadRequest(Json.toJson(error))
+    future.map { (_, format) match {
+        case (Left(spase), "json") => Ok(Json.toJson(spase))
+        case (Left(spase), _) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+        case (Right(error), _) => BadRequest(Json.toJson(error))
       }
     }
   }
   
-  // @TODO return in json and recursive
   def granule = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val recursive = req.get("r").getOrElse("false")
+    val format = req.get("fmt").getOrElse("xml")
     val future = RegistryService.getGranule(req.get("id"), recursive)
-    future.map { _ match {
-        case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
-        case Right(error) => BadRequest(Json.toJson(error))
+    future.map { (_, format) match {
+        case (Left(spase), "json") => Ok(Json.toJson(spase))
+        case (Left(spase), _) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+        case (Right(error), _) => BadRequest(Json.toJson(error))
       }
     }
   }
@@ -138,10 +147,10 @@ object Application extends Controller {
   
   // route for testing
   def test = Action.async {
-    val future = RegistryService.getMethodsXML(Some("impex://FMI"))
+    val future = RegistryService.getSimulationRun(Some("impex://FMI"), "false")
     future.map { _ match {
       case Left(tree) => {
-        Ok(tree.reduce(_++_))
+        Ok(Json.toJson(tree))
       }
       case Right(error) => BadRequest(Json.toJson(error))
     }}
