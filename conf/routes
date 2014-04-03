@@ -13,9 +13,9 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 GET		/config						controllers.Application.config(fmt: String ?= "xml")
 
-GET 	/simulations				controllers.Application.simulations
+GET 	/simulations				controllers.Application.simulations(fmt: String ?= "xml")
 
-GET		/observations				controllers.Application.observations
+GET		/observations				controllers.Application.observations(fmt: String ?= "xml")
 
 GET		/repository					controllers.Application.repository
 
