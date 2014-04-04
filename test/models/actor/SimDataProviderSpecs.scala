@@ -20,10 +20,10 @@ object SimDataProviderSpecs extends Specification with Mockito {
     "SimDataProvider" should {
       
         // test info
-        val providerName = "LATMOS"
-        val treeName = PathProvider.getPath("trees", providerName, "/tree.xml")
+        val providerName = "FMI"
+        val treeName = PathProvider.getPath("trees", providerName, "/Tree_FMI_HYB.xml")
         val tree = scala.xml.XML.load(treeName)    
-        val methodsName = PathProvider.getPath("methods", providerName, "/Methods_LATMOS.wsdl")
+        val methodsName = PathProvider.getPath("methods", providerName, "/Methods_FMI.wsdl")
         val methods = scala.xml.XML.load(methodsName) 
         
         "be initialised and contain data" in {
@@ -88,7 +88,7 @@ object SimDataProviderSpecs extends Specification with Mockito {
             }
         }
         
-         "fetch simulation runs" in {
+        "fetch simulation runs" in {
             val app = new FakeApplication
             running(app) {
                 implicit val actorSystem = Akka.system(app)
@@ -108,6 +108,49 @@ object SimDataProviderSpecs extends Specification with Mockito {
                 repositories must beAnInstanceOf[Seq[SimulationRun]]
             }
         }
+         
+        "fetch numerical outputs" in {
+            val app = new FakeApplication
+            running(app) {
+                implicit val actorSystem = Akka.system(app)
+                val actorRef = TestActorRef(
+                    new SimDataProvider(Trees(Seq(tree)), Methods(Seq(methods))), name = providerName
+                    ) 
+                val actor = actorSystem.actorSelection("user/"+providerName)
+                // @FIXME why cant we import the DataProvider Messages?
+                val future = actor ? models.actor.DataProvider.GetElement(
+                    models.actor.DataProvider.ENumericalOutput, None)
+                val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
+                val repositories = 
+                  result.ResourceEntity.filter(p => p.key == Some("NumericalOutput")).map(_.as[NumericalOutput])
+                
+                actor must beAnInstanceOf[ActorSelection]  
+                result must beAnInstanceOf[Spase]
+                repositories must beAnInstanceOf[Seq[NumericalOutput]]
+            }
+        } 
+       
+        "fetch granules" in {
+            val app = new FakeApplication
+            running(app) {
+                implicit val actorSystem = Akka.system(app)
+                val actorRef = TestActorRef(
+                    new SimDataProvider(Trees(Seq(tree)), Methods(Seq(methods))), name = providerName
+                    ) 
+                val actor = actorSystem.actorSelection("user/"+providerName)
+                // @FIXME why cant we import the DataProvider Messages?
+                val future = actor ? models.actor.DataProvider.GetElement(
+                    models.actor.DataProvider.EGranule, None)
+                val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
+                val repositories = 
+                  result.ResourceEntity.filter(p => p.key == Some("Granule")).map(_.as[Granule])
+                  
+                actor must beAnInstanceOf[ActorSelection]  
+                result must beAnInstanceOf[Spase]
+                repositories must beAnInstanceOf[Seq[Granule]]
+            }
+        }
         
+        //@TODO test interface for updating
     }
 }
