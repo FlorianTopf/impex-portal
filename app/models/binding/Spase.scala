@@ -26,14 +26,30 @@ object Spase {
     }
   }
   
+  // @TODO some elements make problems when directly converting (e.g. in full tree)
   implicit val datarecordsWrites: Writes[scalaxb.DataRecord[Any]] = new Writes[scalaxb.DataRecord[Any]] {
     def writes(d: scalaxb.DataRecord[Any]) = {
       d.key match {
-        case Some("Repository") => Json.obj("repository" -> d.as[Repository])
+        case Some("Repository") => {
+          d.value match {
+            case n: NodeSeq => Json.obj("repository" -> scalaxb.fromXML[Repository](d.as[NodeSeq]))
+            case r: Repository => Json.obj("repository" -> d.as[Repository])
+          }
+        }
         case Some("SimulationModel") => Json.obj("simulationModel" -> d.as[SimulationModelType])
-        case Some("SimulationRun") => Json.obj("simulationRun" -> d.as[SimulationRun])
+        case Some("SimulationRun") => { 
+          d.value match {
+            case n: NodeSeq => Json.obj("simulationRun" -> scalaxb.fromXML[SimulationRun](d.as[NodeSeq]))
+            case r: SimulationRun => Json.obj("simulationRun" -> d.as[SimulationRun])
+          }
+        }
         case Some("NumericalOutput") => Json.obj("numericalOutput" -> d.as[NumericalOutput])
-        case Some("Granule") => Json.obj("granule" -> d.as[Granule])
+        case Some("Granule") => { 
+          d.value match {
+            case n: NodeSeq => Json.obj("granule" -> scalaxb.fromXML[Granule](d.as[NodeSeq]))
+            case r: Granule => Json.obj("granule" -> d.as[Granule])
+          }
+        }
         case _ => Json.obj()
       }
     }

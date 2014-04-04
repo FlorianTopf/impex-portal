@@ -18,17 +18,15 @@ case class Trees(var content: Seq[NodeSeq])
 case class Methods(var content: Seq[NodeSeq])
 
 // basic trait for data provider actors (sim / obs)
-trait DataProvider[A] {
+trait DataProvider {
   val dataTree: Trees
   val accessMethods: Methods
 
   // predefined methods
-  protected def getTreeXML: NodeSeq
-  protected def getMethodsXML: Seq[NodeSeq] = accessMethods.content
+  protected def getMethods: Seq[NodeSeq] = accessMethods.content
   protected def getMetaData: Database
-  protected def getTreeObjects: Seq[A]
-  protected def getRepository(id: Option[String] = None): Spase
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]]
+  protected def getRepository(id: Option[String] = None): Spase
   
   // @FIXME update methods too!
   protected def updateTrees: Seq[NodeSeq] = {
@@ -60,7 +58,7 @@ object DataProvider {
   implicit val timeout = Timeout(10.seconds)
   
   // common message formats
-  case class GetTrees(val format: Option[String] = None)
+  case object GetTree
   case object GetMethods
   // elements of the data model
   trait Element

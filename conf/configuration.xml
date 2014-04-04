@@ -39,7 +39,7 @@
     <protocol>http</protocol>
     <info>http://ccmc.gsfc.nasa.gov/</info>
   </database>
-  <database id="spase://SMWG" type="simulation">
+  <database id="impex://SMWG" type="simulation">
     <name>UCLA</name>
     <description>UCLA simulations</description>
     <dns>apus.cesr.fr</dns>
@@ -48,6 +48,7 @@
     <protocol>http</protocol>
     <info/>
   </database>
+  <!-- not available until full tree is available (no runs included) -->
   <!-- database id="impex://LESIA" type="simulation">
     <name>LESIA</name>
     <description>LESIA simulations</description>

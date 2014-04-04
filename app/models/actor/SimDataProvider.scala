@@ -10,15 +10,14 @@ import scala.concurrent.duration._
 import scalaxb.DataRecord
 
 class SimDataProvider(val dataTree: Trees, val accessMethods: Methods) 
-extends Actor with DataProvider[Spase] {
+extends Actor with DataProvider {
   import models.actor.ConfigService._
   import models.actor.DataProvider._
   
   // @TODO unified error messages
   def receive = {
-    case GetTrees(Some("xml")) => sender ! getTreeXML
-    case GetTrees(None) => sender ! getTreeObjects
-    case GetMethods => sender ! getMethodsXML
+    case GetTree => sender ! getTreeObjects
+    case GetMethods => sender ! getMethods
     case GetElement(dType, id, r) => dType match {
       case ERepository => sender ! getRepository(id)
       case ESimulationModel => sender ! getSimulationModel(id, r)
@@ -33,15 +32,6 @@ extends Actor with DataProvider[Spase] {
     //case _ => sender ! Json.obj("error" -> "message not found")
     case _ => sender ! <error>message not found in data provider</error>
   }
-  
-  // @TODO improve header later (namespaces)
-  protected def getTreeXML: NodeSeq = {
-    val trees = dataTree.content
-    <Spase xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-      { trees(0).\("_").filter(_.label == "Version") }
-      { trees.map(tree => tree.\("_").filter(_.label != "Version")) }
-    </Spase>
-  }
 
   protected def getMetaData: Database = {
     try {
@@ -52,12 +42,16 @@ extends Actor with DataProvider[Spase] {
           Simulation, UrlProvider.getURI("impex", self.path.name))
     }
   }
-
-  protected def getTreeObjects: Seq[Spase] =
-    dataTree.content map { scalaxb.fromXML[Spase](_) }
+  
+  protected def getTreeObjects: Spase = {
+    val spase = dataTree.content flatMap { tree =>
+    	scalaxb.fromXML[Spase](tree).ResourceEntity
+  	}
+    Spase(Number2u462u462, spase, "en")
+  }
   
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]] = {
-    getTreeObjects flatMap { _.ResourceEntity.filter(_.key.get == element) }
+    getTreeObjects.ResourceEntity.filter(_.key.get == element)
   }
   
   protected def getRepository(id: Option[String]): Spase = {
@@ -89,6 +83,8 @@ extends Actor with DataProvider[Spase] {
     }
   }
   
+  //@FIXME needs to return empty result if there is no run stored in the file 
+  // (check if records are empty)
   private def getSimulationRun(id: Option[String], recursive: Boolean): Spase = {
     val records = getTreeObjects("SimulationRun") map {
       run => scalaxb.fromXML[SimulationRun](run.as[NodeSeq])

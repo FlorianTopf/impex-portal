@@ -10,34 +10,28 @@ import scala.concurrent.duration._
 import scalaxb.DataRecord
 
 class ObsDataProvider(val dataTree: Trees, val accessMethods: Methods) 
-extends Actor with DataProvider[DataRoot] {
+extends Actor with DataProvider {
   import models.actor.ConfigService._
   import models.actor.DataProvider._
   
   // @TODO unified error messages
   def receive = {
     // @TODO return unified tree in XML
-    case GetTrees(Some("xml")) => sender ! getTreeXML
-    case GetTrees(None) => sender ! getTreeObjects
-    case GetMethods => sender ! getMethodsXML
+    // @FIXME we only serve the first tree atm
+    case GetTree => sender ! getTreeObjects(0)
+    case GetMethods => sender ! getMethods
     case GetElement(dType, id, r) => dType match {
       case ERepository => sender ! getRepository(id)
       case EObservatory => sender ! getObservatory(id)
       case EInstrument => sender ! getInstrument(id)
       case ENumericalData => sender ! getNumericalData(id)
     }
-    // @TODO update also methods
     case UpdateTrees => {
       dataTree.content = updateTrees
+      // @TODO update also methods
     }
     //case _ => sender ! Json.obj("error" -> "message not found")
     case _ => sender ! <error>message not found in data provider</error>
-  }
-  
-  protected def getTreeXML: NodeSeq = {
-    val trees = dataTree.content 
-    // @FIXME we only serve the first tree atm
-    trees(0)
   }
 
   protected def getMetaData: Database = {

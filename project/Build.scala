@@ -16,7 +16,9 @@ object ApplicationBuild extends Build {
     cache,
     "org.scalaxb" %% "scalaxb" % "1.1.2",
     "net.databinder.dispatch" %% "dispatch-core" % "0.9.5",
-    "org.scala-lang.modules" %% "scala-async" % "0.9.0-M4"
+    "org.scala-lang.modules" %% "scala-async" % "0.9.0-M4",
+    "com.wordnik" %% "swagger-play2" % "1.3.4",
+    "com.wordnik" %% "swagger-play2-utils" % "1.3.4"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(

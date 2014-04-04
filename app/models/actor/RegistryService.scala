@@ -99,24 +99,25 @@ object RegistryService {
   }
  
   // general methods
-  def getTreeXML(id: Option[String] = None): Future[Either[NodeSeq, RequestError]] = {
+  def getTree(id: Option[String] = None): Future[Either[Spase, RequestError]] = {
     implicit val timeout = Timeout(10.seconds)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- {
         id match {
           // @TODO improve this check everywhere
-          case Some(id) if databases.exists(d => id.contains(d.id.toString)) => {
+          // @FIXME this is only available for simulations for now!
+          case Some(id) if databases.exists(d => id.contains(d.id.toString) && d.typeValue == Simulation) => {
             val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.name)
-            (provider ? GetTrees(Some("xml"))).mapTo[NodeSeq] map { Left(_) }
+            (provider ? GetTree).mapTo[Spase] map { Left(_) }
           }
-          case None => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
+          case _ => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
         }
       }
     } yield provider
   }
 
-  def getMethodsXML(id: Option[String] = None): Future[Either[Seq[NodeSeq], RequestError]] = {
+  def getMethods(id: Option[String] = None): Future[Either[Seq[NodeSeq], RequestError]] = {
     implicit val timeout = Timeout(10.seconds)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
