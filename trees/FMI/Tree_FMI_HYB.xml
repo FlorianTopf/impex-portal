@@ -1,4 +1,5 @@
-<Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex.latmos.ipsl.fr/test/impex+spase-1.0rc1.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_0.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
 <Version>2.2.2</Version>
 <SimulationModel>
 	<ResourceID>impex://FMI/HWA/HYB/</ResourceID>
@@ -9646,6 +9647,7 @@
 	</SimulationDomain>
 	<RegionParameter>
 		<SimulatedRegion>Comet</SimulatedRegion>
+		<Caveats>The radius of the comet is assumed to be zero. The element &quot;Radius&quot; refers to the length scale used in numeric parameters</Caveats>
 		<Radius Units="m">6051800</Radius>
 		<Property>
 			<Name>Exobase Altitude</Name>
@@ -9991,6 +9993,65 @@
 	</Parameter>
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
+<NumericalOutput>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_1.3AU_20140315/ElectricCurrent</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_1.3AU_20140315/ElectricCurrent</ResourceName>
+		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
+		<Description>Electric current vector</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_1.3AU_20140315/H+_hybstate_00200000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>3155906</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>Current</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-18155400 -18155400 -18155400</RegionBegin>
+		<RegionEnd>18155400 18155400 18155400</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>impex://FMI/HWA/HYB/comet/comet_1.3AU_20140315</InputResourceID>
+	<Parameter>
+		<Name>TotalCurrent</Name>
+		<ParameterKey>Jtot</ParameterKey>
+		<Description>Total electric current</Description>
+		<Units>A/m^2</Units>
+		<Field>
+			<Qualifier>Total</Qualifier>
+			<FieldQuantity>Current</FieldQuantity>
+		</Field>
+	</Parameter>
+	<Parameter>
+		<Name>Current</Name>
+		<ParameterKey>Jx,Jy,Jz</ParameterKey>
+		<Description>Current vector components</Description>
+		<Units>A/m^2</Units>
+		<Field>
+			<Qualifier>Vector</Qualifier>
+			<FieldQuantity>Current</FieldQuantity>
+		</Field>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
 <SimulationRun>
 	<ResourceID>impex://FMI/HWA/HYB/comet/comet_2.0AU_20140315</ResourceID>
 	<ResourceHeader>
@@ -10055,6 +10116,7 @@
 	</SimulationDomain>
 	<RegionParameter>
 		<SimulatedRegion>Comet</SimulatedRegion>
+		<Caveats>The radius of the comet is assumed to be zero. The element &quot;Radius&quot; refers to the length scale used in numeric parameters</Caveats>
 		<Radius Units="m">6051800</Radius>
 		<Property>
 			<Name>Exobase Altitude</Name>
@@ -10400,6 +10462,65 @@
 	</Parameter>
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
+<NumericalOutput>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_2.0AU_20140315/ElectricCurrent</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_2.0AU_20140315/ElectricCurrent</ResourceName>
+		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
+		<Description>Electric current vector</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_2.0AU_20140315/H+_hybstate_00200000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>3155906</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>Current</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-18155400 -18155400 -18155400</RegionBegin>
+		<RegionEnd>18155400 18155400 18155400</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>impex://FMI/HWA/HYB/comet/comet_2.0AU_20140315</InputResourceID>
+	<Parameter>
+		<Name>TotalCurrent</Name>
+		<ParameterKey>Jtot</ParameterKey>
+		<Description>Total electric current</Description>
+		<Units>A/m^2</Units>
+		<Field>
+			<Qualifier>Total</Qualifier>
+			<FieldQuantity>Current</FieldQuantity>
+		</Field>
+	</Parameter>
+	<Parameter>
+		<Name>Current</Name>
+		<ParameterKey>Jx,Jy,Jz</ParameterKey>
+		<Description>Current vector components</Description>
+		<Units>A/m^2</Units>
+		<Field>
+			<Qualifier>Vector</Qualifier>
+			<FieldQuantity>Current</FieldQuantity>
+		</Field>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
 <SimulationRun>
 	<ResourceID>impex://FMI/HWA/HYB/comet/comet_2.7AU_manual_20140315</ResourceID>
 	<ResourceHeader>
@@ -10464,6 +10585,7 @@
 	</SimulationDomain>
 	<RegionParameter>
 		<SimulatedRegion>Comet</SimulatedRegion>
+		<Caveats>The radius of the comet is assumed to be zero. The element &quot;Radius&quot; refers to the length scale used in numeric parameters</Caveats>
 		<Radius Units="m">6051800</Radius>
 		<Property>
 			<Name>Exobase Altitude</Name>
@@ -10809,6 +10931,65 @@
 	</Parameter>
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
+<NumericalOutput>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_2.7AU_manual_20140315/ElectricCurrent</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_2.7AU_manual_20140315/ElectricCurrent</ResourceName>
+		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
+		<Description>Electric current vector</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_2.7AU_manual_20140315/H+_hybstate_00300000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>3155924</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>Current</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-18155400 -18155400 -18155400</RegionBegin>
+		<RegionEnd>18155400 18155400 18155400</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>impex://FMI/HWA/HYB/comet/comet_2.7AU_manual_20140315</InputResourceID>
+	<Parameter>
+		<Name>TotalCurrent</Name>
+		<ParameterKey>Jtot</ParameterKey>
+		<Description>Total electric current</Description>
+		<Units>A/m^2</Units>
+		<Field>
+			<Qualifier>Total</Qualifier>
+			<FieldQuantity>Current</FieldQuantity>
+		</Field>
+	</Parameter>
+	<Parameter>
+		<Name>Current</Name>
+		<ParameterKey>Jx,Jy,Jz</ParameterKey>
+		<Description>Current vector components</Description>
+		<Units>A/m^2</Units>
+		<Field>
+			<Qualifier>Vector</Qualifier>
+			<FieldQuantity>Current</FieldQuantity>
+		</Field>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
 <SimulationRun>
 	<ResourceID>impex://FMI/HWA/HYB/comet/comet_3.25AU_manual_20140315</ResourceID>
 	<ResourceHeader>
@@ -10873,6 +11054,7 @@
 	</SimulationDomain>
 	<RegionParameter>
 		<SimulatedRegion>Comet</SimulatedRegion>
+		<Caveats>The radius of the comet is assumed to be zero. The element &quot;Radius&quot; refers to the length scale used in numeric parameters</Caveats>
 		<Radius Units="m">6051800</Radius>
 		<Property>
 			<Name>Exobase Altitude</Name>
@@ -11214,6 +11396,65 @@
 		<Field>
 			<Qualifier>Vector</Qualifier>
 			<FieldQuantity>Magnetic</FieldQuantity>
+		</Field>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<NumericalOutput>
+	<ResourceID>impex://FMI/HWA/HYB/comet/comet_3.25AU_manual_20140315/ElectricCurrent</ResourceID>
+	<ResourceHeader>
+		<ResourceName>HYB_comet_comet_3.25AU_manual_20140315/ElectricCurrent</ResourceName>
+		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
+		<Description>Electric current vector</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>impex://FMI</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_3.25AU_manual_20140315/H+_hybstate_00200000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>3155906</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>Current</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-18155400 -18155400 -18155400</RegionBegin>
+		<RegionEnd>18155400 18155400 18155400</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>impex://FMI/HWA/HYB/comet/comet_3.25AU_manual_20140315</InputResourceID>
+	<Parameter>
+		<Name>TotalCurrent</Name>
+		<ParameterKey>Jtot</ParameterKey>
+		<Description>Total electric current</Description>
+		<Units>A/m^2</Units>
+		<Field>
+			<Qualifier>Total</Qualifier>
+			<FieldQuantity>Current</FieldQuantity>
+		</Field>
+	</Parameter>
+	<Parameter>
+		<Name>Current</Name>
+		<ParameterKey>Jx,Jy,Jz</ParameterKey>
+		<Description>Current vector components</Description>
+		<Units>A/m^2</Units>
+		<Field>
+			<Qualifier>Vector</Qualifier>
+			<FieldQuantity>Current</FieldQuantity>
 		</Field>
 	</Parameter>
 	<SimulationProduct>3DCubes</SimulationProduct>
