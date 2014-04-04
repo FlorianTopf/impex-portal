@@ -10,7 +10,7 @@ import play.api.test.Helpers._
  * An integration test will fire up a whole play application in a real (or headless) browser
  */
 class IntegrationSpec extends Specification {
-  
+ /* 
   "Application" should {
     
     "work from within a browser" in {
@@ -23,6 +23,6 @@ class IntegrationSpec extends Specification {
       }
     }
     
-  }
+  } */
   
 }

@@ -26,8 +26,8 @@ class ConfigService extends Actor {
     // not used in the REST interface of the portal
     case GetDatabases => sender ! getDatabases
     case GetDatabaseType(dt: Databasetype) => sender ! getDatabaseType(dt)
-    case GetTools => sender ! getTools
     case GetDatabaseByName(n: String) => sender ! getDatabaseByName(n)
+    case GetTools => sender ! getTools
     case GetTool(n: String) => sender ! getTool(n)
     //case _ => sender ! Json.obj("error" -> "message not found")
     case _ => sender ! <error>message not found in config</error>

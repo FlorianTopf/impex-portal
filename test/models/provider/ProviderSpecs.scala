@@ -1,3 +1,5 @@
+package models.provider
+
 import org.specs2.mutable._
 import models.provider._
 import play.api.test._
@@ -7,12 +9,22 @@ import java.net.URI
 object ProviderSpecs extends Specification {
   
   "PathProvider" should {
-    "deconstruct path" in {
+    "deconstruct simple path" in {
       val testPath = "/AMDA-NG/data/WSRESULT/getObsDataTree_LocalParams.xml"
       val folderName = "AMDA"
       
-      val result = PathProvider.getPath("trees",testPath, folderName)
+      val result = PathProvider.getPath("trees", folderName, testPath)
       val expectedResult = "trees/AMDA/getObsDataTree_LocalParams.xml"
+      
+      result must be equalTo expectedResult
+    }
+    
+    "deconstruct GET path" in {
+      val testPath = "AMDA_METHODS_WSDL.php?wsdl"
+      val folderName = "AMDA"
+      
+      val result = PathProvider.getPath("methods", folderName, testPath)
+      val expectedResult = "methods/AMDA/AMDA_methods.wsdl"
       
       result must be equalTo expectedResult
     }
