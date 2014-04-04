@@ -11,6 +11,7 @@ object ERequestError extends Enumeration {
     val UNKNOWN_MSG = Value(403, "unknown message")
     val UNKNOWN_ENTITY = Value(404, "unknown element")
     val UNKNOWN_PROVIDER = Value(501, "unkown provider")
+    val NOT_IMPLEMENTED = Value(502, "not implemented")
     val INACTIVE = Value(505, "no active session")
 
     // does not work on enums :/

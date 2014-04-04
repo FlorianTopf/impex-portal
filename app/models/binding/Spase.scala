@@ -17,6 +17,7 @@ case class Spase(Version: models.binding.EnumVersion,
   lang: String)
 
 
+// @TODO check again outputs in XML (missing elements?)
 object Spase {
  type JsField = (String, JsValue)
   
@@ -55,6 +56,7 @@ object Spase {
     }
   }
   
+  // writer for repository
   implicit val repositoryWrites: Writes[Repository] = new Writes[Repository] {
     def writes(r: Repository) = {
       Json.obj("resourceId" -> r.ResourceID, "resourceHeader" -> r.ResourceHeader, 
@@ -91,6 +93,7 @@ object Spase {
     def writes(r: EnumRole) = JsString(r.toString)
   }
   
+  // writer for simulation model
   implicit val simulationModelWrites: Writes[SimulationModelType] = new Writes[SimulationModelType] {
     def writes(s: SimulationModelType) = {
       Json.obj("resourceID" -> s.ResourceID, "resourceHeader" -> s.ResourceHeader, "versions" -> s.Versions, 
@@ -110,7 +113,9 @@ object Spase {
          "description" -> v.Description.getOrElse("").toString)
     }
   }
-
+   
+  // writer for simulation run
+  // @FIXME simulationDomain, regionParameter, inputField, inputPopulation, inputParameter missing
   implicit val simulationRunWrites: Writes[SimulationRun] = new Writes[SimulationRun] {
     def writes(r: SimulationRun) = { 
       Json.obj("resourceId" -> r.ResourceID, "resourceHeader" -> r.ResourceHeader, 
@@ -127,6 +132,7 @@ object Spase {
     }
   }
   
+  // writer for numerical output
   implicit val numericalOutputWrites: Writes[NumericalOutput] = new Writes[NumericalOutput] {
     def writes(n: NumericalOutput) = {
       val nOption = n.numericaloutputoption match {
@@ -228,11 +234,12 @@ object Spase {
     }
   }
   
-  // @TODO there are more elements existing here
+  // @FIXME there are more elements existing here
   implicit val dataExtentWrites: Writes[DataExtent] = new Writes[DataExtent] {
     def writes(d: DataExtent) = Json.obj("quantity" -> d.Quantity)
   }
   
+  // writer for granule
   implicit val granuleWrites: Writes[Granule] = new Writes[Granule] {
     def writes(g: Granule) = {
       Json.obj("resourceId" -> g.ResourceID)
