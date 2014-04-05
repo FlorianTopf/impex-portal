@@ -14,19 +14,20 @@ import java.io._
 
 object Global extends GlobalSettings {
   override def onStart(app: play.api.Application) {
+	import models.actor.ConfigService._
     implicit val timeout = Timeout(10.seconds)
-    
-    import models.actor.ConfigService._
-
-    println("application has started")
 
     val actor: ActorRef = Akka.system.actorOf(Props(new ConfigService), name = "config")
-    val config = Await.result(
+    val databases = Await.result(
         ConfigService.request(GetDatabases).mapTo[Seq[Database]], 10.seconds)
 
     Akka.system.actorOf(Props(new RegistryService), name = "registry")
-
-    config map { database =>
+ 
+    initActors(databases)
+  }
+  
+  private def initActors(databases: Seq[Database]) {
+    databases map { database =>
       val dns: String = database.databaseoption.head.value
       val protocol: String = database.protocol.head
       val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.tree)
@@ -52,7 +53,7 @@ object Global extends GlobalSettings {
     URLs map { URL => 
       val fileName = PathProvider.getPath(folder, db.name, URL.toString)
       // @TODO we do not download in DEV
-//      
+//		
 //      val fileDir = new File(folder+"/"+db.name)
 //      if(!fileDir.exists) fileDir.mkdir()
 //      

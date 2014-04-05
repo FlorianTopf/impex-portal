@@ -19,6 +19,7 @@ object SimDataProviderSpecs extends Specification with Mockito {
 
     "SimDataProvider" should {
       
+        // @TODO maybe test all available databases drom the config!
         // test info
         val providerName = "FMI"
         val treeName = PathProvider.getPath("trees", providerName, "/Tree_FMI_HYB.xml")

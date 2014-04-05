@@ -115,6 +115,7 @@ object RegistryService {
           case Some(id) if databases.exists(d => id.contains(d.id.toString) && d.typeValue == Observation) => {
             future { Right(RequestError(ERequestError.NOT_IMPLEMENTED)) }
           }
+          // @TODO return full tree if None is given
           case _ => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
         }
       }
