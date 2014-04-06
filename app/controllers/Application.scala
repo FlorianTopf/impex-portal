@@ -26,13 +26,19 @@ object Application extends Controller {
   
   // route for testing
   def test = Action.async {
-    val future = RegistryService.getSimulationRun(Some("impex://FMI"), "false")
+    import models.actor.DataProvider._
+ /*   val future = RegistryService.getSimulationRun(Some("impex://FMI"), "false")
     future.map { _ match {
       case Left(tree) => {
         Ok(Json.toJson(tree))
       }
       case Right(error) => BadRequest(Json.toJson(error))
     }}
+  } */
+   val actorSel = Akka.system.actorSelection("user/registry/AMDA")
+   val future = (actorSel ? GetTree).mapTo[Spase]
+   future.map { spase =>
+    	Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+   }
   }
-
 }

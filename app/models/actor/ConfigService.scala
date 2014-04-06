@@ -12,7 +12,7 @@ import scala.concurrent.duration._
 import scala.xml._
 import java.net.URI
 
-// @TODO provide a possiblity for updating config + saving to filesystem
+
 class ConfigService extends Actor {
   import models.actor.ConfigService._
   

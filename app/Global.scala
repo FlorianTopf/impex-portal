@@ -9,17 +9,17 @@ import akka.util.Timeout
 
 object Global extends GlobalSettings {
   override def onStart(app: play.api.Application) {
-	import models.actor.ConfigService._
+
+    import models.actor.ConfigService._
 	
     implicit val timeout = Timeout(10.seconds)
 
     val actor: ActorRef = Akka.system.actorOf(Props(new ConfigService), name = "config")
-    val databases = Await.result(
+  	val databases = Await.result(
         ConfigService.request(GetDatabases).mapTo[Seq[Database]], 10.seconds)
 
     Akka.system.actorOf(Props(new RegistryService(databases)), name = "registry")
 
   } 
-
 
 }

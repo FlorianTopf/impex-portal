@@ -28,11 +28,11 @@ object Config extends Controller {
   def config(
       @ApiParam(value = "format in XML or JSON")
       @QueryParam("fmt")
-      @DefaultValue("xml") fmt: String = "xml") = Action.async {
+      @DefaultValue("xml") fmt: String = "xml") = CORS { Action.async {
     val future = ConfigService.request(GetConfig(fmt))
     fmt.toLowerCase match {
       case "xml" => future.mapTo[NodeSeq].map(config => Ok(config))
       case "json" => future.mapTo[JsValue].map(config => Ok(config))
     }
-  }
+  }}
 }

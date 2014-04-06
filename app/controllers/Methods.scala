@@ -36,7 +36,7 @@ object Methods extends Controller {
         required = true, 
         dataType = "string", 
         paramType = "query")))
-  def methods = Action.async { implicit request =>
+  def methods = CORS { Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getMethods(req.get("id"))
     future.map { _ match {
@@ -50,5 +50,10 @@ object Methods extends Controller {
       }
       case Right(error) => BadRequest(Json.toJson(error))
     }}
-  }
+  }}
+  
+  
+  // @TODO provide routes for modified files (taverna)
+  
+  
 }

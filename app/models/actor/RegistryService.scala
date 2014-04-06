@@ -23,13 +23,13 @@ class RegistryService(val databases: Seq[Database]) extends Actor {
   
   implicit val timeout = Timeout(10.seconds)
   
-  override def preStart = initChildActors(databases)
-  
   override val supervisorStrategy = OneForOneStrategy() {
     case _: ActorInitializationException => Stop
     case _: ActorKilledException => Stop
     case _: Exception => Restart
   }
+  
+  override def preStart = initChildActors(databases)
 
   def receive = {
     case reg: RegisterProvider => sender ! register(reg.props, reg.name)
@@ -41,7 +41,7 @@ class RegistryService(val databases: Seq[Database]) extends Actor {
     //Akka.system.scheduler.schedule(5.minutes, 24.hours, provider, UpdateTrees)
   }
   
-  private def initChildActors(databases: Seq[Database]) {
+  private def initChildActors(databases: Seq[Database]) = {
     databases map { database =>
       val dns: String = database.databaseoption.head.value
       val protocol: String = database.protocol.head

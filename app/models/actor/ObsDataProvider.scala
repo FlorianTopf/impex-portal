@@ -16,8 +16,8 @@ extends Actor with DataProvider {
   
   def receive = {
     // @TODO return unified tree in XML
-    // @FIXME we only serve the first tree atm
-    case GetTree => sender ! getTreeObjects(0)
+    // @FIXME we only serve what we have atm
+    case GetTree => sender ! getTreeObjects
     case GetMethods => sender ! getMethods
     case GetElement(dType, id, r) => dType match {
       case ERepository => sender ! getRepository(id)
@@ -40,13 +40,19 @@ extends Actor with DataProvider {
           Observation, UrlProvider.getURI("impex", self.path.name))
     }
   }
+  
+  protected def getTreeObjects: Spase = {
+    Spase(Number2u462u462, 
+      getRepository(None).ResourceEntity++
+      getObservatory(None).ResourceEntity, "en")
+  }
 
-  protected def getTreeObjects: Seq[DataRoot] = {
+  protected def getNativeTreeObjects: Seq[DataRoot] = {
     dataTree.content map { tree => scalaxb.fromXML[DataRoot](tree) }
   }
 
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]] = {
-    val records = getTreeObjects flatMap { _.dataCenter map { 
+    val records = getNativeTreeObjects flatMap { _.dataCenter map { 
       _.datacenteroption.filter(_.key.get == element) }}
     records.flatten
   }
@@ -54,7 +60,7 @@ extends Actor with DataProvider {
   // @FIXME must search for an specific ID (multiple Repositories per Authority)
   protected def getRepository(id: Option[String]): Spase = {
     println("RepositoryID="+id)
-    val records = getTreeObjects flatMap { _.dataCenter map { dataCenter => 
+    val records = getNativeTreeObjects flatMap { _.dataCenter map { dataCenter => 
         val contact = Contact(getMetaData.id.toString, Seq(ArchiveSpecialist))
         val resourceHeader = ResourceHeader(dataCenter.id.toString, Nil, TimeProvider.getISONow, 
            None, dataCenter.name, None, Seq(contact))
