@@ -23,6 +23,7 @@ import models.actor.RegistryService.RegisterProvider
 object RegistryServiceSpecs extends Specification with Mockito {
   
 	// test info => get all available databases from config
+  	val rand = new Random(System.currentTimeMillis())
 	val config = scalaxb.fromXML[Impexconfiguration](scala.xml.XML.loadFile("conf/configuration.xml"))
 	val databases = config.impexconfigurationoption.filter(_.key.get == "database").map(_.as[Database])
 	val providers: Seq[(Database, Trees, Methods)] = databases map { database => 
@@ -39,19 +40,6 @@ object RegistryServiceSpecs extends Specification with Mockito {
 	  (database, Trees(trees), Methods(methods))
 	}
 	
-	val rand = new Random(System.currentTimeMillis())
-  
-	def registerActors(registryActor: ActorSelection) = {
-	  providers map { provider =>
-	    provider._1.typeValue match {
-	      case Simulation => 
-	        registryActor ? RegisterProvider(Props(new SimDataProvider(provider._2, provider._3)), provider._1.name)
-          case Observation => 
-            registryActor ? RegisterProvider(Props(new ObsDataProvider(provider._2, provider._3)), provider._1.name)
-        }
-      }	
-	}
-	
     "RegistryService" should {
     
         "be initialised and hold valid actors" in {
@@ -59,9 +47,8 @@ object RegistryServiceSpecs extends Specification with Mockito {
             running(app) {
                 implicit val actorSystem = Akka.system(app)
                 val configActorRef = TestActorRef(new ConfigService, name = "config")
-                val registryActorRef = TestActorRef((new RegistryService), name = "registry")
+                val registryActorRef = TestActorRef((new RegistryService(databases)), name = "registry")
                 val registryActor = actorSystem.actorSelection("user/registry")
-                registerActors(registryActor)
                 
                 val randomProvider1 = providers(rand.nextInt(providers.length))._1
                 val future1 = RegistryService.getTree(Some(randomProvider1.id.toString))
@@ -106,9 +93,8 @@ object RegistryServiceSpecs extends Specification with Mockito {
             running(app) {
                 implicit val actorSystem = Akka.system(app)
                 val configActorRef = TestActorRef(new ConfigService, name = "config")
-                val registryActorRef = TestActorRef((new RegistryService), name = "registry")
+                val registryActorRef = TestActorRef((new RegistryService(databases)), name = "registry")
                 val registryActor = actorSystem.actorSelection("user/registry")
-                registerActors(registryActor)
                
                 val future1 = RegistryService.getRepository(Some(providers(rand.nextInt(providers.length))._1.id.toString))
                 val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
@@ -133,9 +119,8 @@ object RegistryServiceSpecs extends Specification with Mockito {
             running(app) {
                 implicit val actorSystem = Akka.system(app)
                 val configActorRef = TestActorRef(new ConfigService, name = "config")
-                val registryActorRef = TestActorRef((new RegistryService), name = "registry")
+                val registryActorRef = TestActorRef((new RegistryService(databases)), name = "registry")
                 val registryActor = actorSystem.actorSelection("user/registry")
-                registerActors(registryActor)	
                
                 val future1 = RegistryService.getSimulationModel(Some("impex://FMI/HWA/GUMICS"), "false")
                 val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
@@ -160,9 +145,8 @@ object RegistryServiceSpecs extends Specification with Mockito {
             running(app) {
                 implicit val actorSystem = Akka.system(app)
                 val configActorRef = TestActorRef(new ConfigService, name = "config")
-                val registryActorRef = TestActorRef((new RegistryService), name = "registry")
-                val registryActor = actorSystem.actorSelection("user/registry")
-                registerActors(registryActor)	
+                val registryActorRef = TestActorRef((new RegistryService(databases)), name = "registry")
+                val registryActor = actorSystem.actorSelection("user/registry")	
                
                 val future1 = RegistryService.getSimulationRun(Some("impex://SINP/PMM/Earth/Static"), "false")
                 val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
@@ -187,9 +171,8 @@ object RegistryServiceSpecs extends Specification with Mockito {
             running(app) {
                 implicit val actorSystem = Akka.system(app)
                 val configActorRef = TestActorRef(new ConfigService, name = "config")
-                val registryActorRef = TestActorRef((new RegistryService), name = "registry")
+                val registryActorRef = TestActorRef((new RegistryService(databases)), name = "registry")
                 val registryActor = actorSystem.actorSelection("user/registry")
-                registerActors(registryActor)
                
                 val future1 = RegistryService.getRepository(Some("impex://LATMOS/Hybrid/Mars_14_01_13"))
                 val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
@@ -214,9 +197,8 @@ object RegistryServiceSpecs extends Specification with Mockito {
             running(app) {
                 implicit val actorSystem = Akka.system(app)
                 val configActorRef = TestActorRef(new ConfigService, name = "config")
-                val registryActorRef = TestActorRef((new RegistryService), name = "registry")
+                val registryActorRef = TestActorRef((new RegistryService(databases)), name = "registry")
                 val registryActor = actorSystem.actorSelection("user/registry")
-                registerActors(registryActor)	
                
                 val future1 = RegistryService.getRepository(Some("impex://LATMOS/Hybrid/Mars_14_01_13/Mag/2D/XY"))
                 val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)

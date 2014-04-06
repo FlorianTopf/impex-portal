@@ -12,12 +12,18 @@ import akka.pattern._
 import akka.util.Timeout
 import akka.actor.SupervisorStrategy._
 import scalaxb.DataRecord
+import java.net.URI
+import models.provider._
+import java.io._
+import play.api.libs.ws._
 
-class RegistryService extends Actor {  
+class RegistryService(val databases: Seq[Database]) extends Actor {  
   import models.actor.RegistryService._
   import models.actor.DataProvider._
   
   implicit val timeout = Timeout(10.seconds)
+  
+  override def preStart = initChildActors(databases)
   
   override val supervisorStrategy = OneForOneStrategy() {
     case _: ActorInitializationException => Stop
@@ -26,13 +32,63 @@ class RegistryService extends Actor {
   }
 
   def receive = {
-    case reg: RegisterProvider => sender ! register(reg)
-  }
+    case reg: RegisterProvider => sender ! register(reg.props, reg.name)
+  } 
 
-  private def register(msg: RegisterProvider) = {
-    val provider: ActorRef = context.actorOf(msg.props, msg.name)
+  private def register(props: Props, name: String) = {
+    val provider: ActorRef = context.actorOf(props, name)
     // @TODO initial delay will be switched later
     //Akka.system.scheduler.schedule(5.minutes, 24.hours, provider, UpdateTrees)
+  }
+  
+  private def initChildActors(databases: Seq[Database]) {
+    databases map { database =>
+      val dns: String = database.databaseoption.head.value
+      val protocol: String = database.protocol.head
+      val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.tree)
+      val methodsURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.methods)
+      
+      println("fetching files from "+database.name+":")
+      println("{")
+      println("treeURL="+treeURLs)
+      println("methodsURL="+methodsURLs)
+      println("}")
+
+      val trees: Seq[NodeSeq] = fetchAndSaveFiles(treeURLs, "trees", database)
+      val methods: Seq[NodeSeq] = fetchAndSaveFiles(methodsURLs, "methods", database)
+        
+      database.typeValue match {
+        case Simulation => register(
+            Props(new SimDataProvider(Trees(trees), Methods(methods))), database.name)
+        case Observation => register(
+            Props(new ObsDataProvider(Trees(trees), Methods(methods))),database.name)
+      }
+    }
+  }
+  
+  private def fetchAndSaveFiles(URLs: Seq[URI], folder: String, db: Database): Seq[NodeSeq] = { 
+    URLs map { URL => 
+      val fileName = PathProvider.getPath(folder, db.name, URL.toString)
+      // @TODO we do not download in DEVELOPMENT
+		
+//      val fileDir = new File(folder+"/"+db.name)
+//      if(!fileDir.exists) fileDir.mkdir()
+//      val file = new File(fileName)
+//      if(!file.exists) file.createNewFile()
+//      
+//      val promise = WS.url(URL.toString).get()
+//      
+//      try {
+//        val result = Await.result(promise, 1.minute).xml
+//        scala.xml.XML.save(fileName, result, "UTF-8")
+//        result
+//      } catch {
+//        case e: TimeoutException => {
+//          println("timeout: fallback on local file at "+db.name)
+          scala.xml.XML.load(fileName)
+//        }
+//      }
+    }
   }
 }
 
@@ -45,8 +101,6 @@ object RegistryService {
   // message formats
   trait RegistryMessage
   case class RegisterProvider(val props: Props, val name: String) extends RegistryMessage
-  case class GetProviderTree(val name: Option[String]) extends RegistryMessage
-  case class GetRepositories(val databases: Seq[(String, Database)]) extends RegistryMessage
 
   private val registry: ActorSelection = Akka.system.actorSelection("user/registry")
 
@@ -92,7 +146,7 @@ object RegistryService {
    
   def registerChild(props: Props, name: String) = {
     (registry ? RegisterProvider(props, name))
-  }
+  } 
  
   // general methods
   def getTree(id: Option[String] = None): Future[Either[Spase, RequestError]] = {
