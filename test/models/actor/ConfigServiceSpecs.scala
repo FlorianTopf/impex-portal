@@ -12,6 +12,7 @@ import akka.testkit._
 import scala.concurrent.duration._
 import scala.concurrent.Await
 import scala.xml.NodeSeq
+import java.net.URI
 
   
 object ConfigServiceSpecs extends Specification with Mockito {
@@ -70,13 +71,13 @@ object ConfigServiceSpecs extends Specification with Mockito {
             }
         }
         
-        "get database object by name" in {
+        "get database object by id" in {
             val app = new FakeApplication
             running(app) {
                 implicit val actorSystem = Akka.system(app)
                 val actorRef = TestActorRef(new ConfigService, name = "config")
                 val actor = actorSystem.actorSelection("user/config")
-                val future = ConfigService.request(GetDatabaseByName("AMDA"))
+                val future = ConfigService.request(GetDatabaseById(new URI("impex://LATMOS")))
                 val database = Await.result(future.mapTo[Database], DurationInt(10) second)
                 
                 database must beAnInstanceOf[Database]

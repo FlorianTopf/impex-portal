@@ -14,7 +14,6 @@ import akka.actor.SupervisorStrategy._
 import scalaxb.DataRecord
 import java.net.URI
 import models.provider._
-import java.io._
 import play.api.libs.ws._
 
 class RegistryService(val databases: Seq[Database]) extends Actor {  
@@ -32,64 +31,28 @@ class RegistryService(val databases: Seq[Database]) extends Actor {
   override def preStart = initChildActors(databases)
 
   def receive = {
-    case reg: RegisterProvider => sender ! register(reg.props, reg.name)
+    case reg: RegisterProvider => sender ! register(reg.props, reg.id)
   } 
 
-  private def register(props: Props, name: String) = {
-    val provider: ActorRef = context.actorOf(props, name)
+  private def register(props: Props, id: String) = {
+    val provider: ActorRef = context.actorOf(props, id)
     // @TODO initial delay will be switched later
-    //Akka.system.scheduler.schedule(5.minutes, 24.hours, provider, UpdateTrees)
+    Akka.system.scheduler.schedule(5.minutes, 24.hours, provider, UpdateData)
   }
   
   private def initChildActors(databases: Seq[Database]) = {
     databases map { database =>
-      val dns: String = database.databaseoption.head.value
-      val protocol: String = database.protocol.head
-      val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.tree)
-      val methodsURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.methods)
+      val id: String = UrlProvider.encodeURI(database.id)
       
-      println("fetching files from "+database.name+":")
-      println("{")
-      println("treeURL="+treeURLs)
-      println("methodsURL="+methodsURLs)
-      println("}")
-
-      val trees: Seq[NodeSeq] = fetchAndSaveFiles(treeURLs, "trees", database)
-      val methods: Seq[NodeSeq] = fetchAndSaveFiles(methodsURLs, "methods", database)
-        
       database.typeValue match {
         case Simulation => register(
-            Props(new SimDataProvider(Trees(trees), Methods(methods))), database.name)
+            Props(new SimDataProvider(database)), id)
         case Observation => register(
-            Props(new ObsDataProvider(Trees(trees), Methods(methods))),database.name)
+            Props(new ObsDataProvider(database)), id)
       }
     }
   }
   
-  private def fetchAndSaveFiles(URLs: Seq[URI], folder: String, db: Database): Seq[NodeSeq] = { 
-    URLs map { URL => 
-      val fileName = PathProvider.getPath(folder, db.name, URL.toString)
-      // @TODO we do not download in DEVELOPMENT
-		
-//      val fileDir = new File(folder+"/"+db.name)
-//      if(!fileDir.exists) fileDir.mkdir()
-//      val file = new File(fileName)
-//      if(!file.exists) file.createNewFile()
-//      
-//      val promise = WS.url(URL.toString).get()
-//      
-//      try {
-//        val result = Await.result(promise, 1.minute).xml
-//        scala.xml.XML.save(fileName, result, "UTF-8")
-//        result
-//      } catch {
-//        case e: TimeoutException => {
-//          println("timeout: fallback on local file at "+db.name)
-          scala.xml.XML.load(fileName)
-//        }
-//      }
-    }
-  }
 }
 
 object RegistryService {
@@ -100,20 +63,19 @@ object RegistryService {
   
   // message formats
   trait RegistryMessage
-  case class RegisterProvider(val props: Props, val name: String) extends RegistryMessage
+  case class RegisterProvider(val props: Props, val id: String) extends RegistryMessage
 
   private val registry: ActorSelection = Akka.system.actorSelection("user/registry")
 
   private def getChilds(databases: Seq[Database]): Seq[ActorSelection] = {
-    databases map { database => getChild(database.name) }
+    databases map { d => getChild(d.id) }
   }
 
   // @TODO check if child exists and is alive
-  private def getChild(name: String): ActorSelection = {
-    Akka.system.actorSelection("user/registry/" + name)
+  private def getChild(id: URI): ActorSelection = {
+    Akka.system.actorSelection("user/registry/" + UrlProvider.encodeURI(id))
   }
   
-  // @TODO we need to use the real id for actor selection e.g. impex___LATMOS
   private def getElement(msg: GetElement): Future[Either[Spase, RequestError]] = {
     implicit val timeout = Timeout(30.seconds)
     println("ResourceID="+msg.id)
@@ -122,7 +84,7 @@ object RegistryService {
       provider <- msg.id match {
         case Some(id) if(databases.exists(d => id.contains(d.id.toString))) => {
           val db: Database = databases.find(d => id.contains(d.id.toString)).get
-          val provider: ActorSelection = getChild(db.name)
+          val provider: ActorSelection = getChild(db.id)
           (provider ? msg).mapTo[Spase] map { Left(_) }
         }
         case None => {
@@ -144,8 +106,8 @@ object RegistryService {
     } yield provider 
   }
    
-  def registerChild(props: Props, name: String) = {
-    (registry ? RegisterProvider(props, name))
+  def registerChild(props: Props, id: String) = {
+    (registry ? RegisterProvider(props, id))
   } 
  
   // general methods
@@ -158,7 +120,7 @@ object RegistryService {
           // @TODO improve this check everywhere
           // @FIXME this is only available for simulations for now!
           case Some(id) if databases.exists(d => id.contains(d.id.toString) && d.typeValue == Simulation) => {
-            val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.name)
+            val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.id)
             (provider ? GetTree).mapTo[Spase] map { Left(_) }
           }
           // give correct error in the interface
@@ -185,7 +147,7 @@ object RegistryService {
       provider <- {
         id match {
           case Some(id) if databases.exists(d => id.contains(d.id.toString)) => {
-            val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.name)
+            val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.id)
             (provider ? GetMethods).mapTo[Seq[NodeSeq]] map { Left(_) } 
           }
           // @TODO what do we do if None is given?

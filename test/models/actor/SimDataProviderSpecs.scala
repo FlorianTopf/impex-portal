@@ -14,7 +14,7 @@ import akka.pattern.ask
 import scala.concurrent.duration._
 import scala.concurrent.Await
 import scala.xml.NodeSeq
-// only single imports possible
+import java.util.Random
 import models.actor.DataProvider.{ 
   GetTree, GetMethods, 
   GetElement, ERepository, 
@@ -26,11 +26,10 @@ import models.actor.DataProvider.{
 object SimDataProviderSpecs extends Specification with Mockito {
 
     // test info
-    val providerName = "FMI"
-    val treeName = PathProvider.getPath("trees", providerName, "/Tree_FMI_HYB.xml")
-    val tree = scala.xml.XML.load(treeName)    
-    val methodsName = PathProvider.getPath("methods", providerName, "/Methods_FMI.wsdl")
-    val methods = scala.xml.XML.load(methodsName) 
+  	val rand = new Random(System.currentTimeMillis())
+    val config = scalaxb.fromXML[Impexconfiguration](scala.xml.XML.loadFile("conf/configuration.xml"))
+	val databases = config.impexconfigurationoption.filter(_.key.get == "database").map(
+	    _.as[Database]).filter(d => d.typeValue == Simulation)
 
     "SimDataProvider" should {
         
@@ -38,10 +37,12 @@ object SimDataProviderSpecs extends Specification with Mockito {
             val app = new FakeApplication
             running(app) {
                 implicit val actorSystem = Akka.system(app)
+                val database = databases(rand.nextInt(databases.length))
+                val actorId = UrlProvider.encodeURI(database.id)
                 val actorRef = TestActorRef(
-                    new SimDataProvider(Trees(Seq(tree)), Methods(Seq(methods))), name = providerName
+                    new SimDataProvider(database), name = actorId
                     ) 
-                val actor = actorSystem.actorSelection("user/"+providerName)
+                val actor = actorSystem.actorSelection("user/"+actorId)
                 val treeFuture = actor ? GetTree
                 val treeResult = Await.result(treeFuture.mapTo[Spase], DurationInt(10) second)
                 val methodsFuture = actor ? GetMethods
@@ -57,10 +58,12 @@ object SimDataProviderSpecs extends Specification with Mockito {
             val app = new FakeApplication
             running(app) {
                 implicit val actorSystem = Akka.system(app)
+                val database = databases(rand.nextInt(databases.length))
+                val actorId = UrlProvider.encodeURI(database.id)
                 val actorRef = TestActorRef(
-                    new SimDataProvider(Trees(Seq(tree)), Methods(Seq(methods))), name = providerName
+                    new SimDataProvider(database), name = actorId
                     ) 
-                val actor = actorSystem.actorSelection("user/"+providerName)
+                val actor = actorSystem.actorSelection("user/"+actorId)
                 val future = actor ? GetElement(ERepository, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
                 val repositories = 
@@ -76,10 +79,12 @@ object SimDataProviderSpecs extends Specification with Mockito {
             val app = new FakeApplication
             running(app) {
                 implicit val actorSystem = Akka.system(app)
+                val database = databases(rand.nextInt(databases.length))
+                val actorId = UrlProvider.encodeURI(database.id)
                 val actorRef = TestActorRef(
-                    new SimDataProvider(Trees(Seq(tree)), Methods(Seq(methods))), name = providerName
+                    new SimDataProvider(database), name = actorId
                     ) 
-                val actor = actorSystem.actorSelection("user/"+providerName)
+                val actor = actorSystem.actorSelection("user/"+actorId)
                 val future = actor ? GetElement(ESimulationModel, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
                 val repositories = 
@@ -95,10 +100,12 @@ object SimDataProviderSpecs extends Specification with Mockito {
             val app = new FakeApplication
             running(app) {
                 implicit val actorSystem = Akka.system(app)
+                val database = databases(rand.nextInt(databases.length))
+                val actorId = UrlProvider.encodeURI(database.id)
                 val actorRef = TestActorRef(
-                    new SimDataProvider(Trees(Seq(tree)), Methods(Seq(methods))), name = providerName
+                    new SimDataProvider(database), name = actorId
                     ) 
-                val actor = actorSystem.actorSelection("user/"+providerName)
+                val actor = actorSystem.actorSelection("user/"+actorId)
                 val future = actor ? GetElement(ESimulationRun, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
                 val repositories = 
@@ -114,10 +121,12 @@ object SimDataProviderSpecs extends Specification with Mockito {
             val app = new FakeApplication
             running(app) {
                 implicit val actorSystem = Akka.system(app)
+                val database = databases(rand.nextInt(databases.length))
+                val actorId = UrlProvider.encodeURI(database.id)
                 val actorRef = TestActorRef(
-                    new SimDataProvider(Trees(Seq(tree)), Methods(Seq(methods))), name = providerName
+                    new SimDataProvider(database), name = actorId
                     ) 
-                val actor = actorSystem.actorSelection("user/"+providerName)
+                val actor = actorSystem.actorSelection("user/"+actorId)
                 val future = actor ? GetElement(ENumericalOutput, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
                 val repositories = 
@@ -133,10 +142,12 @@ object SimDataProviderSpecs extends Specification with Mockito {
             val app = new FakeApplication
             running(app) {
                 implicit val actorSystem = Akka.system(app)
+                val database = databases(rand.nextInt(databases.length))
+                val actorId = UrlProvider.encodeURI(database.id)
                 val actorRef = TestActorRef(
-                    new SimDataProvider(Trees(Seq(tree)), Methods(Seq(methods))), name = providerName
+                    new SimDataProvider(database), name = actorId
                     ) 
-                val actor = actorSystem.actorSelection("user/"+providerName)
+                val actor = actorSystem.actorSelection("user/"+actorId)
                 val future = actor ? GetElement(EGranule, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
                 val repositories = 

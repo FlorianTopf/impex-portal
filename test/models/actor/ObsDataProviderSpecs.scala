@@ -14,6 +14,7 @@ import akka.pattern.ask
 import scala.concurrent.duration._
 import scala.concurrent.Await
 import scala.xml.NodeSeq
+import java.util.Random
 // only single imports possible
 import models.actor.DataProvider.{ 
   GetTree, GetMethods, 
@@ -22,17 +23,14 @@ import models.actor.DataProvider.{
   ENumericalOutput, EGranule
 }
 
-// @FIXME we cannot test because of dependencies on Config Service
+
 object ObsDataProviderSpecs extends Specification with Mockito {
 
     // test info
-    val providerName = "CLWeb"
-    val treeName = PathProvider.getPath("trees", providerName, "/clweb_tree.xml")
-    println(treeName)
-    val tree = scala.xml.XML.load(treeName)    
-    val methodsName = PathProvider.getPath("methods", providerName, "/Methods_CLWEB.wsdl")
-    println(methodsName)
-    val methods = scala.xml.XML.load(methodsName) 
+  	val rand = new Random(System.currentTimeMillis())
+    val config = scalaxb.fromXML[Impexconfiguration](scala.xml.XML.loadFile("conf/configuration.xml"))
+	val databases = config.impexconfigurationoption.filter(_.key.get == "database").map(
+	    _.as[Database]).filter(d => d.typeValue == Observation)
 
     "ObsDataProvider" should {
         
@@ -40,20 +38,20 @@ object ObsDataProviderSpecs extends Specification with Mockito {
             val app = new FakeApplication
             running(app) {
                 implicit val actorSystem = Akka.system(app)
-                // here we need the config service available?
-                //val configActorRef = TestActorRef(new ConfigService, name = "config")
+                val database = databases(rand.nextInt(databases.length))
+                val actorId = UrlProvider.encodeURI(database.id)
                 val actorRef = TestActorRef(
-                    new ObsDataProvider(Trees(Seq(tree)), Methods(Seq(methods))), name = providerName
+                    new ObsDataProvider(database), name = actorId
                     ) 
-                val actor = actorSystem.actorSelection("user/"+providerName)
-                //val treeFuture = actor ? GetTree
-                //val treeResult = Await.result(treeFuture, DurationInt(10) second)
-                /*val methodsFuture = actor ? GetMethods
-                val methodsResult = Await.result(methodsFuture.mapTo[Seq[NodeSeq]], DurationInt(10) second) */
+                val actor = actorSystem.actorSelection("user/"+actorId)
+                val treeFuture = actor ? GetTree
+                val treeResult = Await.result(treeFuture.mapTo[Spase], DurationInt(10) second)
+                val methodsFuture = actor ? GetMethods
+                val methodsResult = Await.result(methodsFuture.mapTo[Seq[NodeSeq]], DurationInt(10) second)
                 
                 actor must beAnInstanceOf[ActorSelection]  
-                //treeResult must beAnInstanceOf[Spase]
-                //methodsResult must beAnInstanceOf[Seq[NodeSeq]]
+                treeResult must beAnInstanceOf[Spase]
+                methodsResult must beAnInstanceOf[Seq[NodeSeq]]
             }
         }
     } 

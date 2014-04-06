@@ -9,12 +9,12 @@ object UrlProvider {
     }
   }
   
-  //http://docs.oracle.com/javase/6/docs/api/java/net/URI.html
-  def getURI(scheme: String, authority: String, path: String = ""): URI = {
-    path match {
-      case "" => new URI(scheme+"://"+authority)
-      case _  => new URI(scheme+"://"+authority+"/"+path)
-    }
+  def decodeURI(string: String): URI = {
+    new URI(string.replaceAll("(___)", "://").replaceAll("_", "/"))
+  }
+  
+  def encodeURI(uri: URI): String = {
+    uri.toString.replaceAll("(:|/)", "_")
   }
   
 }

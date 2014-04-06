@@ -9,10 +9,12 @@ import scala.concurrent._
 import scala.concurrent.duration._
 import scalaxb.DataRecord
 
-class ObsDataProvider(val dataTree: Trees, val accessMethods: Methods) 
+class ObsDataProvider(var metadata: Database) 
 extends Actor with DataProvider {
   import models.actor.ConfigService._
   import models.actor.DataProvider._
+  
+  override def preStart = initData(metadata)
   
   def receive = {
     // @TODO return unified tree in XML
@@ -25,20 +27,7 @@ extends Actor with DataProvider {
       case EInstrument => sender ! getInstrument(id)
       case ENumericalData => sender ! getNumericalData(id)
     }
-    case UpdateTrees => {
-      dataTree.content = updateTrees
-      // @TODO update also methods
-    }
-  }
-
-  protected def getMetaData: Database = {
-    try {
-      Await.result(ConfigService.request(GetDatabaseByName(self.path.name)).mapTo[Database], 5.seconds)
-    } catch {
-      // if config service fails just provide what is there!
-      case e: TimeoutException => Database(self.path.name, None, Nil, Nil, Nil, Nil, "", 
-          Observation, UrlProvider.getURI("impex", self.path.name))
-    }
+    case UpdateData => updateData(getMetaData)
   }
   
   protected def getTreeObjects: Spase = {
@@ -48,7 +37,7 @@ extends Actor with DataProvider {
   }
 
   protected def getNativeTreeObjects: Seq[DataRoot] = {
-    dataTree.content map { tree => scalaxb.fromXML[DataRoot](tree) }
+    getTrees map { tree => scalaxb.fromXML[DataRoot](tree) }
   }
 
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]] = {

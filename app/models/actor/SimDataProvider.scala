@@ -9,10 +9,12 @@ import scala.concurrent._
 import scala.concurrent.duration._
 import scalaxb.DataRecord
 
-class SimDataProvider(val dataTree: Trees, val accessMethods: Methods) 
+class SimDataProvider(var metadata: Database) 
 extends Actor with DataProvider {
   import models.actor.ConfigService._
   import models.actor.DataProvider._
+  
+  override def preStart = initData(metadata)
   
   def receive = {
     case GetTree => sender ! getTreeObjects
@@ -24,24 +26,11 @@ extends Actor with DataProvider {
       case ENumericalOutput => sender ! getNumericalOutput(id, r)
       case EGranule => sender ! getGranule(id, r)
     }
-    case UpdateTrees => {
-      dataTree.content = updateTrees
-      // @TODO update also methods
-    }
-  }
-
-  protected def getMetaData: Database = {
-    try {
-      Await.result(ConfigService.request(GetDatabaseByName(self.path.name)).mapTo[Database], 5.seconds)
-    } catch {
-      // if config service fails just provide what is there!
-      case e: TimeoutException => Database(self.path.name, None, Nil, Nil, Nil, Nil, "", 
-          Simulation, UrlProvider.getURI("impex", self.path.name))
-    }
+    case UpdateData => updateData(getMetaData)
   }
   
   protected def getTreeObjects: Spase = {
-    val spase = dataTree.content flatMap { tree =>
+    val spase = getTrees flatMap { tree =>
     	scalaxb.fromXML[Spase](tree).ResourceEntity
   	}
     Spase(Number2u462u462, spase, "en")

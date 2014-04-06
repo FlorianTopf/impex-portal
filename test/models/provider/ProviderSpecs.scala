@@ -42,5 +42,18 @@ object ProviderSpecs extends Specification {
       result must be equalTo expectedResult 
     }
     
+    "encode URI" in {
+      val uri = new URI("impex://FMI")
+      val expected = "impex___FMI"
+      
+      UrlProvider.encodeURI(uri) must be equalTo expected
+    }
+    
+    "decode URI" in {
+      val string = "impex___SINP_PMM"
+      val expected = new URI("impex://SINP/PMM")
+        
+      UrlProvider.decodeURI(string) must be equalTo expected
+    }
   }
 }

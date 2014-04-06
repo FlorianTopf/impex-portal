@@ -35,7 +35,7 @@ object Application extends Controller {
       case Right(error) => BadRequest(Json.toJson(error))
     }}
   } */
-   val actorSel = Akka.system.actorSelection("user/registry/AMDA")
+   val actorSel = Akka.system.actorSelection("user/registry/impex___AMDA")
    val future = (actorSel ? GetTree).mapTo[Spase]
    future.map { spase =>
     	Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))

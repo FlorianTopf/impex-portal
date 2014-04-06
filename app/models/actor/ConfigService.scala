@@ -12,7 +12,8 @@ import scala.concurrent.duration._
 import scala.xml._
 import java.net.URI
 
-
+// @TODO when updating the config, don't forget to inform the 
+// data providers registered in the registry
 class ConfigService extends Actor {
   import models.actor.ConfigService._
   
@@ -25,7 +26,7 @@ class ConfigService extends Actor {
     // not used in the REST interface of the portal
     case GetDatabases => sender ! getDatabases
     case GetDatabaseType(dt: Databasetype) => sender ! getDatabaseType(dt)
-    case GetDatabaseByName(n: String) => sender ! getDatabaseByName(n)
+    case GetDatabaseById(id: URI) => sender ! getDatabaseById(id)
     case GetTools => sender ! getTools
     case GetTool(n: String) => sender ! getTool(n)
   }
@@ -49,15 +50,9 @@ class ConfigService extends Actor {
   private def getDatabaseType(dType: Databasetype): Seq[Database] = {
     getDatabases.filter(_.typeValue == dType)
   }
-
-  // @FIXME return an option type
-  private def getDatabaseByName(name: String): Database = {
-    getDatabases.find(_.name == name).get
-  }
   
-  // @FIXME return an option type
   private def getDatabaseById(resID: URI): Database = {
-    getDatabases.find(p => (resID.toString().indexOf(p.id) != -1)).get
+    getDatabases.find(p => (resID.toString.indexOf(p.id.toString) != -1)).get
   }
 
   private def getTool(name: String): Tool = {
@@ -76,14 +71,13 @@ object ConfigService {
   case object GetTools extends ConfigMessage
   case object GetDatabases extends ConfigMessage
   case class GetDatabaseType(val dtype: Databasetype) extends ConfigMessage
-  case class GetDatabaseByName(val name: String) extends ConfigMessage
-  case class GetDatabaseByID(val id: URI) extends ConfigMessage
+  case class GetDatabaseById(val id: URI) extends ConfigMessage
   case class GetTool(val name: String) extends ConfigMessage
 
   // @TODO check if actor exists and is alive
   def request(msg: ConfigMessage): Future[Any] = {
     val actor: ActorSelection = Akka.system.actorSelection("user/config")
-    actor ? msg
+    (actor ? msg)
   }
 
 }

@@ -10,46 +10,76 @@ import akka.actor._
 import akka.pattern.ask
 import akka.util.Timeout
 import java.net.URI
+import java.io._
 import scalaxb.DataRecord
 
 
-// container for XML content
-case class Trees(var content: Seq[NodeSeq])
-case class Methods(var content: Seq[NodeSeq])
-
 // basic trait for data provider actors (sim / obs)
 trait DataProvider {
-  val dataTree: Trees
-  val accessMethods: Methods
+  var metadata: Database
+  var trees: Seq[NodeSeq] = Seq()
+  var methods: Seq[NodeSeq] = Seq()
 
   // predefined methods
-  protected def getMethods: Seq[NodeSeq] = accessMethods.content
-  protected def getMetaData: Database
+  protected def getMetaData: Database = metadata
+  protected def getTrees: Seq[NodeSeq] = trees
+  protected def getMethods: Seq[NodeSeq] = methods
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]]
   protected def getRepository(id: Option[String] = None): Spase
   
-  // @FIXME update methods too and check if there is a tree/method tag
-  protected def updateTrees: Seq[NodeSeq] = {
-    val dns: String = getMetaData.databaseoption.head.value
-    val protocol: String = getMetaData.protocol.head
-    val URLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, getMetaData.tree)
-    URLs flatMap {
-      URL =>
-        // sometimes there is no file (e.g. at AMDA)
-        // this must be recreated by calling getObsDataTree
-        val promise = WS.url(URL.toString).get()
-        try {
-          val result = Await.result(promise, 2.minutes).xml
-          scala.xml.XML.save(
-              PathProvider.getPath("trees", getMetaData.name, URL.toString), result, "UTF-8")
-          result
-        } catch {
-          case e: TimeoutException =>
-            println("timeout: fallback on local file at "+getMetaData.name)
-            scala.xml.XML.loadFile(
-              PathProvider.getPath("trees", getMetaData.name, URL.toString))
-        }
+  protected def initData(metadata: Database) = {
+    val dns: String = metadata.databaseoption.head.value
+    val protocol: String = metadata.protocol.head
+    val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, metadata.tree)
+    val methodsURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, metadata.methods)
+      
+    println("fetching files from "+metadata.name+":")
+    println("{")
+    println("treeURL="+treeURLs)
+    println("methodsURL="+methodsURLs)
+    println("}")
+
+    trees = getFiles(treeURLs, "trees")
+    methods = getFiles(methodsURLs, "methods")
+  }
+  
+  private def getFiles(URLs: Seq[URI], folder: String): Seq[NodeSeq] = { 
+    URLs map { URL => 
+      val id: String = UrlProvider.encodeURI(getMetaData.id)
+      val fileName: String = PathProvider.getPath(folder, id, URL.toString)
+      
+      // @TODO we do not download in DEVELOPMENT
+//      val fileDir = new File(folder+"/"+id)
+//      if(!fileDir.exists) fileDir.mkdir()
+//      val file = new File(fileName)
+//      if(!file.exists) file.createNewFile()
+//      
+//      // sometimes there is no file (e.g. at AMDA)
+//      // this must be recreated by calling getObsDataTree
+//      val promise = WS.url(URL.toString).get()
+//      
+//      try {
+//        val result = Await.result(promise, 1.minute).xml
+//        scala.xml.XML.save(fileName, result, "UTF-8")
+//        result
+//      } catch {
+//        case e: TimeoutException => {
+//          println("timeout: fallback on local file at "+getMetaData.name)
+          scala.xml.XML.load(fileName)
+//        }
+//      }
     }
+  }
+  
+  // @FIXME update metadata from config service before the files
+  protected def updateData(metadata: Database) = {
+    val dns: String = metadata.databaseoption.head.value
+    val protocol: String = metadata.protocol.head
+    val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, metadata.tree)
+    val methodsURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, metadata.methods)
+    
+    trees = getFiles(treeURLs, "trees")
+    methods = getFiles(methodsURLs, "methods")
   }
   
 }
@@ -60,7 +90,7 @@ object DataProvider {
   // common message formats
   case object GetTree
   case object GetMethods  
-  case object UpdateTrees 
+  case object UpdateData 
   
   // elements of the data model
   trait Element
@@ -83,8 +113,9 @@ object DataProvider {
   )
   
   // @TODO we need that later for updating the trees dynamically (on admin request)
-  def updateTrees(provider: ActorSelection) = {
-    (provider ? UpdateTrees)
+  // and when updating the config
+  def updateData(provider: ActorSelection) = {
+    (provider ? UpdateData)
   }
   
 }

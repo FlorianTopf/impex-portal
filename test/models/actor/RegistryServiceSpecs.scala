@@ -22,23 +22,10 @@ import models.actor.RegistryService.RegisterProvider
 // @TODO test recursion and check random resources in the tree
 object RegistryServiceSpecs extends Specification with Mockito {
   
-	// test info => get all available databases from config
+	// test info
   	val rand = new Random(System.currentTimeMillis())
 	val config = scalaxb.fromXML[Impexconfiguration](scala.xml.XML.loadFile("conf/configuration.xml"))
 	val databases = config.impexconfigurationoption.filter(_.key.get == "database").map(_.as[Database])
-	val providers: Seq[(Database, Trees, Methods)] = databases map { database => 
-	  val dns: String = database.databaseoption.head.value
-	  val protocol: String = database.protocol.head
-	  val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.tree)
-	  val methodsURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.methods)
-	  val trees: Seq[NodeSeq] = treeURLs map { URL => 
-	    scala.xml.XML.load(PathProvider.getPath("trees", database.name , URL.toString))
-	  }
-	  val methods: Seq[NodeSeq] = methodsURLs map { URL =>
-	    scala.xml.XML.load(PathProvider.getPath("methods", database.name , URL.toString))
-	  }
-	  (database, Trees(trees), Methods(methods))
-	}
 	
     "RegistryService" should {
     
@@ -50,18 +37,17 @@ object RegistryServiceSpecs extends Specification with Mockito {
                 val registryActorRef = TestActorRef((new RegistryService(databases)), name = "registry")
                 val registryActor = actorSystem.actorSelection("user/registry")
                 
-                val randomProvider1 = providers(rand.nextInt(providers.length))._1
+                val randomProvider1 = databases(rand.nextInt(databases.length))
                 val future1 = RegistryService.getTree(Some(randomProvider1.id.toString))
                 val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
                 val future2 = RegistryService.getTree(Some("impex://TEST"))
                 val result2 = Await.result(future2.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
-                val randomProvider3 = providers(rand.nextInt(providers.length))._1
+                val randomProvider3 = databases(rand.nextInt(databases.length))
                 val future3 = RegistryService.getMethods(Some(randomProvider3.id.toString))
                 val result3 = Await.result(future3.mapTo[Either[Seq[NodeSeq], RequestError]], DurationInt(10) second)
                 val future4 = RegistryService.getMethods(Some("impex://TEST"))
                 val result4 = Await.result(future4.mapTo[Either[Seq[NodeSeq], RequestError]], DurationInt(10) second)
                 
-                // @FIXME intermediate solution for observations
                 if(randomProvider1.typeValue == Simulation)
                   result1 must beLeft
                 else
@@ -96,7 +82,7 @@ object RegistryServiceSpecs extends Specification with Mockito {
                 val registryActorRef = TestActorRef((new RegistryService(databases)), name = "registry")
                 val registryActor = actorSystem.actorSelection("user/registry")
                
-                val future1 = RegistryService.getRepository(Some(providers(rand.nextInt(providers.length))._1.id.toString))
+                val future1 = RegistryService.getRepository(Some(databases(rand.nextInt(databases.length)).id.toString))
                 val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
                 val future2 = RegistryService.getRepository(Some("impex://TEST"))
                 val result2 = Await.result(future2.mapTo[Either[Spase, RequestError]], DurationInt(10) second)       
