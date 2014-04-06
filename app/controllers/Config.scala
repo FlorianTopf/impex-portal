@@ -14,6 +14,7 @@ import javax.ws.rs.core.MediaType._
 @Api(
     value = "/config", 
     description = "operations for extracting the IMPEx configuration")
+@Path("/config")
 @Produces(Array(APPLICATION_JSON, APPLICATION_XML))
 object Config extends Controller {
   import models.actor.ConfigService._
@@ -26,7 +27,7 @@ object Config extends Controller {
       httpMethod = "GET")
   def config(
       @ApiParam(value = "format in XML or JSON")
-      @PathParam("fmt")
+      @QueryParam("fmt")
       @DefaultValue("xml") fmt: String = "xml") = Action.async {
     val future = ConfigService.request(GetConfig(fmt))
     fmt.toLowerCase match {

@@ -22,6 +22,7 @@ import javax.ws.rs.core.MediaType._
 @Api(
     value = "/registry", 
     description = "operations for using the IMPEx registry services")
+@Path( "/registry" )
 @Produces(Array(APPLICATION_JSON, APPLICATION_XML))
 object Registry extends Controller {
 
@@ -38,7 +39,7 @@ object Registry extends Controller {
     new ApiImplicitParam(name = "id", value = "database id stored in the config", required = false, dataType = "string", paramType = "query")))
   def registry(
       @ApiParam(value = "format in XML or JSON")
-      @PathParam("fmt")
+      @QueryParam("fmt")
       @DefaultValue("xml") fmt: String = "xml") = Action.async { implicit request => 
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getTree(req.get("id"))
@@ -56,9 +57,10 @@ object Registry extends Controller {
       notes = "returns the repository elements of simulation databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
+  @Path("/simulations")
   def simulations(
       @ApiParam(value = "format in XML or JSON")
-      @PathParam("fmt")
+      @QueryParam("fmt")
       @DefaultValue("xml") fmt: String = "xml") = Action.async { 
      val future = RegistryService.getRepositoryType(Simulation).mapTo[Spase]
      future.map { spase => 
@@ -76,9 +78,10 @@ object Registry extends Controller {
       notes = "returns the repository elements of observation databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
+  @Path("/observations")
   def observations(
       @ApiParam(value = "format in XML or JSON")
-      @PathParam("fmt")
+      @QueryParam("fmt")
       @DefaultValue("xml") fmt: String = "xml") = Action.async {
      val future = RegistryService.getRepositoryType(Observation).mapTo[Spase]
      future.map { spase => 
@@ -96,6 +99,7 @@ object Registry extends Controller {
       notes = "returns the repository elements all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
+  @Path("/repository")
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
@@ -105,7 +109,7 @@ object Registry extends Controller {
         paramType = "query")))
   def repository(
       @ApiParam(value = "format in XML or JSON")
-      @PathParam("fmt")
+      @QueryParam("fmt")
       @DefaultValue("xml") fmt: String = "xml") = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getRepository(req.get("id"))
@@ -123,6 +127,7 @@ object Registry extends Controller {
       notes = "returns the simulation model elements all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
+  @Path("/simulationmodel")
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
@@ -132,10 +137,10 @@ object Registry extends Controller {
         paramType = "query")))
   def simulationmodel(
       @ApiParam(value = "format in XML or JSON")
-      @PathParam("fmt")
+      @QueryParam("fmt")
       @DefaultValue("xml") fmt: String = "xml", 
       @ApiParam(value = "recursive tree including all ancestor elements")
-      @PathParam("r")
+      @QueryParam("r")
       @DefaultValue("false") r: String = "false") = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getSimulationModel(req.get("id"), r)
@@ -150,10 +155,11 @@ object Registry extends Controller {
 
   @GET
   @ApiOperation(
-      value = "get simulation runss", 
+      value = "get simulation runs", 
       notes = "returns the simulation run elements all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
+  @Path("/simulationrun")
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
@@ -161,7 +167,13 @@ object Registry extends Controller {
         required = false, 
         dataType = "string", 
         paramType = "query")))
-  def simulationrun(fmt: String = "xml", r: String = "false") = Action.async { implicit request =>
+  def simulationrun(
+      @ApiParam(value = "format in XML or JSON")
+      @QueryParam("fmt")
+      @DefaultValue("xml") fmt: String = "xml", 
+      @ApiParam(value = "recursive tree including all ancestor elements")
+      @QueryParam("r")
+      @DefaultValue("false") r: String = "false") = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getSimulationRun(req.get("id"), r)
     future.map { (_, fmt) match {
@@ -179,6 +191,7 @@ object Registry extends Controller {
       notes = "returns the numerical output elements all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
+  @Path("/numericaloutput")
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
@@ -186,7 +199,13 @@ object Registry extends Controller {
         required = false, 
         dataType = "string", 
         paramType = "query")))
-  def numericaloutput(fmt: String = "xml", r: String = "false") = Action.async { implicit request =>
+  def numericaloutput(
+      @ApiParam(value = "format in XML or JSON")
+      @QueryParam("fmt")
+      @DefaultValue("xml") fmt: String = "xml", 
+      @ApiParam(value = "recursive tree including all ancestor elements")
+      @QueryParam("r")
+      @DefaultValue("false") r: String = "false") = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getNumericalOutput(req.get("id"), r)
     future.map { (_, fmt.toLowerCase) match {
@@ -204,6 +223,7 @@ object Registry extends Controller {
       notes = "returns the granule elements all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
+  @Path("/granule")
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
@@ -211,7 +231,13 @@ object Registry extends Controller {
         required = false, 
         dataType = "string", 
         paramType = "query")))
-  def granule(fmt: String = "xml", r: String = "false") = Action.async { implicit request =>
+  def granule(
+      @ApiParam(value = "format in XML or JSON")
+      @QueryParam("fmt")
+      @DefaultValue("xml") fmt: String = "xml", 
+      @ApiParam(value = "recursive tree including all ancestor elements")
+      @QueryParam("r")
+      @DefaultValue("false") r: String = "false") = Action.async { implicit request =>
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     val future = RegistryService.getGranule(req.get("id"), r)
     future.map { (_, fmt.toLowerCase) match {

@@ -15,6 +15,7 @@ import javax.ws.rs.core.MediaType._
 @Api(
     value = "/methods", 
     description = "operations for using the IMPEx data acess services")
+@Path("/methods")
 @Produces(Array(APPLICATION_JSON, APPLICATION_XML))
 object Methods extends Controller {
   
