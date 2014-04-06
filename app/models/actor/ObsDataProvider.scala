@@ -14,7 +14,6 @@ extends Actor with DataProvider {
   import models.actor.ConfigService._
   import models.actor.DataProvider._
   
-  // @TODO unified error messages
   def receive = {
     // @TODO return unified tree in XML
     // @FIXME we only serve the first tree atm
@@ -30,8 +29,6 @@ extends Actor with DataProvider {
       dataTree.content = updateTrees
       // @TODO update also methods
     }
-    //case _ => sender ! Json.obj("error" -> "message not found")
-    case _ => sender ! <error>message not found in data provider</error>
   }
 
   protected def getMetaData: Database = {
@@ -97,6 +94,7 @@ extends Actor with DataProvider {
     }, "en")
   }
   
+  // @TODO finalise access methods
   private def getInstrument(id: Option[String]): Spase = ???
   
   private def getNumericalData(id: Option[String]): Spase = ???

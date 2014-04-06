@@ -2,26 +2,27 @@ package controllers
 
 import models.actor._
 import models.binding._
+import models.enums._
+import views.html._
 import play.api.mvc._
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
+import play.libs.Akka
 import scala.xml._
 import scala.collection.mutable.ListBuffer
-import views.html._
-import models.enums._
 import akka.actor._
 import akka.pattern.ask
-import play.libs.Akka
-import com.wordnik.swagger.core._
-import com.wordnik.swagger.annotations._
-import com.wordnik.swagger.core.util.ScalaJsonUtil
 
 
 object Application extends Controller {
   
+  // route for portal client
   def index = Action {
     Ok(views.html.portal())
   }
+  
+  // route for swagger ui
+  def apiview = ???
   
   // route for testing
   def test = Action.async {

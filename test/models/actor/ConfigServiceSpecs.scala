@@ -1,8 +1,9 @@
 package models.actor
 
+import models.binding._
+import models.actor.ConfigService._
 import org.specs2.mutable.Specification
 import org.specs2.mock.Mockito
-import models.binding._
 import play.api.test.Helpers._
 import play.api.test._
 import play.api.libs.concurrent._
@@ -11,7 +12,7 @@ import akka.testkit._
 import scala.concurrent.duration._
 import scala.concurrent.Await
 import scala.xml.NodeSeq
-import models.actor.ConfigService._
+
   
 object ConfigServiceSpecs extends Specification with Mockito {
   

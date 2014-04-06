@@ -39,7 +39,7 @@ object ERequestError extends Enumeration {
 object RequestError {
     implicit val requestErrorWrites = new Writes[RequestError] {
         def writes(r: RequestError): JsValue = {
-            Json.obj("error" -> r.value.id, "msg" -> r.value)
+            Json.obj("code" -> r.value.id, "message" -> r.value)
         }
     }
 }

@@ -11,34 +11,47 @@ GET     /public/*file      			controllers.Assets.at(path="/public", file)
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
-# route for swagger
+# route for swagger main api in json
 GET		/api-docs					controllers.ApiHelpController.getResources
+
+# route for swagger ui
+#GET	/api-docs-view				controllers.Application.apiview
 
 # config routes
 GET		/api-docs/config			controllers.ApiHelpController.getResource(path = "/config")
+
 GET		/config						controllers.Config.config(fmt: String ?= "xml")
 
 # preliminary registry routes (will be improved later)
 GET		/api-docs/registry			controllers.ApiHelpController.getResource(path = "/registry")
-GET		/registry					controllers.Registry.registry
 
+GET		/registry					controllers.Registry.registry(fmt: String ?= "xml")
+
+#simulations
 GET 	/registry/simulations	    controllers.Registry.simulations(fmt: String ?= "xml")
 
 GET		/registry/observations		controllers.Registry.observations(fmt: String ?= "xml")
 
-GET		/registry/repository		controllers.Registry.repository
+GET		/registry/repository		controllers.Registry.repository(fmt: String ?= "xml")
 
-GET		/registry/simulationmodel	controllers.Registry.simulationmodel
+GET		/registry/simulationmodel	controllers.Registry.simulationmodel(fmt: String ?= "xml", r: String ?= "false")
 
-GET		/registry/simulationrun  	controllers.Registry.simulationrun
+GET		/registry/simulationrun  	controllers.Registry.simulationrun(fmt: String ?= "xml", r: String ?= "false")
 
-GET		/registry/numericaloutput  	controllers.Registry.numericaloutput
+GET		/registry/numericaloutput  	controllers.Registry.numericaloutput(fmt: String ?= "xml", r: String ?= "false")
 
-GET		/registry/granule		  	controllers.Registry.granule
+GET		/registry/granule		  	controllers.Registry.granule(fmt: String ?= "xml", r: String ?= "false")
 
-GET 	/registry/observatory		controllers.Registry.observatory
+#observations
+GET 	/registry/observatory		controllers.Registry.observatory(fmt: String ?= "xml", r: String ?= "false")
+
+#GET	/registry/instrument		controllers.Registry.instrument(fmt: String ?= "xml", r: String ?= "false")
+
+#GET	/registry/numericaldata		controllers.Registry.numericaldata(fmt: String ?= "xml", r: String ?= "false")
 
 # methods sub-routes missing here / route for api-docs
+GET		/api-docs/methods			controllers.ApiHelpController.getResource(path = "/methods")
+
 GET		/methods					controllers.Methods.methods
 
 # general testing route

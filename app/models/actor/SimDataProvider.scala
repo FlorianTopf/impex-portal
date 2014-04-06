@@ -14,7 +14,6 @@ extends Actor with DataProvider {
   import models.actor.ConfigService._
   import models.actor.DataProvider._
   
-  // @TODO unified error messages
   def receive = {
     case GetTree => sender ! getTreeObjects
     case GetMethods => sender ! getMethods
@@ -29,8 +28,6 @@ extends Actor with DataProvider {
       dataTree.content = updateTrees
       // @TODO update also methods
     }
-    //case _ => sender ! Json.obj("error" -> "message not found")
-    case _ => sender ! <error>message not found in data provider</error>
   }
 
   protected def getMetaData: Database = {
@@ -83,8 +80,6 @@ extends Actor with DataProvider {
     }
   }
   
-  //@FIXME needs to return empty result if there is no run stored in the file 
-  // (check if records are empty)
   private def getSimulationRun(id: Option[String], recursive: Boolean): Spase = {
     val records = getTreeObjects("SimulationRun") map {
       run => scalaxb.fromXML[SimulationRun](run.as[NodeSeq])
@@ -94,8 +89,8 @@ extends Actor with DataProvider {
       case None => records
     }
     if(recursive == true) {
-      println("ModelID="+records.head.Model.ModelID)
-      val rRecords = getSimulationModel(Some(records.head.Model.ModelID), true).ResourceEntity++
+      println("ModelID="+runs.head.Model.ModelID)
+      val rRecords = getSimulationModel(Some(runs.head.Model.ModelID), true).ResourceEntity++
       		runs.map(r => DataRecord(None, Some("SimulationRun"), r))
       Spase(Number2u462u462, rRecords, "en")	  
     } else {

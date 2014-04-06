@@ -1,17 +1,17 @@
 package models.actor
 
 import models.binding._
+import models.enums._
 import play.libs._
+import play.api.libs.concurrent.Execution.Implicits._
 import scala.concurrent._
 import scala.concurrent.duration._
 import scala.xml._
 import akka.actor._
-import akka.actor.SupervisorStrategy._
 import akka.pattern._
 import akka.util.Timeout
-import play.api.libs.concurrent.Execution.Implicits._
+import akka.actor.SupervisorStrategy._
 import scalaxb.DataRecord
-import models.enums._
 
 class RegistryService extends Actor {  
   import models.actor.RegistryService._
@@ -25,11 +25,8 @@ class RegistryService extends Actor {
     case _: Exception => Restart
   }
 
-  // @TODO unified error messages
   def receive = {
     case reg: RegisterProvider => sender ! register(reg)
-    //case _ => sender ! Json.obj("error" -> "message not found")
-    case _ => sender ! <error>message not found in registry</error>
   }
 
   private def register(msg: RegisterProvider) = {
@@ -62,8 +59,7 @@ object RegistryService {
     Akka.system.actorSelection("user/registry/" + name)
   }
   
-  // @FIXME improve this! should return error if element is not in the repository
-  // we need to use the real id for actor selection e.g. impex___LATMOS
+  // @TODO we need to use the real id for actor selection e.g. impex___LATMOS
   private def getElement(msg: GetElement): Future[Either[Spase, RequestError]] = {
     implicit val timeout = Timeout(30.seconds)
     println("ResourceID="+msg.id)
@@ -115,7 +111,13 @@ object RegistryService {
           case Some(id) if databases.exists(d => id.contains(d.id.toString) && d.typeValue == Observation) => {
             future { Right(RequestError(ERequestError.NOT_IMPLEMENTED)) }
           }
-          // @TODO return full tree if None is given
+          // @FIXME this is only available for simulations for now!
+          case None => { 
+            val result = Future.sequence(getChilds(databases.filter(d => d.typeValue == Simulation)) map { provider =>
+        	 	(provider ? GetTree).mapTo[Spase] map { _.ResourceEntity }
+        	})
+        	result.map(records => Left(Spase(Number2u462u462, records.flatten, "en")))
+          }
           case _ => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
         }
       }
@@ -132,7 +134,8 @@ object RegistryService {
             val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.name)
             (provider ? GetMethods).mapTo[Seq[NodeSeq]] map { Left(_) } 
           }
-          case None => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
+          // @TODO what do we do if None is given?
+          case _ => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
         }
       }
     } yield provider
@@ -168,6 +171,7 @@ object RegistryService {
     getElement(GetElement(EGranule, id, recursive.toBoolean))
   
   // observations methods
+  // @TODO finalise access methods
   def getObservatory(id: Option[String]): Future[Either[Spase, RequestError]] = 
     getElement(GetElement(EObservatory, id))
   

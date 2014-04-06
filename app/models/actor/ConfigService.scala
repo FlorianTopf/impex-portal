@@ -16,12 +16,11 @@ import java.net.URI
 class ConfigService extends Actor {
   import models.actor.ConfigService._
   
-  // @TODO unified error message 
   def receive = {
     case GetConfig(fmt: String) => fmt.toLowerCase match {
       case "xml" => sender ! getConfigXML
       case "json" => sender ! getConfigJSON
-      // @TODO error case
+      case _ => sender ! getConfigJSON
     }
     // not used in the REST interface of the portal
     case GetDatabases => sender ! getDatabases
@@ -29,8 +28,6 @@ class ConfigService extends Actor {
     case GetDatabaseByName(n: String) => sender ! getDatabaseByName(n)
     case GetTools => sender ! getTools
     case GetTool(n: String) => sender ! getTool(n)
-    //case _ => sender ! Json.obj("error" -> "message not found")
-    case _ => sender ! <error>message not found in config</error>
   }
 
   private def getConfigXML: NodeSeq = scala.xml.XML.loadFile("conf/configuration.xml")
@@ -84,7 +81,6 @@ object ConfigService {
   case class GetTool(val name: String) extends ConfigMessage
 
   // @TODO check if actor exists and is alive
-  // @TODO unified error message
   def request(msg: ConfigMessage): Future[Any] = {
     val actor: ActorSelection = Akka.system.actorSelection("user/config")
     actor ? msg

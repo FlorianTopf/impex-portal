@@ -1,8 +1,9 @@
 package models.actor
 
+import models.binding._
+import models.provider._
 import org.specs2.mutable.Specification
 import org.specs2.mock.Mockito
-import models.binding._
 import play.api.test.Helpers._
 import play.api.test._
 import play.api.libs.concurrent._
@@ -13,19 +14,25 @@ import akka.pattern.ask
 import scala.concurrent.duration._
 import scala.concurrent.Await
 import scala.xml.NodeSeq
-import models.provider._
+// only single imports possible
+import models.actor.DataProvider.{ 
+  GetTree, GetMethods, 
+  GetElement, ERepository, 
+  ESimulationModel, ESimulationRun, 
+  ENumericalOutput, EGranule
+}
+
 
 object SimDataProviderSpecs extends Specification with Mockito {
 
+    // test info
+    val providerName = "FMI"
+    val treeName = PathProvider.getPath("trees", providerName, "/Tree_FMI_HYB.xml")
+    val tree = scala.xml.XML.load(treeName)    
+    val methodsName = PathProvider.getPath("methods", providerName, "/Methods_FMI.wsdl")
+    val methods = scala.xml.XML.load(methodsName) 
+
     "SimDataProvider" should {
-      
-        // @TODO maybe test all available databases drom the config!
-        // test info
-        val providerName = "FMI"
-        val treeName = PathProvider.getPath("trees", providerName, "/Tree_FMI_HYB.xml")
-        val tree = scala.xml.XML.load(treeName)    
-        val methodsName = PathProvider.getPath("methods", providerName, "/Methods_FMI.wsdl")
-        val methods = scala.xml.XML.load(methodsName) 
         
         "be initialised and contain data" in {
             val app = new FakeApplication
@@ -35,10 +42,9 @@ object SimDataProviderSpecs extends Specification with Mockito {
                     new SimDataProvider(Trees(Seq(tree)), Methods(Seq(methods))), name = providerName
                     ) 
                 val actor = actorSystem.actorSelection("user/"+providerName)
-                // @FIXME why cant we import the DataProvider Messages?
-                val treeFuture = actor ? models.actor.DataProvider.GetTree
+                val treeFuture = actor ? GetTree
                 val treeResult = Await.result(treeFuture.mapTo[Spase], DurationInt(10) second)
-                val methodsFuture = actor ? models.actor.DataProvider.GetMethods
+                val methodsFuture = actor ? GetMethods
                 val methodsResult = Await.result(methodsFuture.mapTo[Seq[NodeSeq]], DurationInt(10) second)
                 
                 actor must beAnInstanceOf[ActorSelection]  
@@ -55,9 +61,7 @@ object SimDataProviderSpecs extends Specification with Mockito {
                     new SimDataProvider(Trees(Seq(tree)), Methods(Seq(methods))), name = providerName
                     ) 
                 val actor = actorSystem.actorSelection("user/"+providerName)
-                // @FIXME why cant we import the DataProvider Messages?
-                val future = actor ? models.actor.DataProvider.GetElement(
-                    models.actor.DataProvider.ERepository, None)
+                val future = actor ? GetElement(ERepository, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
                 val repositories = 
                   result.ResourceEntity.filter(p => p.key == Some("Repository")).map(_.as[Repository])
@@ -76,9 +80,7 @@ object SimDataProviderSpecs extends Specification with Mockito {
                     new SimDataProvider(Trees(Seq(tree)), Methods(Seq(methods))), name = providerName
                     ) 
                 val actor = actorSystem.actorSelection("user/"+providerName)
-                // @FIXME why cant we import the DataProvider Messages?
-                val future = actor ? models.actor.DataProvider.GetElement(
-                    models.actor.DataProvider.ESimulationModel, None)
+                val future = actor ? GetElement(ESimulationModel, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
                 val repositories = 
                   result.ResourceEntity.filter(p => p.key == Some("SimulationModel")).map(_.as[SimulationModelType])
@@ -97,9 +99,7 @@ object SimDataProviderSpecs extends Specification with Mockito {
                     new SimDataProvider(Trees(Seq(tree)), Methods(Seq(methods))), name = providerName
                     ) 
                 val actor = actorSystem.actorSelection("user/"+providerName)
-                // @FIXME why cant we import the DataProvider Messages?
-                val future = actor ? models.actor.DataProvider.GetElement(
-                    models.actor.DataProvider.ESimulationRun, None)
+                val future = actor ? GetElement(ESimulationRun, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
                 val repositories = 
                   result.ResourceEntity.filter(p => p.key == Some("SimulationRun")).map(_.as[SimulationRun])
@@ -118,9 +118,7 @@ object SimDataProviderSpecs extends Specification with Mockito {
                     new SimDataProvider(Trees(Seq(tree)), Methods(Seq(methods))), name = providerName
                     ) 
                 val actor = actorSystem.actorSelection("user/"+providerName)
-                // @FIXME why cant we import the DataProvider Messages?
-                val future = actor ? models.actor.DataProvider.GetElement(
-                    models.actor.DataProvider.ENumericalOutput, None)
+                val future = actor ? GetElement(ENumericalOutput, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
                 val repositories = 
                   result.ResourceEntity.filter(p => p.key == Some("NumericalOutput")).map(_.as[NumericalOutput])
@@ -139,9 +137,7 @@ object SimDataProviderSpecs extends Specification with Mockito {
                     new SimDataProvider(Trees(Seq(tree)), Methods(Seq(methods))), name = providerName
                     ) 
                 val actor = actorSystem.actorSelection("user/"+providerName)
-                // @FIXME why cant we import the DataProvider Messages?
-                val future = actor ? models.actor.DataProvider.GetElement(
-                    models.actor.DataProvider.EGranule, None)
+                val future = actor ? GetElement(EGranule, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
                 val repositories = 
                   result.ResourceEntity.filter(p => p.key == Some("Granule")).map(_.as[Granule])

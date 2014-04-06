@@ -1,18 +1,33 @@
 package controllers
 
+import models.actor.ConfigService
 import play.api.mvc._
+import play.api.libs.json._
+import play.api.libs.concurrent.Execution.Implicits._
+import scala.xml._
 import com.wordnik.swagger.core._
 import com.wordnik.swagger.annotations._
 import com.wordnik.swagger.core.util.ScalaJsonUtil
-import models.actor.ConfigService
-import scala.xml._
-import play.api.libs.concurrent.Execution.Implicits._
-import play.api.libs.json._
+import javax.ws.rs._
+import javax.ws.rs.core.MediaType._
 
+@Api(
+    value = "/config", 
+    description = "operations for extracting the IMPEx configuration")
+@Produces(Array(APPLICATION_JSON, APPLICATION_XML))
 object Config extends Controller {
   import models.actor.ConfigService._
   
-  def config(fmt: String = "xml") = Action.async {
+  @GET
+  @ApiOperation(
+      value = "get config", 
+      notes = "returns the configuration file", 
+      response = classOf[models.binding.Impexconfiguration], 
+      httpMethod = "GET")
+  def config(
+      @ApiParam(value = "format in XML or JSON")
+      @PathParam("fmt")
+      @DefaultValue("xml") fmt: String = "xml") = Action.async {
     val future = ConfigService.request(GetConfig(fmt))
     fmt.toLowerCase match {
       case "xml" => future.mapTo[NodeSeq].map(config => Ok(config))

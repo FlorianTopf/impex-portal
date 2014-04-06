@@ -28,7 +28,7 @@ trait DataProvider {
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]]
   protected def getRepository(id: Option[String] = None): Spase
   
-  // @FIXME update methods too!
+  // @FIXME update methods too and check if there is a tree/method tag
   protected def updateTrees: Seq[NodeSeq] = {
     val dns: String = getMetaData.databaseoption.head.value
     val protocol: String = getMetaData.protocol.head
@@ -59,7 +59,9 @@ object DataProvider {
   
   // common message formats
   case object GetTree
-  case object GetMethods
+  case object GetMethods  
+  case object UpdateTrees 
+  
   // elements of the data model
   trait Element
   case object ERepository extends Element
@@ -68,21 +70,17 @@ object DataProvider {
   case object ESimulationRun extends SimElement
   case object ENumericalOutput extends SimElement
   case object EGranule extends SimElement
-  // @TODO maybe needed 
-  case object SimParameter extends SimElement
   trait ObsElement extends Element
   case object EObservatory extends ObsElement
   case object EInstrument extends ObsElement
   case object ENumericalData extends ObsElement
-  // @TODO maybe needed
-  case object ObsParameter extends ObsElement 
+  
   // generic message for elements
   case class GetElement(
       val dType: Element, 
       val id: Option[String], 
       val recursive: Boolean = false
   )
-  case object UpdateTrees 
   
   // @TODO we need that later for updating the trees dynamically (on admin request)
   def updateTrees(provider: ActorSelection) = {

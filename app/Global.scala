@@ -40,7 +40,6 @@ object Global extends GlobalSettings {
       println("methodsURL="+methodsURLs)
       println("}")
 
-
       val trees: Seq[NodeSeq] = fetchAndSaveFiles(treeURLs, "trees", database)
       val methods: Seq[NodeSeq] = fetchAndSaveFiles(methodsURLs, "methods", database)
         
