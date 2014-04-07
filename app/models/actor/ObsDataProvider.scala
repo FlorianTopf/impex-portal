@@ -43,7 +43,8 @@ extends Actor with DataProvider {
     Spase(Number2u462u462, 
       getRepository(None).ResourceEntity++
       getObservatory(None).ResourceEntity++
-      getInstrument(None).ResourceEntity, "en")
+      getInstrument(None).ResourceEntity++
+      getNumericalData(None).ResourceEntity, "en")
   }
 
   protected def getNativeTreeObjects: Seq[DataRoot] = {
@@ -80,9 +81,9 @@ extends Actor with DataProvider {
     import models.binding.Observatory
     val records = getTreeObjects("mission").map(_.as[Mission])   
     val missions = id match {
-      // @FIXME improve this check
+      // @FIXME improve this check and implement everywhere
       case Some(id) if(id != getMetaData.id.toString) => { 
-        // matching the proprietary ID
+        // matching the proprietary Id
         val propId = id.replace(getMetaData.id.toString+"/", "")
         records.filter(_.id.replaceAll(" ", "_") == propId)
       }
@@ -95,12 +96,13 @@ extends Actor with DataProvider {
            None, mission.desc, None, Seq(contact))
       // replace all whitespaces with underscore
       val resourceId = getMetaData.id.toString+"/Observatory/"+mission.id.toString.replaceAll(" ", "_")
-      // @FIXME this is very tricky => we can only manually crosscheck!
+      // @FIXME Location/ObservatoryRegion is missing for Observatory
       val location = Location(Seq(Earth))
       DataRecord(None, Some("Observatory"), Observatory(resourceId, resourceHeader, Nil, location, None, Nil))    
     }, "en")
   }
   
+  // @TODO what about instrument attribute 'att'?
   private def getInstrument(id: Option[String]): Spase = {
     val records = getTreeObjects("mission").map(_.as[Mission])
     val missions: Seq[(String, Seq[Instrument])] = records map { record => 
@@ -111,24 +113,22 @@ extends Actor with DataProvider {
     Spase(Number2u462u462, missions flatMap { instruments =>
       val contact = Contact(getMetaData.id.toString, Seq(ArchiveSpecialist))
       instruments._2 map { instrument =>
-        // @FIXME we do not add instrument.att at the moment
       	val resourceHeader = ResourceHeader(instrument.name, Nil, TimeProvider.getISONow,
           None, instrument.desc, None, Seq(contact))
-        // replace all whitespaces with underscore ... replace @ with __at__
+        // replace all whitespaces with underscore, replace @ with __at__
         val resourceId = getMetaData.id.toString+"/Instrument/"+
           instrument.id.toString.replaceAll(" ", "_").replaceAll("@", "__at__")
-        // @FIXME this is very tricky => we can only manually crosscheck!
+        // @FIXME InstrumentType is missing for Instrument
         val instrumentType = Seq(Magnetometer)
-        // @FIXME investigation name is mandadory => take name
+        // @FIXME Investigation name is mandadory => take name
         DataRecord(None, Some("Instrument"), 
             InstrumentType(resourceId, resourceHeader, instrumentType, Seq(instrument.name), None, instruments._1))
       }
     }, "en")
   }
   
-  // @FIXME wont produce valid SPASE xml atm
   private def getNumericalData(id: Option[String]): Spase = {
-    // needed for startTime and stoptTime
+    // format needed for startDate and stopDate
     val df: DateFormat = new SimpleDateFormat("yyyy/MM/dd")
     val cal: GregorianCalendar = new GregorianCalendar
     
@@ -149,7 +149,7 @@ extends Actor with DataProvider {
       		// replace all whitespaces with underscore ... replace @ with __at__
             val resourceId = getMetaData.id.toString+"/NumericalData/"+
               instrument.id.toString.replaceAll(" ", "_").replaceAll("@", "__at__")
-            //url is only data center location
+            // @TODO url is only data center location
             val accessURL = AccessURL(None, getMetaData.info) 
             // @FIXME we only have one repository (datacenter) per file
             val accessInfo = AccessInformation(getMetaData.id.toString, None, None, 
@@ -162,17 +162,16 @@ extends Actor with DataProvider {
             if(dataset.dataStart != Some("depending on mission") && dataset.dataStop != Some("depending on mission")) {
               cal.setTime(df.parse(dataset.dataStart.get))
               startTime = 
-              DatatypeFactory.newInstance().newXMLGregorianCalendarDate(
+              DatatypeFactory.newInstance().newXMLGregorianCalendar(
                   cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, 
-                  cal.get(Calendar.DAY_OF_MONTH), DatatypeConstants.FIELD_UNDEFINED)
-              cal.setTime(df.parse(dataset.dataStop.get))      
+                  cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0, 0, 0)
+              cal.setTime(df.parse(dataset.dataStop.get))
               stopTime = 
-              DatatypeFactory.newInstance().newXMLGregorianCalendarDate(
+              DatatypeFactory.newInstance().newXMLGregorianCalendar(
                   cal.get(Calendar.YEAR), cal.get(Calendar.MONTH)+1, 
-                  cal.get(Calendar.DAY_OF_MONTH), DatatypeConstants.FIELD_UNDEFINED)
+                  cal.get(Calendar.DAY_OF_MONTH), 0, 0, 0, 0, 0)
             }
             
-      		// @FIXME attention getting cadence from option type
       		var cadence = dataset.sampling match {
       		  case None => ""
       		  case Some(s) => s.toUpperCase
@@ -181,23 +180,55 @@ extends Actor with DataProvider {
       		  cadence = ""
                 
             val tempDescription = TemporalDescription(
-                TimeSpan(startTime, DataRecord(None, Some("EndDate"), stopTime)), cadence match {
+                TimeSpan(startTime, DataRecord(None, Some("StopDate"), stopTime)), cadence match {
                   case "" => None
                   case _ => Some(DatatypeFactory.newInstance().newDuration("PT"+cadence))
                 }
             )
             
-            // @FIXME we need to find out this stuff
+            // @FIXME MeasurementType and ObservedRegion is missing for NumericalData
             val measurementType = MagneticField
             val observedRegion = Earthu46Magnetosphere
+            
+            // @TODO these procedure is very tricky 
+            //(multiple optional/mandatory elements)
+            // what about vectors? (e.g coordinates)
+            val parameter = dataset.parameter map {
+      		  param => 
+      		    val elements = param.component.map{ c => Element(c.name, Nil, 
+      		         Seq(param.component.indexOf(c)+1), Some(c.id)) }
+      		    var structure: Option[Structure] = None
+      		    // additional Element:
+      		    // support => Positional or Temporal
+      		    // field => Quantity must be known
+      		    var addElem: DataRecord[Any] = 
+      		      DataRecord(None, Some("Support"), Support(Nil, Positional))
+      		    // match position identifiers (experimental)
+      		    if(param.id.contains("xyz") || dataset.id.contains("ephem")) {
+      		       addElem = DataRecord(None, Some("Support"), Support(Nil, Positional))
+      		    }
+      		    // we need to match the time
+      		    else {
+      		      // else we put here a field element
+      		      // @FIXME Field/Quantity is missing for Parameter
+      		      addElem = DataRecord(None, Some("Field"), Field(Nil, Magnetic))
+      		    }	    
+      		    if(elements.size > 1) {
+      		      structure = 
+      		      Some(Structure(Seq(param.component.size), None, 
+      		            elements))
+      		    }
+      		    
+      		    ParameterType(param.name, Nil, Some(param.id), param.desc, None,
+      		        None, param.units, None, None, Nil, structure, None, None, None, 
+      		        addElem, Nil)
+      		}
      
-            // spectralrange, keyword must not be empty
             // input resource Id = instrument Id
-            // @TODO parameter and extension missing
             DataRecord(None, Some("NumericalData"), 
              NumericalData(resourceId, resourceHeader, Seq(accessInfo), None, None, None, None, 
-                 Seq(instrumentId), Seq(measurementType), Some(tempDescription), Seq(), Seq(observedRegion), 
-                 None, Seq(dataset.att.getOrElse("")), Seq(instrumentId), Seq(), Seq()))
+                 Seq(instrumentId), Seq(measurementType), Some(tempDescription), Nil, Seq(observedRegion), 
+                 None, Seq(dataset.att.getOrElse("")), Seq(instrumentId), parameter, Nil))
         }
       }
     }, "en") 
