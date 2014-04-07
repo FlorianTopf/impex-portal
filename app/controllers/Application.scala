@@ -35,10 +35,13 @@ object Application extends Controller {
       case Right(error) => BadRequest(Json.toJson(error))
     }}
   } */
-   val actorSel = Akka.system.actorSelection("user/registry/impex___AMDA")
-   val future = (actorSel ? GetElement(EInstrument, None)).mapTo[Spase]
-   future.map { spase =>
-    	Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
-   }
+   //val actorSel = Akka.system.actorSelection("user/registry/impex___AMDA")
+   //val future = (actorSel ? GetElement(EInstrument, None)).mapTo[Spase]
+   //val future = (actorSel ? GetTree).mapTo[Spase]
+   val future = RegistryService.getInstrument(None)
+   future.map { _ match {
+     case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+     case Right(error) => BadRequest(Json.toJson(error))
+   }}
   }
 }

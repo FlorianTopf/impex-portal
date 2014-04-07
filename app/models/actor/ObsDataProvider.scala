@@ -33,7 +33,8 @@ extends Actor with DataProvider {
   protected def getTreeObjects: Spase = {
     Spase(Number2u462u462, 
       getRepository(None).ResourceEntity++
-      getObservatory(None).ResourceEntity, "en")
+      getObservatory(None).ResourceEntity++
+      getInstrument(None).ResourceEntity, "en")
   }
 
   protected def getNativeTreeObjects: Seq[DataRoot] = {

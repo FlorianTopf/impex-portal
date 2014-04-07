@@ -262,7 +262,16 @@ object Registry extends Controller {
     }  
   }}
   
-  def instrument(fmt: String = "xml", r: String = "false") = ???
+  def instrument(fmt: String = "xml", r: String = "false") = CORS { Action.async { implicit request => 
+    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
+    val future = RegistryService.getInstrument(req.get("id"))
+    future map { _ match {
+        case Left(spase) => 
+          Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+        case Right(error) => BadRequest(Json.toJson(error))
+      }
+    }  
+  }}
   
   def numericaldata(fmt: String = "xml", r: String = "false") = ???
   

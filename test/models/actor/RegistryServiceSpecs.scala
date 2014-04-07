@@ -160,9 +160,9 @@ object RegistryServiceSpecs extends Specification with Mockito {
                 val registryActorRef = TestActorRef((new RegistryService(databases)), name = "registry")
                 val registryActor = actorSystem.actorSelection("user/registry")
                
-                val future1 = RegistryService.getRepository(Some("impex://LATMOS/Hybrid/Mars_14_01_13"))
+                val future1 = RegistryService.getNumericalOutput(Some("impex://LATMOS/Hybrid/Mars_14_01_13"), "false")
                 val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
-                val future2 = RegistryService.getRepository(Some("impex://TEST"))
+                val future2 = RegistryService.getNumericalOutput(Some("impex://TEST"), "false")
                 val result2 = Await.result(future2.mapTo[Either[Spase, RequestError]], DurationInt(10) second)       
                 
                 result1 must beLeft
@@ -186,9 +186,9 @@ object RegistryServiceSpecs extends Specification with Mockito {
                 val registryActorRef = TestActorRef((new RegistryService(databases)), name = "registry")
                 val registryActor = actorSystem.actorSelection("user/registry")
                
-                val future1 = RegistryService.getRepository(Some("impex://LATMOS/Hybrid/Mars_14_01_13/Mag/2D/XY"))
+                val future1 = RegistryService.getGranule(Some("impex://LATMOS/Hybrid/Mars_14_01_13/Mag/2D/XY"), "false")
                 val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
-                val future2 = RegistryService.getRepository(Some("impex://TEST"))
+                val future2 = RegistryService.getGranule(Some("impex://TEST"), "false")
                 val result2 = Await.result(future2.mapTo[Either[Spase, RequestError]], DurationInt(10) second)       
                 
                 result1 must beLeft
@@ -203,6 +203,8 @@ object RegistryServiceSpecs extends Specification with Mockito {
                 }
             }
         }
+        
+        // @TODO extend with observation test cases
         
     }
 }

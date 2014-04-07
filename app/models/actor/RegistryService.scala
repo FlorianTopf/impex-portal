@@ -187,7 +187,7 @@ object RegistryService {
     getElement(GetElement(EGranule, id, recursive.toBoolean))
   
   // observations methods
-  // @TODO finalise access methods
+  // @TODO add recursive functionality
   def getObservatory(id: Option[String]): Future[Either[Spase, RequestError]] = 
     getElement(GetElement(EObservatory, id))
   
@@ -195,5 +195,6 @@ object RegistryService {
     getElement(GetElement(EInstrument, id))
   
   def getNumericalData(id: Option[String]): Future[Either[Spase, RequestError]] = ???
+    //getElement(GetElement(ENumericalData, id))
   
 }
