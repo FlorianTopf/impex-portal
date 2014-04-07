@@ -28,7 +28,7 @@ class RegistryService(val databases: Seq[Database]) extends Actor {
     case _: Exception => Restart
   }
   
-  override def preStart = initChildActors(databases)
+  override def preStart = initChildActors
 
   def receive = {
     case reg: RegisterProvider => sender ! register(reg.props, reg.id)
@@ -40,7 +40,7 @@ class RegistryService(val databases: Seq[Database]) extends Actor {
     Akka.system.scheduler.schedule(5.minutes, 24.hours, provider, UpdateData)
   }
   
-  private def initChildActors(databases: Seq[Database]) = {
+  private def initChildActors = {
     databases map { database =>
       val id: String = UrlProvider.encodeURI(database.id)
       
@@ -194,7 +194,7 @@ object RegistryService {
   def getInstrument(id: Option[String]): Future[Either[Spase, RequestError]] = 
     getElement(GetElement(EInstrument, id))
   
-  def getNumericalData(id: Option[String]): Future[Either[Spase, RequestError]] = ???
-    //getElement(GetElement(ENumericalData, id))
+  def getNumericalData(id: Option[String]): Future[Either[Spase, RequestError]] = 
+    getElement(GetElement(ENumericalData, id))
   
 }

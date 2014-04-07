@@ -6,12 +6,14 @@ import play.api.libs.ws._
 import scala.xml._
 import scala.concurrent._
 import scala.concurrent.duration._
+import scala.concurrent.ExecutionContext.Implicits._
 import akka.actor._
 import akka.pattern.ask
 import akka.util.Timeout
 import java.net.URI
 import java.io._
 import scalaxb.DataRecord
+import scala.util.{Success, Failure}
 
 
 // basic trait for data provider actors (sim / obs)
@@ -27,13 +29,13 @@ trait DataProvider {
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]]
   protected def getRepository(id: Option[String] = None): Spase
   
-  protected def initData(metadata: Database) = {
-    val dns: String = metadata.databaseoption.head.value
-    val protocol: String = metadata.protocol.head
-    val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, metadata.tree)
-    val methodsURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, metadata.methods)
+  protected def initData = {
+    val dns: String = getMetaData.databaseoption.head.value
+    val protocol: String = getMetaData.protocol.head
+    val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, getMetaData.tree)
+    val methodsURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, getMetaData.methods)
       
-    println("fetching files from "+metadata.name+":")
+    println("fetching files from "+getMetaData.name+":")
     println("{")
     println("treeURL="+treeURLs)
     println("methodsURL="+methodsURLs)
@@ -71,13 +73,19 @@ trait DataProvider {
     }
   }
   
-  // @FIXME update metadata from config service before the files
-  protected def updateData(metadata: Database) = {
-    val dns: String = metadata.databaseoption.head.value
-    val protocol: String = metadata.protocol.head
-    val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, metadata.tree)
-    val methodsURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, metadata.methods)
+  protected def updateData = {
+    import models.actor.ConfigService._
+    val future = ConfigService.request(GetDatabaseById(getMetaData.id)).mapTo[Database]
+    val Success(database: Database) = future.value.getOrElse(Success(getMetaData))
     
+    val dns: String = database.databaseoption.head.value
+    val protocol: String = database.protocol.head
+    val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.tree)
+    val methodsURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.methods)   
+    
+    println("updating files from "+getMetaData.name)
+    
+    metadata = database
     trees = getFiles(treeURLs, "trees")
     methods = getFiles(methodsURLs, "methods")
   }

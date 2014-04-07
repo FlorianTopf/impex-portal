@@ -117,5 +117,27 @@ object ObsDataProviderSpecs extends Specification with Mockito {
                 instruments must beAnInstanceOf[Seq[InstrumentType]]
             }
         }
+        
+        "fetch numerical data" in {
+            val app = new FakeApplication
+            running(app) {
+                implicit val actorSystem = Akka.system(app)
+                val database = databases(rand.nextInt(databases.length))
+                val actorId = UrlProvider.encodeURI(database.id)
+                val actorRef = TestActorRef(
+                    new ObsDataProvider(database), name = actorId
+                    ) 
+                val actor = actorSystem.actorSelection("user/"+actorId)
+                val future = actor ? GetElement(ENumericalData, None)
+                val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
+                val instruments = 
+                  result.ResourceEntity.filter(p => p.key == Some("NumericalData")).map(_.as[NumericalData])
+                
+                actor must beAnInstanceOf[ActorSelection]  
+                result must beAnInstanceOf[Spase]
+                instruments must beAnInstanceOf[Seq[NumericalData]]
+            }
+        }
+        
     } 
 }

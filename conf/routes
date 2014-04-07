@@ -47,7 +47,7 @@ GET 	/registry/observatory		controllers.Registry.observatory(fmt: String ?= "xml
 
 GET	/registry/instrument			controllers.Registry.instrument(fmt: String ?= "xml", r: String ?= "false")
 
-#GET	/registry/numericaldata		controllers.Registry.numericaldata(fmt: String ?= "xml", r: String ?= "false")
+GET	/registry/numericaldata			controllers.Registry.numericaldata(fmt: String ?= "xml", r: String ?= "false")
 
 # methods sub-routes missing here / route for api-docs
 GET		/api-docs/methods			controllers.ApiHelpController.getResource(path = "/methods")

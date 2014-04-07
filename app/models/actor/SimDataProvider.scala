@@ -14,7 +14,7 @@ extends Actor with DataProvider {
   import models.actor.ConfigService._
   import models.actor.DataProvider._
   
-  override def preStart = initData(metadata)
+  override def preStart = initData
   
   def receive = {
     case GetTree => sender ! getTreeObjects
@@ -26,7 +26,7 @@ extends Actor with DataProvider {
       case ENumericalOutput => sender ! getNumericalOutput(id, r)
       case EGranule => sender ! getGranule(id, r)
     }
-    case UpdateData => updateData(getMetaData)
+    case UpdateData => sender ! updateData
   }
   
   protected def getTreeObjects: Spase = {

@@ -2,6 +2,7 @@ package controllers
 
 import models.actor._
 import models.binding._
+import models.actor.ConfigService._
 import models.enums._
 import views.html._
 import play.api.mvc._
@@ -12,6 +13,8 @@ import scala.xml._
 import scala.collection.mutable.ListBuffer
 import akka.actor._
 import akka.pattern.ask
+import java.net.URI
+import javax.xml.datatype._
 
 
 object Application extends Controller {
@@ -35,13 +38,18 @@ object Application extends Controller {
       case Right(error) => BadRequest(Json.toJson(error))
     }}
   } */
-   //val actorSel = Akka.system.actorSelection("user/registry/impex___AMDA")
+   val actorSel = Akka.system.actorSelection("user/registry/impex___CLWEB")
    //val future = (actorSel ? GetElement(EInstrument, None)).mapTo[Spase]
    //val future = (actorSel ? GetTree).mapTo[Spase]
-   val future = RegistryService.getInstrument(None)
+   //val future = (actorSel ? UpdateData)
+    //val future = ConfigService.request(GetDatabaseById(new URI("impex://AMDA")))
+    //val test = "300s"
+    //val d: Duration = DatatypeFactory.newInstance().newDuration("PT"+test.toUpperCase)
+    //future.map { f =>  Ok(d.toString) }
+   val future = RegistryService.getNumericalData(None)
    future.map { _ match {
      case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
      case Right(error) => BadRequest(Json.toJson(error))
-   }}
+   }} 
   }
 }

@@ -1,18 +1,22 @@
 package models.actor
 
 import models.binding._
-import models.actor.ConfigService._
 import org.specs2.mutable.Specification
 import org.specs2.mock.Mockito
 import play.api.test.Helpers._
 import play.api.test._
 import play.api.libs.concurrent._
 import play.api.libs.json._
+import akka.pattern.ask
 import akka.testkit._
 import scala.concurrent.duration._
 import scala.concurrent.Await
 import scala.xml.NodeSeq
 import java.net.URI
+import models.actor.ConfigService.{
+  GetConfig, GetDatabases, 
+  GetTools, GetDatabaseById
+}
 
   
 object ConfigServiceSpecs extends Specification with Mockito {
@@ -25,7 +29,7 @@ object ConfigServiceSpecs extends Specification with Mockito {
                 implicit val actorSystem = Akka.system(app)
                 val actorRef = TestActorRef(new ConfigService, name = "config")
                 val actor = actorSystem.actorSelection("user/config")
-                val future = ConfigService.request(GetConfig("xml"))
+                val future = actor ? GetConfig("xml")
                 val config = Await.result(future.mapTo[NodeSeq], DurationInt(10) second)
                 
                 config must beAnInstanceOf[NodeSeq]
@@ -38,7 +42,7 @@ object ConfigServiceSpecs extends Specification with Mockito {
                 implicit val actorSystem = Akka.system(app)
                 val actorRef = TestActorRef(new ConfigService, name = "config")
                 val actor = actorSystem.actorSelection("user/config")
-                val future = ConfigService.request(GetConfig("json"))
+                val future = actor ? GetConfig("json")
                 val config = Await.result(future.mapTo[JsValue], DurationInt(10) second)
                 
                 config must beAnInstanceOf[JsValue]
@@ -51,7 +55,7 @@ object ConfigServiceSpecs extends Specification with Mockito {
                 implicit val actorSystem = Akka.system(app)
                 val actorRef = TestActorRef(new ConfigService, name = "config")
                 val actor = actorSystem.actorSelection("user/config")
-                val future = ConfigService.request(GetDatabases)
+                val future = actor ? GetDatabases
                 val databases = Await.result(future.mapTo[Seq[Database]], DurationInt(10) second)
                 
                 databases must beAnInstanceOf[Seq[Database]]
@@ -64,7 +68,7 @@ object ConfigServiceSpecs extends Specification with Mockito {
                 implicit val actorSystem = Akka.system(app)
                 val actorRef = TestActorRef(new ConfigService, name = "config")
                 val actor = actorSystem.actorSelection("user/config")
-                val future = ConfigService.request(GetTools)
+                val future = actor ? GetTools
                 val tools = Await.result(future.mapTo[Seq[Tool]], DurationInt(10) second)
                 
                 tools must beAnInstanceOf[Seq[Tool]]
@@ -77,7 +81,7 @@ object ConfigServiceSpecs extends Specification with Mockito {
                 implicit val actorSystem = Akka.system(app)
                 val actorRef = TestActorRef(new ConfigService, name = "config")
                 val actor = actorSystem.actorSelection("user/config")
-                val future = ConfigService.request(GetDatabaseById(new URI("impex://LATMOS")))
+                val future = actor ? GetDatabaseById(new URI("impex://LATMOS"))
                 val database = Await.result(future.mapTo[Database], DurationInt(10) second)
                 
                 database must beAnInstanceOf[Database]
