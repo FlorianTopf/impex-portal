@@ -191,7 +191,8 @@ object RegistryService {
   def getObservatory(id: Option[String]): Future[Either[Spase, RequestError]] = 
     getElement(GetElement(EObservatory, id))
   
-  def getInstrument(id: Option[String]): Future[Either[Spase, RequestError]] = ???
+  def getInstrument(id: Option[String]): Future[Either[Spase, RequestError]] = 
+    getElement(GetElement(EInstrument, id))
   
   def getNumericalData(id: Option[String]): Future[Either[Spase, RequestError]] = ???
   

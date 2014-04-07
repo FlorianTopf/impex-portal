@@ -19,8 +19,8 @@ import java.util.Random
 import models.actor.DataProvider.{ 
   GetTree, GetMethods, 
   GetElement, ERepository, 
-  ESimulationModel, ESimulationRun, 
-  ENumericalOutput, EGranule
+  EObservatory, EInstrument, 
+  ENumericalData
 }
 
 
@@ -52,6 +52,69 @@ object ObsDataProviderSpecs extends Specification with Mockito {
                 actor must beAnInstanceOf[ActorSelection]  
                 treeResult must beAnInstanceOf[Spase]
                 methodsResult must beAnInstanceOf[Seq[NodeSeq]]
+            }
+        }
+        
+        "fetch repositories" in {
+            val app = new FakeApplication
+            running(app) {
+                implicit val actorSystem = Akka.system(app)
+                val database = databases(rand.nextInt(databases.length))
+                val actorId = UrlProvider.encodeURI(database.id)
+                val actorRef = TestActorRef(
+                    new ObsDataProvider(database), name = actorId
+                    ) 
+                val actor = actorSystem.actorSelection("user/"+actorId)
+                val future = actor ? GetElement(ERepository, None)
+                val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
+                val repositories = 
+                  result.ResourceEntity.filter(p => p.key == Some("Repository")).map(_.as[Repository])
+                
+                actor must beAnInstanceOf[ActorSelection]  
+                result must beAnInstanceOf[Spase]
+                repositories must beAnInstanceOf[Seq[Repository]]
+            }
+        }
+        
+        "fetch observatories" in {
+            val app = new FakeApplication
+            running(app) {
+                implicit val actorSystem = Akka.system(app)
+                val database = databases(rand.nextInt(databases.length))
+                val actorId = UrlProvider.encodeURI(database.id)
+                val actorRef = TestActorRef(
+                    new ObsDataProvider(database), name = actorId
+                    ) 
+                val actor = actorSystem.actorSelection("user/"+actorId)
+                val future = actor ? GetElement(EObservatory, None)
+                val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
+                val observatories = 
+                  result.ResourceEntity.filter(p => p.key == Some("Observatory")).map(_.as[Observatory])
+                
+                actor must beAnInstanceOf[ActorSelection]  
+                result must beAnInstanceOf[Spase]
+                observatories must beAnInstanceOf[Seq[Observatory]]
+            }
+        }
+        
+        "fetch instruments" in {
+            val app = new FakeApplication
+            running(app) {
+                implicit val actorSystem = Akka.system(app)
+                val database = databases(rand.nextInt(databases.length))
+                val actorId = UrlProvider.encodeURI(database.id)
+                val actorRef = TestActorRef(
+                    new ObsDataProvider(database), name = actorId
+                    ) 
+                val actor = actorSystem.actorSelection("user/"+actorId)
+                val future = actor ? GetElement(EInstrument, None)
+                val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
+                val instruments = 
+                  result.ResourceEntity.filter(p => p.key == Some("Instrument")).map(_.as[InstrumentType])
+                
+                actor must beAnInstanceOf[ActorSelection]  
+                result must beAnInstanceOf[Spase]
+                instruments must beAnInstanceOf[Seq[InstrumentType]]
             }
         }
     } 

@@ -20,7 +20,7 @@ trait DataCenterOption2 extends DataCenterOption
 
 case class SimulationModel(runID: Seq[models.binding.RunID] = Nil,
   desc: String,
-  name: java.net.URI,
+  name: String,
   id: String) extends DataCenterOption
 
 
@@ -99,7 +99,7 @@ case class Parameter(component: Seq[models.binding.Component] = Nil,
   mission: Option[String] = None,
   name: String,
   needsArgs: Option[BigInt] = None,
-  parentID: Option[java.net.URI] = None,
+  parentID: Option[String] = None,
   size: Option[BigInt] = None,
   units: Option[String] = None,
   varValue: Option[String] = None,
@@ -108,7 +108,7 @@ case class Parameter(component: Seq[models.binding.Component] = Nil,
 
 case class Component(mission: Option[String] = None,
   name: String,
-  parentID: Option[java.net.URI] = None,
+  parentID: Option[String] = None,
   varValue: Option[String] = None,
   id: String)
 

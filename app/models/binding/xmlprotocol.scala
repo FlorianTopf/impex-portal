@@ -270,7 +270,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       { case p1 =>
       models.binding.SimulationModel(p1.toSeq map { scalaxb.fromXML[models.binding.RunID](_, scalaxb.ElemName(node) :: stack) },
         scalaxb.fromXML[String]((node \ "@desc"), scalaxb.ElemName(node) :: stack),
-        scalaxb.fromXML[java.net.URI]((node \ "@name"), scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[String]((node \ "@name"), scalaxb.ElemName(node) :: stack),
         scalaxb.fromXML[String]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)) })
     
     override def writesAttribute(__obj: models.binding.SimulationModel, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
@@ -495,7 +495,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         (node \ "@mission").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         scalaxb.fromXML[String]((node \ "@name"), scalaxb.ElemName(node) :: stack),
         (node \ "@needsArgs").headOption map { scalaxb.fromXML[BigInt](_, scalaxb.ElemName(node) :: stack) },
-        (node \ "@parentID").headOption map { scalaxb.fromXML[java.net.URI](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@parentID").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         (node \ "@size").headOption map { scalaxb.fromXML[BigInt](_, scalaxb.ElemName(node) :: stack) },
         (node \ "@units").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         (node \ "@var").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
@@ -529,7 +529,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.Component] = seq match {
       case node: scala.xml.Node => Right(models.binding.Component((node \ "@mission").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         scalaxb.fromXML[String]((node \ "@name"), scalaxb.ElemName(node) :: stack),
-        (node \ "@parentID").headOption map { scalaxb.fromXML[java.net.URI](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@parentID").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         (node \ "@var").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         scalaxb.fromXML[String]((node \ "@{http://www.w3.org/XML/1998/namespace}id"), scalaxb.ElemName(node) :: stack)))
       case _ => Left("reads failed: seq must be scala.xml.Node")

@@ -36,7 +36,7 @@ object Application extends Controller {
     }}
   } */
    val actorSel = Akka.system.actorSelection("user/registry/impex___AMDA")
-   val future = (actorSel ? GetTree).mapTo[Spase]
+   val future = (actorSel ? GetElement(EInstrument, None)).mapTo[Spase]
    future.map { spase =>
     	Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
    }

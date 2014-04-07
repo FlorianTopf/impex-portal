@@ -33,7 +33,7 @@
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="runID"/>
       </xs:sequence>
       <xs:attribute name="desc" use="required"/>
-      <xs:attribute name="name" use="required" type="xs:anyURI"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
       <xs:attributeGroup ref="xml:iduri"/>
     </xs:complexType>
   </xs:element>
@@ -133,7 +133,7 @@
       <xs:attribute name="mission" type="xs:NCName"/>
       <xs:attribute name="name" use="required"/>
       <xs:attribute name="needsArgs" type="xs:integer"/>
-      <xs:attribute name="parentID" type="xs:anyURI"/>
+      <xs:attribute name="parentID" type="xs:string"/>
       <xs:attribute name="size" type="xs:integer"/>
       <xs:attribute name="units"/>
       <xs:attribute name="var"/>
@@ -144,7 +144,7 @@
     <xs:complexType>
       <xs:attribute name="mission" type="xs:NCName"/>
       <xs:attribute name="name" use="required"/>
-      <xs:attribute name="parentID" type="xs:anyURI"/>
+      <xs:attribute name="parentID" type="xs:string"/>
       <xs:attribute name="var" type="xs:NCName"/>
       <xs:attributeGroup ref="xml:id"/>
     </xs:complexType>
