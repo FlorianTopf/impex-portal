@@ -28,7 +28,7 @@ object Application extends Controller {
   def apiview = ???
   
   // route for testing
-  def test = Action.async {
+  def test = PortalAction.async {
     import models.actor.DataProvider._
  /*   val future = RegistryService.getSimulationRun(Some("impex://FMI"), "false")
     future.map { _ match {

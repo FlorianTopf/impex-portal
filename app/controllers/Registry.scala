@@ -40,16 +40,15 @@ object Registry extends Controller {
   def registry(
       @ApiParam(value = "format in XML or JSON")
       @QueryParam("fmt")
-      @DefaultValue("xml") fmt: String = "xml") = CORS { Action.async { implicit request => 
-    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    val future = RegistryService.getTree(req.get("id"))
+      @DefaultValue("xml") fmt: String = "xml") =  PortalAction.async { implicit request => 
+    val future = RegistryService.getTree(request.req.get("id"))
     future.map { (_, fmt.toLowerCase) match {
        case (Left(spase), "json") => Ok(Json.toJson(spase))
        case (Left(spase), _) => 
          Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
        case (Right(error), _) => BadRequest(Json.toJson(error))
     }}
-  }}
+  }
 
   @GET
   @ApiOperation(
@@ -61,7 +60,7 @@ object Registry extends Controller {
   def simulations(
       @ApiParam(value = "format in XML or JSON")
       @QueryParam("fmt")
-      @DefaultValue("xml") fmt: String = "xml") = CORS { Action.async { 
+      @DefaultValue("xml") fmt: String = "xml") = PortalAction.async { 
      val future = RegistryService.getRepositoryType(Simulation).mapTo[Spase]
      future.map { spase => 
        fmt.toLowerCase match {
@@ -70,7 +69,7 @@ object Registry extends Controller {
            Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
        }
      }
-  }}
+  }
 
   @GET
   @ApiOperation(
@@ -82,7 +81,7 @@ object Registry extends Controller {
   def observations(
       @ApiParam(value = "format in XML or JSON")
       @QueryParam("fmt")
-      @DefaultValue("xml") fmt: String = "xml") = CORS { Action.async {
+      @DefaultValue("xml") fmt: String = "xml") = PortalAction.async {
      val future = RegistryService.getRepositoryType(Observation).mapTo[Spase]
      future.map { spase => 
        fmt.toLowerCase match {
@@ -91,7 +90,7 @@ object Registry extends Controller {
            Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
        }
      } 
-  }}
+  }
 
   @GET
   @ApiOperation(
@@ -110,16 +109,15 @@ object Registry extends Controller {
   def repository(
       @ApiParam(value = "format in XML or JSON")
       @QueryParam("fmt")
-      @DefaultValue("xml") fmt: String = "xml") = CORS { Action.async { implicit request =>
-    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    val future = RegistryService.getRepository(req.get("id"))
+      @DefaultValue("xml") fmt: String = "xml") = PortalAction.async { implicit request =>
+    val future = RegistryService.getRepository(request.req.get("id"))
     future.map { (_, fmt.toLowerCase) match {
       case (Left(spase), "json") => Ok(Json.toJson(spase))
       case (Left(spase), _) => 
         Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
       case (Right(error), _) => BadRequest(Json.toJson(error))
     }}
-  }}
+  }
 
   @GET
   @ApiOperation(
@@ -141,9 +139,8 @@ object Registry extends Controller {
       @DefaultValue("xml") fmt: String = "xml", 
       @ApiParam(value = "recursive tree including all ancestor elements")
       @QueryParam("r")
-      @DefaultValue("false") r: String = "false") = CORS { Action.async { implicit request =>
-    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    val future = RegistryService.getSimulationModel(req.get("id"), r)
+      @DefaultValue("false") r: String = "false") = PortalAction.async { implicit request =>
+    val future = RegistryService.getSimulationModel(request.req.get("id"), r)
     future.map { (_, fmt.toLowerCase) match {
         case (Left(spase), "json") => Ok(Json.toJson(spase))
         case (Left(spase), _) => 
@@ -151,7 +148,7 @@ object Registry extends Controller {
         case (Right(error), _) => BadRequest(Json.toJson(error))
       }
     }
-  }}
+  }
 
   @GET
   @ApiOperation(
@@ -173,9 +170,8 @@ object Registry extends Controller {
       @DefaultValue("xml") fmt: String = "xml", 
       @ApiParam(value = "recursive tree including all ancestor elements")
       @QueryParam("r")
-      @DefaultValue("false") r: String = "false") = CORS { Action.async { implicit request =>
-    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    val future = RegistryService.getSimulationRun(req.get("id"), r)
+      @DefaultValue("false") r: String = "false") = PortalAction.async { implicit request =>
+    val future = RegistryService.getSimulationRun(request.req.get("id"), r)
     future.map { (_, fmt) match {
         case (Left(spase), "json") => Ok(Json.toJson(spase))
         case (Left(spase), _) => 
@@ -183,7 +179,7 @@ object Registry extends Controller {
         case (Right(error), _) => BadRequest(Json.toJson(error))
       }
     }
-  }}
+  }
 
   @GET
   @ApiOperation(
@@ -205,16 +201,15 @@ object Registry extends Controller {
       @DefaultValue("xml") fmt: String = "xml", 
       @ApiParam(value = "recursive tree including all ancestor elements")
       @QueryParam("r")
-      @DefaultValue("false") r: String = "false") = CORS { Action.async { implicit request =>
-    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    val future = RegistryService.getNumericalOutput(req.get("id"), r)
+      @DefaultValue("false") r: String = "false") = PortalAction.async { implicit request =>
+    val future = RegistryService.getNumericalOutput(request.req.get("id"), r)
     future.map { (_, fmt.toLowerCase) match {
         case (Left(spase), "json") => Ok(Json.toJson(spase))
         case (Left(spase), _) => 
           Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
         case (Right(error), _) => BadRequest(Json.toJson(error))
       }
-    }}
+    }
   }
 
   @GET
@@ -237,9 +232,8 @@ object Registry extends Controller {
       @DefaultValue("xml") fmt: String = "xml", 
       @ApiParam(value = "recursive tree including all ancestor elements")
       @QueryParam("r")
-      @DefaultValue("false") r: String = "false") = CORS { Action.async { implicit request =>
-    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    val future = RegistryService.getGranule(req.get("id"), r)
+      @DefaultValue("false") r: String = "false") = PortalAction.async { implicit request =>
+    val future = RegistryService.getGranule(request.req.get("id"), r)
     future.map { (_, fmt.toLowerCase) match {
         case (Left(spase), "json") => Ok(Json.toJson(spase))
         case (Left(spase), _) => 
@@ -247,41 +241,39 @@ object Registry extends Controller {
         case (Right(error), _) => BadRequest(Json.toJson(error))
       }
     }
-  }}
+  }
   
-  // @TODO finalise routes for observations
-  // @TODO return in json and recursive
-  def observatory(fmt: String = "xml", r: String = "false") = CORS { Action.async { implicit request => 
-    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    val future = RegistryService.getObservatory(req.get("id"))
+  // @TODO really return in json and recursive
+  def observatory(fmt: String = "xml", r: String = "false") = PortalAction.async { implicit request => 
+    val future = RegistryService.getObservatory(request.req.get("id"))
     future map { _ match {
         case Left(spase) => 
           Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
         case Right(error) => BadRequest(Json.toJson(error))
       }
     }  
-  }}
+  }
   
-  def instrument(fmt: String = "xml", r: String = "false") = CORS { Action.async { implicit request => 
-    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    val future = RegistryService.getInstrument(req.get("id"))
+  // @TODO really return in json and recursive
+  def instrument(fmt: String = "xml", r: String = "false") = PortalAction.async { implicit request => 
+    val future = RegistryService.getInstrument(request.req.get("id"))
     future map { _ match {
         case Left(spase) => 
           Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
         case Right(error) => BadRequest(Json.toJson(error))
       }
     }  
-  }}
+  }
   
-  def numericaldata(fmt: String = "xml", r: String = "false") = CORS { Action.async { implicit request => 
-    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    val future = RegistryService.getNumericalData(req.get("id"))
+  // @TODO really return in json and recursive
+  def numericaldata(fmt: String = "xml", r: String = "false") = PortalAction.async { implicit request => 
+    val future = RegistryService.getNumericalData(request.req.get("id"))
     future map { _ match {
         case Left(spase) => 
           Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
         case Right(error) => BadRequest(Json.toJson(error))
       }
     }  
-  }}
+  }
   
 }

@@ -36,9 +36,8 @@ object Methods extends Controller {
         required = true, 
         dataType = "string", 
         paramType = "query")))
-  def methods = CORS { Action.async { implicit request =>
-    val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    val future = RegistryService.getMethods(req.get("id"))
+  def methods = PortalAction.async { implicit request =>
+    val future = RegistryService.getMethods(request.req.get("id"))
     future.map { _ match {
       // @FIXME we return a merged version of multiple WSDLs
       case Left(tree) => { 
@@ -50,7 +49,7 @@ object Methods extends Controller {
       }
       case Right(error) => BadRequest(Json.toJson(error))
     }}
-  }}
+  }
   
   
   // @TODO provide routes for modified files (taverna)
