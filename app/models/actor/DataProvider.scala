@@ -29,7 +29,7 @@ trait DataProvider {
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]]
   protected def getRepository(id: Option[String] = None): Spase
   
-  protected def initData = {
+  protected def initData: Unit = {
     val dns: String = getMetaData.databaseoption.head.value
     val protocol: String = getMetaData.protocol.head
     val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, getMetaData.tree)
@@ -73,7 +73,7 @@ trait DataProvider {
     }
   }
   
-  protected def updateData = {
+  protected def updateData: Unit = {
     import models.actor.ConfigService._
     val future = ConfigService.request(GetDatabaseById(getMetaData.id)).mapTo[Database]
     val Success(database: Database) = future.value.getOrElse(Success(getMetaData))
@@ -121,7 +121,7 @@ object DataProvider {
   case class GetElement(
       val dType: Element, 
       val id: Option[String], 
-      val recursive: Boolean = false
+      val r: Boolean = false
   )
   
   // @TODO we need that later for updating the trees dynamically (on admin request)

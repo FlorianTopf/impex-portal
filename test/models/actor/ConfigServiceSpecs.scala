@@ -15,8 +15,10 @@ import scala.xml.NodeSeq
 import java.net.URI
 import models.actor.ConfigService.{
   GetConfig, GetDatabases, 
-  GetTools, GetDatabaseById
+  GetDatabaseById,
+  GetDatabaseType
 }
+import models.actor.ConfigService.GetDatabaseType
 
   
 object ConfigServiceSpecs extends Specification with Mockito {
@@ -62,16 +64,17 @@ object ConfigServiceSpecs extends Specification with Mockito {
             }
         }
         
-        "get tool objects" in {
+        "get database objects by type" in {
             val app = new FakeApplication
             running(app) {
                 implicit val actorSystem = Akka.system(app)
                 val actorRef = TestActorRef(new ConfigService, name = "config")
                 val actor = actorSystem.actorSelection("user/config")
-                val future = actor ? GetTools
-                val tools = Await.result(future.mapTo[Seq[Tool]], DurationInt(10) second)
+                val future = actor ? GetDatabaseType(Simulation)
+                val databases = Await.result(future.mapTo[Seq[Database]], DurationInt(10) second)
                 
-                tools must beAnInstanceOf[Seq[Tool]]
+                databases.map(_.typeValue must beEqualTo(Simulation))
+                databases must beAnInstanceOf[Seq[Database]]
             }
         }
         

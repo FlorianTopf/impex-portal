@@ -46,7 +46,7 @@ object Application extends Controller {
     //val test = "300s"
     //val d: Duration = DatatypeFactory.newInstance().newDuration("PT"+test.toUpperCase)
     //future.map { f =>  Ok(d.toString) }
-   val future = RegistryService.getNumericalData(None)
+   val future = RegistryService.getNumericalData(None, false)
    future.map { _ match {
      case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
      case Right(error) => BadRequest(Json.toJson(error))

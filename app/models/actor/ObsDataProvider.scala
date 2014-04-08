@@ -77,6 +77,7 @@ extends Actor with DataProvider {
     Spase(Number2u462u462, records, "en")
   }
   
+  // @TODO add recursion for the remaining elements
   private def getObservatory(id: Option[String]): Spase = {
     import models.binding.Observatory
     val records = getTreeObjects("mission").map(_.as[Mission])   

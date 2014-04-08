@@ -28,8 +28,6 @@ class ConfigService extends Actor {
     case GetDatabases => sender ! getDatabases
     case GetDatabaseType(dt: Databasetype) => sender ! getDatabaseType(dt)
     case GetDatabaseById(id: URI) => sender ! getDatabaseById(id)
-    case GetTools => sender ! getTools
-    case GetTool(n: String) => sender ! getTool(n)
   }
 
   private def getConfigXML: NodeSeq = scala.xml.XML.loadFile("conf/configuration.xml")
@@ -43,21 +41,12 @@ class ConfigService extends Actor {
     databases map (_.as[Database])
   }
 
-  private def getTools: Seq[Tool] = {
-    val databases = getConfig.impexconfigurationoption.filter(_.key.get == "tool")
-    databases map (_.as[Tool])
-  }
-
   private def getDatabaseType(dType: Databasetype): Seq[Database] = {
     getDatabases.filter(_.typeValue == dType)
   }
   
   private def getDatabaseById(resID: URI): Database = {
-    getDatabases.find(p => (resID == p.id)).get
-  }
-
-  private def getTool(name: String): Tool = {
-    getTools.find(_.name == name).get
+    getDatabases.find(_.id == resID).get
   }
 
 }
@@ -69,11 +58,9 @@ object ConfigService {
   trait ConfigMessage
   case class GetConfig(val fmt: String = "xml") extends ConfigMessage
   // not used in the REST interface of the portal
-  case object GetTools extends ConfigMessage
   case object GetDatabases extends ConfigMessage
   case class GetDatabaseType(val dtype: Databasetype) extends ConfigMessage
   case class GetDatabaseById(val id: URI) extends ConfigMessage
-  case class GetTool(val name: String) extends ConfigMessage
 
   // @TODO check if actor exists and is alive
   def request(msg: ConfigMessage): Future[Any] = {

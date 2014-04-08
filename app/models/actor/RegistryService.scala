@@ -40,7 +40,7 @@ class RegistryService(val databases: Seq[Database]) extends Actor {
     Akka.system.scheduler.schedule(5.minutes, 24.hours, provider, UpdateData)
   }
   
-  private def initChildActors = {
+  private def initChildActors: Unit = {
     databases map { database =>
       val id: String = UrlProvider.encodeURI(database.id)
       
@@ -180,27 +180,26 @@ object RegistryService {
   }
 
   // simulations methods
-  def getSimulationModel(id: Option[String], recursive: String): Future[Either[Spase, RequestError]] =
-    getElement(GetElement(ESimulationModel, id, recursive.toBoolean))
+  def getSimulationModel(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] =
+    getElement(GetElement(ESimulationModel, id, r))
   
-  def getSimulationRun(id: Option[String], recursive: String): Future[Either[Spase, RequestError]] = 
-    getElement(GetElement(ESimulationRun, id, recursive.toBoolean))
+  def getSimulationRun(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = 
+    getElement(GetElement(ESimulationRun, id, r))
   
-  def getNumericalOutput(id: Option[String], recursive: String): Future[Either[Spase, RequestError]] = 
-    getElement(GetElement(ENumericalOutput, id, recursive.toBoolean))
+  def getNumericalOutput(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = 
+    getElement(GetElement(ENumericalOutput, id, r))
   
-  def getGranule(id: Option[String], recursive: String): Future[Either[Spase, RequestError]] =
-    getElement(GetElement(EGranule, id, recursive.toBoolean))
+  def getGranule(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] =
+    getElement(GetElement(EGranule, id, r))
   
   // observations methods
-  // @TODO add recursive functionality
-  def getObservatory(id: Option[String]): Future[Either[Spase, RequestError]] = 
+  def getObservatory(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = 
     getElement(GetElement(EObservatory, id))
   
-  def getInstrument(id: Option[String]): Future[Either[Spase, RequestError]] = 
+  def getInstrument(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = 
     getElement(GetElement(EInstrument, id))
   
-  def getNumericalData(id: Option[String]): Future[Either[Spase, RequestError]] = 
+  def getNumericalData(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = 
     getElement(GetElement(ENumericalData, id))
   
 }

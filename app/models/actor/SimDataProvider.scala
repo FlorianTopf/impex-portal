@@ -52,7 +52,7 @@ extends Actor with DataProvider {
 	Spase(Number2u462u462, repos.map(r => DataRecord(None, Some("Repository"), r)), "en")
   }
   
-  private def getSimulationModel(id: Option[String], recursive: Boolean): Spase = {
+  private def getSimulationModel(id: Option[String], r: Boolean): Spase = {
     val records = getTreeObjects("SimulationModel") map {
       _.as[SimulationModelType]
     }
@@ -60,7 +60,7 @@ extends Actor with DataProvider {
       case Some(id) => records.filter(_.ResourceID.contains(id))
       case None => records
     }
-    if(recursive == true) {
+    if(r == true) {
       val rRecords = getTreeObjects("Repository")++
     		  models.map(m => DataRecord(None, Some("SimulationModel"), m))
       Spase(Number2u462u462, rRecords, "en")
@@ -69,7 +69,7 @@ extends Actor with DataProvider {
     }
   }
   
-  private def getSimulationRun(id: Option[String], recursive: Boolean): Spase = {
+  private def getSimulationRun(id: Option[String], r: Boolean): Spase = {
     val records = getTreeObjects("SimulationRun") map {
       run => scalaxb.fromXML[SimulationRun](run.as[NodeSeq])
     }
@@ -77,7 +77,7 @@ extends Actor with DataProvider {
       case Some(id) => records.filter(_.ResourceID.contains(id))
       case None => records
     }
-    if(recursive == true) {
+    if(r == true) {
       println("ModelID="+runs.head.Model.ModelID)
       val rRecords = getSimulationModel(Some(runs.head.Model.ModelID), true).ResourceEntity++
       		runs.map(r => DataRecord(None, Some("SimulationRun"), r))
@@ -87,7 +87,7 @@ extends Actor with DataProvider {
     }
   }
   
-  private def getNumericalOutput(id: Option[String], recursive: Boolean): Spase = {
+  private def getNumericalOutput(id: Option[String], r: Boolean): Spase = {
     val records = getTreeObjects("NumericalOutput") map {
       _.as[NumericalOutput]
     }
@@ -95,7 +95,7 @@ extends Actor with DataProvider {
       case Some(id) => records.filter(_.ResourceID.contains(id))
       case None => records
     }
-    if(recursive == true) {
+    if(r == true) {
       println("InputResourceID="+records.head.InputResourceID.head)
       val rRecords = getSimulationRun(Some(records.head.InputResourceID.head), true).ResourceEntity++
             outputs.map(r => DataRecord(None, Some("NumericalOutput"), r))
@@ -105,7 +105,7 @@ extends Actor with DataProvider {
     }
   }
   
-  private def getGranule(id: Option[String], recursive: Boolean): Spase = {
+  private def getGranule(id: Option[String], r: Boolean): Spase = {
     val records = getTreeObjects("Granule") map {
       granule => scalaxb.fromXML[Granule](granule.as[NodeSeq])
     }
@@ -113,7 +113,14 @@ extends Actor with DataProvider {
       case Some(id) => records.filter(_.ResourceID.contains(id))
       case None => records
     }
-    Spase(Number2u462u462, granules.map(r => DataRecord(None, Some("Granule"), r)), "en")
+    if(r == true) {
+      println("ParentID="+records.head.ParentID)
+      val rRecords = getNumericalOutput(Some(records.head.ParentID), true).ResourceEntity++
+            granules.map(r => DataRecord(None, Some("Granule"), r))
+      Spase(Number2u462u462, rRecords, "en")
+    } else {
+      Spase(Number2u462u462, granules.map(r => DataRecord(None, Some("Granule"), r)), "en")
+    }
   }
 
 }
