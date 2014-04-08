@@ -53,7 +53,7 @@ class ConfigService extends Actor {
   }
   
   private def getDatabaseById(resID: URI): Database = {
-    getDatabases.find(p => (resID.toString.indexOf(p.id.toString) != -1)).get
+    getDatabases.find(p => (resID == p.id)).get
   }
 
   private def getTool(name: String): Tool = {
