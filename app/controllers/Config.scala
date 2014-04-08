@@ -33,6 +33,7 @@ object Config extends Controller {
     fmt.toLowerCase match {
       case "xml" => future.mapTo[NodeSeq].map(config => Ok(config))
       case "json" => future.mapTo[JsValue].map(config => Ok(config))
+      case _ => future.mapTo[JsValue].map(error => BadRequest(error))
     }
   }
 }

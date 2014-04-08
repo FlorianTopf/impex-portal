@@ -58,6 +58,7 @@ class RegistryService(val databases: Seq[Database]) extends Actor {
 object RegistryService {
   import models.actor.ConfigService._
   import models.actor.DataProvider._
+  import models.binding.Simulation
   
   implicit val timeout = Timeout(1.minute)
   
@@ -85,17 +86,22 @@ object RegistryService {
         case Some(id) if(databases.exists(d => id.contains(d.id.toString))) => {
           val db: Database = databases.find(d => id.contains(d.id.toString)).get
           val provider: ActorSelection = getChild(db.id)
-          (provider ? msg).mapTo[Spase] map { Left(_) }
+          (msg.dType, db.typeValue) match {
+            case (e: SimElement, Simulation) => (provider ? msg).mapTo[Spase] map { Left(_) }
+            case (e: ObsElement, Observation) => (provider ? msg).mapTo[Spase] map { Left(_) }
+            case (e: GenElement, _) => (provider ? msg).mapTo[Spase] map { Left(_) }
+            case _ => future { Right(RequestError(ERequestError.UNKNOWN_ENTITY)) }
+          }   
         }
         case None => {
           val result = msg.dType match {
-            case m: SimElement => Future.sequence(getChilds(databases.filter(_.typeValue == Simulation)) map { 
+            case e: SimElement => Future.sequence(getChilds(databases.filter(_.typeValue == Simulation)) map { 
             	provider => (provider ? msg).mapTo[Spase] map { _.ResourceEntity }
             })
-            case m: ObsElement => Future.sequence(getChilds(databases.filter(_.typeValue == Observation)) map { 
+            case e: ObsElement => Future.sequence(getChilds(databases.filter(_.typeValue == Observation)) map { 
             	provider => (provider ? msg).mapTo[Spase] map { _.ResourceEntity }
             })
-            case r: Element => Future.sequence(getChilds(databases) map { 
+            case e: GenElement => Future.sequence(getChilds(databases) map { 
             	provider => (provider ? msg).mapTo[Spase] map { _.ResourceEntity }
             })
           }

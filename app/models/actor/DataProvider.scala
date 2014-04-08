@@ -102,13 +102,17 @@ object DataProvider {
   
   // elements of the data model
   trait Element
-  case object ERepository extends Element
+  trait GenElement extends Element
   trait SimElement extends Element
+  trait ObsElement extends Element
+  // general
+  case object ERepository extends GenElement
+  // simulations
   case object ESimulationModel extends SimElement
   case object ESimulationRun extends SimElement
   case object ENumericalOutput extends SimElement
   case object EGranule extends SimElement
-  trait ObsElement extends Element
+  // observations
   case object EObservatory extends ObsElement
   case object EInstrument extends ObsElement
   case object ENumericalData extends ObsElement

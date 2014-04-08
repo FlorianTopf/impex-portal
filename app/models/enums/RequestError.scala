@@ -10,7 +10,7 @@ object ERequestError extends Enumeration {
     val MALFORMED_VALUE = Value(402, "MALFORMED_VALUE")
     val UNKNOWN_MSG = Value(403, "unknown message")
     val UNKNOWN_ENTITY = Value(404, "unknown element")
-    val UNKNOWN_PROVIDER = Value(501, "unkown provider")
+    val UNKNOWN_PROVIDER = Value(501, "unknown provider")
     val NOT_IMPLEMENTED = Value(502, "not implemented")
     val INACTIVE = Value(505, "no active session")
 

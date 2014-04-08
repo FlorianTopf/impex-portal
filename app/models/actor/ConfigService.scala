@@ -11,6 +11,7 @@ import scala.concurrent._
 import scala.concurrent.duration._
 import scala.xml._
 import java.net.URI
+import models.enums._
 
 // @TODO when updating the config, don't forget to inform the 
 // data providers registered in the registry
@@ -21,7 +22,7 @@ class ConfigService extends Actor {
     case GetConfig(fmt: String) => fmt.toLowerCase match {
       case "xml" => sender ! getConfigXML
       case "json" => sender ! getConfigJSON
-      case _ => sender ! getConfigJSON
+      case _ => sender ! Json.toJson(RequestError(ERequestError.UNKNOWN_MSG))
     }
     // not used in the REST interface of the portal
     case GetDatabases => sender ! getDatabases
