@@ -47,6 +47,7 @@ extends Actor with DataProvider {
       getNumericalData(None).ResourceEntity, "en")
   }
 
+  // @FIXME we should only case once (at init/update)
   protected def getNativeTreeObjects: Seq[DataRoot] = {
     getTrees map { tree => scalaxb.fromXML[DataRoot](tree) }
   }

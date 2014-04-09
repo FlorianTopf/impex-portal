@@ -35,7 +35,6 @@ case class CACHE[A](action: Action[A]) extends Action[A] {
   def apply(request: Request[A]): Future[SimpleResult] = {
     println("caching: "+request.uri)
     // applying response cache (with uri identifier)
-    // @FIXME maybe not working that way
     Cached(request => request.uri, 3600)(action)
     action(request)
   }
@@ -62,7 +61,7 @@ object CORSHeaders {
       "Access-Control-Allow-Methods" -> "GET, POST, PUT, DELETE, OPTIONS",
       "Access-Control-Allow-Headers" -> "Content-Type, X-Requested-With, Accept",
       "Access-Control-Max-Age" -> (60 * 60 * 24).toString//,
-      // @FIXME we should not dictate the content type
+      // we should not dictate the content type
       //"Content-Type" -> "application/json; charset=utf-8"
       ))
   }
