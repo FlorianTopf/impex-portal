@@ -36,7 +36,7 @@ case class CACHE[A](action: Action[A]) extends Action[A] {
     println("caching: "+request.uri)
     // applying response cache (with uri identifier)
     // @FIXME maybe not working that way
-    Cached(request => request.uri)(action)
+    Cached(request => request.uri, 3600)(action)
     action(request)
   }
  
