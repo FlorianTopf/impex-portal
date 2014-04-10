@@ -29,7 +29,7 @@ extends Actor with DataProvider {
     case UpdateData => sender ! updateData
   }
   
-  // @FIXME we should only case once (at init/update)
+  // @FIXME we should only cast once (at init/update)
   protected def getTreeObjects: Spase = {
     val spase = getTrees flatMap { tree =>
     	scalaxb.fromXML[Spase](tree).ResourceEntity

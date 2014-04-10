@@ -47,19 +47,34 @@ extends Actor with DataProvider {
       getNumericalData(None).ResourceEntity, "en")
   }
 
-  // @FIXME we should only case once (at init/update)
+  // @FIXME we should only cast once (at init/update)
   protected def getNativeTreeObjects: Seq[DataRoot] = {
-    getTrees map { tree => scalaxb.fromXML[DataRoot](tree) }
+    getTrees map { tree => { 
+      // we select here only portions of the remote trees (e.g. AMDA)
+      val selection = 
+        <dataRoot>
+          { tree \\ "dataCenter" filterNot{ element => 
+            // CLWEB@IRAP is already natively included
+            // simulations are already natively included
+            // VEXGRAZ maybe also obsolete in the future
+            (element \\ "@name" exists (_.text.contains("CLWEB@IRAP"))) ||
+   			(element \\ "@isSimulation" exists (_.text == "true")) }
+          }
+        </dataRoot> 
+
+      scalaxb.fromXML[DataRoot](selection) 
+    }}
   }
 
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]] = {
-    val records = getNativeTreeObjects flatMap { _.dataCenter map { 
+    //filter out the simulation dataCenter elements (if there are any)
+    val records = getNativeTreeObjects flatMap { _.dataCenter.filter(p => p.isSimulation == None) map { 
       _.datacenteroption.filter(_.key.get == element) }}
     records.flatten
   }
 
   // @TODO finalise access methods
-  // @FIXME must search for an specific ID (multiple Repositories per Authority)
+  // @FIXME must search for an specific Id
   protected def getRepository(id: Option[String]): Spase = {
     println("RepositoryID="+id)
     val records = getNativeTreeObjects flatMap { _.dataCenter map { dataCenter => 
@@ -67,11 +82,8 @@ extends Actor with DataProvider {
         val resourceHeader = ResourceHeader(dataCenter.id.toString, Nil, TimeProvider.getISONow, 
            None, dataCenter.name, None, Seq(contact))
         val accessURL = AccessURL(None , getMetaData.info)
-        // resource name is the "real" id for the proprietary data model of AMDA and CLWeb
-        // this will be mapped all the time when calling web services.
-        //val resourceID = getMetaData.id.toString+"/"+dataCenter.id.toString
-        // @FIXME ATM we only take one datacenter per file
-        val resourceId  = getMetaData.id.toString
+        // the original id is always encoded as part of the SPASE id
+        val resourceId = getMetaData.id.toString+"/Repository/"+dataCenter.id.toString
         DataRecord(None, Some("Repository"), Repository(resourceId, resourceHeader, accessURL))
       }
     }
@@ -83,10 +95,9 @@ extends Actor with DataProvider {
     import models.binding.Observatory
     val records = getTreeObjects("mission").map(_.as[Mission])   
     val missions = id match {
-      // @FIXME improve this check and implement everywhere
       case Some(id) if(id != getMetaData.id.toString) => { 
-        // matching the proprietary Id
-        val propId = id.replace(getMetaData.id.toString+"/", "")
+        // creating and matching the proprietary Id
+        val propId = id.replace(getMetaData.id.toString+"/Observatory/", "")
         records.filter(_.id.replaceAll(" ", "_") == propId)
       }
       case _ => records
@@ -104,7 +115,6 @@ extends Actor with DataProvider {
     }, "en")
   }
   
-  // @TODO what about instrument attribute 'att'?
   private def getInstrument(id: Option[String]): Spase = {
     val records = getTreeObjects("mission").map(_.as[Mission])
     val missions: Seq[(String, Seq[Instrument])] = records map { record => 
@@ -148,12 +158,12 @@ extends Actor with DataProvider {
         instrument.dataset map { dataset => 
       		val resourceHeader = ResourceHeader(dataset.name, Nil, TimeProvider.getISONow,
       		    None, dataset.desc.getOrElse(""), None, Seq(contact))
-      		// replace all whitespaces with underscore ... replace @ with __at__
+      		// replace all whitespaces with underscore, replace @ with __at__
             val resourceId = getMetaData.id.toString+"/NumericalData/"+
               instrument.id.toString.replaceAll(" ", "_").replaceAll("@", "__at__")
-            // @TODO url is only data center location
+            // @TODO url is only data center location => dataSource cannot be used
             val accessURL = AccessURL(None, getMetaData.info) 
-            // @FIXME we only have one repository (datacenter) per file
+            // @FIXME we only have one repository (datacenter) per file atm
             val accessInfo = AccessInformation(getMetaData.id.toString, None, None, 
                 Seq(accessURL), VOTable, Some(ASCIIValue))
             
@@ -161,7 +171,9 @@ extends Actor with DataProvider {
             var stopTime: XMLGregorianCalendar = TimeProvider.getISONow   
             
             // french coders are very nasty
-            if(dataset.dataStart != Some("depending on mission") && dataset.dataStop != Some("depending on mission")) {
+            if(dataset.dataStart != Some("depending on mission") && 
+                dataset.dataStop != Some("depending on mission") && 
+                dataset.dataStart != None && dataset.dataStop != None) {
               cal.setTime(df.parse(dataset.dataStart.get))
               startTime = 
               DatatypeFactory.newInstance().newXMLGregorianCalendar(

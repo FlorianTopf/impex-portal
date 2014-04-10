@@ -28,7 +28,7 @@ object Application extends Controller {
   def apiview = ???
   
   // route for testing
-  def test = PortalAction.async {
+  def test = PortalAction {
     import models.actor.DataProvider._
  /*   val future = RegistryService.getSimulationRun(Some("impex://FMI"), "false")
     future.map { _ match {
@@ -42,14 +42,20 @@ object Application extends Controller {
    //val future = (actorSel ? GetElement(EInstrument, None)).mapTo[Spase]
    //val future = (actorSel ? GetTree).mapTo[Spase]
    //val future = (actorSel ? UpdateData)
-    //val future = ConfigService.request(GetDatabaseById(new URI("impex://AMDA")))
-    //val test = "300s"
-    //val d: Duration = DatatypeFactory.newInstance().newDuration("PT"+test.toUpperCase)
-    //future.map { f =>  Ok(d.toString) }
-   val future = RegistryService.getNumericalData(None, false)
-   future.map { _ match {
-     case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
-     case Right(error) => BadRequest(Json.toJson(error))
-   }} 
+   //val future = ConfigService.request(GetDatabaseById(new URI("impex://AMDA")))
+   //val test = "300s"
+   //val d: Duration = DatatypeFactory.newInstance().newDuration("PT"+test.toUpperCase)
+   //future.map { f =>  Ok(d.toString) }
+//   val future = RegistryService.getNumericalData(None, false)
+//   future.map { _ match {
+//     case Left(spase) => Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+//     case Right(error) => BadRequest(Json.toJson(error))
+//   }} 
+   val fileName = "trees/impex___AMDA/getObsDataTree_RemoteParams.xml"
+   val xml = scala.xml.XML.loadFile(fileName)
+   Ok(<dataRoot>{ xml \\ "dataCenter" filterNot{element => (element \\ "@name" exists (_.text.contains("CLWEB@IRAP"))) ||
+   			(element \\ "@isSimulation" exists (_.text == "true"))}}</dataRoot>)
+     
   }
+  
 }
