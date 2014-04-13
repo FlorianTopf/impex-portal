@@ -1,9 +1,10 @@
 package models.binding
 
 import play.api.libs.json._
-import models.binding._ 
+import models.binding._
 import scala.xml._
 import javax.xml.datatype._
+import java.net.URI
 
 /** 
                Space Physics Archive Search and Extract (SPASE).
@@ -17,9 +18,8 @@ case class Spase(Version: models.binding.EnumVersion,
   lang: String)
 
 
-// @TODO check again outputs in XML (missing elements?)
+// @TODO we may need to reorganise optional attributes for client-side deserialisation 
 object Spase {
- type JsField = (String, JsValue)
   
  implicit val spaseWrites: Writes[Spase] = new Writes[Spase] {
     def writes(s: Spase): JsValue = {
@@ -27,9 +27,9 @@ object Spase {
     }
   }
   
-  // @TODO some elements make problems when directly converting (e.g. in full tree)
+  // @FIXME some elements make problems when directly converting (e.g. in full tree)
   implicit val datarecordsWrites: Writes[scalaxb.DataRecord[Any]] = new Writes[scalaxb.DataRecord[Any]] {
-    def writes(d: scalaxb.DataRecord[Any]) = {
+    def writes(d: scalaxb.DataRecord[Any]): JsValue = {
       d.key match {
         case Some("Repository") => {
           d.value match {
@@ -58,190 +58,389 @@ object Spase {
   
   // writer for repository
   implicit val repositoryWrites: Writes[Repository] = new Writes[Repository] {
-    def writes(r: Repository) = {
+    def writes(r: Repository): JsValue = {
       Json.obj("resourceId" -> r.ResourceID, "resourceHeader" -> r.ResourceHeader, 
           "accessUrl" -> r.AccessURL)
     }
   }
   
   implicit val accessURLWrites: Writes[AccessURL] = new Writes[AccessURL] {
-    def writes(a: AccessURL) = Json.obj("url" -> a.URL, "productKey" -> a.ProductKey)
+    def writes(a: AccessURL): JsValue = Json.obj("url" -> a.URL, "productKey" -> a.ProductKey)
   }
   
   implicit val resourceHeaderWrites: Writes[ResourceHeader] = new Writes[ResourceHeader] {
-    def writes(h: ResourceHeader) = {
+    def writes(h: ResourceHeader): JsValue = {
       Json.obj("resourceName" -> h.ResourceName, "releaseDate" -> h.ReleaseDate, 
           "description" -> h.Description, "contact" -> h.Contact, "informationurl" -> h.InformationURL)
     }
   }
   
-  implicit val timeStampWrites: Writes[XMLGregorianCalendar] = new Writes[XMLGregorianCalendar] {
-    def writes(t: XMLGregorianCalendar) = JsString(t.toString)
+  implicit val calendarWrites: Writes[XMLGregorianCalendar] = new Writes[XMLGregorianCalendar] {
+    def writes(t: XMLGregorianCalendar): JsValue = JsString(t.toString)
+  }
+  
+  implicit val durationWrites: Writes[Duration] = new Writes[Duration] {
+    def writes(d: Duration): JsValue = JsString(d.toString)
   }
   
   implicit val infoURLWrites: Writes[InformationURL] = new Writes[InformationURL] {
-    def writes(u: InformationURL) = JsString(u.URL)
+    def writes(u: InformationURL): JsValue = JsString(u.URL)
   }
   
   implicit val contactWrites: Writes[Contact] = new Writes[Contact] {
-    def writes(c: Contact) = {
-      Json.obj("personId" -> c.PersonID, "role" -> c.Role)
-    }
+    def writes(c: Contact): JsValue = Json.obj("personId" -> c.PersonID, "role" -> c.Role)
   }
   
   implicit val roleWrites: Writes[EnumRole] = new Writes[EnumRole] {
-    def writes(r: EnumRole) = JsString(r.toString)
+    def writes(r: EnumRole): JsValue = JsString(r.toString)
   }
   
   // writer for simulation model
   implicit val simulationModelWrites: Writes[SimulationModelType] = new Writes[SimulationModelType] {
-    def writes(s: SimulationModelType) = {
+    def writes(s: SimulationModelType): JsValue = {
       Json.obj("resourceID" -> s.ResourceID, "resourceHeader" -> s.ResourceHeader, "versions" -> s.Versions, 
-          "simulationType" -> s.SimulationType.toString)
+          "simulationType" -> s.SimulationType)
     }
+  }
+  
+  implicit val simulationTypeWrites: Writes[EnumSimulationType] = new Writes[EnumSimulationType] {
+    def writes(s: EnumSimulationType): JsValue = JsString(s.toString)
   }
   
   implicit val versionsWrites: Writes[Versions] = new Writes[Versions] {
-    def writes(v: Versions) = {
-      Json.obj("modelVersion" -> v.ModelVersion)
-    }
+    def writes(v: Versions): JsValue = Json.obj("modelVersion" -> v.ModelVersion)
   }
   
   implicit val modelVersionWrites: Writes[ModelVersion] = new Writes[ModelVersion] {
-    def writes(v: ModelVersion) = { 
+    def writes(v: ModelVersion): JsValue = { 
       Json.obj("versionId" -> v.VersionID, "releaseDate" -> v.ReleaseDate, 
-         "description" -> v.Description.getOrElse("").toString)
+         "description" -> v.Description)
+    }
+  }
+  
+  implicit val stringOptionWrites: Writes[Option[String]] = new Writes[Option[String]] {
+    def writes(s: Option[String]): JsValue = s match {
+      case Some(s) => JsString(s)
+      case None => JsString("")
     }
   }
    
   // writer for simulation run
-  // @FIXME simulationDomain, regionParameter, inputField, inputPopulation, inputParameter missing
+  // @FIXME inputEntity might be tricky on the client-side (is a mixed array)
   implicit val simulationRunWrites: Writes[SimulationRun] = new Writes[SimulationRun] {
-    def writes(r: SimulationRun) = { 
+    def writes(r: SimulationRun): JsValue = {
+      val inputEntity = r.InputEntity map { entity => 
+        entity.key match {
+          case Some("InputField") => {
+            entity.value match {
+              case e: NodeSeq => Some(Json.obj("inputField" -> scalaxb.fromXML[InputField](entity.as[NodeSeq])))
+              case e: InputField => Some(Json.obj("inputField" -> entity.as[InputField]))
+            }
+          }
+          case Some("InputParameter") => Some(Json.obj("inputParameter" -> entity.as[InputParameter]))
+          case Some("InputPopulation") => Some(Json.obj("inputPopulation" -> entity.as[InputPopulation]))
+          case Some("InputProcess") => { 
+            entity.value match {
+              case e: NodeSeq => Some(Json.obj("inputProcess" -> scalaxb.fromXML[InputProcess](entity.as[NodeSeq])))
+              case e: InputProcess => Some(Json.obj("inputProcess" -> entity.as[InputProcess]))
+            }
+          }
+          case _ => None
+        }
+      }
+      val inputEntityFlat = inputEntity.flatten
       Json.obj("resourceId" -> r.ResourceID, "resourceHeader" -> r.ResourceHeader, 
           "modelId" -> r.Model.ModelID, "temporalDependence" -> r.TemporalDependence.getOrElse("").toString, 
-          "simulatedRegion" -> r.SimulatedRegion, "likelyhoodRating" -> r.LikelihoodRating.toString, 
-          "simulationTime" -> r.SimulationTime)
+          "simulatedRegion" -> r.SimulatedRegion, "likelyhoodRating" -> r.LikelihoodRating, 
+          "simulationTime" -> r.SimulationTime, "simulationDomain" -> r.SimulationDomain, "inputs" -> inputEntityFlat)
+    }
+  }
+
+  implicit val inputFieldWrites: Writes[InputField] = new Writes[InputField] {
+    def writes(i: InputField): JsValue = { 
+      Json.obj("name" -> i.Name, "set" -> i.Set, "parameterKey" -> i.ParameterKey,
+          "description" -> i.Description, "caveats" -> i.Caveats, "simulatedRegion" -> i.SimulatedRegion,
+          "coordinateSystem" -> i.CoordinateSystem, "qualifier" -> i.Qualifier, "fieldQuantity" -> i.FieldQuantity,
+          "units" -> i.Units, "unitsConversion" -> i.UnitsConversion, "inputLabel" -> i.InputLabel, "fieldValue" -> i.FieldValue,
+          "inputTableUrl" -> i.InputTableURL, "validMin" -> i.ValidMin, "validMax" -> i.ValidMax, "fieldModel" -> i.FieldModel,
+          "modelUrl" -> i.ModelURL)
     }
   }
   
-  implicit val simulationTimeWrites: Writes[SimulationTime] = new Writes[SimulationTime] {
-    def writes(s: SimulationTime) = {
-      Json.obj("duration" -> s.Duration.getOrElse("").toString, "timeStart" -> s.TimeStart.getOrElse("").toString, 
-          "timeStop" -> s.TimeStop.getOrElse("").toString, "timeStep" -> s.TimeStep.getOrElse("").toString)
+  implicit val qualifierWrites: Writes[EnumQualifier] = new Writes[EnumQualifier] {
+    def writes(q: EnumQualifier): JsValue = JsString(q.toString)
+  }
+
+  implicit val fieldQuantityWrites: Writes[EnumFieldQuantity] = new Writes[EnumFieldQuantity] {
+    def writes(q: EnumFieldQuantity): JsValue = JsString(q.toString)
+  }
+  
+  implicit val urlOptionWrites: Writes[Option[URI]] = new Writes[Option[URI]] {
+    def writes(u: Option[URI]): JsValue = u match {
+      case Some(u) => JsString(u.toString)
+      case None => JsString("")
     }
   }
+
+  implicit val inputParameterWrites: Writes[InputParameter] = new Writes[InputParameter] {
+    def writes(i: InputParameter): JsValue = { 
+      Json.obj("name" -> i.Name, "description" -> i.Description, "caveats" -> i.Caveats, "simulatedRegion" -> i.SimulatedRegion,
+          "qualifier" -> i.Qualifier, "parameterQuantity" -> i.ParameterQuantity, "property" -> i.Property)
+    }
+  }
+  
+  implicit val propertyWrites: Writes[Property] = new Writes[Property] {
+    def writes(p: Property): JsValue = {
+      Json.obj("name" -> p.Name, "description" -> p.Description, "caveats" -> p.Caveats, "propertyQuantity" -> p.PropertyQuantity,
+          "qualifier" -> p.Qualifier, "units" -> p.Units, "unitsConversion" -> p.UnitsConversion, 
+          "propertyLabel" -> p.PropertyLabel, "propertyValue" -> p.PropertyValue, "propertyTableUrl" -> p.PropertyTableURL, 
+          "validMin" -> p.ValidMin, "validMax" -> p.ValidMax, "propertyModel" -> p.PropertyModel, "modelUrl" -> p.ModelURL)
+    } 
+  }
+  
+  // @TODO finish this object (its a bit tricky)
+  implicit val inputPopulationWrites: Writes[InputPopulation] = new Writes[InputPopulation] {
+    def writes(i: InputPopulation): JsValue = { 
+      Json.obj("name" -> i.Name)
+    }
+  }
+
+  implicit val inputProcessWrites: Writes[InputProcess] = new Writes[InputProcess] {
+    def writes(i: InputProcess): JsValue = { 
+      Json.obj("name" -> i.Name, "set" -> i.Set, "parameterKey" -> i.ParameterKey,
+          "description" -> i.Description, "caveats" -> i.Caveats, "simulatedRegion" -> i.SimulatedRegion,
+          "processType" -> i.ProcessType, "units" -> i.Units, "unitConversion" -> i.UnitsConversion, 
+          "processCoefficient" -> i.ProcessCoefficient, "processCoeffType" -> i.ProcessCoeffType, 
+          "processModel" -> i.ProcessModel, "modelUrl" -> i.ModelURL)
+    }
+  }
+  
+  implicit val processTypeWrites: Writes[EnumProcessType] = new Writes[EnumProcessType] {
+    def writes(q: EnumProcessType): JsValue = JsString(q.toString)
+  }
+  
+  implicit val processCoeffTypeOptionWrites: Writes[Option[EnumProcCoefType]] = new Writes[Option[EnumProcCoefType]] {
+    def writes(p: Option[EnumProcCoefType]): JsValue = p match { 
+      case Some(p) => JsString(p.toString)
+      case None => JsString("")
+    }
+  }
+
+  implicit val confidenceRatingWrites: Writes[EnumConfidenceRating] = new Writes[EnumConfidenceRating] {
+    def writes(c: EnumConfidenceRating): JsValue = JsString(c.toString)
+  }
+ 
+  implicit val simulationTimeWrites: Writes[SimulationTime] = new Writes[SimulationTime] {
+    def writes(s: SimulationTime): JsValue = {
+      Json.obj("duration" -> s.Duration, "timeStart" -> s.TimeStart, 
+          "timeStop" -> s.TimeStop, "timeStep" -> s.TimeStep)
+    }
+  }
+  
+  implicit val durationOptionWrites: Writes[Option[Duration]] = new Writes[Option[Duration]] {
+    def writes(d: Option[Duration]): JsValue = d match {
+      case Some(d) => JsString(d.toString)
+      case None => JsString("")
+    }
+  }
+  
+  implicit val calenderOptionWrites: Writes[Option[XMLGregorianCalendar]] = new Writes[Option[XMLGregorianCalendar]] {
+    def writes(c: Option[XMLGregorianCalendar]): JsValue = c match {
+      case Some(c) => JsString(c.toString)
+      case None => JsString("")
+    }
+  }
+  
+  // boundaryConditions attribute is optional
+  implicit val simulationDomainWrites: Writes[SimulationDomain] = new Writes[SimulationDomain] {
+    def writes(s: SimulationDomain): JsValue = {
+      val boundaryConditions = s.BoundaryConditions match {
+        case Some(b) => Json.obj("boundaryConditions" -> b)
+        case None => Json.obj()
+      }
+      Json.obj("description" -> s.Description, "caveats" -> s.Caveats,
+          "spatialDimension" -> s.SpatialDimension, "velocityDimension" -> s.VelocityDimension , 
+          "fieldDimension" -> s.FieldDimension, "units" -> s.Units, "unitsConversion" -> s.UnitsConversion, 
+          "coordinatesLabel" -> s.CoordinatesLabel, "validMin" -> s.ValidMin, "validMax" -> s.ValidMax, 
+          "gridStructure" -> s.GridStructure, "gridCellSize" -> s.GridCellSize, "symmetry" -> s.Symmetry)++
+          boundaryConditions
+    }
+  }
+  
+  // @FIXME maybe not optimal => why can't we use JsNumber()?
+  implicit val bigIntWrites: Writes[BigInt] = new Writes[BigInt] {
+    def writes(i: BigInt): JsValue = JsString(i.toString)
+  }
+  
+  implicit val symmetryWrites: Writes[EnumSymmetry] = new Writes[EnumSymmetry] {
+    def writes(s: EnumSymmetry): JsValue = JsString(s.toString)
+  }
+  
+  implicit val boundaryConditionsWrites: Writes[BoundaryConditions] = new Writes[BoundaryConditions] {
+    def writes(b: BoundaryConditions): JsValue = { 
+      Json.obj("fieldBoundary" -> b.FieldBoundary, "particleBoundary" -> b.ParticleBoundary)
+    }
+  }
+  
+  implicit val elementBoundaryWrites: Writes[Option[ElementBoundary]] = new Writes[Option[ElementBoundary]] {
+    def writes(e: Option[ElementBoundary]): JsValue = e match {
+      case Some(e) => Json.obj("frontWall" -> e.FrontWall, "backWall" -> e.BackWall, 
+          "sideWall" -> e.SideWall, "obstacle" -> e.Obstacle, "caveats" -> e.Caveats)
+      case None => JsString("")
+    }
+  } 
   
   // writer for numerical output
+  // temporalDescription, spatialDescription attribute is optional
   implicit val numericalOutputWrites: Writes[NumericalOutput] = new Writes[NumericalOutput] {
-    def writes(n: NumericalOutput) = {
+    def writes(n: NumericalOutput): JsValue = {
       val nOption = n.numericaloutputoption match {
             case Some(o) if (o.key.get == "SpatialDescription") => Json.obj("spatialDescription" -> o.as[SpatialDescription])
             case Some(o) if (o.key.get == "TemporalDescription") => Json.obj("temporalDescription" -> o.as[TemporalDescription])
             case _ => Json.obj()
       }
-      
       Json.obj("resourceId" -> n.ResourceID, "resourceHeader" -> n.ResourceHeader, "accessInformation" -> n.AccessInformation,
           "measurementType" -> n.MeasurementType)++nOption++
       Json.obj("simulatedRegion" -> n.SimulatedRegion, "inputResourceId" -> n.InputResourceID, "parameter" -> n.Parameter)
     }
   }
   
+  // particle attribute is optional
   implicit val parameterWrites: Writes[ParameterType] = new Writes[ParameterType] {
-    def writes(p: ParameterType) = {
+    def writes(p: ParameterType): JsValue = {
       val param = p.ParameterEntity.key match {
         case Some("Particle") => Json.obj("particle" -> p.ParameterEntity.as[Particle])
         case _ => Json.obj()
       }
-      
-      Json.obj("name" -> p.Name, "parameterKey" -> p.ParameterKey.getOrElse("").toString, 
-          "description" -> p.Description.getOrElse("").toString, "units" -> p.Units)++param
+      Json.obj("name" -> p.Name, "parameterKey" -> p.ParameterKey, 
+          "description" -> p.Description, "units" -> p.Units)++param
     }
   }
   
   implicit val particleWrites: Writes[Particle] = new Writes[Particle] {
-    def writes(p: Particle) = {
+    def writes(p: Particle): JsValue = {
       Json.obj("populationId" -> p.PopulationID, "particleType" -> p.ParticleType, "particleQuantitiy" -> p.ParticleQuantity,
-          "chemicalFormula" -> p.ChemicalFormula.getOrElse("").toString, "atomicNumber" -> p.AtomicNumber, 
+          "chemicalFormula" -> p.ChemicalFormula, "atomicNumber" -> p.AtomicNumber, 
           "populationMassNumber" -> p.PopulationMassNumber, "populationChargeState" -> p.PopulationChargeState)
     }
   }
   
   implicit val particleTypeWrites: Writes[EnumParticleType] = new Writes[EnumParticleType] {
-    def writes(p: EnumParticleType) = JsString(p.toString)
+    def writes(p: EnumParticleType): JsValue = JsString(p.toString)
   }
   
   implicit val particleQuantityWrites: Writes[EnumParticleQuantity] = new Writes[EnumParticleQuantity] {
-    def writes(p: EnumParticleQuantity) = JsString(p.toString)
+    def writes(p: EnumParticleQuantity): JsValue = JsString(p.toString)
   }
-  
+   
+  // spatialDescription attribute is optional
   implicit val spatialDescriptionWrites: Writes[SpatialDescription] = new Writes[SpatialDescription] {
-    def writes(s: SpatialDescription) = {
-      val spatialDesc = s.spatialdescriptionoption.key match {
-        case Some("CubeDescriptionSequence") => Json.obj("cubeDescription" -> s.spatialdescriptionoption.as[CubesDescriptionSequence])
-        case Some("CutsDescriptionSequence") => Json.obj("cutsDescription" -> s.spatialdescriptionoption.as[CutsDescriptionSequence])
+    def writes(s: SpatialDescription): JsValue = {
+      val spatialDescription = s.spatialdescriptionoption.key match {
+        case Some("CubeDescriptionSequence") => 
+          Json.obj("cubeDescription" -> s.spatialdescriptionoption.as[CubesDescriptionSequence])
+        case Some("CutsDescriptionSequence") => 
+          Json.obj("cutsDescription" -> s.spatialdescriptionoption.as[CutsDescriptionSequence])
         case _ => Json.obj()
       }
-      Json.obj("dimension" -> s.Dimension.toString, "coordinateSystem" -> s.CoordinateSystem, "coordinatesLabel" -> s.CoordinatesLabel, 
-          "units" -> s.Units)++spatialDesc
+      Json.obj("dimension" -> s.Dimension.toString, "coordinateSystem" -> s.CoordinateSystem, 
+          "coordinatesLabel" -> s.CoordinatesLabel, 
+          "units" -> s.Units)++spatialDescription
     }
   }
   
   implicit val cubesDescriptionWrites: Writes[CubesDescriptionSequence] = new Writes[CubesDescriptionSequence] {
-    def writes(c: CubesDescriptionSequence) = {
+    def writes(c: CubesDescriptionSequence): JsValue = {
       Json.obj("regionBegin" -> c.RegionBegin, "regionEnd" -> c.RegionEnd)
     }
   }
   
   implicit val cutsDescriptionWrites: Writes[CutsDescriptionSequence] = new Writes[CutsDescriptionSequence] {
-    def writes(c: CutsDescriptionSequence) = {
+    def writes(c: CutsDescriptionSequence): JsValue = {
       Json.obj("planeNormalVector" -> c.PlaneNormalVector, "planePoint" -> c.PlanePoint)
     }
   }
   
   implicit val coordinateSystemWrites: Writes[CoordinateSystem] = new Writes[CoordinateSystem] {
-    def writes(c: CoordinateSystem) = {
-      Json.obj("coordinateRepresentation" -> c.CoordinateRepresentation.toString, 
-          "coordinateSystem" -> c.CoordinateSystemName.toString)
+    def writes(c: CoordinateSystem): JsValue = {
+      Json.obj("coordinateRepresentation" -> c.CoordinateRepresentation, 
+          "coordinateSystem" -> c.CoordinateSystemName)
     }
-    
   }
+  
+  implicit val coordRepresentationWrites: Writes[EnumCoordinateRepresentation] = new Writes[EnumCoordinateRepresentation] {
+    def writes(c: EnumCoordinateRepresentation): JsValue = JsString(c.toString)
+  }  
+  
+  implicit val coordSystemWrites: Writes[EnumCoordinateSystemName] = new Writes[EnumCoordinateSystemName] {
+    def writes(c: EnumCoordinateSystemName): JsValue = JsString(c.toString)
+  } 
   
   implicit val temporalDescriptionWrites: Writes[TemporalDescription] = new Writes[TemporalDescription] {
-    def writes(t: TemporalDescription) = {
-      Json.obj("cadence" -> t.Cadence.getOrElse("").toString, 
-          "exposure" -> t.Exposure.getOrElse("").toString, "timespan" -> t.TimeSpan)
+    def writes(t: TemporalDescription): JsValue = {
+      Json.obj("cadence" -> t.Cadence, 
+          "exposure" -> t.Exposure, "timespan" -> t.TimeSpan)
     }
   }
   
-  // @TODO stopDate makes problems => see hack below
+  // @FIXME stopDate makes problems => see hack below
   implicit val timeSpanWrites: Writes[TimeSpan] = new Writes[TimeSpan] {
-    def writes(t: TimeSpan) = {
-      Json.obj("startDate" -> t.StartDate.toString, 
-          "stopDate" -> scalaxb.fromXML[XMLGregorianCalendar](t.StopDateEntity.as[NodeSeq]), "note" -> t.Note)
+    def writes(t: TimeSpan): JsValue = {
+      Json.obj("startDate" -> t.StartDate, 
+          "stopDate" -> scalaxb.fromXML[XMLGregorianCalendar](t.StopDateEntity.as[NodeSeq]), 
+          "note" -> t.Note)
     }
   }
   
   implicit val measurementTypeWrites: Writes[EnumMeasurementType] = new Writes[EnumMeasurementType] {
-    def writes(m: EnumMeasurementType) = JsString(m.toString)
+    def writes(m: EnumMeasurementType): JsValue = JsString(m.toString)
   }
   
   implicit val accessInformationWrites: Writes[AccessInformation] = new Writes[AccessInformation] {
-    def writes(a: AccessInformation) = {
-      Json.obj("repositoryId" -> a.RepositoryID, "availability" -> a.Availability.getOrElse("").toString,
-          "accessUrl" -> a.AccessURL, "format" -> a.Format.toString, "encoding" -> a.Encoding.getOrElse("").toString, 
+    def writes(a: AccessInformation): JsValue = {
+      Json.obj("repositoryId" -> a.RepositoryID, "availability" -> a.Availability,
+          "accessUrl" -> a.AccessURL, "format" -> a.Format, "encoding" -> a.Encoding, 
           "dataExtent" -> a.DataExtent)
     }
   }
   
-  // @FIXME there are more elements existing here
+  implicit val availabilityWrites: Writes[Option[EnumAvailability]] = new Writes[Option[EnumAvailability]] {
+    def writes(a: Option[EnumAvailability]): JsValue = a match {
+      case Some(a) => JsString(a.toString)
+      case None => JsString("")
+    }
+  } 
+  
+  implicit val formatWrites: Writes[EnumFormat] = new Writes[EnumFormat] {
+    def writes(f: EnumFormat): JsValue = JsString(f.toString)
+  } 
+  
+  implicit val encodingWrites: Writes[Option[EnumEncoding]] = new Writes[Option[EnumEncoding]] {
+    def writes(e: Option[EnumEncoding]): JsValue = e match {
+      case Some(e) => JsString(e.toString)
+      case None => JsString("")
+    }
+  } 
+  
+  // units, per attribute is optional
   implicit val dataExtentWrites: Writes[DataExtent] = new Writes[DataExtent] {
-    def writes(d: DataExtent) = Json.obj("quantity" -> d.Quantity)
+    def writes(d: DataExtent): JsValue = { 
+      val units = d.Units match {
+        case Some(u) => Json.obj("units" -> u)
+        case _ => Json.obj()
+      }
+      val per = d.Per match {
+        case Some(p) => Json.obj("per" -> p)
+        case _ => Json.obj()
+      }
+      Json.obj("quantity" -> d.Quantity)++units++per
+    }
   }
   
   // writer for granule
+  // @TODO needs to be extended!
   implicit val granuleWrites: Writes[Granule] = new Writes[Granule] {
-    def writes(g: Granule) = {
+    def writes(g: Granule): JsValue = {
       Json.obj("resourceId" -> g.ResourceID)
     }
   }

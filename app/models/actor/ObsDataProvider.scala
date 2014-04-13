@@ -48,6 +48,8 @@ extends Actor with DataProvider {
   }
 
   // @FIXME we should only cast once (at init/update)
+  // @TODO this maybe not needed (because AMDA remote tree is not 
+  // accessible with Web services)
   protected def getNativeTreeObjects: Seq[DataRoot] = {
     getTrees map { tree => { 
       // we select here only portions of the remote trees (e.g. AMDA)

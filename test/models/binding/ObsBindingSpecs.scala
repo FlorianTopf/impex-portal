@@ -24,11 +24,12 @@ object ObsBindingSpecs extends org.specs2.mutable.Specification with Mockito {
 	val databases = config.impexconfigurationoption.filter(_.key.get == "database").map(
 	    _.as[Database]).filter(d => d.typeValue == Observation)
   
-    "SpaseBinding" should {
+    "ObsBinding" should {
         
-        "marshall random XML files" in {
+        "marshall all available XML files" in {
           databases map { database => 
             val id: String = UrlProvider.encodeURI(database.id)
+            // @FIXME taking only one random tree from one database
             val fileName: String = PathProvider.getPath("trees", 
               id, database.tree(rand.nextInt(database.tree.length)))
             val dataroot = scalaxb.fromXML[DataRoot](scala.xml.XML.loadFile(fileName))

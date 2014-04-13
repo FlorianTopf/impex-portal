@@ -26,9 +26,10 @@ object SpaseBindingSpecs extends org.specs2.mutable.Specification with Mockito {
   
     "SpaseBinding" should {
         
-        "marshall random XML file" in {
+        "marshall all available XML files" in {
           databases map { database => 
             val id: String = UrlProvider.encodeURI(database.id)
+            // @FIXME taking only one random tree from one database
             val fileName: String = PathProvider.getPath("trees", 
               id, database.tree(rand.nextInt(database.tree.length))) 
             val spase = scalaxb.fromXML[Spase](scala.xml.XML.loadFile(fileName))
