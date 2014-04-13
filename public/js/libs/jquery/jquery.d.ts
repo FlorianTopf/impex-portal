@@ -253,79 +253,276 @@ interface JQueryCallback {
     remove(callbacks: Function[]): JQueryCallback;
 }
 
-/*
-    Allows jQuery Promises to interop with non-jQuery promises
-*/
+/**
+ * Allows jQuery Promises to interop with non-jQuery promises
+ */
 interface JQueryGenericPromise<T> {
-    then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => U): JQueryGenericPromise<U>;
-    then<U>(onFulfill: (value: T) => JQueryGenericPromise<U>, onReject?: (reason: any) => U): JQueryGenericPromise<U>;
-    then<U>(onFulfill: (value: T) => U, onReject?: (reason: any) => JQueryGenericPromise<U>): JQueryGenericPromise<U>;
-    then<U>(onFulfill: (value: T) => JQueryGenericPromise<U>, onReject?: (reason: any) => JQueryGenericPromise<U>): JQueryGenericPromise<U>;
+    /**
+     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+     * 
+     * @param doneFilter A function that is called when the Deferred is resolved.
+     * @param failFilter An optional function that is called when the Deferred is rejected.
+     */
+    then<U>(doneFilter: (value: T) => U, failFilter?: (reason: any) => U): JQueryGenericPromise<U>;
+    /**
+     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+     * 
+     * @param doneFilter A function that is called when the Deferred is resolved.
+     * @param failFilter An optional function that is called when the Deferred is rejected.
+     */
+    then<U>(doneFilter: (value: T) => JQueryGenericPromise<U>, failFilter?: (reason: any) => U): JQueryGenericPromise<U>;
+    /**
+     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+     * 
+     * @param doneFilter A function that is called when the Deferred is resolved.
+     * @param failFilter An optional function that is called when the Deferred is rejected.
+     */
+    then<U>(doneFilter: (value: T) => U, failFilter?: (reason: any) => JQueryGenericPromise<U>): JQueryGenericPromise<U>;
+    /**
+     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+     * 
+     * @param doneFilter A function that is called when the Deferred is resolved.
+     * @param failFilter An optional function that is called when the Deferred is rejected.
+     */
+    then<U>(doneFilter: (value: T) => JQueryGenericPromise<U>, failFilter?: (reason: any) => JQueryGenericPromise<U>): JQueryGenericPromise<U>;
 }
 
-/*
-    Interface for the JQuery promise, part of callbacks
-*/
-interface JQueryPromise<T> {
-    // Generic versions of callbacks
-    always(...alwaysCallbacks: T[]): JQueryPromise<T>;
-    done(...doneCallbacks: T[]): JQueryPromise<T>;
-    fail(...failCallbacks: T[]): JQueryPromise<T>;
-    progress(...progressCallbacks: T[]): JQueryPromise<T>;
+/**
+ * Interface for the JQuery promise/deferred callbacks
+ */
+interface JQueryPromiseCallback<T> {
+    (value?: T, ...args: any[]): void;
+}
 
+/**
+ * Interface for the JQuery promise, part of callbacks
+ */
+interface JQueryPromise<T> {
+    /**
+     * Add handlers to be called when the Deferred object is either resolved or rejected.
+     * 
+     * @param alwaysCallbacks1 A function, or array of functions, that is called when the Deferred is resolved or rejected.
+     * @param alwaysCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
+     */
+    always(alwaysCallbacks1?: JQueryPromiseCallback<T>, ...alwaysCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+    /**
+     * Add handlers to be called when the Deferred object is resolved.
+     * 
+     * @param doneCallbacks1 A function, or array of functions, that are called when the Deferred is resolved.
+     * @param doneCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
+     */
+    done(doneCallbacks1?: JQueryPromiseCallback<T>, ...doneCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+    /**
+     * Add handlers to be called when the Deferred object is rejected.
+     * 
+     * @param failCallbacks1 A function, or array of functions, that are called when the Deferred is rejected.
+     * @param failCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
+     */
+    fail(failCallbacks1?: JQueryPromiseCallback<T>, ...failCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+    /**
+     * Add handlers to be called when the Deferred object generates progress notifications.
+     * 
+     * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates progress notifications.
+     */
+    progress(...progressCallbacks: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+
+    /**
+     * Add handlers to be called when the Deferred object is either resolved or rejected.
+     * 
+     * @param alwaysCallbacks A function, or array of functions, that is called when the Deferred is resolved or rejected.
+     */
     always(...alwaysCallbacks: any[]): JQueryPromise<T>;
+    /**
+     * Add handlers to be called when the Deferred object is resolved.
+     * 
+     * @param doneCallbacks A function, or array of functions, that are called when the Deferred is resolved.
+     */
     done(...doneCallbacks: any[]): JQueryPromise<T>;
+    /**
+     * Add handlers to be called when the Deferred object is rejected.
+     * 
+     * @param failCallbacks A function, or array of functions, that are called when the Deferred is rejected.
+     */
     fail(...failCallbacks: any[]): JQueryPromise<T>;
+    /**
+     * Add handlers to be called when the Deferred object generates progress notifications.
+     * 
+     * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates progress notifications.
+     */
     progress(...progressCallbacks: any[]): JQueryPromise<T>;
 
     // Deprecated - given no typings
     pipe(doneFilter?: (x: any) => any, failFilter?: (x: any) => any, progressFilter?: (x: any) => any): JQueryPromise<any>;
 
-    then<U>(onFulfill: (value: T) => U, onReject?: (...reasons: any[]) => U, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
-    then<U>(onFulfill: (value: T) => JQueryGenericPromise<U>, onReject?: (...reasons: any[]) => U, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
-    then<U>(onFulfill: (value: T) => U, onReject?: (...reasons: any[]) => JQueryGenericPromise<U>, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
-    then<U>(onFulfill: (value: T) => JQueryGenericPromise<U>, onReject?: (...reasons: any[]) => JQueryGenericPromise<U>, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
+    /**
+     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+     * 
+     * @param doneFilter A function that is called when the Deferred is resolved.
+     * @param failFilter An optional function that is called when the Deferred is rejected.
+     * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+     */
+    then<U>(doneFilter: (value: T) => U, failFilter?: (...reasons: any[]) => U, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
+    /**
+     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+     * 
+     * @param doneFilter A function that is called when the Deferred is resolved.
+     * @param failFilter An optional function that is called when the Deferred is rejected.
+     * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+     */
+    then<U>(doneFilter: (value: T) => JQueryGenericPromise<U>, failFilter?: (...reasons: any[]) => U, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
+    /**
+     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+     * 
+     * @param doneFilter A function that is called when the Deferred is resolved.
+     * @param failFilter An optional function that is called when the Deferred is rejected.
+     * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+     */
+    then<U>(doneFilter: (value: T) => U, failFilter?: (...reasons: any[]) => JQueryGenericPromise<U>, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
+    /**
+     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+     * 
+     * @param doneFilter A function that is called when the Deferred is resolved.
+     * @param failFilter An optional function that is called when the Deferred is rejected.
+     * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+     */
+    then<U>(doneFilter: (value: T) => JQueryGenericPromise<U>, failFilter?: (...reasons: any[]) => JQueryGenericPromise<U>, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
 
     // Because JQuery Promises Suck
-    then<U>(onFulfill: (...values: any[]) => U, onReject?: (...reasons: any[]) => U, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
-    then<U>(onFulfill: (...values: any[]) => JQueryGenericPromise<U>, onReject?: (...reasons: any[]) => U, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
-    then<U>(onFulfill: (...values: any[]) => U, onReject?: (...reasons: any[]) => JQueryGenericPromise<U>, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
-    then<U>(onFulfill: (...values: any[]) => JQueryGenericPromise<U>, onReject?: (...reasons: any[]) => JQueryGenericPromise<U>, onProgress?: (...progression: any[]) => any): JQueryPromise<U>;
+    /**
+     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+     * 
+     * @param doneFilter A function that is called when the Deferred is resolved.
+     * @param failFilter An optional function that is called when the Deferred is rejected.
+     * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+     */
+    then<U>(doneFilter: (...values: any[]) => U, failFilter?: (...reasons: any[]) => U, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
+    /**
+     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+     * 
+     * @param doneFilter A function that is called when the Deferred is resolved.
+     * @param failFilter An optional function that is called when the Deferred is rejected.
+     * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+     */
+    then<U>(doneFilter: (...values: any[]) => JQueryGenericPromise<U>, failFilter?: (...reasons: any[]) => U, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
+    /**
+     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+     * 
+     * @param doneFilter A function that is called when the Deferred is resolved.
+     * @param failFilter An optional function that is called when the Deferred is rejected.
+     * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+     */
+    then<U>(doneFilter: (...values: any[]) => U, failFilter?: (...reasons: any[]) => JQueryGenericPromise<U>, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
+    /**
+     * Add handlers to be called when the Deferred object is resolved, rejected, or still in progress.
+     * 
+     * @param doneFilter A function that is called when the Deferred is resolved.
+     * @param failFilter An optional function that is called when the Deferred is rejected.
+     * @param progressFilter An optional function that is called when progress notifications are sent to the Deferred.
+     */
+    then<U>(doneFilter: (...values: any[]) => JQueryGenericPromise<U>, failFilter?: (...reasons: any[]) => JQueryGenericPromise<U>, progressFilter?: (...progression: any[]) => any): JQueryPromise<U>;
 }
 
-/*
-    Interface for the JQuery deferred, part of callbacks
-*/
+/**
+ * Interface for the JQuery deferred, part of callbacks
+ */
 interface JQueryDeferred<T> extends JQueryPromise<T> {
-    // Generic versions of callbacks
-    always(...alwaysCallbacks: T[]): JQueryDeferred<T>;
-    done(...doneCallbacks: T[]): JQueryDeferred<T>;
-    fail(...failCallbacks: T[]): JQueryDeferred<T>;
-    progress(...progressCallbacks: T[]): JQueryDeferred<T>;
+    /**
+     * Add handlers to be called when the Deferred object is either resolved or rejected.
+     * 
+     * @param alwaysCallbacks1 A function, or array of functions, that is called when the Deferred is resolved or rejected.
+     * @param alwaysCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved or rejected.
+     */
+    always(alwaysCallbacks1?: JQueryPromiseCallback<T>, ...alwaysCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+    always(alwaysCallbacks1?: JQueryPromiseCallback<T>[], ...alwaysCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+    always(alwaysCallbacks1?: JQueryPromiseCallback<T>, ...alwaysCallbacks2: any[]): JQueryDeferred<T>;
+    always(alwaysCallbacks1?: JQueryPromiseCallback<T>[], ...alwaysCallbacks2: any[]): JQueryDeferred<T>;
+    /**
+     * Add handlers to be called when the Deferred object is resolved.
+     * 
+     * @param doneCallbacks1 A function, or array of functions, that are called when the Deferred is resolved.
+     * @param doneCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is resolved.
+     */
+    done(doneCallbacks1?: JQueryPromiseCallback<T>, ...doneCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+    done(doneCallbacks1?: JQueryPromiseCallback<T>[], ...doneCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+    done(doneCallbacks1?: JQueryPromiseCallback<T>, ...doneCallbacks2: any[]): JQueryDeferred<T>;
+    done(doneCallbacks1?: JQueryPromiseCallback<T>[], ...doneCallbacks2: any[]): JQueryDeferred<T>;
+    /**
+     * Add handlers to be called when the Deferred object is rejected.
+     * 
+     * @param failCallbacks1 A function, or array of functions, that are called when the Deferred is rejected.
+     * @param failCallbacks2 Optional additional functions, or arrays of functions, that are called when the Deferred is rejected.
+     */
+    fail(failCallbacks1?: JQueryPromiseCallback<T>, ...failCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+    fail(failCallbacks1?: JQueryPromiseCallback<T>[], ...failCallbacks2: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
+    fail(failCallbacks1?: JQueryPromiseCallback<T>, ...failCallbacks2: any[]): JQueryDeferred<T>;
+    fail(failCallbacks1?: JQueryPromiseCallback<T>[], ...failCallbacks2: any[]): JQueryDeferred<T>;
+    /**
+     * Add handlers to be called when the Deferred object generates progress notifications.
+     * 
+     * @param progressCallbacks A function, or array of functions, to be called when the Deferred generates progress notifications.
+     */
+    progress(...progressCallbacks: JQueryPromiseCallback<T>[]): JQueryDeferred<T>;
 
-    always(...alwaysCallbacks: any[]): JQueryDeferred<T>;
-    done(...doneCallbacks: any[]): JQueryDeferred<T>;
-    fail(...failCallbacks: any[]): JQueryDeferred<T>;
-    progress(...progressCallbacks: any[]): JQueryDeferred<T>;
-
+    /**
+     * Call the progressCallbacks on a Deferred object with the given args.
+     * 
+     * @param args Optional arguments that are passed to the progressCallbacks.
+     */
     notify(...args: any[]): JQueryDeferred<T>;
+
+    /**
+     * Call the progressCallbacks on a Deferred object with the given context and args.
+     * 
+     * @param context Context passed to the progressCallbacks as the this object.
+     * @param args Optional arguments that are passed to the progressCallbacks.
+     */
     notifyWith(context: any, ...args: any[]): JQueryDeferred<T>;
 
+    /**
+     * Reject a Deferred object and call any failCallbacks with the given args.
+     * 
+     * @param args Optional arguments that are passed to the failCallbacks.
+     */
     reject(...args: any[]): JQueryDeferred<T>;
+    /**
+     * Reject a Deferred object and call any failCallbacks with the given context and args.
+     * 
+     * @param context Context passed to the failCallbacks as the this object.
+     * @param args An optional array of arguments that are passed to the failCallbacks.
+     */
     rejectWith(context: any, ...args: any[]): JQueryDeferred<T>;
 
-    resolve(val: T): JQueryDeferred<T>;
-    resolve(...args: any[]): JQueryDeferred<T>;
+    /**
+     * Resolve a Deferred object and call any doneCallbacks with the given args.
+     * 
+     * @param value First argument passed to doneCallbacks.
+     * @param args Optional subsequent arguments that are passed to the doneCallbacks.
+     */
+    resolve(value?: T, ...args: any[]): JQueryDeferred<T>;
+
+    /**
+     * Resolve a Deferred object and call any doneCallbacks with the given context and args.
+     * 
+     * @param context Context passed to the doneCallbacks as the this object.
+     * @param args An optional array of arguments that are passed to the doneCallbacks.
+     */
     resolveWith(context: any, ...args: any[]): JQueryDeferred<T>;
+    /**
+     * Determine the current state of a Deferred object.
+     */
     state(): string;
 
+    /**
+     * Return a Deferred's Promise object.
+     * 
+     * @param target Object onto which the promise methods have to be attached
+     */
     promise(target?: any): JQueryPromise<T>;
 }
 
-/*
-    Interface of the JQuery extension of the W3C event object
-*/
-
+/**
+ * Interface of the JQuery extension of the W3C event object
+ */
 interface BaseJQueryEventObject extends Event {
     data: any;
     delegateTarget: Element;
@@ -2266,7 +2463,7 @@ interface JQuery {
      */
     keydown(handler: (eventObject: JQueryKeyEventObject) => any): JQuery;
     /**
-     * Bind an event handler to the keydown"" JavaScript event
+     * Bind an event handler to the "keydown" JavaScript event
      *
      * @param eventData An object containing data that will be passed to the event handler.
      * @param handler A function to execute each time the event is triggered.
@@ -2487,10 +2684,18 @@ interface JQuery {
      * Attach an event handler function for one or more events to the selected elements.
      *
      * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
+     * @param data Data to be passed to the handler in event.data when an event is triggered.
+     * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
+    */
+    on(events: string, data : any, handler: (eventObject: JQueryEventObject, ...args: any[]) => any): JQuery;
+    /**
+     * Attach an event handler function for one or more events to the selected elements.
+     *
+     * @param events One or more space-separated event types and optional namespaces, such as "click" or "keydown.myPlugin".
      * @param selector A selector string to filter the descendants of the selected elements that trigger the event. If the selector is null or omitted, the event is always triggered when it reaches the selected element.
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      */
-    on(events: string, selector: string, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    on(events: string, selector: string, handler: (eventObject: JQueryEventObject, ...eventData: any[]) => any): JQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -2499,7 +2704,7 @@ interface JQuery {
      * @param data Data to be passed to the handler in event.data when an event is triggered.
      * @param handler A function to execute when the event is triggered. The value false is also allowed as a shorthand for a function that simply does return false.
      */
-    on(events: string, selector: string, data: any, handler: (eventObject: JQueryEventObject) => any): JQuery;
+    on(events: string, selector: string, data: any, handler: (eventObject: JQueryEventObject, ...eventData: any[]) => any): JQuery;
     /**
      * Attach an event handler function for one or more events to the selected elements.
      *
@@ -3363,75 +3568,308 @@ interface JQuery {
      */
     closest(selectors: any, context?: Element): any[];
 
+    /**
+     * Get the children of each element in the set of matched elements, including text and comment nodes.
+     */
     contents(): JQuery;
 
+    /**
+     * End the most recent filtering operation in the current chain and return the set of matched elements to its previous state.
+     */
     end(): JQuery;
 
+    /**
+     * Reduce the set of matched elements to the one at the specified index.
+     * 
+     * @param index An integer indicating the 0-based position of the element. OR An integer indicating the position of the element, counting backwards from the last element in the set.
+     *  
+     */
     eq(index: number): JQuery;
 
+    /**
+     * Reduce the set of matched elements to those that match the selector or pass the function's test.
+     * 
+     * @param selector A string containing a selector expression to match the current set of elements against.
+     */
     filter(selector: string): JQuery;
-    filter(func: (index: any) => any): JQuery;
-    filter(element: any): JQuery;
+    /**
+     * Reduce the set of matched elements to those that match the selector or pass the function's test.
+     * 
+     * @param func A function used as a test for each element in the set. this is the current DOM element.
+     */
+    filter(func: (index: number) => any): JQuery;
+    /**
+     * Reduce the set of matched elements to those that match the selector or pass the function's test.
+     * 
+     * @param element An element to match the current set of elements against.
+     */
+    filter(element: Element): JQuery;
+    /**
+     * Reduce the set of matched elements to those that match the selector or pass the function's test.
+     * 
+     * @param obj An existing jQuery object to match the current set of elements against.
+     */
     filter(obj: JQuery): JQuery;
 
+    /**
+     * Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     find(selector: string): JQuery;
-    find(element: any): JQuery;
+    /**
+     * Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
+     * 
+     * @param element An element to match elements against.
+     */
+    find(element: Element): JQuery;
+    /**
+     * Get the descendants of each element in the current set of matched elements, filtered by a selector, jQuery object, or element.
+     * 
+     * @param obj A jQuery object to match elements against.
+     */
     find(obj: JQuery): JQuery;
 
+    /**
+     * Reduce the set of matched elements to the first in the set.
+     */
     first(): JQuery;
 
+    /**
+     * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     has(selector: string): JQuery;
+    /**
+     * Reduce the set of matched elements to those that have a descendant that matches the selector or DOM element.
+     * 
+     * @param contained A DOM element to match elements against.
+     */
     has(contained: Element): JQuery;
 
+    /**
+     * Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     is(selector: string): boolean;
-    is(func: (index: any) => any): boolean;
-    is(element: any): boolean;
+    /**
+     * Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments.
+     * 
+     * @param func A function used as a test for the set of elements. It accepts one argument, index, which is the element's index in the jQuery collection.Within the function, this refers to the current DOM element.
+     */
+    is(func: (index: number) => any): boolean;
+    /**
+     * Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments.
+     * 
+     * @param obj An existing jQuery object to match the current set of elements against.
+     */
     is(obj: JQuery): boolean;
+    /**
+     * Check the current matched set of elements against a selector, element, or jQuery object and return true if at least one of these elements matches the given arguments.
+     * 
+     * @param elements One or more elements to match the current set of elements against.
+     */
+    is(elements: any): boolean;
 
+    /**
+     * Reduce the set of matched elements to the final one in the set.
+     */
     last(): JQuery;
 
-    map(callback: (index: any, domElement: Element) => any): JQuery;
+    /**
+     * Pass each element in the current matched set through a function, producing a new jQuery object containing the return values.
+     * 
+     * @param callback A function object that will be invoked for each element in the current set.
+     */
+    map(callback: (index: number, domElement: Element) => any): JQuery;
 
+    /**
+     * Get the immediately following sibling of each element in the set of matched elements. If a selector is provided, it retrieves the next sibling only if it matches that selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     next(selector?: string): JQuery;
 
+    /**
+     * Get all following siblings of each element in the set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     nextAll(selector?: string): JQuery;
 
+    /**
+     * Get all following siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object passed.
+     * 
+     * @param selector A string containing a selector expression to indicate where to stop matching following sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     nextUntil(selector?: string, filter?: string): JQuery;
+    /**
+     * Get all following siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object passed.
+     * 
+     * @param element A DOM node or jQuery object indicating where to stop matching following sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     nextUntil(element?: Element, filter?: string): JQuery;
+    /**
+     * Get all following siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object passed.
+     * 
+     * @param obj A DOM node or jQuery object indicating where to stop matching following sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     nextUntil(obj?: JQuery, filter?: string): JQuery;
 
+    /**
+     * Remove elements from the set of matched elements.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     not(selector: string): JQuery;
-    not(func: (index: any) => any): JQuery;
-    not(element: any): JQuery;
+    /**
+     * Remove elements from the set of matched elements.
+     * 
+     * @param func A function used as a test for each element in the set. this is the current DOM element.
+     */
+    not(func: (index: number) => any): JQuery;
+    /**
+     * Remove elements from the set of matched elements.
+     * 
+     * @param elements One or more DOM elements to remove from the matched set.
+     */
+    not(...elements: Element[]): JQuery;
+    /**
+     * Remove elements from the set of matched elements.
+     * 
+     * @param obj An existing jQuery object to match the current set of elements against.
+     */
     not(obj: JQuery): JQuery;
 
+    /**
+     * Get the closest ancestor element that is positioned.
+     */
     offsetParent(): JQuery;
 
+    /**
+     * Get the parent of each element in the current set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     parent(selector?: string): JQuery;
 
+    /**
+     * Get the ancestors of each element in the current set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     parents(selector?: string): JQuery;
 
+    /**
+     * Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param selector A string containing a selector expression to indicate where to stop matching ancestor elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     parentsUntil(selector?: string, filter?: string): JQuery;
+    /**
+     * Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param element A DOM node or jQuery object indicating where to stop matching ancestor elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     parentsUntil(element?: Element, filter?: string): JQuery;
+    /**
+     * Get the ancestors of each element in the current set of matched elements, up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param obj A DOM node or jQuery object indicating where to stop matching ancestor elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     parentsUntil(obj?: JQuery, filter?: string): JQuery;
 
+    /**
+     * Get the immediately preceding sibling of each element in the set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     prev(selector?: string): JQuery;
 
+    /**
+     * Get all preceding siblings of each element in the set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     prevAll(selector?: string): JQuery;
 
+    /**
+     * Get all preceding siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param selector A string containing a selector expression to indicate where to stop matching preceding sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     prevUntil(selector?: string, filter?: string): JQuery;
+    /**
+     * Get all preceding siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param element A DOM node or jQuery object indicating where to stop matching preceding sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     prevUntil(element?: Element, filter?: string): JQuery;
+    /**
+     * Get all preceding siblings of each element up to but not including the element matched by the selector, DOM node, or jQuery object.
+     * 
+     * @param obj A DOM node or jQuery object indicating where to stop matching preceding sibling elements.
+     * @param filter A string containing a selector expression to match elements against.
+     */
     prevUntil(obj?: JQuery, filter?: string): JQuery;
 
+    /**
+     * Get the siblings of each element in the set of matched elements, optionally filtered by a selector.
+     * 
+     * @param selector A string containing a selector expression to match elements against.
+     */
     siblings(selector?: string): JQuery;
 
+    /**
+     * Reduce the set of matched elements to a subset specified by a range of indices.
+     * 
+     * @param start An integer indicating the 0-based position at which the elements begin to be selected. If negative, it indicates an offset from the end of the set.
+     * @param end An integer indicating the 0-based position at which the elements stop being selected. If negative, it indicates an offset from the end of the set. If omitted, the range continues until the end of the set.
+     */
     slice(start: number, end?: number): JQuery;
 
-    // Utilities
-
+    /**
+     * Show the queue of functions to be executed on the matched elements.
+     * 
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     */
     queue(queueName?: string): any[];
-    queue(queueName: string, newQueueOrCallback: any): JQuery;
-    queue(newQueueOrCallback: any): JQuery;
+    /**
+     * Manipulate the queue of functions to be executed, once for each matched element.
+     * 
+     * @param newQueue An array of functions to replace the current queue contents.
+     */
+    queue(newQueue: Function[]): JQuery;
+    /**
+     * Manipulate the queue of functions to be executed, once for each matched element.
+     * 
+     * @param callback The new function to add to the queue, with a function to call that will dequeue the next item.
+     */
+    queue(callback: Function): JQuery;
+    /**
+     * Manipulate the queue of functions to be executed, once for each matched element.
+     * 
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @param newQueue An array of functions to replace the current queue contents.
+     */
+    queue(queueName: string, newQueue: Function[]): JQuery;
+    /**
+     * Manipulate the queue of functions to be executed, once for each matched element.
+     * 
+     * @param queueName A string containing the name of the queue. Defaults to fx, the standard effects queue.
+     * @param callback The new function to add to the queue, with a function to call that will dequeue the next item.
+     */
+    queue(queueName: string, callback: Function): JQuery;
 }
 declare module "jquery" {
     export = $;

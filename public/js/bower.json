@@ -1,0 +1,11 @@
+{
+  "name" : "impex-portal",
+  "version": "0.1",
+  "dependencies" : {
+    "jquery" : "latest",
+    "angular" : "1.2.14",
+    "angular-route" : "1.2.14",
+    "angular-resource" : "1.2.14",
+    "bootstrap" : "latest"
+  }
+}
