@@ -1,7 +1,7 @@
 (function ( angular ) {
     'use strict';
     
-    angular.module( 'treeControl', [] )
+    angular.module( 'treecontrol', [] )
         .directive( 'treecontrol', ['$compile', function( $compile ) {
             /**
              * @param cssClass - the css class

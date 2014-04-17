@@ -3,15 +3,6 @@ var portal;
 (function (portal) {
     'use strict';
 
-    var Config = (function () {
-        function Config(databases, tools) {
-            this.databases = databases;
-            this.tools = tools;
-        }
-        return Config;
-    })();
-    portal.Config = Config;
-
     var Database = (function () {
         function Database(id, type, name, description, dns, methods, tree, protocol, info) {
             this.id = id;
@@ -44,17 +35,86 @@ var portal;
 (function (portal) {
     'use strict';
 
-    var ConfigService = (function () {
-        function ConfigService() {
-            this.config = null;
-            this.url = '/';
+    var Contact = (function () {
+        function Contact(personId, role) {
+            this.personId = personId;
+            this.role = role;
         }
-        ConfigService.prototype.getConfigUrl = function () {
-            return this.url + 'config?fmt=json';
+        return Contact;
+    })();
+    portal.Contact = Contact;
+
+    var ResourceHeader = (function () {
+        function ResourceHeader(resourceName, releaseDate, description, contact, informationUrl) {
+            this.resourceName = resourceName;
+            this.releaseDate = releaseDate;
+            this.description = description;
+            this.contact = contact;
+            this.informationUrl = informationUrl;
+        }
+        return ResourceHeader;
+    })();
+    portal.ResourceHeader = ResourceHeader;
+
+    var Repository = (function () {
+        function Repository(resourceId, resourceHeader, accessUrl) {
+            this.resourceId = resourceId;
+            this.resourceHeader = resourceHeader;
+            this.accessUrl = accessUrl;
+        }
+        return Repository;
+    })();
+    portal.Repository = Repository;
+})(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
+    var ConfigService = (function () {
+        function ConfigService($resource) {
+            this.url = '/';
+            this.config = null;
+            // creates an action descriptor
+            this.configAction = {
+                method: 'GET',
+                isArray: false
+            };
+            this.resource = $resource;
+        }
+        // returns the resource handler
+        ConfigService.prototype.getConfig = function () {
+            return this.resource(this.url + 'config?fmt=json', null, { getConfig: this.configAction });
         };
+        ConfigService.$inject = ['$resource'];
         return ConfigService;
     })();
     portal.ConfigService = ConfigService;
+})(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
+    var RegistryService = (function () {
+        function RegistryService($resource) {
+            this.url = '/';
+            // we will store here a map of loaded resources
+            // we need do design an appropriate structure for that
+            // action descriptor for registry actions
+            this.registryAction = {
+                method: 'GET',
+                isArray: false
+            };
+            this.resource = $resource;
+        }
+        RegistryService.prototype.getRepository = function () {
+            return this.resource(this.url + 'registry/repository?fmt=json', null, { getRepository: this.registryAction });
+        };
+        RegistryService.$inject = ['$resource'];
+        return RegistryService;
+    })();
+    portal.RegistryService = RegistryService;
 })(portal || (portal = {}));
 /// <reference path='../_all.ts' />
 var portal;
@@ -81,9 +141,9 @@ var portal;
 
         ConfigCtrl.prototype.load = function () {
             var _this = this;
-            this.http.get(this.configService.getConfigUrl(), { timeout: 5000 }).success(function (data, status) {
+            this.configService.getConfig().get(function (data, status) {
                 return _this.handleData(data, status);
-            }).error(function (data, status) {
+            }, function (data, status) {
                 return _this.handleError(data, status);
             });
         };
@@ -119,19 +179,31 @@ var portal;
     var PortalCtrl = (function () {
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
-        function PortalCtrl($scope, $http, $location, $timeout, $interval, $window, configService) {
+        function PortalCtrl($scope, $http, $location, $timeout, $interval, $window, configService, registryService) {
             var _this = this;
             this.configAble = true;
             this.ready = false;
+            this.num = 1;
             this.scope = $scope;
             this.scope.vm = this;
             this.http = $http;
             this.location = $location;
             this.configService = configService;
             this.config = this.configService.config;
+            this.registryService = registryService;
             this.timeout = $timeout;
             this.interval = $interval;
             this.window = $window;
+
+            this.treedata = this.createSubTree(7);
+
+            // PLAYING AROUND WITH ANGULAR RESOURCES
+            // don know if this is the optimal way to do it
+            this.registryPromise = this.registryService.getRepository().get().$promise;
+            this.registryPromise.then(function (res) {
+                var result = res.spase;
+                console.log(result.resources);
+            });
 
             if (this.config == null) {
                 $location.path('/config');
@@ -143,6 +215,34 @@ var portal;
         }
         PortalCtrl.prototype.doSomething = function () {
         };
+
+        PortalCtrl.prototype.getNum = function () {
+            return this.num++;
+        };
+
+        PortalCtrl.prototype.createSubTree = function (level) {
+            if (level > 0)
+                return [
+                    { "label": "Node " + this.getNum(), "id": "id", "children": this.createSubTree(level - 1) },
+                    { "label": "Node " + this.getNum(), "id": "id", "children": this.createSubTree(level - 1) },
+                    { "label": "Node " + this.getNum(), "id": "id", "children": this.createSubTree(level - 1) },
+                    { "label": "Node " + this.getNum(), "id": "id", "children": this.createSubTree(level - 1) }
+                ];
+else
+                return [];
+        };
+
+        PortalCtrl.prototype.showSelected = function (sel) {
+            this.selected = sel.label;
+        };
+
+        PortalCtrl.prototype.addRoot = function () {
+            this.treedata.push({ "label": "New Node " + this.getNum(), "id": "id", "children": [] });
+        };
+
+        PortalCtrl.prototype.addChild = function () {
+            this.treedata[0].children.push({ "label": "New Node " + this.getNum(), "id": "id", "children": [] });
+        };
         PortalCtrl.$inject = [
             '$scope',
             '$http',
@@ -150,7 +250,8 @@ var portal;
             '$timeout',
             '$interval',
             '$window',
-            'configService'
+            'configService',
+            'registryService'
         ];
         return PortalCtrl;
     })();
@@ -195,9 +296,12 @@ var portal;
 (function (portal) {
     'use strict';
 
-    var impexPortal = angular.module('portal', ['ngRoute']);
+    var impexPortal = angular.module('portal', ['treecontrol', 'ngRoute', 'ngResource']);
 
     impexPortal.service('configService', portal.ConfigService);
+
+    // testing resources
+    impexPortal.service('registryService', portal.RegistryService);
 
     impexPortal.controller('configCtrl', portal.ConfigCtrl);
     impexPortal.controller('portalCtrl', portal.PortalCtrl);

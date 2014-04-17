@@ -1,12 +1,12 @@
 /// <reference path='../_all.ts' />
 
 module portal {
-    'use strict';
+    'use strict'; 
 
-    export class Config {
-        constructor(
-            public databases: Array<Database>,
-            public tools: Array<Tool>){}
+    // describes an angular resource
+    export interface IConfig extends ng.resource.IResource<IConfig> {
+      databases: Array<Database>
+      tools: Array<Tool>
     }
     
     export class Database {

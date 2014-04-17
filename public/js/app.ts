@@ -3,9 +3,11 @@
 module portal {
     'use strict';
 
-    var impexPortal = angular.module('portal', ['ngRoute'])
-
+    var impexPortal = angular.module('portal', ['treecontrol','ngRoute', 'ngResource'])
+ 
     impexPortal.service('configService', ConfigService)
+    // testing resources
+    impexPortal.service('registryService', RegistryService)
 
     impexPortal.controller('configCtrl', ConfigCtrl)
     impexPortal.controller('portalCtrl', PortalCtrl)
