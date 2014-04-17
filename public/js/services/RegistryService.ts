@@ -25,7 +25,7 @@ module portal {
                 fmt: '@fmt'
             },
             isArray: false
-        }  
+        }
           
         constructor($resource: ng.resource.IResourceService) {
             this.resource = $resource

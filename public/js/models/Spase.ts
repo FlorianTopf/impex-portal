@@ -31,4 +31,5 @@ module portal {
             public resourceHeader: ResourceHeader,
             public accessUrl: string){} 
     }
+    
 }

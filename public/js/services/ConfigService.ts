@@ -32,8 +32,7 @@ module portal {
         public getConfig(): IConfigResource {
             return <IConfigResource> this.resource(this.url+'config?', 
                 { fmt: '@fmt' }, 
-                { getConfig: this.configAction }
-            )
+                { getConfig: this.configAction })
         }      
 
     }
