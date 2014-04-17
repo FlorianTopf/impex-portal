@@ -52,7 +52,7 @@ module portal {
             
             // PLAYING AROUND WITH ANGULAR RESOURCES
             // don know if this is the optimal way to do it 
-            this.registryPromise = this.registryService.getRepository().get().$promise
+            this.registryPromise = this.registryService.getRepository().get({ fmt: 'json' }).$promise
             this.registryPromise.then((res) => {
                         var result = <ISpase>res.spase
                         console.log(result.resources)

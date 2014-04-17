@@ -18,6 +18,9 @@ module portal {
         // creates an action descriptor
         private configAction: ng.resource.IActionDescriptor = {
             method: 'GET',
+            params: {
+                fmt: '@fmt'
+            },
             isArray: false
         }  
         
@@ -27,8 +30,10 @@ module portal {
         
         // returns the resource handler 
         public getConfig(): IConfigResource {
-            return <IConfigResource> this.resource(this.url+'config?fmt=json', null, 
-                { getConfig: this.configAction })
+            return <IConfigResource> this.resource(this.url+'config?', 
+                { fmt: '@fmt' }, 
+                { getConfig: this.configAction }
+            )
         }      
 
     }

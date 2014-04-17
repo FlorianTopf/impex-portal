@@ -39,7 +39,7 @@ module portal {
         }
 
         private load() {
-              this.configService.getConfig().get(
+              this.configService.getConfig().get({fmt: 'json' },
                   (data: any, status: any) => this.handleData(data, status), 
                   (data: any, status: any) => this.handleError(data, status)    
               )

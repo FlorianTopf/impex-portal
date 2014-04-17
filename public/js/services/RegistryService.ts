@@ -21,6 +21,9 @@ module portal {
         // action descriptor for registry actions
         private registryAction: ng.resource.IActionDescriptor = {
             method: 'GET',
+            params: {
+                fmt: '@fmt'
+            },
             isArray: false
         }  
           
@@ -29,7 +32,8 @@ module portal {
         }
         
         public getRepository(): IRegistryResource {
-            return <IRegistryResource> this.resource(this.url+'registry/repository?fmt=json', null,
+            return <IRegistryResource> this.resource(this.url+'registry/repository?', 
+                {fmt: '@fmt' },
                 { getRepository: this.registryAction })
         }
 

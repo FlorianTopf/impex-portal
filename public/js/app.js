@@ -78,13 +78,16 @@ var portal;
             // creates an action descriptor
             this.configAction = {
                 method: 'GET',
+                params: {
+                    fmt: '@fmt'
+                },
                 isArray: false
             };
             this.resource = $resource;
         }
         // returns the resource handler
         ConfigService.prototype.getConfig = function () {
-            return this.resource(this.url + 'config?fmt=json', null, { getConfig: this.configAction });
+            return this.resource(this.url + 'config?', { fmt: '@fmt' }, { getConfig: this.configAction });
         };
         ConfigService.$inject = ['$resource'];
         return ConfigService;
@@ -104,12 +107,15 @@ var portal;
             // action descriptor for registry actions
             this.registryAction = {
                 method: 'GET',
+                params: {
+                    fmt: '@fmt'
+                },
                 isArray: false
             };
             this.resource = $resource;
         }
         RegistryService.prototype.getRepository = function () {
-            return this.resource(this.url + 'registry/repository?fmt=json', null, { getRepository: this.registryAction });
+            return this.resource(this.url + 'registry/repository?', { fmt: '@fmt' }, { getRepository: this.registryAction });
         };
         RegistryService.$inject = ['$resource'];
         return RegistryService;
@@ -141,7 +147,7 @@ var portal;
 
         ConfigCtrl.prototype.load = function () {
             var _this = this;
-            this.configService.getConfig().get(function (data, status) {
+            this.configService.getConfig().get({ fmt: 'json' }, function (data, status) {
                 return _this.handleData(data, status);
             }, function (data, status) {
                 return _this.handleError(data, status);
@@ -199,7 +205,7 @@ var portal;
 
             // PLAYING AROUND WITH ANGULAR RESOURCES
             // don know if this is the optimal way to do it
-            this.registryPromise = this.registryService.getRepository().get().$promise;
+            this.registryPromise = this.registryService.getRepository().get({ fmt: 'json' }).$promise;
             this.registryPromise.then(function (res) {
                 var result = res.spase;
                 console.log(result.resources);
