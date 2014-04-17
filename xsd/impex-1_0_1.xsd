@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Schema IMPEx updated 2014-04-16T12:35:00 UT-->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    targetNamespace="http://impex-fp7.oeaw.ac.at" xmlns="http://impex-fp7.oeaw.ac.at"
    elementFormDefault="qualified">
@@ -2195,6 +2196,11 @@ of a set of typically orthogonal axes.
          </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
+         <xsd:enumeration value="CSO">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en"></xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
          <xsd:enumeration value="DM">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
@@ -2228,6 +2234,15 @@ of a set of typically orthogonal axes.
             Greenwich meridian, positive towards Greenwich.
             See Russell, 1971.
          </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="GPHIO">
+            <xsd:annotation>
+               <xsd:documentation>In this Cartesian coordinate system, X
+                  is along the flow direction, Y is along the Ganymede–Jupiter
+                  vector, and Z is along the spin axis. These coordinates are analogous
+                  to the earth-centered GSE coordinates that relate to the
+                  direction of flow of the solar wind onto Earth’s environment.</xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
          <xsd:enumeration value="GSE">
@@ -2411,6 +2426,11 @@ of a set of typically orthogonal axes.
          </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
+         <xsd:enumeration value="HSM">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">TBD</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
          <xsd:enumeration value="J2000">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
@@ -2420,6 +2440,42 @@ of a set of typically orthogonal axes.
             1, 2000, noon TT. (aka J2000) to define a
             celestial reference frame.
          </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="JSM">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+                  Jovian Solar Magnetospheric - A coordinate
+                  system where the X axis is from Jupiter to Sun,
+                  Z axis is northward in a plane containing
+                  the X axis and the Jovian dipole axis.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="JSO">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+                  Coordinate Sytem Related to Jupiter
+                  Jovian Solar Orbital (X anti-sunward, Y along the orbital velocity direction)
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="KSM">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+                  Kronian Solar Magnetospheric - A coordinate
+                  system where the X axis is from Saturn to Sun,
+                  Z axis is northward in a plane containing
+                  the X axis and the Kronian dipole axis.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="KSO">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+                  Coordinate Sytem Related to Saturn
+                  Kronian Solar Orbital (X anti-sunward, Y along the orbital velocity direction)
+               </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
          <xsd:enumeration value="LGM">
@@ -2459,6 +2515,15 @@ of a set of typically orthogonal axes.
             in the plane defined by Z and the spacecraft-Sun
             line, positive sunward. See &lt;http://cdpp.cnes.fr/00428.pdf&gt;
          </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="MSO">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+                  Coordinate Sytem Related to Mars or Mercury
+                  Depending on the Targeted Region
+                  Mars/Mercury Solar Orbital (X anti-sunward, Y along the orbital velocity direction)
+               </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
          <xsd:enumeration value="RTN">
@@ -2563,6 +2628,23 @@ of a set of typically orthogonal axes.
          </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
+         <xsd:enumeration value="TIIS">
+            <xsd:annotation>
+               <xsd:documentation>In this Cartesian coordinate system, X
+                  is along the flow direction, Y is along the Titan–Saturn
+                  vector, and Z is along the spin axis. These coordinates are analogous
+                  to the earth-centered GSE coordinates that relate to the
+                  direction of flow of the solar wind onto Earth’s environment.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="VSO">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+                  Coordinate Sytem Related to Venus
+                  Venus Solar Orbital (X anti-sunward, Y along the orbital velocity direction)
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
          <xsd:enumeration value="WGS84">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
@@ -2574,77 +2656,10 @@ of a set of typically orthogonal axes.
          </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
-         <xsd:enumeration value="MSO">
-            <xsd:annotation>
-               <xsd:documentation xml:lang="en">
-                  Coordinate Sytem Related to Mars or Mercury
-                  Depending on the Targeted Region
-                  Mars/Mercury Solar Orbital (X anti-sunward, Y along the orbital velocity direction)
-        </xsd:documentation>
-            </xsd:annotation>
-         </xsd:enumeration>
-         <xsd:enumeration value="VSO">
-            <xsd:annotation>
-               <xsd:documentation xml:lang="en">
-                  Coordinate Sytem Related to Venus
-                  Venus Solar Orbital (X anti-sunward, Y along the orbital velocity direction)
-        </xsd:documentation>
-            </xsd:annotation>
-         </xsd:enumeration>
-         <xsd:enumeration value="KSO">
-            <xsd:annotation>
-               <xsd:documentation xml:lang="en">
-                  Coordinate Sytem Related to Saturn
-                  Kronian Solar Orbital (X anti-sunward, Y along the orbital velocity direction)
-               </xsd:documentation>
-            </xsd:annotation>
-         </xsd:enumeration>
-         <xsd:enumeration value="KSM">
-            <xsd:annotation>
-               <xsd:documentation xml:lang="en">
-            Kronian Solar Magnetospheric - A coordinate
-            system where the X axis is from Saturn to Sun,
-            Z axis is northward in a plane containing
-            the X axis and the Kronian dipole axis.
-               </xsd:documentation>
-            </xsd:annotation>
-         </xsd:enumeration>
-         <xsd:enumeration value="JSO">
-            <xsd:annotation>
-               <xsd:documentation xml:lang="en">
-                  Coordinate Sytem Related to Jupiter
-                  Jovian Solar Orbital (X anti-sunward, Y along the orbital velocity direction)
-               </xsd:documentation>
-            </xsd:annotation>
-         </xsd:enumeration>
-         <xsd:enumeration value="JSM">
-            <xsd:annotation>
-               <xsd:documentation xml:lang="en">
-            Jovian Solar Magnetospheric - A coordinate
-            system where the X axis is from Jupiter to Sun,
-            Z axis is northward in a plane containing
-            the X axis and the Jovian dipole axis.
-               </xsd:documentation>
-            </xsd:annotation>
-         </xsd:enumeration>
-         <xsd:enumeration value="GPHIO">
-            <xsd:annotation>
-               <xsd:documentation xml:lang="en">
-               </xsd:documentation>
-            </xsd:annotation>
-         </xsd:enumeration>
-         <xsd:enumeration value="HSM">
-            <xsd:annotation>
-               <xsd:documentation xml:lang="en">
-               </xsd:documentation>
-            </xsd:annotation>
-         </xsd:enumeration>
-         <xsd:enumeration value="CSO">
-            <xsd:annotation>
-               <xsd:documentation xml:lang="en">
-               </xsd:documentation>
-            </xsd:annotation>
-         </xsd:enumeration>
+         
+         
+         
+         
       </xsd:restriction>
    </xsd:simpleType>
    <!-- ==========================
@@ -6230,6 +6245,11 @@ which may be occupied or observed.
          </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
+         <xsd:enumeration value="Callisto">
+            <xsd:annotation>
+               <xsd:documentation>A moon of the planet Jupiter, the second largest after Ganymede and the third-largest in the solar system </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
          <xsd:enumeration value="Comet">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
@@ -6472,6 +6492,24 @@ which may be occupied or observed.
          </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
+         <xsd:enumeration value="Enceladus">
+            <xsd:annotation>
+               <xsd:documentation>One of the innermost moons of Saturn.</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Europa">
+            <xsd:annotation>
+               <xsd:documentation>The sixth-closest moon of the planet Jupiter</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Ganymede">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+                  The biggest moon of Jupiter planet in our solar
+                  system.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
          <xsd:enumeration value="Heliosphere">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
@@ -6536,6 +6574,11 @@ which may be occupied or observed.
          </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
+         <xsd:enumeration value="Io">
+            <xsd:annotation>
+               <xsd:documentation>The innermost of the four Galilean moons of the planet Jupiter </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
          <xsd:enumeration value="Jupiter">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
@@ -6560,12 +6603,6 @@ which may be occupied or observed.
          </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
-         <xsd:enumeration value="Mercury.Magnetosphere">
-            <xsd:annotation>
-               <xsd:documentation xml:lang="en">
-               </xsd:documentation>
-            </xsd:annotation>
-         </xsd:enumeration>
          <xsd:enumeration value="Neptune">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
@@ -6580,6 +6617,11 @@ which may be occupied or observed.
             The ninth (sub)planet from the sun in our
             solar system.
          </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Rhea">
+            <xsd:annotation>
+               <xsd:documentation>The second-largest moon of Saturn and the ninth largest moon in the Solar System</xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
          <xsd:enumeration value="Saturn">
@@ -6648,6 +6690,11 @@ which may be occupied or observed.
          </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
+         <xsd:enumeration value="Titan">
+            <xsd:annotation>
+               <xsd:documentation>The largest moon of Saturn</xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
          <xsd:enumeration value="Uranus">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
@@ -6664,14 +6711,7 @@ which may be occupied or observed.
          </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
-         <xsd:enumeration value="Ganymede">
-            <xsd:annotation>
-               <xsd:documentation xml:lang="en">
-            The biggest moon of Jupiter planet in our solar
-            system.
-         </xsd:documentation>
-            </xsd:annotation>
-         </xsd:enumeration>
+         
       </xsd:restriction>
    </xsd:simpleType>
    <!-- ==========================
@@ -8650,6 +8690,11 @@ numerical scheme used in the simulation.
             </xsd:documentation>
       </xsd:annotation>
       <xsd:restriction base="xsd:string">
+         <xsd:enumeration value="Analytic">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en"></xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
          <xsd:enumeration value="Hybrid">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
@@ -8685,12 +8730,6 @@ numerical scheme used in the simulation.
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
          </xsd:documentation>
-            </xsd:annotation>
-         </xsd:enumeration>
-         <xsd:enumeration value="Analytic">
-            <xsd:annotation>
-               <xsd:documentation xml:lang="en">
-               </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
       </xsd:restriction>

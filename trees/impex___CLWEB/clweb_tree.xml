@@ -14,7 +14,7 @@
             <component var="Z_gsm_km" xml:id="AC_EPHEMERIS_ORBIT_H0_SWE(22)" name="z"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/04/05" dataStart="2005/01/01" xml:id="ACE:EPHEMERIS:ORBIT_1H_LOC" name="orbit from 1H_LOC">
+        <dataset dataStop="2014/04/12" dataStart="2005/01/01" xml:id="ACE:EPHEMERIS:ORBIT_1H_LOC" name="orbit from 1H_LOC">
           <parameter desc="Re" var="X_GSE_Rt,Y_GSE_Rt,Z_GSE_Rt" xml:id="AC_EPHEMERIS_ORBIT_1H_LOC(1,2,3)" units="Re" name="position in GSE">
             <component var="X_GSE_Rt" xml:id="AC_EPHEMERIS_ORBIT_1H_LOC(1)" name="x"/>
             <component var="Y_GSE_Rt" xml:id="AC_EPHEMERIS_ORBIT_1H_LOC(2)" name="y"/>
@@ -55,7 +55,7 @@
     </mission>
     <mission targets="Heliosphere.NearEarth Earth.Magnetosheath Earth.Magnetosphere.Main Earth.Magnetosphere.Polar" target="Earth.Magnetosphere.Main" desc="" xml:id="CLUSTER1" name="CLUSTER1">
       <instrument desc="" xml:id="CLUSTER1:ephemeris" name="ephemeris">
-        <dataset dataStop="2014/03/27" dataStart="2000/08/22" xml:id="CLUSTER1:EPHEMERIS:ORBIT" name="orbit 1mn resolution">
+        <dataset dataStop="2014/04/05" dataStart="2000/08/22" xml:id="CLUSTER1:EPHEMERIS:ORBIT" name="orbit 1mn resolution">
           <parameter desc="rt" var="Xgse,Ygse,Zgse" xml:id="C1_EPHEMERIS_ORBIT(1,2,3)" units="rt" name="position in GSE">
             <component var="Xgse" xml:id="C1_EPHEMERIS_ORBIT(1)" name="x"/>
             <component var="Ygse" xml:id="C1_EPHEMERIS_ORBIT(2)" name="y"/>
@@ -63,7 +63,7 @@
           </parameter>
           <parameter desc="rt" var="Dist" xml:id="C1_EPHEMERIS_ORBIT(4)" units="rt" name="distance"/>
         </dataset>
-        <dataset dataStop="2014/03/20" dataStart="2000/09/25" xml:id="CLUSTER1:EPHEMERIS:ORBIT_DETAILED" name="orbit detailed 1mn resolution">
+        <dataset dataStop="2014/03/28" dataStart="2000/09/25" xml:id="CLUSTER1:EPHEMERIS:ORBIT_DETAILED" name="orbit detailed 1mn resolution">
           <parameter desc="rt" var="XGR,YGR,ZGR" xml:id="C1_EPHEMERIS_ORBIT_DETAILED(1,2,3)" units="rt" name="Position en satellite repere geographique GEO">
             <component var="XGR" xml:id="C1_EPHEMERIS_ORBIT_DETAILED(1)" name="x"/>
             <component var="YGR" xml:id="C1_EPHEMERIS_ORBIT_DETAILED(2)" name="y"/>
@@ -134,7 +134,7 @@
         </dataset>
       </instrument>
       <instrument desc="" xml:id="CLUSTER1:CODIF" name="CODIF">
-        <dataset dataStop="2014/03/27" dataStart="2000/08/22" xml:id="CLUSTER1:CODIF:MOMENTS_H1" name="On board moments H+">
+        <dataset dataStop="2014/04/05" dataStart="2000/08/22" xml:id="CLUSTER1:CODIF:MOMENTS_H1" name="On board moments H+">
           <parameter desc="cm^-3" var="NH1_CODIF_cm3" xml:id="C1_CODIF_MOMENTS_H1(1)" units="cm^-3" name="proton density CODIF"/>
           <parameter desc="km/s" var="Vx_CODIF_GSE_km_sec,Vy_CODIF_GSE_km_sec,Vz_CODIF_GSE_km_sec" xml:id="C1_CODIF_MOMENTS_H1(7,8,9)" units="km/s" name="Proton Bulk Velocity GSE">
             <component var="Vx_CODIF_GSE_km_sec" xml:id="C1_CODIF_MOMENTS_H1(7)" name="Vx"/>
@@ -149,16 +149,16 @@
           <parameter desc="MK" var="Tpar_CODIF_MK" xml:id="C1_CODIF_MOMENTS_H1(16)" units="MK" name="Proton Parallel Temperature"/>
           <parameter desc="MK" var="Tperp_CODIF_MK" xml:id="C1_CODIF_MOMENTS_H1(17)" units="MK" name="Proton Perp. Temperature"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/08/22" xml:id="CLUSTER1:CODIF:MOMENTS_HE2" name="On board moments He++">
+        <dataset dataStop="2014/04/05" dataStart="2000/08/22" xml:id="CLUSTER1:CODIF:MOMENTS_HE2" name="On board moments He++">
           <parameter desc="cm^-3" var="NHe2_CODIF_cm3" xml:id="C1_CODIF_MOMENTS_HE2(4)" units="cm^-3" name="He++ Density CODIF"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/08/22" xml:id="CLUSTER1:CODIF:MOMENTS_HE1" name="On board moments He+">
+        <dataset dataStop="2014/04/05" dataStart="2000/08/22" xml:id="CLUSTER1:CODIF:MOMENTS_HE1" name="On board moments He+">
           <parameter desc="cm^-3" var="NHe1_CODIF_cm3" xml:id="C1_CODIF_MOMENTS_HE1(3)" units="cm^-3" name="He+ Density CODIF"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/08/22" xml:id="CLUSTER1:CODIF:MOMENTS_O1" name="On board moments O+">
+        <dataset dataStop="2014/04/05" dataStart="2000/08/22" xml:id="CLUSTER1:CODIF:MOMENTS_O1" name="On board moments O+">
           <parameter desc="cm^-3" var="NO1_CODIF_cm3" xml:id="C1_CODIF_MOMENTS_O1(2)" units="cm^-3" name="O+ Density CODIF"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:3DMOMENTS_H1" name="3D moments from 35 to 26000eV H+">
+        <dataset dataStop="2014/04/05" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:3DMOMENTS_H1" name="3D moments from 35 to 26000eV H+">
           <parameter desc="cm-3" var="N_cm3" xml:id="C1_CODIF_3DMOMENTS_H1(0)" units="cm-3" name="density"/>
           <parameter desc="km/sec" var="Vx_gse_km_sec,Vy_gse_km_sec,Vz_gse_km_sec,V_km_sec" xml:id="C1_CODIF_3DMOMENTS_H1(5,6,7,4)" units="km/sec" name="velocity in GSE">
             <component var="Vx_gse_km_sec" xml:id="C1_CODIF_3DMOMENTS_H1(5)" name="Vx"/>
@@ -284,7 +284,7 @@
             <component var="Bz_gsm_nT" xml:id="C1_CODIF_3DMOMENTS_H1(113)" name="Bz"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:3DMOMENTS_HE2" name="3D moments from 35 to 26000eV He++">
+        <dataset dataStop="2014/04/05" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:3DMOMENTS_HE2" name="3D moments from 35 to 26000eV He++">
           <parameter desc="cm-3" var="N_cm3" xml:id="C1_CODIF_3DMOMENTS_HE2(0)" units="cm-3" name="density"/>
           <parameter desc="km/sec" var="Vx_gse_km_sec,Vy_gse_km_sec,Vz_gse_km_sec,V_km_sec" xml:id="C1_CODIF_3DMOMENTS_HE2(5,6,7,4)" units="km/sec" name="velocity in GSE">
             <component var="Vx_gse_km_sec" xml:id="C1_CODIF_3DMOMENTS_HE2(5)" name="Vx"/>
@@ -410,7 +410,7 @@
             <component var="Bz_gsm_nT" xml:id="C1_CODIF_3DMOMENTS_HE2(113)" name="Bz"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:3DMOMENTS_HE1" name="3D moments from 35 to 26000eV He+">
+        <dataset dataStop="2014/04/05" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:3DMOMENTS_HE1" name="3D moments from 35 to 26000eV He+">
           <parameter desc="cm-3" var="N_cm3" xml:id="C1_CODIF_3DMOMENTS_HE1(0)" units="cm-3" name="density"/>
           <parameter desc="km/sec" var="Vx_gse_km_sec,Vy_gse_km_sec,Vz_gse_km_sec,V_km_sec" xml:id="C1_CODIF_3DMOMENTS_HE1(5,6,7,4)" units="km/sec" name="velocity in GSE">
             <component var="Vx_gse_km_sec" xml:id="C1_CODIF_3DMOMENTS_HE1(5)" name="Vx"/>
@@ -536,7 +536,7 @@
             <component var="Bz_gsm_nT" xml:id="C1_CODIF_3DMOMENTS_HE1(113)" name="Bz"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:3DMOMENTS_O1" name="3D moments from 35 to 26000eV O+">
+        <dataset dataStop="2014/04/05" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:3DMOMENTS_O1" name="3D moments from 35 to 26000eV O+">
           <parameter desc="cm-3" var="N_cm3" xml:id="C1_CODIF_3DMOMENTS_O1(0)" units="cm-3" name="density"/>
           <parameter desc="km/sec" var="Vx_gse_km_sec,Vy_gse_km_sec,Vz_gse_km_sec,V_km_sec" xml:id="C1_CODIF_3DMOMENTS_O1(5,6,7,4)" units="km/sec" name="velocity in GSE">
             <component var="Vx_gse_km_sec" xml:id="C1_CODIF_3DMOMENTS_O1(5)" name="Vx"/>
@@ -662,12 +662,12 @@
             <component var="Bz_gsm_nT" xml:id="C1_CODIF_3DMOMENTS_O1(113)" name="Bz"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:H1_P12_3D_88A_16E_SPECTRO_TIME_ENERGY" name="H1_P12_3D_88A_16E Spectrogram H+ Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:H1_P12_3D_88A_16E_SPECTRO_TIME_ENERGY" name="H1_P12_3D_88A_16E Spectrogram H+ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C1_CODIF_H1_P12_3D_88A_16E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_H1_P12_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_H1_P12_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/18" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:H1_P13_3D_88A_31E_SPECTRO_TIME_ENERGY" name="H1_P13_3D_88A_31E Spectrogram H+ Time Energy">
+        <dataset dataStop="2014/04/03" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:H1_P13_3D_88A_31E_SPECTRO_TIME_ENERGY" name="H1_P13_3D_88A_31E Spectrogram H+ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C1_CODIF_H1_P13_3D_88A_31E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_H1_P13_3D_88A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_H1_P13_3D_88A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -682,7 +682,7 @@
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_H1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_H1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:HE2_P15_3D_88A_16E_SPECTRO_TIME_ENERGY" name="HE2_P15_3D_88A_16E Spectrogram He++ Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:HE2_P15_3D_88A_16E_SPECTRO_TIME_ENERGY" name="HE2_P15_3D_88A_16E Spectrogram He++ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C1_CODIF_HE2_P15_3D_88A_16E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_HE2_P15_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_HE2_P15_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -712,7 +712,7 @@
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_HE1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_HE1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:HE1_P46_3D_88A_16E_SPECTRO_TIME_ENERGY" name="HE1_P46_3D_88A_16E Spectrogram He+ Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:HE1_P46_3D_88A_16E_SPECTRO_TIME_ENERGY" name="HE1_P46_3D_88A_16E Spectrogram He+ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C1_CODIF_HE1_P46_3D_88A_16E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_HE1_P46_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_HE1_P46_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -737,19 +737,19 @@
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_O1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_O1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:O1_P47_3D_88A_16E_SPECTRO_TIME_ENERGY" name="O1_P47_3D_88A_16E Spectrogram O+ Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:O1_P47_3D_88A_16E_SPECTRO_TIME_ENERGY" name="O1_P47_3D_88A_16E Spectrogram O+ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C1_CODIF_O1_P47_3D_88A_16E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_O1_P47_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_O1_P47_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/18" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:O1_P49_3D_88A_31E_SPECTRO_TIME_ENERGY" name="O1_P49_3D_88A_31E Spectrogram O+ Time Energy">
+        <dataset dataStop="2014/04/03" dataStart="2000/11/13" xml:id="CLUSTER1:CODIF:O1_P49_3D_88A_31E_SPECTRO_TIME_ENERGY" name="O1_P49_3D_88A_31E Spectrogram O+ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C1_CODIF_O1_P49_3D_88A_31E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_O1_P49_3D_88A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_CODIF_O1_P49_3D_88A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
       </instrument>
       <instrument desc="" xml:id="CLUSTER1:HIA" name="HIA">
-        <dataset dataStop="2014/03/27" dataStart="2000/08/22" xml:id="CLUSTER1:HIA:MOMENTS" name="On board moments">
+        <dataset dataStop="2014/04/05" dataStart="2000/08/22" xml:id="CLUSTER1:HIA:MOMENTS" name="On board moments">
           <parameter desc="cm^-3" var="NH1_HIA_cm3" xml:id="C1_HIA_MOMENTS(5)" units="cm^-3" name="H+ Density HIA"/>
           <parameter desc="cm^-3" var="NHe2_HIA_cm3" xml:id="C1_HIA_MOMENTS(6)" units="cm^-3" name="He++ Density HIA"/>
           <parameter desc="km/s" var="VxH1_HIA_GSE_km_sec,VyH1_HIA_GSE_km_sec,VzH1_HIA_GSE_km_sec" xml:id="C1_HIA_MOMENTS(10,11,12)" units="km/s" name="H+ Bulk Velocity GSE">
@@ -776,7 +776,7 @@
           <parameter desc="MK" var="Tperp_HIA_MK" xml:id="C1_HIA_MOMENTS(19)" units="MK" name="Hot Ion Perp. Temperature"/>
           <parameter desc="nPa" var="Pc_HIA_nPa" xml:id="C1_HIA_MOMENTS(20)" units="nPa" name="Kinetic pressure"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/11/13" xml:id="CLUSTER1:HIA:3DMOMENTS_HIGHG_H1" name="3D moments high G H+">
+        <dataset dataStop="2014/04/05" dataStart="2000/11/13" xml:id="CLUSTER1:HIA:3DMOMENTS_HIGHG_H1" name="3D moments high G H+">
           <parameter desc="cm-3" var="N_cm3" xml:id="C1_HIA_3DMOMENTS_HIGHG_H1(0)" units="cm-3" name="density"/>
           <parameter desc="km/sec" var="Vx_gse_km_sec,Vy_gse_km_sec,Vz_gse_km_sec,V_km_sec" xml:id="C1_HIA_3DMOMENTS_HIGHG_H1(5,6,7,4)" units="km/sec" name="velocity in GSE">
             <component var="Vx_gse_km_sec" xml:id="C1_HIA_3DMOMENTS_HIGHG_H1(5)" name="Vx"/>
@@ -902,7 +902,7 @@
             <component var="Bz_gsm_nT" xml:id="C1_HIA_3DMOMENTS_HIGHG_H1(113)" name="Bz"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/03/18" dataStart="2000/11/14" xml:id="CLUSTER1:HIA:3DMOMENTS_LOWG_H1" name="3D moments low g H+">
+        <dataset dataStop="2014/04/03" dataStart="2000/11/14" xml:id="CLUSTER1:HIA:3DMOMENTS_LOWG_H1" name="3D moments low g H+">
           <parameter desc="cm-3" var="N_cm3" xml:id="C1_HIA_3DMOMENTS_LOWG_H1(0)" units="cm-3" name="density"/>
           <parameter desc="km/sec" var="Vx_gse_km_sec,Vy_gse_km_sec,Vz_gse_km_sec,V_km_sec" xml:id="C1_HIA_3DMOMENTS_LOWG_H1(5,6,7,4)" units="km/sec" name="velocity in GSE">
             <component var="Vx_gse_km_sec" xml:id="C1_HIA_3DMOMENTS_LOWG_H1(5)" name="Vx"/>
@@ -1028,7 +1028,7 @@
             <component var="Bz_gsm_nT" xml:id="C1_HIA_3DMOMENTS_LOWG_H1(113)" name="Bz"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/03/18" dataStart="2000/11/13" xml:id="CLUSTER1:HIA:HIGHG_P06_3D_088A_31E_SPECTRO_TIME_ENERGY" name="HIGHG_P06_3D_088A_31E Spectrogram Time Energy">
+        <dataset dataStop="2014/04/03" dataStart="2000/11/13" xml:id="CLUSTER1:HIA:HIGHG_P06_3D_088A_31E_SPECTRO_TIME_ENERGY" name="HIGHG_P06_3D_088A_31E Spectrogram Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C1_HIA_HIGHG_P06_3D_088A_31E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_HIGHG_P06_3D_088A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_HIGHG_P06_3D_088A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -1038,7 +1038,7 @@
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_HIGHG_P07_3D_042A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_HIGHG_P07_3D_042A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/11/13" xml:id="CLUSTER1:HIA:HIGHG_P09_1D_001A_62E_SPECTRO_TIME_ENERGY" name="HIGHG_P09_1D_001A_62E Spectrogram Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/11/13" xml:id="CLUSTER1:HIA:HIGHG_P09_1D_001A_62E_SPECTRO_TIME_ENERGY" name="HIGHG_P09_1D_001A_62E Spectrogram Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C1_HIA_HIGHG_P09_1D_001A_62E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_HIGHG_P09_1D_001A_62E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_HIGHG_P09_1D_001A_62E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -1053,7 +1053,7 @@
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_HIGHG_P11_2D_016A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_HIGHG_P11_2D_016A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/11/13" xml:id="CLUSTER1:HIA:HIGHG_P15_3D_088A_16E_SPECTRO_TIME_ENERGY" name="HIGHG_P15_3D_088A_16E Spectrogram Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/11/13" xml:id="CLUSTER1:HIA:HIGHG_P15_3D_088A_16E_SPECTRO_TIME_ENERGY" name="HIGHG_P15_3D_088A_16E Spectrogram Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C1_HIA_HIGHG_P15_3D_088A_16E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_HIGHG_P15_3D_088A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_HIGHG_P15_3D_088A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -1068,7 +1068,7 @@
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_HIGHG_P18_1D_001A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_HIGHG_P18_1D_001A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2001/01/12" xml:id="CLUSTER1:HIA:HIGHG_P21_3D_128A_31E_SPECTRO_TIME_ENERGY" name="HIGHG_P21_3D_128A_31E Spectrogram Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2001/01/12" xml:id="CLUSTER1:HIA:HIGHG_P21_3D_128A_31E_SPECTRO_TIME_ENERGY" name="HIGHG_P21_3D_128A_31E Spectrogram Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C1_HIA_HIGHG_P21_3D_128A_31E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_HIGHG_P21_3D_128A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_HIGHG_P21_3D_128A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -1098,7 +1098,7 @@
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_LOWG_P14_2D_008A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_LOWG_P14_2D_008A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/18" dataStart="2001/01/12" xml:id="CLUSTER1:HIA:LOWG_P22_3D_128A_31E_SPECTRO_TIME_ENERGY" name="LOWG_P22_3D_128A_31E Spectrogram Time Energy">
+        <dataset dataStop="2014/04/03" dataStart="2001/01/12" xml:id="CLUSTER1:HIA:LOWG_P22_3D_128A_31E_SPECTRO_TIME_ENERGY" name="LOWG_P22_3D_128A_31E Spectrogram Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C1_HIA_LOWG_P22_3D_128A_31E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_LOWG_P22_3D_128A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C1_HIA_LOWG_P22_3D_128A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -1112,7 +1112,7 @@
     </mission>
     <mission targets="Heliosphere.NearEarth Earth.Magnetosheath Earth.Magnetosphere.Main Earth.Magnetosphere.Polar" target="Earth.Magnetosphere.Main" desc="" xml:id="CLUSTER2" name="CLUSTER2">
       <instrument desc="" xml:id="CLUSTER2:ephemeris" name="ephemeris">
-        <dataset dataStop="2014/03/20" dataStart="2000/08/22" xml:id="CLUSTER2:EPHEMERIS:ORBIT" name="orbit 1mn resolution">
+        <dataset dataStop="2014/03/28" dataStart="2000/08/22" xml:id="CLUSTER2:EPHEMERIS:ORBIT" name="orbit 1mn resolution">
           <parameter desc="rt" var="Xgse,Ygse,Zgse" xml:id="C2_EPHEMERIS_ORBIT(1,2,3)" units="rt" name="position in GSE">
             <component var="Xgse" xml:id="C2_EPHEMERIS_ORBIT(1)" name="x"/>
             <component var="Ygse" xml:id="C2_EPHEMERIS_ORBIT(2)" name="y"/>
@@ -1120,7 +1120,7 @@
           </parameter>
           <parameter desc="rt" var="Dist" xml:id="C2_EPHEMERIS_ORBIT(4)" units="rt" name="distance"/>
         </dataset>
-        <dataset dataStop="2014/03/20" dataStart="2000/09/25" xml:id="CLUSTER2:EPHEMERIS:ORBIT_DETAILED" name="orbit detailed 1mn resolution">
+        <dataset dataStop="2014/03/28" dataStart="2000/09/25" xml:id="CLUSTER2:EPHEMERIS:ORBIT_DETAILED" name="orbit detailed 1mn resolution">
           <parameter desc="rt" var="XGR,YGR,ZGR" xml:id="C2_EPHEMERIS_ORBIT_DETAILED(1,2,3)" units="rt" name="Position en satellite repere geographique GEO">
             <component var="XGR" xml:id="C2_EPHEMERIS_ORBIT_DETAILED(1)" name="x"/>
             <component var="YGR" xml:id="C2_EPHEMERIS_ORBIT_DETAILED(2)" name="y"/>
@@ -1193,7 +1193,7 @@
     </mission>
     <mission targets="Heliosphere.NearEarth Earth.Magnetosheath Earth.Magnetosphere.Main Earth.Magnetosphere.Polar" target="Earth.Magnetosphere.Main" desc="" xml:id="CLUSTER3" name="CLUSTER3">
       <instrument desc="" xml:id="CLUSTER3:ephemeris" name="ephemeris">
-        <dataset dataStop="2014/03/20" dataStart="2000/08/22" xml:id="CLUSTER3:EPHEMERIS:ORBIT" name="orbit 1mn resolution">
+        <dataset dataStop="2014/03/28" dataStart="2000/08/22" xml:id="CLUSTER3:EPHEMERIS:ORBIT" name="orbit 1mn resolution">
           <parameter desc="rt" var="Xgse,Ygse,Zgse" xml:id="C3_EPHEMERIS_ORBIT(1,2,3)" units="rt" name="position in GSE">
             <component var="Xgse" xml:id="C3_EPHEMERIS_ORBIT(1)" name="x"/>
             <component var="Ygse" xml:id="C3_EPHEMERIS_ORBIT(2)" name="y"/>
@@ -1201,7 +1201,7 @@
           </parameter>
           <parameter desc="rt" var="Dist" xml:id="C3_EPHEMERIS_ORBIT(4)" units="rt" name="distance"/>
         </dataset>
-        <dataset dataStop="2014/03/20" dataStart="2000/09/25" xml:id="CLUSTER3:EPHEMERIS:ORBIT_DETAILED" name="orbit detailed 1mn resolution">
+        <dataset dataStop="2014/03/28" dataStart="2000/09/25" xml:id="CLUSTER3:EPHEMERIS:ORBIT_DETAILED" name="orbit detailed 1mn resolution">
           <parameter desc="rt" var="XGR,YGR,ZGR" xml:id="C3_EPHEMERIS_ORBIT_DETAILED(1,2,3)" units="rt" name="Position en satellite repere geographique GEO">
             <component var="XGR" xml:id="C3_EPHEMERIS_ORBIT_DETAILED(1)" name="x"/>
             <component var="YGR" xml:id="C3_EPHEMERIS_ORBIT_DETAILED(2)" name="y"/>
@@ -1272,7 +1272,7 @@
         </dataset>
       </instrument>
       <instrument desc="" xml:id="CLUSTER3:CODIF" name="CODIF">
-        <dataset dataStop="2014/03/20" dataStart="2000/08/22" xml:id="CLUSTER3:CODIF:MOMENTS_H1" name="On board moments H+">
+        <dataset dataStop="2014/03/28" dataStart="2000/08/22" xml:id="CLUSTER3:CODIF:MOMENTS_H1" name="On board moments H+">
           <parameter desc="cm^-3" var="NH1_CODIF_cm3" xml:id="C3_CODIF_MOMENTS_H1(1)" units="cm^-3" name="proton density CODIF"/>
           <parameter desc="km/s" var="Vx_CODIF_GSE_km_sec,Vy_CODIF_GSE_km_sec,Vz_CODIF_GSE_km_sec" xml:id="C3_CODIF_MOMENTS_H1(7,8,9)" units="km/s" name="Proton Bulk Velocity GSE">
             <component var="Vx_CODIF_GSE_km_sec" xml:id="C3_CODIF_MOMENTS_H1(7)" name="Vx"/>
@@ -1287,13 +1287,13 @@
           <parameter desc="MK" var="Tpar_CODIF_MK" xml:id="C3_CODIF_MOMENTS_H1(16)" units="MK" name="Proton Parallel Temperature"/>
           <parameter desc="MK" var="Tperp_CODIF_MK" xml:id="C3_CODIF_MOMENTS_H1(17)" units="MK" name="Proton Perp. Temperature"/>
         </dataset>
-        <dataset dataStop="2014/03/20" dataStart="2000/08/22" xml:id="CLUSTER3:CODIF:MOMENTS_HE2" name="On board moments He++">
+        <dataset dataStop="2014/03/28" dataStart="2000/08/22" xml:id="CLUSTER3:CODIF:MOMENTS_HE2" name="On board moments He++">
           <parameter desc="cm^-3" var="NHe2_CODIF_cm3" xml:id="C3_CODIF_MOMENTS_HE2(4)" units="cm^-3" name="He++ Density CODIF"/>
         </dataset>
-        <dataset dataStop="2014/03/20" dataStart="2000/08/22" xml:id="CLUSTER3:CODIF:MOMENTS_HE1" name="On board moments He+">
+        <dataset dataStop="2014/03/28" dataStart="2000/08/22" xml:id="CLUSTER3:CODIF:MOMENTS_HE1" name="On board moments He+">
           <parameter desc="cm^-3" var="NHe1_CODIF_cm3" xml:id="C3_CODIF_MOMENTS_HE1(3)" units="cm^-3" name="He+ Density CODIF"/>
         </dataset>
-        <dataset dataStop="2014/03/20" dataStart="2000/08/22" xml:id="CLUSTER3:CODIF:MOMENTS_O1" name="On board moments O+">
+        <dataset dataStop="2014/03/28" dataStart="2000/08/22" xml:id="CLUSTER3:CODIF:MOMENTS_O1" name="On board moments O+">
           <parameter desc="cm^-3" var="NO1_CODIF_cm3" xml:id="C3_CODIF_MOMENTS_O1(2)" units="cm^-3" name="O+ Density CODIF"/>
         </dataset>
         <dataset dataStop="2009/12/15" dataStart="2000/08/25" xml:id="CLUSTER3:CODIF:3DMOMENTS_H1" name="3D moments from 35 to 26000eV H+">
@@ -1887,7 +1887,7 @@
         </dataset>
       </instrument>
       <instrument desc="" xml:id="CLUSTER3:HIA" name="HIA">
-        <dataset dataStop="2014/03/20" dataStart="2000/08/22" xml:id="CLUSTER3:HIA:MOMENTS" name="On board moments">
+        <dataset dataStop="2014/03/28" dataStart="2000/08/22" xml:id="CLUSTER3:HIA:MOMENTS" name="On board moments">
           <parameter desc="cm^-3" var="NH1_HIA_cm3" xml:id="C3_HIA_MOMENTS(5)" units="cm^-3" name="H+ Density HIA"/>
           <parameter desc="cm^-3" var="NHe2_HIA_cm3" xml:id="C3_HIA_MOMENTS(6)" units="cm^-3" name="He++ Density HIA"/>
           <parameter desc="km/s" var="VxH1_HIA_GSE_km_sec,VyH1_HIA_GSE_km_sec,VzH1_HIA_GSE_km_sec" xml:id="C3_HIA_MOMENTS(10,11,12)" units="km/s" name="H+ Bulk Velocity GSE">
@@ -2166,7 +2166,7 @@
             <component var="Bz_gsm_nT" xml:id="C3_HIA_3DMOMENTS_LOWG_H1(113)" name="Bz"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/03/18" dataStart="2000/11/13" xml:id="CLUSTER3:HIA:HIGHG_P06_3D_088A_31E_SPECTRO_TIME_ENERGY" name="HIGHG_P06_3D_088A_31E Spectrogram Time Energy">
+        <dataset dataStop="2014/04/03" dataStart="2000/11/13" xml:id="CLUSTER3:HIA:HIGHG_P06_3D_088A_31E_SPECTRO_TIME_ENERGY" name="HIGHG_P06_3D_088A_31E Spectrogram Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C3_HIA_HIGHG_P06_3D_088A_31E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_HIGHG_P06_3D_088A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_HIGHG_P06_3D_088A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -2176,7 +2176,7 @@
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_HIGHG_P07_3D_042A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_HIGHG_P07_3D_042A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/11/13" xml:id="CLUSTER3:HIA:HIGHG_P09_1D_001A_62E_SPECTRO_TIME_ENERGY" name="HIGHG_P09_1D_001A_62E Spectrogram Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/11/13" xml:id="CLUSTER3:HIA:HIGHG_P09_1D_001A_62E_SPECTRO_TIME_ENERGY" name="HIGHG_P09_1D_001A_62E Spectrogram Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C3_HIA_HIGHG_P09_1D_001A_62E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_HIGHG_P09_1D_001A_62E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_HIGHG_P09_1D_001A_62E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -2191,7 +2191,7 @@
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_HIGHG_P11_2D_016A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_HIGHG_P11_2D_016A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/11/13" xml:id="CLUSTER3:HIA:HIGHG_P15_3D_088A_16E_SPECTRO_TIME_ENERGY" name="HIGHG_P15_3D_088A_16E Spectrogram Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/11/13" xml:id="CLUSTER3:HIA:HIGHG_P15_3D_088A_16E_SPECTRO_TIME_ENERGY" name="HIGHG_P15_3D_088A_16E Spectrogram Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C3_HIA_HIGHG_P15_3D_088A_16E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_HIGHG_P15_3D_088A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_HIGHG_P15_3D_088A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -2206,7 +2206,7 @@
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_HIGHG_P18_1D_001A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_HIGHG_P18_1D_001A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2001/01/12" xml:id="CLUSTER3:HIA:HIGHG_P21_3D_128A_31E_SPECTRO_TIME_ENERGY" name="HIGHG_P21_3D_128A_31E Spectrogram Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2001/01/12" xml:id="CLUSTER3:HIA:HIGHG_P21_3D_128A_31E_SPECTRO_TIME_ENERGY" name="HIGHG_P21_3D_128A_31E Spectrogram Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C3_HIA_HIGHG_P21_3D_128A_31E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_HIGHG_P21_3D_128A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_HIGHG_P21_3D_128A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -2236,7 +2236,7 @@
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_LOWG_P14_2D_008A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_LOWG_P14_2D_008A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/18" dataStart="2001/01/12" xml:id="CLUSTER3:HIA:LOWG_P22_3D_128A_31E_SPECTRO_TIME_ENERGY" name="LOWG_P22_3D_128A_31E Spectrogram Time Energy">
+        <dataset dataStop="2014/04/03" dataStart="2001/01/12" xml:id="CLUSTER3:HIA:LOWG_P22_3D_128A_31E_SPECTRO_TIME_ENERGY" name="LOWG_P22_3D_128A_31E Spectrogram Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C3_HIA_LOWG_P22_3D_128A_31E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_LOWG_P22_3D_128A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C3_HIA_LOWG_P22_3D_128A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -2250,7 +2250,7 @@
     </mission>
     <mission targets="Heliosphere.NearEarth Earth.Magnetosheath Earth.Magnetosphere.Main Earth.Magnetosphere.Polar" target="Earth.Magnetosphere.Main" desc="" xml:id="CLUSTER4" name="CLUSTER4">
       <instrument desc="" xml:id="CLUSTER4:ephemeris" name="ephemeris">
-        <dataset dataStop="2014/03/27" dataStart="2000/08/22" xml:id="CLUSTER4:EPHEMERIS:ORBIT" name="orbit 1mn resolution">
+        <dataset dataStop="2014/04/05" dataStart="2000/08/22" xml:id="CLUSTER4:EPHEMERIS:ORBIT" name="orbit 1mn resolution">
           <parameter desc="rt" var="Xgse,Ygse,Zgse" xml:id="C4_EPHEMERIS_ORBIT(1,2,3)" units="rt" name="position in GSE">
             <component var="Xgse" xml:id="C4_EPHEMERIS_ORBIT(1)" name="x"/>
             <component var="Ygse" xml:id="C4_EPHEMERIS_ORBIT(2)" name="y"/>
@@ -2258,7 +2258,7 @@
           </parameter>
           <parameter desc="rt" var="Dist" xml:id="C4_EPHEMERIS_ORBIT(4)" units="rt" name="distance"/>
         </dataset>
-        <dataset dataStop="2014/03/20" dataStart="2000/09/25" xml:id="CLUSTER4:EPHEMERIS:ORBIT_DETAILED" name="orbit detailed 1mn resolution">
+        <dataset dataStop="2014/03/28" dataStart="2000/09/25" xml:id="CLUSTER4:EPHEMERIS:ORBIT_DETAILED" name="orbit detailed 1mn resolution">
           <parameter desc="rt" var="XGR,YGR,ZGR" xml:id="C4_EPHEMERIS_ORBIT_DETAILED(1,2,3)" units="rt" name="Position en satellite repere geographique GEO">
             <component var="XGR" xml:id="C4_EPHEMERIS_ORBIT_DETAILED(1)" name="x"/>
             <component var="YGR" xml:id="C4_EPHEMERIS_ORBIT_DETAILED(2)" name="y"/>
@@ -2329,7 +2329,7 @@
         </dataset>
       </instrument>
       <instrument desc="" xml:id="CLUSTER4:CODIF" name="CODIF">
-        <dataset dataStop="2014/03/27" dataStart="2000/08/22" xml:id="CLUSTER4:CODIF:MOMENTS_H1" name="On board moments H+">
+        <dataset dataStop="2014/04/05" dataStart="2000/08/22" xml:id="CLUSTER4:CODIF:MOMENTS_H1" name="On board moments H+">
           <parameter desc="cm^-3" var="NH1_CODIF_cm3" xml:id="C4_CODIF_MOMENTS_H1(1)" units="cm^-3" name="proton density CODIF"/>
           <parameter desc="km/s" var="Vx_CODIF_GSE_km_sec,Vy_CODIF_GSE_km_sec,Vz_CODIF_GSE_km_sec" xml:id="C4_CODIF_MOMENTS_H1(7,8,9)" units="km/s" name="Proton Bulk Velocity GSE">
             <component var="Vx_CODIF_GSE_km_sec" xml:id="C4_CODIF_MOMENTS_H1(7)" name="Vx"/>
@@ -2344,16 +2344,16 @@
           <parameter desc="MK" var="Tpar_CODIF_MK" xml:id="C4_CODIF_MOMENTS_H1(16)" units="MK" name="Proton Parallel Temperature"/>
           <parameter desc="MK" var="Tperp_CODIF_MK" xml:id="C4_CODIF_MOMENTS_H1(17)" units="MK" name="Proton Perp. Temperature"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/08/22" xml:id="CLUSTER4:CODIF:MOMENTS_HE2" name="On board moments He++">
+        <dataset dataStop="2014/04/05" dataStart="2000/08/22" xml:id="CLUSTER4:CODIF:MOMENTS_HE2" name="On board moments He++">
           <parameter desc="cm^-3" var="NHe2_CODIF_cm3" xml:id="C4_CODIF_MOMENTS_HE2(4)" units="cm^-3" name="He++ Density CODIF"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/08/22" xml:id="CLUSTER4:CODIF:MOMENTS_HE1" name="On board moments He+">
+        <dataset dataStop="2014/04/05" dataStart="2000/08/22" xml:id="CLUSTER4:CODIF:MOMENTS_HE1" name="On board moments He+">
           <parameter desc="cm^-3" var="NHe1_CODIF_cm3" xml:id="C4_CODIF_MOMENTS_HE1(3)" units="cm^-3" name="He+ Density CODIF"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/08/22" xml:id="CLUSTER4:CODIF:MOMENTS_O1" name="On board moments O+">
+        <dataset dataStop="2014/04/05" dataStart="2000/08/22" xml:id="CLUSTER4:CODIF:MOMENTS_O1" name="On board moments O+">
           <parameter desc="cm^-3" var="NO1_CODIF_cm3" xml:id="C4_CODIF_MOMENTS_O1(2)" units="cm^-3" name="O+ Density CODIF"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:3DMOMENTS_H1" name="3D moments from 35 to 26000eV H+">
+        <dataset dataStop="2014/04/05" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:3DMOMENTS_H1" name="3D moments from 35 to 26000eV H+">
           <parameter desc="cm-3" var="N_cm3" xml:id="C4_CODIF_3DMOMENTS_H1(0)" units="cm-3" name="density"/>
           <parameter desc="km/sec" var="Vx_gse_km_sec,Vy_gse_km_sec,Vz_gse_km_sec,V_km_sec" xml:id="C4_CODIF_3DMOMENTS_H1(5,6,7,4)" units="km/sec" name="velocity in GSE">
             <component var="Vx_gse_km_sec" xml:id="C4_CODIF_3DMOMENTS_H1(5)" name="Vx"/>
@@ -2479,7 +2479,7 @@
             <component var="Bz_gsm_nT" xml:id="C4_CODIF_3DMOMENTS_H1(113)" name="Bz"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:3DMOMENTS_HE2" name="3D moments from 35 to 26000eV He++">
+        <dataset dataStop="2014/04/05" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:3DMOMENTS_HE2" name="3D moments from 35 to 26000eV He++">
           <parameter desc="cm-3" var="N_cm3" xml:id="C4_CODIF_3DMOMENTS_HE2(0)" units="cm-3" name="density"/>
           <parameter desc="km/sec" var="Vx_gse_km_sec,Vy_gse_km_sec,Vz_gse_km_sec,V_km_sec" xml:id="C4_CODIF_3DMOMENTS_HE2(5,6,7,4)" units="km/sec" name="velocity in GSE">
             <component var="Vx_gse_km_sec" xml:id="C4_CODIF_3DMOMENTS_HE2(5)" name="Vx"/>
@@ -2605,7 +2605,7 @@
             <component var="Bz_gsm_nT" xml:id="C4_CODIF_3DMOMENTS_HE2(113)" name="Bz"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:3DMOMENTS_HE1" name="3D moments from 35 to 26000eV He+">
+        <dataset dataStop="2014/04/05" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:3DMOMENTS_HE1" name="3D moments from 35 to 26000eV He+">
           <parameter desc="cm-3" var="N_cm3" xml:id="C4_CODIF_3DMOMENTS_HE1(0)" units="cm-3" name="density"/>
           <parameter desc="km/sec" var="Vx_gse_km_sec,Vy_gse_km_sec,Vz_gse_km_sec,V_km_sec" xml:id="C4_CODIF_3DMOMENTS_HE1(5,6,7,4)" units="km/sec" name="velocity in GSE">
             <component var="Vx_gse_km_sec" xml:id="C4_CODIF_3DMOMENTS_HE1(5)" name="Vx"/>
@@ -2731,7 +2731,7 @@
             <component var="Bz_gsm_nT" xml:id="C4_CODIF_3DMOMENTS_HE1(113)" name="Bz"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:3DMOMENTS_O1" name="3D moments from 35 to 26000eV O+">
+        <dataset dataStop="2014/04/05" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:3DMOMENTS_O1" name="3D moments from 35 to 26000eV O+">
           <parameter desc="cm-3" var="N_cm3" xml:id="C4_CODIF_3DMOMENTS_O1(0)" units="cm-3" name="density"/>
           <parameter desc="km/sec" var="Vx_gse_km_sec,Vy_gse_km_sec,Vz_gse_km_sec,V_km_sec" xml:id="C4_CODIF_3DMOMENTS_O1(5,6,7,4)" units="km/sec" name="velocity in GSE">
             <component var="Vx_gse_km_sec" xml:id="C4_CODIF_3DMOMENTS_O1(5)" name="Vx"/>
@@ -2857,12 +2857,12 @@
             <component var="Bz_gsm_nT" xml:id="C4_CODIF_3DMOMENTS_O1(113)" name="Bz"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:H1_P12_3D_88A_16E_SPECTRO_TIME_ENERGY" name="H1_P12_3D_88A_16E Spectrogram H+ Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:H1_P12_3D_88A_16E_SPECTRO_TIME_ENERGY" name="H1_P12_3D_88A_16E Spectrogram H+ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C4_CODIF_H1_P12_3D_88A_16E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_H1_P12_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_H1_P12_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:H1_P13_3D_88A_31E_SPECTRO_TIME_ENERGY" name="H1_P13_3D_88A_31E Spectrogram H+ Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:H1_P13_3D_88A_31E_SPECTRO_TIME_ENERGY" name="H1_P13_3D_88A_31E Spectrogram H+ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C4_CODIF_H1_P13_3D_88A_31E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_H1_P13_3D_88A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_H1_P13_3D_88A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -2872,27 +2872,27 @@
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_H1_P14_3D_24A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_H1_P14_3D_24A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/05" dataStart="2000/09/24" xml:id="CLUSTER4:CODIF:H1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY" name="H1_RPA_3D_88A_16E Spectrogram H+ Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/09/24" xml:id="CLUSTER4:CODIF:H1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY" name="H1_RPA_3D_88A_16E Spectrogram H+ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C4_CODIF_H1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_H1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_H1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/09/21" xml:id="CLUSTER4:CODIF:HE2_P15_3D_88A_16E_SPECTRO_TIME_ENERGY" name="HE2_P15_3D_88A_16E Spectrogram He++ Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/09/21" xml:id="CLUSTER4:CODIF:HE2_P15_3D_88A_16E_SPECTRO_TIME_ENERGY" name="HE2_P15_3D_88A_16E Spectrogram He++ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C4_CODIF_HE2_P15_3D_88A_16E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_HE2_P15_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_HE2_P15_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:HE2_P16_3D_88A_31E_SPECTRO_TIME_ENERGY" name="HE2_P16_3D_88A_31E Spectrogram He++ Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:HE2_P16_3D_88A_31E_SPECTRO_TIME_ENERGY" name="HE2_P16_3D_88A_31E Spectrogram He++ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C4_CODIF_HE2_P16_3D_88A_31E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_HE2_P16_3D_88A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_HE2_P16_3D_88A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/05" dataStart="2000/09/24" xml:id="CLUSTER4:CODIF:HE2_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY" name="HE2_RPA_3D_88A_16E Spectrogram He++ Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/09/24" xml:id="CLUSTER4:CODIF:HE2_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY" name="HE2_RPA_3D_88A_16E Spectrogram He++ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C4_CODIF_HE2_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_HE2_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_HE2_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:HE1_P17_3D_88A_16E_SPECTRO_TIME_ENERGY" name="HE1_P17_3D_88A_16E Spectrogram He+ Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:HE1_P17_3D_88A_16E_SPECTRO_TIME_ENERGY" name="HE1_P17_3D_88A_16E Spectrogram He+ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C4_CODIF_HE1_P17_3D_88A_16E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_HE1_P17_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_HE1_P17_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -2902,12 +2902,12 @@
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_HE1_P18_3D_88A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_HE1_P18_3D_88A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/05" dataStart="2000/09/24" xml:id="CLUSTER4:CODIF:HE1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY" name="HE1_RPA_3D_88A_16E Spectrogram He+ Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/09/24" xml:id="CLUSTER4:CODIF:HE1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY" name="HE1_RPA_3D_88A_16E Spectrogram He+ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C4_CODIF_HE1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_HE1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_HE1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/09/21" xml:id="CLUSTER4:CODIF:HE1_P46_3D_88A_16E_SPECTRO_TIME_ENERGY" name="HE1_P46_3D_88A_16E Spectrogram He+ Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/09/21" xml:id="CLUSTER4:CODIF:HE1_P46_3D_88A_16E_SPECTRO_TIME_ENERGY" name="HE1_P46_3D_88A_16E Spectrogram He+ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C4_CODIF_HE1_P46_3D_88A_16E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_HE1_P46_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_HE1_P46_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -2917,7 +2917,7 @@
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_HE1_P48_3D_88A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_HE1_P48_3D_88A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:O1_P17_3D_88A_16E_SPECTRO_TIME_ENERGY" name="O1_P17_3D_88A_16E Spectrogram O+ Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/09/10" xml:id="CLUSTER4:CODIF:O1_P17_3D_88A_16E_SPECTRO_TIME_ENERGY" name="O1_P17_3D_88A_16E Spectrogram O+ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C4_CODIF_O1_P17_3D_88A_16E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_O1_P17_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_O1_P17_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -2927,17 +2927,17 @@
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_O1_P18_3D_88A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_O1_P18_3D_88A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/05" dataStart="2000/09/24" xml:id="CLUSTER4:CODIF:O1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY" name="O1_RPA_3D_88A_16E Spectrogram O+ Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/09/24" xml:id="CLUSTER4:CODIF:O1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY" name="O1_RPA_3D_88A_16E Spectrogram O+ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C4_CODIF_O1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_O1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_O1_RPA_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/27" dataStart="2000/09/21" xml:id="CLUSTER4:CODIF:O1_P47_3D_88A_16E_SPECTRO_TIME_ENERGY" name="O1_P47_3D_88A_16E Spectrogram O+ Time Energy">
+        <dataset dataStop="2014/04/05" dataStart="2000/09/21" xml:id="CLUSTER4:CODIF:O1_P47_3D_88A_16E_SPECTRO_TIME_ENERGY" name="O1_P47_3D_88A_16E Spectrogram O+ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C4_CODIF_O1_P47_3D_88A_16E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_O1_P47_3D_88A_16E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_O1_P47_3D_88A_16E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/23" dataStart="2000/09/22" xml:id="CLUSTER4:CODIF:O1_P49_3D_88A_31E_SPECTRO_TIME_ENERGY" name="O1_P49_3D_88A_31E Spectrogram O+ Time Energy">
+        <dataset dataStop="2014/04/04" dataStart="2000/09/22" xml:id="CLUSTER4:CODIF:O1_P49_3D_88A_31E_SPECTRO_TIME_ENERGY" name="O1_P49_3D_88A_31E Spectrogram O+ Time Energy">
           <parameter desc="part/sec" var="1d_data" xml:id="C4_CODIF_O1_P49_3D_88A_31E_SPECTRO_TIME_ENERGY(3)" units="part/sec" name="c/s"/>
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_O1_P49_3D_88A_31E_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="C4_CODIF_O1_P49_3D_88A_31E_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
@@ -3546,14 +3546,14 @@
     </mission>
     <mission targets="Earth.Magnetosphere Heliosphere.NearEarth" target="Earth.Magnetosphere" desc="" xml:id="GEOTAIL" name="GEOTAIL">
       <instrument desc="" xml:id="GEOTAIL:ephemeris" name="ephemeris">
-        <dataset dataStop="2014/04/02" dataStart="1992/09/04" xml:id="GEOTAIL:EPHEMERIS:ORBIT_MGF" name="orbit from MGF">
+        <dataset dataStop="2014/04/09" dataStart="1992/09/04" xml:id="GEOTAIL:EPHEMERIS:ORBIT_MGF" name="orbit from MGF">
           <parameter desc="km" var="X_gse_Km,Y_gse_Km,Z_gse_Km" xml:id="GE_EPHEMERIS_ORBIT_MGF(8,9,10)" units="km" name="Satellite Position GSE">
             <component var="X_gse_Km" xml:id="GE_EPHEMERIS_ORBIT_MGF(8)" name="x"/>
             <component var="Y_gse_Km" xml:id="GE_EPHEMERIS_ORBIT_MGF(9)" name="y"/>
             <component var="Z_gse_Km" xml:id="GE_EPHEMERIS_ORBIT_MGF(10)" name="z"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/04/02" dataStart="1993/10/05" xml:id="GEOTAIL:EPHEMERIS:ORBIT_LEP" name="orbit from LEP">
+        <dataset dataStop="2014/04/09" dataStart="1993/10/05" xml:id="GEOTAIL:EPHEMERIS:ORBIT_LEP" name="orbit from LEP">
           <parameter desc="km" var="X_gse_km,Y_gse_km,Z_gse_km" xml:id="GE_EPHEMERIS_ORBIT_LEP(4,5,6)" units="km" name="Satellite Position GSE">
             <component var="X_gse_km" xml:id="GE_EPHEMERIS_ORBIT_LEP(4)" name="x"/>
             <component var="Y_gse_km" xml:id="GE_EPHEMERIS_ORBIT_LEP(5)" name="y"/>
@@ -3562,7 +3562,7 @@
         </dataset>
       </instrument>
       <instrument desc="" xml:id="GEOTAIL:MGF" name="MGF">
-        <dataset dataStop="2014/04/02" dataStart="1992/09/04" xml:id="GEOTAIL:MGF:K0" name="GE_K0_MGF">
+        <dataset dataStop="2014/04/09" dataStart="1992/09/04" xml:id="GEOTAIL:MGF:K0" name="GE_K0_MGF">
           <parameter desc="nT" var="Bx_gse_nT,By_gse_nT,Bz_gse_nT,B_nT" xml:id="GE_MGF_K0(2,3,4,1)" units="nT" name="Vector Mag Field GSE">
             <component var="Bx_gse_nT" xml:id="GE_MGF_K0(2)" name="Bx"/>
             <component var="By_gse_nT" xml:id="GE_MGF_K0(3)" name="By"/>
@@ -3577,7 +3577,7 @@
         </dataset>
       </instrument>
       <instrument desc="" xml:id="GEOTAIL:CPI" name="CPI">
-        <dataset dataStop="2014/04/02" dataStart="1992/09/08" xml:id="GEOTAIL:CPI:K0" name="GE_K0_CPI">
+        <dataset dataStop="2014/04/09" dataStart="1992/09/08" xml:id="GEOTAIL:CPI:K0" name="GE_K0_CPI">
           <parameter desc="/cm**3" var="N_SWA_cm3" xml:id="GE_CPI_K0(1)" units="/cm**3" name="Ion Number Density (ions 144-7000 eV, 60x60 deg FOV, CPI/SWA)"/>
           <parameter desc="eV" var="E_SWA_eV" xml:id="GE_CPI_K0(2)" units="eV" name="Ion Average Energy (ions 144-7000 eV, in the spacecraft frame of reference, CPI/SWA)"/>
           <parameter desc="km/sec" var="Vx_gse_SWA_km_sec,Vy_gse_SWA_km_sec,Vz_gse_SWA_km_sec" xml:id="GE_CPI_K0(3,4,5)" units="km/sec" name="Ion bulk Flow Velocity GSE (ions 144-7000 eV, 60x60 deg FOV, CPI/SWA)">
@@ -3596,19 +3596,19 @@
         </dataset>
       </instrument>
       <instrument desc="" xml:id="GEOTAIL:EPI" name="EPI">
-        <dataset dataStop="2014/04/02" dataStart="1992/09/08" xml:id="GEOTAIL:EPI:K0" name="GE_K0_EPI">
+        <dataset dataStop="2014/04/09" dataStart="1992/09/08" xml:id="GEOTAIL:EPI:K0" name="GE_K0_EPI">
           <parameter desc="1/[cm**2-s-sr]" var="Electron_Integral_Intensity_1_cm2_s_sr" xml:id="GE_EPI_K0(1)" units="1/[cm**2-s-sr]" name="Spin-averaged Electron Integral Intensity (&gt;38+ keV, see EIntI_I_Energy), ICS"/>
           <parameter desc="keV" var="Electron_energy_ev" xml:id="GE_EPI_K0(2)" units="keV" name="e Chan Energy band, ICS"/>
         </dataset>
-        <dataset dataStop="2014/04/02" dataStart="1992/09/08" xml:id="GEOTAIL:EPI:K0_SPECTRO_TIME_ENERGY" name="GE_K0_EPI Spectrogram Time Energy">
+        <dataset dataStop="2014/04/09" dataStart="1992/09/08" xml:id="GEOTAIL:EPI:K0_SPECTRO_TIME_ENERGY" name="GE_K0_EPI Spectrogram Time Energy">
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="GE_EPI_K0_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
         </dataset>
       </instrument>
       <instrument desc="" xml:id="GEOTAIL:LEP" name="LEP">
-        <dataset dataStop="2014/04/02" dataStart="1993/10/05" xml:id="GEOTAIL:LEP:K0" name="GE_K0_LEP">
+        <dataset dataStop="2014/04/09" dataStart="1993/10/05" xml:id="GEOTAIL:LEP:K0" name="GE_K0_LEP">
           <parameter desc="km/sec" var="Solar_Wind_Velocity_V_km_sec" xml:id="GE_LEP_K0(1)" units="km/sec" name="Solar Wind Velocity SPEED GSM"/>
         </dataset>
-        <dataset dataStop="2014/04/02" dataStart="1993/10/05" xml:id="GEOTAIL:LEP:K0_SPECTRO_TIME_ENERGY" name="GE_K0_LEP spectrogram Time Energy">
+        <dataset dataStop="2014/04/09" dataStart="1993/10/05" xml:id="GEOTAIL:LEP:K0_SPECTRO_TIME_ENERGY" name="GE_K0_LEP spectrogram Time Energy">
           <parameter desc="part" var="1d_data" xml:id="GE_LEP_K0_SPECTRO_TIME_ENERGY(0)" units="part" name="count"/>
         </dataset>
       </instrument>
@@ -4358,7 +4358,7 @@
         </dataset>
     <mission targets="Mars" target="Mars" desc="" xml:id="MEX" name="MARS-EXPRESS">
       <instrument desc="" xml:id="MEX:ephemeris" name="ephemeris">
-        <dataset dataStop="2014/04/06" dataStart="2003/12/24" xml:id="MEX:EPHEMERIS:ORBIT" name="orbit 10sec res">
+        <dataset dataStop="2014/04/13" dataStart="2003/12/24" xml:id="MEX:EPHEMERIS:ORBIT" name="orbit 10sec res">
           <parameter desc="Rm" var="X_Rm_MSO,Y_Rm_MSO,Z_Rm_MSO" xml:id="MEX_EPHEMERIS_ORBIT(1,2,3)" units="Rm" name="Position in MSO coordinates">
             <component var="X_Rm_MSO" xml:id="MEX_EPHEMERIS_ORBIT(1)" name="x"/>
             <component var="Y_Rm_MSO" xml:id="MEX_EPHEMERIS_ORBIT(2)" name="y"/>
@@ -4494,7 +4494,7 @@
     </mission>
     <mission targets="Heliosphere.Remote1AU" target="Heliosphere.Remote1AU" desc="" xml:id="STEREO-Ahead" name="STEREO-Ahead">
       <instrument desc="" xml:id="STEREO-Ahead:ephemeris" name="ephemeris">
-        <dataset dataStop="2014/04/06" dataStart="2006/10/25" xml:id="STEREO-Ahead:EPHEMERIS:ORBIT" name="orbit">
+        <dataset dataStop="2014/04/13" dataStart="2006/10/25" xml:id="STEREO-Ahead:EPHEMERIS:ORBIT" name="orbit">
           <parameter desc="Rt" var="XGEO_Rt,YGEO_Rt,ZGEO_Rt" xml:id="STA_EPHEMERIS_ORBIT(1,2,3)" units="Rt" name="position in GEO Geographic">
             <component var="XGEO_Rt" xml:id="STA_EPHEMERIS_ORBIT(1)" name="x"/>
             <component var="YGEO_Rt" xml:id="STA_EPHEMERIS_ORBIT(2)" name="y"/>
@@ -4598,7 +4598,7 @@
         </dataset>
       </instrument>
       <instrument desc="" xml:id="STEREO-Ahead:PLASTIC" name="PLASTIC">
-        <dataset dataStop="2013/11/30" dataStart="2007/02/14" xml:id="STEREO-Ahead:PLASTIC:MOM_10M" name="Moments 10mn res">
+        <dataset dataStop="2013/12/31" dataStart="2007/02/14" xml:id="STEREO-Ahead:PLASTIC:MOM_10M" name="Moments 10mn res">
           <parameter desc="1/cc" var="Np_cm3" xml:id="STA_PLASTIC_MOM_10M(1)" units="1/cc" name="Solar wind proton number density"/>
           <parameter desc="km/s" var="Vp_km_sec" xml:id="STA_PLASTIC_MOM_10M(2)" units="km/s" name="Proton bulk speed (s/c frame)"/>
           <parameter desc="deg K" var="Tp_K" xml:id="STA_PLASTIC_MOM_10M(3)" units="deg K" name="Proton kinetic temperature"/>
@@ -4620,7 +4620,7 @@
           <parameter desc="deg" var="N_S_RTN_deg" xml:id="STA_PLASTIC_MOM_10M(15)" units="deg" name="Proton North-South flow direction in the RTN system"/>
           <parameter desc="deg" var="E_W_RTN_deg" xml:id="STA_PLASTIC_MOM_10M(16)" units="deg" name="Proton East-West flow direction in the RTN system"/>
         </dataset>
-        <dataset dataStop="2013/11/30" dataStart="2007/02/14" xml:id="STEREO-Ahead:PLASTIC:MOM_1M" name="Moments 1mn res">
+        <dataset dataStop="2013/12/31" dataStart="2007/02/14" xml:id="STEREO-Ahead:PLASTIC:MOM_1M" name="Moments 1mn res">
           <parameter desc="1/cc" var="Np_cm3" xml:id="STA_PLASTIC_MOM_1M(1)" units="1/cc" name="Solar wind proton number density"/>
           <parameter desc="km/s" var="Vp_km_sec" xml:id="STA_PLASTIC_MOM_1M(2)" units="km/s" name="Proton bulk speed (s/c frame)"/>
           <parameter desc="deg K" var="Tp_K" xml:id="STA_PLASTIC_MOM_1M(3)" units="deg K" name="Proton kinetic temperature"/>
@@ -4682,7 +4682,7 @@
           <parameter desc="" var="quality_index_1" xml:id="STA_SWEA_PRECOMPUTED_PAD(2)" units="" name="quality [0: PA distributions corrected for ion bulk flow (STEREO/PLASTIC)] [1: data not corrected]"/>
           <parameter desc="sec" var="duration" xml:id="STA_SWEA_PRECOMPUTED_PAD(3)" units="sec" name="duration validity of the distribution"/>
         </dataset>
-        <dataset dataStop="2014/04/04" dataStart="2006/10/28" xml:id="STEREO-Ahead:SWEA:3DMOMENTS" name="3D moments normal modes from 45 to 2188 eV">
+        <dataset dataStop="2014/04/12" dataStart="2006/10/28" xml:id="STEREO-Ahead:SWEA:3DMOMENTS" name="3D moments normal modes from 45 to 2188 eV">
           <parameter desc="cm-3" var="N_cm3" xml:id="STA_SWEA_3DMOMENTS(0)" units="cm-3" name="density"/>
           <parameter desc="km/sec" var="Vx_gse_km_sec,Vy_gse_km_sec,Vz_gse_km_sec,V_km_sec" xml:id="STA_SWEA_3DMOMENTS(5,6,7,4)" units="km/sec" name="velocity in GSE">
             <component var="Vx_gse_km_sec" xml:id="STA_SWEA_3DMOMENTS(5)" name="Vx"/>
@@ -4804,20 +4804,20 @@
             <component var="Bn_rtn_nT" xml:id="STA_SWEA_3DMOMENTS(115)" name="Bn"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/04/04" dataStart="2006/10/28" xml:id="STEREO-Ahead:SWEA:NORMAL_MODE_SPECTRO_TIME_ENERGY" name="Normal Mode Particle spectrogram">
+        <dataset dataStop="2014/04/12" dataStart="2006/10/28" xml:id="STEREO-Ahead:SWEA:NORMAL_MODE_SPECTRO_TIME_ENERGY" name="Normal Mode Particle spectrogram">
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="STA_SWEA_NORMAL_MODE_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
         <dataset dataStop="2013/01/10" dataStart="2006/10/28" xml:id="STEREO-Ahead:SWEA:BURST_MODE_SPECTRO_TIME_ENERGY" name="Burst Mode Particle spectrogram">
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="STA_SWEA_BURST_MODE_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/05" dataStart="2006/11/28" xml:id="STEREO-Ahead:SWEA:48E_MODE_SPECTRO_TIME_ENERGY" name="48 Energies Mode Particle spectrogram">
+        <dataset dataStop="2014/03/12" dataStart="2006/11/28" xml:id="STEREO-Ahead:SWEA:48E_MODE_SPECTRO_TIME_ENERGY" name="48 Energies Mode Particle spectrogram">
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="STA_SWEA_48E_MODE_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
       </instrument>
     </mission>
     <mission targets="Heliosphere.Remote1AU" target="Heliosphere.Remote1AU" desc="" xml:id="STEREO-Behind" name="STEREO-Behind">
       <instrument desc="" xml:id="STEREO-Behind:ephemeris" name="ephemeris">
-        <dataset dataStop="2014/04/06" dataStart="2006/10/25" xml:id="STEREO-Behind:EPHEMERIS:ORBIT" name="orbit">
+        <dataset dataStop="2014/04/13" dataStart="2006/10/25" xml:id="STEREO-Behind:EPHEMERIS:ORBIT" name="orbit">
           <parameter desc="Rt" var="XGEO_Rt,YGEO_Rt,ZGEO_Rt" xml:id="STB_EPHEMERIS_ORBIT(1,2,3)" units="Rt" name="position in GEO Geographic">
             <component var="XGEO_Rt" xml:id="STB_EPHEMERIS_ORBIT(1)" name="x"/>
             <component var="YGEO_Rt" xml:id="STB_EPHEMERIS_ORBIT(2)" name="y"/>
@@ -5005,7 +5005,7 @@
           <parameter desc="" var="quality_index_1" xml:id="STB_SWEA_PRECOMPUTED_PAD(2)" units="" name="quality [0: PA distributions corrected for ion bulk flow (STEREO/PLASTIC)] [1: data not corrected]"/>
           <parameter desc="sec" var="duration" xml:id="STB_SWEA_PRECOMPUTED_PAD(3)" units="sec" name="duration validity of the distribution"/>
         </dataset>
-        <dataset dataStop="2014/04/04" dataStart="2006/10/28" xml:id="STEREO-Behind:SWEA:3DMOMENTS" name="3D moments normal modes from 45 to 2188 eV">
+        <dataset dataStop="2014/04/12" dataStart="2006/10/28" xml:id="STEREO-Behind:SWEA:3DMOMENTS" name="3D moments normal modes from 45 to 2188 eV">
           <parameter desc="cm-3" var="N_cm3" xml:id="STB_SWEA_3DMOMENTS(0)" units="cm-3" name="density"/>
           <parameter desc="km/sec" var="Vx_gse_km_sec,Vy_gse_km_sec,Vz_gse_km_sec,V_km_sec" xml:id="STB_SWEA_3DMOMENTS(5,6,7,4)" units="km/sec" name="velocity in GSE">
             <component var="Vx_gse_km_sec" xml:id="STB_SWEA_3DMOMENTS(5)" name="Vx"/>
@@ -5127,13 +5127,13 @@
             <component var="Bn_rtn_nT" xml:id="STB_SWEA_3DMOMENTS(115)" name="Bn"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/04/04" dataStart="2006/10/28" xml:id="STEREO-Behind:SWEA:NORMAL_MODE_SPECTRO_TIME_ENERGY" name="Normal Mode Particle spectrogram">
+        <dataset dataStop="2014/04/12" dataStart="2006/10/28" xml:id="STEREO-Behind:SWEA:NORMAL_MODE_SPECTRO_TIME_ENERGY" name="Normal Mode Particle spectrogram">
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="STB_SWEA_NORMAL_MODE_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
         <dataset dataStop="2013/01/10" dataStart="2006/10/28" xml:id="STEREO-Behind:SWEA:BURST_MODE_SPECTRO_TIME_ENERGY" name="Burst Mode Particle spectrogram">
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="STB_SWEA_BURST_MODE_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
-        <dataset dataStop="2014/03/05" dataStart="2006/11/28" xml:id="STEREO-Behind:SWEA:48E_MODE_SPECTRO_TIME_ENERGY" name="48 Energies Mode Particle spectrogram">
+        <dataset dataStop="2014/03/12" dataStart="2006/11/28" xml:id="STEREO-Behind:SWEA:48E_MODE_SPECTRO_TIME_ENERGY" name="48 Energies Mode Particle spectrogram">
           <parameter desc="keV/(sec.cm2.sr.keV)" var="1d_data" xml:id="STB_SWEA_48E_MODE_SPECTRO_TIME_ENERGY(6)" units="keV/(sec.cm2.sr.keV)" name="JE"/>
         </dataset>
       </instrument>
@@ -5250,7 +5250,7 @@
     </mission>
     <mission targets="Venus" target="Venus" desc="" xml:id="VEX" name="VENUS-EXPRESS">
       <instrument desc="" xml:id="VEX:ephemeris" name="ephemeris">
-        <dataset dataStop="2014/04/06" dataStart="2006/04/10" xml:id="VEX:EPHEMERIS:ORBIT" name="orbit 10sec res">
+        <dataset dataStop="2014/04/13" dataStart="2006/04/10" xml:id="VEX:EPHEMERIS:ORBIT" name="orbit 10sec res">
           <parameter desc="Rv" var="X_Rv_VSO,Y_Rv_VSO,Z_Rv_VSO" xml:id="VEX_EPHEMERIS_ORBIT(1,2,3)" units="Rv" name="Position in VSO coordinates">
             <component var="X_Rv_VSO" xml:id="VEX_EPHEMERIS_ORBIT(1)" name="x"/>
             <component var="Y_Rv_VSO" xml:id="VEX_EPHEMERIS_ORBIT(2)" name="y"/>
@@ -5261,7 +5261,7 @@
     </mission>
     <mission targets="Heliosphere.NearEarth Heliosphere.Inner Earth.Magnetosheath Earth.Magnetosphere Earth.Magnetosphere.Magnetotail Earth.Magnetosphere.Main" target="Heliosphere.NearEarth" desc="" xml:id="WIND" name="WIND">
       <instrument desc="" xml:id="WIND:ephemeris" name="ephemeris">
-        <dataset dataStop="2014/04/02" dataStart="1994/11/01" xml:id="WIND:EPHEMERIS:ORBIT_K0_3DP" name="orbit from K0_3DP">
+        <dataset dataStop="2014/04/09" dataStart="1994/11/01" xml:id="WIND:EPHEMERIS:ORBIT_K0_3DP" name="orbit from K0_3DP">
           <parameter desc="km" var="Xsc_GSE_km,Ysc_GSE_km,Zsc_GSE_km" xml:id="WI_EPHEMERIS_ORBIT_K0_3DP(7,8,9)" units="km" name="spacecraft position in GSE coordinates">
             <component var="Xsc_GSE_km" xml:id="WI_EPHEMERIS_ORBIT_K0_3DP(7)" name="x"/>
             <component var="Ysc_GSE_km" xml:id="WI_EPHEMERIS_ORBIT_K0_3DP(8)" name="y"/>
@@ -5274,7 +5274,7 @@
           </parameter>
           <parameter desc="Re" var="Dist_GSE_Rt" xml:id="WI_EPHEMERIS_ORBIT_K0_3DP(41)" units="Re" name="spacecraft distance in Re velocity dynamically computed"/>
         </dataset>
-        <dataset dataStop="2014/03/12" dataStart="1994/11/12" xml:id="WIND:EPHEMERIS:ORBIT_H0_MFI" name="orbit from H0_MFI 1min res">
+        <dataset dataStop="2014/04/01" dataStart="1994/11/12" xml:id="WIND:EPHEMERIS:ORBIT_H0_MFI" name="orbit from H0_MFI 1min res">
           <parameter desc="Re" var="X_GSM_Rt,Y_GSM_Rt,Z_GSM_Rt" xml:id="WI_EPHEMERIS_ORBIT_H0_MFI(20,21,22)" units="Re" name="Position in GSM coordinates (1 min)">
             <component var="X_GSM_Rt" xml:id="WI_EPHEMERIS_ORBIT_H0_MFI(20)" name="x"/>
             <component var="Y_GSM_Rt" xml:id="WI_EPHEMERIS_ORBIT_H0_MFI(21)" name="y"/>
@@ -5286,7 +5286,7 @@
             <component var="Z_GSE_Rt" xml:id="WI_EPHEMERIS_ORBIT_H0_MFI(25)" name="z"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/04/06" dataStart="1994/08/07" xml:id="WIND:EPHEMERIS:ORBIT_OR_PRE" name="orbit from OR_PRE">
+        <dataset dataStop="2014/04/13" dataStart="1994/08/07" xml:id="WIND:EPHEMERIS:ORBIT_OR_PRE" name="orbit from OR_PRE">
           <parameter desc="km" var="X_GCI_km,Y_GCI_km,Z_GCI_km" xml:id="WI_EPHEMERIS_ORBIT_OR_PRE(4,5,6)" units="km" name="Cartesian GCI Position">
             <component var="X_GCI_km" xml:id="WI_EPHEMERIS_ORBIT_OR_PRE(4)" name="x"/>
             <component var="Y_GCI_km" xml:id="WI_EPHEMERIS_ORBIT_OR_PRE(5)" name="y"/>
@@ -5315,7 +5315,7 @@
             <component var="Zgse_Rt" xml:id="WI_EPHEMERIS_ORBIT_H1_SWE(58)" name="z"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/04/02" dataStart="1994/11/01" xml:id="WIND:EPHEMERIS:ORBIT_K0_SWE" name="orbit from K0_SWE">
+        <dataset dataStop="2014/04/09" dataStart="1994/11/01" xml:id="WIND:EPHEMERIS:ORBIT_K0_SWE" name="orbit from K0_SWE">
           <parameter desc="km" var="SC_pos_Xgse_km,SC_pos_Ygse_km,SC_pos_Zgse_km" xml:id="WI_EPHEMERIS_ORBIT_K0_SWE(4,5,6)" units="km" name="S/C position in GSE">
             <component var="SC_pos_Xgse_km" xml:id="WI_EPHEMERIS_ORBIT_K0_SWE(4)" name="x"/>
             <component var="SC_pos_Ygse_km" xml:id="WI_EPHEMERIS_ORBIT_K0_SWE(5)" name="y"/>
@@ -5330,7 +5330,7 @@
         </dataset>
       </instrument>
       <instrument desc="" xml:id="WIND:MFI" name="MFI">
-        <dataset dataStop="2014/03/12" dataStart="1994/11/12" xml:id="WIND:MFI:H0_1M" name="1mn resolution (WI_H0_MFI)">
+        <dataset dataStop="2014/04/01" dataStart="1994/11/12" xml:id="WIND:MFI:H0_1M" name="1mn resolution (WI_H0_MFI)">
           <parameter desc="unitless" var="Nb_Points_in_average" xml:id="WI_MFI_H0_1M(4)" units="unitless" name="Number of points in average (1 min)"/>
           <parameter desc="nT" var="Bx_GSM_nT,By_GSM_nT,Bz_GSM_nT,B_nT" xml:id="WI_MFI_H0_1M(7,8,9,5)" units="nT" name="Magnetic field vector in GSM coordinates (1 min)">
             <component var="Bx_GSM_nT" xml:id="WI_MFI_H0_1M(7)" name="Bx"/>
@@ -5374,7 +5374,7 @@
           <parameter desc="unitless" var="S_C_operational_mode" xml:id="WI_MFI_H0_1M(38)" units="unitless" name="S/C operational mode (1 min)"/>
           <parameter desc="unitless" var="WIND_MFI_operational_mode" xml:id="WI_MFI_H0_1M(39)" units="unitless" name="WIND/MFI operational mode (1 min)"/>
         </dataset>
-        <dataset dataStop="2014/03/12" dataStart="1994/11/12" xml:id="WIND:MFI:H0_3S" name="3sec resolution (WI_H0_MFI)">
+        <dataset dataStop="2014/04/01" dataStart="1994/11/12" xml:id="WIND:MFI:H0_3S" name="3sec resolution (WI_H0_MFI)">
           <parameter desc="unitless" var="NUM_PTS" xml:id="WI_MFI_H0_3S(1)" units="unitless" name="Number of points in average (3 sec)"/>
           <parameter desc="nT" var="Bx_GSM_nT,By_GSM_nT,Bz_GSM_nT,B_nT" xml:id="WI_MFI_H0_3S(4,5,6,2)" units="nT" name="Magnetic field vector in GSM coordinates (3 sec)">
             <component var="Bx_GSM_nT" xml:id="WI_MFI_H0_3S(4)" name="Bx"/>
@@ -5399,7 +5399,7 @@
             <component var="BzRMS_GSE_nT" xml:id="WI_MFI_H0_3S(15)" name="Bz"/>
           </parameter>
         </dataset>
-        <dataset dataStop="2014/03/12" dataStart="1994/11/13" xml:id="WIND:MFI:H2" name="high resolution (WI_H2_MFI)">
+        <dataset dataStop="2014/04/01" dataStart="1994/11/13" xml:id="WIND:MFI:H2" name="high resolution (WI_H2_MFI)">
           <parameter desc="nT" var="Bx_GSM_nT,By_GSM_nT,Bz_GSM_nT,B_nT" xml:id="WI_MFI_H2(2,3,4,1)" units="nT" name="Magnetic field Xvector in GSM coordinates">
             <component var="Bx_GSM_nT" xml:id="WI_MFI_H2(2)" name="Bx"/>
             <component var="By_GSM_nT" xml:id="WI_MFI_H2(3)" name="By"/>
@@ -5414,7 +5414,7 @@
         </dataset>
       </instrument>
       <instrument desc="" xml:id="WIND:3DP" name="3DP">
-        <dataset dataStop="2014/04/02" dataStart="1994/11/01" xml:id="WIND:3DP:K0" name="Key parameters 92sec resolution Moments (WI_K0_3DP)">
+        <dataset dataStop="2014/04/09" dataStart="1994/11/01" xml:id="WIND:3DP:K0" name="Key parameters 92sec resolution Moments (WI_K0_3DP)">
           <parameter desc="#/cm^3" var="Ne_cm3" xml:id="WI_3DP_K0(20)" units="#/cm^3" name="electron density for all energies"/>
           <parameter desc="km/s" var="Vex_km_s,Vey_km_s,Vez_km_s" xml:id="WI_3DP_K0(21,22,23)" units="km/s" name="elect velocity">
             <component var="Vex_km_s" xml:id="WI_3DP_K0(21)" name="Vx"/>
@@ -5430,22 +5430,22 @@
           </parameter>
           <parameter desc="eV" var="Ti_eV" xml:id="WI_3DP_K0(37)" units="eV" name="ion temperature"/>
         </dataset>
-        <dataset dataStop="2014/04/02" dataStart="1994/11/01" xml:id="WIND:3DP:K0_ELECTRON_SPECTRO_TIME_ENERGY" name="Key parameters 92sec resolution Particle spectrogram (WI_K0_3DP) Time Energy Electron">
+        <dataset dataStop="2014/04/09" dataStart="1994/11/01" xml:id="WIND:3DP:K0_ELECTRON_SPECTRO_TIME_ENERGY" name="Key parameters 92sec resolution Particle spectrogram (WI_K0_3DP) Time Energy Electron">
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="WI_3DP_K0_ELECTRON_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
         </dataset>
-        <dataset dataStop="2014/04/02" dataStart="1994/11/01" xml:id="WIND:3DP:K0_ION_SPECTRO_TIME_ENERGY" name="Key parameters 92sec resolution Particle spectrogram (WI_K0_3DP) Time Energy Ion">
+        <dataset dataStop="2014/04/09" dataStart="1994/11/01" xml:id="WIND:3DP:K0_ION_SPECTRO_TIME_ENERGY" name="Key parameters 92sec resolution Particle spectrogram (WI_K0_3DP) Time Energy Ion">
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="WI_3DP_K0_ION_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
         </dataset>
-        <dataset dataStop="2013/11/12" dataStart="1994/11/15" xml:id="WIND:3DP:ELSP_SPECTRO_TIME_ENERGY" name="Electron EESA Low Particle spectrogram (WI_ELSP_3DP) Time Energy">
+        <dataset dataStop="2013/12/31" dataStart="1994/11/15" xml:id="WIND:3DP:ELSP_SPECTRO_TIME_ENERGY" name="Electron EESA Low Particle spectrogram (WI_ELSP_3DP) Time Energy">
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="WI_3DP_ELSP_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
         </dataset>
-        <dataset dataStop="2013/11/12" dataStart="1994/11/15" xml:id="WIND:3DP:ELPD_SPECTRO_TIME_ENERGY" name="Electron EESA Low Particle spectrogram (WI_ELPD_3DP) Time Energy">
+        <dataset dataStop="2013/12/31" dataStart="1994/11/15" xml:id="WIND:3DP:ELPD_SPECTRO_TIME_ENERGY" name="Electron EESA Low Particle spectrogram (WI_ELPD_3DP) Time Energy">
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="WI_3DP_ELPD_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
         </dataset>
         <dataset dataStop="2004/08/16" dataStart="1994/12/20" xml:id="WIND:3DP:EHSP_SPECTRO_TIME_ENERGY" name="Electron EESA High Particle spectrogram (WI_EHSP_3DP) Time Energy">
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="WI_3DP_EHSP_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
         </dataset>
-        <dataset dataStop="2013/11/12" dataStart="1994/11/15" xml:id="WIND:3DP:PM" name="Ion PESA Low On board Moments 3sec resolution (WI_PM_3DP)">
+        <dataset dataStop="2013/12/31" dataStart="1994/11/15" xml:id="WIND:3DP:PM" name="Ion PESA Low On board Moments 3sec resolution (WI_PM_3DP)">
           <parameter desc="#/cm3" var="P_DENS" xml:id="WI_3DP_PM(3)" units="#/cm3" name="Proton number density"/>
           <parameter desc="km/sec" var="P_VELSx,P_VELSy,P_VELSz" xml:id="WI_3DP_PM(4,5,6)" units="km/sec" name="Proton velocity vector GSE">
             <component var="P_VELSx" xml:id="WI_3DP_PM(4)" name="Vx"/>
@@ -5482,7 +5482,7 @@
           <parameter desc="unitless" var="GAP" xml:id="WI_3DP_PM(28)" units="unitless" name="Gap flag (0=no gap, 1=gap)"/>
           <parameter desc="unitless" var="VALID" xml:id="WI_3DP_PM(29)" units="unitless" name="Data quality flag (1=good, 0=bad)"/>
         </dataset>
-        <dataset dataStop="2013/11/12" dataStart="1994/11/15" xml:id="WIND:3DP:PLSP" name="Ion PESA Low Moments (WI_PLSP_3DP)">
+        <dataset dataStop="2013/12/31" dataStart="1994/11/15" xml:id="WIND:3DP:PLSP" name="Ion PESA Low Moments (WI_PLSP_3DP)">
           <parameter desc="TBD" var="MOM_P_SC_CURRENT" xml:id="WI_3DP_PLSP(34)" units="TBD" name="S/C current from proton measurements"/>
           <parameter desc="nT" var="MOM_P_MAGF_1,MOM_P_MAGF_2,MOM_P_MAGF_3" xml:id="WI_3DP_PLSP(35,36,37)" units="nT" name="Proton Magnetic Field Vector GSE">
             <component var="MOM_P_MAGF_1" xml:id="WI_3DP_PLSP(35)" name="Bx"/>
@@ -5586,12 +5586,12 @@
           <parameter desc="Degrees" var="MOM_A_VEL_TH" xml:id="WI_3DP_PLSP(123)" units="Degrees" name="Alpha flow velocity latitude"/>
           <parameter desc="Degrees" var="MOM_A_VEL_PHI" xml:id="WI_3DP_PLSP(124)" units="Degrees" name="Alpha flow velocity longitude"/>
         </dataset>
-        <dataset dataStop="2013/11/12" dataStart="1994/11/15" xml:id="WIND:3DP:PLSP_SPECTRO_TIME_ENERGY" name="Ion PESA Low Particle spectrogram (WI_PLSP_3DP) Time Energy">
+        <dataset dataStop="2013/12/31" dataStart="1994/11/15" xml:id="WIND:3DP:PLSP_SPECTRO_TIME_ENERGY" name="Ion PESA Low Particle spectrogram (WI_PLSP_3DP) Time Energy">
           <parameter desc="part/(sec.cm2.sr.keV)" var="1d_data" xml:id="WI_3DP_PLSP_SPECTRO_TIME_ENERGY(4)" units="part/(sec.cm2.sr.keV)" name="flux"/>
         </dataset>
       </instrument>
       <instrument desc="" xml:id="WIND:EPACT" name="EPACT">
-        <dataset dataStop="2014/04/02" dataStart="1994/11/16" xml:id="WIND:EPA:K0" name="Key Parameters (WI_K0_EPA)">
+        <dataset dataStop="2014/04/09" dataStart="1994/11/16" xml:id="WIND:EPA:K0" name="Key Parameters (WI_K0_EPA)">
           <parameter desc="#/(cm2 sr sec MeV/n)" var="LEMT_He__flux_3_2_6_2_keV_n_____cm2_sr_sec_MeV_n_" xml:id="WI_EPA_K0(4)" units="#/(cm2 sr sec MeV/n)" name="LEMT He flux (3.2 to 6.2 keV/n)"/>
           <parameter desc="#/(cm2 sr sec MeV/n)" var="LEMT_O1__flux_3_2_6_2_keV_n_____cm2_sr_sec_MeV_n_" xml:id="WI_EPA_K0(5)" units="#/(cm2 sr sec MeV/n)" name="LEMT O flux (3.2 to 6.2 keV/n)"/>
           <parameter desc="#/(cm2 sr sec MeV/n)" var="LEMT_Fe__flux_3_2_6_2_keV_n_____cm2_sr_sec_MeV_n_" xml:id="WI_EPA_K0(6)" units="#/(cm2 sr sec MeV/n)" name="LEMT Fe flux (3.2 To 6.2 keV/n)"/>
@@ -5730,7 +5730,7 @@
           <parameter desc="" var="Tecoreani" xml:id="WI_SWE_H5(24)" units="" name="Aniso_e core Electron Temperature-anisotropy (TecPer/TecPal) from fitted Maxwellian model supplementing the core regime of observed solar wind electron distribution"/>
           <parameter desc="" var="EGyrtrp" xml:id="WI_SWE_H5(25)" units="" name="Gyrtrp_e Electron Gyrotropy from full solar wind electron distribution, including fitted core"/>
         </dataset>
-        <dataset dataStop="2014/04/02" dataStart="1994/11/01" xml:id="WIND:SWE:K0" name="Key Parameter (WI_K0_SWE)">
+        <dataset dataStop="2014/04/09" dataStart="1994/11/01" xml:id="WIND:SWE:K0" name="Key Parameter (WI_K0_SWE)">
           <parameter desc="ms" var="Delta_time" xml:id="WI_SWE_K0(1)" units="ms" name="1/2 time interval to collect data for parameters"/>
           <parameter desc="unitless" var="GAP_FLAG" xml:id="WI_SWE_K0(2)" units="unitless" name="Flag0=no gap immediately prior to this record; other:see Guidelines"/>
           <parameter desc="unitless" var="MODE" xml:id="WI_SWE_K0(3)" units="unitless" name="Mode categories to be decided"/>
@@ -5766,7 +5766,7 @@
         </dataset>
       </instrument>
       <instrument desc="" xml:id="WIND:WAVES" name="WAVES">
-        <dataset dataStop="2014/04/02" dataStart="1994/11/12" xml:id="WIND:WAVES:H0" name="Key Parameters (WI_H0_WAV)">
+        <dataset dataStop="2014/04/09" dataStart="1994/11/12" xml:id="WIND:WAVES:H0" name="Key Parameters (WI_H0_WAV)">
           <parameter desc="N/cm**3" var="Ne__N_cm__3" xml:id="WI_WAVES_H0(4)" units="N/cm**3" name="Electron Density"/>
           <parameter desc="dB" var="Ne_peak_dB" xml:id="WI_WAVES_H0(5)" units="dB" name="Electric field power at thermal noise peak"/>
           <parameter desc="unitless" var="Ne_Quality" xml:id="WI_WAVES_H0(6)" units="unitless" name="Electron Density data quality [&lt;50=bad, &gt;50=Fair,&gt;150=ok,&gt;200=good]"/>

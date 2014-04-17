@@ -740,9 +740,11 @@ object EnumCoordinateSystemName {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): EnumCoordinateSystemName = value match {
     case "CGM" => CGM
     case "Carrington" => Carrington
+    case "CSO" => CSO
     case "DM" => DM
     case "GEI" => GEI
     case "GEO" => GEO
+    case "GPHIO" => GPHIO
     case "GSE" => GSE
     case "GSEQ" => GSEQ
     case "GSM" => GSM
@@ -756,10 +758,16 @@ object EnumCoordinateSystemName {
     case "HGI" => HGI
     case "HPC" => HPC
     case "HPR" => HPR
+    case "HSM" => HSM
     case "J2000" => J2000
+    case "JSM" => JSM
+    case "JSO" => JSO
+    case "KSM" => KSM
+    case "KSO" => KSO
     case "LGM" => LGM
     case "MAG" => MAG
     case "MFA" => MFA
+    case "MSO" => MSO
     case "RTN" => RTN
     case "SC" => SC
     case "SE" => SE
@@ -769,27 +777,19 @@ object EnumCoordinateSystemName {
     case "SSE" => SSE
     case "SSE_L" => SSE_L
     case "SpacecraftOrbitPlane" => SpacecraftOrbitPlane
-    case "WGS84" => WGS84
-    case "MSO" => MSO
+    case "TIIS" => TIIS
     case "VSO" => VSO
-    case "KSO" => KSO
-    case "KSM" => KSM
-    case "JSO" => JSO
-    case "JSM" => JSM
-    // added for LATMOS
-    case "GPHIO" => GPHIO
-    // added for SINP
-    case "HSM" => HSM
-    // added for FMI
-    case "CSO" => CSO
+    case "WGS84" => WGS84
   }
 }
 
 case object CGM extends EnumCoordinateSystemName { override def toString = "CGM" }
 case object Carrington extends EnumCoordinateSystemName { override def toString = "Carrington" }
+case object CSO extends EnumCoordinateSystemName { override def toString = "CSO" }
 case object DM extends EnumCoordinateSystemName { override def toString = "DM" }
 case object GEI extends EnumCoordinateSystemName { override def toString = "GEI" }
 case object GEO extends EnumCoordinateSystemName { override def toString = "GEO" }
+case object GPHIO extends EnumCoordinateSystemName { override def toString = "GPHIO" }
 case object GSE extends EnumCoordinateSystemName { override def toString = "GSE" }
 case object GSEQ extends EnumCoordinateSystemName { override def toString = "GSEQ" }
 case object GSM extends EnumCoordinateSystemName { override def toString = "GSM" }
@@ -803,10 +803,16 @@ case object HG extends EnumCoordinateSystemName { override def toString = "HG" }
 case object HGI extends EnumCoordinateSystemName { override def toString = "HGI" }
 case object HPC extends EnumCoordinateSystemName { override def toString = "HPC" }
 case object HPR extends EnumCoordinateSystemName { override def toString = "HPR" }
+case object HSM extends EnumCoordinateSystemName { override def toString = "HSM" }
 case object J2000 extends EnumCoordinateSystemName { override def toString = "J2000" }
+case object JSM extends EnumCoordinateSystemName { override def toString = "JSM" }
+case object JSO extends EnumCoordinateSystemName { override def toString = "JSO" }
+case object KSM extends EnumCoordinateSystemName { override def toString = "KSM" }
+case object KSO extends EnumCoordinateSystemName { override def toString = "KSO" }
 case object LGM extends EnumCoordinateSystemName { override def toString = "LGM" }
 case object MAG extends EnumCoordinateSystemName { override def toString = "MAG" }
 case object MFA extends EnumCoordinateSystemName { override def toString = "MFA" }
+case object MSO extends EnumCoordinateSystemName { override def toString = "MSO" }
 case object RTN extends EnumCoordinateSystemName { override def toString = "RTN" }
 case object SC extends EnumCoordinateSystemName { override def toString = "SC" }
 case object SE extends EnumCoordinateSystemName { override def toString = "SE" }
@@ -816,19 +822,9 @@ case object SR2 extends EnumCoordinateSystemName { override def toString = "SR2"
 case object SSE extends EnumCoordinateSystemName { override def toString = "SSE" }
 case object SSE_L extends EnumCoordinateSystemName { override def toString = "SSE_L" }
 case object SpacecraftOrbitPlane extends EnumCoordinateSystemName { override def toString = "SpacecraftOrbitPlane" }
-case object WGS84 extends EnumCoordinateSystemName { override def toString = "WGS84" }
-case object MSO extends EnumCoordinateSystemName { override def toString = "MSO" }
+case object TIIS extends EnumCoordinateSystemName { override def toString = "TIIS" }
 case object VSO extends EnumCoordinateSystemName { override def toString = "VSO" }
-case object KSO extends EnumCoordinateSystemName { override def toString = "KSO" }
-case object KSM extends EnumCoordinateSystemName { override def toString = "KSM" }
-case object JSO extends EnumCoordinateSystemName { override def toString = "JSO" }
-case object JSM extends EnumCoordinateSystemName { override def toString = "JSM" }
-// added for LATMOS
-case object GPHIO extends EnumCoordinateSystemName { override def toString = "GPHIO" }
-// added for SINP
-case object HSM extends EnumCoordinateSystemName { override def toString = "HSM" }
-// added for FMI
-case object CSO extends EnumCoordinateSystemName { override def toString = "CSO" }
+case object WGS84 extends EnumCoordinateSystemName { override def toString = "WGS84" }
 
 trait EnumDirectionAngle
 
@@ -1721,6 +1717,7 @@ trait EnumRegion
 object EnumRegion {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): EnumRegion = value match {
     case "Asteroid" => Asteroid
+    case "Callisto" => Callisto
     case "Comet" => Comet
     case "Earth" => Earth
     case "Earth.Magnetosheath" => Earthu46Magnetosheath
@@ -1746,6 +1743,9 @@ object EnumRegion {
     case "Earth.NearSurface.Thermosphere" => Earthu46NearSurfaceu46Thermosphere
     case "Earth.NearSurface.Troposphere" => Earthu46NearSurfaceu46Troposphere
     case "Earth.Surface" => Earthu46Surface
+    case "Enceladus" => Enceladus
+    case "Europa" => Europa
+    case "Ganymede" => Ganymede
     case "Heliosphere" => Heliosphere
     case "Heliosphere.Heliosheath" => Heliosphereu46Heliosheath
     case "Heliosphere.Inner" => Heliosphereu46Inner
@@ -1753,11 +1753,13 @@ object EnumRegion {
     case "Heliosphere.Outer" => Heliosphereu46Outer
     case "Heliosphere.Remote1AU" => Heliosphereu46Remote1AU
     case "Interstellar" => Interstellar
+    case "Io" => Io
     case "Jupiter" => Jupiter
     case "Mars" => Mars
     case "Mercury" => Mercury
     case "Neptune" => Neptune
     case "Pluto" => Pluto
+    case "Rhea" => Rhea
     case "Saturn" => Saturn
     case "Sun" => Sun
     case "Sun.Chromosphere" => Sunu46Chromosphere
@@ -1767,12 +1769,12 @@ object EnumRegion {
     case "Sun.TransitionRegion" => Sunu46TransitionRegion
     case "Uranus" => Uranus
     case "Venus" => Venus
-    case "Ganymede" => Ganymede
 
   }
 }
 
 case object Asteroid extends EnumRegion { override def toString = "Asteroid" }
+case object Callisto extends EnumRegion { override def toString  = "Callisto" }
 case object Comet extends EnumRegion { override def toString = "Comet" }
 case object Earth extends EnumRegion { override def toString = "Earth" }
 case object Earthu46Magnetosheath extends EnumRegion { override def toString = "Earth.Magnetosheath" }
@@ -1798,6 +1800,9 @@ case object Earthu46NearSurfaceu46Stratosphere extends EnumRegion { override def
 case object Earthu46NearSurfaceu46Thermosphere extends EnumRegion { override def toString = "Earth.NearSurface.Thermosphere" }
 case object Earthu46NearSurfaceu46Troposphere extends EnumRegion { override def toString = "Earth.NearSurface.Troposphere" }
 case object Earthu46Surface extends EnumRegion { override def toString = "Earth.Surface" }
+case object Enceladus extends EnumRegion { override def toString = "Enceladus" }
+case object Europa extends EnumRegion { override def toString = "Europa" }
+case object Ganymede extends EnumRegion { override def toString = "Ganymede" }
 case object Heliosphere extends EnumRegion { override def toString = "Heliosphere" }
 case object Heliosphereu46Heliosheath extends EnumRegion { override def toString = "Heliosphere.Heliosheath" }
 case object Heliosphereu46Inner extends EnumRegion { override def toString = "Heliosphere.Inner" }
@@ -1805,11 +1810,13 @@ case object Heliosphereu46NearEarth extends EnumRegion { override def toString =
 case object Heliosphereu46Outer extends EnumRegion { override def toString = "Heliosphere.Outer" }
 case object Heliosphereu46Remote1AU extends EnumRegion { override def toString = "Heliosphere.Remote1AU" }
 case object Interstellar extends EnumRegion { override def toString = "Interstellar" }
+case object Io extends EnumRegion { override def toString = "Io" }
 case object Jupiter extends EnumRegion { override def toString = "Jupiter" }
 case object Mars extends EnumRegion { override def toString = "Mars" }
 case object Mercury extends EnumRegion { override def toString = "Mercury" }
 case object Neptune extends EnumRegion { override def toString = "Neptune" }
 case object Pluto extends EnumRegion { override def toString = "Pluto" }
+case object Rhea extends EnumRegion { override def toString = "Rhea" }
 case object Saturn extends EnumRegion { override def toString = "Saturn" }
 case object Sun extends EnumRegion { override def toString = "Sun" }
 case object Sunu46Chromosphere extends EnumRegion { override def toString = "Sun.Chromosphere" }
@@ -1819,7 +1826,6 @@ case object Sunu46Photosphere extends EnumRegion { override def toString = "Sun.
 case object Sunu46TransitionRegion extends EnumRegion { override def toString = "Sun.TransitionRegion" }
 case object Uranus extends EnumRegion { override def toString = "Uranus" }
 case object Venus extends EnumRegion { override def toString = "Venus" }
-case object Ganymede extends EnumRegion { override def toString = "Ganymede" }
 
 trait EnumRenderingAxis
 
@@ -2544,22 +2550,21 @@ trait EnumSimulationType
 
 object EnumSimulationType {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): EnumSimulationType = value match {
+    case "Analytic" => Analytic
     case "Hybrid" => Hybrid
     case "MHD" => MHD
     case "PIC" => PIC
     case "Test_Particle" => Test_Particle
     case "Paraboloid" => Paraboloid
-    // additions for LESIA
-    case "Analytic" => Analytic
   }
 }
 
+case object Analytic extends EnumSimulationType { override def toString = "Analytic" }
 case object Hybrid extends EnumSimulationType { override def toString = "Hybrid" }
 case object MHD extends EnumSimulationType { override def toString = "MHD" }
 case object PIC extends EnumSimulationType { override def toString = "PIC" }
 case object Test_Particle extends EnumSimulationType { override def toString = "Test_Particle" }
 case object Paraboloid extends EnumSimulationType { override def toString = "Paraboloid" }
-case object Analytic extends EnumSimulationType { override def toString = "Analytic" }
 
 trait EnumProduct
 

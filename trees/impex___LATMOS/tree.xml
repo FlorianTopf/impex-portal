@@ -12440,7 +12440,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <Units>nT</Units>
 <UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
 <InputLabel>Bx,By,Bz</InputLabel>
-<FieldValue>1.63   -2.52    0.00</FieldValue>
+<FieldValue>-1.63   2.52    0.00</FieldValue>
 <ValidMin>3.00</ValidMin>
 <ValidMax>3.00</ValidMax>
 </InputField>
@@ -31332,7 +31332,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <Units>nT</Units>
 <UnitsConversion> 1.E-9 &gt; T </UnitsConversion>
 <InputLabel>Bx,By,Bz</InputLabel>
-<FieldValue>1.63   -2.52    0.00</FieldValue>
+<FieldValue>-1.63   2.52    0.00</FieldValue>
 <ValidMin>3.00</ValidMin>
 <ValidMax>3.00</ValidMax>
 </InputField>
@@ -40599,7 +40599,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <FieldQuantity>Magnetic</FieldQuantity>
 <Units>nT</Units>
 <InputLabel>Bx By Bz</InputLabel>
-<FieldValue>1.63   -2.52    0.00</FieldValue>
+<FieldValue>-1.63   2.52    0.00</FieldValue>
 <ValidMin>3.00</ValidMin>
 <ValidMax>3.00</ValidMax>
 </InputField>
@@ -44101,7 +44101,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <FieldQuantity>Magnetic</FieldQuantity>
 <Units>nT</Units>
 <InputLabel>Bx By Bz</InputLabel>
-<FieldValue>1.63   -2.52    0.00</FieldValue>
+<FieldValue>-1.63   2.52    0.00</FieldValue>
 <ValidMin>3.00</ValidMin>
 <ValidMax>3.00</ValidMax>
 </InputField>
@@ -46210,7 +46210,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <FieldQuantity>Magnetic</FieldQuantity>
 <Units>nT</Units>
 <InputLabel>Bx By Bz</InputLabel>
-<FieldValue>17.09   -6.22  -10.50</FieldValue>
+<FieldValue>-17.09   6.22  -10.50</FieldValue>
 <ValidMin>21.00</ValidMin>
 <ValidMax>21.00</ValidMax>
 </InputField>
@@ -49416,7 +49416,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <FieldQuantity>Magnetic</FieldQuantity>
 <Units>nT</Units>
 <InputLabel>Bx By Bz</InputLabel>
-<FieldValue>1.63   -2.52    0.00</FieldValue>
+<FieldValue>-1.63   2.52    0.00</FieldValue>
 <ValidMin>3.00</ValidMin>
 <ValidMax>3.00</ValidMax>
 </InputField>
@@ -52925,7 +52925,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <FieldQuantity>Magnetic</FieldQuantity>
 <Units>nT</Units>
 <InputLabel>Bx By Bz</InputLabel>
-<FieldValue>0.00    3.00    0.00</FieldValue>
+<FieldValue>0.00    -3.00    0.00</FieldValue>
 <ValidMin>3.00</ValidMin>
 <ValidMax>3.00</ValidMax>
 </InputField>
@@ -56430,7 +56430,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <FieldQuantity>Magnetic</FieldQuantity>
 <Units>nT</Units>
 <InputLabel>Bx By Bz</InputLabel>
-<FieldValue>1.63   -2.52    0.00</FieldValue>
+<FieldValue>-1.63   2.52    0.00</FieldValue>
 <ValidMin>3.00</ValidMin>
 <ValidMax>3.00</ValidMax>
 </InputField>

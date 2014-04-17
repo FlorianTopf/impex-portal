@@ -1,6 +1,6 @@
 <dataRoot>
   <dataCenter xml:id="myLocalData-treeRootNode" desc="AMDA_Internal_Data_Base" name="AMDA">
-    <mission available="1" target="Saturn" desc="NASA_ESA_ASI_Mission_to_Saturn" xml:id="Cassini_Public" name="Cassini_Public" att="">
+    <mission available="1" target="Saturn" desc="NASA_ESA_ASI_Mission_to_Saturn" xml:id="Cassini_Public" rank="9" name="Cassini_Public" att="">
       <instrument desc="Cassini, Titan, Enceladus" xml:id="Cassini_Public:ephemeris" name="ephemeris" att="parameters/CassiniEphem">
         <dataset target="Saturn" dataSource="http://www-pw.physics.uiowa.edu/~jbg/cas.html" dataStop="2013/03/21" dataStart="2003/01/01" maxSampling="" sampling="300s" xml:id="cass:ephem:polar" name="orbit_cassini@Iowa" att="">
           <parameter xml:id="cass_wl_iau" display_type="" units="deg" name="lon_IAU"/>
@@ -308,7 +308,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Saturn" desc="NASA_ESA_ASI_Mission_to_Saturn" xml:id="Cassini_Private" name="Cassini_Private" att="">
+    <mission available="1" target="Saturn" desc="NASA_ESA_ASI_Mission_to_Saturn" xml:id="Cassini_Private" rank="9" name="Cassini_Private" att="">
       <instrument desc="Langmuir_Probe" xml:id="Cassini_Private:LP" name="LP" att="parameters/CassiniLp">
         <dataset target="" dataSource="http://www.space.irfu.se/cassini/data/" dataStop="2010/08/21" dataStart="2004/08/27" maxSampling="640s" sampling="20s" xml:id="cass:lp:neproxy" name="Ne_PROXY" att="">
           <parameter xml:id="cass_lpneproxy_usc" display_type="" units="V" name="Usc"/>
@@ -325,7 +325,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Saturn" desc="NASA_ESA_ASI_Mission_to_Saturn" xml:id="Cassini_CAPS" name="Cassini_CAPS" att="">
+    <mission available="1" target="Saturn" desc="NASA_ESA_ASI_Mission_to_Saturn" xml:id="Cassini_CAPS" rank="9" name="Cassini_CAPS" att="">
       <instrument desc="CAPS ELS moments" xml:id="Cassini_CAPS:CAPS_ELS" name="CAPS_ELS" att="">
         <dataset target="Saturn" dataSource="www.mssl.ucl.ac.uk" dataStop="2011/06/15" dataStart="2004/06/05" maxSampling="" sampling="32s" xml:id="cass:els:mom" name="moments" att="">
           <parameter xml:id="cass_elsmom_dens" display_type="" units="m-3" name="density"/>
@@ -384,7 +384,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Jupiter" desc="Galileo" xml:id="Galileo" name="Galileo" att="">
+    <mission available="1" target="Jupiter" desc="Galileo" xml:id="Galileo" rank="8" name="Galileo" att="">
       <instrument desc="Position" xml:id="Galileo:ephemeris" name="ephemeris" att="parameters/GllEphem">
         <dataset target="Callisto" dataSource="http://www-pw.physics.uiowa.edu/~jbg/cas.html" dataStop="2003/09/30" dataStart="1995/01/01" maxSampling="" sampling="300s" xml:id="cal:eph:pol" name="Callisto@Iowa" att="">
           <parameter xml:id="cal_pol_lon" display_type="" units="deg" name="lon"/>
@@ -779,7 +779,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Saturn" desc="Michigan_Solar_Wind_Model_Saturn" xml:id="mSWiM_Saturn" name="mSWiM_Saturn" att="parameters/mSWiM">
+    <mission available="1" target="Saturn" desc="Michigan_Solar_Wind_Model_Saturn" xml:id="mSWiM_Saturn" rank="9" name="mSWiM_Saturn" att="parameters/mSWiM">
       <instrument desc="Magnetometer" xml:id="mSWiM_Saturn:MAG" name="MAG" att="">
         <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/12/31" dataStart="1995/01/01" maxSampling="" sampling="1h" xml:id="sws:1hour:mag" name="mag_1hour" att="">
           <parameter xml:id="b_sws_rtn" display_type="" units="nT" name="b_rtn">
@@ -828,7 +828,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Jupiter" desc="Michigan_Solar_Wind_Model_Jupiter" xml:id="mSWiM_Jupiter" name="mSWiM_Jupiter" att="parameters/mSWiM">
+    <mission available="1" target="Jupiter" desc="Michigan_Solar_Wind_Model_Jupiter" xml:id="mSWiM_Jupiter" rank="8" name="mSWiM_Jupiter" att="parameters/mSWiM">
       <instrument desc="Magnetometer" xml:id="mSWiM_Jupiter:MAG" name="MAG" att="">
         <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/12/31" dataStart="1995/01/01" maxSampling="" sampling="1h" xml:id="swj:1hour:mag" name="mag_1hour" att="">
           <parameter xml:id="b_swj_rtn" display_type="" units="nT" name="b_rtn">
@@ -877,7 +877,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Heliosphere" desc="Voyager_1" xml:id="Voyager_1" name="Voyager_1" att="">
+    <mission available="1" target="Heliosphere" desc="Voyager_1" xml:id="Voyager_1" rank="99" name="Voyager_1" att="">
       <instrument desc="Voyager 1 position" xml:id="Voyager_1:ephemeris" name="ephemeris" att="">
         <dataset target="Jupiter" dataSource="http://www-pw.physics.uiowa.edu/~jbg/cas.html" dataStop="1979/04/29" dataStart="1979/01/01" maxSampling="" sampling="60s" xml:id="vo1:ephem:jup" name="orbit_jupiter@Iowa" att="">
           <parameter xml:id="vo1_jup_lon" display_type="" units="deg" name="lon"/>
@@ -986,7 +986,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Heliosphere" desc="Voyager_2" xml:id="Voyager_2" name="Voyager_2" att="">
+    <mission available="1" target="Heliosphere" desc="Voyager_2" xml:id="Voyager_2" rank="99" name="Voyager_2" att="">
       <instrument desc="Voyager 2 position" xml:id="Voyager_2:ephemeris" name="ephemeris" att="">
         <dataset target="Jupiter" dataSource="http://www-pw.physics.uiowa.edu/~jbg/cas.html" dataStop="1979/10/26" dataStart="1979/04/30" maxSampling="" sampling="60s" xml:id="vo2:ephem:jup" name="orbit_jupiter@Iowa" att="">
           <parameter xml:id="vo2_jup_lon" display_type="" units="deg" name="lon"/>
@@ -1196,7 +1196,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Jupiter" desc="Pioneer_10" xml:id="Pioneer_10" name="Pioneer_10" att="">
+    <mission available="1" target="Jupiter" desc="Pioneer_10" xml:id="Pioneer_10" rank="8" name="Pioneer_10" att="">
       <instrument desc="Pioneer_10 position" xml:id="Pioneer_10:ephemeris" name="ephemeris" att="parameters/P10Ephem">
         <dataset target="Jupiter" dataSource="PDS" dataStop="1973/12/29" dataStart="1973/11/03" maxSampling="" sampling="60s" xml:id="p10:orb:jup" name="orbit_jupiter@PDS" att="">
           <parameter xml:id="p10_orb_r" display_type="" units="Rj" name="r"/>
@@ -1299,7 +1299,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Jupiter" desc="Pioneer_11" xml:id="Pioneer_11" name="Pioneer_11" att="">
+    <mission available="1" target="Jupiter" desc="Pioneer_11" xml:id="Pioneer_11" rank="8" name="Pioneer_11" att="">
       <instrument desc="Pioneer_11 position" xml:id="Pioneer_11:ephemeris" name="ephemeris" att="parameters/P11Ephem">
         <dataset target="Jupiter" dataSource="PDS" dataStop="1974/12/14" dataStart="1974/11/25" maxSampling="" sampling="60s" xml:id="p11:orb:jup" name="orbit_jupiter@PDS" att="">
           <parameter xml:id="p11_orb_r" display_type="" units="Rj" name="r"/>
@@ -1402,7 +1402,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Venus" desc="Pioneer_Venus_Orbiter" xml:id="PVO" name="PVO" att="">
+    <mission available="1" target="Venus" desc="Pioneer_Venus_Orbiter" xml:id="PVO" rank="2" name="PVO" att="">
       <instrument desc="PVO position" xml:id="PVO:orbit" name="orbit" att="parameters/PVOEphem">
         <dataset target="Venus" dataSource="PDS" dataStop="1992/10/07" dataStart="1978/12/05" maxSampling="600s" sampling="12s" xml:id="pvo:orb:pos" name="orbit@PDS" att="">
           <parameter xml:id="pvo_orb_xyzvso" display_type="" units="Rv" name="xyz_vso">
@@ -1440,7 +1440,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Venus" desc="Venus Express" xml:id="VEX" name="VEX" att="">
+    <mission available="1" target="Venus" desc="Venus Express" xml:id="VEX" rank="2" name="VEX" att="">
       <instrument desc="VEX Position" xml:id="VEX:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="IRAP" dataStop="2013/12/14" dataStart="2006/04/30" maxSampling="" sampling="60s" xml:id="vex:orb:all" name="orbit" att="">
           <parameter xml:id="vex_xyz" display_type="" units="Rv" name="xyz_vso">
@@ -1450,7 +1450,7 @@
           </parameter>
         </dataset>
       </instrument>
-      <instrument desc="Ion_Mass_Analyser" xml:id="VEX:IMA" name="IMA" att="">
+      <instrument desc="Ion_Mass_Analyser" xml:id="VEX:IMA" name="IMA" att="VexInv">
         <dataset target="" dataSource="IRAP" dataStop="2013/12/15" dataStart="2005/06/08" maxSampling="" sampling="192s" xml:id="vex:ima:extra" name="imaextra_spectra" att="">
           <parameter xml:id="vex_h_spec" display_type="spectrogram" units="counts" name="protons"/>
           <parameter xml:id="vex_o_spec" display_type="spectrogram" units="counts" name="heavy_ions"/>
@@ -1499,7 +1499,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Mars" desc="Mars Express" xml:id="MEX" name="MEX" att="">
+    <mission available="1" target="Mars" desc="Mars Express" xml:id="MEX" rank="7" name="MEX" att="">
       <instrument desc="MEX position" xml:id="MEX:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="IRAP" dataStop="2014/01/15" dataStart="2004/01/10" maxSampling="" sampling="60s" xml:id="mex:orb:all" name="orbit" att="">
           <parameter xml:id="mex_xyz" display_type="" units="Rm" name="xyz_mso">
@@ -1521,12 +1521,12 @@
           </parameter>
         </dataset>
       </instrument>
-      <instrument desc="Ion_Mass_Analyser" xml:id="MEX:IMA" name="IMA" att="">
+      <instrument desc="Ion_Mass_Analyser" xml:id="MEX:IMA" name="IMA" att="MexInv">
         <dataset target="" dataSource="IRAP" dataStop="2013/10/28" dataStart="2004/01/05" maxSampling="" sampling="192s" xml:id="mex:ima:extra" name="imaextra_spectra_prelim" att="">
           <parameter xml:id="mex_h_spec" display_type="spectrogram" units="counts" name="protons"/>
           <parameter xml:id="mex_o_spec" display_type="spectrogram" units="counts" name="heavy_ions"/>
         </dataset>
-        <dataset target="" dataSource="IRAP" dataStop="2013/03/27" dataStart="2004/06/26" maxSampling="" sampling="192s" xml:id="mex:ima:param" name="imaextra_mom_prelim" att="parametres/VexMex">
+        <dataset target="" dataSource="IRAP" dataStop="2013/03/27" dataStart="2004/06/26" maxSampling="" sampling="192s" xml:id="mex:ima:param" name="imaextra_mom_prelim" att="parameters/VexMex">
           <parameter xml:id="mex_h_qual" display_type="" units="0-1" name="moments_quality_protons"/>
           <parameter xml:id="mex_o_qual" display_type="" units="0-1" name="moments_quality_heavy"/>
           <parameter xml:id="mex_h_dens" display_type="" units="cm-3" name="density_protons"/>
@@ -1557,7 +1557,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Mars" desc="Mars_Global_Surveyor" xml:id="MGS" name="MGS" att="">
+    <mission available="1" target="Mars" desc="Mars_Global_Surveyor" xml:id="MGS" rank="7" name="MGS" att="">
       <instrument desc="MGS_orbit" xml:id="MGS:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="PDS:NAIF" dataStop="2006/11/08" dataStart="1997/09/13" maxSampling="" sampling="1m" xml:id="mgs:orb:all" name="orbit" att="">
           <parameter xml:id="xyz_mgs_mso" display_type="" units="Rm" name="xyz_mso">
@@ -1604,7 +1604,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="" desc="Mars Atmosphere and Volatile Evolution Mission" xml:id="MAVEN" name="MAVEN" att="">
+    <mission available="1" target="Mars" desc="Mars Atmosphere and Volatile Evolution Mission" xml:id="MAVEN" rank="7" name="MAVEN" att="">
       <instrument desc="MAVEN position" xml:id="MAVEN:orbit" name="orbit" att="">
         <dataset target="" dataSource="NAIF/SPICE" dataStop="2015/10/26" dataStart="2014/10/29" maxSampling="" sampling="300s" xml:id="mav:orb:mso" name="orbit_maven" att="">
           <parameter xml:id="mav_xyz_mso" display_type="" units="Rm" name="xyz_mso">
@@ -1616,7 +1616,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Mercury" desc="Mission to Mercury" xml:id="MESSENGER" name="MESSENGER" att="parameters/Messenger">
+    <mission available="1" target="Mercury" desc="Mission to Mercury" xml:id="MESSENGER" rank="1" name="MESSENGER" att="parameters/Messenger">
       <instrument desc="Spacecraft position" xml:id="MESSENGER:ephemeris" name="ephemeris" att="">
         <dataset target="Venus" dataSource="PDS" dataStop="2007/06/07" dataStart="2007/06/04" maxSampling="1s" sampling="0.05s" xml:id="mes:orb:venus" name="Venus_Flyby@PDS" att="">
           <parameter xml:id="mes_xyz_venus" display_type="" units="km" name="xyz_vso">
@@ -1751,7 +1751,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Heliosphere" desc="ESA-NASA Deep_Space_mission above_the_Sun_poles" xml:id="ULYSSES" name="ULYSSES" att="">
+    <mission available="1" target="Heliosphere" desc="ESA-NASA Deep_Space_mission above_the_Sun_poles" xml:id="ULYSSES" rank="99" name="ULYSSES" att="">
       <instrument desc="Ulysses_orbit" xml:id="ULYSSES:ephemeris" name="ephemeris" att="">
         <dataset target="Heliosphere" dataSource="PDS:NAIF" dataStop="2009/12/31" dataStart="1990/10/07" maxSampling="" sampling="1h" xml:id="ulys:orb:all" name="orbit" att="">
           <parameter xml:id="xyz_ulys_hae" display_type="" units="AU" name="xyz_hae">
@@ -1848,7 +1848,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Heliosphere.Remote1AU" desc="Solar_Terrestrial_Relations_Observatory" xml:id="Stereo-A" name="Stereo-A" att="parameters/Stereo">
+    <mission available="1" target="Heliosphere.Remote1AU" desc="Solar_Terrestrial_Relations_Observatory" xml:id="Stereo-A" rank="4" name="Stereo-A" att="parameters/Stereo">
       <instrument desc="STA Position" xml:id="Stereo-A:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="SPICE" dataStop="2013/05/10" dataStart="2006/10/27" maxSampling="" sampling="900s" xml:id="sta:l2:orb" name="orbit" att="">
           <parameter xml:id="sta_gse" display_type="" units="Re" name="xyz_gse">
@@ -1914,7 +1914,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Heliosphere.Remote1AU" desc="Solar_Terrestrial_Relations_Observatory" xml:id="Stereo-B" name="Stereo-B" att="parameters/Stereo">
+    <mission available="1" target="Heliosphere.Remote1AU" desc="Solar_Terrestrial_Relations_Observatory" xml:id="Stereo-B" rank="4" name="Stereo-B" att="parameters/Stereo">
       <instrument desc="STB Position" xml:id="Stereo-B:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="SPICE" dataStop="2013/05/01" dataStart="2006/10/27" maxSampling="" sampling="900s" xml:id="stb:l2:orb" name="orbit" att="">
           <parameter xml:id="stb_gse" display_type="" units="Re" name="xyz_gse">
@@ -1980,7 +1980,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Heliosphere.NearEarth" desc="Advanced_Composition_Explorer" xml:id="ACE" name="ACE" att="">
+    <mission available="1" target="Heliosphere.NearEarth" desc="Advanced_Composition_Explorer" xml:id="ACE" rank="3" name="ACE" att="">
       <instrument desc="ACE_positions" xml:id="ACE:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="CDAWeb" dataStop="2013/11/17" dataStart="1997/08/26" maxSampling="" sampling="12m" xml:id="ace:orb:all" name="orbit" att="">
           <parameter xml:id="ace_xyz" display_type="" units="Re" name="xyz_gse">
@@ -2009,7 +2009,7 @@
           </parameter>
           <parameter xml:id="imf_mag" display_type="" units="nT" name="imf_mag"/>
         </dataset>
-        <dataset target="" dataSource="NOAA" dataStop="2014/04/05" dataStart="2014/01/06" maxSampling="" sampling="60s" xml:id="ace:mag:real" name="imf_real_time" att="">
+        <dataset target="" dataSource="NOAA" dataStop="2014/04/16" dataStart="2014/01/06" maxSampling="" sampling="60s" xml:id="ace:mag:real" name="imf_real_time" att="">
           <parameter xml:id="imf_real_gse" display_type="" units="nT" name="imf_real_gse">
             <component xml:id="imf_real_gse(0)" name="bx_gse"/>
             <component xml:id="imf_real_gse(1)" name="by_gse"/>
@@ -2046,16 +2046,16 @@
             <component xml:id="sw_v_gsm(2)" name="vz_gsm"/>
           </parameter>
         </dataset>
-        <dataset target="" dataSource="NOAA" dataStop="2014/04/05" dataStart="2014/01/06" maxSampling="" sampling="60s" xml:id="ace:swepam:real" name="swe_real_time" att="">
+        <dataset target="" dataSource="NOAA" dataStop="2014/04/16" dataStart="2014/01/06" maxSampling="" sampling="60s" xml:id="ace:swepam:real" name="swe_real_time" att="">
           <parameter xml:id="sw_n_real" display_type="" units="cm-3" name="density"/>
           <parameter xml:id="sw_v_real" display_type="" units="km/s" name="v_bulk"/>
           <parameter xml:id="sw_t_real" display_type="" units="eV" name="t_ion"/>
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Magnetosheath" desc="NASA_Global_Geospace_Science_Mission" xml:id="WIND" name="WIND" att="">
+    <mission available="1" target="Earth.Magnetosheath" desc="NASA_Global_Geospace_Science_Mission" xml:id="WIND" rank="5" name="WIND" att="">
       <instrument desc="SC_Positions" xml:id="WIND:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="CDAWeb" dataStop="2014/03/16" dataStart="1994/11/01" maxSampling="" sampling="10m" xml:id="wnd:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="CDAWeb" dataStop="2014/04/06" dataStart="1994/11/01" maxSampling="" sampling="10m" xml:id="wnd:orb:all" name="orbit" att="">
           <parameter xml:id="wnd_xyz" display_type="" units="Re" name="xyz_gse">
             <component xml:id="wnd_xyz(0)" name="x"/>
             <component xml:id="wnd_xyz(1)" name="y"/>
@@ -2083,7 +2083,7 @@
         </dataset>
       </instrument>
       <instrument desc="Solar_Wind_Experiment" xml:id="WIND:SWE" name="SWE" att="">
-        <dataset target="" dataSource="CDAWeb" dataStop="2014/03/26" dataStart="1994/11/17" maxSampling="" sampling="90s" xml:id="wnd:swe:kp" name="swe_kp" att="">
+        <dataset target="" dataSource="CDAWeb" dataStop="2014/04/09" dataStart="1994/11/17" maxSampling="" sampling="90s" xml:id="wnd:swe:kp" name="swe_kp" att="">
           <parameter xml:id="wnd_swe_n" display_type="" units="cm-3" name="density"/>
           <parameter xml:id="wnd_swe_v" display_type="" units="km/s" name="v_gse">
             <component xml:id="wnd_swe_v(0)" name="vx"/>
@@ -2096,7 +2096,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Magnetosheath" desc="NASA_Time_History_of_Events_and Macroscale_Interaction_during_Substorms" xml:id="THEMIS-A" name="THEMIS-A" att="">
+    <mission available="1" target="Earth.Magnetosphere" desc="NASA_Time_History_of_Events_and Macroscale_Interaction_during_Substorms" xml:id="THEMIS-A" rank="5" name="THEMIS-A" att="">
       <instrument desc="SC_Positions" xml:id="THEMIS-A:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="IRAP_THEMIS" dataStop="2014/02/28" dataStart="2007/02/17" maxSampling="" sampling="60s" xml:id="tha:orb:all" name="orbit" att="">
           <parameter xml:id="tha_xyz" display_type="" units="Re" name="xyz_gse">
@@ -2197,7 +2197,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Magnetosheath" desc="NASA_Time_History_of_Events_and Macroscale_Interaction_during_Substorms" xml:id="THEMIS-B" name="THEMIS-B" att="">
+    <mission available="1" target="Earth.Magnetosphere" desc="NASA_Time_History_of_Events_and Macroscale_Interaction_during_Substorms" xml:id="THEMIS-B" rank="5" name="THEMIS-B" att="">
       <instrument desc="SC_Positions" xml:id="THEMIS-B:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="IRAP_THEMIS" dataStop="2014/03/10" dataStart="2007/02/17" maxSampling="" sampling="60s" xml:id="thb:orb:all" name="orbit" att="">
           <parameter xml:id="thb_xyz" display_type="" units="Re" name="xyz_gse">
@@ -2298,7 +2298,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Magnetosheath" desc="NASA_Time_History_of_Events_and Macroscale_Interaction_during_Substorms" xml:id="THEMIS-C" name="THEMIS-C" att="">
+    <mission available="1" target="Earth.Magnetosphere" desc="NASA_Time_History_of_Events_and Macroscale_Interaction_during_Substorms" xml:id="THEMIS-C" rank="5" name="THEMIS-C" att="">
       <instrument desc="SC_Positions" xml:id="THEMIS-C:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="IRAP_THEMIS" dataStop="2014/03/13" dataStart="2007/02/17" maxSampling="" sampling="60s" xml:id="thc:orb:all" name="orbit" att="">
           <parameter xml:id="thc_xyz" display_type="" units="Re" name="xyz_gse">
@@ -2399,7 +2399,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Magnetosheath" desc="NASA_Time_History_of_Events_and Macroscale_Interaction_during_Substorms" xml:id="THEMIS-D" name="THEMIS-D" att="">
+    <mission available="1" target="Earth.Magnetosphere" desc="NASA_Time_History_of_Events_and Macroscale_Interaction_during_Substorms" xml:id="THEMIS-D" rank="5" name="THEMIS-D" att="">
       <instrument desc="SC_Positions" xml:id="THEMIS-D:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="IRAP_THEMIS" dataStop="2014/03/19" dataStart="2007/02/17" maxSampling="" sampling="60s" xml:id="thd:orb:all" name="orbit" att="">
           <parameter xml:id="thd_xyz" display_type="" units="Re" name="xyz_gse">
@@ -2472,7 +2472,7 @@
         </dataset>
       </instrument>
       <instrument desc="Fluxgate_Magnetometer" xml:id="THEMIS-D:FGM" name="FGM" att="">
-        <dataset target="" dataSource="IRAP_THEMIS" dataStop="2014/02/11" dataStart="2007/02/28" maxSampling="" sampling="3s" xml:id="thd:fgm:s" name="spin" att="">
+        <dataset target="" dataSource="IRAP_THEMIS" dataStop="2014/03/20" dataStart="2007/02/28" maxSampling="" sampling="3s" xml:id="thd:fgm:s" name="spin" att="">
           <parameter xml:id="thd_bs" display_type="" units="nT" name="b_gse">
             <component xml:id="thd_bs(0)" name="bx"/>
             <component xml:id="thd_bs(1)" name="by"/>
@@ -2500,9 +2500,9 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Magnetosheath" desc="NASA_Time_History_of_Events_and Macroscale_Interaction_during_Substorms" xml:id="THEMIS-E" name="THEMIS-E" att="">
+    <mission available="1" target="Earth.Magnetosphere" desc="NASA_Time_History_of_Events_and Macroscale_Interaction_during_Substorms" xml:id="THEMIS-E" rank="5" name="THEMIS-E" att="">
       <instrument desc="SC_Positions" xml:id="THEMIS-E:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="IRAP_THEMIS" dataStop="2014/02/23" dataStart="2007/02/17" maxSampling="" sampling="60s" xml:id="the:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="IRAP_THEMIS" dataStop="2014/04/03" dataStart="2007/02/17" maxSampling="" sampling="60s" xml:id="the:orb:all" name="orbit" att="">
           <parameter xml:id="the_xyz" display_type="" units="Re" name="xyz_gse">
             <component xml:id="the_xyz(0)" name="x"/>
             <component xml:id="the_xyz(1)" name="y"/>
@@ -2601,7 +2601,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Magnetosphere" desc="ESA_Magnetospheric_Mission" xml:id="CLUSTER1" name="CLUSTER1" att="">
+    <mission available="1" target="Earth.Magnetosphere" desc="ESA_Magnetospheric_Mission" xml:id="CLUSTER1" rank="5" name="CLUSTER1" att="">
       <instrument desc="Cl1_Positions" xml:id="CLUSTER1:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="IRAP" dataStop="2013/11/29" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust1:orb:all" name="orbit" att="">
           <parameter xml:id="c1_xyz" display_type="" units="Re" name="xyz_gse">
@@ -2841,9 +2841,9 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Magnetosphere" desc="ESA_Magnetospheric_Mission" xml:id="CLUSTER2" name="CLUSTER2" att="">
+    <mission available="1" target="Earth.Magnetosphere" desc="ESA_Magnetospheric_Mission" xml:id="CLUSTER2" rank="5" name="CLUSTER2" att="">
       <instrument desc="Cl2_Positions" xml:id="CLUSTER2:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="IRAP" dataStop="2014/03/15" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust2:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="IRAP" dataStop="2014/03/29" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust2:orb:all" name="orbit" att="">
           <parameter xml:id="c2_xyz" display_type="" units="Re" name="xyz_gse">
             <component xml:id="c2_xyz(0)" name="x_gse"/>
             <component xml:id="c2_xyz(1)" name="y_gse"/>
@@ -3014,9 +3014,9 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Magnetosphere" desc="ESA_Magnetospheric_Mission" xml:id="CLUSTER3" name="CLUSTER3" att="">
+    <mission available="1" target="Earth.Magnetosphere" desc="ESA_Magnetospheric_Mission" xml:id="CLUSTER3" rank="5" name="CLUSTER3" att="">
       <instrument desc="Cl3_Positions" xml:id="CLUSTER3:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="IRAP" dataStop="2014/03/15" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust3:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="IRAP" dataStop="2014/03/29" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust3:orb:all" name="orbit" att="">
           <parameter xml:id="c3_xyz" display_type="" units="Re" name="xyz_gse">
             <component xml:id="c3_xyz(0)" name="x_gse"/>
             <component xml:id="c3_xyz(1)" name="y_gse"/>
@@ -3254,9 +3254,9 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Magnetosphere" desc="ESA_Magnetospheric_Mission" xml:id="CLUSTER4" name="CLUSTER4" att="">
+    <mission available="1" target="Earth.Magnetosphere" desc="ESA_Magnetospheric_Mission" xml:id="CLUSTER4" rank="5" name="CLUSTER4" att="">
       <instrument desc="Cl4_Positions" xml:id="CLUSTER4:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="IRAP" dataStop="2014/03/21" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust4:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="IRAP" dataStop="2014/04/05" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust4:orb:all" name="orbit" att="">
           <parameter xml:id="c4_xyz" display_type="" units="Re" name="xyz_gse">
             <component xml:id="c4_xyz(0)" name="x_gse"/>
             <component xml:id="c4_xyz(1)" name="y_gse"/>
@@ -3448,7 +3448,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Magnetosphere" desc="ESA+CNSA_Magnetospheric_Mission" xml:id="DoubleStar1" name="DoubleStar1" att="">
+    <mission available="1" target="Earth.Magnetosphere" desc="ESA+CNSA_Magnetospheric_Mission" xml:id="DoubleStar1" rank="5" name="DoubleStar1" att="">
       <instrument desc="DS1_Positions" xml:id="DoubleStar1:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="CSDS-FR.CNES" dataStop="2007/10/10" dataStart="2004/02/01" maxSampling="" sampling="60s" xml:id="dstar1:orb:all" name="orbit" att="">
           <parameter xml:id="ds1_xyz" display_type="" units="Re" name="xyz_gse">
@@ -3497,7 +3497,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Magnetosheath" desc="NASA_Interplanetary_Monitoring_Platform" xml:id="IMP-8" name="IMP-8" att="">
+    <mission available="1" target="Earth.Magnetosheath" desc="NASA_Interplanetary_Monitoring_Platform" xml:id="IMP-8" rank="5" name="IMP-8" att="">
       <instrument desc="SC_Positions" xml:id="IMP-8:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="NSSDC" dataStop="2004/06/30" dataStart="1973/10/30" maxSampling="" sampling="12m" xml:id="imp:orb:all" name="orbit" att="">
           <parameter xml:id="imp8_xyz" display_type="" units="Re" name="xyz_gse">
@@ -3545,9 +3545,9 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Magnetosphere" desc="JAXA+NASA_Magnetospheric_Mission" xml:id="GEOTAIL" name="GEOTAIL" att="">
+    <mission available="1" target="Earth.Magnetosphere" desc="JAXA+NASA_Magnetospheric_Mission" xml:id="GEOTAIL" rank="5" name="GEOTAIL" att="">
       <instrument desc="SC_Positions" xml:id="GEOTAIL:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="CDAWeb" dataStop="2014/03/23" dataStart="1992/07/27" maxSampling="" sampling="10m" xml:id="gtl:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="CDAWeb" dataStop="2014/04/06" dataStart="1992/07/27" maxSampling="" sampling="10m" xml:id="gtl:orb:all" name="orbit" att="">
           <parameter xml:id="gtl_xyz" display_type="" units="Re" name="xyz_gse">
             <component xml:id="gtl_xyz(0)" name="x"/>
             <component xml:id="gtl_xyz(1)" name="y"/>
@@ -3562,7 +3562,7 @@
         </dataset>
       </instrument>
       <instrument desc="Magnetic_Field" xml:id="GEOTAIL:MGF" name="MGF" att="">
-        <dataset target="" dataSource="CDAWeb" dataStop="2014/03/26" dataStart="1992/09/04" maxSampling="" sampling="64s" xml:id="gtl:mgf:k0" name="mgf_prelim" att="">
+        <dataset target="" dataSource="CDAWeb" dataStop="2014/04/09" dataStart="1992/09/04" maxSampling="" sampling="64s" xml:id="gtl:mgf:k0" name="mgf_prelim" att="">
           <parameter xml:id="gtl_b" display_type="" units="nT" name="b_gse">
             <component xml:id="gtl_b(0)" name="bx"/>
             <component xml:id="gtl_b(1)" name="by"/>
@@ -3609,7 +3609,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Magnetosphere" desc="NASA_Magnetospheric_Mission" xml:id="POLAR" name="POLAR" att="">
+    <mission available="1" target="Earth.Magnetosphere" desc="NASA_Magnetospheric_Mission" xml:id="POLAR" rank="5" name="POLAR" att="">
       <instrument desc="SC_Positions" xml:id="POLAR:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="CDAWeb" dataStop="2008/02/16" dataStart="1996/02/27" maxSampling="" sampling="60s" xml:id="plr:orb:all" name="orbit" att="">
           <parameter xml:id="plr_xyz" display_type="" units="Re" name="xyz_gse">
@@ -3639,7 +3639,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Magnetosheath" desc="IKI+ESA_Magnetospheric_Mission" xml:id="INTERBALL-Tail" name="INTERBALL-Tail" att="">
+    <mission available="1" target="Earth.Magnetosheath" desc="IKI+ESA_Magnetospheric_Mission" xml:id="INTERBALL-Tail" rank="5" name="INTERBALL-Tail" att="">
       <instrument desc="SC_Positions" xml:id="INTERBALL-Tail:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="CDAWeb" dataStop="2000/10/16" dataStart="1995/08/04" maxSampling="" sampling="2m" xml:id="intt:orb:all" name="orbit" att="">
           <parameter xml:id="it_xyz" display_type="" units="Re" name="xyz_gse">
@@ -3687,7 +3687,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Heliosphere.NearEarth" desc="NASA_International_Sun_Earth_Explorer" xml:id="ISEE-1" name="ISEE-1" att="">
+    <mission available="1" target="Earth.Magnetosphere" desc="NASA_International_Sun_Earth_Explorer" xml:id="ISEE-1" rank="5" name="ISEE-1" att="">
       <instrument desc="SC_Positions" xml:id="ISEE-1:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="NSSDC" dataStop="1987/09/26" dataStart="1977/10/22" maxSampling="" sampling="60s" xml:id="isee1:orb:all" name="orbit" att="">
           <parameter xml:id="isee1_xyz" display_type="" units="Re" name="xyz_gse">
@@ -3717,7 +3717,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Heliosphere.NearEarth" desc="NASA_International_Sun_Earth_Explorer" xml:id="ISEE-2" name="ISEE-2" att="">
+    <mission available="1" target="Earth.Magnetosphere" desc="NASA_International_Sun_Earth_Explorer" xml:id="ISEE-2" rank="5" name="ISEE-2" att="">
       <instrument desc="SC_Positions" xml:id="ISEE-2:ephemeris" name="ephemeris" att="">
         <dataset target="" dataSource="NSSDC" dataStop="1987/09/26" dataStart="1977/10/22" maxSampling="" sampling="60s" xml:id="isee2:orb:all" name="orbit" att="">
           <parameter xml:id="isee2_xyz" display_type="" units="Re" name="xyz_gse">
@@ -3747,7 +3747,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Surface" desc="All_Indices" xml:id="Indices" name="Indices" att="">
+    <mission available="1" target="Earth.Surface" desc="All_Indices" xml:id="Indices" rank="6" name="Indices" att="">
       <instrument desc="Final/Provisional/QuickLook" xml:id="Indices:Ground_Based" name="Ground_Based" att="">
         <dataset target="" dataSource="WDC_Kyoto" dataStop="2013/08/31" dataStart="1975/01/01" maxSampling="" sampling="60s" xml:id="ground:based:aei" name="Auroral_Electrojet" att="parameters/AE">
           <parameter xml:id="ae" display_type="" units="nT" name="AE/AL/AU">
@@ -3781,19 +3781,19 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Earth.Magnetosphere" desc="Models" xml:id="Models (Plot Only!)" name="Models (Plot Only!)" att="">
-      <instrument desc="A2000: Cluster, Themis, Geotail" xml:id="Models (Plot Only!):A2000 B field along orbit" name="A2000 B field along orbit" att="parameters/A2000_help">
+    <mission available="1" target="Earth.Magnetosphere" desc="Models" xml:id="Geomagnetic Field Models" rank="5" name="Geomagnetic Field Models" att="">
+      <instrument desc="A2000: Cluster, Themis, Geotail" xml:id="Geomagnetic Field Models:A2000 B field along orbit" name="A2000 B field along orbit" att="parameters/A2000_help">
         <dataset target="" dataSource="SINP" dataStop="depending on mission" dataStart="depending on mission" maxSampling="" sampling="depending on mission" xml:id="A2000_gsm" name="A2000_gsm" att="">
-          <parameter xml:id="ba2000(0:2)" display_type="" units="nT" name="b_a2000gsm">
+          <parameter xml:id="ba2000" display_type="" units="nT" name="b_a2000gsm">
             <component xml:id="ba2000(0)" name="bx"/>
             <component xml:id="ba2000(1)" name="by"/>
             <component xml:id="ba2000(2)" name="bz"/>
           </parameter>
         </dataset>
       </instrument>
-      <instrument desc="T96: Cluster, Themis, Geotail" xml:id="Models (Plot Only!):Tsyganenko96 B field along orbit" name="Tsyganenko96 B field along orbit" att="parameters/T96_help">
+      <instrument desc="T96: Cluster, Themis, Geotail" xml:id="Geomagnetic Field Models:Tsyganenko96 B field along orbit" name="Tsyganenko96 B field along orbit" att="parameters/T96_help">
         <dataset target="" dataSource="N.Tsyganenko" dataStop="depending on mission" dataStart="depending on mission" maxSampling="" sampling="depending on mission" xml:id="T96_gsm" name="T96_gsm" att="">
-          <parameter xml:id="bt96(0:2)" display_type="" units="nT" name="b_t96gsm">
+          <parameter xml:id="bt96" display_type="" units="nT" name="b_t96gsm">
             <component xml:id="bt96(0)" name="bx"/>
             <component xml:id="bt96(1)" name="by"/>
             <component xml:id="bt96(2)" name="bz"/>
@@ -3801,7 +3801,7 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="" desc="Solar_Wind_Data and Indices" xml:id="OMNI" name="OMNI" att="">
+    <mission available="1" target="Earth.Surface" desc="Solar_Wind_Data and Indices" xml:id="OMNI" rank="6" name="OMNI" att="">
       <instrument desc="Near_Earth_Data" xml:id="OMNI:imf/sw/indices" name="imf/sw/indices" att="">
         <dataset target="" dataSource="OMNIWeb" dataStop="2013/12/02" dataStart="1970/01/01" maxSampling="" sampling="1h" xml:id="omni:hour:all" name="one_hour" att="">
           <parameter xml:id="omni_imf_mag" display_type="" units="nT" name="imf_average_magn"/>
@@ -3824,7 +3824,7 @@
           <parameter xml:id="omni_dst" display_type="" units="nT" name="Dst"/>
           <parameter xml:id="omni_sunspots" display_type="" units="no" name="Sunspot Number"/>
         </dataset>
-        <dataset target="" dataSource="OMNIWeb" dataStop="2014/03/09" dataStart="1981/01/01" maxSampling="" sampling="5m" xml:id="omni:5min:all" name="five_min" att="">
+        <dataset target="" dataSource="OMNIWeb" dataStop="2014/03/30" dataStart="1981/01/01" maxSampling="" sampling="5m" xml:id="omni:5min:all" name="five_min" att="">
           <parameter xml:id="omni5_imf_mag" display_type="" units="nT" name="imf_average_magn"/>
           <parameter xml:id="omni5_imf" display_type="" units="nT" name="imf_gse">
             <component xml:id="omni5_imf(0)" name="Bx"/>
