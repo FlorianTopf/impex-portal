@@ -19,7 +19,9 @@ module portal {
         private window: ng.IWindowService
         private scope: portal.IPortalScope
         private configPromise: ng.IPromise<any>
-        private registryPromise: ng.IPromise<any>
+        // just for testing
+        private registryPromise1: ng.IPromise<any>
+        private registryPromise2: ng.IPromise<any>
         
         private configAble: boolean = true
 
@@ -50,23 +52,30 @@ module portal {
                 
             this.treedata = this.createSubTree(7)
             
-            // PLAYING AROUND WITH ANGULAR RESOURCES
-            // don know if this is the optimal way to do it 
-            this.registryPromise = this.registryService.getRepository().get({ fmt: 'json' }).$promise
-            this.registryPromise.then((res) => {
-                        var result = <ISpase>res.spase
-                        console.log(result.resources)
-                    })
-            
             if(this.config == null) {
                 $location.path('/config')
             } else {
-                 this.timeout(() => { this.ready = true })
+                 this.timeout(() => { 
+                    this.ready = true 
+                    // PLAYING AROUND WITH ANGULAR RESOURCES
+                    this.doSomething()
+                 })
             }
         }
 
         public doSomething() {
-            
+            // don know if this is the optimal way to do it 
+            this.registryPromise1 = this.registryService.getRepository().get({ fmt: 'json' }).$promise
+            this.registryPromise1.then((res) => {
+                var result = <ISpase>res.spase
+                result.resources.forEach((res) => { console.log("repository="+res.repository.resourceId) })
+            })   
+            // don know if this is the optimal way to do it 
+            this.registryPromise2 = this.registryService.getSimulationModel().get({ fmt: 'json' }).$promise
+            this.registryPromise2.then((res) => {
+                var result = <ISpase>res.spase
+                result.resources.forEach((res) => { console.log("model="+res.simulationModel.resourceId) })
+            })  
         }
         
         public getNum() {

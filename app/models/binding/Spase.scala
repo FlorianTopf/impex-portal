@@ -98,7 +98,7 @@ object Spase {
   // writer for simulation model
   implicit val simulationModelWrites: Writes[SimulationModelType] = new Writes[SimulationModelType] {
     def writes(s: SimulationModelType): JsValue = {
-      Json.obj("resourceID" -> s.ResourceID, "resourceHeader" -> s.ResourceHeader, "versions" -> s.Versions, 
+      Json.obj("resourceId" -> s.ResourceID, "resourceHeader" -> s.ResourceHeader, "versions" -> s.Versions, 
           "simulationType" -> s.SimulationType)
     }
   }
