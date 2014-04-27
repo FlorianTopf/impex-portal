@@ -20,8 +20,10 @@ module portal {
         private scope: portal.IPortalScope
         private configPromise: ng.IPromise<any>
         // just for testing
-        private registryPromise1: ng.IPromise<any>
-        private registryPromise2: ng.IPromise<any>
+        private registryPromiseRepo: ng.IPromise<any>
+        private registryPromiseModel: ng.IPromise<any>
+        private registryPromiseRun: ng.IPromise<any>
+        private registryPromiseOutput: ng.IPromise<any>
         
         private configAble: boolean = true
 
@@ -31,8 +33,8 @@ module portal {
             '$interval','$window', 'configService', 'registryService']
 
         private num: number = 1
-        private treedata
-        private selected
+        private treedata: Array<any>
+        private selected: string
 
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
@@ -64,18 +66,43 @@ module portal {
         }
 
         public doSomething() {
-            // don know if this is the optimal way to do it 
-            this.registryPromise1 = this.registryService.getRepository().get({ fmt: 'json' }).$promise
-            this.registryPromise1.then((res) => {
+            // dont know if this is the optimal way to do it 
+            this.registryPromiseRepo = this.registryService.getRepository().get(
+                { fmt: 'json' , id: 'impex://LATMOS' }).$promise
+            this.registryPromiseRepo.then((res) => {
                 var result = <ISpase>res.spase
                 result.resources.forEach((res) => { console.log("repository="+res.repository.resourceId) })
             })   
-            // don know if this is the optimal way to do it 
-            this.registryPromise2 = this.registryService.getSimulationModel().get({ fmt: 'json' }).$promise
-            this.registryPromise2.then((res) => {
+            this.registryPromiseModel = this.registryService.getSimulationModel().get(
+                { fmt: 'json', id: 'impex://SINP/SimulationModel/Earth' }).$promise
+            this.registryPromiseModel.then((res) => {
                 var result = <ISpase>res.spase
                 result.resources.forEach((res) => { console.log("model="+res.simulationModel.resourceId) })
             })  
+            this.registryPromiseRun = this.registryService.getSimulationRun().get(
+                { fmt: 'json', id: 'impex://FMI/HWA/GUMICS/earth' }).$promise
+            this.registryPromiseRun.then((res) => {
+                var result = <ISpase>res.spase
+                result.resources.forEach((res) => { 
+                    if(res.simulationRun.simulationDomain.boundaryConditions)
+                        console.log("run="+res.simulationRun.resourceId+" "+
+                            res.simulationRun.simulationDomain.boundaryConditions.fieldBoundary.frontWall) })
+            })  
+            this.registryPromiseOutput = this.registryService.getNumericalOutput().get(
+                { fmt: 'json', id: 'impex://LATMOS/Hybrid/Gany_24_10_13' }).$promise
+            this.registryPromiseOutput.then((res) => {
+                var result = <ISpase>res.spase
+                result.resources.forEach((res) => {
+                    console.log("outputId="+res.numericalOutput.resourceId)
+                    
+                    if(res.numericalOutput.spatialDescription)
+                        console.log("outputS="+
+                            res.numericalOutput.spatialDescription.coordinateSystem.coordinateRepresentation)
+                     
+                    if(res.numericalOutput.temporalDescription)
+                        console.log("outputT="+res.numericalOutput.temporalDescription.timespan.startDate)
+                })
+            })
         }
         
         public getNum() {
