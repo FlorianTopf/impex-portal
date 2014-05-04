@@ -12,14 +12,16 @@ module portal {
         getGranule(): ISpase
     }
     
+    // simple resource map
+    export interface elements {
+        [index: string]: ISpase
+    }
+    
     export class RegistryService {
         static $inject: Array<string> = ['$resource']
         
         private resource: ng.resource.IResourceService
         private url: string = '/'
-        
-        // @TODO we will store here a map of loaded resources
-        // we need do design an appropriate structure for that
         
         // action descriptor for registry actions
         private registryAction: ng.resource.IActionDescriptor = {
@@ -34,6 +36,13 @@ module portal {
         constructor($resource: ng.resource.IResourceService) {
             this.resource = $resource
         }
+        
+        // @TODO we will store here a map of loaded resources
+        // we need do design an appropriate structure for that
+        // then we can make a cache out of it
+        public repositories: Array<Repository> = []
+        public simulationModels: Array<SimulationModel> = []
+        public simulationRuns: Array<SimulationRun> = []
         
         public getRepository(): IRegistryResource {
             return <IRegistryResource> this.resource(this.url+'registry/repository?', 

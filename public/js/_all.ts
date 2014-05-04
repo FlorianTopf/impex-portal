@@ -12,6 +12,7 @@
 /// <reference path='controllers/PortalCtrl.ts' />
 
 /// <reference path='directives/DatabasesDir.ts' />
+/// <reference path='directives/RegistryDir.ts' />
 
 /// <reference path='app.ts' />
 

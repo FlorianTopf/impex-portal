@@ -22,6 +22,11 @@ body {
 	margin: auto;
 	position: relative;
 }
+.loadingImg-sm {
+	margin: auto;
+	position: relative;
+	width: 33px;
+}
 
 .container {
 	min-width: 468px;
@@ -96,3 +101,7 @@ body {
 		top: 200px;
 	}
 }
+
+/* hack for angular-ui bootstrap */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+

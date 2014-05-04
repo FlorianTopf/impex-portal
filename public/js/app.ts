@@ -3,16 +3,16 @@
 module portal {
     'use strict';
 
-    var impexPortal = angular.module('portal', ['treecontrol','ngRoute', 'ngResource'])
+    var impexPortal = angular.module('portal', [,'ui.bootstrap', 'ngRoute', 'ngResource'])
  
     impexPortal.service('configService', ConfigService)
-    // testing resources
     impexPortal.service('registryService', RegistryService)
 
     impexPortal.controller('configCtrl', ConfigCtrl)
     impexPortal.controller('portalCtrl', PortalCtrl)
 
     impexPortal.directive('databasesDir', DatabasesDir.prototype.injection())
+    impexPortal.directive('registryDir', RegistryDir.prototype.injection())
 
     impexPortal.config(['$routeProvider', function($routeProvider) {
 		    $routeProvider.when('/config', {templateUrl: '/public/partials/config.html', controller: 'configCtrl'}).

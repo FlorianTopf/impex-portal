@@ -606,8 +606,6 @@ var portal;
     var RegistryService = (function () {
         function RegistryService($resource) {
             this.url = '/';
-            // @TODO we will store here a map of loaded resources
-            // we need do design an appropriate structure for that
             // action descriptor for registry actions
             this.registryAction = {
                 method: 'GET',
@@ -617,6 +615,12 @@ var portal;
                 },
                 isArray: false
             };
+            // @TODO we will store here a map of loaded resources
+            // we need do design an appropriate structure for that
+            // then we can make a cache out of it
+            this.repositories = [];
+            this.simulationModels = [];
+            this.simulationRuns = [];
             this.resource = $resource;
         }
         RegistryService.prototype.getRepository = function () {
@@ -714,7 +718,9 @@ var portal;
             var _this = this;
             this.configAble = true;
             this.ready = false;
-            this.num = 1;
+            this.loading = false;
+            this.transFinished = true;
+            this.oneAtATime = true;
             this.scope = $scope;
             this.scope.vm = this;
             this.http = $http;
@@ -726,84 +732,110 @@ var portal;
             this.interval = $interval;
             this.window = $window;
 
-            this.treedata = this.createSubTree(7);
-
             if (this.config == null) {
                 $location.path('/config');
             } else {
                 this.timeout(function () {
                     _this.ready = true;
-
-                    // PLAYING AROUND WITH ANGULAR RESOURCES
-                    _this.doSomething();
                 });
             }
         }
-        PortalCtrl.prototype.doSomething = function () {
-            // dont know if this is the optimal way to do it
-            this.registryPromiseRepo = this.registryService.getRepository().get({ fmt: 'json', id: 'impex://LATMOS' }).$promise;
+        PortalCtrl.prototype.getRepository = function (id) {
+            var _this = this;
+            // @FIXME improve this
+            this.registryService.repositories = [];
+            this.registryService.simulationModels = [];
+            this.registryService.simulationRuns = [];
+            this.loading = true;
+            this.transFinished = false;
+
+            // aligned with standard transition time of accordion
+            this.timeout(function () {
+                _this.transFinished = true;
+            }, 200);
+
+            // @FIXME dont know if this is the optimal way to do it
+            this.registryPromiseRepo = this.registryService.getRepository().get({ fmt: 'json', id: id }).$promise;
             this.registryPromiseRepo.then(function (res) {
                 var result = res.spase;
+
+                // @TODO here we should save the thing in a map
                 result.resources.forEach(function (res) {
                     console.log("repository=" + res.repository.resourceId);
+                    _this.registryService.repositories.push(res.repository);
                 });
+                _this.loading = false;
             });
-            this.registryPromiseModel = this.registryService.getSimulationModel().get({ fmt: 'json', id: 'impex://SINP/SimulationModel/Earth' }).$promise;
+        };
+
+        PortalCtrl.prototype.getSimulationModel = function (id) {
+            var _this = this;
+            // @FIXME improve this
+            this.registryService.simulationModels = [];
+            this.loading = true;
+            this.transFinished = false;
+
+            // aligned with standard transition time of accordion
+            this.timeout(function () {
+                _this.transFinished = true;
+            }, 350);
+
+            // @FIXME dont know if this is the optimal way to do it
+            this.registryPromiseModel = this.registryService.getSimulationModel().get({ fmt: 'json', id: id }).$promise;
             this.registryPromiseModel.then(function (res) {
                 var result = res.spase;
                 result.resources.forEach(function (res) {
                     console.log("model=" + res.simulationModel.resourceId);
+                    _this.registryService.simulationModels.push(res.simulationModel);
                 });
+                _this.loading = false;
             });
-            this.registryPromiseRun = this.registryService.getSimulationRun().get({ fmt: 'json', id: 'impex://FMI/HWA/GUMICS/earth' }).$promise;
+        };
+
+        PortalCtrl.prototype.getSimulationRun = function (id) {
+            var _this = this;
+            // @FIXME improve this
+            this.registryService.simulationRuns = [];
+            this.loading = true;
+            this.transFinished = false;
+
+            // aligned with standard transition time of accordion
+            this.timeout(function () {
+                _this.transFinished = true;
+            }, 350);
+
+            // @FIXME dont know if this is the optimal way to do it
+            this.registryPromiseModel = this.registryService.getSimulationRun().get({ fmt: 'json', id: id }).$promise;
+            this.registryPromiseRun = this.registryService.getSimulationRun().get({ fmt: 'json', id: id }).$promise;
             this.registryPromiseRun.then(function (res) {
                 var result = res.spase;
                 result.resources.forEach(function (res) {
                     if (res.simulationRun.simulationDomain.boundaryConditions)
                         console.log("run=" + res.simulationRun.resourceId + " " + res.simulationRun.simulationDomain.boundaryConditions.fieldBoundary.frontWall);
+                    _this.registryService.simulationRuns.push(res.simulationRun);
                 });
-            });
-            this.registryPromiseOutput = this.registryService.getNumericalOutput().get({ fmt: 'json', id: 'impex://LATMOS/Hybrid/Gany_24_10_13' }).$promise;
-            this.registryPromiseOutput.then(function (res) {
-                var result = res.spase;
-                result.resources.forEach(function (res) {
-                    console.log("outputId=" + res.numericalOutput.resourceId);
-
-                    if (res.numericalOutput.spatialDescription)
-                        console.log("outputS=" + res.numericalOutput.spatialDescription.coordinateSystem.coordinateRepresentation);
-
-                    if (res.numericalOutput.temporalDescription)
-                        console.log("outputT=" + res.numericalOutput.temporalDescription.timespan.startDate);
-                });
+                _this.loading = false;
             });
         };
 
-        PortalCtrl.prototype.getNum = function () {
-            return this.num++;
-        };
-
-        PortalCtrl.prototype.createSubTree = function (level) {
-            if (level > 0)
-                return [
-                    { "label": "Node " + this.getNum(), "id": "id", "children": this.createSubTree(level - 1) },
-                    { "label": "Node " + this.getNum(), "id": "id", "children": this.createSubTree(level - 1) },
-                    { "label": "Node " + this.getNum(), "id": "id", "children": this.createSubTree(level - 1) },
-                    { "label": "Node " + this.getNum(), "id": "id", "children": this.createSubTree(level - 1) }
-                ];
-else
-                return [];
-        };
-
-        PortalCtrl.prototype.showSelected = function (sel) {
-            this.selected = sel.label;
-        };
-
-        PortalCtrl.prototype.addRoot = function () {
-            this.treedata.push({ "label": "New Node " + this.getNum(), "id": "id", "children": [] });
-        };
-
-        PortalCtrl.prototype.addChild = function () {
-            this.treedata[0].children.push({ "label": "New Node " + this.getNum(), "id": "id", "children": [] });
+        // testing of angular resources
+        PortalCtrl.prototype.doSomething = function () {
+            /*
+            this.registryPromiseOutput = this.registryService.getNumericalOutput().get(
+            { fmt: 'json', id: 'impex://LATMOS/Hybrid/Gany_24_10_13' }).$promise
+            this.registryPromiseOutput.then((res) => {
+            var result = <ISpase>res.spase
+            result.resources.forEach((res) => {
+            console.log("outputId="+res.numericalOutput.resourceId)
+            
+            if(res.numericalOutput.spatialDescription)
+            console.log("outputS="+
+            res.numericalOutput.spatialDescription.coordinateSystem.coordinateRepresentation)
+            
+            if(res.numericalOutput.temporalDescription)
+            console.log("outputT="+res.numericalOutput.temporalDescription.timespan.startDate)
+            })
+            }) */
         };
         PortalCtrl.$inject = [
             '$scope',
@@ -853,22 +885,57 @@ var portal;
     })();
     portal.DatabasesDir = DatabasesDir;
 })(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
+    var RegistryDir = (function () {
+        function RegistryDir($timeout, configService, registryService) {
+            var _this = this;
+            this.configService = configService;
+            this.registryService = registryService;
+            this.timeout = $timeout;
+            this.templateUrl = '/public/partials/templates/registry.html';
+            this.restrict = 'E';
+            this.link = function ($scope, element, attributes) {
+                return _this.linkFn($scope, element, attributes);
+            };
+        }
+        RegistryDir.prototype.injection = function () {
+            return [
+                '$timeout',
+                'configService',
+                'registryService',
+                function ($timeout, configService, registryService) {
+                    return new RegistryDir($timeout, configService, registryService);
+                }
+            ];
+        };
+
+        RegistryDir.prototype.linkFn = function ($scope, element, attributes) {
+            $scope.registryvm = this;
+            this.myScope = $scope;
+        };
+        return RegistryDir;
+    })();
+    portal.RegistryDir = RegistryDir;
+})(portal || (portal = {}));
 /// <reference path='_all.ts' />
 var portal;
 (function (portal) {
     'use strict';
 
-    var impexPortal = angular.module('portal', ['treecontrol', 'ngRoute', 'ngResource']);
+    var impexPortal = angular.module('portal', [, 'ui.bootstrap', 'ngRoute', 'ngResource']);
 
     impexPortal.service('configService', portal.ConfigService);
-
-    // testing resources
     impexPortal.service('registryService', portal.RegistryService);
 
     impexPortal.controller('configCtrl', portal.ConfigCtrl);
     impexPortal.controller('portalCtrl', portal.PortalCtrl);
 
     impexPortal.directive('databasesDir', portal.DatabasesDir.prototype.injection());
+    impexPortal.directive('registryDir', portal.RegistryDir.prototype.injection());
 
     impexPortal.config([
         '$routeProvider',
