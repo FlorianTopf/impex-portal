@@ -778,7 +778,7 @@ var portal;
             // aligned with standard transition time of accordion
             this.timeout(function () {
                 _this.transFinished = true;
-            }, 350);
+            }, 200);
 
             // @FIXME dont know if this is the optimal way to do it
             this.registryPromiseModel = this.registryService.getSimulationModel().get({ fmt: 'json', id: id }).$promise;
@@ -802,7 +802,7 @@ var portal;
             // aligned with standard transition time of accordion
             this.timeout(function () {
                 _this.transFinished = true;
-            }, 350);
+            }, 200);
 
             // @FIXME dont know if this is the optimal way to do it
             this.registryPromiseModel = this.registryService.getSimulationRun().get({ fmt: 'json', id: id }).$promise;

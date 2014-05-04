@@ -69,7 +69,7 @@ module portal {
             this.loading = true
             this.transFinished = false
             // aligned with standard transition time of accordion
-            this.timeout(() => { this.transFinished = true}, 200)
+            this.timeout(() => { this.transFinished = true }, 200)
             // @FIXME dont know if this is the optimal way to do it 
             this.registryPromiseRepo = this.registryService.getRepository().get(
                 { fmt: 'json' , id: id }).$promise
@@ -91,7 +91,7 @@ module portal {
             this.loading = true
             this.transFinished = false
             // aligned with standard transition time of accordion
-            this.timeout(() => { this.transFinished = true}, 350)
+            this.timeout(() => { this.transFinished = true }, 200)
             // @FIXME dont know if this is the optimal way to do it 
             this.registryPromiseModel = this.registryService.getSimulationModel().get(
                 { fmt: 'json', id: id }).$promise
@@ -112,7 +112,7 @@ module portal {
             this.loading = true
             this.transFinished = false
             // aligned with standard transition time of accordion
-            this.timeout(() => { this.transFinished = true}, 350)
+            this.timeout(() => { this.transFinished = true }, 200)
             // @FIXME dont know if this is the optimal way to do it 
             this.registryPromiseModel = this.registryService.getSimulationRun().get(
                 { fmt: 'json', id: id }).$promise
