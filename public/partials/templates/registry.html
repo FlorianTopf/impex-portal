@@ -9,7 +9,7 @@
 		</div>
     	<div ng-show="!vm.loading && vm.transFinished">
     		<div class="btn-group-vertical">
-    			<!-- @TODO we may add an active class here later -->>
+    			<!-- @TODO we may add an active class here later -->
 				<button class="btn btn-default" ng-repeat="element in vm.registryService.repositories">
 					<!--  @FIXME we need to use the id because SINP is the only correct working tree atm -->
 					<span ng-click="vm.getSimulationModel(database.id)">{{element.resourceHeader.resourceName}}</span>
