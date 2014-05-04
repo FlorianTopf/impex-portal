@@ -19,7 +19,6 @@ module portal {
         private window: ng.IWindowService
         private scope: portal.IPortalScope
         private configPromise: ng.IPromise<any>
-        // just for testing
         private registryPromiseRepo: ng.IPromise<any>
         private registryPromiseModel: ng.IPromise<any>
         private registryPromiseRun: ng.IPromise<any>
@@ -77,7 +76,7 @@ module portal {
                 var result = <ISpase>res.spase
                 // @TODO here we should save the thing in a map
                 result.resources.forEach((res) => { 
-                    console.log("repository="+res.repository.resourceId) 
+                    //console.log("repository="+res.repository.resourceId) 
                     this.registryService.repositories.push(res.repository)
                 })
                 this.loading = false
@@ -98,7 +97,7 @@ module portal {
             this.registryPromiseModel.then((res) => {
                 var result = <ISpase>res.spase
                 result.resources.forEach((res) => { 
-                    console.log("model="+res.simulationModel.resourceId) 
+                    //console.log("model="+res.simulationModel.resourceId) 
                     this.registryService.simulationModels.push(res.simulationModel)
                 })
                 this.loading = false
@@ -121,9 +120,9 @@ module portal {
             this.registryPromiseRun.then((res) => {
                 var result = <ISpase>res.spase
                 result.resources.forEach((res) => { 
-                    if(res.simulationRun.simulationDomain.boundaryConditions)
-                        console.log("run="+res.simulationRun.resourceId+" "+
-                            res.simulationRun.simulationDomain.boundaryConditions.fieldBoundary.frontWall) 
+                    //if(res.simulationRun.simulationDomain.boundaryConditions)
+                        //console.log("run="+res.simulationRun.resourceId+" "+
+                    //        res.simulationRun.simulationDomain.boundaryConditions.fieldBoundary.frontWall) 
                     this.registryService.simulationRuns.push(res.simulationRun)
                 })
                 this.loading = false

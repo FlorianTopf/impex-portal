@@ -43,6 +43,7 @@ module portal {
         public repositories: Array<Repository> = []
         public simulationModels: Array<SimulationModel> = []
         public simulationRuns: Array<SimulationRun> = []
+        public numericalOutputs: Array<NumericalOutput> = []
         
         public getRepository(): IRegistryResource {
             return <IRegistryResource> this.resource(this.url+'registry/repository?', 

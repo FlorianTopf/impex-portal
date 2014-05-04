@@ -17,7 +17,7 @@ module portal {
             ]
         }
 
-    	public link: ($scope: portal.IDatabasesDirScope, element: JQuery, attributes: any) => any
+    	public link: ($scope: portal.IDatabasesDirScope, element: JQuery, attributes: ng.IAttributes) => any
     	public templateUrl: string
     	public restrict: string
 
@@ -35,7 +35,7 @@ module portal {
 	        
     	}
 
-    	linkFn($scope: portal.IDatabasesDirScope, element: JQuery, attributes: any): any {
+    	linkFn($scope: portal.IDatabasesDirScope, element: JQuery, attributes: ng.IAttributes): any {
             $scope.databasesvm = this
             this.myScope = $scope
         }

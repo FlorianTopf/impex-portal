@@ -621,6 +621,7 @@ var portal;
             this.repositories = [];
             this.simulationModels = [];
             this.simulationRuns = [];
+            this.numericalOutputs = [];
             this.resource = $resource;
         }
         RegistryService.prototype.getRepository = function () {
@@ -761,7 +762,7 @@ var portal;
 
                 // @TODO here we should save the thing in a map
                 result.resources.forEach(function (res) {
-                    console.log("repository=" + res.repository.resourceId);
+                    //console.log("repository="+res.repository.resourceId)
                     _this.registryService.repositories.push(res.repository);
                 });
                 _this.loading = false;
@@ -785,7 +786,7 @@ var portal;
             this.registryPromiseModel.then(function (res) {
                 var result = res.spase;
                 result.resources.forEach(function (res) {
-                    console.log("model=" + res.simulationModel.resourceId);
+                    //console.log("model="+res.simulationModel.resourceId)
                     _this.registryService.simulationModels.push(res.simulationModel);
                 });
                 _this.loading = false;
@@ -810,8 +811,9 @@ var portal;
             this.registryPromiseRun.then(function (res) {
                 var result = res.spase;
                 result.resources.forEach(function (res) {
-                    if (res.simulationRun.simulationDomain.boundaryConditions)
-                        console.log("run=" + res.simulationRun.resourceId + " " + res.simulationRun.simulationDomain.boundaryConditions.fieldBoundary.frontWall);
+                    //if(res.simulationRun.simulationDomain.boundaryConditions)
+                    //console.log("run="+res.simulationRun.resourceId+" "+
+                    //        res.simulationRun.simulationDomain.boundaryConditions.fieldBoundary.frontWall)
                     _this.registryService.simulationRuns.push(res.simulationRun);
                 });
                 _this.loading = false;
@@ -902,6 +904,7 @@ var portal;
                 return _this.linkFn($scope, element, attributes);
             };
         }
+        // @TODO here we add dependencies for the used elements in bootstrap-ui
         RegistryDir.prototype.injection = function () {
             return [
                 '$timeout',
@@ -926,8 +929,9 @@ var portal;
 (function (portal) {
     'use strict';
 
-    var impexPortal = angular.module('portal', [, 'ui.bootstrap', 'ngRoute', 'ngResource']);
+    var impexPortal = angular.module('portal', ['ui.bootstrap', 'ngRoute', 'ngResource']);
 
+    // here we may add options for bootstrap-ui
     impexPortal.service('configService', portal.ConfigService);
     impexPortal.service('registryService', portal.RegistryService);
 

@@ -3,7 +3,9 @@
 module portal {
     'use strict';
 
-    var impexPortal = angular.module('portal', [,'ui.bootstrap', 'ngRoute', 'ngResource'])
+    var impexPortal = angular.module('portal', ['ui.bootstrap', 'ngRoute', 'ngResource'])
+    
+    // here we may add options for bootstrap-ui
  
     impexPortal.service('configService', ConfigService)
     impexPortal.service('registryService', RegistryService)

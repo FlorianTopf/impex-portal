@@ -9,6 +9,7 @@ module portal {
 
     export class RegistryDir {
 
+        // @TODO here we add dependencies for the used elements in bootstrap-ui
         public injection(): any[] {
             return [
                 '$timeout',
@@ -19,8 +20,8 @@ module portal {
                     return new RegistryDir($timeout, configService, registryService); }
             ]
         }
-
-        public link: ($scope: portal.IRegistryDirScope, element: JQuery, attributes: any) => any
+        
+        public link: ($scope: portal.IRegistryDirScope, element: JQuery, attributes: ng.IAttributes) => any
         public templateUrl: string
         public restrict: string
         
@@ -41,10 +42,9 @@ module portal {
             
         }
 
-        linkFn($scope: portal.IRegistryDirScope, element: JQuery, attributes: any): any {
+        linkFn($scope: portal.IRegistryDirScope, element: JQuery, attributes: ng.IAttributes): any {
             $scope.registryvm = this
             this.myScope = $scope
-
         }
         
         
