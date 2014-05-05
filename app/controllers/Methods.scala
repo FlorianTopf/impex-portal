@@ -34,6 +34,7 @@ object Methods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "database id stored in the config", 
+        defaultValue = "impex://FMI",
         required = true, 
         dataType = "string", 
         paramType = "query")))
