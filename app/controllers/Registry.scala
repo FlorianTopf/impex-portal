@@ -106,7 +106,7 @@ object Registry extends Controller {
   @ApiOperation(
       value = "get repositories", 
       nickname = "getRepository",
-      notes = "returns the repository elements all databases", 
+      notes = "returns the repository elements of all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
   @Path("/repository")
@@ -134,7 +134,7 @@ object Registry extends Controller {
   @ApiOperation(
       value = "get simulation models", 
       nickname = "getSimulationModel",
-      notes = "returns the simulation model elements all databases", 
+      notes = "returns the simulation model elements of all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
   @Path("/simulationmodel")
@@ -168,7 +168,7 @@ object Registry extends Controller {
   @ApiOperation(
       value = "get simulation runs", 
       nickname = "getSimulationRun",
-      notes = "returns the simulation run elements all databases", 
+      notes = "returns the simulation run elements of all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
   @Path("/simulationrun")
@@ -202,7 +202,7 @@ object Registry extends Controller {
   @ApiOperation(
       value = "get numerical outputs", 
       nickname = "getNumericalOutput",
-      notes = "returns the numerical output elements all databases", 
+      notes = "returns the numerical output elements of all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
   @Path("/numericaloutput")
@@ -236,7 +236,7 @@ object Registry extends Controller {
   @ApiOperation(
       value = "get granules", 
       nickname = "getGranule",
-      notes = "returns the granule elements all databases", 
+      notes = "returns the granule elements of all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
   @Path("/granule")
