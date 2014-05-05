@@ -20,12 +20,10 @@ import javax.xml.datatype._
 object Application extends Controller {
   
   // route for portal client
-  def index = Action {
-    Ok(views.html.portal())
-  }
+  def index = Action { Ok(views.html.portal()) }
   
   // route for swagger ui
-  def apiview = ???
+  def apiview = Action { Ok(views.html.apiview()) }
   
   // route for testing
   def test = PortalAction {

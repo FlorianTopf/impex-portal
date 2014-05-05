@@ -23,6 +23,7 @@ object Methods extends Controller {
   @GET
   @ApiOperation(
       value = "get WSDL file", 
+      nickname = "getWSDL",
       notes = "returns the WDSL file of a database", 
       response = classOf[Elem], 
       httpMethod = "GET")

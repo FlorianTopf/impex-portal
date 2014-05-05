@@ -15,7 +15,7 @@ GET     /assets/*file               controllers.Assets.at(path="/public", file)
 GET		/api-docs					controllers.ApiHelpController.getResources
 
 # route for swagger ui
-#GET	/api-docs-view				controllers.Application.apiview
+GET		/api-view					controllers.Application.apiview
 
 # config routes
 GET		/api-docs/config			controllers.ApiHelpController.getResource(path = "/config")

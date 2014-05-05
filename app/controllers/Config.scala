@@ -22,6 +22,7 @@ object Config extends Controller {
   @GET
   @ApiOperation(
       value = "get config", 
+      nickname = "getConfig",
       notes = "returns the configuration file", 
       response = classOf[models.binding.Impexconfiguration], 
       httpMethod = "GET")

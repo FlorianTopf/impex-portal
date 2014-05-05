@@ -23,12 +23,13 @@ import javax.ws.rs.core.MediaType._
     value = "/registry", 
     description = "operations for using the IMPEx registry services")
 @Path( "/registry" )
-@Produces(Array(APPLICATION_JSON, APPLICATION_XML))
+@Produces(Array(APPLICATION_XML, APPLICATION_JSON))
 object Registry extends Controller {
 
   @GET
   @ApiOperation(
       value = "get registry", 
+      nickname = "getRegistry",
       notes = "returns the tree of a database or a full IMPEx registry", 
       response = classOf[JsObject], 
       httpMethod = "GET")
@@ -36,7 +37,14 @@ object Registry extends Controller {
     new ApiResponse(code = 501, message = "unkown provider"), 
     new ApiResponse(code = 502, message = "not implemented")))
   @ApiImplicitParams(Array(
-    new ApiImplicitParam(name = "id", value = "database id stored in the config", required = false, dataType = "string", paramType = "query")))
+    new ApiImplicitParam(
+        name = "id", 
+        value = "database id stored in the config", 
+        // provide default value for swagger-ui stability
+        defaultValue = "impex://SINP",
+        required = false, 
+        dataType = "string", 
+        paramType = "query")))
   def registry(
       @ApiParam(value = "format in XML or JSON")
       @QueryParam("fmt")
@@ -53,6 +61,7 @@ object Registry extends Controller {
   @GET
   @ApiOperation(
       value = "get simulation repositories", 
+      nickname = "getSimulationRepository",
       notes = "returns the repository elements of simulation databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
@@ -74,6 +83,7 @@ object Registry extends Controller {
   @GET
   @ApiOperation(
       value = "get observation repositories", 
+      nickname = "getObservationRepository",
       notes = "returns the repository elements of observation databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
@@ -95,6 +105,7 @@ object Registry extends Controller {
   @GET
   @ApiOperation(
       value = "get repositories", 
+      nickname = "getRepository",
       notes = "returns the repository elements all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
@@ -122,6 +133,7 @@ object Registry extends Controller {
   @GET
   @ApiOperation(
       value = "get simulation models", 
+      nickname = "getSimulationModel",
       notes = "returns the simulation model elements all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
@@ -130,6 +142,8 @@ object Registry extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "database id stored in the config or simulation model id from a tree", 
+        // provide default value for swagger-ui stability
+        defaultValue = "impex://FMI/",
         required = false, 
         dataType = "string", 
         paramType = "query")))
@@ -153,6 +167,7 @@ object Registry extends Controller {
   @GET
   @ApiOperation(
       value = "get simulation runs", 
+      nickname = "getSimulationRun",
       notes = "returns the simulation run elements all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
@@ -161,6 +176,8 @@ object Registry extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "database id stored in the config or simulation run id from a tree", 
+        // provide default value for swagger-ui stability
+        defaultValue = "impex://LATMOS",
         required = false, 
         dataType = "string", 
         paramType = "query")))
@@ -184,6 +201,7 @@ object Registry extends Controller {
   @GET
   @ApiOperation(
       value = "get numerical outputs", 
+      nickname = "getNumericalOutput",
       notes = "returns the numerical output elements all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
@@ -192,6 +210,8 @@ object Registry extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "database id stored in the config or numerical output id from a tree", 
+        // provide default value for swagger-ui stability
+        defaultValue = "impex://SINP",
         required = false, 
         dataType = "string", 
         paramType = "query")))
@@ -215,6 +235,7 @@ object Registry extends Controller {
   @GET
   @ApiOperation(
       value = "get granules", 
+      nickname = "getGranule",
       notes = "returns the granule elements all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
@@ -223,6 +244,8 @@ object Registry extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "database id stored in the config or granule id from a tree", 
+        // provide default value for swagger-ui stability
+        defaultValue = "impex://LATMOS",
         required = false, 
         dataType = "string", 
         paramType = "query")))
