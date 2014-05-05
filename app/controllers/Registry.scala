@@ -16,6 +16,7 @@ import com.wordnik.swagger.annotations._
 import com.wordnik.swagger.core.util.ScalaJsonUtil
 import javax.ws.rs._
 import javax.ws.rs.core.MediaType._
+import scala.language.implicitConversions
 
 
 // @TODO improve all namespaces of returned XML files
@@ -25,7 +26,8 @@ import javax.ws.rs.core.MediaType._
 @Path( "/registry" )
 @Produces(Array(APPLICATION_XML, APPLICATION_JSON))
 object Registry extends Controller {
-
+  implicit def str2bool(s: String): Boolean = s.equals("true")
+  
   @GET
   @ApiOperation(
       value = "get registry", 
@@ -154,7 +156,7 @@ object Registry extends Controller {
       @ApiParam(value = "recursive tree including all ancestor elements")
       @QueryParam("r")
       @DefaultValue("false") r: String = "false") = PortalAction.async { implicit request =>
-    val future = RegistryService.getSimulationModel(request.req.get("id"), r.toBoolean)
+    val future = RegistryService.getSimulationModel(request.req.get("id"), r)
     future.map { (_, fmt.toLowerCase) match {
         case (Left(spase), "json") => Ok(Json.toJson(spase))
         case (Left(spase), _) => 
@@ -188,7 +190,7 @@ object Registry extends Controller {
       @ApiParam(value = "recursive tree including all ancestor elements")
       @QueryParam("r")
       @DefaultValue("false") r: String = "false") = PortalAction.async { implicit request =>
-    val future = RegistryService.getSimulationRun(request.req.get("id"), r.toBoolean)
+    val future = RegistryService.getSimulationRun(request.req.get("id"), r)
     future.map { (_, fmt) match {
         case (Left(spase), "json") => Ok(Json.toJson(spase))
         case (Left(spase), _) => 
@@ -222,7 +224,7 @@ object Registry extends Controller {
       @ApiParam(value = "recursive tree including all ancestor elements")
       @QueryParam("r")
       @DefaultValue("false") r: String = "false") = PortalAction.async { implicit request =>
-    val future = RegistryService.getNumericalOutput(request.req.get("id"), r.toBoolean)
+    val future = RegistryService.getNumericalOutput(request.req.get("id"), r)
     future.map { (_, fmt.toLowerCase) match {
         case (Left(spase), "json") => Ok(Json.toJson(spase))
         case (Left(spase), _) => 
@@ -256,7 +258,7 @@ object Registry extends Controller {
       @ApiParam(value = "recursive tree including all ancestor elements")
       @QueryParam("r")
       @DefaultValue("false") r: String = "false") = PortalAction.async { implicit request =>
-    val future = RegistryService.getGranule(request.req.get("id"), r.toBoolean)
+    val future = RegistryService.getGranule(request.req.get("id"), r)
     future.map { (_, fmt.toLowerCase) match {
         case (Left(spase), "json") => Ok(Json.toJson(spase))
         case (Left(spase), _) => 
