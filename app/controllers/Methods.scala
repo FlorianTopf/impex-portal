@@ -59,6 +59,8 @@ object Methods extends Controller {
     }}
   }
   
+  // INTERMEDIATE: provide routes to modified WSDL files for taverna
+  // @TODO workflow files need to be updated!
   @GET
   @ApiOperation(
       value = "get WSDL file for Taverna", 
@@ -77,7 +79,6 @@ object Methods extends Controller {
         required = true, 
         dataType = "string", 
         paramType = "query")))
-  // INTERMEDIATE: provide routes to modified WSDL files for taverna
   def methodsTaverna = PortalAction.async { implicit req => 
     for {
       databases <- models.actor.ConfigService.request(GetDatabases).mapTo[Seq[Database]]

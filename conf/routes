@@ -5,7 +5,7 @@
 # Home page
 GET     /                           controllers.Application.index
 
-#route for angular.js
+# route for angular.js
 GET     /public/*file      			controllers.Assets.at(path="/public", file)
 
 # Map static resources from the /public folder to the /assets URL path
@@ -22,12 +22,12 @@ GET		/api-docs/config			controllers.ApiHelpController.getResource(path = "/confi
 
 GET		/config						controllers.Config.config(fmt: String ?= "xml")
 
-# preliminary registry routes (will be improved later)
+# registry routes 
 GET		/api-docs/registry			controllers.ApiHelpController.getResource(path = "/registry")
 
 GET		/registry					controllers.Registry.registry(fmt: String ?= "xml")
 
-#simulations
+# simulations
 GET 	/registry/simulations	    controllers.Registry.simulations(fmt: String ?= "xml")
 
 GET		/registry/observations		controllers.Registry.observations(fmt: String ?= "xml")
@@ -42,7 +42,7 @@ GET		/registry/numericaloutput  	controllers.Registry.numericaloutput(fmt: Strin
 
 GET		/registry/granule		  	controllers.Registry.granule(fmt: String ?= "xml", r: String ?= "false")
 
-#observations
+# observations
 GET 	/registry/observatory		controllers.Registry.observatory(fmt: String ?= "xml", r: String ?= "false")
 
 GET		/registry/instrument		controllers.Registry.instrument(fmt: String ?= "xml", r: String ?= "false")
@@ -54,7 +54,7 @@ GET		/api-docs/methods			controllers.ApiHelpController.getResource(path = "/meth
 
 GET		/methods					controllers.Methods.methods
 
-#taverna methods
+# taverna methods
 GET		/methods/taverna			controllers.Methods.methodsTaverna
 
 # general testing route
