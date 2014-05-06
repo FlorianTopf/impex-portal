@@ -799,7 +799,7 @@
 
   
   <wsdl:service name="Methods_SINP">
-    <wsdl:port binding="Methods_SINPSoapBinding" name="Methods_SINPPort">
+    <wsdl:port binding="Methods_SINPSoapBinding" name="Methods_SINP">
       <soap:address location="http://smdc.sinp.msu.ru/impex/SINPWebServiceServer.php"/>
     </wsdl:port>
   </wsdl:service>

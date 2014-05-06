@@ -257,7 +257,7 @@
         <Description>URL of the netcdf/VoTable file containing the 3D coordinates and values</Description>
         <CoordinateSystem>
           <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-          <CoordinateSystemName>HSM</CoordinateSystemName>
+          <CoordinateSystemName>MSO</CoordinateSystemName>
         </CoordinateSystem>
         <Field>
           <FieldQuantity>Magnetic</FieldQuantity>
@@ -468,8 +468,8 @@
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
-        <ValidMin>150</ValidMin>
-        <ValidMax>340</ValidMax>
+        <ValidMin>-340</ValidMin>
+        <ValidMax>-150</ValidMax>
       </Property>
       <Property>
         <Name>Flux</Name>
@@ -477,8 +477,8 @@
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>MWb</Units>
         <UnitsConversion>1000000&gt;Wb</UnitsConversion>
-        <ValidMin>2.3</ValidMin>
-        <ValidMax>5.0</ValidMax>
+        <ValidMin>60.0</ValidMin>
+        <ValidMax>250.0</ValidMax>
       </Property>
       <Property>
         <Name>Rss</Name>
@@ -495,8 +495,8 @@
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rm</Units>
         <UnitsConversion>2439000&gt;m</UnitsConversion>
-        <ValidMin>1.1</ValidMin>
-        <ValidMax>2.2</ValidMax>
+        <ValidMin>1.0</ValidMin>
+        <ValidMax>2.0</ValidMax>
       </Property>
       <Property>
         <Name>DZ</Name>
@@ -504,8 +504,8 @@
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rm</Units>
         <UnitsConversion>2439000&gt;m</UnitsConversion>
-        <ValidMin>0.0</ValidMin>
-        <ValidMax>0.0</ValidMax>
+        <ValidMin>-0.1</ValidMin>
+        <ValidMax>0.4</ValidMax>
       </Property>
       <Property>
         <Name>IMF_B</Name>
@@ -522,7 +522,7 @@
         <Description>URL of the netcdf/VoTable file containing the 3D coordinates (HSM) and magnetic field vectors in this points</Description>
         <CoordinateSystem>
           <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-          <CoordinateSystemName>HSM</CoordinateSystemName>
+          <CoordinateSystemName>MSO</CoordinateSystemName>
         </CoordinateSystem>
         <Field>
           <FieldQuantity>Magnetic</FieldQuantity>
@@ -2822,7 +2822,7 @@
     <SimulationDomain>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-        <CoordinateSystemName>HSM</CoordinateSystemName>
+        <CoordinateSystemName>MSO</CoordinateSystemName>
       </CoordinateSystem>
       <SpatialDimension>3</SpatialDimension>
       <VelocityDimension>3</VelocityDimension>
@@ -2940,7 +2940,7 @@
 
   
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/OnFly/3D-cube</ResourceID>
+    <ResourceID>impex://SINP/NumericalOutput/Earth/OnFly</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2013-07-01T00:00:00</ReleaseDate>
@@ -3838,7 +3838,7 @@
     </AccessInformation>
     <MeasurementType>MagneticField</MeasurementType>
     <SimulatedRegion>Mercury</SimulatedRegion>
-    <InputResourceID>impex://SINP/PMM/Mercury/OnFly/SimRun</InputResourceID>
+    <InputResourceID>impex://SINP/SimulationRun/Mercury/OnFly</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3846,7 +3846,7 @@
       <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-        <CoordinateSystemName>HSM</CoordinateSystemName>
+        <CoordinateSystemName>MSO</CoordinateSystemName>
       </CoordinateSystem>
       <Field>
         <FieldQuantity>Magnetic</FieldQuantity>

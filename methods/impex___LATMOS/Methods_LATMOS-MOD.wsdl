@@ -62,10 +62,8 @@
 			<xs:element type="PlaneNormalVector" name="PlaneNormalVector"/>
 			<xs:element type="xs:double" name="Resolution"/>
 			<xs:element type="xs:double" name="StepSize"/>
+
 			<xs:element type="xs:string" name="Spacecraft_name"/>
-			
-
-
 			<!--xs:simpleType name="Variable">
 				<xs:annotation>
 					<xs:documentation>List of individual parameters from the selected
@@ -75,7 +73,6 @@
 				</xs:annotation>
 				<xs:list itemType="ParameterKey"/>
 			</xs:simpleType-->
-
 			<xs:simpleType name="Population">
 				<xs:annotation>
 					<xs:documentation>List of population species from the selected NumericalOutput
@@ -84,7 +81,6 @@
 				</xs:annotation>
 				<xs:list itemType="PopulationID"/>
 			</xs:simpleType>
-
 			<xs:simpleType name="EnergyChannel">
 				<xs:annotation>
 					<xs:documentation>A list of Energy channel number (Ch0, Ch1, Ch2,...) separated
@@ -143,13 +139,18 @@
 					</xs:element>
 				</xs:sequence>
 			</xs:complexType>
-		
+
+			
 			<xs:complexType name="extraParams_getDataPointValue">
 				<xs:sequence>
 					<xs:element ref="IMFClockAngle" maxOccurs="1" minOccurs="0"/>
 					<xs:element ref="OutputFileType" maxOccurs="1" minOccurs="0"/>
 				</xs:sequence>
 			</xs:complexType>
+
+
+
+
 
 
 			
@@ -166,14 +167,11 @@
 					</xs:element>
 					<xs:element ref="Population" maxOccurs="1" minOccurs="0"/>
 					<xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
-					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointSpectra" name="extraParams"> 
-						<xs:annotation>
-							<xs:documentation>An associative array of (key,value) pairs defining
-								SMDB specific parameters</xs:documentation>
-						</xs:annotation>
-					</xs:element>
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointSpectra" name="extraParams"> </xs:element>
 				</xs:sequence>
 			</xs:complexType>
+
+
 			
 			<xs:complexType name="extraParams_getDataPointSpectra">
 				<xs:sequence>
@@ -182,7 +180,6 @@
 					<xs:element ref="EnergyChannel" maxOccurs="1" minOccurs="0"/>
 				</xs:sequence>
 			</xs:complexType>
-
 
 			
 			<xs:element type="Surface" name="getSurface"/>
@@ -198,14 +195,10 @@
 					<xs:element ref="Variable" maxOccurs="1" minOccurs="0"/>
 					<xs:element ref="PlanePoint" maxOccurs="1" minOccurs="1"/>
 					<xs:element ref="PlaneNormalVector" maxOccurs="1" minOccurs="1"/>
-					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getSurface" name="extraParams">
-						<xs:annotation>
-							<xs:documentation>An associative array of (key,value) pairs defining
-								SMDB specific parameters</xs:documentation>
-						</xs:annotation>
-					</xs:element>
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getSurface" name="extraParams"> </xs:element>
 				</xs:sequence>
 			</xs:complexType>
+
 			
 			<xs:complexType name="extraParams_getSurface">
 				<xs:sequence>
@@ -214,6 +207,7 @@
 					<xs:element ref="OutputFileType" maxOccurs="1" minOccurs="0"/>
 				</xs:sequence>
 			</xs:complexType>
+
 
 
 			
@@ -232,17 +226,11 @@
 					<xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
 					<xs:element ref="StopTime" maxOccurs="1" minOccurs="1"/>
 					<xs:element ref="Sampling" maxOccurs="1" minOccurs="1"/>
-					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointValue" name="extraParams">
-						<xs:annotation>
-							<xs:documentation>An associative array of (key,value) pairs defining
-								SMDB specific parameters</xs:documentation>
-						</xs:annotation>
-					</xs:element>
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointValue" name="extraParams"> </xs:element>
 				</xs:sequence>
 			</xs:complexType>
+
 			
-
-
 			<xs:element type="DataPointSpectra_Spacecraft" name="getDataPointSpectra_Spacecraft"/>
 
 			<xs:complexType name="DataPointSpectra_Spacecraft">
@@ -260,17 +248,11 @@
 					<xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
 					<xs:element ref="StopTime" maxOccurs="1" minOccurs="1"/>
 					<xs:element ref="Sampling" maxOccurs="1" minOccurs="1"/>
-					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointSpectra" name="extraParams">
-						<xs:annotation>
-							<xs:documentation>An associative array of (key,value) pairs defining
-								SMDB specific parameters</xs:documentation>
-						</xs:annotation>
-					</xs:element>
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointSpectra" name="extraParams"> </xs:element>
 				</xs:sequence>
 			</xs:complexType>
 
-
-
+			
 			<xs:element type="FileURL" name="getFileURL"/>
 
 			<xs:complexType name="FileURL">
@@ -286,10 +268,8 @@
 				</xs:sequence>
 			</xs:complexType>
 
-
 			
 			<xs:element type="FieldLine" name="getFieldLine"/>
-
 			<xs:complexType name="FieldLine">
 				<xs:sequence>
 					<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
@@ -311,6 +291,7 @@
 					</xs:element>
 				</xs:sequence>
 			</xs:complexType>
+
 			
 			<xs:complexType name="extraParams_getFieldLine">
 				<xs:sequence>
@@ -331,11 +312,11 @@
 				</xs:restriction>
 			</xs:simpleType>
 		</xs:schema>
-		
 	</wsdl:types>
 
 
 
+	
 	<wsdl:message name="DataPointValue_Request">
 		<wsdl:part element="getDataPointValue" name="parameters"/>
 	</wsdl:message>
@@ -369,12 +350,14 @@
 		<wsdl:part element="genResponse" name="parameters"/>
 	</wsdl:message>
 
+
 	<wsdl:message name="FieldLine_Request">
 		<wsdl:part element="getFieldLine" name="parameters"/>
 	</wsdl:message>
 
 	
 
+	
 	<wsdl:portType name="Methods_LATMOS">
 		<wsdl:operation name="getDataPointValue">
 			<wsdl:input message="DataPointValue_Request"> </wsdl:input>
@@ -407,6 +390,8 @@
 	</wsdl:portType>
 
 
+
+	
 
 	<wsdl:binding type="Methods_LATMOS" name="Methods_LATMOSSoapBinding">
 		<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
@@ -450,6 +435,7 @@
 			</wsdl:output>
 		</wsdl:operation>
 
+
 		<wsdl:operation name="getDataPointSpectra_Spacecraft">
 			<soap:operation soapAction="DataPointSpectra_Spacecraft"/>
 			<wsdl:input>
@@ -470,6 +456,7 @@
 			</wsdl:output>
 		</wsdl:operation>
 
+
 		<wsdl:operation name="getFieldLine">
 			<soap:operation soapAction="FieldLine"/>
 			<wsdl:input>
@@ -482,7 +469,9 @@
 	</wsdl:binding>	
 
 
-		
+	
+	
+	
 	<wsdl:service name="Methods_LATMOS">
 		<wsdl:port binding="Methods_LATMOSSoapBinding" name="Methods_LATMOSPort">
 				

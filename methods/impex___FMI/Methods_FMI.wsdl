@@ -110,7 +110,7 @@
 		</xs:simpleType>
 
 
-		
+
 		<xs:element type="DataPointValue" name="getDataPointValue"/>
 
 		<xs:complexType name="DataPointValue">

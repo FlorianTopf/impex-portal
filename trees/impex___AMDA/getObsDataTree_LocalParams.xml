@@ -779,103 +779,250 @@
         </dataset>
       </instrument>
     </mission>
-    <mission available="1" target="Saturn" desc="Michigan_Solar_Wind_Model_Saturn" xml:id="mSWiM_Saturn" rank="9" name="mSWiM_Saturn" att="parameters/mSWiM">
-      <instrument desc="Magnetometer" xml:id="mSWiM_Saturn:MAG" name="MAG" att="">
-        <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/12/31" dataStart="1995/01/01" maxSampling="" sampling="1h" xml:id="sws:1hour:mag" name="mag_1hour" att="">
-          <parameter xml:id="b_sws_rtn" display_type="" units="nT" name="b_rtn">
-            <component xml:id="b_sws_rtn(0)" name="br"/>
-            <component xml:id="b_sws_rtn(1)" name="bt"/>
-            <component xml:id="b_sws_rtn(2)" name="bn"/>
-          </parameter>
-          <parameter xml:id="b_sws_mag" display_type="" units="nT" name="b_mag"/>
-        </dataset>
-        <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2007/09/20" dataStart="1994/04/11" maxSampling="" sampling="10m" xml:id="sws:10min:mag" name="mag_10min" att="">
-          <parameter xml:id="b_sws10_rtn" display_type="" units="nT" name="b_rtn">
-            <component xml:id="b_sws10_rtn(0)" name="br"/>
-            <component xml:id="b_sws10_rtn(1)" name="bt"/>
-            <component xml:id="b_sws10_rtn(2)" name="bn"/>
-          </parameter>
-          <parameter xml:id="b_sws10_mag" display_type="" units="nT" name="b_mag"/>
-        </dataset>
-      </instrument>
-      <instrument desc="Plasma" xml:id="mSWiM_Saturn:PLASMA" name="PLASMA" att="">
-        <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/12/31" dataStart="1995/01/01" maxSampling="" sampling="1h" xml:id="sws:1hour:plasma" name="plasma_1hour" att="">
-          <parameter xml:id="rho_sws" display_type="" units="cm-3" name="density"/>
-          <parameter xml:id="t_sws" display_type="" units="K" name="temperature"/>
-          <parameter xml:id="v_sws_mag" display_type="" units="km/s" name="v_mag"/>
-          <parameter xml:id="v_sws_rtn" display_type="" units="km/s" name="v_rtn">
-            <component xml:id="v_sws_rtn(0)" name="vr"/>
-            <component xml:id="v_sws_rtn(1)" name="vt"/>
-            <component xml:id="v_sws_rtn(2)" name="vn"/>
-          </parameter>
-          <parameter xml:id="pdyn_sws" display_type="" units="Pa" name="pdyn"/>
-        </dataset>
-        <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2007/09/20" dataStart="1994/04/11" maxSampling="" sampling="10m" xml:id="sws:10min:plasma" name="plasma_10min" att="">
-          <parameter xml:id="rho_sws10" display_type="" units="cm-3" name="density"/>
-          <parameter xml:id="t_sws10" display_type="" units="K" name="temperature"/>
-          <parameter xml:id="v_sws10_mag" display_type="" units="km/s" name="v_mag"/>
-          <parameter xml:id="v_sws10_rtn" display_type="" units="km/s" name="v_rtn">
-            <component xml:id="v_sws10_rtn(0)" name="vr"/>
-            <component xml:id="v_sws10_rtn(1)" name="vt"/>
-            <component xml:id="v_sws10_rtn(2)" name="vn"/>
-          </parameter>
-        </dataset>
-      </instrument>
-      <instrument desc="Position" xml:id="mSWiM_Saturn:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/12/31" dataStart="1995/01/01" maxSampling="" sampling="1h" xml:id="sws:1hour:eph" name="ephemeris_1hour" att="">
-          <parameter xml:id="dphi_sws" display_type="" units="deg" name="dPhi"/>
-          <parameter xml:id="r_sws" display_type="" units="km" name="R"/>
-        </dataset>
-      </instrument>
+    <mission available="1" target="Saturn" desc="Solar_Wind_Models_Saturn" xml:id="SolarWind_Predictions@Saturn" rank="9" name="SolarWind_Predictions@Saturn" att="">
+      <simulationModel desc="Michigan_Solar_Wind_Model_Saturn" xml:id="Michigan_Model_Saturn" name="Michigan_Model" att="parameters/mSWiM">
+        <instrument desc="Magnetometer" xml:id="Michigan_Mag_Saturn" name="MAG" att="">
+          <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/12/31" dataStart="1995/01/01" maxSampling="" sampling="1h" xml:id="sws:1hour:mag" name="mag_1hour" att="">
+            <parameter xml:id="b_sws_rtn" display_type="" units="nT" name="b_rtn">
+              <component xml:id="b_sws_rtn(0)" name="br"/>
+              <component xml:id="b_sws_rtn(1)" name="bt"/>
+              <component xml:id="b_sws_rtn(2)" name="bn"/>
+            </parameter>
+            <parameter xml:id="b_sws_mag" display_type="" units="nT" name="b_mag"/>
+          </dataset>
+          <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2007/09/20" dataStart="1994/04/11" maxSampling="" sampling="10m" xml:id="sws:10min:mag" name="mag_10min" att="">
+            <parameter xml:id="b_sws10_rtn" display_type="" units="nT" name="b_rtn">
+              <component xml:id="b_sws10_rtn(0)" name="br"/>
+              <component xml:id="b_sws10_rtn(1)" name="bt"/>
+              <component xml:id="b_sws10_rtn(2)" name="bn"/>
+            </parameter>
+            <parameter xml:id="b_sws10_mag" display_type="" units="nT" name="b_mag"/>
+          </dataset>
+        </instrument>
+        <instrument desc="Plasma" xml:id="Michigan_Plasma_Saturn" name="PLASMA" att="">
+          <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/12/31" dataStart="1995/01/01" maxSampling="" sampling="1h" xml:id="sws:1hour:plasma" name="plasma_1hour" att="">
+            <parameter xml:id="rho_sws" display_type="" units="cm-3" name="density"/>
+            <parameter xml:id="t_sws" display_type="" units="K" name="temperature"/>
+            <parameter xml:id="v_sws_mag" display_type="" units="km/s" name="v_mag"/>
+            <parameter xml:id="v_sws_rtn" display_type="" units="km/s" name="v_rtn">
+              <component xml:id="v_sws_rtn(0)" name="vr"/>
+              <component xml:id="v_sws_rtn(1)" name="vt"/>
+              <component xml:id="v_sws_rtn(2)" name="vn"/>
+            </parameter>
+            <parameter xml:id="pdyn_sws" display_type="" units="Pa" name="pdyn"/>
+          </dataset>
+          <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2007/09/20" dataStart="1994/04/11" maxSampling="" sampling="10m" xml:id="sws:10min:plasma" name="plasma_10min" att="">
+            <parameter xml:id="rho_sws10" display_type="" units="cm-3" name="density"/>
+            <parameter xml:id="t_sws10" display_type="" units="K" name="temperature"/>
+            <parameter xml:id="v_sws10_mag" display_type="" units="km/s" name="v_mag"/>
+            <parameter xml:id="v_sws10_rtn" display_type="" units="km/s" name="v_rtn">
+              <component xml:id="v_sws10_rtn(0)" name="vr"/>
+              <component xml:id="v_sws10_rtn(1)" name="vt"/>
+              <component xml:id="v_sws10_rtn(2)" name="vn"/>
+            </parameter>
+          </dataset>
+        </instrument>
+        <instrument desc="Position" xml:id="Michigan_ephemeris_Saturn" name="ephemeris" att="">
+          <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/12/31" dataStart="1995/01/01" maxSampling="" sampling="1h" xml:id="sws:1hour:eph" name="ephemeris_1hour" att="">
+            <parameter xml:id="dphi_sws" display_type="" units="deg" name="dPhi"/>
+            <parameter xml:id="r_sws" display_type="" units="km" name="R"/>
+          </dataset>
+        </instrument>
+      </simulationModel>
+      <simulationModel desc="Chihiro Tao Solar Wind Model (Saturn)" xml:id="Tao_Model_Saturn" name="Tao_Model" att="parameters/TaoModel">
+        <instrument desc="Solar Wind Plasma parameters" xml:id="Tao_Plasama_Saturn" name="PLASMA" att="">
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="1990/01/01" maxSampling="" sampling="1h" xml:id="tao:sat:omni" name="input_OMNI" att="">
+            <parameter xml:id="nom_tao_sat" display_type="" units="cm-3" name="density"/>
+            <parameter xml:id="tom_tao_sat" display_type="" units="eV" name="temperature"/>
+            <parameter xml:id="vxom_tao_sat" display_type="" units="km/s" name="Vr"/>
+            <parameter xml:id="vyom_tao_sat" display_type="" units="km/s" name="Vt"/>
+            <parameter xml:id="pom_tao_sat" display_type="" units="nPa" name="Pdyn"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:sat:sta" name="input_Stereo-A" att="">
+            <parameter xml:id="nsta_tao_sat" display_type="" units="cm-3" name="density"/>
+            <parameter xml:id="tsta_tao_sat" display_type="" units="eV" name="temperature"/>
+            <parameter xml:id="vxsta_tao_sat" display_type="" units="km/s" name="Vr"/>
+            <parameter xml:id="vysta_tao_sat" display_type="" units="km/s" name="Vt"/>
+            <parameter xml:id="psta_tao_sat" display_type="" units="nPa" name="Pdyn"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:sat:stb" name="input_Stereo-B" att="">
+            <parameter xml:id="nstb_tao_sat" display_type="" units="cm-3" name="density"/>
+            <parameter xml:id="tstb_tao_sat" display_type="" units="eV" name="temperature"/>
+            <parameter xml:id="vxstb_tao_sat" display_type="" units="km/s" name="Vr"/>
+            <parameter xml:id="vystb_tao_sat" display_type="" units="km/s" name="Vt"/>
+            <parameter xml:id="pstb_tao_sat" display_type="" units="nPa" name="Pdyn"/>
+          </dataset>
+        </instrument>
+        <instrument desc="Magnetometer" xml:id="Tao_Mag_Saturn" name="MAG" att="">
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="1990/01/01" maxSampling="" sampling="1h" xml:id="tao:sat:omni_" name="input_OMNI" att="">
+            <parameter xml:id="byom_tao_sat" display_type="" units="nT" name="Bt"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:sat:sta_" name="input_Stereo-A" att="">
+            <parameter xml:id="bysta_tao_sat" display_type="" units="nT" name="Bt"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:sat:stb_" name="input_Stereo-B" att="">
+            <parameter xml:id="bystb_tao_sat" display_type="" units="nT" name="Bt"/>
+          </dataset>
+        </instrument>
+        <instrument desc="Angle Saturn-Sun-Earth[Stereo-A[Stereo-B]]" xml:id="Tao_ephemeris_Saturn" name="ephemeris" att="">
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="1990/01/01" maxSampling="" sampling="1h" xml:id="tao:sat:omni__" name="input_OMNI" att="">
+            <parameter xml:id="angom_tao_sat" display_type="" units="deg" name="dPhi"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:sat:sta__" name="input_Stereo-A" att="">
+            <parameter xml:id="angsta_tao_sat" display_type="" units="deg" name="dPhi"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:sat:stb__" name="input_Stereo-B" att="">
+            <parameter xml:id="angstb_tao_sat" display_type="" units="deg" name="dPhi"/>
+          </dataset>
+        </instrument>
+      </simulationModel>
     </mission>
-    <mission available="1" target="Jupiter" desc="Michigan_Solar_Wind_Model_Jupiter" xml:id="mSWiM_Jupiter" rank="8" name="mSWiM_Jupiter" att="parameters/mSWiM">
-      <instrument desc="Magnetometer" xml:id="mSWiM_Jupiter:MAG" name="MAG" att="">
-        <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/12/31" dataStart="1995/01/01" maxSampling="" sampling="1h" xml:id="swj:1hour:mag" name="mag_1hour" att="">
-          <parameter xml:id="b_swj_rtn" display_type="" units="nT" name="b_rtn">
-            <component xml:id="b_swj_rtn(0)" name="br"/>
-            <component xml:id="b_swj_rtn(1)" name="bt"/>
-            <component xml:id="b_swj_rtn(2)" name="bn"/>
-          </parameter>
-          <parameter xml:id="b_swj_mag" display_type="" units="nT" name="b_mag"/>
-        </dataset>
-        <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/01/02" dataStart="1994/12/26" maxSampling="" sampling="10m" xml:id="swj:10min:mag" name="mag_10min" att="">
-          <parameter xml:id="b_swj10_rtn" display_type="" units="nT" name="b_rtn">
-            <component xml:id="b_swj10_rtn(0)" name="br"/>
-            <component xml:id="b_swj10_rtn(1)" name="bt"/>
-            <component xml:id="b_swj10_rtn(2)" name="bn"/>
-          </parameter>
-          <parameter xml:id="b_swj10_mag" display_type="" units="nT" name="b_mag"/>
-        </dataset>
-      </instrument>
-      <instrument desc="Plasma" xml:id="mSWiM_Jupiter:PLASMA" name="PLASMA" att="">
-        <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/12/31" dataStart="1995/01/01" maxSampling="" sampling="1h" xml:id="swj:1hour:plasma" name="plasma_1hour" att="">
-          <parameter xml:id="rho_swj" display_type="" units="cm-3" name="density"/>
-          <parameter xml:id="t_swj" display_type="" units="K" name="temperature"/>
-          <parameter xml:id="v_swj_mag" display_type="" units="km/s" name="v_mag"/>
-          <parameter xml:id="v_swj_rtn" display_type="" units="km/s" name="v_rtn">
-            <component xml:id="v_swj_rtn(0)" name="vr"/>
-            <component xml:id="v_swj_rtn(1)" name="vt"/>
-            <component xml:id="v_swj_rtn(2)" name="vn"/>
-          </parameter>
-          <parameter xml:id="pdyn_swj" display_type="" units="Pa" name="pdyn"/>
-        </dataset>
-        <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/01/02" dataStart="1994/12/26" maxSampling="" sampling="10m" xml:id="swj:10min:plasma" name="plasma_10min" att="">
-          <parameter xml:id="rho_swj10" display_type="" units="cm-3" name="density"/>
-          <parameter xml:id="t_swj10" display_type="" units="K" name="temperature"/>
-          <parameter xml:id="v_swj10_mag" display_type="" units="km/s" name="v_mag"/>
-          <parameter xml:id="v_swj10_rtn" display_type="" units="km/s" name="v_rtn">
-            <component xml:id="v_swj10_rtn(0)" name="vr"/>
-            <component xml:id="v_swj10_rtn(1)" name="vt"/>
-            <component xml:id="v_swj10_rtn(2)" name="vn"/>
-          </parameter>
-        </dataset>
-      </instrument>
-      <instrument desc="Position" xml:id="mSWiM_Jupiter:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/12/31" dataStart="1995/01/01" maxSampling="" sampling="1h" xml:id="swj:1hour:eph" name="ephemeris_1hour" att="">
-          <parameter xml:id="dphi_swj" display_type="" units="deg" name="dPhi"/>
-          <parameter xml:id="r_swj" display_type="" units="km" name="R"/>
-        </dataset>
-      </instrument>
+    <mission available="1" target="Jupiter" desc="Solar_Wind_Models_Jupiter" xml:id="SolarWind_Predictions@Jupiter" rank="8" name="SolarWind_Predictions@Jupiter" att="">
+      <simulationModel desc="Michigan_Solar_Wind_Model_Jupiter" xml:id="Michigan_Model_Jupiter" name="Michigan_Model" att="parameters/mSWiM">
+        <instrument desc="Magnetometer" xml:id="mswim_jupiter_mag" name="MAG" att="">
+          <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/12/31" dataStart="1995/01/01" maxSampling="" sampling="1h" xml:id="swj:1hour:mag" name="mag_1hour" att="">
+            <parameter xml:id="b_swj_rtn" display_type="" units="nT" name="b_rtn">
+              <component xml:id="b_swj_rtn(0)" name="br"/>
+              <component xml:id="b_swj_rtn(1)" name="bt"/>
+              <component xml:id="b_swj_rtn(2)" name="bn"/>
+            </parameter>
+            <parameter xml:id="b_swj_mag" display_type="" units="nT" name="b_mag"/>
+          </dataset>
+          <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/01/02" dataStart="1994/12/26" maxSampling="" sampling="10m" xml:id="swj:10min:mag" name="mag_10min" att="">
+            <parameter xml:id="b_swj10_rtn" display_type="" units="nT" name="b_rtn">
+              <component xml:id="b_swj10_rtn(0)" name="br"/>
+              <component xml:id="b_swj10_rtn(1)" name="bt"/>
+              <component xml:id="b_swj10_rtn(2)" name="bn"/>
+            </parameter>
+            <parameter xml:id="b_swj10_mag" display_type="" units="nT" name="b_mag"/>
+          </dataset>
+        </instrument>
+        <instrument desc="Plasma" xml:id="mswim_jupiter_plasma" name="PLASMA" att="">
+          <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/12/31" dataStart="1995/01/01" maxSampling="" sampling="1h" xml:id="swj:1hour:plasma" name="plasma_1hour" att="">
+            <parameter xml:id="rho_swj" display_type="" units="cm-3" name="density"/>
+            <parameter xml:id="t_swj" display_type="" units="K" name="temperature"/>
+            <parameter xml:id="v_swj_mag" display_type="" units="km/s" name="v_mag"/>
+            <parameter xml:id="v_swj_rtn" display_type="" units="km/s" name="v_rtn">
+              <component xml:id="v_swj_rtn(0)" name="vr"/>
+              <component xml:id="v_swj_rtn(1)" name="vt"/>
+              <component xml:id="v_swj_rtn(2)" name="vn"/>
+            </parameter>
+            <parameter xml:id="pdyn_swj" display_type="" units="Pa" name="pdyn"/>
+          </dataset>
+          <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/01/02" dataStart="1994/12/26" maxSampling="" sampling="10m" xml:id="swj:10min:plasma" name="plasma_10min" att="">
+            <parameter xml:id="rho_swj10" display_type="" units="cm-3" name="density"/>
+            <parameter xml:id="t_swj10" display_type="" units="K" name="temperature"/>
+            <parameter xml:id="v_swj10_mag" display_type="" units="km/s" name="v_mag"/>
+            <parameter xml:id="v_swj10_rtn" display_type="" units="km/s" name="v_rtn">
+              <component xml:id="v_swj10_rtn(0)" name="vr"/>
+              <component xml:id="v_swj10_rtn(1)" name="vt"/>
+              <component xml:id="v_swj10_rtn(2)" name="vn"/>
+            </parameter>
+          </dataset>
+        </instrument>
+        <instrument desc="Position" xml:id="mswim_jupiter_ephemeris" name="ephemeris" att="">
+          <dataset target="" dataSource="http://mswim.engin.umich.edu/index.shtml" dataStop="2008/12/31" dataStart="1995/01/01" maxSampling="" sampling="1h" xml:id="swj:1hour:eph" name="ephemeris_1hour" att="">
+            <parameter xml:id="dphi_swj" display_type="" units="deg" name="dPhi"/>
+            <parameter xml:id="r_swj" display_type="" units="km" name="R"/>
+          </dataset>
+        </instrument>
+      </simulationModel>
+      <simulationModel desc="Chihiro Tao Solar Wind Model (@Jupiter)" xml:id="Tao_Model_Jupiter" name="Tao_Model" att="parameters/TaoModel">
+        <instrument desc="Solar Wind Plasma parameters" xml:id="Tao_Plasma_Jupiter" name="PLASMA" att="">
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="1990/01/01" maxSampling="" sampling="1h" xml:id="tao:jup:omni" name="input_OMNI" att="">
+            <parameter xml:id="nom_tao_jup" display_type="" units="cm-3" name="density"/>
+            <parameter xml:id="tom_tao_jup" display_type="" units="eV" name="temperature"/>
+            <parameter xml:id="vxom_tao_jup" display_type="" units="km/s" name="Vr"/>
+            <parameter xml:id="vyom_tao_jup" display_type="" units="km/s" name="Vt"/>
+            <parameter xml:id="pom_tao_jup" display_type="" units="nPa" name="Pdyn"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:jup:sta" name="input_Stereo-A" att="">
+            <parameter xml:id="nsta_tao_jup" display_type="" units="cm-3" name="density"/>
+            <parameter xml:id="tsta_tao_jup" display_type="" units="eV" name="temperature"/>
+            <parameter xml:id="vxsta_tao_jup" display_type="" units="km/s" name="Vr"/>
+            <parameter xml:id="vysta_tao_jup" display_type="" units="km/s" name="Vt"/>
+            <parameter xml:id="psta_tao_jup" display_type="" units="nPa" name="Pdyn"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:jup:stb" name="input_Stereo-B" att="">
+            <parameter xml:id="nstb_tao_jup" display_type="" units="cm-3" name="density"/>
+            <parameter xml:id="tstb_tao_jup" display_type="" units="eV" name="temperature"/>
+            <parameter xml:id="vxstb_tao_jup" display_type="" units="km/s" name="Vr"/>
+            <parameter xml:id="vystb_tao_jup" display_type="" units="km/s" name="Vt"/>
+            <parameter xml:id="pstb_tao_jup" display_type="" units="nPa" name="Pdyn"/>
+          </dataset>
+        </instrument>
+        <instrument desc="Magnetometer" xml:id="Tao_Mag_Jupiter" name="MAG" att="">
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="1990/01/01" maxSampling="" sampling="1h" xml:id="tao:jup:omni_" name="input_OMNI" att="">
+            <parameter xml:id="byom_tao_jup" display_type="" units="nT" name="Bt"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:jup:sta_" name="input_Stereo-A" att="">
+            <parameter xml:id="bysta_tao_jup" display_type="" units="nT" name="Bt"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:jup:stb_" name="input_Stereo-B" att="">
+            <parameter xml:id="bystb_tao_jup" display_type="" units="nT" name="Bt"/>
+          </dataset>
+        </instrument>
+        <instrument desc="Angle Jupiter-Sun-Earth[Stereo-A[Stereo-B]]" xml:id="Tao_ephemeris_Jupiter" name="ephemeris" att="">
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="1990/01/01" maxSampling="" sampling="1h" xml:id="tao:jup:omni__" name="input_OMNI" att="">
+            <parameter xml:id="angom_tao_jup" display_type="" units="deg" name="dPhi"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:jup:sta__" name="input_Stereo-A" att="">
+            <parameter xml:id="angsta_tao_jup" display_type="" units="deg" name="dPhi"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:jup:stb__" name="input_Stereo-B" att="">
+            <parameter xml:id="angstb_tao_jup" display_type="" units="deg" name="dPhi"/>
+          </dataset>
+        </instrument>
+      </simulationModel>
+    </mission>
+    <mission available="1" target="Mars" desc="Solar_Wind_Models_Mars" xml:id="SolarWind_Predictions@Mars" rank="7" name="SolarWind_Predictions@Mars" att="">
+      <simulationModel desc="Chihiro Tao Solar Wind Model (@Mars)" xml:id="Tao_Model_Mars" name="Tao_Model" att="parameters/TaoModel">
+        <instrument desc="Solar Wind Plasma parameters" xml:id="Tao_Plasms_Mars" name="PLASMA" att="">
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="1990/01/01" maxSampling="" sampling="1h" xml:id="tao:mars:omni" name="input_OMNI" att="">
+            <parameter xml:id="nom_tao_mars" display_type="" units="cm-3" name="density"/>
+            <parameter xml:id="tom_tao_mars" display_type="" units="eV" name="temperature"/>
+            <parameter xml:id="vxom_tao_mars" display_type="" units="km/s" name="Vr"/>
+            <parameter xml:id="vyom_tao_mars" display_type="" units="km/s" name="Vt"/>
+            <parameter xml:id="pom_tao_mars" display_type="" units="nPa" name="Pdyn"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:mars:sta" name="input_Stereo-A" att="">
+            <parameter xml:id="nsta_tao_mars" display_type="" units="cm-3" name="density"/>
+            <parameter xml:id="tsta_tao_mars" display_type="" units="eV" name="temperature"/>
+            <parameter xml:id="vxsta_tao_mars" display_type="" units="km/s" name="Vr"/>
+            <parameter xml:id="vysta_tao_mars" display_type="" units="km/s" name="Vt"/>
+            <parameter xml:id="psta_tao_mars" display_type="" units="nPa" name="Pdyn"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:mars:stb" name="input_Stereo-B" att="">
+            <parameter xml:id="nstb_tao_mars" display_type="" units="cm-3" name="density"/>
+            <parameter xml:id="tstb_tao_mars" display_type="" units="eV" name="temperature"/>
+            <parameter xml:id="vxstb_tao_mars" display_type="" units="km/s" name="Vr"/>
+            <parameter xml:id="vystb_tao_mars" display_type="" units="km/s" name="Vt"/>
+            <parameter xml:id="pstb_tao_mars" display_type="" units="nPa" name="Pdyn"/>
+          </dataset>
+        </instrument>
+        <instrument desc="Magnetometer" xml:id="Tao_Mag_Mars" name="MAG" att="">
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="1990/01/01" maxSampling="" sampling="1h" xml:id="tao:mars:omni_" name="input_OMNI" att="">
+            <parameter xml:id="byom_tao_mars" display_type="" units="nT" name="Bt"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:mars:sta_" name="input_Stereo-A" att="">
+            <parameter xml:id="bysta_tao_mars" display_type="" units="nT" name="Bt"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:mars:stb_" name="input_Stereo-B" att="">
+            <parameter xml:id="bystb_tao_mars" display_type="" units="nT" name="Bt"/>
+          </dataset>
+        </instrument>
+        <instrument desc="Angle Mars-Sun-Earth[Stereo-A[Stereo-B]]" xml:id="Tao_ephemeris_Mars" name="ephemeris" att="">
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="1990/01/01" maxSampling="" sampling="1h" xml:id="tao:mars:omni__" name="input_OMNI" att="">
+            <parameter xml:id="angom_tao_mars" display_type="" units="deg" name="dPhi"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:mars:sta__" name="input_Stereo-A" att="">
+            <parameter xml:id="angsta_tao_mars" display_type="" units="deg" name="dPhi"/>
+          </dataset>
+          <dataset target="" dataSource="TBD" dataStop="2013/12/31" dataStart="2007/01/01" maxSampling="" sampling="1h" xml:id="tao:mars:stb__" name="input_Stereo-B" att="">
+            <parameter xml:id="angstb_tao_mars" display_type="" units="deg" name="dPhi"/>
+          </dataset>
+        </instrument>
+      </simulationModel>
     </mission>
     <mission available="1" target="Heliosphere" desc="Voyager_1" xml:id="Voyager_1" rank="99" name="Voyager_1" att="">
       <instrument desc="Voyager 1 position" xml:id="Voyager_1:ephemeris" name="ephemeris" att="">
@@ -2009,7 +2156,7 @@
           </parameter>
           <parameter xml:id="imf_mag" display_type="" units="nT" name="imf_mag"/>
         </dataset>
-        <dataset target="" dataSource="NOAA" dataStop="2014/04/16" dataStart="2014/01/06" maxSampling="" sampling="60s" xml:id="ace:mag:real" name="imf_real_time" att="">
+        <dataset target="" dataSource="NOAA" dataStop="2014/05/03" dataStart="2014/01/06" maxSampling="" sampling="60s" xml:id="ace:mag:real" name="imf_real_time" att="">
           <parameter xml:id="imf_real_gse" display_type="" units="nT" name="imf_real_gse">
             <component xml:id="imf_real_gse(0)" name="bx_gse"/>
             <component xml:id="imf_real_gse(1)" name="by_gse"/>
@@ -2046,7 +2193,7 @@
             <component xml:id="sw_v_gsm(2)" name="vz_gsm"/>
           </parameter>
         </dataset>
-        <dataset target="" dataSource="NOAA" dataStop="2014/04/16" dataStart="2014/01/06" maxSampling="" sampling="60s" xml:id="ace:swepam:real" name="swe_real_time" att="">
+        <dataset target="" dataSource="NOAA" dataStop="2014/05/03" dataStart="2014/01/06" maxSampling="" sampling="60s" xml:id="ace:swepam:real" name="swe_real_time" att="">
           <parameter xml:id="sw_n_real" display_type="" units="cm-3" name="density"/>
           <parameter xml:id="sw_v_real" display_type="" units="km/s" name="v_bulk"/>
           <parameter xml:id="sw_t_real" display_type="" units="eV" name="t_ion"/>
@@ -2055,7 +2202,7 @@
     </mission>
     <mission available="1" target="Earth.Magnetosheath" desc="NASA_Global_Geospace_Science_Mission" xml:id="WIND" rank="5" name="WIND" att="">
       <instrument desc="SC_Positions" xml:id="WIND:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="CDAWeb" dataStop="2014/04/06" dataStart="1994/11/01" maxSampling="" sampling="10m" xml:id="wnd:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="CDAWeb" dataStop="2014/04/20" dataStart="1994/11/01" maxSampling="" sampling="10m" xml:id="wnd:orb:all" name="orbit" att="">
           <parameter xml:id="wnd_xyz" display_type="" units="Re" name="xyz_gse">
             <component xml:id="wnd_xyz(0)" name="x"/>
             <component xml:id="wnd_xyz(1)" name="y"/>
@@ -2083,7 +2230,7 @@
         </dataset>
       </instrument>
       <instrument desc="Solar_Wind_Experiment" xml:id="WIND:SWE" name="SWE" att="">
-        <dataset target="" dataSource="CDAWeb" dataStop="2014/04/09" dataStart="1994/11/17" maxSampling="" sampling="90s" xml:id="wnd:swe:kp" name="swe_kp" att="">
+        <dataset target="" dataSource="CDAWeb" dataStop="2014/04/22" dataStart="1994/11/17" maxSampling="" sampling="90s" xml:id="wnd:swe:kp" name="swe_kp" att="">
           <parameter xml:id="wnd_swe_n" display_type="" units="cm-3" name="density"/>
           <parameter xml:id="wnd_swe_v" display_type="" units="km/s" name="v_gse">
             <component xml:id="wnd_swe_v(0)" name="vx"/>
@@ -2098,7 +2245,7 @@
     </mission>
     <mission available="1" target="Earth.Magnetosphere" desc="NASA_Time_History_of_Events_and Macroscale_Interaction_during_Substorms" xml:id="THEMIS-A" rank="5" name="THEMIS-A" att="">
       <instrument desc="SC_Positions" xml:id="THEMIS-A:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="IRAP_THEMIS" dataStop="2014/02/28" dataStart="2007/02/17" maxSampling="" sampling="60s" xml:id="tha:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="IRAP_THEMIS" dataStop="2014/04/21" dataStart="2007/02/17" maxSampling="" sampling="60s" xml:id="tha:orb:all" name="orbit" att="">
           <parameter xml:id="tha_xyz" display_type="" units="Re" name="xyz_gse">
             <component xml:id="tha_xyz(0)" name="x"/>
             <component xml:id="tha_xyz(1)" name="y"/>
@@ -2573,7 +2720,7 @@
         </dataset>
       </instrument>
       <instrument desc="Fluxgate_Magnetometer" xml:id="THEMIS-E:FGM" name="FGM" att="">
-        <dataset target="" dataSource="IRAP_THEMIS" dataStop="2014/02/22" dataStart="2007/02/28" maxSampling="" sampling="3s" xml:id="the:fgm:s" name="spin" att="">
+        <dataset target="" dataSource="IRAP_THEMIS" dataStop="2014/04/04" dataStart="2007/02/28" maxSampling="" sampling="3s" xml:id="the:fgm:s" name="spin" att="">
           <parameter xml:id="the_bs" display_type="" units="nT" name="b_gse">
             <component xml:id="the_bs(0)" name="bx"/>
             <component xml:id="the_bs(1)" name="by"/>
@@ -2843,7 +2990,7 @@
     </mission>
     <mission available="1" target="Earth.Magnetosphere" desc="ESA_Magnetospheric_Mission" xml:id="CLUSTER2" rank="5" name="CLUSTER2" att="">
       <instrument desc="Cl2_Positions" xml:id="CLUSTER2:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="IRAP" dataStop="2014/03/29" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust2:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="IRAP" dataStop="2014/04/15" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust2:orb:all" name="orbit" att="">
           <parameter xml:id="c2_xyz" display_type="" units="Re" name="xyz_gse">
             <component xml:id="c2_xyz(0)" name="x_gse"/>
             <component xml:id="c2_xyz(1)" name="y_gse"/>
@@ -3016,7 +3163,7 @@
     </mission>
     <mission available="1" target="Earth.Magnetosphere" desc="ESA_Magnetospheric_Mission" xml:id="CLUSTER3" rank="5" name="CLUSTER3" att="">
       <instrument desc="Cl3_Positions" xml:id="CLUSTER3:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="IRAP" dataStop="2014/03/29" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust3:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="IRAP" dataStop="2014/04/15" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust3:orb:all" name="orbit" att="">
           <parameter xml:id="c3_xyz" display_type="" units="Re" name="xyz_gse">
             <component xml:id="c3_xyz(0)" name="x_gse"/>
             <component xml:id="c3_xyz(1)" name="y_gse"/>
@@ -3256,7 +3403,7 @@
     </mission>
     <mission available="1" target="Earth.Magnetosphere" desc="ESA_Magnetospheric_Mission" xml:id="CLUSTER4" rank="5" name="CLUSTER4" att="">
       <instrument desc="Cl4_Positions" xml:id="CLUSTER4:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="IRAP" dataStop="2014/04/05" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust4:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="IRAP" dataStop="2014/04/21" dataStart="2000/08/22" maxSampling="" sampling="60s" xml:id="clust4:orb:all" name="orbit" att="">
           <parameter xml:id="c4_xyz" display_type="" units="Re" name="xyz_gse">
             <component xml:id="c4_xyz(0)" name="x_gse"/>
             <component xml:id="c4_xyz(1)" name="y_gse"/>
@@ -3547,7 +3694,7 @@
     </mission>
     <mission available="1" target="Earth.Magnetosphere" desc="JAXA+NASA_Magnetospheric_Mission" xml:id="GEOTAIL" rank="5" name="GEOTAIL" att="">
       <instrument desc="SC_Positions" xml:id="GEOTAIL:ephemeris" name="ephemeris" att="">
-        <dataset target="" dataSource="CDAWeb" dataStop="2014/04/06" dataStart="1992/07/27" maxSampling="" sampling="10m" xml:id="gtl:orb:all" name="orbit" att="">
+        <dataset target="" dataSource="CDAWeb" dataStop="2014/04/20" dataStart="1992/07/27" maxSampling="" sampling="10m" xml:id="gtl:orb:all" name="orbit" att="">
           <parameter xml:id="gtl_xyz" display_type="" units="Re" name="xyz_gse">
             <component xml:id="gtl_xyz(0)" name="x"/>
             <component xml:id="gtl_xyz(1)" name="y"/>
@@ -3562,7 +3709,7 @@
         </dataset>
       </instrument>
       <instrument desc="Magnetic_Field" xml:id="GEOTAIL:MGF" name="MGF" att="">
-        <dataset target="" dataSource="CDAWeb" dataStop="2014/04/09" dataStart="1992/09/04" maxSampling="" sampling="64s" xml:id="gtl:mgf:k0" name="mgf_prelim" att="">
+        <dataset target="" dataSource="CDAWeb" dataStop="2014/04/23" dataStart="1992/09/04" maxSampling="" sampling="64s" xml:id="gtl:mgf:k0" name="mgf_prelim" att="">
           <parameter xml:id="gtl_b" display_type="" units="nT" name="b_gse">
             <component xml:id="gtl_b(0)" name="bx"/>
             <component xml:id="gtl_b(1)" name="by"/>
@@ -3824,7 +3971,7 @@
           <parameter xml:id="omni_dst" display_type="" units="nT" name="Dst"/>
           <parameter xml:id="omni_sunspots" display_type="" units="no" name="Sunspot Number"/>
         </dataset>
-        <dataset target="" dataSource="OMNIWeb" dataStop="2014/03/30" dataStart="1981/01/01" maxSampling="" sampling="5m" xml:id="omni:5min:all" name="five_min" att="">
+        <dataset target="" dataSource="OMNIWeb" dataStop="2014/04/13" dataStart="1981/01/01" maxSampling="" sampling="5m" xml:id="omni:5min:all" name="five_min" att="">
           <parameter xml:id="omni5_imf_mag" display_type="" units="nT" name="imf_average_magn"/>
           <parameter xml:id="omni5_imf" display_type="" units="nT" name="imf_gse">
             <component xml:id="omni5_imf(0)" name="Bx"/>

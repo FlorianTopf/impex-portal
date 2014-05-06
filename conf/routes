@@ -45,14 +45,17 @@ GET		/registry/granule		  	controllers.Registry.granule(fmt: String ?= "xml", r:
 #observations
 GET 	/registry/observatory		controllers.Registry.observatory(fmt: String ?= "xml", r: String ?= "false")
 
-GET	/registry/instrument			controllers.Registry.instrument(fmt: String ?= "xml", r: String ?= "false")
+GET		/registry/instrument		controllers.Registry.instrument(fmt: String ?= "xml", r: String ?= "false")
 
-GET	/registry/numericaldata			controllers.Registry.numericaldata(fmt: String ?= "xml", r: String ?= "false")
+GET		/registry/numericaldata		controllers.Registry.numericaldata(fmt: String ?= "xml", r: String ?= "false")
 
 # methods sub-routes missing here / route for api-docs
 GET		/api-docs/methods			controllers.ApiHelpController.getResource(path = "/methods")
 
 GET		/methods					controllers.Methods.methods
+
+#taverna methods
+GET		/methods/taverna			controllers.Methods.methodsTaverna
 
 # general testing route
 GET		/test						controllers.Application.test
