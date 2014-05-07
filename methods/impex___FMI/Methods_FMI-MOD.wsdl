@@ -436,9 +436,9 @@
 				<xs:element type="xs:token" name="name" maxOccurs="1" minOccurs="1"/>
 				<xs:element type="xs:ID" name="ID" maxOccurs="1" minOccurs="0"/>
 				<xs:element type="xs:token" name="unit" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="vot:dataType" name="datatype" maxOccurs="1" minOccurs="0"/>
+				<xs:element type="dataType" name="datatype" maxOccurs="1" minOccurs="0"/>
 				<xs:element type="xs:token" name="xtype" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="vot:ucdType" name="ucd" maxOccurs="1" minOccurs="0"/>
+				<xs:element type="ucdType" name="ucd" maxOccurs="1" minOccurs="0"/>
 				<xs:element type="xs:string" name="utype" maxOccurs="1" minOccurs="0"/>
 				<xs:element type="xs:token" name="xtype" maxOccurs="1" minOccurs="0"/>
 				<xs:element type="xs:string" name="description" maxOccurs="1" minOccurs="0"/>
@@ -447,7 +447,7 @@
 		</xs:complexType>
 		
 		<xs:simpleType name="listOfValues">
-			<xs:list itemType="vot:dataType">
+			<xs:list itemType="dataType">
 			</xs:list>
 		</xs:simpleType>
 	</xs:schema>
