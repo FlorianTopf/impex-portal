@@ -366,6 +366,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       { case p1 =>
       models.binding.Mission(p1.toSeq,
         (node \ "@SimulatedRegion").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@rank").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         (node \ "@att").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         (node \ "@available").headOption map { scalaxb.fromXML[BigInt](_, scalaxb.ElemName(node) :: stack) },
         scalaxb.fromXML[String]((node \ "@desc"), scalaxb.ElemName(node) :: stack),

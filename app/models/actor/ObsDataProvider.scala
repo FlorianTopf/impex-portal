@@ -59,9 +59,10 @@ extends Actor with DataProvider {
             // CLWEB@IRAP is already natively included
             // simulations are already natively included
             // VEXGRAZ maybe also obsolete in the future
+            // all other simulation models are excluded!
             (element \\ "@name" exists (_.text.contains("CLWEB@IRAP"))) ||
-   			(element \\ "@isSimulation" exists (_.text == "true")) }
-          }
+   			(element \\ "@isSimulation" exists (_.text == "true")) || 
+   			(element \\ "mission" exists (!_.child.filter(_.label == "simulationModel").isEmpty)) }}
         </dataRoot> 
 
       scalaxb.fromXML[DataRoot](selection) 

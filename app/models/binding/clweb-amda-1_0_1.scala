@@ -55,6 +55,7 @@ case class RunID(mission: Seq[models.binding.Mission] = Nil,
 
 case class Mission(missionoption: Seq[scalaxb.DataRecord[models.binding.MissionOption]] = Nil,
   SimulatedRegion: Option[String] = None,
+  rank: Option[String] = None,
   att: Option[String] = None,
   available: Option[BigInt] = None,
   desc: String,

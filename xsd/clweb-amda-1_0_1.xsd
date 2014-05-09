@@ -74,6 +74,7 @@
         <xs:element minOccurs="0" maxOccurs="unbounded" ref="instrument"/>
       </xs:choice>
       <xs:attribute name="SimulatedRegion" type="xs:NCName"/>
+      <xs:attribute name="rank" type="xs:string"/>
       <xs:attribute name="att"/>
       <xs:attribute name="available" type="xs:integer"/>
       <xs:attribute name="desc" use="required"/>
