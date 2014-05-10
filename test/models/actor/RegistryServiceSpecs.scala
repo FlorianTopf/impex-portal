@@ -19,6 +19,7 @@ import java.net.URI
 import java.util.Random
 import models.actor.RegistryService.RegisterProvider
 
+// actor tests need empty onStart routine  
 // @TODO test recursion and check random resources in the tree
 object RegistryServiceSpecs extends Specification with Mockito {
   

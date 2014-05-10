@@ -22,6 +22,7 @@ import models.actor.DataProvider.{
   ENumericalOutput, EGranule
 }
 
+// actor tests need empty onStart routine  
 // @TODO check the content of the Spase elements more
 object SimDataProviderSpecs extends Specification with Mockito {
 

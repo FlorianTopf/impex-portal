@@ -23,6 +23,7 @@ import models.actor.DataProvider.{
   ENumericalData
 }
 
+// actor tests need empty onStart routine  
 // @TODO check the content of the Spase elements more
 object ObsDataProviderSpecs extends Specification with Mockito {
 

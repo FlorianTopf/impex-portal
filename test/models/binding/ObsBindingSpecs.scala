@@ -32,6 +32,7 @@ object ObsBindingSpecs extends org.specs2.mutable.Specification with Mockito {
             // @FIXME taking only one random tree from one database
             val fileName: String = PathProvider.getPath("trees", 
               id, database.tree(rand.nextInt(database.tree.length)))
+            // @FIXME not working because of a new element appearing in the XML
             val dataroot = scalaxb.fromXML[DataRoot](scala.xml.XML.loadFile(fileName))
             
             dataroot must beAnInstanceOf[DataRoot]

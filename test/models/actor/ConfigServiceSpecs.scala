@@ -20,7 +20,7 @@ import models.actor.ConfigService.{
 }
 import models.actor.ConfigService.GetDatabaseType
 
-  
+// actor tests need empty onStart routine  
 object ConfigServiceSpecs extends Specification with Mockito {
   
     "ConfigService" should {
