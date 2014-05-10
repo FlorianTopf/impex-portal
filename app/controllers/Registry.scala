@@ -36,8 +36,8 @@ object Registry extends Controller {
       response = classOf[JsObject], 
       httpMethod = "GET")
   @ApiResponses(Array(
-    new ApiResponse(code = 501, message = "unkown provider"), 
-    new ApiResponse(code = 502, message = "not implemented")))
+    new ApiResponse(code = 400, message = "unkown provider"), 
+    new ApiResponse(code = 400, message = "not implemented")))
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
@@ -111,6 +111,8 @@ object Registry extends Controller {
       notes = "returns the repository elements of all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "unkown element")))
   @Path("/repository")
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
@@ -139,6 +141,8 @@ object Registry extends Controller {
       notes = "returns the simulation model elements of all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "unkown element")))
   @Path("/simulationmodel")
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
@@ -173,6 +177,8 @@ object Registry extends Controller {
       notes = "returns the simulation run elements of all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "unkown element")))
   @Path("/simulationrun")
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
@@ -207,6 +213,8 @@ object Registry extends Controller {
       notes = "returns the numerical output elements of all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "unkown element")))
   @Path("/numericaloutput")
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
@@ -241,6 +249,8 @@ object Registry extends Controller {
       notes = "returns the granule elements of all databases", 
       response = classOf[JsObject], 
       httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "unkown element")))
   @Path("/granule")
   @ApiImplicitParams(Array(
     new ApiImplicitParam(

@@ -6,13 +6,11 @@ import play.api.libs.functional.syntax._
 case class RequestError(value: ERequestError.Value)
 
 object ERequestError extends Enumeration {
-    val MISSING_VALUE = Value(400, "MISSING_VALUE")
-    val MALFORMED_VALUE = Value(402, "MALFORMED_VALUE")
-    val UNKNOWN_MSG = Value(403, "unknown message")
-    val UNKNOWN_ENTITY = Value(404, "unknown element")
-    val UNKNOWN_PROVIDER = Value(501, "unknown provider")
-    val NOT_IMPLEMENTED = Value(502, "not implemented")
-    val INACTIVE = Value(505, "no active session")
+    val UNKNOWN_MSG = Value(400, "unknown message") //Bad request
+    val INACTIVE = Value(401, "no active session") //Unauthorized
+    val UNKNOWN_ENTITY = Value(404, "unknown element") //Not found
+    val NOT_IMPLEMENTED = Value(501, "not implemented") //Not implemented
+    val UNKNOWN_PROVIDER = Value(502, "unknown provider") //Bad gateway
 
     // does not work on enums :/
     //    implicit val requestErrorFormat: Format[RequestError.Value] = Json.format[RequestError.Value]
