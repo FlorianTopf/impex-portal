@@ -77,7 +77,7 @@ extends Actor with DataProvider {
   }
 
   // @TODO finalise access methods
-  // @FIXME must search for an specific Id
+  // @TODO must search for an specific Id
   protected def getRepository(id: Option[String]): Spase = {
     println("RepositoryID="+id)
     val records = getNativeTreeObjects flatMap { _.dataCenter map { dataCenter => 
@@ -124,7 +124,7 @@ extends Actor with DataProvider {
       val parentId = getMetaData.id.toString+"/Observatory/"+record.id.toString.replaceAll(" ", "_")
       (parentId, record.missionoption.filter(_.key.get == "instrument").map(_.as[Instrument]))
     }
-    // @FIXME here we need to filter the instruments for requested id
+    // @TODO here we need to filter the instruments for requested id
     Spase(Number2u462u462, missions flatMap { instruments =>
       val contact = Contact(getMetaData.id.toString, Seq(ArchiveSpecialist))
       instruments._2 map { instrument =>
@@ -152,7 +152,7 @@ extends Actor with DataProvider {
       val missionId = getMetaData.id.toString+"/Observatory/"+record.id.toString.replaceAll(" ", "_")
       (missionId, record.missionoption.filter(_.key.get == "instrument").map(_.as[Instrument]))
     }
-    // @FIXME here we need to filter the instruments for requested id
+    // @TODO here we need to filter the numerical data for requested id
     Spase(Number2u462u462, missions flatMap { instruments =>
       val contact = Contact(getMetaData.id.toString, Seq(ArchiveSpecialist))
       instruments._2 flatMap { instrument =>
