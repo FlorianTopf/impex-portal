@@ -149,7 +149,7 @@ object Registry extends Controller {
         name = "id", 
         value = "database id stored in the config or simulation model id from a tree", 
         // provide default value for swagger-ui stability
-        defaultValue = "impex://FMI/",
+        defaultValue = "impex://FMI",
         required = false, 
         dataType = "string", 
         paramType = "query")))
