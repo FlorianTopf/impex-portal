@@ -55,16 +55,16 @@ extends Actor with DataProvider {
       // we select here only portions of the remote trees (e.g. AMDA)
       val selection = 
         <dataRoot>
-          { tree \\ "dataCenter" filterNot{ element => 
+          { tree \\ "dataCenter" filterNot { element => 
             // CLWEB@IRAP is already natively included
-            // simulations are already natively included
-            // VEXGRAZ maybe also obsolete in the future
+            // Simulations are already natively included
+            // VEXMAG will also be obsolete in the future
             // all other simulation models are excluded!
             (element \\ "@name" exists (_.text.contains("CLWEB@IRAP"))) ||
-   			(element \\ "@isSimulation" exists (_.text == "true")) || 
-   			(element \\ "mission" exists (!_.child.filter(_.label == "simulationModel").isEmpty)) }}
+   			(element \\ "@isSimulation" exists (_.text == "true"))
+   		  }}
         </dataRoot> 
-
+      
       scalaxb.fromXML[DataRoot](selection) 
     }}
   }
@@ -94,6 +94,7 @@ extends Actor with DataProvider {
   }
   
   // @TODO add recursion for the remaining elements
+  // @TODO maybe remove models
   private def getObservatory(id: Option[String]): Spase = {
     import models.binding.Observatory
     val records = getTreeObjects("mission").map(_.as[Mission])   

@@ -4,7 +4,7 @@
   <SimulationModel>
     <ResourceID>impex://SINP/SimulationModel/Earth/Static</ResourceID>
     <ResourceHeader>
-      <ResourceName>MF-PARABOLOID_SINP</ResourceName>
+      <ResourceName>Static model for Earth</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
       <Description>Paraboloid model calculates the magnetic fields in the Earth's magnetosphere depending on external conditions in solar wind and on geomagnetic activity level.</Description>
       <Contact>
@@ -81,7 +81,7 @@
   <SimulationModel>
     <ResourceID>impex://SINP/SimulationModel/Saturn/Static</ResourceID>
     <ResourceHeader>
-      <ResourceName>MF-PARABOLOID_SINP</ResourceName>
+      <ResourceName>Static model for Saturn</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
       <Description>Paraboloid model calculates the magnetic fields in the Saturn's magnetosphere depending on external conditions in solar wind and on geomagnetic activity level.</Description>
       <Contact>
@@ -175,7 +175,7 @@
   <SimulationModel>
     <ResourceID>impex://SINP/SimulationModel/Mercury/Static</ResourceID>
     <ResourceHeader>
-      <ResourceName>MF-PARABOLOID_SINP</ResourceName>
+      <ResourceName>Static model for Mercury</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
       <Description>Paraboloid model calculates the magnetic fields in the Mercury's magnetosphere depending on external conditions in solar wind and on magnetic activity level.</Description>
       <Contact>
@@ -269,7 +269,7 @@
   <SimulationModel>
     <ResourceID>impex://SINP/SimulationModel/Earth/OnFly</ResourceID>
     <ResourceHeader>
-      <ResourceName>MF-PARABOLOID_SINP</ResourceName>
+      <ResourceName>OnFly model for Earth</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
       <Description>Paraboloid model calculates the magnetic fields in the Earth's magnetosphere depending on external conditions in solar wind and on geomagnetic activity level.</Description>
       <Contact>
@@ -346,7 +346,7 @@
   <SimulationModel>
     <ResourceID>impex://SINP/SimulationModel/Saturn/OnFly</ResourceID>
     <ResourceHeader>
-      <ResourceName>MF-PARABOLOID_SINP</ResourceName>
+      <ResourceName>OnFly model for Saturn</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
       <Description>Paraboloid model calculates the magnetic fields in the Saturn's magnetosphere depending on external conditions in solar wind and on geomagnetic activity level.</Description>
       <Contact>
@@ -440,7 +440,7 @@
   <SimulationModel>
     <ResourceID>impex://SINP/SimulationModel/Mercury/OnFly</ResourceID>
     <ResourceHeader>
-      <ResourceName>MF-PARABOLOID_SINP</ResourceName>
+      <ResourceName>OnFly model for Mercury</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
       <Description>Paraboloid model calculates the magnetic fields in the Mercury's magnetosphere depending on external conditions in solar wind and on geomagnetic activity level.</Description>
       <Contact>

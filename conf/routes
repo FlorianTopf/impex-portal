@@ -49,13 +49,15 @@ GET		/registry/instrument		controllers.Registry.instrument(fmt: String ?= "xml",
 
 GET		/registry/numericaldata		controllers.Registry.numericaldata(fmt: String ?= "xml", r: String ?= "false")
 
-# methods sub-routes missing here / route for api-docs
+# methods routes
 GET		/api-docs/methods			controllers.ApiHelpController.getResource(path = "/methods")
 
-GET		/methods					controllers.Methods.methods
+# WSDLs
+#GET	/methods					controllers.Methods.methods
+GET		/methods/:dbName			controllers.Methods.methods(dbName: String)
 
-# taverna methods
-GET		/methods/taverna			controllers.Methods.methodsTaverna
+# taverna WSDLs
+GET	/methods/taverna/:dbName		controllers.Methods.methodsTaverna(dbName: String)
 
 # general testing route
 GET		/test						controllers.Application.test

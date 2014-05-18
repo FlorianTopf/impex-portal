@@ -7,6 +7,3 @@ case class Idopt(id: Option[String] = None)
 
 case class Id(id: String)
 
-
-case class Iduri(id: String)
-

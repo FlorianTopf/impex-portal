@@ -69,6 +69,10 @@ trait DataProvider {
 //          println("timeout: fallback on local file at "+getMetaData.name)
           scala.xml.XML.load(fileName)
 //        }
+//        case _: Throwable => {
+//          println("file not found: excluding file at "+getMetaData.name)
+//          scala.xml.XML.load(fileName)
+//        }
 //      }
     }
   }

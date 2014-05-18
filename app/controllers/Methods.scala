@@ -25,7 +25,7 @@ import java.io.FileNotFoundException
 @Produces(Array(APPLICATION_JSON, APPLICATION_XML))
 object Methods extends Controller {
   
-  // only returning WSDLs of individual databases
+  // Returns WSDLs of individual databases  
   @GET
   @ApiOperation(
       value = "get WSDL file", 
@@ -34,33 +34,27 @@ object Methods extends Controller {
       response = classOf[Elem], 
       httpMethod = "GET")
   @ApiResponses(Array(
-    new ApiResponse(code = 501, message = "unkown provider"), 
-    new ApiResponse(code = 502, message = "not implemented")))
-  @ApiImplicitParams(Array(
-    new ApiImplicitParam(
-        name = "id", 
-        value = "database id stored in the config", 
-        defaultValue = "impex://FMI",
-        required = true, 
-        dataType = "string", 
-        paramType = "query")))
-  def methods = PortalAction.async { implicit request =>
-    val future = RegistryService.getMethods(request.req.get("id"))
+    new ApiResponse(code = 400, message = "unkown provider"), 
+    new ApiResponse(code = 400, message = "not implemented")))
+  //alternative route for returning WSDS of individual databases (by name path)
+  def methods(
+      @ApiParam(value = "database name part of the id stored in the config", 
+          defaultValue = "SINP") @PathParam("dbName") dbName: String) = PortalAction.async {
+    val future = RegistryService.getMethods(Some("impex://"+dbName))
     future.map { _ match {
       // @FIXME we return a merged version of multiple WSDLs
       case Left(methods) => { 
         if(!methods.isEmpty)
         	Ok(methods.reduce(_++_))
         else
-            // if there are no methods return error 502
+            // if there are no methods return error 501
         	BadRequest(Json.toJson(RequestError(ERequestError.NOT_IMPLEMENTED)))
       }
       case Right(error) => BadRequest(Json.toJson(error))
     }}
   }
   
-  // INTERMEDIATE: provide routes to modified WSDL files for taverna
-  // @TODO workflow files need to be updated!
+  // INTERMEDIATE: Provides paths to modified WSDL files for Taverna
   @GET
   @ApiOperation(
       value = "get WSDL file for Taverna", 
@@ -69,20 +63,14 @@ object Methods extends Controller {
       response = classOf[Elem], 
       httpMethod = "GET")
   @ApiResponses(Array(
-    new ApiResponse(code = 501, message = "unkown provider"), 
-    new ApiResponse(code = 502, message = "not implemented")))
-  @ApiImplicitParams(Array(
-    new ApiImplicitParam(
-        name = "id", 
-        value = "database id stored in the config", 
-        defaultValue = "impex://FMI",
-        required = true, 
-        dataType = "string", 
-        paramType = "query")))
-  def methodsTaverna = PortalAction.async { implicit req => 
+    new ApiResponse(code = 400, message = "unkown provider"), 
+    new ApiResponse(code = 400, message = "not implemented")))
+  def methodsTaverna(
+      @ApiParam(value = "database name part of the id stored in the config", 
+          defaultValue = "SINP") @PathParam("dbName") dbName: String) = PortalAction.async {
     for {
       databases <- models.actor.ConfigService.request(GetDatabases).mapTo[Seq[Database]]
-      provider <- req.req.get("id") match {
+      provider <- Some("impex://"+dbName) match {
         case Some(id) if(databases.exists(d => id.contains(d.id.toString))) => {
           val db: Database = databases.find(d => id.contains(d.id.toString)).get
           val rId: String = UrlProvider.encodeURI(db.id)
@@ -104,6 +92,5 @@ object Methods extends Controller {
       case Right(error) => BadRequest(Json.toJson(error))
     }
   }
-  
   
 }
