@@ -57,7 +57,7 @@ GET		/api-docs/methods			controllers.ApiHelpController.getResource(path = "/meth
 GET		/methods/:dbName			controllers.Methods.methods(dbName: String)
 
 # taverna WSDLs
-GET	/methods/taverna/:dbName		controllers.Methods.methodsTaverna(dbName: String)
+GET		/methods/taverna/:dbName	controllers.Methods.methodsTaverna(dbName: String)
 
 # general testing route
 GET		/test						controllers.Application.test

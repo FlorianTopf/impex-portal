@@ -225,8 +225,12 @@ extends Actor with DataProvider {
             // @FIXME MeasurementType is missing for NumericalData
             val measurementType = MagneticField
             // @TODO atm we apply all regions of the mission 
-            // to each numerical data element of that mission
-            val observedRegion = instruments._2.map(m => EnumRegion.fromString(m, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+            // to a numerical data element of that mission
+            // if there is no target set for the original dataset element
+            val observedRegion = dataset.target match {
+      		  case Some(o) if(o != "") => Seq(EnumRegion.fromString(o, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+      		  case _ => instruments._2.map(m => EnumRegion.fromString(m, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+      		}
             
             // @TODO these procedure is very tricky 
             //(multiple optional/mandatory elements)
