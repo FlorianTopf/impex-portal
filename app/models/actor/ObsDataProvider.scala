@@ -59,7 +59,6 @@ extends Actor with DataProvider {
             // CLWEB@IRAP is already natively included
             // Simulations are already natively included
             // VEXMAG will also be obsolete in the future
-            // all other simulation models are excluded!
             (element \\ "@name" exists (_.text.contains("CLWEB@IRAP"))) ||
    			(element \\ "@isSimulation" exists (_.text == "true"))
    		  }}
@@ -113,8 +112,18 @@ extends Actor with DataProvider {
            None, mission.desc, None, Seq(contact))
       // replace all whitespaces with underscore
       val resourceId = getMetaData.id.toString+"/Observatory/"+mission.id.toString.replaceAll(" ", "_")
-      // @FIXME Location/ObservatoryRegion is missing for Observatory
-      val location = Location(Seq(Earth))
+      // Location/ObservatoryRegion is taken from target/targets attribute
+      var missions = mission.target match {
+        case Some(m) => Seq(m)
+        case None => Seq()
+      }
+      mission.targets match {
+        case Some(m) => missions++Seq(m.split(" "))
+        case None => missions++Seq()
+        
+      }
+      val location = Location(missions.map(m => EnumRegion.fromString(m, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at"))))
+      
       DataRecord(None, Some("Observatory"), Observatory(resourceId, resourceHeader, Nil, location, None, Nil))    
     }, "en")
   }
@@ -149,14 +158,23 @@ extends Actor with DataProvider {
     val cal: GregorianCalendar = new GregorianCalendar
     
     val records = getTreeObjects("mission").map(_.as[Mission])
-    val missions: Seq[(String, Seq[Instrument])] = records map { record => 
+    val missions: Seq[(String, Seq[String], Seq[Instrument])] = records map { record => 
       val missionId = getMetaData.id.toString+"/Observatory/"+record.id.toString.replaceAll(" ", "_")
-      (missionId, record.missionoption.filter(_.key.get == "instrument").map(_.as[Instrument]))
+      var missions = record.target match {
+        case Some(m) => Seq(m)
+        case None => Seq()
+      }
+      record.targets match {
+        case Some(m) => missions++Seq(m.split(" "))
+        case None => missions++Seq()  
+      }
+      (missionId, missions, record.missionoption.filter(_.key.get == "instrument").map(_.as[Instrument]))
     }
     // @TODO here we need to filter the numerical data for requested id
     Spase(Number2u462u462, missions flatMap { instruments =>
       val contact = Contact(getMetaData.id.toString, Seq(ArchiveSpecialist))
-      instruments._2 flatMap { instrument =>
+      
+      instruments._3 flatMap { instrument =>
         val instrumentId = getMetaData.id.toString+"/Instrument/"+
           instrument.id.toString.replaceAll(" ", "_").replaceAll("@", "__at__")
         instrument.dataset map { dataset => 
@@ -204,9 +222,11 @@ extends Actor with DataProvider {
                 }
             )
             
-            // @FIXME MeasurementType and ObservedRegion is missing for NumericalData
+            // @FIXME MeasurementType is missing for NumericalData
             val measurementType = MagneticField
-            val observedRegion = Earthu46Magnetosphere
+            // @TODO atm we apply all regions of the mission 
+            // to each numerical data element of that mission
+            val observedRegion = instruments._2.map(m => EnumRegion.fromString(m, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
             
             // @TODO these procedure is very tricky 
             //(multiple optional/mandatory elements)
@@ -245,7 +265,7 @@ extends Actor with DataProvider {
             // input resource Id = instrument Id
             DataRecord(None, Some("NumericalData"), 
              NumericalData(resourceId, resourceHeader, Seq(accessInfo), None, None, None, None, 
-                 Seq(instrumentId), Seq(measurementType), Some(tempDescription), Nil, Seq(observedRegion), 
+                 Seq(instrumentId), Seq(measurementType), Some(tempDescription), Nil, observedRegion, 
                  None, Seq(dataset.att.getOrElse("")), Seq(instrumentId), parameter, Nil))
         }
       }
