@@ -177,6 +177,7 @@ extends Actor with DataProvider {
       instruments._3 flatMap { instrument =>
         val instrumentId = getMetaData.id.toString+"/Instrument/"+
           instrument.id.toString.replaceAll(" ", "_").replaceAll("@", "__at__")
+          
         instrument.dataset map { dataset => 
       		val resourceHeader = ResourceHeader(dataset.name, Nil, TimeProvider.getISONow,
       		    None, dataset.desc.getOrElse(""), None, Seq(contact))
