@@ -549,11 +549,39 @@ object Spase {
   
   
   // writer for granule
-  // @TODO needs to be extended!
+  // @TODO only regions and timespans are avaialable, maybe more in the future?
   implicit val granuleWrites: Writes[Granule] = new Writes[Granule] {
     def writes(g: Granule): JsValue = {
-      Json.obj("resourceId" -> g.ResourceID)
+      val params = g.granuleoption.key match {
+        case Some("RegionBegin") => Json.obj("regionBegin" -> g.granuleoption.value.toString)
+        case Some("StartDate") => Json.obj("startDate" -> g.granuleoption.value.toString)
+        case None => Json.obj()
+        // just in case anything else comes here
+        case _ => Json.obj()
+      } 
+      val optParams = g.granuleoption2 match {
+        case Some(o) if(o.key == Some("RegionEnd")) => 
+          Json.obj("regionEnd" -> o.value.toString)
+        case Some(o) if(o.key == Some("StopDate")) =>
+          Json.obj("stopDate" -> o.value.toString)
+        case None => Json.obj()
+        // just in case anything else comes here
+        case _ => Json.obj()
+      }
+      Json.obj("resourceId" -> g.ResourceID, "releaseDate" -> g.ReleaseDate, 
+          "parentId" -> g.ParentID)++params++optParams++Json.obj("source" -> g.Source)
     }
+  }
+  
+  // @TODO there are a few more options (not used at the moment)
+  implicit val sourceWrites: Writes[Source] = new Writes[Source] {
+    def writes(s: Source): JsValue = {
+      Json.obj("sourceType" -> s.SourceType, "url" -> s.URL)
+    }
+  }
+  
+  implicit val sourceTypeWrites: Writes[EnumSourceType] = new Writes[EnumSourceType] {
+    def writes(s: EnumSourceType) = JsString(s.toString)
   }
   
   
