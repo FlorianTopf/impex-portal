@@ -59344,4 +59344,3478 @@ That is the altitude below which ion densities are computed analytically</Descri
 <SourceType>Data</SourceType>
 <URL>http://impex.latmos.ipsl.fr/Hybrid/Gany_24_10_13/Thew_YZ_24_10_13.xml</URL>
 </Source>
+</Granule><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/CO2/2D/XY</ResourceID>
+<ResourceHeader>
+<ResourceName>Planetary_CO2+_XY</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  0.00  1.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_CO2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>CO2</ChemicalFormula>
+<PopulationMassNumber>44</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Planetary_CO2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>CO2</ChemicalFormula>
+<PopulationMassNumber>44</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_CO2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>CO2</ChemicalFormula>
+<PopulationMassNumber>44</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Planetary_CO2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>CO2</ChemicalFormula>
+<PopulationMassNumber>44</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/CO2/2D/XZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Planetary_CO2+_XZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  1.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_CO2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>CO2</ChemicalFormula>
+<PopulationMassNumber>44</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Planetary_CO2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>CO2</ChemicalFormula>
+<PopulationMassNumber>44</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_CO2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>CO2</ChemicalFormula>
+<PopulationMassNumber>44</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Planetary_CO2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>CO2</ChemicalFormula>
+<PopulationMassNumber>44</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/CO2/2D/YZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Planetary_CO2+_YZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 1.00  0.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_CO2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>CO2</ChemicalFormula>
+<PopulationMassNumber>44</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Planetary_CO2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>CO2</ChemicalFormula>
+<PopulationMassNumber>44</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_CO2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>CO2</ChemicalFormula>
+<PopulationMassNumber>44</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Planetary_CO2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>CO2</ChemicalFormula>
+<PopulationMassNumber>44</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Ele/2D/XY</ResourceID>
+<ResourceHeader>
+<ResourceName>Ele_XY</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>ElectricField</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  0.00  1.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>TotalElectricField</Name>
+<ParameterKey>Etot</ParameterKey>
+<Units>mV.m-1</Units>
+<UnitsConversion> 1.e-3 &gt; V.m^-1 </UnitsConversion>
+<Field>
+<Qualifier>Total</Qualifier>
+<FieldQuantity>Electric</FieldQuantity>
+</Field>
+</Parameter>
+<Parameter>
+<Name>ElectricField</Name>
+<ParameterKey>Ex Ey Ez</ParameterKey>
+<Units>mV.m-1</Units>
+<UnitsConversion> 1.e-3 &gt; V.m^-1 </UnitsConversion>
+<Field>
+<Qualifier>Vector</Qualifier>
+<FieldQuantity>Electric</FieldQuantity>
+</Field>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Ele/2D/XZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Ele_XZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>ElectricField</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  1.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>TotalElectricField</Name>
+<ParameterKey>Etot</ParameterKey>
+<Units>mV.m-1</Units>
+<UnitsConversion> 1.e-3 &gt; V.m^-1 </UnitsConversion>
+<Field>
+<Qualifier>Total</Qualifier>
+<FieldQuantity>Electric</FieldQuantity>
+</Field>
+</Parameter>
+<Parameter>
+<Name>ElectricField</Name>
+<ParameterKey>Ex Ey Ez</ParameterKey>
+<Units>mV.m-1</Units>
+<UnitsConversion> 1.e-3 &gt; V.m^-1 </UnitsConversion>
+<Field>
+<Qualifier>Vector</Qualifier>
+<FieldQuantity>Electric</FieldQuantity>
+</Field>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Ele/2D/YZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Ele_YZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>ElectricField</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 1.00  0.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>TotalElectricField</Name>
+<ParameterKey>Etot</ParameterKey>
+<Units>mV.m-1</Units>
+<UnitsConversion> 1.e-3 &gt; V.m^-1 </UnitsConversion>
+<Field>
+<Qualifier>Total</Qualifier>
+<FieldQuantity>Electric</FieldQuantity>
+</Field>
+</Parameter>
+<Parameter>
+<Name>ElectricField</Name>
+<ParameterKey>Ex Ey Ez</ParameterKey>
+<Units>mV.m-1</Units>
+<UnitsConversion> 1.e-3 &gt; V.m^-1 </UnitsConversion>
+<Field>
+<Qualifier>Vector</Qualifier>
+<FieldQuantity>Electric</FieldQuantity>
+</Field>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput>
+    <NumericalOutput>
+        <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Ele/3D</ResourceID>
+        <ResourceHeader>
+            <ResourceName>Ele/3D</ResourceName>
+            <ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+            <Description/>
+            <Contact>
+                <PersonID>LATMOS</PersonID>
+                <Role>DataProducer</Role>
+            </Contact>
+        </ResourceHeader>
+        <AccessInformation>
+            <RepositoryID>impex://LATMOS</RepositoryID>
+            <AccessURL>
+                <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+            </AccessURL>
+            <Format>NetCDF</Format>
+        </AccessInformation>
+        <MeasurementType>ElectricField</MeasurementType>
+        <SpatialDescription>
+            <Dimension>3</Dimension>
+            <CoordinateSystem>
+                <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+                <CoordinateSystemName>MSO</CoordinateSystemName>
+            </CoordinateSystem>
+            <Units>km</Units>
+            <UnitsConversion>1000 &gt; m</UnitsConversion>
+            <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+            <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+        </SpatialDescription>
+        <SimulatedRegion>Mars</SimulatedRegion>
+        <InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+        <Parameter>
+            <Name>ElectricField</Name>
+            <ParameterKey>Ex Ey Ez</ParameterKey>
+            <Units>mV.m^-1</Units>
+            <UnitsConversion> 1.e-3 &gt; V.m^-1 </UnitsConversion>
+            <Field>
+                <Qualifier>Vector</Qualifier>
+                <FieldQuantity>Electric</FieldQuantity>
+            </Field>
+        </Parameter>
+        <SimulationProduct>3DCubes</SimulationProduct>
+    </NumericalOutput>
+    <NumericalOutput>
+        <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hes/3D</ResourceID>
+        <ResourceHeader>
+            <ResourceName>Solar wind He++/3D</ResourceName>
+            <ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+            <Description/>
+            <Contact>
+                <PersonID>LATMOS</PersonID>
+                <Role>DataProducer</Role>
+            </Contact>
+        </ResourceHeader>
+        <AccessInformation>
+            <RepositoryID>impex://LATMOS</RepositoryID>
+            <AccessURL>
+                <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+            </AccessURL>
+            <Format>NetCDF</Format>
+        </AccessInformation>
+        <MeasurementType>IonComposition</MeasurementType>
+        <SpatialDescription>
+            <Dimension>3</Dimension>
+            <CoordinateSystem>
+                <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+                <CoordinateSystemName>MSO</CoordinateSystemName>
+            </CoordinateSystem>
+            <Units>km</Units>
+            <UnitsConversion> 1000 &gt; m </UnitsConversion>
+            <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+            <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+        </SpatialDescription>
+        <SimulatedRegion>Mars</SimulatedRegion>
+        <InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+        <Parameter>
+            <Name>n_i</Name>
+            <ParameterKey>Density</ParameterKey>
+            <Units>cm^-3</Units>
+            <Particle>
+                <PopulationID>SolarWind_He+</PopulationID>
+                <ParticleType>Ion</ParticleType>
+                <ParticleQuantity>NumberDensity</ParticleQuantity>
+                <ChemicalFormula>He</ChemicalFormula>
+                <AtomicNumber>2</AtomicNumber>
+                <PopulationMassNumber>4</PopulationMassNumber>
+                <PopulationChargeState>2</PopulationChargeState>
+            </Particle>
+        </Parameter>
+        <Parameter>
+            <Name>U</Name>
+            <ParameterKey>Ux,Uy,Uz</ParameterKey>
+            <Units>km*s^-1</Units>
+            <UnitsConversion> 1000 &gt; m.s^-1 </UnitsConversion>
+            <Particle>
+                <PopulationID>SolarWind_He+</PopulationID>
+                <ParticleType>Ion</ParticleType>
+                <Qualifier>Vector</Qualifier>
+                <ParticleQuantity>Velocity</ParticleQuantity>
+                <ChemicalFormula>He</ChemicalFormula>
+                <AtomicNumber>2</AtomicNumber>
+                <PopulationMassNumber>4</PopulationMassNumber>
+                <PopulationChargeState>2</PopulationChargeState>
+            </Particle>
+        </Parameter>
+        <Parameter>
+            <Name>T_i</Name>
+            <ParameterKey>Temperature</ParameterKey>
+            <Units>eV</Units>
+            <Particle>
+                <PopulationID>SolarWind_He+</PopulationID>
+                <ParticleType>Ion</ParticleType>
+                <ParticleQuantity>Temperature</ParticleQuantity>
+                <ChemicalFormula>He</ChemicalFormula>
+                <AtomicNumber>2</AtomicNumber>
+                <PopulationMassNumber>4</PopulationMassNumber>
+                <PopulationChargeState>2</PopulationChargeState>
+            </Particle>
+        </Parameter>
+        <SimulationProduct>3DCubes</SimulationProduct>
+    </NumericalOutput>
+    <NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hes/2D/XY</ResourceID>
+<ResourceHeader>
+<ResourceName>SolarWind_He+_XY</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  0.00  1.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>SolarWind_He+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>He</ChemicalFormula>
+<AtomicNumber>2</AtomicNumber>
+<PopulationMassNumber>4</PopulationMassNumber>
+<PopulationChargeState>2</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>SolarWind_He+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>He</ChemicalFormula>
+<AtomicNumber>2</AtomicNumber>
+<PopulationMassNumber>4</PopulationMassNumber>
+<PopulationChargeState>2</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>SolarWind_He+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>He</ChemicalFormula>
+<AtomicNumber>2</AtomicNumber>
+<PopulationMassNumber>4</PopulationMassNumber>
+<PopulationChargeState>2</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>SolarWind_He+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>He</ChemicalFormula>
+<AtomicNumber>2</AtomicNumber>
+<PopulationMassNumber>4</PopulationMassNumber>
+<PopulationChargeState>2</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hes/2D/XZ</ResourceID>
+<ResourceHeader>
+<ResourceName>SolarWind_He+_XZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  1.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>SolarWind_He+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>He</ChemicalFormula>
+<AtomicNumber>2</AtomicNumber>
+<PopulationMassNumber>4</PopulationMassNumber>
+<PopulationChargeState>2</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>SolarWind_He+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>He</ChemicalFormula>
+<AtomicNumber>2</AtomicNumber>
+<PopulationMassNumber>4</PopulationMassNumber>
+<PopulationChargeState>2</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>SolarWind_He+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>He</ChemicalFormula>
+<AtomicNumber>2</AtomicNumber>
+<PopulationMassNumber>4</PopulationMassNumber>
+<PopulationChargeState>2</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>SolarWind_He+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>He</ChemicalFormula>
+<AtomicNumber>2</AtomicNumber>
+<PopulationMassNumber>4</PopulationMassNumber>
+<PopulationChargeState>2</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hes/2D/YZ</ResourceID>
+<ResourceHeader>
+<ResourceName>SolarWind_He+_YZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 1.00  0.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>SolarWind_He+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>He</ChemicalFormula>
+<AtomicNumber>2</AtomicNumber>
+<PopulationMassNumber>4</PopulationMassNumber>
+<PopulationChargeState>2</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>SolarWind_He+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>He</ChemicalFormula>
+<AtomicNumber>2</AtomicNumber>
+<PopulationMassNumber>4</PopulationMassNumber>
+<PopulationChargeState>2</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>SolarWind_He+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>He</ChemicalFormula>
+<AtomicNumber>2</AtomicNumber>
+<PopulationMassNumber>4</PopulationMassNumber>
+<PopulationChargeState>2</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>SolarWind_He+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>He</ChemicalFormula>
+<AtomicNumber>2</AtomicNumber>
+<PopulationMassNumber>4</PopulationMassNumber>
+<PopulationChargeState>2</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+    <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hpl/3D</ResourceID>
+    <ResourceHeader>
+        <ResourceName>Planetary H+/3D</ResourceName>
+        <ReleaseDate>2014-03-14T00:00:00.000</ReleaseDate>
+        <Description/>
+        <Contact>
+            <PersonID>LATMOS</PersonID>
+            <Role>DataProducer</Role>
+        </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+        <RepositoryID>impex://LATMOS</RepositoryID>
+        <AccessURL>
+            <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+        </AccessURL>
+        <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>IonComposition</MeasurementType>
+    <SpatialDescription>
+        <Dimension>3</Dimension>
+        <CoordinateSystem>
+            <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+            <CoordinateSystemName>MSO</CoordinateSystemName>
+        </CoordinateSystem>
+        <Units>km</Units>
+        <UnitsConversion> 1000 &gt; m </UnitsConversion>
+        <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+        <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+    </SpatialDescription>
+    <SimulatedRegion>Mars</SimulatedRegion>
+    <InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+    <Parameter>
+        <Name>n_i</Name>
+        <ParameterKey>Density</ParameterKey>
+        <Units>cm^-3</Units>
+        <Particle>
+            <PopulationID>Planetary_H+</PopulationID>
+            <ParticleType>Proton</ParticleType>
+            <ParticleQuantity>NumberDensity</ParticleQuantity>
+            <ChemicalFormula>H</ChemicalFormula>
+            <AtomicNumber>1</AtomicNumber>
+            <PopulationMassNumber>1</PopulationMassNumber>
+            <PopulationChargeState>1</PopulationChargeState>
+        </Particle>
+    </Parameter>
+    <Parameter>
+        <Name>U</Name>
+        <ParameterKey>Ux,Uy,Uz</ParameterKey>
+        <Units>km*s^-1</Units>
+        <UnitsConversion> 1000 &gt; m.s^-1 </UnitsConversion>
+        <Particle>
+            <PopulationID>Planetary_H+</PopulationID>
+            <ParticleType>Proton</ParticleType>
+            <Qualifier>Vector</Qualifier>
+            <ParticleQuantity>Velocity</ParticleQuantity>
+            <ChemicalFormula>H</ChemicalFormula>
+            <AtomicNumber>1</AtomicNumber>
+            <PopulationMassNumber>1</PopulationMassNumber>
+            <PopulationChargeState>1</PopulationChargeState>
+        </Particle>
+    </Parameter>
+    <Parameter>
+        <Name>T_i</Name>
+        <ParameterKey>Temperature</ParameterKey>
+        <Units>eV</Units>
+        <Particle>
+            <PopulationID>Planetary_H+</PopulationID>
+            <ParticleType>Proton</ParticleType>
+            <ParticleQuantity>Temperature</ParticleQuantity>
+            <ChemicalFormula>H</ChemicalFormula>
+            <AtomicNumber>1</AtomicNumber>
+            <PopulationMassNumber>1</PopulationMassNumber>
+            <PopulationChargeState>1</PopulationChargeState>
+        </Particle>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hpl/2D/XY</ResourceID>
+<ResourceHeader>
+<ResourceName>Planetary_H+_XY</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  0.00  1.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Planetary_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Planetary_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hpl/2D/XZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Planetary_H+_XZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  1.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Planetary_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Planetary_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hpl/2D/YZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Planetary_H+_YZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 1.00  0.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Planetary_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Planetary_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+    <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hsw/3D</ResourceID>
+    <ResourceHeader>
+        <ResourceName>Solar wind H+/3D</ResourceName>
+        <ReleaseDate>2014-03-14T00:00:00.000</ReleaseDate>
+        <Description/>
+        <Contact>
+            <PersonID>LATMOS</PersonID>
+            <Role>DataProducer</Role>
+        </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+        <RepositoryID>impex://LATMOS</RepositoryID>
+        <AccessURL>
+            <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+        </AccessURL>
+        <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>IonComposition</MeasurementType>
+    <SpatialDescription>
+        <Dimension>3</Dimension>
+        <CoordinateSystem>
+            <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+            <CoordinateSystemName>MSO</CoordinateSystemName>
+        </CoordinateSystem>
+        <Units>km</Units>
+        <UnitsConversion> 1000 &gt; m </UnitsConversion>
+        <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+        <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+    </SpatialDescription>
+    <SimulatedRegion>Mars</SimulatedRegion>
+    <InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+    <Parameter>
+        <Name>n_i</Name>
+        <ParameterKey>Density</ParameterKey>
+        <Units>cm^-3</Units>
+        <Particle>
+            <PopulationID>SolarWind_H+</PopulationID>
+            <ParticleType>Proton</ParticleType>
+            <ParticleQuantity>NumberDensity</ParticleQuantity>
+            <ChemicalFormula>H</ChemicalFormula>
+            <AtomicNumber>1</AtomicNumber>
+            <PopulationMassNumber>1</PopulationMassNumber>
+            <PopulationChargeState>1</PopulationChargeState>
+        </Particle>
+    </Parameter>
+    <Parameter>
+        <Name>U</Name>
+        <ParameterKey>Ux,Uy,Uz</ParameterKey>
+        <Units>km*s^-1</Units>
+        <UnitsConversion> 1000 &gt; m.s^-1 </UnitsConversion>
+        <Particle>
+            <PopulationID>SolarWind_H+</PopulationID>
+            <ParticleType>Proton</ParticleType>
+            <Qualifier>Vector</Qualifier>
+            <ParticleQuantity>Velocity</ParticleQuantity>
+            <ChemicalFormula>H</ChemicalFormula>
+            <AtomicNumber>1</AtomicNumber>
+            <PopulationMassNumber>1</PopulationMassNumber>
+            <PopulationChargeState>1</PopulationChargeState>
+        </Particle>
+    </Parameter>
+    <Parameter>
+        <Name>T_i</Name>
+        <ParameterKey>Temperature</ParameterKey>
+        <Units>eV</Units>
+        <Particle>
+            <PopulationID>SolarWind_H+</PopulationID>
+            <ParticleType>Proton</ParticleType>
+            <ParticleQuantity>Temperature</ParticleQuantity>
+            <ChemicalFormula>H</ChemicalFormula>
+            <AtomicNumber>1</AtomicNumber>
+            <PopulationMassNumber>1</PopulationMassNumber>
+            <PopulationChargeState>1</PopulationChargeState>
+        </Particle>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hsw/2D/XY</ResourceID>
+<ResourceHeader>
+<ResourceName>SolarWind_H+_XY</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  0.00  1.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>SolarWind_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>SolarWind_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>SolarWind_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>SolarWind_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hsw/2D/XZ</ResourceID>
+<ResourceHeader>
+<ResourceName>SolarWind_H+_XZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  1.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>SolarWind_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>SolarWind_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>SolarWind_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>SolarWind_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hsw/2D/YZ</ResourceID>
+<ResourceHeader>
+<ResourceName>SolarWind_H+_YZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 1.00  0.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>SolarWind_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>SolarWind_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>SolarWind_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>SolarWind_H+</PopulationID>
+<ParticleType>Proton</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>H</ChemicalFormula>
+<AtomicNumber>1</AtomicNumber>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput>
+    <NumericalOutput>
+        <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Mag/3D</ResourceID>
+        <ResourceHeader>
+            <ResourceName>Mag/3D</ResourceName>
+            <ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+            <Description/>
+            <Contact>
+                <PersonID>LATMOS</PersonID>
+                <Role>DataProducer</Role>
+            </Contact>
+        </ResourceHeader>
+        <AccessInformation>
+            <RepositoryID>impex://LATMOS</RepositoryID>
+            <AccessURL>
+                <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+            </AccessURL>
+            <Format>NetCDF</Format>
+        </AccessInformation>
+        <MeasurementType>MagneticField</MeasurementType>
+        <SpatialDescription>
+            <Dimension>3</Dimension>
+            <CoordinateSystem>
+                <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+                <CoordinateSystemName>MSO</CoordinateSystemName>
+            </CoordinateSystem>
+            <Units>km</Units>
+            <UnitsConversion>1000 &gt; m</UnitsConversion>
+            <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+            <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+        </SpatialDescription>
+        <SimulatedRegion>Mars</SimulatedRegion>
+        <InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+        <Parameter>
+            <Name>MagneticField</Name>
+            <ParameterKey>Bx By Bz</ParameterKey>
+            <Units>nT</Units>
+            <UnitsConversion> 1.e-9 &gt; T </UnitsConversion>
+            <Field>
+                <Qualifier>Vector</Qualifier>
+                <FieldQuantity>Magnetic</FieldQuantity>
+            </Field>
+        </Parameter>
+        <SimulationProduct>3DCubes</SimulationProduct>
+    </NumericalOutput>
+    <NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Mag/2D/XY</ResourceID>
+<ResourceHeader>
+<ResourceName>Mag_XY</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>MagneticField</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  0.00  1.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>TotalMagneticField</Name>
+<ParameterKey>Btot</ParameterKey>
+<Units>nT</Units>
+<UnitsConversion> 1.e-9 &gt; T </UnitsConversion>
+<Field>
+<Qualifier>Total</Qualifier>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+<Parameter>
+<Name>MagneticField</Name>
+<ParameterKey>Bx By Bz</ParameterKey>
+<Units>nT</Units>
+<UnitsConversion> 1.e-9 &gt; T </UnitsConversion>
+<Field>
+<Qualifier>Vector</Qualifier>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Mag/2D/XZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Mag_XZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>MagneticField</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  1.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>TotalMagneticField</Name>
+<ParameterKey>Btot</ParameterKey>
+<Units>nT</Units>
+<UnitsConversion> 1.e-9 &gt; T </UnitsConversion>
+<Field>
+<Qualifier>Total</Qualifier>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+<Parameter>
+<Name>MagneticField</Name>
+<ParameterKey>Bx By Bz</ParameterKey>
+<Units>nT</Units>
+<UnitsConversion> 1.e-9 &gt; T </UnitsConversion>
+<Field>
+<Qualifier>Vector</Qualifier>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Mag/2D/YZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Mag_YZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>MagneticField</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 1.00  0.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>TotalMagneticField</Name>
+<ParameterKey>Btot</ParameterKey>
+<Units>nT</Units>
+<UnitsConversion> 1.e-9 &gt; T </UnitsConversion>
+<Field>
+<Qualifier>Total</Qualifier>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+<Parameter>
+<Name>MagneticField</Name>
+<ParameterKey>Bx By Bz</ParameterKey>
+<Units>nT</Units>
+<UnitsConversion> 1.e-9 &gt; T </UnitsConversion>
+<Field>
+<Qualifier>Vector</Qualifier>
+<FieldQuantity>Magnetic</FieldQuantity>
+</Field>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+    <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/O2p/3D</ResourceID>
+    <ResourceHeader>
+        <ResourceName>Planetary O2+/3D</ResourceName>
+        <ReleaseDate>2014-03-14T00:00:00.000</ReleaseDate>
+        <Description/>
+        <Contact>
+            <PersonID>LATMOS</PersonID>
+            <Role>DataProducer</Role>
+        </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+        <RepositoryID>impex://LATMOS</RepositoryID>
+        <AccessURL>
+            <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+        </AccessURL>
+        <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>IonComposition</MeasurementType>
+    <SpatialDescription>
+        <Dimension>3</Dimension>
+        <CoordinateSystem>
+            <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+            <CoordinateSystemName>MSO</CoordinateSystemName>
+        </CoordinateSystem>
+        <Units>km</Units>
+        <UnitsConversion> 1000 &gt; m </UnitsConversion>
+        <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+        <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+    </SpatialDescription>
+    <SimulatedRegion>Mars</SimulatedRegion>
+    <InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+    <Parameter>
+        <Name>n_i</Name>
+        <ParameterKey>Density</ParameterKey>
+        <Units>cm^-3</Units>
+        <Particle>
+            <PopulationID>Planetary_O2+</PopulationID>
+            <ParticleType>Ion</ParticleType>
+            <ParticleQuantity>NumberDensity</ParticleQuantity>
+            <ChemicalFormula>O2</ChemicalFormula>
+            <PopulationMassNumber>32</PopulationMassNumber>
+            <PopulationChargeState>1</PopulationChargeState>
+        </Particle>
+    </Parameter>
+    <Parameter>
+        <Name>U</Name>
+        <ParameterKey>Ux,Uy,Uz</ParameterKey>
+        <Units>km*s^-1</Units>
+        <UnitsConversion> 1000 &gt; m.s^-1 </UnitsConversion>
+        <Particle>
+            <PopulationID>Planetary_O2+</PopulationID>
+            <ParticleType>Ion</ParticleType>
+            <Qualifier>Vector</Qualifier>
+            <ParticleQuantity>Velocity</ParticleQuantity>
+            <ChemicalFormula>O2</ChemicalFormula>
+            <PopulationMassNumber>32</PopulationMassNumber>
+            <PopulationChargeState>1</PopulationChargeState>
+        </Particle>
+    </Parameter>
+    <Parameter>
+        <Name>T_i</Name>
+        <ParameterKey>Temperature</ParameterKey>
+        <Units>eV</Units>
+        <Particle>
+            <PopulationID>Planetary_O2+</PopulationID>
+            <ParticleType>Ion</ParticleType>
+            <ParticleQuantity>Temperature</ParticleQuantity>
+            <ChemicalFormula>O2</ChemicalFormula>
+            <PopulationMassNumber>32</PopulationMassNumber>
+            <PopulationChargeState>1</PopulationChargeState>
+        </Particle>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/O2p/2D/XY</ResourceID>
+<ResourceHeader>
+<ResourceName>Planetary_O2+_XY</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  0.00  1.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>O2</ChemicalFormula>
+<PopulationMassNumber>32</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Planetary_O2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O2</ChemicalFormula>
+<PopulationMassNumber>32</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O2</ChemicalFormula>
+<PopulationMassNumber>32</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Planetary_O2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>O2</ChemicalFormula>
+<PopulationMassNumber>32</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/O2p/2D/XZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Planetary_O2+_XZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  1.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>O2</ChemicalFormula>
+<PopulationMassNumber>32</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Planetary_O2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O2</ChemicalFormula>
+<PopulationMassNumber>32</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O2</ChemicalFormula>
+<PopulationMassNumber>32</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Planetary_O2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>O2</ChemicalFormula>
+<PopulationMassNumber>32</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/O2p/2D/YZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Planetary_O2+_YZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 1.00  0.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>O2</ChemicalFormula>
+<PopulationMassNumber>32</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Planetary_O2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O2</ChemicalFormula>
+<PopulationMassNumber>32</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O2</ChemicalFormula>
+<PopulationMassNumber>32</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Planetary_O2+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>O2</ChemicalFormula>
+<PopulationMassNumber>32</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+    <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Opl/3D</ResourceID>
+    <ResourceHeader>
+        <ResourceName>Planetary O+/3D</ResourceName>
+        <ReleaseDate>2014-03-14T00:00:00.000</ReleaseDate>
+        <Description/>
+        <Contact>
+            <PersonID>LATMOS</PersonID>
+            <Role>DataProducer</Role>
+        </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+        <RepositoryID>impex://LATMOS</RepositoryID>
+        <AccessURL>
+            <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+        </AccessURL>
+        <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>IonComposition</MeasurementType>
+    <SpatialDescription>
+        <Dimension>3</Dimension>
+        <CoordinateSystem>
+            <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+            <CoordinateSystemName>MSO</CoordinateSystemName>
+        </CoordinateSystem>
+        <Units>km</Units>
+        <UnitsConversion> 1000 &gt; m </UnitsConversion>
+        <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+        <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+    </SpatialDescription>
+    <SimulatedRegion>Mars</SimulatedRegion>
+    <InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+    <Parameter>
+        <Name>n_i</Name>
+        <ParameterKey>Density</ParameterKey>
+        <Units>cm^-3</Units>
+        <Particle>
+            <PopulationID>Planetary_O+</PopulationID>
+            <ParticleType>Ion</ParticleType>
+            <ParticleQuantity>NumberDensity</ParticleQuantity>
+            <ChemicalFormula>O</ChemicalFormula>
+            <AtomicNumber>8</AtomicNumber>
+            <PopulationMassNumber>16</PopulationMassNumber>
+            <PopulationChargeState>1</PopulationChargeState>
+        </Particle>
+    </Parameter>
+    <Parameter>
+        <Name>U</Name>
+        <ParameterKey>Ux,Uy,Uz</ParameterKey>
+        <Units>km*s^-1</Units>
+        <UnitsConversion> 1000 &gt; m.s^-1 </UnitsConversion>
+        <Particle>
+            <PopulationID>Planetary_O+</PopulationID>
+            <ParticleType>Ion</ParticleType>
+            <Qualifier>Vector</Qualifier>
+            <ParticleQuantity>Velocity</ParticleQuantity>
+            <ChemicalFormula>O</ChemicalFormula>
+            <AtomicNumber>8</AtomicNumber>
+            <PopulationMassNumber>16</PopulationMassNumber>
+            <PopulationChargeState>1</PopulationChargeState>
+        </Particle>
+    </Parameter>
+    <Parameter>
+        <Name>T_i</Name>
+        <ParameterKey>Temperature</ParameterKey>
+        <Units>eV</Units>
+        <Particle>
+            <PopulationID>Planetary_O+</PopulationID>
+            <ParticleType>Ion</ParticleType>
+            <ParticleQuantity>Temperature</ParticleQuantity>
+            <ChemicalFormula>O</ChemicalFormula>
+            <AtomicNumber>8</AtomicNumber>
+            <PopulationMassNumber>16</PopulationMassNumber>
+            <PopulationChargeState>1</PopulationChargeState>
+        </Particle>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Opl/2D/XY</ResourceID>
+<ResourceHeader>
+<ResourceName>Planetary_O+_XY</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  0.00  1.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Opl/2D/XZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Planetary_O+_XZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  1.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Opl/2D/YZ</ResourceID>
+<ResourceHeader>
+<ResourceName>Planetary_O+_YZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>IonComposition</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 1.00  0.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_i</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U_i|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units>km.s^-1</Units>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U_i</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_i</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<PopulationID>Planetary_O+</PopulationID>
+<ParticleType>Ion</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+<ChemicalFormula>O</ChemicalFormula>
+<AtomicNumber>8</AtomicNumber>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/The/2D/XY</ResourceID>
+<ResourceHeader>
+<ResourceName>The_XY</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>ThermalPlasma</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  0.00  1.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_e</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<ParticleType>Electron</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units> km.s^-1 </Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_e</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<ParticleType>Electron</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/The/2D/XZ</ResourceID>
+<ResourceHeader>
+<ResourceName>The_XZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>ThermalPlasma</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 0.00  1.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_e</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<ParticleType>Electron</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units> km.s^-1 </Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_e</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<ParticleType>Electron</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/The/2D/YZ</ResourceID>
+<ResourceHeader>
+<ResourceName>The_YZ</ResourceName>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<AccessInformation>
+<RepositoryID>impex://LATMOS</RepositoryID>
+<AccessURL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+</AccessURL>
+<Format>XML</Format>
+</AccessInformation>
+<MeasurementType>ThermalPlasma</MeasurementType>
+<SpatialDescription>
+<Dimension>2</Dimension>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<Units>km</Units>
+<UnitsConversion>1000 &gt; m</UnitsConversion>
+<PlaneNormalVector> 1.00  0.00  0.00 </PlaneNormalVector>
+<PlanePoint>0 0 0</PlanePoint>
+</SpatialDescription>
+<SimulatedRegion>Mars</SimulatedRegion>
+<InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+<Parameter>
+<Name>n_e</Name>
+<ParameterKey>Density</ParameterKey>
+<Units>cm^-3</Units>
+<UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+<Particle>
+<ParticleType>Electron</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>NumberDensity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>|U|</Name>
+<ParameterKey>Utot</ParameterKey>
+<Units> km.s^-1 </Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Total</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>U</Name>
+<ParameterKey>Ux Uy Uz</ParameterKey>
+<Units>km.s^-1</Units>
+<UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+<Particle>
+<ParticleType>Ion</ParticleType>
+<Qualifier>Vector</Qualifier>
+<ParticleQuantity>Velocity</ParticleQuantity>
+</Particle>
+</Parameter>
+<Parameter>
+<Name>T_e</Name>
+<ParameterKey>Temperature</ParameterKey>
+<Units>eV</Units>
+<Particle>
+<ParticleType>Electron</ParticleType>
+<ParticleQuantity>Temperature</ParticleQuantity>
+</Particle>
+</Parameter>
+<SimulationProduct>2DCuts</SimulationProduct>
+</NumericalOutput><NumericalOutput>
+    <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/The/3D</ResourceID>
+    <ResourceHeader>
+        <ResourceName>The/3D</ResourceName>
+        <ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+        <Description/>
+        <Contact>
+            <PersonID>LATMOS</PersonID>
+            <Role>DataProducer</Role>
+        </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+        <RepositoryID>impex://LATMOS</RepositoryID>
+        <AccessURL>
+            <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+        </AccessURL>
+        <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>ThermalPlasma</MeasurementType>
+    <SpatialDescription>
+        <Dimension>3</Dimension>
+        <CoordinateSystem>
+            <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+            <CoordinateSystemName>MSO</CoordinateSystemName>
+        </CoordinateSystem>
+        <Units>km</Units>
+        <UnitsConversion>1000 &gt; m</UnitsConversion>
+        <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+        <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+    </SpatialDescription>
+    <SimulatedRegion>Mars</SimulatedRegion>
+    <InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+    <Parameter>
+        <Name>n_e</Name>
+        <ParameterKey>Density</ParameterKey>
+        <Units>cm^-3</Units>
+        <UnitsConversion> 1.e6 &gt; m^-3 </UnitsConversion>
+        <Particle>
+            <ParticleType>Electron</ParticleType>
+            <Qualifier>Total</Qualifier>
+            <ParticleQuantity>NumberDensity</ParticleQuantity>
+        </Particle>
+    </Parameter>
+    <Parameter>
+        <Name>U</Name>
+        <ParameterKey>Ux Uy Uz</ParameterKey>
+        <Units>km.s^-1</Units>
+        <UnitsConversion> 1.e3 &gt; m.s^-1 </UnitsConversion>
+        <Particle>
+            <ParticleType>Ion</ParticleType>
+            <Qualifier>Vector</Qualifier>
+            <ParticleQuantity>Velocity</ParticleQuantity>
+        </Particle>
+    </Parameter>
+    <Parameter>
+        <Name>T_e</Name>
+        <ParameterKey>Temperature</ParameterKey>
+        <Units>eV</Units>
+        <Particle>
+            <ParticleType>Electron</ParticleType>
+            <ParticleQuantity>Temperature</ParticleQuantity>
+        </Particle>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+    <NumericalOutput>
+        <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/CO2/3D</ResourceID>
+        <ResourceHeader>
+            <ResourceName>Planetary CO2+/3D</ResourceName>
+            <ReleaseDate>2013-06-11T00:00:00.000</ReleaseDate>
+            <Description/>
+            <Contact>
+                <PersonID>LATMOS</PersonID>
+                <Role>DataProducer</Role>
+            </Contact>
+        </ResourceHeader>
+        <AccessInformation>
+            <RepositoryID>impex://LATMOS</RepositoryID>
+            <AccessURL>
+                <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+            </AccessURL>
+            <Format>NetCDF</Format>
+        </AccessInformation>
+        <MeasurementType>IonComposition</MeasurementType>
+        <SpatialDescription>
+            <Dimension>3</Dimension>
+            <CoordinateSystem>
+                <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+                <CoordinateSystemName>MSO</CoordinateSystemName>
+            </CoordinateSystem>
+            <Units>km</Units>
+            <UnitsConversion> 1000 &gt; m </UnitsConversion>
+            <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+            <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+        </SpatialDescription>
+        <SimulatedRegion>Mars</SimulatedRegion>
+        <InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+        <Parameter>
+            <Name>n_i</Name>
+            <ParameterKey>Density</ParameterKey>
+            <Units>cm^-3</Units>
+            <Particle>
+                <PopulationID>Planetary_CO2+</PopulationID>
+                <ParticleType>Ion</ParticleType>
+                <ParticleQuantity>NumberDensity</ParticleQuantity>
+                <ChemicalFormula>CO2</ChemicalFormula>
+                <PopulationMassNumber>44</PopulationMassNumber>
+                <PopulationChargeState>1</PopulationChargeState>
+            </Particle>
+        </Parameter>
+        <Parameter>
+            <Name>U</Name>
+            <ParameterKey>Ux,Uy,Uz</ParameterKey>
+            <Units>km*s^-1</Units>
+            <UnitsConversion> 1000 &gt; m.s^-1 </UnitsConversion>
+            <Particle>
+                <PopulationID>Planetary_CO2+</PopulationID>
+                <ParticleType>Ion</ParticleType>
+                <Qualifier>Vector</Qualifier>
+                <ParticleQuantity>Velocity</ParticleQuantity>
+                <ChemicalFormula>CO2</ChemicalFormula>
+                <PopulationMassNumber>44</PopulationMassNumber>
+                <PopulationChargeState>1</PopulationChargeState>
+            </Particle>
+        </Parameter>
+        <Parameter>
+            <Name>T_i</Name>
+            <ParameterKey>Temperature</ParameterKey>
+            <Units>eV</Units>
+            <Particle>
+                <PopulationID>Planetary_CO2+</PopulationID>
+                <ParticleType>Ion</ParticleType>
+                <ParticleQuantity>Temperature</ParticleQuantity>
+                <ChemicalFormula>CO2</ChemicalFormula>
+                <PopulationMassNumber>44</PopulationMassNumber>
+                <PopulationChargeState>1</PopulationChargeState>
+            </Particle>
+        </Parameter>
+        <SimulationProduct>3DCubes</SimulationProduct>
+    </NumericalOutput>
+    <SimulationRun>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</ResourceID>
+<ResourceHeader>
+<ResourceName>LatHyS_Mars_14_03_14</ResourceName>
+<ReleaseDate>2014-03-14T00:00:00.000</ReleaseDate>
+    <Description/>
+<Contact>
+<PersonID>LATMOS</PersonID>
+<Role>DataProducer</Role>
+</Contact>
+</ResourceHeader>
+<Model>
+<ModelID>impex://LATMOS/Hybrid</ModelID>
+</Model>
+<TemporalDependence>No</TemporalDependence>
+<SimulatedRegion>Mars</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+<SimulationTime>
+<Duration>PT2072.854S</Duration>
+<TimeStart>00:00:00</TimeStart>
+<TimeStep>PT0.115S</TimeStep>
+</SimulationTime>
+<SimulationDomain>
+<CoordinateSystem>
+<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+<CoordinateSystemName>MSO</CoordinateSystemName>
+</CoordinateSystem>
+<SpatialDimension>3</SpatialDimension>
+<VelocityDimension>3</VelocityDimension>
+<FieldDimension>3</FieldDimension>
+<Units>km</Units>
+<UnitsConversion> 1000 &gt; m </UnitsConversion>
+<CoordinatesLabel>X Y Z</CoordinatesLabel>
+<ValidMin>-7941.0  -15314.9  -15314.9</ValidMin>
+<ValidMax>8054.5   15396.5   15396.5</ValidMax>
+<GridStructure>Constant</GridStructure>
+<GridCellSize>80.0    80.0    80.0</GridCellSize>
+<Symmetry>Axial</Symmetry>
+<BoundaryConditions>
+<ParticleBoundary>
+<FrontWall> absorbing </FrontWall>
+<BackWall> absorbing </BackWall>
+<SideWall> absorbing </SideWall>
+<Obstacle> absorbing </Obstacle>
+</ParticleBoundary>
+<FieldBoundary>
+<FrontWall> IMF </FrontWall>
+<BackWall> Neuman zero-gradient </BackWall>
+<SideWall> periodic </SideWall>
+<Obstacle> absorbing </Obstacle>
+</FieldBoundary>
+</BoundaryConditions>
+</SimulationDomain>
+<RegionParameter>
+<SimulatedRegion>Mars</SimulatedRegion>
+<Radius Units="km">3393.00</Radius>
+<SubLongitude>180.00</SubLongitude>
+<Property>
+<Name>Exobase Altitude</Name>
+<Description>Altitude of the exobase</Description>
+<PropertyQuantity>Positional</PropertyQuantity>
+<Units>km</Units>
+<PropertyValue>3503.00</PropertyValue>
+</Property>
+<Property>
+<Name>Ionopause Altitude</Name>
+<Description>Altitude of the ionopause in the model
+That is the altitude below which ion densities are computed analytically</Description>
+<PropertyQuantity>Positional</PropertyQuantity>
+<PropertyValue>3853.00</PropertyValue>
+</Property>
+</RegionParameter>
+<InputField>
+<Name>IMF</Name>
+<Description>Interplanetary Magnetic Field</Description>
+<SimulatedRegion>Heliosphere</SimulatedRegion>
+<FieldQuantity>Magnetic</FieldQuantity>
+<Units>nT</Units>
+<InputLabel>Bx By Bz</InputLabel>
+<FieldValue>1.63   -2.52    0.00</FieldValue>
+<ValidMin>3.00</ValidMin>
+<ValidMax>3.00</ValidMax>
+</InputField>
+<InputPopulation>
+<Name>Solar Wind electrons</Name>
+<Description>Solar wind electron fluid</Description>
+<SimulatedRegion>Heliosphere</SimulatedRegion>
+<SimulatedRegion>Incident</SimulatedRegion>
+<ParticleType>Electron</ParticleType>
+<PopulationMassNumber>0</PopulationMassNumber>
+<PopulationChargeState>-1</PopulationChargeState>
+<PopulationDensity Units="cm^-3">4.21E+00</PopulationDensity>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">5.74</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">400.00</PopulationFlowSpeed>
+    <Distribution>Maxwellian</Distribution>
+<Profile>Adiabatic</Profile>
+</InputPopulation>
+<InputPopulation>
+<Name>Solar Wind H</Name>
+<Description>Solar wind H</Description>
+<SimulatedRegion>Heliosphere</SimulatedRegion>
+<ParticleType>Proton</ParticleType>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+<PopulationDensity Units="cm^-3">4.00E+00</PopulationDensity>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">8.78</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">400.00</PopulationFlowSpeed>
+<Distribution>Maxwellian</Distribution>
+</InputPopulation>
+<InputPopulation>
+<Name>Solar Wind He</Name>
+<Description>Solar wind He</Description>
+<SimulatedRegion>Heliosphere</SimulatedRegion>
+<ParticleType>Ion</ParticleType>
+<PopulationMassNumber>4</PopulationMassNumber>
+<PopulationChargeState>2</PopulationChargeState>
+<PopulationDensity Units="cm^-3">2.11E-01</PopulationDensity>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">3.19</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">400.00</PopulationFlowSpeed>
+<Distribution>Maxwellian</Distribution>
+</InputPopulation>
+<InputPopulation>
+<Name>Ionospheric electrons</Name>
+<Description>Electron fluid in the planet ionosphere</Description>
+<SimulatedRegion>Mars</SimulatedRegion>
+<ParticleType>Electron</ParticleType>
+<PopulationMassNumber>0</PopulationMassNumber>
+<PopulationChargeState>-1</PopulationChargeState>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0.06</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
+<Profile> Temperature for a density of 40.00cm^-3,
+Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
+</InputPopulation>
+<InputPopulation>
+<Name>Ionospheric CO2+</Name>
+<Description>Ionospheric CO2+</Description>
+<SimulatedRegion>Mars</SimulatedRegion>
+<ParticleType>Ion</ParticleType>
+<PopulationMassNumber>44</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
+<Distribution>Dirac</Distribution>
+</InputPopulation>
+<InputPopulation>
+<Name>Ionospheric O+</Name>
+<Description>Ionospheric O+</Description>
+<SimulatedRegion>Mars</SimulatedRegion>
+<ParticleType>Ion</ParticleType>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
+<Distribution>Dirac</Distribution>
+</InputPopulation>
+<InputPopulation>
+<Name>Ionospheric H+</Name>
+<Description>Ionospheric H+</Description>
+<SimulatedRegion>Mars</SimulatedRegion>
+<ParticleType>Ion</ParticleType>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
+<Distribution>Dirac</Distribution>
+</InputPopulation>
+<InputPopulation>
+<Name>Ionospheric O2+</Name>
+<Description>Ionospheric O2+</Description>
+<SimulatedRegion>Mars</SimulatedRegion>
+<ParticleType>Ion</ParticleType>
+<PopulationMassNumber>32</PopulationMassNumber>
+<PopulationChargeState>1</PopulationChargeState>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
+<Distribution>Dirac</Distribution>
+</InputPopulation>
+<InputPopulation>
+<Name>Exospheric O</Name>
+<Description>Exospheric O</Description>
+<SimulatedRegion>Mars</SimulatedRegion>
+<ParticleType>Molecule</ParticleType>
+<PopulationMassNumber>16</PopulationMassNumber>
+<PopulationChargeState>0</PopulationChargeState>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
+    <Distribution>Dirac</Distribution>
+<Profile>Krasnopolsky et al, 2002,Kim et al, 1998</Profile>
+<ModelURL>http://dx.doi.org/10.1029/2001JE001809</ModelURL>
+</InputPopulation>
+<InputPopulation>
+<Name>Exospheric CO2</Name>
+<Description>Exospheric CO2</Description>
+<SimulatedRegion>Mars</SimulatedRegion>
+<ParticleType>Molecule</ParticleType>
+<PopulationMassNumber>44</PopulationMassNumber>
+<PopulationChargeState>0</PopulationChargeState>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
+    <Distribution>Dirac</Distribution>
+<Profile>Ma et al, 2004</Profile>
+</InputPopulation>
+<InputPopulation>
+<Name>Exospheric H</Name>
+<Description>Exospheric H</Description>
+<SimulatedRegion>Mars</SimulatedRegion>
+<ParticleType>Molecule</ParticleType>
+<PopulationMassNumber>1</PopulationMassNumber>
+<PopulationChargeState>0</PopulationChargeState>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
+<PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
+    <Distribution>Dirac</Distribution>
+<Profile>Krasnopolsky et al, 1993</Profile>
+</InputPopulation>
+<InputProcess>
+<Name>CO2 + photon  = CO2+ + e-</Name>
+<ProcessType>PhotoIonization</ProcessType>
+<Units>s-1</Units>
+<ProcessCoefficient>6.04E-07</ProcessCoefficient>
+<ProcessCoeffType>Frequency</ProcessCoeffType>
+</InputProcess>
+<InputProcess>
+<Name>O + photon  = O+ + e-</Name>
+<ProcessType>PhotoIonization</ProcessType>
+<Units>s-1</Units>
+<ProcessCoefficient>2.90E-07</ProcessCoefficient>
+<ProcessCoeffType>Frequency</ProcessCoeffType>
+</InputProcess>
+<InputProcess>
+<Name>H + photon  = H+ + e-</Name>
+<ProcessType>PhotoIonization</ProcessType>
+<Units>s-1</Units>
+<ProcessCoefficient>4.23E-08</ProcessCoefficient>
+<ProcessCoeffType>Frequency</ProcessCoeffType>
+</InputProcess>
+<InputProcess>
+<Name>CO2 + photon  = O+ + e-</Name>
+<ProcessType>PhotoIonization</ProcessType>
+<Units>s-1</Units>
+<ProcessCoefficient>8.46E-08</ProcessCoefficient>
+<ProcessCoeffType>Frequency</ProcessCoeffType>
+</InputProcess>
+<InputProcess>
+<Name>H+  =  H Charge Exchange</Name>
+<ProcessType>ChargeExchange</ProcessType>
+<Units>cm-2</Units>
+<ProcessCoefficient>2.50E-19</ProcessCoefficient>
+<ProcessCoeffType>CrossSection</ProcessCoeffType>
+</InputProcess>
+<InputProcess>
+<Name>H+  =  O Charge Exchange</Name>
+<ProcessType>ChargeExchange</ProcessType>
+<Units>cm-2</Units>
+<ProcessCoefficient>1.00E-19</ProcessCoefficient>
+<ProcessCoeffType>CrossSection</ProcessCoeffType>
+</InputProcess>
+<InputProcess>
+<Name>O+  =  H Charge Exchange</Name>
+<ProcessType>ChargeExchange</ProcessType>
+<Units>cm-2</Units>
+<ProcessCoefficient>9.00E-20</ProcessCoefficient>
+<ProcessCoeffType>CrossSection</ProcessCoeffType>
+</InputProcess>
+<InputProcess>
+<Name>H + e-  = H+ + 2e-</Name>
+<ProcessType>ElectronImpact</ProcessType>
+<ProcessModel>ISSIChallenge</ProcessModel>
+</InputProcess>
+<InputProcess>
+<Name>O + e-  = O+ + 2e-</Name>
+<ProcessType>ElectronImpact</ProcessType>
+<ProcessModel>ISSIChallenge</ProcessModel>
+</InputProcess>
+    <InputParameter>
+        <Name>Solar Flux</Name>
+        <ParameterQuantity>SolarUVFlux</ParameterQuantity>
+        <Property>
+            <Name>Solar UV Flux @ 10.7</Name>
+            <PropertyQuantity>SolarUVFlux</PropertyQuantity>
+            <PropertyValue>240.00</PropertyValue>
+        </Property>
+        <Property>
+            <Name>Solar UV Flux @ 10.7 Average</Name>
+            <PropertyQuantity>ActivityIndex</PropertyQuantity>
+            <PropertyValue>240.00</PropertyValue>
+        </Property>
+    </InputParameter>    
+<InputParameter>
+<Name>Derived Parameters</Name>
+<ParameterQuantity>Other</ParameterQuantity>
+<Property>
+<Name>Alfven Speed</Name>
+<PropertyQuantity>AlfvenVelocity</PropertyQuantity>
+<Units>km/s</Units>
+<PropertyValue>32.84</PropertyValue>
+</Property>
+<Property>
+<Name>Alfven Mach Number</Name>
+<PropertyQuantity>AlfvenMachNumber</PropertyQuantity>
+<PropertyValue>12.18</PropertyValue>
+</Property>
+<Property>
+<Name>Ion Inertial Length</Name>
+<PropertyQuantity>Other</PropertyQuantity>
+<Units>km</Units>
+<PropertyValue>113.44</PropertyValue>
+</Property>
+</InputParameter>
+</SimulationRun><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Mag/2D/XY/Bfield_XY_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Mag/2D/XY</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Bfield_XY_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Mag/2D/XZ/Bfield_XZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Mag/2D/XZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Bfield_XZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Mag/2D/YZ/Bfield_YZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Mag/2D/YZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Bfield_YZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Mag/3D/Magw_14_03_14_t00600</ResourceID>
+    <ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Mag/3D</ParentID>
+    <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+    <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Magw_14_03_14_t00600.nc</URL>
+    </Source>
+</Granule><Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/CO2/3D/CO2pl_14_03_14_t00600</ResourceID>
+    <ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/CO2/3D</ParentID>
+    <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+    <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/CO2pl_14_03_14_t00600.nc</URL>
+    </Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/CO2/2D/XY/CO2p_XY_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/CO2/2D/XY</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/CO2p_XY_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/CO2/2D/XZ/CO2p_XZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/CO2/2D/XZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/CO2p_XZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/CO2/2D/YZ/CO2p_YZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/CO2/2D/YZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/CO2p_YZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Ele/3D/Elew_14_03_14_t00600</ResourceID>
+    <ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Ele/3D</ParentID>
+    <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+    <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Elew_14_03_14_t00600.nc</URL>
+    </Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Ele/2D/XY/Efield_XY_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Ele/2D/XY</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Efield_XY_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Ele/2D/XZ/Efield_XZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Ele/2D/XZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Efield_XZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Ele/2D/YZ/Efield_YZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Ele/2D/YZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Efield_YZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hes/3D/Hesw_14_03_14_t00600</ResourceID>
+    <ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Hes/3D</ParentID>
+    <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+    <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Hesw_14_03_14_t00600.nc</URL>
+    </Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hes/2D/XY/Hesw_XY_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Hes/2D/XY</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Hesw_XY_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hes/2D/XZ/Hesw_XZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Hes/2D/XZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Hesw_XZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hes/2D/YZ/Hesw_YZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Hes/2D/YZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Hesw_YZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hpl/3D/Hpl_14_03_14_t00600</ResourceID>
+    <ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Hpl/3D</ParentID>
+    <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+    <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Hpl_14_03_14_t00600.nc</URL>
+    </Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hpl/2D/XY/Hpl__XY_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Hpl/2D/XY</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Hpl__XY_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hpl/2D/XZ/Hpl__XZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Hpl/2D/XZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Hpl__XZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hpl/2D/YZ/Hpl__YZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Hpl/2D/YZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Hpl__YZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hsw/3D/Hsw_14_03_14_t00600</ResourceID>
+    <ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Hsw/3D</ParentID>
+    <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+    <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Hsw_14_03_14_t00600.nc</URL>
+    </Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hsw/2D/XY/Hsw__XY_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Hsw/2D/XY</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Hsw__XY_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hsw/2D/XZ/Hsw__XZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Hsw/2D/XZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Hsw__XZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Hsw/2D/YZ/Hsw__YZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Hsw/2D/YZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Hsw__YZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/O2p/3D/O2pl_14_03_14_t00600</ResourceID>
+    <ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/O2p/3D</ParentID>
+    <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+    <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/O2pl_14_03_14_t00600.nc</URL>
+    </Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/O2p/2D/XY/O2pl_XY_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/O2p/2D/XY</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/O2pl_XY_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/O2p/2D/XZ/O2pl_XZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/O2p/2D/XZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/O2pl_XZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/O2p/2D/YZ/O2pl_YZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/O2p/2D/YZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/O2pl_YZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Opl/3D/Opl_14_03_14_t00600</ResourceID>
+    <ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Opl/3D</ParentID>
+    <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+    <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Opl_14_03_14_t00600.nc</URL>
+    </Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Opl/2D/XY/Opl__XY_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Opl/2D/XY</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Opl__XY_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Opl/2D/XZ/Opl__XZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Opl/2D/XZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Opl__XZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Opl/2D/YZ/Opl__YZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/Opl/2D/YZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Opl__YZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/The/3D/Thew_14_03_14_t00600</ResourceID>
+    <ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/The/3D</ParentID>
+    <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+    <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Thew_14_03_14_t00600.nc</URL>
+    </Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/The/2D/XY/Thew_XY_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/The/2D/XY</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Thew_XY_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/The/2D/XZ/Thew_XZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/The/2D/XZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Thew_XZ_14_03_14.xml</URL>
+</Source>
+</Granule><Granule>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/The/2D/YZ/Thew_YZ_14_03_14</ResourceID>
+<ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+<ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/The/2D/YZ</ParentID>
+<RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+<RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+<Source>
+<SourceType>Data</SourceType>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Thew_YZ_14_03_14.xml</URL>
+</Source>
 </Granule></Spase>

@@ -83,7 +83,7 @@
     <ResourceHeader>
       <ResourceName>Static model for Saturn</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
-      <Description>Paraboloid model calculates the magnetic fields in the Saturn's magnetosphere depending on external conditions in solar wind and on geomagnetic activity level.</Description>
+      <Description>Paraboloid model calculates the magnetic fields in the Saturn's magnetosphere depending on external conditions in solar wind and on internal kronomagnetospheric processes.</Description>
       <Contact>
         <PersonID>SINP</PersonID>
         <Role>DataProducer</Role>
@@ -103,12 +103,14 @@
     <CodeLanguage>Fortran77</CodeLanguage>
     <SimulatedRegion>Saturn</SimulatedRegion>
     <InputProperties>
-      <Property>
-        <Name>BD</Name>
-        <Description>Magnetic field at magnetodisc outer edge</Description>
+	  <Property>
+        <Name>BDC</Name>
+        <Description>Magnetic field on the outer edge of MD</Description>
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
+		<ValidMin>2.0</ValidMin>
+		<ValidMax>6.0</ValidMax>
       </Property>
       <Property>
         <Name>BT</Name>
@@ -116,6 +118,8 @@
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
+		<ValidMin>-10.0</ValidMin>
+		<ValidMax>-5.0</ValidMax>
       </Property>
       <Property>
         <Name>RD2</Name>
@@ -123,6 +127,8 @@
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rs</Units>
         <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
+		<ValidMin>12.5</ValidMin>
+		<ValidMax>18.0</ValidMax>
       </Property>
       <Property>
         <Name>RD1</Name>
@@ -131,6 +137,8 @@
         <Qualifier>Scalar</Qualifier>
         <Units>Rs</Units>
         <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
+		<ValidMin>6.0</ValidMin>
+		<ValidMax>7.5</ValidMax>
       </Property>
       <Property>
         <Name>R2</Name>
@@ -139,14 +147,18 @@
         <Qualifier>Scalar</Qualifier>
         <Units>Rs</Units>
         <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
+		<ValidMin>14.0</ValidMin>
+		<ValidMax>24.0</ValidMax>
       </Property>
       <Property>
-        <Name>R1</Name>
-        <Description>Magnetopause stand-off distance</Description>
+        <Name>Rss</Name>
+        <Description>Distance to the magnetopause subsolar point</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Qualifier>Scalar</Qualifier>
         <Units>Rs</Units>
         <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
+		<ValidMin>17.0</ValidMin>
+		<ValidMax>30.0</ValidMax>
       </Property>
       <Property>
         <Name>IMF_B</Name>
@@ -155,6 +167,8 @@
         <Qualifier>Vector</Qualifier>
         <Units>nT</Units>
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
+		<ValidMin/>
+		<ValidMax/>
       </Property>
     </InputProperties>
     <OutputParameters>
@@ -177,7 +191,7 @@
     <ResourceHeader>
       <ResourceName>Static model for Mercury</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
-      <Description>Paraboloid model calculates the magnetic fields in the Mercury's magnetosphere depending on external conditions in solar wind and on magnetic activity level.</Description>
+      <Description>Paraboloid model calculates the magnetic fields in the Mercury's magnetosphere depending on external conditions in solar wind and on internal processes in the Mercury's magnetosphere.</Description>
       <Contact>
         <PersonID>SINP</PersonID>
         <Role>DataProducer</Role>
@@ -348,7 +362,7 @@
     <ResourceHeader>
       <ResourceName>OnFly model for Saturn</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
-      <Description>Paraboloid model calculates the magnetic fields in the Saturn's magnetosphere depending on external conditions in solar wind and on geomagnetic activity level.</Description>
+      <Description>Paraboloid model calculates the magnetic fields in the Saturn's magnetosphere depending on external conditions in solar wind and on internal kronomagnetospheric processes.</Description>
       <Contact>
         <PersonID>SINP</PersonID>
         <Role>DataProducer</Role>
@@ -368,12 +382,14 @@
     <CodeLanguage>Fortran77</CodeLanguage>
     <SimulatedRegion>Saturn</SimulatedRegion>
     <InputProperties>
-      <Property>
-        <Name>BD</Name>
-        <Description>Magnetic field at magnetodisc outer edge</Description>
+	  <Property>
+        <Name>BDC</Name>
+        <Description>Magnetic field on the outer edge of MD</Description>
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
+		<ValidMin>2.0</ValidMin>
+		<ValidMax>6.0</ValidMax>
       </Property>
       <Property>
         <Name>BT</Name>
@@ -381,6 +397,8 @@
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
+		<ValidMin>-10.0</ValidMin>
+		<ValidMax>-5.0</ValidMax>
       </Property>
       <Property>
         <Name>RD2</Name>
@@ -388,6 +406,8 @@
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rs</Units>
         <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
+		<ValidMin>12.5</ValidMin>
+		<ValidMax>18.0</ValidMax>
       </Property>
       <Property>
         <Name>RD1</Name>
@@ -396,6 +416,8 @@
         <Qualifier>Scalar</Qualifier>
         <Units>Rs</Units>
         <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
+		<ValidMin>6.0</ValidMin>
+		<ValidMax>7.5</ValidMax>
       </Property>
       <Property>
         <Name>R2</Name>
@@ -404,14 +426,18 @@
         <Qualifier>Scalar</Qualifier>
         <Units>Rs</Units>
         <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
+		<ValidMin>14.0</ValidMin>
+		<ValidMax>24.0</ValidMax>
       </Property>
       <Property>
-        <Name>R1</Name>
-        <Description>Magnetopause stand-off distance</Description>
+        <Name>Rss</Name>
+        <Description>Distance to the magnetopause subsolar point</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Qualifier>Scalar</Qualifier>
         <Units>Rs</Units>
         <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
+		<ValidMin>17.0</ValidMin>
+		<ValidMax>30.0</ValidMax>
       </Property>
       <Property>
         <Name>IMF_B</Name>
@@ -442,7 +468,7 @@
     <ResourceHeader>
       <ResourceName>OnFly model for Mercury</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
-      <Description>Paraboloid model calculates the magnetic fields in the Mercury's magnetosphere depending on external conditions in solar wind and on geomagnetic activity level.</Description>
+      <Description>Paraboloid model calculates the magnetic fields in the Mercury's magnetosphere depending on external conditions in solar wind and on internal processes in the Mercury's magnetosphere.</Description>
       <Contact>
         <PersonID>SINP</PersonID>
         <Role>DataProducer</Role>
@@ -2845,8 +2871,8 @@
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
-        <ValidMin/>
-        <ValidMax/>
+        <ValidMin>196</ValidMin>
+        <ValidMax>196</ValidMax>
       </Property>
     </InputParameter>
     <InputParameter>
@@ -2861,8 +2887,8 @@
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>MWb</Units>
         <UnitsConversion>1000000&gt;Wb</UnitsConversion>
-        <ValidMin/>
-        <ValidMax/>
+        <ValidMin>2.3</ValidMin>
+        <ValidMax>5.0</ValidMax>
       </Property>
     </InputParameter>
     <InputParameter>
@@ -2934,9 +2960,171 @@
     <RegionParameter>
       <SimulatedRegion>Mercury</SimulatedRegion>
       <Description/>
-      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">6371.2</Radius>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">2439.7</Radius>
     </RegionParameter>
   </SimulationRun>
+  
+  
+  <SimulationRun>
+    <ResourceID>impex://SINP/SimulationRun/Saturn/OnFly</ResourceID>
+    <ResourceHeader>
+      <ResourceName>A2000--Saturn On the Fly</ResourceName>
+      <ReleaseDate>2013-07-01T00:00:00</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS OnFly</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
+      </AccessURL>
+      <Format>XML</Format>
+    </AccessInformation>
+    <Model>
+      <ModelID>impex://SINP/SimulationModel/Saturn/OnFly</ModelID>
+      <VersionID>3.1</VersionID>
+    </Model>
+    <TemporalDependence>Yes</TemporalDependence>
+    <SimulatedRegion>Saturn</SimulatedRegion>
+    <LikelihoodRating>Probable</LikelihoodRating>
+    <SimulationTime/>
+    <SimulationDomain>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>KSM</CoordinateSystemName>
+      </CoordinateSystem>
+      <SpatialDimension>3</SpatialDimension>
+      <VelocityDimension>3</VelocityDimension>
+      <FieldDimension>3</FieldDimension>
+      <Units>Rs</Units>
+	  <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
+      <CoordinatesLabel>X Y Z</CoordinatesLabel>
+      <ValidMin>-1200.0 -500.0 -500.0</ValidMin>
+      <ValidMax>40.0 500.0 500.0</ValidMax>
+      <GridStructure>Constant</GridStructure>
+    </SimulationDomain>
+	<InputParameter>
+      <Name>BDC</Name>
+      <Description>Magnetic field on the inner edge of MD</Description>
+      <SimulatedRegion>Saturn</SimulatedRegion>
+      <Qualifier>Scalar</Qualifier>
+      <ParameterQuantity>MagneticField</ParameterQuantity>
+      <Property>
+        <Name>BDC</Name>
+        <Description>Magnetic field on the inner edge of MD</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
+		<ValidMin>2.0</ValidMin>
+		<ValidMax>6.0</ValidMax>
+      </Property>
+    </InputParameter>
+	<InputParameter>
+      <Name>BT</Name>
+      <Description>Magnetic field on the tail current inner edge</Description>
+      <SimulatedRegion>Saturn</SimulatedRegion>
+      <Qualifier>Scalar</Qualifier>
+      <ParameterQuantity>MagneticField</ParameterQuantity>
+      <Property>
+        <Name>BT</Name>
+        <Description>Magnetic field on the tail current inner edge</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
+		<ValidMin>-10.0</ValidMin>
+		<ValidMax>-5.0</ValidMax>
+      </Property>
+    </InputParameter>
+    <InputParameter>
+      <Name>RD2</Name>
+      <Description>Distance to the external edge of MD</Description>
+      <SimulatedRegion>Saturn</SimulatedRegion>
+      <Qualifier>Scalar</Qualifier>
+      <ParameterQuantity>Other</ParameterQuantity>
+      <Property>
+        <Name>RD2</Name>
+        <Description>Distance to the external edge of MD</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>Rs</Units>
+        <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
+		<ValidMin>12.5</ValidMin>
+		<ValidMax>18.0</ValidMax>
+      </Property>
+    </InputParameter>
+	<InputParameter>
+      <Name>RD1</Name>
+      <Description>Distance to the inner edge of MD</Description>
+      <SimulatedRegion>Saturn</SimulatedRegion>
+      <Qualifier>Scalar</Qualifier>
+      <ParameterQuantity>Other</ParameterQuantity>
+      <Property>
+        <Name>RD1</Name>
+        <Description>Distance to the inner edge of MD</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>Rs</Units>
+        <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
+		<ValidMin>6.0</ValidMin>
+		<ValidMax>7.5</ValidMax>
+      </Property>
+    </InputParameter>
+    <InputParameter>
+      <Name>Rss</Name>
+      <Description>Sub-solar magnetopause distance in Saturn radii</Description>
+      <SimulatedRegion>Saturn</SimulatedRegion>
+      <Qualifier>Scalar</Qualifier>
+      <ParameterQuantity>Other</ParameterQuantity>
+      <Property>
+        <Name>Rss</Name>
+        <Description>Sub-solar magnetopause distance in Saturn radii</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>Rs</Units>
+        <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
+		<ValidMin>17.0</ValidMin>
+		<ValidMax>30.0</ValidMax>
+      </Property>
+    </InputParameter>
+    <InputParameter>
+      <Name>R2</Name>
+      <Description>Inner edge of the current sheet tail</Description>
+      <SimulatedRegion>Saturn</SimulatedRegion>
+      <Qualifier>Scalar</Qualifier>
+      <ParameterQuantity>Other</ParameterQuantity>
+      <Property>
+        <Name>R2</Name>
+        <Description>Inner edge of the current sheet tail</Description>
+        <PropertyQuantity>Other</PropertyQuantity>
+        <Units>Rs</Units>
+        <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
+		<ValidMin>14.0</ValidMin>
+		<ValidMax>24.0</ValidMax>
+      </Property>
+    </InputParameter>
+    <InputParameter>
+      <Name>IMF_B</Name>
+      <Description>Penetrating IMF components in KSM coord</Description>
+      <SimulatedRegion>Saturn</SimulatedRegion>
+      <ParameterQuantity>MagneticField</ParameterQuantity>
+      <Property>
+        <Name>IMF_B</Name>
+        <Description>Penetrating IMF components in KSM coord</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Qualifier>Vector</Qualifier>
+        <Units>nT</Units>
+        <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
+        <ValidMin/>
+        <ValidMax/>
+      </Property>
+    </InputParameter>    
+    <RegionParameter>
+      <SimulatedRegion>Saturn</SimulatedRegion>
+      <Description/>
+      <Radius UnitsConversion="1.0e+3&gt;m" Units="km">60268.0</Radius>
+    </RegionParameter>
+  </SimulationRun>
+  
 
   
   <NumericalOutput>
@@ -3847,6 +4035,44 @@
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
         <CoordinateSystemName>MSO</CoordinateSystemName>
+      </CoordinateSystem>
+      <Field>
+        <FieldQuantity>Magnetic</FieldQuantity>
+      </Field>
+    </Parameter>
+    <SimulationProduct>3DCubes</SimulationProduct>
+  </NumericalOutput>
+  
+  
+  <NumericalOutput>
+    <ResourceID>impex://SINP/NumericalOutput/Saturn/OnFly</ResourceID>
+    <ResourceHeader>
+      <ResourceName>Magnetic Field</ResourceName>
+      <ReleaseDate>2013-07-01T00:00:00</ReleaseDate>
+      <Description>MAGNETIC FIELD CALCULATIONS on OnFly</Description>
+      <Contact>
+        <PersonID>SINP</PersonID>
+        <Role>DataProducer</Role>
+      </Contact>
+    </ResourceHeader>
+    <AccessInformation>
+      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <AccessURL>
+        <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
+      </AccessURL>
+      <Format>NetCDF</Format>
+    </AccessInformation>
+    <MeasurementType>MagneticField</MeasurementType>
+    <SimulatedRegion>Saturn</SimulatedRegion>
+    <InputResourceID>impex://SINP/SimulationRun/Saturn/OnFly</InputResourceID>
+    <Parameter>
+      <Name>Magnetic Field Vector</Name>
+      <ParameterKey>Bx,By,Bz</ParameterKey>
+      <Units>nT</Units>
+      <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
+      <CoordinateSystem>
+        <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+        <CoordinateSystemName>KSM</CoordinateSystemName>
       </CoordinateSystem>
       <Field>
         <FieldQuantity>Magnetic</FieldQuantity>
