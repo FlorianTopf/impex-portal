@@ -180,8 +180,15 @@ object RegistryService {
   }
 
   // simulations methods
-  def getSimulationModel(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] =
-    getElement(GetElement(ESimulationModel, id, r))
+  def getSimulationModel(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = {
+    // little hack to check if a repository id is provided as query parameter
+    id match {
+      case Some(id) if(id.contains("Repository")) => {
+        getElement(GetElement(ESimulationModel, Some(id.replace("Repository", "SimulationModel")), r))
+      }
+      case _ => getElement(GetElement(ESimulationModel, id, r))  
+    }
+  }
   
   def getSimulationRun(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = 
     getElement(GetElement(ESimulationRun, id, r))
