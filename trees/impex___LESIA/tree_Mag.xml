@@ -1,7 +1,7 @@
 <Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_0.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <Version>2.2.2</Version>
 <Repository>
- <ResourceID>impex://LESIA/MASER</ResourceID>
+ <ResourceID>impex://LESIA/Repository/MASER</ResourceID>
 <ResourceHeader>
 <ResourceName>LESIA MASER</ResourceName>
 <ReleaseDate>2013-11-06T13:20:32.000</ReleaseDate>
@@ -16,7 +16,7 @@
 </AccessURL>
 </Repository>
 <SimulationModel>
-<ResourceID>impex://LESIA/MASER/MAG/Jupiter</ResourceID>
+<ResourceID>impex://LESIA/SimulationModel/MASER/MAG/Jupiter</ResourceID>
 <ResourceHeader>
 <ResourceName>Magnetic field models</ResourceName>
 <ReleaseDate>2013-06-12T00:00:00.000</ReleaseDate>

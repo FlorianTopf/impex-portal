@@ -1,7 +1,7 @@
 <Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_0.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 	<Version>2.2.2</Version>
 	<SimulationModel>
-	<ResourceID>impex://CCMC/BATSRUS/</ResourceID>
+	<ResourceID>impex://CCMC/SimulationModel/BATSRUS</ResourceID>
 	<ResourceHeader>
 		<ResourceName>MHD_CCMC</ResourceName>
 		<ReleaseDate>2000-01-01T00:00:00.000</ReleaseDate>
@@ -27,7 +27,7 @@
 	<CodeLanguage>Fortran90</CodeLanguage>
 </SimulationModel>
 <Repository>
-	<ResourceID>impex://CCMC</ResourceID>
+	<ResourceID>impex://CCMC/Repository/BATSRUS</ResourceID>
 	<ResourceHeader>
 		<ResourceName>CCMC_Simulation_Database</ResourceName>
 		<ReleaseDate>2000-01-01T00:00:00</ReleaseDate>
@@ -42,7 +42,7 @@
 	</AccessURL>
 </Repository>
 <SimulationRun>
-	<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</ResourceID>
+	<ResourceID>impex://CCMC/SimulationRun/BATSRUS/Vincent_Genot_012610_1</ResourceID>
 	<ResourceHeader>
 		<ResourceName>Vincent_Genot_012610_1</ResourceName>
 		<ReleaseDate>2010-01-26T00:00:00</ReleaseDate>
@@ -57,14 +57,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://CCMC</RepositoryID>
+		<RepositoryID>impex://CCMC/Repository/BATSRUS</RepositoryID>
 		<AccessURL>
 			<URL>http://ccmc.gsfc.nasa.gov/results/viewrun.php?domain=GM&amp;runnumber=Vincent_Genot_012610_1</URL>
 		</AccessURL>
 		<Format>HTML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://CCMC/BATSRUS/</ModelID>
+		<ModelID>impex://CCMC/SimulationModel/BATSRUS</ModelID>
 		<VersionID>BATSRUS</VersionID>
 	</Model>
 	<TemporalDependence>Yes</TemporalDependence>
@@ -157,7 +157,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-1/GSM</ResourceID>
+		<ResourceID>impex://CCMC/NumericalOutput/BATSRUS/Vincent_Genot_012610_1/Cluster-1/GSM</ResourceID>
 		<ResourceHeader>
 			<ResourceName>CCMC/BATSRUS along CLUSTER-1 trajectory in GSM </ResourceName>
 			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
@@ -168,7 +168,7 @@
 			</Contact>
 		</ResourceHeader>
 		<AccessInformation>
-			<RepositoryID>impex://CCMC</RepositoryID>
+			<RepositoryID>impex://CCMC/Repository/BATSRUS</RepositoryID>
 			<AccessURL>
 				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Cluster-1/GSM_extract.txt</URL>
 			</AccessURL>
@@ -184,7 +184,7 @@
 			</TimeSpan>
 		</TemporalDescription>
 		<SimulatedRegion>Earth</SimulatedRegion>
-		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<InputResourceID>impex://CCMC/SimulationRun/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
 		<Parameter>
 			<Name>Position</Name>
 			<ParameterKey>X,Y,Z</ParameterKey>
@@ -269,7 +269,7 @@
 		</Property>
 </NumericalOutput>
 <NumericalOutput>
-		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-1/GSE</ResourceID>
+		<ResourceID>impex://CCMC/NumericalOutput/BATSRUS/Vincent_Genot_012610_1/Cluster-1/GSE</ResourceID>
 		<ResourceHeader>
 			<ResourceName>CCMC/BATSRUS along CLUSTER-1 trajectory in GSE </ResourceName>
 			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
@@ -280,7 +280,7 @@
 			</Contact>
 		</ResourceHeader>
 		<AccessInformation>
-			<RepositoryID>impex://CCMC</RepositoryID>
+			<RepositoryID>impex://CCMC/Repository/BATSRUS</RepositoryID>
 			<AccessURL>
 				<URL>http://apus.cesr.fr/AMDA-WS/php/rest/getVotableFromASCII.php?url=http://ccmc.gsfc.nasa.gov/RoR_WWW/VMR/3539/Cluster-1/GSE_extract.txt</URL>
 			</AccessURL>
@@ -296,7 +296,7 @@
 			</TimeSpan>
 		</TemporalDescription>
 		<SimulatedRegion>Earth</SimulatedRegion>
-		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<InputResourceID>impex://CCMC/SimulationRun/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
 		<Parameter>
 			<Name>Position</Name>
 			<ParameterKey>X,Y,Z</ParameterKey>
@@ -381,7 +381,7 @@
 		</Property>
 </NumericalOutput>
 <NumericalOutput>
-		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-1/SM</ResourceID>
+		<ResourceID>impex://CCMC/NumericalOutput/BATSRUS/Vincent_Genot_012610_1/Cluster-1/SM</ResourceID>
 		<ResourceHeader>
 			<ResourceName>CCMC/BATSRUS along CLUSTER-1 trajectory in SM </ResourceName>
 			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
@@ -408,7 +408,7 @@
 			</TimeSpan>
 		</TemporalDescription>
 		<SimulatedRegion>Earth</SimulatedRegion>
-		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<InputResourceID>impex://CCMC/SimulationRun/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
 		<Parameter>
 			<Name>Position</Name>
 			<ParameterKey>X,Y,Z</ParameterKey>
@@ -493,7 +493,7 @@
 		</Property>
 </NumericalOutput>
 <NumericalOutput>
-		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-2/GSM</ResourceID>
+		<ResourceID>impex://CCMC/NumericalOutput/BATSRUS/Vincent_Genot_012610_1/Cluster-2/GSM</ResourceID>
 		<ResourceHeader>
 			<ResourceName>CCMC/BATSRUS along CLUSTER-2 trajectory in GSM </ResourceName>
 			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
@@ -520,7 +520,7 @@
 			</TimeSpan>
 		</TemporalDescription>
 		<SimulatedRegion>Earth</SimulatedRegion>
-		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<InputResourceID>impex://CCMC/SimulationRun/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
 		<Parameter>
 			<Name>Position</Name>
 			<ParameterKey>X,Y,Z</ParameterKey>
@@ -605,7 +605,7 @@
 		</Property>
 </NumericalOutput>
 <NumericalOutput>
-		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-2/GSE</ResourceID>
+		<ResourceID>impex://CCMC/NumericalOutput/BATSRUS/Vincent_Genot_012610_1/Cluster-2/GSE</ResourceID>
 		<ResourceHeader>
 			<ResourceName>CCMC/BATSRUS along CLUSTER-2 trajectory in GSE </ResourceName>
 			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
@@ -630,7 +630,7 @@
 			</TimeSpan>
 		</TemporalDescription>
 		<SimulatedRegion>Earth</SimulatedRegion>
-		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<InputResourceID>impex://CCMC/SimulationRun/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
 		<Parameter>
 			<Name>Position</Name>
 			<ParameterKey>X,Y,Z</ParameterKey>
@@ -715,7 +715,7 @@
 		</Property>
 </NumericalOutput>
 <NumericalOutput>
-		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-2/SM</ResourceID>
+		<ResourceID>impex://CCMC/NumericalOutput/BATSRUS/Vincent_Genot_012610_1/Cluster-2/SM</ResourceID>
 		<ResourceHeader>
 			<ResourceName>CCMC/BATSRUS along CLUSTER-2 trajectory in SM </ResourceName>
 			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
@@ -742,7 +742,7 @@
 			</TimeSpan>
 		</TemporalDescription>
 		<SimulatedRegion>Earth</SimulatedRegion>
-		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<InputResourceID>impex://CCMC/SimulationRun/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
 		<Parameter>
 			<Name>Position</Name>
 			<ParameterKey>X,Y,Z</ParameterKey>
@@ -827,7 +827,7 @@
 		</Property>
 </NumericalOutput>
 <NumericalOutput>
-		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-3/GSM</ResourceID>
+		<ResourceID>impex://CCMC/NumericalOutput/BATSRUS/Vincent_Genot_012610_1/Cluster-3/GSM</ResourceID>
 		<ResourceHeader>
 			<ResourceName>CCMC/BATSRUS along CLUSTER-3 trajectory in GSM </ResourceName>
 			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
@@ -854,7 +854,7 @@
 			</TimeSpan>
 		</TemporalDescription>
 		<SimulatedRegion>Earth</SimulatedRegion>
-		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<InputResourceID>impex://CCMC/SimulationRun/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
 		<Parameter>
 			<Name>Position</Name>
 			<ParameterKey>X,Y,Z</ParameterKey>
@@ -939,7 +939,7 @@
 		</Property>
 </NumericalOutput>
 <NumericalOutput>
-		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-3/GSE</ResourceID>
+		<ResourceID>impex://CCMC/NumericalOutput/BATSRUS/Vincent_Genot_012610_1/Cluster-3/GSE</ResourceID>
 		<ResourceHeader>
 			<ResourceName>CCMC/BATSRUS along CLUSTER-3 trajectory in GSE </ResourceName>
 			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
@@ -966,7 +966,7 @@
 			</TimeSpan>
 		</TemporalDescription>
 		<SimulatedRegion>Earth</SimulatedRegion>
-		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<InputResourceID>impex://CCMC/SimulationRun/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
 		<Parameter>
 			<Name>Position</Name>
 			<ParameterKey>X,Y,Z</ParameterKey>
@@ -1051,7 +1051,7 @@
 		</Property>
 </NumericalOutput>
 <NumericalOutput>
-		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-3/SM</ResourceID>
+		<ResourceID>impex://CCMC/NumericalOutput/BATSRUS/Vincent_Genot_012610_1/Cluster-3/SM</ResourceID>
 		<ResourceHeader>
 			<ResourceName>CCMC/BATSRUS along CLUSTER-3 trajectory in SM </ResourceName>
 			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
@@ -1078,7 +1078,7 @@
 			</TimeSpan>
 		</TemporalDescription>
 		<SimulatedRegion>Earth</SimulatedRegion>
-		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<InputResourceID>impex://CCMC/SimulationRun/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
 		<Parameter>
 			<Name>Position</Name>
 			<ParameterKey>X,Y,Z</ParameterKey>
@@ -1163,7 +1163,7 @@
 		</Property>
 </NumericalOutput>
 <NumericalOutput>
-		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-4/GSM</ResourceID>
+		<ResourceID>impex://CCMC/NumericalOutput/BATSRUS/Vincent_Genot_012610_1/Cluster-4/GSM</ResourceID>
 		<ResourceHeader>
 			<ResourceName>CCMC/BATSRUS along CLUSTER-4 trajectory in GSM </ResourceName>
 			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
@@ -1190,7 +1190,7 @@
 			</TimeSpan>
 		</TemporalDescription>
 		<SimulatedRegion>Earth</SimulatedRegion>
-		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<InputResourceID>impex://CCMC/SimulationRun/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
 		<Parameter>
 			<Name>Position</Name>
 			<ParameterKey>X,Y,Z</ParameterKey>
@@ -1275,7 +1275,7 @@
 		</Property>
 </NumericalOutput>
 <NumericalOutput>
-		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-4/GSE</ResourceID>
+		<ResourceID>impex://CCMC/NumericalOutput/BATSRUS/Vincent_Genot_012610_1/Cluster-4/GSE</ResourceID>
 		<ResourceHeader>
 			<ResourceName>CCMC/BATSRUS along CLUSTER-4 trajectory in GSE </ResourceName>
 			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
@@ -1302,7 +1302,7 @@
 			</TimeSpan>
 		</TemporalDescription>
 		<SimulatedRegion>Earth</SimulatedRegion>
-		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<InputResourceID>impex://CCMC/SimulationRun/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
 		<Parameter>
 			<Name>Position</Name>
 			<ParameterKey>X,Y,Z</ParameterKey>
@@ -1387,7 +1387,7 @@
 		</Property>
 </NumericalOutput>
 <NumericalOutput>
-		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Cluster-4/SM</ResourceID>
+		<ResourceID>impex://CCMC/NumericalOutput/BATSRUS/Vincent_Genot_012610_1/Cluster-4/SM</ResourceID>
 		<ResourceHeader>
 			<ResourceName>CCMC/BATSRUS along CLUSTER-4 trajectory in SM </ResourceName>
 			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
@@ -1414,7 +1414,7 @@
 			</TimeSpan>
 		</TemporalDescription>
 		<SimulatedRegion>Earth</SimulatedRegion>
-		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<InputResourceID>impex://CCMC/SimulationRun/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
 		<Parameter>
 			<Name>Position</Name>
 			<ParameterKey>X,Y,Z</ParameterKey>
@@ -1498,7 +1498,7 @@
 			<PropertyValue>CLUSTER4</PropertyValue>
 		</Property>
 </NumericalOutput><NumericalOutput>
-		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Geotail/GSM</ResourceID>
+		<ResourceID>impex://CCMC/NumericalOutput/BATSRUS/Vincent_Genot_012610_1/Geotail/GSM</ResourceID>
 		<ResourceHeader>
 			<ResourceName>CCMC/BATSRUS along Geotail trajectory in GSM </ResourceName>
 			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
@@ -1525,7 +1525,7 @@
 			</TimeSpan>
 		</TemporalDescription>
 		<SimulatedRegion>Earth</SimulatedRegion>
-		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<InputResourceID>impex://CCMC/SimulationRun/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
 		<Parameter>
 			<Name>Position</Name>
 			<ParameterKey>X,Y,Z</ParameterKey>
@@ -1609,7 +1609,7 @@
 			<PropertyValue>GEOTAIL</PropertyValue>
 		</Property>
 </NumericalOutput><NumericalOutput>
-		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Geotail/GSE</ResourceID>
+		<ResourceID>impex://CCMC/NumericalOutput/BATSRUS/Vincent_Genot_012610_1/Geotail/GSE</ResourceID>
 		<ResourceHeader>
 			<ResourceName>CCMC/BATSRUS along Geotail trajectory in GSE </ResourceName>
 			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
@@ -1636,7 +1636,7 @@
 			</TimeSpan>
 		</TemporalDescription>
 		<SimulatedRegion>Earth</SimulatedRegion>
-		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<InputResourceID>impex://CCMC/SimulationRun/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
 		<Parameter>
 			<Name>Position</Name>
 			<ParameterKey>X,Y,Z</ParameterKey>
@@ -1720,7 +1720,7 @@
 			<PropertyValue>GEOTAIL</PropertyValue>
 		</Property>
 </NumericalOutput><NumericalOutput>
-		<ResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1/Geotail/SM</ResourceID>
+		<ResourceID>impex://CCMC/NumericalOutput/BATSRUS/Vincent_Genot_012610_1/Geotail/SM</ResourceID>
 		<ResourceHeader>
 			<ResourceName>CCMC/BATSRUS along Geotail trajectory in SM </ResourceName>
 			<ReleaseDate>2010-01-26T00:00:00.000</ReleaseDate>
@@ -1747,7 +1747,7 @@
 			</TimeSpan>
 		</TemporalDescription>
 		<SimulatedRegion>Earth</SimulatedRegion>
-		<InputResourceID>impex://CCMC/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
+		<InputResourceID>impex://CCMC/SimulationRun/BATSRUS/Vincent_Genot_012610_1</InputResourceID>
 		<Parameter>
 			<Name>Position</Name>
 			<ParameterKey>X,Y,Z</ParameterKey>

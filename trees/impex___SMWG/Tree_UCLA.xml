@@ -1,7 +1,7 @@
 <Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_0.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <Version>2.2.2</Version>
 <SimulationModel>
-<ResourceID>impex://SMWG/VMO/MHD</ResourceID>
+<ResourceID>impex://SMWG/SimulationModel/VMO/MHD</ResourceID>
 <ResourceHeader>
 <ResourceName>UCLA's MHD model</ResourceName>
 <ReleaseDate>2012-01-01T00:00:00.000</ReleaseDate>
@@ -27,7 +27,7 @@
 <ModelURL>http://dx.doi.org/10.1029/97JA02247</ModelURL>
 </SimulationModel>
 <Repository>
-<ResourceID>impex://SMWG/VMO</ResourceID>
+<ResourceID>impex://SMWG/Repository/VMO</ResourceID>
 <ResourceHeader>
 <ResourceName>Plasma Virtual Magnetospheric Observatory Data Repository.</ResourceName>
 <AlternateName>Plasma VMO Data Repository hosted by the IGPP, UCLA.</AlternateName>
@@ -53,7 +53,7 @@
 </AccessURL>
 </Repository>
 <SimulationRun>
-<ResourceID>impex://SMWG/VMO/Run1/SimRun</ResourceID>
+<ResourceID>impex://SMWG/SimulationRun/VMO/Run1/SimRun</ResourceID>
 <ResourceHeader>
 <ResourceName>Fukazawa, GRL, 2007</ResourceName>
 <ReleaseDate>2013-01-14T00:00:00.000</ReleaseDate>
@@ -64,7 +64,7 @@
 </Contact>
 </ResourceHeader>
 <Model>
-<ModelID>impex://SMWG/VMO/MHD</ModelID>
+<ModelID>impex://SMWG/SimulationModel/VMO/MHD</ModelID>
 <VersionID>Fukazawa</VersionID>
 </Model>
 <TemporalDependence>Yes</TemporalDependence>
@@ -199,7 +199,7 @@
 </InputParameter>
 </SimulationRun>
 <SimulationRun>
-<ResourceID>impex://SMWG/VMO/Run2/SimRun</ResourceID>
+<ResourceID>impex://SMWG/SimulationRun/VMO/Run2/SimRun</ResourceID>
 <ResourceHeader>
 <ResourceName>Fukazawa, JGR, 2012</ResourceName>
 <ReleaseDate>2013-01-14T00:00:00.000</ReleaseDate>
@@ -210,7 +210,7 @@
 </Contact>
 </ResourceHeader>
 <Model>
-<ModelID>impex://SMWG/VMO/MHD</ModelID>
+<ModelID>impex://SMWG/SimulationModel/VMO/MHD</ModelID>
 <VersionID>Fukazawa</VersionID>
 </Model>
 <TemporalDependence>Yes</TemporalDependence>
@@ -345,7 +345,7 @@
 </InputParameter>
 </SimulationRun>
 <NumericalOutput>
-<ResourceID>impex://SMWG/VMO/MHD/Run1/Mag/3D</ResourceID>
+<ResourceID>impex://SMWG/NumericalOutput/VMO/MHD/Run1/Mag/3D</ResourceID>
 <ResourceHeader>
 <ResourceName>Mag/3D</ResourceName>
 <ReleaseDate>2013-06-11T00:00:00.000</ReleaseDate>
@@ -356,7 +356,7 @@
 </Contact>
 </ResourceHeader>
 <AccessInformation>
-<RepositoryID>spase://SMWG/Repository/UCLA/VMO</RepositoryID>
+<RepositoryID>impex://SMWG/Repository/UCLA/VMO</RepositoryID>
 <AccessURL>
 <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
 </AccessURL>
@@ -375,7 +375,7 @@
 <RegionEnd>60 60 60</RegionEnd>
 </SpatialDescription>
 <SimulatedRegion>Saturn</SimulatedRegion>
-<InputResourceID>impex://SMWG/VMO/Run1/SimRun</InputResourceID>
+<InputResourceID>impex://SMWG/SimulationRun/VMO/Run1/SimRun</InputResourceID>
 <Parameter>
 <Name>MagneticField</Name>
 <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -389,7 +389,7 @@
 <SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-<ResourceID>impex://SMWG/VMO/MHD/Run2/Mag/3D</ResourceID>
+<ResourceID>impex://SMWG/SimulationRun/VMO/MHD/Run2/Mag/3D</ResourceID>
 <ResourceHeader>
 <ResourceName>Mag/3D</ResourceName>
 <ReleaseDate>2013-06-11T00:00:00.000</ReleaseDate>
@@ -400,7 +400,7 @@
 </Contact>
 </ResourceHeader>
 <AccessInformation>
-<RepositoryID>spase://SMWG/Repository/UCLA/VMO</RepositoryID>
+<RepositoryID>impex://SMWG/Repository/UCLA/VMO</RepositoryID>
 <AccessURL>
 <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
 </AccessURL>
@@ -419,7 +419,7 @@
 <RegionEnd>60 60 60</RegionEnd>
 </SpatialDescription>
 <SimulatedRegion>Saturn</SimulatedRegion>
-<InputResourceID>impex://SMWG/VMO/Run2/SimRun</InputResourceID>
+<InputResourceID>impex://SMWG/SimulationRun/VMO/Run2/SimRun</InputResourceID>
 <Parameter>
 <Name>MagneticField</Name>
 <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -433,7 +433,7 @@
 <SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-<ResourceID>impex://SMWG/VMO/MHD/Run2/Mag/2D/XY</ResourceID>
+<ResourceID>impex://SMWG/NumericalOutput/VMO/MHD/Run2/Mag/2D/XY</ResourceID>
 <ResourceHeader>
 <ResourceName>Mag/2D/XY</ResourceName>
 <ReleaseDate>2013-06-11T00:00:00.000</ReleaseDate>
@@ -444,7 +444,7 @@
 </Contact>
 </ResourceHeader>
 <AccessInformation>
-<RepositoryID>spase://SMWG/Repository/UCLA/VMO</RepositoryID>
+<RepositoryID>impex://SMWG/Repository/UCLA/VMO</RepositoryID>
 <AccessURL>
 <URL/>
 </AccessURL>
@@ -463,7 +463,7 @@
 <PlanePoint>0 0 0</PlanePoint>
 </SpatialDescription>
 <SimulatedRegion>Saturn</SimulatedRegion>
-<InputResourceID>impex://SMWG/VMO/Run2/SimRun</InputResourceID>
+<InputResourceID>impex://SMWG/SimulationRun/VMO/Run2/SimRun</InputResourceID>
 <Parameter>
 <Name>Magnetic Field By</Name>
 <ParameterKey>Btot</ParameterKey>
@@ -476,9 +476,9 @@
 <SimulationProduct>2DCuts</SimulationProduct>
 </NumericalOutput>
 <Granule>
-<ResourceID>impex://SMWG/VMO/MHD/Run2/Mag/2D/XY/Table</ResourceID>
+<ResourceID>impex://SMWG/Granule/VMO/MHD/Run2/Mag/2D/XY/Table</ResourceID>
 <ReleaseDate>2013-06-11T00:00:00.000</ReleaseDate>
-<ParentID>impex://SMWG/VMO/MHD/Run2/Mag/2D/XY</ParentID>
+<ParentID>impex://SMWG/NumericalOutput/VMO/MHD/Run2/Mag/2D/XY</ParentID>
 <RegionBegin>-120 -60 0</RegionBegin>
 <RegionEnd>60 60 60</RegionEnd>
 <Source>
