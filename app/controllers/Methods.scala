@@ -40,6 +40,7 @@ object Methods extends Controller {
   def methods(
       @ApiParam(value = "database name part of the id stored in the config", 
           defaultValue = "SINP") @PathParam("dbName") dbName: String) = PortalAction.async {
+    // @FIXME prepare for possible changes with the prefixes! (spase://?)
     val future = RegistryService.getMethods(Some("impex://"+dbName))
     future.map { _ match {
       // @FIXME we return a merged version of multiple WSDLs
@@ -70,6 +71,7 @@ object Methods extends Controller {
           defaultValue = "SINP") @PathParam("dbName") dbName: String) = PortalAction.async {
     for {
       databases <- models.actor.ConfigService.request(GetDatabases).mapTo[Seq[Database]]
+    // @FIXME prepare for possible changes with the prefixes! (spase://?)
       provider <- Some("impex://"+dbName) match {
         case Some(id) if(databases.exists(d => id.contains(d.id.toString))) => {
           val db: Database = databases.find(d => id.contains(d.id.toString)).get
