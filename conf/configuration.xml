@@ -48,8 +48,7 @@
     <protocol>http</protocol>
     <info/>
   </database>
-  <!-- not available until full tree is available (no runs included) -->
-  <!-- database id="impex://LESIA" type="simulation">
+  <database id="impex://LESIA" type="simulation">
     <name>LESIA</name>
     <description>LESIA simulations</description>
     <dns>typhon.obspm.fr</dns>
@@ -57,7 +56,7 @@
     <tree>/maser/IMPExWS/tree_Mag.xml</tree>
     <protocol>http</protocol>
     <info/>
-  </database-->
+  </database>
   <database id="impex://AMDA" type="observation">
     <name>AMDA</name>
     <description>AMDA observational database</description>

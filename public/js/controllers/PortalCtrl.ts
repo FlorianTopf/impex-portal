@@ -60,6 +60,9 @@ module portal {
                         
         }
         
+        // @TODO cache the current focus of resources,
+        // include custom events! 
+        
         public getRepository(id: string) {
             // @FIXME improve this
             this.registryService.repositories = []
@@ -84,6 +87,8 @@ module portal {
             
         }
         
+        // resource id must be transformed from repository id! 
+        //=> check if there is more than one repository
         public getSimulationModel(id: string) {
             // @FIXME improve this
             this.registryService.simulationModels = []
@@ -113,8 +118,6 @@ module portal {
             // aligned with standard transition time of accordion
             this.timeout(() => { this.transFinished = true }, 200)
             // @FIXME dont know if this is the optimal way to do it 
-            this.registryPromiseModel = this.registryService.getSimulationRun().get(
-                { fmt: 'json', id: id }).$promise
             this.registryPromiseRun = this.registryService.getSimulationRun().get(
                 { fmt: 'json', id: id }).$promise
             this.registryPromiseRun.then((res) => {

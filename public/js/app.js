@@ -741,6 +741,8 @@ var portal;
                 });
             }
         }
+        // @TODO cache the current focus of resources,
+        // include custom events!
         PortalCtrl.prototype.getRepository = function (id) {
             var _this = this;
             // @FIXME improve this
@@ -769,6 +771,8 @@ var portal;
             });
         };
 
+        // resource id must be transformed from repository id!
+        //=> check if there is more than one repository
         PortalCtrl.prototype.getSimulationModel = function (id) {
             var _this = this;
             // @FIXME improve this
@@ -806,7 +810,6 @@ var portal;
             }, 200);
 
             // @FIXME dont know if this is the optimal way to do it
-            this.registryPromiseModel = this.registryService.getSimulationRun().get({ fmt: 'json', id: id }).$promise;
             this.registryPromiseRun = this.registryService.getSimulationRun().get({ fmt: 'json', id: id }).$promise;
             this.registryPromiseRun.then(function (res) {
                 var result = res.spase;

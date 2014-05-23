@@ -75,7 +75,8 @@ extends Actor with DataProvider {
       run => scalaxb.fromXML[SimulationRun](run.as[NodeSeq])
     }
     val runs = id match {
-      case Some(id) => records.filter(_.ResourceID.contains(id))
+      // we make a combined search here => both self id and parent id
+      case Some(id) => records.filter(r => (r.ResourceID.contains(id) || r.Model.ModelID.contains(id)))
       case None => records
     }
     if(r == true) {
@@ -92,8 +93,9 @@ extends Actor with DataProvider {
     val records = getTreeObjects("NumericalOutput") map {
       _.as[NumericalOutput]
     }
+    // we make a combined search here => both self id and parent id
     val outputs = id match {
-      case Some(id) => records.filter(_.ResourceID.contains(id))
+      case Some(id) => records.filter(r => (r.ResourceID.contains(id) || r.InputResourceID.contains(id)))
       case None => records
     }
     if(r == true) {
@@ -110,8 +112,9 @@ extends Actor with DataProvider {
     val records = getTreeObjects("Granule") map {
       granule => scalaxb.fromXML[Granule](granule.as[NodeSeq])
     }
+    // we make a combined search here => both self id and parent id
     val granules = id match {
-      case Some(id) => records.filter(_.ResourceID.contains(id))
+      case Some(id) => records.filter(r => (r.ResourceID.contains(id) || r.ParentID.contains(id)))
       case None => records
     }
     if(r == true) {

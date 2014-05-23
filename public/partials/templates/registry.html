@@ -17,7 +17,7 @@
 			</div>
 			<div class="btn-group-vertical">		
 				<button class="btn btn-default" ng-repeat="element in vm.registryService.simulationModels">
-					<span ng-click="vm.getSimulationRun(database.id)">{{element.resourceHeader.resourceName}}</span>
+					<span ng-click="vm.getSimulationRun(element.resourceId)">{{element.resourceHeader.resourceName}}</span>
 				</button>
 			</div>
 			<!-- @FIXME put styles in CSS --> 
