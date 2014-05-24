@@ -15,8 +15,8 @@ case class DataCenter(datacenteroption: Seq[scalaxb.DataRecord[models.binding.Da
   name: String,
   id: String)
 
-trait DataCenterOption2 extends DataCenterOption
 trait DataCenterOption
+trait DataCenterOption2 extends DataCenterOption
 
 case class Mission(missionoption: Seq[scalaxb.DataRecord[models.binding.MissionOption]] = Nil,
   att: Option[String] = None,
