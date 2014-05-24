@@ -8,30 +8,8 @@
       xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
 
-      <!-- Taken from IMPEx DM 1_0_0 BEGIN 
-			First test to overcome errors in Taverna
-			-->
+      <!-- CHANGED TO OVERCOME TAVERNA PROBLEMS -->
       <xs:element type="xs:anyURI" name="ResourceID"/>
-      <xs:simpleType name="FloatSequence">
-        <xs:list itemType="xs:float"/>
-      </xs:simpleType>
-      <xs:simpleType name="PlanePoint">
-        <xs:restriction base="FloatSequence"/>
-      </xs:simpleType>
-      <xs:simpleType name="PlaneNormalVector">
-        <xs:restriction base="FloatSequence"/>
-      </xs:simpleType>
-      <xs:simpleType name="ParameterKey">
-        <xs:restriction base="xs:string"/>
-      </xs:simpleType>
-      <xs:simpleType name="PopulationID">
-        <xs:restriction base="xs:string"/>
-      </xs:simpleType>
-      <xs:simpleType name="BandName">
-        <xs:restriction base="xs:string"/>
-      </xs:simpleType>
-      <!-- Taken from IMPEx DM 1_0_0 END -->
-
       <xs:element type="xs:string" name="Variable"/>
       <xs:element type="OutputFormat" name="OutputFileType"/>
       <xs:element type="xs:anyURI" name="url_XYZ">
@@ -42,9 +20,9 @@
       <xs:element type="xs:dateTime" name="StartTime"/>
       <xs:element type="xs:dateTime" name="StopTime"/>
       <xs:element type="xs:duration" name="Sampling"/>
-      <xs:element type="Population" name="Population"/>
-      <xs:element type="PlanePoint" name="PlanePoint"/>
-      <xs:element type="PlaneNormalVector" name="PlaneNormalVector"/>
+      <xs:element type="xs:string" name="Population"/>
+      <xs:element type="FloatSequence" name="PlanePoint"/>
+      <xs:element type="FloatSequence" name="PlaneNormalVector"/>
       <xs:element type="xs:double" name="Resolution"/>
       <xs:element type="xs:double" name="StepSize"/>
 	  <xs:element type="xs:string" name="Spacecraft_name"/>
@@ -52,6 +30,9 @@
       <xs:element type="Interpolation" name="InterpolationMethod"/>
       <xs:element type="ListOfDouble" name="ListOfDouble"/>
       <xs:element type="CoordinateSystemName" name="CoordinateSystemName"/>
+      <xs:simpleType name="FloatSequence">
+        <xs:list itemType="xs:float"/>
+      </xs:simpleType>
 	
 	  <xs:simpleType name="OutputFormat">
         <xs:annotation>
@@ -78,8 +59,9 @@
         <xs:annotation>
           <xs:documentation>List of population species from the selected NumericalOutput separated by a comma. Identified by the PopulationId. By default: all populations within the NumericalOutput are returned </xs:documentation>
         </xs:annotation>
-        <xs:list itemType="PopulationID"/>
+        <xs:list itemType="xs:string"/>
       </xs:simpleType>
+      <!-- NOT CORRECT ATM -->
       <!--xs:simpleType name="Spacecraft">
         <xs:annotation>
           <xs:documentation>
@@ -95,11 +77,12 @@
           <xs:enumeration value="Cassini"/>
         </xs:restriction>
       </xs:simpleType-->
+      <!-- MYSTERIOUSLY NOT WORKING WITH TAVERNA -->
       <!--xs:simpleType name="Variable">
         <xs:annotation>
           <xs:documentation>List of individual parameters from the selected NumericalOutput and Simulation Run, separated by a comma. By default: SimulatedRegion from Simulation Run; TemporalDescription and all parameters within the NumericalOutput</xs:documentation>
         </xs:annotation>
-        <xs:list itemType="ParameterKey"/>
+        <xs:list itemType="xs:string"/>
       </xs:simpleType-->
 	  <xs:simpleType name="CoordinateSystemName">
 		<xs:annotation>

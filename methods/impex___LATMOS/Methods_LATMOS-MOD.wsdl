@@ -9,37 +9,11 @@
 			xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
 			
-
-			<!-- Taken from IMPEx DM 1_0_0 BEGIN 
-			First test to overcome errors in Taverna
-			-->
-			<xs:simpleType name="FloatSequence">
-				<xs:list itemType="xs:float"/>
-			</xs:simpleType>
 			
-			<xs:simpleType name="PlanePoint">
-				<xs:restriction base="FloatSequence"/>
-			</xs:simpleType>
-			
-			<xs:simpleType name="PlaneNormalVector">
-				<xs:restriction base="FloatSequence"/>
-			</xs:simpleType>
-			
-			<xs:simpleType name="ParameterKey">
-				<xs:restriction base="xs:string"/>
-			</xs:simpleType>
-			
-			<xs:simpleType name="PopulationID">
-				<xs:restriction base="xs:string"/>
-			</xs:simpleType>
-			
-			<xs:simpleType name="BandName">
-				<xs:restriction base="xs:string"/>
-			</xs:simpleType>
-			<!-- Taken from IMPEx DM 1_0_0 END -->
+	
 
 
-
+			<!-- CHANGED TO OVERCOME TAVERNA PROBLEMS -->
 			<xs:element type="xs:anyURI" name="ResourceID"/>
 			<xs:element type="xs:string" name="Variable"/>
 			<xs:element type="xs:double" name="IMFClockAngle"/>
@@ -58,12 +32,17 @@
 			<xs:element type="xs:duration" name="Sampling"/>
 			<xs:element type="Population" name="Population"/>
 			<xs:element type="EnergyChannel" name="EnergyChannel"/>
-			<xs:element type="PlanePoint" name="PlanePoint"/>
-			<xs:element type="PlaneNormalVector" name="PlaneNormalVector"/>
+			<xs:element type="xs:string" name="PlanePoint"/>
+			<xs:element type="xs:string" name="PlaneNormalVector"/>
 			<xs:element type="xs:double" name="Resolution"/>
 			<xs:element type="xs:double" name="StepSize"/>
-
 			<xs:element type="xs:string" name="Spacecraft_name"/>
+			
+			<!-- COPIED FROM THE SimDM -->
+			<xs:simpleType name="FloatSequence">
+				<xs:list itemType="xs:float"/>
+			</xs:simpleType>
+			<!-- MYSTERIOUSLY NOT WORKING WITH TAVERNA -->
 			<!--xs:simpleType name="Variable">
 				<xs:annotation>
 					<xs:documentation>List of individual parameters from the selected
@@ -71,7 +50,7 @@
 						default: all parameters within the NumericalOutput are
 						returned</xs:documentation>
 				</xs:annotation>
-				<xs:list itemType="ParameterKey"/>
+				<xs:list itemType="xs:string"/>
 			</xs:simpleType-->
 			<xs:simpleType name="Population">
 				<xs:annotation>
@@ -79,7 +58,7 @@
 						separated by a comma. Identified by the PopulationId. By default: all
 						populations within the NumericalOutput are returned </xs:documentation>
 				</xs:annotation>
-				<xs:list itemType="PopulationID"/>
+				<xs:list itemType="xs:string"/>
 			</xs:simpleType>
 			<xs:simpleType name="EnergyChannel">
 				<xs:annotation>
@@ -87,9 +66,10 @@
 						by commas. The Energy of each energy channel is defined in the tree.xml. By
 						default all energy channels are selected</xs:documentation>
 				</xs:annotation>
-				<xs:list itemType="BandName"/>
+				<xs:list itemType="xs:string"/>
 			</xs:simpleType>
 
+			<!-- NOT CORRECT ATM -->
 			<!--xs:simpleType name="OutputFormat">
 				<xs:annotation>
 					<xs:documentation> two format supported </xs:documentation>
@@ -99,7 +79,7 @@
 					<xs:enumeration value="VOTable"/>
 				</xs:restriction>
 			</xs:simpleType-->
-
+			<!-- NOT CORRECT ATM -->
 			<!--xs:simpleType name="Spacecraft">
 				<xs:annotation>
 					<xs:documentation> Currently three spacecraft: MarsExpress,MarsGlobalSurveyor
@@ -117,6 +97,8 @@
 			<!-- CHANGED TO OVERCOME TAVERNA PROBLEMS -->
 			<!-- Generic Response definition -->
 			<xs:element name='genResponse' type='xs:anyURI'/>
+			<!-- getFileURL Response definition -->
+			<xs:element name='voTableResponse' type='xs:anyType'/>
 			
 			<xs:element type="DataPointValue" name="getDataPointValue"/>
 
@@ -347,7 +329,7 @@
 		<wsdl:part element="getFileURL" name="parameters"/>
 	</wsdl:message>
 	<wsdl:message name="FileURL_Response">
-		<wsdl:part element="genResponse" name="parameters"/>
+		<wsdl:part element="voTableResponse" name="parameters"/>
 	</wsdl:message>
 
 
