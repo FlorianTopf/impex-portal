@@ -4090,7 +4090,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     override def typeName: Option[String] = Some("Option")
 
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.OptionType] =
-      phrase(rep(scalaxb.ElemName(None, "OPTION")) ^^
+      phrase(rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "OPTION")) ^^
       { case p1 =>
       models.binding.OptionType(p1.toSeq map { scalaxb.fromXML[models.binding.OptionType](_, scalaxb.ElemName(node) :: stack) },
         (node \ "@name").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
@@ -4104,7 +4104,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     }
 
     def writesChildNodes(__obj: models.binding.OptionType, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      (__obj.OPTION flatMap { scalaxb.toXML[models.binding.OptionType](_, None, Some("OPTION"), __scope, false) })
+      (__obj.OPTION flatMap { scalaxb.toXML[models.binding.OptionType](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("OPTION"), __scope, false) })
 
   }
 
@@ -4130,9 +4130,9 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     override def typeName: Option[String] = Some("Values")
 
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Values] =
-      phrase(opt(scalaxb.ElemName(None, "MIN")) ~ 
-      opt(scalaxb.ElemName(None, "MAX")) ~ 
-      rep(scalaxb.ElemName(None, "OPTION")) ^^
+      phrase(opt(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "MIN")) ~ 
+      opt(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "MAX")) ~ 
+      rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "OPTION")) ^^
       { case p1 ~ p2 ~ p3 =>
       models.binding.Values(p1.headOption map { scalaxb.fromXML[models.binding.Min](_, scalaxb.ElemName(node) :: stack) },
         p2.headOption map { scalaxb.fromXML[models.binding.Max](_, scalaxb.ElemName(node) :: stack) },
@@ -4152,9 +4152,9 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     }
 
     def writesChildNodes(__obj: models.binding.Values, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(__obj.MIN map { scalaxb.toXML[models.binding.Min](_, None, Some("MIN"), __scope, false) } getOrElse {Nil},
-        __obj.MAX map { scalaxb.toXML[models.binding.Max](_, None, Some("MAX"), __scope, false) } getOrElse {Nil},
-        __obj.OPTION flatMap { scalaxb.toXML[models.binding.OptionType](_, None, Some("OPTION"), __scope, false) })
+      Seq.concat(__obj.MIN map { scalaxb.toXML[models.binding.Min](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("MIN"), __scope, false) } getOrElse {Nil},
+        __obj.MAX map { scalaxb.toXML[models.binding.Max](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("MAX"), __scope, false) } getOrElse {Nil},
+        __obj.OPTION flatMap { scalaxb.toXML[models.binding.OptionType](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("OPTION"), __scope, false) })
 
   }
 
@@ -4279,9 +4279,9 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     override def typeName: Option[String] = Some("Definitions")
 
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Definitions] =
-      phrase(rep(((scalaxb.ElemName(None, "COOSYS")) ^^ 
+      phrase(rep(((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "COOSYS")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.CoordinateSystem](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(None, "PARAM")) ^^ 
+      ((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "PARAM")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Param](x, scalaxb.ElemName(node) :: stack))))) ^^
       { case p1 =>
       models.binding.Definitions(p1.toSeq: _*) })
@@ -4330,9 +4330,9 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     override def typeName: Option[String] = Some("Field")
 
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Field] =
-      phrase(opt(scalaxb.ElemName(None, "DESCRIPTION")) ~ 
-      opt(scalaxb.ElemName(None, "VALUES")) ~ 
-      rep(scalaxb.ElemName(None, "LINK")) ^^
+      phrase(opt(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "DESCRIPTION")) ~ 
+      opt(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "VALUES")) ~ 
+      rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "LINK")) ^^
       { case p1 ~ p2 ~ p3 =>
       models.binding.Field(p1.headOption map { scalaxb.fromXML[models.binding.AnyTEXT](_, scalaxb.ElemName(node) :: stack) },
         p2.headOption map { scalaxb.fromXML[models.binding.Values](_, scalaxb.ElemName(node) :: stack) },
@@ -4368,9 +4368,9 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     }
 
     def writesChildNodes(__obj: models.binding.Field, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(__obj.DESCRIPTION map { scalaxb.toXML[models.binding.AnyTEXT](_, None, Some("DESCRIPTION"), __scope, false) } getOrElse {Nil},
-        __obj.VALUES map { scalaxb.toXML[models.binding.Values](_, None, Some("VALUES"), __scope, false) } getOrElse {Nil},
-        __obj.LINK flatMap { scalaxb.toXML[models.binding.Link](_, None, Some("LINK"), __scope, false) })
+      Seq.concat(__obj.DESCRIPTION map { scalaxb.toXML[models.binding.AnyTEXT](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("DESCRIPTION"), __scope, false) } getOrElse {Nil},
+        __obj.VALUES map { scalaxb.toXML[models.binding.Values](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("VALUES"), __scope, false) } getOrElse {Nil},
+        __obj.LINK flatMap { scalaxb.toXML[models.binding.Link](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("LINK"), __scope, false) })
 
   }
 
@@ -4380,9 +4380,9 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     override def typeName: Option[String] = Some("Param")
 
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Param] =
-      phrase(opt(scalaxb.ElemName(None, "DESCRIPTION")) ~ 
-      opt(scalaxb.ElemName(None, "VALUES")) ~ 
-      rep(scalaxb.ElemName(None, "LINK")) ^^
+      phrase(opt(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "DESCRIPTION")) ~ 
+      opt(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "VALUES")) ~ 
+      rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "LINK")) ^^
       { case p1 ~ p2 ~ p3 =>
       models.binding.Param(p1.headOption map { scalaxb.fromXML[models.binding.AnyTEXT](_, scalaxb.ElemName(node) :: stack) },
         p2.headOption map { scalaxb.fromXML[models.binding.Values](_, scalaxb.ElemName(node) :: stack) },
@@ -4420,9 +4420,9 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     }
 
     def writesChildNodes(__obj: models.binding.Param, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(__obj.DESCRIPTION map { scalaxb.toXML[models.binding.AnyTEXT](_, None, Some("DESCRIPTION"), __scope, false) } getOrElse {Nil},
-        __obj.VALUES map { scalaxb.toXML[models.binding.Values](_, None, Some("VALUES"), __scope, false) } getOrElse {Nil},
-        __obj.LINK flatMap { scalaxb.toXML[models.binding.Link](_, None, Some("LINK"), __scope, false) })
+      Seq.concat(__obj.DESCRIPTION map { scalaxb.toXML[models.binding.AnyTEXT](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("DESCRIPTION"), __scope, false) } getOrElse {Nil},
+        __obj.VALUES map { scalaxb.toXML[models.binding.Values](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("VALUES"), __scope, false) } getOrElse {Nil},
+        __obj.LINK flatMap { scalaxb.toXML[models.binding.Link](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("LINK"), __scope, false) })
 
   }
 
@@ -4432,14 +4432,14 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     override def typeName: Option[String] = Some("Group")
 
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Group] =
-      phrase(opt(scalaxb.ElemName(None, "DESCRIPTION")) ~ 
-      rep(((scalaxb.ElemName(None, "FIELDref")) ^^ 
+      phrase(opt(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "DESCRIPTION")) ~ 
+      rep(((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "FIELDref")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.FieldRef](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(None, "PARAMref")) ^^ 
+      ((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "PARAMref")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.ParamRef](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(None, "PARAM")) ^^ 
+      ((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "PARAM")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Param](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(None, "GROUP")) ^^ 
+      ((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "GROUP")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Group](x, scalaxb.ElemName(node) :: stack))))) ^^
       { case p1 ~ p2 =>
       models.binding.Group(p1.headOption map { scalaxb.fromXML[models.binding.AnyTEXT](_, scalaxb.ElemName(node) :: stack) },
@@ -4461,7 +4461,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     }
 
     def writesChildNodes(__obj: models.binding.Group, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(__obj.DESCRIPTION map { scalaxb.toXML[models.binding.AnyTEXT](_, None, Some("DESCRIPTION"), __scope, false) } getOrElse {Nil},
+      Seq.concat(__obj.DESCRIPTION map { scalaxb.toXML[models.binding.AnyTEXT](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("DESCRIPTION"), __scope, false) } getOrElse {Nil},
         __obj.groupoption flatMap { x => scalaxb.toXML[scalaxb.DataRecord[models.binding.GroupOption]](x, x.namespace, x.key, __scope, false) })
 
   }
@@ -4522,20 +4522,20 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     override def typeName: Option[String] = Some("Data")
 
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Data] =
-      phrase((((scalaxb.ElemName(None, "TABLEDATA")) ^^ 
+      phrase((((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "TABLEDATA")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.TableData](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(None, "BINARY")) ^^ 
+      ((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "BINARY")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Binary](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(None, "FITS")) ^^ 
+      ((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "FITS")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.FITS](x, scalaxb.ElemName(node) :: stack))))) ~ 
-      rep(scalaxb.ElemName(None, "INFO")) ^^
+      rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "INFO")) ^^
       { case p1 ~ p2 =>
       models.binding.Data(p1,
         p2.toSeq map { scalaxb.fromXML[models.binding.Info](_, scalaxb.ElemName(node) :: stack) }) })
     
     def writesChildNodes(__obj: models.binding.Data, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
       Seq.concat(Some(__obj.dataoption) map {x => scalaxb.toXML[scalaxb.DataRecord[models.binding.DataOption]](x, x.namespace, x.key, __scope, false)} get,
-        __obj.INFO flatMap { scalaxb.toXML[models.binding.Info](_, None, Some("INFO"), __scope, false) })
+        __obj.INFO flatMap { scalaxb.toXML[models.binding.Info](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("INFO"), __scope, false) })
 
   }
 
@@ -4545,12 +4545,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     override def typeName: Option[String] = Some("TableData")
 
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.TableData] =
-      phrase(rep(scalaxb.ElemName(None, "TR")) ^^
+      phrase(rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "TR")) ^^
       { case p1 =>
       models.binding.TableData(p1.toSeq map { scalaxb.fromXML[models.binding.Tr](_, scalaxb.ElemName(node) :: stack) }: _*) })
     
     def writesChildNodes(__obj: models.binding.TableData, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      (__obj.TR flatMap { scalaxb.toXML[models.binding.Tr](_, None, Some("TR"), __scope, false) })
+      (__obj.TR flatMap { scalaxb.toXML[models.binding.Tr](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("TR"), __scope, false) })
 
   }
 
@@ -4582,7 +4582,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     override def typeName: Option[String] = Some("Tr")
 
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Tr] =
-      phrase(rep(scalaxb.ElemName(None, "TD")) ^^
+      phrase(rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "TD")) ^^
       { case p1 =>
       models.binding.Tr(p1.toSeq map { scalaxb.fromXML[models.binding.Td](_, scalaxb.ElemName(node) :: stack) },
         (node \ "@ID").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
@@ -4594,7 +4594,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     }
 
     def writesChildNodes(__obj: models.binding.Tr, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      (__obj.TD flatMap { scalaxb.toXML[models.binding.Td](_, None, Some("TD"), __scope, false) })
+      (__obj.TD flatMap { scalaxb.toXML[models.binding.Td](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("TD"), __scope, false) })
 
   }
 
@@ -4604,7 +4604,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     override def typeName: Option[String] = Some("FITS")
 
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.FITS] =
-      phrase((scalaxb.ElemName(None, "STREAM")) ^^
+      phrase((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "STREAM")) ^^
       { case p1 =>
       models.binding.FITS(scalaxb.fromXML[models.binding.StreamType](p1, scalaxb.ElemName(node) :: stack),
         (node \ "@extnum").headOption map { scalaxb.fromXML[BigInt](_, scalaxb.ElemName(node) :: stack) }) })
@@ -4616,7 +4616,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     }
 
     def writesChildNodes(__obj: models.binding.FITS, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      (scalaxb.toXML[models.binding.StreamType](__obj.STREAM, None, Some("STREAM"), __scope, false))
+      (scalaxb.toXML[models.binding.StreamType](__obj.STREAM, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("STREAM"), __scope, false))
 
   }
 
@@ -4626,12 +4626,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     override def typeName: Option[String] = Some("Binary")
 
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Binary] =
-      phrase((scalaxb.ElemName(None, "STREAM")) ^^
+      phrase((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "STREAM")) ^^
       { case p1 =>
       models.binding.Binary(scalaxb.fromXML[models.binding.StreamType](p1, scalaxb.ElemName(node) :: stack)) })
     
     def writesChildNodes(__obj: models.binding.Binary, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      (scalaxb.toXML[models.binding.StreamType](__obj.STREAM, None, Some("STREAM"), __scope, false))
+      (scalaxb.toXML[models.binding.StreamType](__obj.STREAM, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("STREAM"), __scope, false))
 
   }
 
@@ -4705,17 +4705,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     override def typeName: Option[String] = Some("Table")
 
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Table] =
-      phrase(opt(scalaxb.ElemName(None, "DESCRIPTION")) ~ 
-      rep(scalaxb.ElemName(None, "INFO")) ~ 
-      rep(((scalaxb.ElemName(None, "FIELD")) ^^ 
+      phrase(opt(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "DESCRIPTION")) ~ 
+      rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "INFO")) ~ 
+      rep(((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "FIELD")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Fieldable](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(None, "PARAM")) ^^ 
+      ((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "PARAM")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Param](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(None, "GROUP")) ^^ 
+      ((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "GROUP")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Group](x, scalaxb.ElemName(node) :: stack))))) ~ 
-      rep(scalaxb.ElemName(None, "LINK")) ~ 
-      opt(scalaxb.ElemName(None, "DATA")) ^^
-      //rep(scalaxb.ElemName(None, "INFO")) ^^
+      rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "LINK")) ~ 
+      opt(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "DATA")) ^^
+      //rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "INFO")) ^^
       { case p1 ~ p2 ~ p3 ~ p4 ~ p5 =>//~ p6 =>
       models.binding.Table(p1.headOption map { scalaxb.fromXML[models.binding.AnyTEXT](_, scalaxb.ElemName(node) :: stack) },
         p2.toSeq map { scalaxb.fromXML[models.binding.Info](_, scalaxb.ElemName(node) :: stack) },
@@ -4742,12 +4742,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     }
 
     def writesChildNodes(__obj: models.binding.Table, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(__obj.DESCRIPTION map { scalaxb.toXML[models.binding.AnyTEXT](_, None, Some("DESCRIPTION"), __scope, false) } getOrElse {Nil},
-        __obj.INFO flatMap { scalaxb.toXML[models.binding.Info](_, None, Some("INFO"), __scope, false) },
+      Seq.concat(__obj.DESCRIPTION map { scalaxb.toXML[models.binding.AnyTEXT](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("DESCRIPTION"), __scope, false) } getOrElse {Nil},
+        __obj.INFO flatMap { scalaxb.toXML[models.binding.Info](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("INFO"), __scope, false) },
         __obj.tableoption flatMap { x => scalaxb.toXML[scalaxb.DataRecord[models.binding.TableOption]](x, x.namespace, x.key, __scope, false) },
-        __obj.LINK flatMap { scalaxb.toXML[models.binding.Link](_, None, Some("LINK"), __scope, false) },
-        __obj.DATA map { scalaxb.toXML[models.binding.Data](_, None, Some("DATA"), __scope, false) } getOrElse {Nil})//,
-        //__obj.INFO flatMap { scalaxb.toXML[models.binding.Info](_, None, Some("INFO"), __scope, false) })
+        __obj.LINK flatMap { scalaxb.toXML[models.binding.Link](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("LINK"), __scope, false) },
+        __obj.DATA map { scalaxb.toXML[models.binding.Data](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("DATA"), __scope, false) } getOrElse {Nil})//,
+        //__obj.INFO flatMap { scalaxb.toXML[models.binding.Info](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("INFO"), __scope, false) })
 
   }
 
@@ -4773,20 +4773,20 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     override def typeName: Option[String] = Some("Resource")
 
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Resource] =
-      phrase(opt(scalaxb.ElemName(None, "DESCRIPTION")) ~ 
-      rep(scalaxb.ElemName(None, "INFO")) ~ 
-      rep(((scalaxb.ElemName(None, "COOSYS")) ^^ 
+      phrase(opt(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "DESCRIPTION")) ~ 
+      rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "INFO")) ~ 
+      rep(((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "COOSYS")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.CoordinateSystem](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(None, "GROUP")) ^^ 
+      ((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "GROUP")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Group](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(None, "PARAM")) ^^ 
+      ((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "PARAM")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Param](x, scalaxb.ElemName(node) :: stack))))) ~ 
-      rep((rep(scalaxb.ElemName(None, "LINK")) ~ 
-      (((scalaxb.ElemName(None, "TABLE")) ^^ 
+      rep((rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "LINK")) ~ 
+      (((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "TABLE")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Table](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(None, "RESOURCE")) ^^ 
+      ((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "RESOURCE")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Resource](x, scalaxb.ElemName(node) :: stack))))) ~ 
-      rep(scalaxb.ElemName(None, "INFO"))) ^^ 
+      rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "INFO"))) ^^ 
         { case p1 ~ p2 ~ p3 => models.binding.ResourceSequence1(p1.toSeq map { scalaxb.fromXML[models.binding.Link](_, scalaxb.ElemName(node) :: stack) },
         p2,
         p3.toSeq map { scalaxb.fromXML[models.binding.Info](_, scalaxb.ElemName(node) :: stack) }) }) ~ 
@@ -4830,8 +4830,8 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     }
 
     def writesChildNodes(__obj: models.binding.Resource, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(__obj.DESCRIPTION map { scalaxb.toXML[models.binding.AnyTEXT](_, None, Some("DESCRIPTION"), __scope, false) } getOrElse {Nil},
-        __obj.INFO flatMap { scalaxb.toXML[models.binding.Info](_, None, Some("INFO"), __scope, false) },
+      Seq.concat(__obj.DESCRIPTION map { scalaxb.toXML[models.binding.AnyTEXT](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("DESCRIPTION"), __scope, false) } getOrElse {Nil},
+        __obj.INFO flatMap { scalaxb.toXML[models.binding.Info](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("INFO"), __scope, false) },
         __obj.resourceoption flatMap { x => scalaxb.toXML[scalaxb.DataRecord[models.binding.ResourceOption]](x, x.namespace, x.key, __scope, false) },
         __obj.resourcesequence1 flatMap { scalaxb.toXML[models.binding.ResourceSequence1](_, None, Some("resourcesequence1"), __scope, false) },
         __obj.any flatMap { x => scalaxb.toXML[scalaxb.DataRecord[Any]](x, x.namespace, x.key, __scope, true) })
@@ -4843,9 +4843,9 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     
     def writes(__obj: models.binding.ResourceSequence1, __namespace: Option[String], __elementLabel: Option[String], 
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
-      Seq.concat(__obj.LINK flatMap { scalaxb.toXML[models.binding.Link](_, None, Some("LINK"), __scope, false) },
+      Seq.concat(__obj.LINK flatMap { scalaxb.toXML[models.binding.Link](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("LINK"), __scope, false) },
         Some(__obj.resourceoption2) map {x => scalaxb.toXML[scalaxb.DataRecord[models.binding.ResourceOption2]](x, x.namespace, x.key, __scope, false)} get,
-        __obj.INFO flatMap { scalaxb.toXML[models.binding.Info](_, None, Some("INFO"), __scope, false) })
+        __obj.INFO flatMap { scalaxb.toXML[models.binding.Info](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("INFO"), __scope, false) })
 
 
   }
@@ -4870,18 +4870,18 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     val targetNamespace: Option[String] = Some("http://www.ivoa.net/xml/VOTable/v1.2")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.VOTABLE] =
-      phrase(opt(scalaxb.ElemName(None, "DESCRIPTION")) ~ 
-      opt(scalaxb.ElemName(None, "DEFINITIONS")) ~ 
-      rep(((scalaxb.ElemName(None, "COOSYS")) ^^ 
+      phrase(opt(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "DESCRIPTION")) ~ 
+      opt(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "DEFINITIONS")) ~ 
+      rep(((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "COOSYS")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.CoordinateSystem](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(None, "GROUP")) ^^ 
+      ((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "GROUP")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Group](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(None, "PARAM")) ^^ 
+      ((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "PARAM")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Param](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(None, "INFO")) ^^ 
+      ((scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "INFO")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Info](x, scalaxb.ElemName(node) :: stack))))) ~ 
-      rep(scalaxb.ElemName(None, "RESOURCE")) ~ 
-      rep(scalaxb.ElemName(None, "INFO")) ^^
+      rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "RESOURCE")) ~ 
+      rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "INFO")) ^^
       { case p1 ~ p2 ~ p3 ~ p4 ~ p5 =>
       models.binding.VOTABLE(p1.headOption map { scalaxb.fromXML[models.binding.AnyTEXT](_, scalaxb.ElemName(node) :: stack) },
         p2.headOption map { scalaxb.fromXML[models.binding.Definitions](_, scalaxb.ElemName(node) :: stack) },
@@ -4899,13 +4899,14 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     }
 
     def writesChildNodes(__obj: models.binding.VOTABLE, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(__obj.DESCRIPTION map { scalaxb.toXML[models.binding.AnyTEXT](_, None, Some("DESCRIPTION"), __scope, false) } getOrElse {Nil},
-        __obj.DEFINITIONS map { scalaxb.toXML[models.binding.Definitions](_, None, Some("DEFINITIONS"), __scope, false) } getOrElse {Nil},
+      Seq.concat(__obj.DESCRIPTION map { scalaxb.toXML[models.binding.AnyTEXT](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("DESCRIPTION"), __scope, false) } getOrElse {Nil},
+        __obj.DEFINITIONS map { scalaxb.toXML[models.binding.Definitions](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("DEFINITIONS"), __scope, false) } getOrElse {Nil},
         __obj.votableoption flatMap { x => scalaxb.toXML[scalaxb.DataRecord[models.binding.VOTABLEOption]](x, x.namespace, x.key, __scope, false) },
-        __obj.RESOURCE flatMap { scalaxb.toXML[models.binding.Resource](_, None, Some("RESOURCE"), __scope, false) },
-        __obj.INFO flatMap { scalaxb.toXML[models.binding.Info](_, None, Some("INFO"), __scope, false) })
+        __obj.RESOURCE flatMap { scalaxb.toXML[models.binding.Resource](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("RESOURCE"), __scope, false) },
+        __obj.INFO flatMap { scalaxb.toXML[models.binding.Info](_, Some("http://www.ivoa.net/xml/VOTable/v1.2"), Some("INFO"), __scope, false) })
 
   }
+
 
 }
 
