@@ -78,7 +78,7 @@ object RegistryService {
   }
   
   private def getElement(msg: GetElement): Future[Either[Spase, RequestError]] = {
-    implicit val timeout = Timeout(30.seconds)
+    implicit val timeout = Timeout(1.minute)
     println("ResourceID="+msg.id)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
@@ -118,7 +118,7 @@ object RegistryService {
  
   // general methods
   def getTree(id: Option[String] = None): Future[Either[Spase, RequestError]] = {
-    implicit val timeout = Timeout(10.seconds)
+    implicit val timeout = Timeout(1.minute)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- {
