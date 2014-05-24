@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Schema IMPEx updated 2014-04-16T12:35:00 UT-->
+<!-- IMPEx Schema updated 2014-05-22T07:39:00 UT-->
 <xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
    targetNamespace="http://impex-fp7.oeaw.ac.at" xmlns="http://impex-fp7.oeaw.ac.at"
    elementFormDefault="qualified">
-
    <xsd:element name="Spase" type="Spase"/>
    <xsd:complexType name="Spase">
       <xsd:annotation>
@@ -2198,7 +2197,17 @@ of a set of typically orthogonal axes.
          </xsd:enumeration>
          <xsd:enumeration value="CSO">
             <xsd:annotation>
-               <xsd:documentation xml:lang="en"></xsd:documentation>
+               <xsd:documentation xml:lang="en">A generic body-Centered Solar Orbital (CSO) frame
+                      related to comets and asteroids. The frame is defined as a two-vector style
+                      dynamic frame as follows: 
+                      The position of the sun relative to the body is the primary vector: 
+                        the X axis points from the body to the sun. 
+                      The inertially referenced velocity of the sun relative to the body 
+                      is the secondary vector: 
+                        the Y axis is the component of this velocity vector orthogonal to the X axis.
+                        The Z axis is X cross Y, completing the right-handed reference frame. 
+                      All vectors are geometric: no aberration corrections are used.
+               </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
          <xsd:enumeration value="DM">
@@ -2520,9 +2529,11 @@ of a set of typically orthogonal axes.
          <xsd:enumeration value="MSO">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
-                  Coordinate Sytem Related to Mars or Mercury
-                  Depending on the Targeted Region
-                  Mars/Mercury Solar Orbital (X anti-sunward, Y along the orbital velocity direction)
+                  Mars or Mercury Solar Orbital coordinate system.
+                  The X axis points from the center of the planet to the Sun;
+                  the Z axis is perpendicular to the orbital plane of the planet
+                     and parallel to the angular momentum vector. 
+                  The Y axis completes the right-handed coordinate system.
                </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
@@ -2640,8 +2651,11 @@ of a set of typically orthogonal axes.
          <xsd:enumeration value="VSO">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
-                  Coordinate Sytem Related to Venus
-                  Venus Solar Orbital (X anti-sunward, Y along the orbital velocity direction)
+                  Venus Solar Orbital coordinate system. 
+                  The X axis points from the center of the planet to the Sun;
+                  The Z axis is perpendicular to the orbital plane of the planet
+                      and parallel to the angular momentum vector.
+                  The Y axis completes the right-handed coordinate system.
                </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
@@ -6582,9 +6596,15 @@ which may be occupied or observed.
          <xsd:enumeration value="Jupiter">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
-            The fifth planet from the sun in our solar
-            system.
+            The fifth planet from the sun in our solar system.
          </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Jupiter.Magnetosphere">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+                  The magnetosphere of the fifth planet from the sun in our solar system.
+               </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
          <xsd:enumeration value="Mars">
@@ -6598,24 +6618,42 @@ which may be occupied or observed.
          <xsd:enumeration value="Mercury">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
-            The first planet from the sun in our solar
-            system.
+            The first planet from the sun in our solar system.
          </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Mercury.Magnetosphere">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+                  The magnetosphere of the first planet from the sun in our solar system.
+               </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
          <xsd:enumeration value="Neptune">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
-            The seventh planet from the sun in our solar
-            system.
+            The seventh planet from the sun in our solar system.
          </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Planet">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+                  There are eigth planets in the solar system.
+               </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Planet.Magnetosphere">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+                  The magnetosphere of one of the planets in the solar system.
+               </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
          <xsd:enumeration value="Pluto">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
-            The ninth (sub)planet from the sun in our
-            solar system.
+            The ninth (sub)planet from the sun in our solar system.
          </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
@@ -6627,9 +6665,15 @@ which may be occupied or observed.
          <xsd:enumeration value="Saturn">
             <xsd:annotation>
                <xsd:documentation xml:lang="en">
-            The sixth planet from the sun in our solar
-            system.
+            The sixth planet from the sun in our solar system.
          </xsd:documentation>
+            </xsd:annotation>
+         </xsd:enumeration>
+         <xsd:enumeration value="Saturn.Magnetosphere">
+            <xsd:annotation>
+               <xsd:documentation xml:lang="en">
+                  The magnetosphere of the sixth planet from the sun in our solar system.
+               </xsd:documentation>
             </xsd:annotation>
          </xsd:enumeration>
          <xsd:enumeration value="Sun">

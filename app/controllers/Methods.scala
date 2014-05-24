@@ -71,7 +71,7 @@ object Methods extends Controller {
           defaultValue = "SINP") @PathParam("dbName") dbName: String) = PortalAction.async {
     for {
       databases <- models.actor.ConfigService.request(GetDatabases).mapTo[Seq[Database]]
-    // @FIXME prepare for possible changes with the prefixes! (spase://?)
+      // @FIXME prepare for possible changes with the prefixes! (spase://?)
       provider <- Some("impex://"+dbName) match {
         case Some(id) if(databases.exists(d => id.contains(d.id.toString))) => {
           val db: Database = databases.find(d => id.contains(d.id.toString)).get
