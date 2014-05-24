@@ -7,7 +7,7 @@
 
       
       <xs:element type="idm:ResourceID" name="ResourceID"/>
-	  <xs:element type="Variable" name="Variable"/>
+      <xs:element type="Variable" name="Variable"/>
       <xs:element type="OutputFormat" name="OutputFileType"/>
       <xs:element type="xs:anyURI" name="url_XYZ">
         <xs:annotation>
@@ -22,13 +22,13 @@
       <xs:element type="idm:PlaneNormalVector" name="PlaneNormalVector"/>
       <xs:element type="xs:double" name="Resolution"/>
       <xs:element type="xs:double" name="StepSize"/>
-	  <xs:element type="Spacecraft" name="Spacecraft_name"/>
+      <xs:element type="Spacecraft" name="Spacecraft_name"/>
       <xs:element type="cube_size_array" name="cube_size_array"/>
       <xs:element type="Interpolation" name="InterpolationMethod"/>
       <xs:element type="ListOfDouble" name="ListOfDouble"/>
       <xs:element type="CoordinateSystemName" name="CoordinateSystemName"/>
-	
-	  <xs:simpleType name="OutputFormat">
+    
+      <xs:simpleType name="OutputFormat">
         <xs:annotation>
           <xs:documentation>
             two formats supported
@@ -76,23 +76,23 @@
         </xs:annotation>
         <xs:list itemType="idm:ParameterKey"/>
       </xs:simpleType>
-	  <xs:simpleType name="CoordinateSystemName">
-		<xs:annotation>
-			<xs:documentation xml:lang="en">Identifiers of the origin and orientation of a set of typically orthogonal axes.</xs:documentation>
-		</xs:annotation>
-		<xs:restriction base="xs:string">
-			<xs:enumeration value="GSM">
-				<xs:annotation>
-					<xs:documentation xml:lang="en">Geocentric Solar Magnetospheric - A coordinate system where the X axis is from Earth to Sun, Z axis is northward in a plane containing the X axis and the geomagnetic dipole axis. See Russell, 1971</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-			<xs:enumeration value="GSE">
-				<xs:annotation>
-					<xs:documentation xml:lang="en">Geocentric Solar Ecliptic - A coordinate system where the X axis is from Earth to Sun. Z axis is normal to the ecliptic, positive northward. See Russell, 1971.</xs:documentation>
-				</xs:annotation>
-			</xs:enumeration>
-		</xs:restriction>
-	</xs:simpleType>
+      <xs:simpleType name="CoordinateSystemName">
+        <xs:annotation>
+            <xs:documentation xml:lang="en">Identifiers of the origin and orientation of a set of typically orthogonal axes.</xs:documentation>
+        </xs:annotation>
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="GSM">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">Geocentric Solar Magnetospheric - A coordinate system where the X axis is from Earth to Sun, Z axis is northward in a plane containing the X axis and the geomagnetic dipole axis. See Russell, 1971</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+            <xs:enumeration value="GSE">
+                <xs:annotation>
+                    <xs:documentation xml:lang="en">Geocentric Solar Ecliptic - A coordinate system where the X axis is from Earth to Sun. Z axis is normal to the ecliptic, positive northward. See Russell, 1971.</xs:documentation>
+                </xs:annotation>
+            </xs:enumeration>
+        </xs:restriction>
+    </xs:simpleType>
 
       <xs:complexType name="ListOfDouble">
         <xs:annotation>
@@ -104,7 +104,7 @@
           <xs:element type="xs:double" maxOccurs="1" minOccurs="0" name="z"/>
         </xs:sequence>
       </xs:complexType>
-	  <xs:complexType name="cube_size_array">
+      <xs:complexType name="cube_size_array">
         <xs:annotation>
           <xs:documentation>List with sizes of a cube</xs:documentation>
         </xs:annotation>
@@ -112,13 +112,13 @@
           <xs:element type="xs:integer" name="x_low" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:integer" name="x_high" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:integer" name="y_low" maxOccurs="1" minOccurs="0"/>
-		  <xs:element type="xs:integer" name="y_high" maxOccurs="1" minOccurs="0"/>
-		  <xs:element type="xs:integer" name="z_low" maxOccurs="1" minOccurs="0"/>
-		  <xs:element type="xs:integer" name="z_high" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:integer" name="y_high" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:integer" name="z_low" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:integer" name="z_high" maxOccurs="1" minOccurs="0"/>
         </xs:sequence>
-      </xs:complexType>	  
+      </xs:complexType>      
       
-	
+    
       
       
       
@@ -141,36 +141,6 @@
           <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:double" name="Dst" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:double" name="AL" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Magnetic field at magnetodisc outer edge</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="BT" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Magnetic field at tail current inner edge</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="RD2" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Distance to the external edge of MD</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="RD1" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Distance to the inner edge of MD</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="R1" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Magnetopause stand-off distance</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Distance to the inner edge of tail current sheet</xs:documentation>
-            </xs:annotation>
-          </xs:element>
           <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
@@ -183,24 +153,23 @@
         </xs:annotation>
         <xs:sequence>
           <xs:element type="OutputFormat" maxOccurs="1" minOccurs="0" name="OutputFileType"/>
-		  <xs:element type="CoordinateSystemName" maxOccurs="1" minOccurs="0" name="CoordinateSystem"/>
         </xs:sequence>
       </xs:complexType>
-	  
-	  
+      
+      
       
       <xs:complexType name="extraParams_calculateDataPointValueMercury">
         <xs:annotation>
-          <xs:documentation/>
+          <xs:documentation> By default:'BD'=-196.0,'Flux'=131.0,'Rss'=1.35,'R2'=1.32,'DZ'=0.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
         </xs:annotation>
         <xs:sequence>
           <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
-        <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="1">
+        <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Dipole field strength on the equator of the Mercury</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element type="xs:double" name="Flux" maxOccurs="1" minOccurs="1">
+          <xs:element type="xs:double" name="Flux" maxOccurs="1" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Magnetic field strength on the inner edge of the tail current</xs:documentation>
             </xs:annotation>
@@ -232,18 +201,13 @@
       
       <xs:complexType name="extraParams_calculateDataPointValueSaturn">
         <xs:annotation>
-          <xs:documentation/>
+          <xs:documentation>By default:'BDÐ¡'=3.0,'BT'=7.0,'RD2'=15.0,'RD1'=6.5,'Rss'=22.0,'R2'=18.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
         </xs:annotation>
         <xs:sequence>
           <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
-        <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="1">
+          <xs:element type="xs:double" name="BDC" maxOccurs="1" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Dipole field strength on the equator of the Saturn</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="BDC" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>Magnetic field on the inner edge of MD</xs:documentation>
+              <xs:documentation>Magnetic field on the outer edge of MD</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element type="xs:double" name="BT" maxOccurs="1" minOccurs="0">
@@ -270,7 +234,8 @@
             <xs:annotation>
               <xs:documentation>Distance to the magnetopause subsolar point</xs:documentation>
             </xs:annotation>
-          </xs:element>
+          </xs:element>          
+          <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
 
@@ -282,14 +247,14 @@
         </xs:annotation>
         <xs:sequence>
           <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
-        <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="1">
+        <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="0">
             <xs:annotation>
               <xs:documentation>Dipole field strength on the equator of the Saturn</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element type="xs:double" name="BDC" maxOccurs="1" minOccurs="1">
+          <xs:element type="xs:double" name="BDC" maxOccurs="1" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>Magnetic field on the inner edge of MD</xs:documentation>
+              <xs:documentation>Magnetic field on the outer edge of MD</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element type="xs:double" name="BT" maxOccurs="1" minOccurs="0">
@@ -364,19 +329,56 @@
       
       <xs:complexType name="extraParams_calculateCubeMercury">
         <xs:annotation>
-          <xs:documentation>List of parameters: BD,Flux,Rss,R2,DZ,IMF_B.</xs:documentation>
+          <xs:documentation>List of parameters: BD,Flux,Rss,R2,DZ,IMF_B. By default:'BD'=-196.0,'Flux'=131.0,'Rss'=1.35,'R2'=1.32,'DZ'=0.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
         </xs:annotation>
         <xs:sequence>
-          <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="1"/>
-          <xs:element type="xs:double" name="Flux" maxOccurs="1" minOccurs="1"/>
-          <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="1"/>
-          <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="1"/>
-          <xs:element type="xs:double" name="DZ" maxOccurs="1" minOccurs="1"/>
-          <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="1"/>
-		  <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="Flux" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="DZ" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
         </xs:sequence>
       </xs:complexType>
-	  
+      
+       
+      
+      <xs:complexType name="extraParams_calculateCubeSaturn">
+        <xs:annotation>
+          <xs:documentation>List of parameters: BDC, BT, RD2, RD1, R2, Rss, IMF_B. By default:'BDÐ¡'=3.0,'BT'=7.0,'RD2'=15.0,'RD1'=6.5,'Rss'=22.0,'R2'=18.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element type="xs:double" name="BDC" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="BT" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="RD2" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="RD1" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
+        </xs:sequence>
+      </xs:complexType>
+      
+      
+      
+      <xs:complexType name="extraParams_calculateCubeJupiter">
+        <xs:annotation>
+          <xs:documentation>List of parameters: BDC, BT, RD2, RD1, R2, Rss, IMF_B.</xs:documentation>
+        </xs:annotation>
+        <xs:sequence>
+          <xs:element type="xs:double" name="BDC" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="BT" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="RD2" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="RD1" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
+        </xs:sequence>
+      </xs:complexType>
+
+
       
 
       
@@ -396,7 +398,7 @@
           <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="0"/>
           <xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointValue" name="extraParams">
             <xs:annotation>
-              <xs:documentation>OutputFiletype only</xs:documentation>
+              <xs:documentation>OutputFiletype, InterpolationMethod</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -417,7 +419,7 @@
               <xs:documentation>For Earth: SW Density, SW Velocity, IMF_B(Bx, By, Bz), Dst, AL, OutputFiletype</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="0"/>
+          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
         </xs:sequence>
       </xs:complexType>
 
@@ -435,7 +437,7 @@
               <xs:documentation>OutputFiletype only</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="0"/>
+          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
         </xs:sequence>
       </xs:complexType>
 
@@ -450,10 +452,10 @@
           </xs:element>
           <xs:element type="extraParams_calculateDataPointValueMercury" name="extraParams" maxOccurs="1" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>OutputFiletype only</xs:documentation>
+              <xs:documentation>List of parameters: BD,Flux,Rss,R2,DZ,IMF_B; OutputFileType</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="0"/>
+          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
         </xs:sequence>
       </xs:complexType>
       
@@ -468,10 +470,10 @@
           </xs:element>
           <xs:element type="extraParams_calculateDataPointValueSaturn" name="extraParams" maxOccurs="1" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>OutputFiletype only</xs:documentation>
+              <xs:documentation>List of parameters: BDÐ¡,BT,RD2,RD1,Rss,R2,IMF_B; OutputFiletype only</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="0"/>
+          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
         </xs:sequence>
       </xs:complexType>
       
@@ -486,13 +488,13 @@
           </xs:element>
           <xs:element type="extraParams_calculateDataPointValueJupiter" name="extraParams" maxOccurs="1" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>OutputFiletype only</xs:documentation>
+              <xs:documentation>List of parameters: BDÐ¡,BT,RD2,RD1,Rss,R2,IMF_B; OutputFileType</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="0"/>
+          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
         </xs:sequence>
       </xs:complexType>
-	  
+      
       
       <xs:element type="calculateDataPointValueSpacecraft" name="calculateDataPointValueSpacecraft"/>
       <xs:complexType name="calculateDataPointValueSpacecraft">
@@ -529,11 +531,11 @@
               <xs:documentation>OutputFiletype only</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="0"/>
+          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
         </xs:sequence>
       </xs:complexType>
-	  
-	  
+      
+      
       <xs:element type="calculateCube" name="calculateCube"/>
       <xs:complexType name="calculateCube">
         <xs:sequence>
@@ -545,7 +547,7 @@
           <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
           <xs:element type="extraParams_calculateCube" name="extraParams" maxOccurs="1" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>For Earth: SW Density, SW Velocity, IMF_B(Bx, By, Bz), Dst, AL, OutputFiletype</xs:documentation>
+              <xs:documentation>For Earth: SW Density, SW Velocity, IMF_B(Bx, By, Bz), Dst, AL; OutputFileType</xs:documentation>
             </xs:annotation>
           </xs:element>
           <xs:element name="Sampling" maxOccurs="1" minOccurs="0">
@@ -570,18 +572,49 @@
               <xs:documentation>ResourceID of a generic SimulationRun</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element type="extraParams_calculateCubeMercury" name="extraParams" maxOccurs="1" minOccurs="1">
+          <xs:element type="extraParams_calculateCubeMercury" name="extraParams" maxOccurs="1" minOccurs="0">
             <xs:annotation>
-              <xs:documentation>List of parameters: BD,Flux,Rss,R2,DZ,IMF_B.</xs:documentation>
+              <xs:documentation>List of parameters: BD,Flux,Rss,R2,DZ,IMF_B; OutputFileType</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
       </xs:complexType>
 
+      
+      <xs:element type="calculateCubeSaturn" name="calculateCubeSaturn"/>
+      <xs:complexType name="calculateCubeSaturn">
+        <xs:sequence>
+          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>ResourceID of a generic SimulationRun</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element type="extraParams_calculateCubeSaturn" name="extraParams" maxOccurs="1" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>List of parameters: BDC,BT,RD2,RD1,R2,Rss,IMF_B; OutputFileType</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+
+      
+      <xs:element type="calculateCubeJupiter" name="calculateCubeJupiter"/>
+      <xs:complexType name="calculateCubeJupiter">
+        <xs:sequence>
+          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>ResourceID of a generic SimulationRun</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element type="extraParams_calculateCubeJupiter" name="extraParams" maxOccurs="1" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>List of parameters: BDC,BT,RD2,RD1,R2,Rss,IMF_B; OutputFileType</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
     </xs:schema>
   </wsdl:types>
-
-
   
   
   
@@ -772,7 +805,7 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-	  <wsdl:operation name="calculateCube">
+      <wsdl:operation name="calculateCube">
       <soap:operation soapAction="calculateCube"/>
       <wsdl:input>
         <soap:body use="literal"/>
@@ -781,7 +814,7 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
-	  <wsdl:operation name="calculateCubeMercury">
+      <wsdl:operation name="calculateCubeMercury">
       <soap:operation soapAction="calculateCubeMercury"/>
       <wsdl:input>
         <soap:body use="literal"/>
