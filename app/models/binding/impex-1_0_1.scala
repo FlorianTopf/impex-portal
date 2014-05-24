@@ -780,6 +780,7 @@ object EnumCoordinateSystemName {
     case "TIIS" => TIIS
     case "VSO" => VSO
     case "WGS84" => WGS84
+
   }
 }
 
@@ -1772,6 +1773,7 @@ object EnumRegion {
     case "Sun.Interior" => Sunu46Interior
     case "Sun.Photosphere" => Sunu46Photosphere
     case "Sun.TransitionRegion" => Sunu46TransitionRegion
+    case "Titan" => Titan
     case "Uranus" => Uranus
     case "Venus" => Venus
 
@@ -1779,7 +1781,7 @@ object EnumRegion {
 }
 
 case object Asteroid extends EnumRegion { override def toString = "Asteroid" }
-case object Callisto extends EnumRegion { override def toString  = "Callisto" }
+case object Callisto extends EnumRegion { override def toString = "Callisto" }
 case object Comet extends EnumRegion { override def toString = "Comet" }
 case object Earth extends EnumRegion { override def toString = "Earth" }
 case object Earthu46Magnetosheath extends EnumRegion { override def toString = "Earth.Magnetosheath" }
@@ -1834,6 +1836,7 @@ case object Sunu46Corona extends EnumRegion { override def toString = "Sun.Coron
 case object Sunu46Interior extends EnumRegion { override def toString = "Sun.Interior" }
 case object Sunu46Photosphere extends EnumRegion { override def toString = "Sun.Photosphere" }
 case object Sunu46TransitionRegion extends EnumRegion { override def toString = "Sun.TransitionRegion" }
+case object Titan extends EnumRegion { override def toString = "Titan" }
 case object Uranus extends EnumRegion { override def toString = "Uranus" }
 case object Venus extends EnumRegion { override def toString = "Venus" }
 
@@ -2349,7 +2352,6 @@ case class InputPopulation(inputpopulationsequence1: models.binding.InputPopulat
 }
 
 
-case class InputPopulationSequence3(ModelURL: Option[java.net.URI] = None)
 case class InputPopulationSequence2(PopulationMassNumber: Option[Double] = None,
   PopulationChargeState: Option[Double] = None,
   PopulationDensity: Option[models.binding.InputValue] = None,
@@ -2361,6 +2363,7 @@ case class InputPopulationSequence2(PopulationMassNumber: Option[Double] = None,
   InputTableURL: Option[java.net.URI] = None,
   Profile: Option[String] = None)
 
+case class InputPopulationSequence3(ModelURL: Option[java.net.URI] = None)
 case class InputPopulationSequence1(Name: String,
   Set: Seq[String] = Nil,
   ParameterKey: Option[String] = None,
@@ -2566,6 +2569,7 @@ object EnumSimulationType {
     case "PIC" => PIC
     case "Test_Particle" => Test_Particle
     case "Paraboloid" => Paraboloid
+
   }
 }
 
