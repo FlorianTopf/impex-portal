@@ -188,7 +188,7 @@ extends Actor with DataProvider {
             val accessURL = AccessURL(None, getMetaData.info) 
             // @FIXME we only have one repository (datacenter) per file atm
             val accessInfo = AccessInformation(getMetaData.id.toString, None, None, 
-                Seq(accessURL), VOTable, Some(ASCIIValue))
+                Seq(accessURL), VOTableValue, Some(ASCIIValue))
             
             var startTime: XMLGregorianCalendar = TimeProvider.getISONow
             var stopTime: XMLGregorianCalendar = TimeProvider.getISONow   
@@ -254,7 +254,7 @@ extends Actor with DataProvider {
       		    else {
       		      // else we put here a field element
       		      // @FIXME Field/Quantity is missing for Parameter
-      		      addElem = DataRecord(None, Some("Field"), Field(Nil, Magnetic))
+      		      addElem = DataRecord(None, Some("Field"), FieldType(Nil, Magnetic))
       		    }	    
       		    if(elements.size > 1) {
       		      structure = 

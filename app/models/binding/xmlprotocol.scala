@@ -45,11 +45,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingDataExtentFormat: scalaxb.XMLFormat[models.binding.DataExtent] = new DefaultBindingDataExtentFormat {}
   implicit lazy val BindingTimeSpanFormat: scalaxb.XMLFormat[models.binding.TimeSpan] = new DefaultBindingTimeSpanFormat {}
   implicit lazy val BindingParameterTypeFormat: scalaxb.XMLFormat[models.binding.ParameterType] = new DefaultBindingParameterTypeFormat {}
-  implicit lazy val BindingCoordinateSystemFormat: scalaxb.XMLFormat[models.binding.CoordinateSystem] = new DefaultBindingCoordinateSystemFormat {}
+  implicit lazy val BindingCoordinateSystemFormat: scalaxb.XMLFormat[models.binding.CoordinateSystemType] = new DefaultBindingCoordinateSystemFormat {}
   implicit lazy val BindingRenderingHintsFormat: scalaxb.XMLFormat[models.binding.RenderingHints] = new DefaultBindingRenderingHintsFormat {}
   implicit lazy val BindingStructureFormat: scalaxb.XMLFormat[models.binding.Structure] = new DefaultBindingStructureFormat {}
   implicit lazy val BindingElementFormat: scalaxb.XMLFormat[models.binding.Element] = new DefaultBindingElementFormat {}
-  implicit lazy val BindingFieldFormat: scalaxb.XMLFormat[models.binding.Field] = new DefaultBindingFieldFormat {}
+  implicit lazy val BindingFieldFormat: scalaxb.XMLFormat[models.binding.FieldType] = new DefaultBindingFieldFormat {}
   implicit lazy val BindingFrequencyRangeFormat: scalaxb.XMLFormat[models.binding.FrequencyRange] = new DefaultBindingFrequencyRangeFormat {}
   implicit lazy val BindingBinFormat: scalaxb.XMLFormat[models.binding.Bin] = new DefaultBindingBinFormat {}
   implicit lazy val BindingEnergyRangeFormat: scalaxb.XMLFormat[models.binding.EnergyRange] = new DefaultBindingEnergyRangeFormat {}
@@ -1040,7 +1040,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Wave")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Wave](x, scalaxb.ElemName(node) :: stack)))) | 
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Field")) ^^ 
-      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Field](x, scalaxb.ElemName(node) :: stack)))) | 
+      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.FieldType](x, scalaxb.ElemName(node) :: stack)))) | 
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Particle")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Particle](x, scalaxb.ElemName(node) :: stack)))) | 
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Mixed")) ^^ 
@@ -1048,7 +1048,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Wave")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Wave](x, scalaxb.ElemName(node) :: stack)))) | 
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Field")) ^^ 
-      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Field](x, scalaxb.ElemName(node) :: stack)))) | 
+      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.FieldType](x, scalaxb.ElemName(node) :: stack)))) | 
       ((any(_ => true) ^^ (scalaxb.fromXML[scalaxb.DataRecord[Any]](_, scalaxb.ElemName(node) :: stack)))) | 
       ((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Support")) ^^ 
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Support](x, scalaxb.ElemName(node) :: stack)))) | 
@@ -1064,7 +1064,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p6.headOption map { scalaxb.fromXML[javax.xml.datatype.Duration](_, scalaxb.ElemName(node) :: stack) },
         p7.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p8.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        p9.headOption map { scalaxb.fromXML[models.binding.CoordinateSystem](_, scalaxb.ElemName(node) :: stack) },
+        p9.headOption map { scalaxb.fromXML[models.binding.CoordinateSystemType](_, scalaxb.ElemName(node) :: stack) },
         p10.toSeq map { scalaxb.fromXML[models.binding.RenderingHints](_, scalaxb.ElemName(node) :: stack) },
         p11.headOption map { scalaxb.fromXML[models.binding.Structure](_, scalaxb.ElemName(node) :: stack) },
         p12.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
@@ -1082,7 +1082,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __obj.Cadence map { scalaxb.toXML[javax.xml.datatype.Duration](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Cadence"), __scope, false) } getOrElse {Nil},
         __obj.Units map { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Units"), __scope, false) } getOrElse {Nil},
         __obj.UnitsConversion map { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("UnitsConversion"), __scope, false) } getOrElse {Nil},
-        __obj.CoordinateSystem map { scalaxb.toXML[models.binding.CoordinateSystem](_, Some("http://impex-fp7.oeaw.ac.at"), Some("CoordinateSystem"), __scope, false) } getOrElse {Nil},
+        __obj.CoordinateSystem map { scalaxb.toXML[models.binding.CoordinateSystemType](_, Some("http://impex-fp7.oeaw.ac.at"), Some("CoordinateSystem"), __scope, false) } getOrElse {Nil},
         __obj.RenderingHints flatMap { scalaxb.toXML[models.binding.RenderingHints](_, Some("http://impex-fp7.oeaw.ac.at"), Some("RenderingHints"), __scope, false) },
         __obj.Structure map { scalaxb.toXML[models.binding.Structure](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Structure"), __scope, false) } getOrElse {Nil},
         __obj.ValidMin map { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("ValidMin"), __scope, false) } getOrElse {Nil},
@@ -1093,19 +1093,19 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   }
 
-  trait DefaultBindingCoordinateSystemFormat extends scalaxb.ElemNameParser[models.binding.CoordinateSystem] {
+  trait DefaultBindingCoordinateSystemFormat extends scalaxb.ElemNameParser[models.binding.CoordinateSystemType] {
     val targetNamespace: Option[String] = Some("http://impex-fp7.oeaw.ac.at")
     
     override def typeName: Option[String] = Some("CoordinateSystem")
 
-    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CoordinateSystem] =
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CoordinateSystemType] =
       phrase((scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "CoordinateRepresentation")) ~ 
       (scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "CoordinateSystemName")) ^^
       { case p1 ~ p2 =>
-      models.binding.CoordinateSystem(scalaxb.fromXML[models.binding.EnumCoordinateRepresentation](p1, scalaxb.ElemName(node) :: stack),
+      models.binding.CoordinateSystemType(scalaxb.fromXML[models.binding.EnumCoordinateRepresentation](p1, scalaxb.ElemName(node) :: stack),
         scalaxb.fromXML[models.binding.EnumCoordinateSystemName](p2, scalaxb.ElemName(node) :: stack)) })
     
-    def writesChildNodes(__obj: models.binding.CoordinateSystem, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+    def writesChildNodes(__obj: models.binding.CoordinateSystemType, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
       Seq.concat(scalaxb.toXML[models.binding.EnumCoordinateRepresentation](__obj.CoordinateRepresentation, Some("http://impex-fp7.oeaw.ac.at"), Some("CoordinateRepresentation"), __scope, false),
         scalaxb.toXML[models.binding.EnumCoordinateSystemName](__obj.CoordinateSystemName, Some("http://impex-fp7.oeaw.ac.at"), Some("CoordinateSystemName"), __scope, false))
 
@@ -1210,21 +1210,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   }
 
-  trait DefaultBindingFieldFormat extends scalaxb.ElemNameParser[models.binding.Field] {
+  trait DefaultBindingFieldFormat extends scalaxb.ElemNameParser[models.binding.FieldType] {
     val targetNamespace: Option[String] = Some("http://impex-fp7.oeaw.ac.at")
     
     override def typeName: Option[String] = Some("Field")
 
-    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Field] =
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.FieldType] =
       phrase(rep(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Qualifier")) ~ 
       (scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "FieldQuantity")) ~ 
       opt(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "FrequencyRange")) ^^
       { case p1 ~ p2 ~ p3 =>
-      models.binding.Field(p1.toSeq map { scalaxb.fromXML[models.binding.EnumQualifier](_, scalaxb.ElemName(node) :: stack) },
+      models.binding.FieldType(p1.toSeq map { scalaxb.fromXML[models.binding.EnumQualifier](_, scalaxb.ElemName(node) :: stack) },
         scalaxb.fromXML[models.binding.EnumFieldQuantity](p2, scalaxb.ElemName(node) :: stack),
         p3.headOption map { scalaxb.fromXML[models.binding.FrequencyRange](_, scalaxb.ElemName(node) :: stack) }) })
     
-    def writesChildNodes(__obj: models.binding.Field, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+    def writesChildNodes(__obj: models.binding.FieldType, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
       Seq.concat(__obj.Qualifier flatMap { scalaxb.toXML[models.binding.EnumQualifier](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Qualifier"), __scope, false) },
         scalaxb.toXML[models.binding.EnumFieldQuantity](__obj.FieldQuantity, Some("http://impex-fp7.oeaw.ac.at"), Some("FieldQuantity"), __scope, false),
         __obj.FrequencyRange map { scalaxb.toXML[models.binding.FrequencyRange](_, Some("http://impex-fp7.oeaw.ac.at"), Some("FrequencyRange"), __scope, false) } getOrElse {Nil})
@@ -3390,7 +3390,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p4.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p5.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p6.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        p7.headOption map { scalaxb.fromXML[models.binding.CoordinateSystem](_, scalaxb.ElemName(node) :: stack) },
+        p7.headOption map { scalaxb.fromXML[models.binding.CoordinateSystemType](_, scalaxb.ElemName(node) :: stack) },
         p8.toSeq map { scalaxb.fromXML[models.binding.EnumQualifier](_, scalaxb.ElemName(node) :: stack) },
         scalaxb.fromXML[models.binding.EnumFieldQuantity](p9, scalaxb.ElemName(node) :: stack),
         p10.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
@@ -3410,7 +3410,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __obj.Description map { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Description"), __scope, false) } getOrElse {Nil},
         __obj.Caveats map { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Caveats"), __scope, false) } getOrElse {Nil},
         __obj.SimulatedRegion flatMap { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("SimulatedRegion"), __scope, false) },
-        __obj.CoordinateSystem map { scalaxb.toXML[models.binding.CoordinateSystem](_, Some("http://impex-fp7.oeaw.ac.at"), Some("CoordinateSystem"), __scope, false) } getOrElse {Nil},
+        __obj.CoordinateSystem map { scalaxb.toXML[models.binding.CoordinateSystemType](_, Some("http://impex-fp7.oeaw.ac.at"), Some("CoordinateSystem"), __scope, false) } getOrElse {Nil},
         __obj.Qualifier flatMap { scalaxb.toXML[models.binding.EnumQualifier](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Qualifier"), __scope, false) },
         scalaxb.toXML[models.binding.EnumFieldQuantity](__obj.FieldQuantity, Some("http://impex-fp7.oeaw.ac.at"), Some("FieldQuantity"), __scope, false),
         __obj.Units map { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Units"), __scope, false) } getOrElse {Nil},
@@ -3498,7 +3498,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       opt(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Symmetry")) ~ 
       opt(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "BoundaryConditions")) ^^
       { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 ~ p9 ~ p10 ~ p11 ~ p12 ~ p13 ~ p14 ~ p15 =>
-      models.binding.SimulationDomain(scalaxb.fromXML[models.binding.CoordinateSystem](p1, scalaxb.ElemName(node) :: stack),
+      models.binding.SimulationDomain(scalaxb.fromXML[models.binding.CoordinateSystemType](p1, scalaxb.ElemName(node) :: stack),
         p2.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p3.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         scalaxb.fromXML[BigInt](p4, scalaxb.ElemName(node) :: stack),
@@ -3515,7 +3515,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p15.headOption map { scalaxb.fromXML[models.binding.BoundaryConditions](_, scalaxb.ElemName(node) :: stack) }) })
     
     def writesChildNodes(__obj: models.binding.SimulationDomain, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(scalaxb.toXML[models.binding.CoordinateSystem](__obj.CoordinateSystem, Some("http://impex-fp7.oeaw.ac.at"), Some("CoordinateSystem"), __scope, false),
+      Seq.concat(scalaxb.toXML[models.binding.CoordinateSystemType](__obj.CoordinateSystem, Some("http://impex-fp7.oeaw.ac.at"), Some("CoordinateSystem"), __scope, false),
         __obj.Description map { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Description"), __scope, false) } getOrElse {Nil},
         __obj.Caveats map { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("Caveats"), __scope, false) } getOrElse {Nil},
         scalaxb.toXML[BigInt](__obj.SpatialDimension, Some("http://impex-fp7.oeaw.ac.at"), Some("SpatialDimension"), __scope, false),
@@ -3651,7 +3651,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       opt(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Step")) ^^
       { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 =>
       models.binding.SpatialDescription(scalaxb.fromXML[BigInt](p1, scalaxb.ElemName(node) :: stack),
-        scalaxb.fromXML[models.binding.CoordinateSystem](p2, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[models.binding.CoordinateSystemType](p2, scalaxb.ElemName(node) :: stack),
         scalaxb.fromXML[String](p3, scalaxb.ElemName(node) :: stack),
         p4.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p5.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
@@ -3660,7 +3660,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     
     def writesChildNodes(__obj: models.binding.SpatialDescription, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
       Seq.concat(scalaxb.toXML[BigInt](__obj.Dimension, Some("http://impex-fp7.oeaw.ac.at"), Some("Dimension"), __scope, false),
-        scalaxb.toXML[models.binding.CoordinateSystem](__obj.CoordinateSystem, Some("http://impex-fp7.oeaw.ac.at"), Some("CoordinateSystem"), __scope, false),
+        scalaxb.toXML[models.binding.CoordinateSystemType](__obj.CoordinateSystem, Some("http://impex-fp7.oeaw.ac.at"), Some("CoordinateSystem"), __scope, false),
         scalaxb.toXML[String](__obj.Units, Some("http://impex-fp7.oeaw.ac.at"), Some("Units"), __scope, false),
         __obj.UnitsConversion map { scalaxb.toXML[String](_, Some("http://impex-fp7.oeaw.ac.at"), Some("UnitsConversion"), __scope, false) } getOrElse {Nil},
         __obj.CoordinatesLabel map { scalaxb.toXML[Seq[String]](_, Some("http://impex-fp7.oeaw.ac.at"), Some("CoordinatesLabel"), __scope, false) } getOrElse {Nil},

@@ -360,7 +360,7 @@ object Spase {
   implicit val parameterWrites: Writes[ParameterType] = new Writes[ParameterType] {
     def writes(p: ParameterType): JsValue = {
       val param = p.ParameterEntity.key match {
-        case Some("Field") => Json.obj("field" -> p.ParameterEntity.as[Field])
+        case Some("Field") => Json.obj("field" -> p.ParameterEntity.as[FieldType])
         case Some("Wave") =>  Json.obj("wave" -> p.ParameterEntity.as[Wave])
         case Some("Mixed") => Json.obj("mixed" -> p.ParameterEntity.as[Mixed])
         //case Some("Support") => Json.obj("support" -> p.ParameterEntity.as[Support])
@@ -376,8 +376,8 @@ object Spase {
     }
   }
   
-  implicit val coordinateSystemWrites: Writes[CoordinateSystem] = new Writes[CoordinateSystem] {
-    def writes(c: CoordinateSystem): JsValue = {
+  implicit val coordinateSystemWrites: Writes[CoordinateSystemType] = new Writes[CoordinateSystemType] {
+    def writes(c: CoordinateSystemType): JsValue = {
       Json.obj("coordinateRepresentation" -> c.CoordinateRepresentation, 
           "coordinateSystem" -> c.CoordinateSystemName)
     }
@@ -423,8 +423,8 @@ object Spase {
     }
   }
   
-  implicit val fieldWrites: Writes[Field] = new Writes[Field] {
-    def writes(f: Field): JsValue = {
+  implicit val fieldWrites: Writes[FieldType] = new Writes[FieldType] {
+    def writes(f: FieldType): JsValue = {
       Json.obj("fieldQuantity" -> f.FieldQuantity, "frequencyRange" -> f.FrequencyRange, "qualifier" -> f.Qualifier)
     }
   }

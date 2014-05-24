@@ -158,7 +158,7 @@ case class ParameterType(Name: String,
   Cadence: Option[javax.xml.datatype.Duration] = None,
   Units: Option[String] = None,
   UnitsConversion: Option[String] = None,
-  CoordinateSystem: Option[models.binding.CoordinateSystem] = None,
+  CoordinateSystem: Option[models.binding.CoordinateSystemType] = None,
   RenderingHints: Seq[models.binding.RenderingHints] = Nil,
   Structure: Option[models.binding.Structure] = None,
   ValidMin: Option[String] = None,
@@ -173,7 +173,7 @@ case class ParameterType(Name: String,
                set of (typically) orthogonal base axes.
             
 */
-case class CoordinateSystem(CoordinateRepresentation: models.binding.EnumCoordinateRepresentation,
+case class CoordinateSystemType(CoordinateRepresentation: models.binding.EnumCoordinateRepresentation,
   CoordinateSystemName: models.binding.EnumCoordinateSystemName)
 
 
@@ -225,7 +225,7 @@ case class Element(Name: String,
                contact.
             
 */
-case class Field(Qualifier: Seq[models.binding.EnumQualifier] = Nil,
+case class FieldType(Qualifier: Seq[models.binding.EnumQualifier] = Nil,
   FieldQuantity: models.binding.EnumFieldQuantity,
   FrequencyRange: Option[models.binding.FrequencyRange] = None)
 
@@ -947,9 +947,9 @@ object EnumEncoding {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): EnumEncoding = value match {
     case "ASCII" => ASCIIValue
     case "BZIP2" => BZIP2
-    case "Base64" => Base64
-    case "GZIP" => GZIP
-    case "None" => NoneTypeValue
+    case "Base64" => Base64Value
+    case "GZIP" => GZIPValue
+    case "None" => NoneTypeValue2
     case "S3_BUCKET" => S3_BUCKET
     case "TAR" => TAR
     case "Unicode" => UnicodeValue
@@ -960,9 +960,9 @@ object EnumEncoding {
 
 case object ASCIIValue extends EnumEncoding { override def toString = "ASCII" }
 case object BZIP2 extends EnumEncoding { override def toString = "BZIP2" }
-case object Base64 extends EnumEncoding { override def toString = "Base64" }
-case object GZIP extends EnumEncoding { override def toString = "GZIP" }
-case object NoneTypeValue extends EnumEncoding { override def toString = "None" }
+case object Base64Value extends EnumEncoding { override def toString = "Base64" }
+case object GZIPValue extends EnumEncoding { override def toString = "GZIP" }
+case object NoneTypeValue2 extends EnumEncoding { override def toString = "None" }
 case object S3_BUCKET extends EnumEncoding { override def toString = "S3_BUCKET" }
 case object TAR extends EnumEncoding { override def toString = "TAR" }
 case object UnicodeValue extends EnumEncoding { override def toString = "Unicode" }
@@ -998,13 +998,13 @@ trait EnumFormat
 object EnumFormat {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): EnumFormat = value match {
     case "AVI" => AVI
-    case "Binary" => Binary
+    case "Binary" => BinaryValue
     case "CDF" => CDF
     case "CEF" => CEF
     case "CEF1" => CEF1
     case "CEF2" => CEF2
     case "Excel" => Excel
-    case "FITS" => FITS
+    case "FITS" => FITSValue
     case "GIF" => GIF
     case "HDF" => HDF
     case "HDF4" => HDF4
@@ -1035,20 +1035,20 @@ object EnumFormat {
     case "Text.ASCII" => Textu46ASCII
     case "Text.Unicode" => Textu46Unicode
     case "UDF" => UDF
-    case "VOTable" => VOTable
+    case "VOTable" => VOTableValue
     case "XML" => XML
 
   }
 }
 
 case object AVI extends EnumFormat { override def toString = "AVI" }
-case object Binary extends EnumFormat { override def toString = "Binary" }
+case object BinaryValue extends EnumFormat { override def toString = "Binary" }
 case object CDF extends EnumFormat { override def toString = "CDF" }
 case object CEF extends EnumFormat { override def toString = "CEF" }
 case object CEF1 extends EnumFormat { override def toString = "CEF1" }
 case object CEF2 extends EnumFormat { override def toString = "CEF2" }
 case object Excel extends EnumFormat { override def toString = "Excel" }
-case object FITS extends EnumFormat { override def toString = "FITS" }
+case object FITSValue extends EnumFormat { override def toString = "FITS" }
 case object GIF extends EnumFormat { override def toString = "GIF" }
 case object HDF extends EnumFormat { override def toString = "HDF" }
 case object HDF4 extends EnumFormat { override def toString = "HDF4" }
@@ -1079,7 +1079,7 @@ case object Text extends EnumFormat { override def toString = "Text" }
 case object Textu46ASCII extends EnumFormat { override def toString = "Text.ASCII" }
 case object Textu46Unicode extends EnumFormat { override def toString = "Text.Unicode" }
 case object UDF extends EnumFormat { override def toString = "UDF" }
-case object VOTable extends EnumFormat { override def toString = "VOTable" }
+case object VOTableValue extends EnumFormat { override def toString = "VOTable" }
 case object XML extends EnumFormat { override def toString = "XML" }
 
 trait EnumHardcopy
@@ -1610,7 +1610,7 @@ object EnumQualifier {
     case "Directional" => Directional
     case "FieldAligned" => FieldAligned
     case "Fit" => Fit
-    case "Group" => Group
+    case "Group" => GroupValue
     case "Halo" => Halo
     case "Integral" => Integral
     case "Integral.Area" => Integralu46Area
@@ -1674,7 +1674,7 @@ case object DirectionAngleu46PolarAngle extends EnumQualifier { override def toS
 case object Directional extends EnumQualifier { override def toString = "Directional" }
 case object FieldAligned extends EnumQualifier { override def toString = "FieldAligned" }
 case object Fit extends EnumQualifier { override def toString = "Fit" }
-case object Group extends EnumQualifier { override def toString = "Group" }
+case object GroupValue extends EnumQualifier { override def toString = "Group" }
 case object Halo extends EnumQualifier { override def toString = "Halo" }
 case object Integral extends EnumQualifier { override def toString = "Integral" }
 case object Integralu46Area extends EnumQualifier { override def toString = "Integral.Area" }
@@ -1913,7 +1913,7 @@ object EnumSourceType {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): EnumSourceType = value match {
     case "Ancillary" => Ancillary
     case "Browse" => Browse
-    case "Data" => Data
+    case "Data" => DataValue
     case "Layout" => Layout
     case "Thumbnail" => Thumbnail
 
@@ -1922,7 +1922,7 @@ object EnumSourceType {
 
 case object Ancillary extends EnumSourceType { override def toString = "Ancillary" }
 case object Browse extends EnumSourceType { override def toString = "Browse" }
-case object Data extends EnumSourceType { override def toString = "Data" }
+case object DataValue extends EnumSourceType { override def toString = "Data" }
 case object Layout extends EnumSourceType { override def toString = "Layout" }
 case object Thumbnail extends EnumSourceType { override def toString = "Thumbnail" }
 
@@ -2352,6 +2352,7 @@ case class InputPopulation(inputpopulationsequence1: models.binding.InputPopulat
 }
 
 
+case class InputPopulationSequence3(ModelURL: Option[java.net.URI] = None)
 case class InputPopulationSequence2(PopulationMassNumber: Option[Double] = None,
   PopulationChargeState: Option[Double] = None,
   PopulationDensity: Option[models.binding.InputValue] = None,
@@ -2363,7 +2364,6 @@ case class InputPopulationSequence2(PopulationMassNumber: Option[Double] = None,
   InputTableURL: Option[java.net.URI] = None,
   Profile: Option[String] = None)
 
-case class InputPopulationSequence3(ModelURL: Option[java.net.URI] = None)
 case class InputPopulationSequence1(Name: String,
   Set: Seq[String] = Nil,
   ParameterKey: Option[String] = None,
@@ -2386,7 +2386,7 @@ case class InputField(Name: String,
   Description: Option[String] = None,
   Caveats: Option[String] = None,
   SimulatedRegion: Seq[String] = Nil,
-  CoordinateSystem: Option[models.binding.CoordinateSystem] = None,
+  CoordinateSystem: Option[models.binding.CoordinateSystemType] = None,
   Qualifier: Seq[models.binding.EnumQualifier] = Nil,
   FieldQuantity: models.binding.EnumFieldQuantity,
   Units: Option[String] = None,
@@ -2423,7 +2423,7 @@ case class InputProcess(Name: String,
                Parameters associated to the simulation spatial domain.
             
 */
-case class SimulationDomain(CoordinateSystem: models.binding.CoordinateSystem,
+case class SimulationDomain(CoordinateSystem: models.binding.CoordinateSystemType,
   Description: Option[String] = None,
   Caveats: Option[String] = None,
   SpatialDimension: BigInt,
@@ -2487,7 +2487,7 @@ case class ElementBoundary(Caveats: Option[String] = None,
             
 */
 case class SpatialDescription(Dimension: BigInt,
-  CoordinateSystem: models.binding.CoordinateSystem,
+  CoordinateSystem: models.binding.CoordinateSystemType,
   Units: String,
   UnitsConversion: Option[String] = None,
   CoordinatesLabel: Option[Seq[String]] = None,
@@ -2533,7 +2533,7 @@ trait EnumSymmetry
 
 object EnumSymmetry {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): EnumSymmetry = value match {
-    case "None" => NoneType
+    case "None" => NoneTypeValue
     case "Axial" => Axial
     case "Plane" => Plane
     case "Central" => Central
@@ -2541,7 +2541,7 @@ object EnumSymmetry {
   }
 }
 
-case object NoneType extends EnumSymmetry { override def toString = "None" }
+case object NoneTypeValue extends EnumSymmetry { override def toString = "None" }
 case object Axial extends EnumSymmetry { override def toString = "Axial" }
 case object Plane extends EnumSymmetry { override def toString = "Plane" }
 case object Central extends EnumSymmetry { override def toString = "Central" }
@@ -2550,14 +2550,14 @@ trait EnumYN
 
 object EnumYN {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): EnumYN = value match {
-    case "Yes" => Yes
-    case "No" => No
+    case "Yes" => YesValue
+    case "No" => NoValue
 
   }
 }
 
-case object Yes extends EnumYN { override def toString = "Yes" }
-case object No extends EnumYN { override def toString = "No" }
+case object YesValue extends EnumYN { override def toString = "Yes" }
+case object NoValue extends EnumYN { override def toString = "No" }
 
 trait EnumSimulationType
 
