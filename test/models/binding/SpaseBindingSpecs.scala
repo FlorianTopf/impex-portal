@@ -19,7 +19,7 @@ import java.util.Random
 object SpaseBindingSpecs extends org.specs2.mutable.Specification with Mockito {
   
     // test info
-  	val rand = new Random(System.currentTimeMillis())
+  	val rand = new Random(java.lang.System.currentTimeMillis)
     val config = scalaxb.fromXML[Impexconfiguration](scala.xml.XML.loadFile("conf/configuration.xml"))
 	val databases = config.impexconfigurationoption.filter(_.key.get == "database").map(
 	    _.as[Database]).filter(d => d.typeValue == Simulation)

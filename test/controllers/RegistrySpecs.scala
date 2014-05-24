@@ -9,7 +9,7 @@ import java.util.Random
 class RegistrySpecs extends Specification {
   
 	// test info
-  	val rand = new Random(System.currentTimeMillis())
+  	val rand = new Random(java.lang.System.currentTimeMillis)
 	val config = scalaxb.fromXML[Impexconfiguration](scala.xml.XML.loadFile("conf/configuration.xml"))
 	val databases = config.impexconfigurationoption.filter(_.key.get == "database").map(_.as[Database])
 	val simulations = databases.filter(p => p.typeValue == Simulation)

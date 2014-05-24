@@ -28,7 +28,7 @@ import models.actor.DataProvider.{
 object ObsDataProviderSpecs extends Specification with Mockito {
 
     // test info
-  	val rand = new Random(System.currentTimeMillis())
+  	val rand = new Random(java.lang.System.currentTimeMillis)
     val config = scalaxb.fromXML[Impexconfiguration](scala.xml.XML.loadFile("conf/configuration.xml"))
 	val databases = config.impexconfigurationoption.filter(_.key.get == "database").map(
 	    _.as[Database]).filter(d => d.typeValue == Observation)
