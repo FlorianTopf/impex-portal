@@ -799,7 +799,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointValue"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def getDataPointValue_Spacecraft(resourceID: String, variable: Option[Seq[String]], spacecraft_name: models.binding.SpacecraftType, startTime: javax.xml.datatype.XMLGregorianCalendar, stopTime: javax.xml.datatype.XMLGregorianCalendar, 
         sampling: javax.xml.datatype.Duration, extraParams: Option[models.binding.ExtraParams_getDataPointValueFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
@@ -807,21 +807,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointValue_Spacecraft"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def getDataPointSpectra(resourceID: String, population: Option[Seq[String]], url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getDataPointSpectraFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.DataPointSpectraFMI(resourceID, population, url_XYZ, extraParams), Some("http://impex-fp7.fmi.fi"), "getDataPointSpectra", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointSpectra"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def getSurface(resourceID: String, variable: Option[Seq[String]], planePoint: Seq[Float], planeNormalVector: Seq[Float], extraParams: Option[models.binding.ExtraParams_getSurfaceFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.SurfaceFMI(resourceID, variable, planePoint, planeNormalVector, extraParams), Some("http://impex-fp7.fmi.fi"), "getSurface", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("Surface"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def getDataPointSpectra_Spacecraft(resourceID: String, population: Option[Seq[String]], spacecraft_name: models.binding.SpacecraftType, startTime: javax.xml.datatype.XMLGregorianCalendar, stopTime: javax.xml.datatype.XMLGregorianCalendar, 
         sampling: javax.xml.datatype.Duration, extraParams: Option[models.binding.ExtraParams_getDataPointSpectraFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
@@ -829,35 +829,35 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointSpectra_Spacecraft"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def getFieldLine(resourceID: String, variable: Option[Seq[String]], url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getFieldLineFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.FieldLineFMI(resourceID, variable, url_XYZ, extraParams), Some("http://impex-fp7.fmi.fi"), "getFieldLine", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("FieldLine"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def getParticleTrajectory(resourceID: String, url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getParticleTrajectory]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.ParticleTrajectory(resourceID, url_XYZ, extraParams), Some("http://impex-fp7.fmi.fi"), "getParticleTrajectory", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("ParticleTrajectory"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def getMostRelevantRun(objectValue: String, runCount: Option[BigInt], sW_parameters: Seq[models.binding.SW_parameter_list]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.MostRelevantRun(objectValue, runCount, sW_parameters), Some("http://impex-fp7.fmi.fi"), "getMostRelevantRun", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("MostRelevantRun"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def getVOTableURL(table_name: Option[String], description: Option[String], fields: Seq[models.binding.VOTable_field]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.VOTableURL(table_name, description, fields), Some("http://impex-fp7.fmi.fi"), "getVOTableURL", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("VOTableURL"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
     }
   }
@@ -1190,21 +1190,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointValue"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def getDataPointSpectra(resourceID: String, population: Option[Seq[String]], url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getDataPointSpectraLATMOS]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.DataPointSpectraLATMOS(resourceID, population, url_XYZ, extraParams), Some("http://impex.latmos.ipsl.fr"), "getDataPointSpectra", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointSpectra"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def getSurface(resourceID: String, variable: Option[Seq[String]], planePoint: Seq[Float], planeNormalVector: Seq[Float], extraParams: Option[models.binding.ExtraParams_getSurfaceLATMOS]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.SurfaceLATMOS(resourceID, variable, planePoint, planeNormalVector, extraParams), Some("http://impex.latmos.ipsl.fr"), "getSurface", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("Surface"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def getDataPointValue_Spacecraft(resourceID: String, variable: Option[Seq[String]], spacecraft_name: models.binding.SpacecraftType, startTime: javax.xml.datatype.XMLGregorianCalendar, 
         stopTime: javax.xml.datatype.XMLGregorianCalendar, sampling: javax.xml.datatype.Duration, extraParams: Option[models.binding.ExtraParams_getDataPointValueLATMOS]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
@@ -1212,7 +1212,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointValue_Spacecraft"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def getDataPointSpectra_Spacecraft(resourceID: String, population: Option[Seq[String]], spacecraft_name: models.binding.SpacecraftType, startTime: javax.xml.datatype.XMLGregorianCalendar, 
         stopTime: javax.xml.datatype.XMLGregorianCalendar, sampling: javax.xml.datatype.Duration, extraParams: Option[models.binding.ExtraParams_getDataPointSpectraLATMOS]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
@@ -1220,7 +1220,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointSpectra_Spacecraft"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def getFileURL(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, stopTime: javax.xml.datatype.XMLGregorianCalendar): Either[scalaxb.Soap11Fault[Any], models.binding.VOTABLE] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.FileURL(resourceID, startTime, stopTime), Some("http://impex.latmos.ipsl.fr"), "getFileURL", defaultScope),
@@ -1234,7 +1234,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("FieldLine"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
     }
   }
@@ -1973,70 +1973,70 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointValue"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def calculateDataPointValueFixedTime(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateDataPointValueFixedTime], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateDataPointValueFixedTime(resourceID, startTime, extraParams, url_XYZ), Some("http://smdc.sinp.msu.ru"), "calculateDataPointValueFixedTime", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateDataPointValueFixedTime"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def calculateDataPointValue(resourceID: String, extraParams: Option[models.binding.ExtraParams_calculateDataPointValue], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateDataPointValue(resourceID, extraParams, url_XYZ), Some("http://smdc.sinp.msu.ru"), "calculateDataPointValue", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateDataPointValue"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope,false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope,false, body.toSeq: _*)))
         }
       def calculateDataPointValueSaturn(resourceID: String, extraParams: Option[models.binding.ExtraParams_calculateDataPointValueSaturn], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateDataPointValueSaturn(resourceID, extraParams, url_XYZ), Some("http://smdc.sinp.msu.ru"), "calculateDataPointValueSaturn", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateDataPointValueSaturn"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def calculateDataPointValueMercury(resourceID: String, extraParams: Option[models.binding.ExtraParams_calculateDataPointValueMercury], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateDataPointValueMercury(resourceID, extraParams, url_XYZ), Some("http://smdc.sinp.msu.ru"), "calculateDataPointValueMercury", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateDataPointValueMercury"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def calculateDataPointValueJupiter(resourceID: String, extraParams: Option[models.binding.ExtraParams_calculateDataPointValueJupiter], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateDataPointValueJupiter(resourceID, extraParams, url_XYZ), Some("http://smdc.sinp.msu.ru"), "calculateDataPointValueJupiter", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateDataPointValueJupiter"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def calculateDataPointValueSpacecraft(resourceID: String, spacecraft_name: models.binding.SpacecraftTypeSINP, startTime: javax.xml.datatype.XMLGregorianCalendar, stopTime: javax.xml.datatype.XMLGregorianCalendar, sampling: javax.xml.datatype.Duration, extraParams: Option[models.binding.ExtraParams_calculateDataPointValueSpacecraft]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateDataPointValueSpacecraft(resourceID, spacecraft_name, startTime, stopTime, sampling, extraParams), Some("http://smdc.sinp.msu.ru"), "calculateDataPointValueSpacecraft", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateDataPointValueSpacecraft"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def calculateFieldLine(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateFieldLine], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateFieldLine(resourceID, startTime, extraParams, url_XYZ), Some("http://smdc.sinp.msu.ru"), "calculateFieldLine", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateFieldLine"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def calculateCube(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateCube], sampling: Option[scalaxb.DataRecord[Any]], cube_size_array: Option[models.binding.Cube_size_array]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateCube(resourceID, startTime, extraParams, sampling, cube_size_array), Some("http://smdc.sinp.msu.ru"), "calculateCube", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateCube"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def calculateCubeMercury(resourceID: String, extraParams: Option[models.binding.ExtraParams_calculateCubeMercury]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateCubeMercury(resourceID, extraParams), Some("http://smdc.sinp.msu.ru"), "calculateCubeMercury", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateCubeMercury"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
     }
   }
