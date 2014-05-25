@@ -13,12 +13,83 @@ object `package` extends XMLProtocol { }
 
 trait XMLProtocol extends scalaxb.XMLStandardTypes {
   val defaultScope = scalaxb.toScope(None -> "http://www.w3.org/XML/1998/namespace",
-    Some("imp") -> "http://www.impex.org/2012/configuration.xsd",
-    Some("tns0") -> "http://www.ivoa.net/xml/VOTable/v1.2",
-    Some("tns") -> "http://impex-fp7.oeaw.ac.at",
-    Some("xml") -> "http://www.w3.org/XML/1998/namespace",
-    Some("xs") -> "http://www.w3.org/2001/XMLSchema",
-    Some("xsi") -> "http://www.w3.org/2001/XMLSchema-instance")
+    Some("fr") -> "http://impex.latmos.ipsl.fr",
+    Some("idm") -> "http://impex-fp7.oeaw.ac.at",
+	Some("imp") -> "http://www.impex.org/2012/configuration.xsd",
+	Some("tns0") -> "http://impex-fp7.fmi.fi",
+	Some("tns") -> "http://smdc.sinp.msu.ru",
+	Some("vot") -> "http://www.ivoa.net/xml/VOTable/v1.2",
+	Some("xml") -> "http://www.w3.org/XML/1998/namespace",
+	Some("xs") -> "http://www.w3.org/2001/XMLSchema",
+	Some("xsi") -> "http://www.w3.org/2001/XMLSchema-instance")
+  //implicit lazy val BindingEnumDirectionTypeFormat: scalaxb.XMLFormat[models.binding.EnumDirectionType] = new DefaultBindingEnumDirectionTypeFormat {}
+  implicit lazy val BindingOutputFormatTypeFormat: scalaxb.XMLFormat[models.binding.OutputFormatType] = new DefaultBindingOutputFormatTypeFormat {}
+  implicit lazy val BindingEnumInterpolationFormat: scalaxb.XMLFormat[models.binding.EnumInterpolation] = new DefaultBindingEnumInterpolationFormat {}
+  implicit lazy val BindingSpacecraftTypeFormat: scalaxb.XMLFormat[models.binding.SpacecraftType] = new DefaultBindingSpacecraftTypeFormat {}
+  // FMI methods
+  implicit lazy val BindingDataPointValueFMIFormat: scalaxb.XMLFormat[models.binding.DataPointValueFMI] = new DefaultBindingDataPointValueFMIFormat {}
+  implicit lazy val BindingExtraParams_getDataPointValueFMIFormat: scalaxb.XMLFormat[models.binding.ExtraParams_getDataPointValueFMI] = new DefaultBindingExtraParams_getDataPointValueFMIFormat {}
+  implicit lazy val BindingDataPointSpectraFMIFormat: scalaxb.XMLFormat[models.binding.DataPointSpectraFMI] = new DefaultBindingDataPointSpectraFMIFormat {}
+  implicit lazy val BindingExtraParams_getDataPointSpectraFMIFormat: scalaxb.XMLFormat[models.binding.ExtraParams_getDataPointSpectraFMI] = new DefaultBindingExtraParams_getDataPointSpectraFMIFormat {}
+  implicit lazy val BindingSurfaceFMIFormat: scalaxb.XMLFormat[models.binding.SurfaceFMI] = new DefaultBindingSurfaceFMIFormat {}
+  implicit lazy val BindingExtraParams_getSurfaceFMIFormat: scalaxb.XMLFormat[models.binding.ExtraParams_getSurfaceFMI] = new DefaultBindingExtraParams_getSurfaceFMIFormat {}
+  implicit lazy val BindingDataPointValue_SpacecraftFMIFormat: scalaxb.XMLFormat[models.binding.DataPointValue_SpacecraftFMI] = new DefaultBindingDataPointValue_SpacecraftFMIFormat {}
+  implicit lazy val BindingDataPointSpectra_SpacecraftFMIFormat: scalaxb.XMLFormat[models.binding.DataPointSpectra_SpacecraftFMI] = new DefaultBindingDataPointSpectra_SpacecraftFMIFormat {}
+  implicit lazy val BindingFieldLineFMIFormat: scalaxb.XMLFormat[models.binding.FieldLineFMI] = new DefaultBindingFieldLineFMIFormat {}
+  implicit lazy val BindingExtraParams_getFieldLineFMIFormat: scalaxb.XMLFormat[models.binding.ExtraParams_getFieldLineFMI] = new DefaultBindingExtraParams_getFieldLineFMIFormat {}
+  implicit lazy val BindingParticleTrajectoryFormat: scalaxb.XMLFormat[models.binding.ParticleTrajectory] = new DefaultBindingParticleTrajectoryFormat {}
+  implicit lazy val BindingExtraParams_getParticleTrajectoryFormat: scalaxb.XMLFormat[models.binding.ExtraParams_getParticleTrajectory] = new DefaultBindingExtraParams_getParticleTrajectoryFormat {}
+  implicit lazy val BindingMostRelevantRunFormat: scalaxb.XMLFormat[models.binding.MostRelevantRun] = new DefaultBindingMostRelevantRunFormat {}
+  implicit lazy val BindingSW_parameter_listFormat: scalaxb.XMLFormat[models.binding.SW_parameter_list] = new DefaultBindingSW_parameter_listFormat {}
+  implicit lazy val BindingSW_parameterFormat: scalaxb.XMLFormat[models.binding.SW_parameter] = new DefaultBindingSW_parameterFormat {}
+  implicit lazy val BindingVOTableURLFormat: scalaxb.XMLFormat[models.binding.VOTableURL] = new DefaultBindingVOTableURLFormat {}
+  implicit lazy val BindingVOTable_fieldFormat: scalaxb.XMLFormat[models.binding.VOTable_field] = new DefaultBindingVOTable_fieldFormat {}
+  //implicit lazy val BindingOutputFormatFormat: scalaxb.XMLFormat[models.binding.OutputFormat] = new DefaultBindingOutputFormatFormat {}
+  //implicit lazy val BindingSpacecraftFormat: scalaxb.XMLFormat[models.binding.Spacecraft] = new DefaultBindingSpacecraftFormat {}
+  // LATMOS methods
+  implicit lazy val BindingDataPointValueLATMOSFormat: scalaxb.XMLFormat[models.binding.DataPointValueLATMOS] = new DefaultBindingDataPointValueLATMOSFormat {}
+  implicit lazy val BindingExtraParams_getDataPointValueLATMOSFormat: scalaxb.XMLFormat[models.binding.ExtraParams_getDataPointValueLATMOS] = new DefaultBindingExtraParams_getDataPointValueLATMOSFormat {}
+  implicit lazy val BindingDataPointSpectraLATMOSFormat: scalaxb.XMLFormat[models.binding.DataPointSpectraLATMOS] = new DefaultBindingDataPointSpectraLATMOSFormat {}
+  implicit lazy val BindingExtraParams_getDataPointSpectraLATMOSFormat: scalaxb.XMLFormat[models.binding.ExtraParams_getDataPointSpectraLATMOS] = new DefaultBindingExtraParams_getDataPointSpectraLATMOSFormat {}
+  implicit lazy val BindingSurfaceLATMOSFormat: scalaxb.XMLFormat[models.binding.SurfaceLATMOS] = new DefaultBindingSurfaceLATMOSFormat {}
+  implicit lazy val BindingExtraParams_getSurfaceLATMOSFormat: scalaxb.XMLFormat[models.binding.ExtraParams_getSurfaceLATMOS] = new DefaultBindingExtraParams_getSurfaceLATMOSFormat {}
+  implicit lazy val BindingDataPointValue_SpacecraftLATMOSFormat: scalaxb.XMLFormat[models.binding.DataPointValue_SpacecraftLATMOS] = new DefaultBindingDataPointValue_SpacecraftLATMOSFormat {}
+  implicit lazy val BindingDataPointSpectra_SpacecraftLATMOSFormat: scalaxb.XMLFormat[models.binding.DataPointSpectra_SpacecraftLATMOS] = new DefaultBindingDataPointSpectra_SpacecraftLATMOSFormat {}
+  implicit lazy val BindingFileURLFormat: scalaxb.XMLFormat[models.binding.FileURL] = new DefaultBindingFileURLFormat {}
+  implicit lazy val BindingFieldLineLATMOSFormat: scalaxb.XMLFormat[models.binding.FieldLineLATMOS] = new DefaultBindingFieldLineLATMOSFormat {}
+  implicit lazy val BindingExtraParams_getFieldLineLATMOSFormat: scalaxb.XMLFormat[models.binding.ExtraParams_getFieldLineLATMOS] = new DefaultBindingExtraParams_getFieldLineLATMOSFormat {}
+  implicit lazy val BindingEnumDirectionFormat: scalaxb.XMLFormat[models.binding.EnumDirection] = new DefaultBindingEnumDirectionFormat {}
+  //implicit lazy val BindingOutputFormatType2Format: scalaxb.XMLFormat[models.binding.OutputFormatType2] = new DefaultBindingOutputFormatType2Format {}
+  //implicit lazy val BindingInterpolationFormat: scalaxb.XMLFormat[models.binding.Interpolation] = new DefaultBindingInterpolationFormat {}
+  // SINP methods and types
+  implicit lazy val BindingSpacecraftTypeSINPFormat: scalaxb.XMLFormat[models.binding.SpacecraftTypeSINP] = new DefaultBindingSpacecraftTypeSINPFormat {}
+  implicit lazy val BindingCoordinateSystemNameSINPFormat: scalaxb.XMLFormat[models.binding.CoordinateSystemTypeSINP] = new DefaultBindingCoordinateSystemTypeSINPFormat {}
+  implicit lazy val BindingListOfDoubleFormat: scalaxb.XMLFormat[models.binding.ListOfDouble] = new DefaultBindingListOfDoubleFormat {}
+  implicit lazy val BindingCube_size_arrayFormat: scalaxb.XMLFormat[models.binding.Cube_size_array] = new DefaultBindingCube_size_arrayFormat {}
+  implicit lazy val BindingExtraParams_getDataPointValueSINPFormat: scalaxb.XMLFormat[models.binding.ExtraParams_getDataPointValueSINP] = new DefaultBindingExtraParams_getDataPointValueSINPFormat {}
+  implicit lazy val BindingExtraParams_calculateDataPointValueFixedTimeFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateDataPointValueFixedTime] = new DefaultBindingExtraParams_calculateDataPointValueFixedTimeFormat {}
+  implicit lazy val BindingExtraParams_calculateDataPointValueFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateDataPointValue] = new DefaultBindingExtraParams_calculateDataPointValueFormat {}
+  implicit lazy val BindingExtraParams_calculateDataPointValueMercuryFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateDataPointValueMercury] = new DefaultBindingExtraParams_calculateDataPointValueMercuryFormat {}
+  implicit lazy val BindingExtraParams_calculateDataPointValueSaturnFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateDataPointValueSaturn] = new DefaultBindingExtraParams_calculateDataPointValueSaturnFormat {}
+  implicit lazy val BindingExtraParams_calculateDataPointValueJupiterFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateDataPointValueJupiter] = new DefaultBindingExtraParams_calculateDataPointValueJupiterFormat {}
+  implicit lazy val BindingExtraParams_calculateDataPointValueSpacecraftFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateDataPointValueSpacecraft] = new DefaultBindingExtraParams_calculateDataPointValueSpacecraftFormat {}
+  implicit lazy val BindingExtraParams_calculateFieldLineFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateFieldLine] = new DefaultBindingExtraParams_calculateFieldLineFormat {}
+  implicit lazy val BindingExtraParams_calculateCubeFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateCube] = new DefaultBindingExtraParams_calculateCubeFormat {}
+  implicit lazy val BindingExtraParams_calculateCubeMercuryFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateCubeMercury] = new DefaultBindingExtraParams_calculateCubeMercuryFormat {}
+  implicit lazy val BindingExtraParams_calculateCubeSaturnFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateCubeSaturn] = new DefaultBindingExtraParams_calculateCubeSaturnFormat {}
+  implicit lazy val BindingExtraParams_calculateCubeJupiterFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateCubeJupiter] = new DefaultBindingExtraParams_calculateCubeJupiterFormat {}
+  implicit lazy val BindingDataPointValueSINPFormat: scalaxb.XMLFormat[models.binding.DataPointValueSINP] = new DefaultBindingDataPointValueSINPFormat {}
+  implicit lazy val BindingCalculateDataPointValueFixedTimeFormat: scalaxb.XMLFormat[models.binding.CalculateDataPointValueFixedTime] = new DefaultBindingCalculateDataPointValueFixedTimeFormat {}
+  implicit lazy val BindingCalculateDataPointValueFormat: scalaxb.XMLFormat[models.binding.CalculateDataPointValue] = new DefaultBindingCalculateDataPointValueFormat {}
+  implicit lazy val BindingCalculateDataPointValueMercuryFormat: scalaxb.XMLFormat[models.binding.CalculateDataPointValueMercury] = new DefaultBindingCalculateDataPointValueMercuryFormat {}
+  implicit lazy val BindingCalculateDataPointValueSaturnFormat: scalaxb.XMLFormat[models.binding.CalculateDataPointValueSaturn] = new DefaultBindingCalculateDataPointValueSaturnFormat {}
+  implicit lazy val BindingCalculateDataPointValueJupiterFormat: scalaxb.XMLFormat[models.binding.CalculateDataPointValueJupiter] = new DefaultBindingCalculateDataPointValueJupiterFormat {}
+  implicit lazy val BindingCalculateDataPointValueSpacecraftFormat: scalaxb.XMLFormat[models.binding.CalculateDataPointValueSpacecraft] = new DefaultBindingCalculateDataPointValueSpacecraftFormat {}
+  implicit lazy val BindingCalculateFieldLineFormat: scalaxb.XMLFormat[models.binding.CalculateFieldLine] = new DefaultBindingCalculateFieldLineFormat {}
+  implicit lazy val BindingCalculateCubeFormat: scalaxb.XMLFormat[models.binding.CalculateCube] = new DefaultBindingCalculateCubeFormat {}
+  implicit lazy val BindingCalculateCubeMercuryFormat: scalaxb.XMLFormat[models.binding.CalculateCubeMercury] = new DefaultBindingCalculateCubeMercuryFormat {}
+  implicit lazy val BindingCalculateCubeSaturnFormat: scalaxb.XMLFormat[models.binding.CalculateCubeSaturn] = new DefaultBindingCalculateCubeSaturnFormat {}
+
   implicit lazy val BindingIdoptFormat: scalaxb.AttributeGroupFormat[models.binding.Idopt] = new DefaultBindingIdoptFormat {}
   implicit lazy val BindingIdFormat: scalaxb.AttributeGroupFormat[models.binding.Id] = new DefaultBindingIdFormat {}
   implicit lazy val BindingDataRootFormat: scalaxb.XMLFormat[models.binding.DataRoot] = new DefaultBindingDataRootFormat {}
@@ -195,6 +266,1780 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingResourceSequence1Format: scalaxb.XMLFormat[models.binding.ResourceSequence1] = new DefaultBindingResourceSequence1Format {}
   implicit lazy val BindingVersionFormat: scalaxb.XMLFormat[models.binding.Version] = new DefaultBindingVersionFormat {}
   implicit lazy val BindingVOTABLEFormat: scalaxb.XMLFormat[models.binding.VOTABLE] = new DefaultBindingVOTABLEFormat {}
+
+  /*def buildBindingEnumDirectionTypeFormat = new DefaultBindingEnumDirectionTypeFormat {}
+  trait DefaultBindingEnumDirectionTypeFormat extends scalaxb.XMLFormat[models.binding.EnumDirectionType] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.EnumDirectionType] = seq match {
+      case elem: scala.xml.Elem => Right(models.binding.EnumDirectionType.fromString(elem.text, elem.scope))
+      case _ => Right(models.binding.EnumDirectionType.fromString(seq.text, scala.xml.TopScope))
+    }
+    
+    def writes(__obj: models.binding.EnumDirectionType, __namespace: Option[String], __elementLabel: Option[String],
+        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
+      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
+        __elementLabel getOrElse { sys.error("missing element label.") },
+        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+  }*/
+
+  def buildBindingOutputFormatTypeFormat = new DefaultBindingOutputFormatTypeFormat {}
+  trait DefaultBindingOutputFormatTypeFormat extends scalaxb.XMLFormat[models.binding.OutputFormatType] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.OutputFormatType] = seq match {
+      case elem: scala.xml.Elem => Right(models.binding.OutputFormatType.fromString(elem.text, elem.scope))
+      case _ => Right(models.binding.OutputFormatType.fromString(seq.text, scala.xml.TopScope))
+    }
+    
+    def writes(__obj: models.binding.OutputFormatType, __namespace: Option[String], __elementLabel: Option[String],
+        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
+      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
+        __elementLabel getOrElse { sys.error("missing element label.") },
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
+  }
+
+  def buildBindingEnumInterpolationFormat = new DefaultBindingEnumInterpolationFormat {}
+  trait DefaultBindingEnumInterpolationFormat extends scalaxb.XMLFormat[models.binding.EnumInterpolation] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.EnumInterpolation] = seq match {
+      case elem: scala.xml.Elem => Right(models.binding.EnumInterpolation.fromString(elem.text, elem.scope))
+      case _ => Right(models.binding.EnumInterpolation.fromString(seq.text, scala.xml.TopScope))
+    }
+    
+    def writes(__obj: models.binding.EnumInterpolation, __namespace: Option[String], __elementLabel: Option[String],
+        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
+      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
+        __elementLabel getOrElse { sys.error("missing element label.") },
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
+  }
+
+  def buildBindingSpacecraftTypeFormat = new DefaultBindingSpacecraftTypeFormat {}
+  trait DefaultBindingSpacecraftTypeFormat extends scalaxb.XMLFormat[models.binding.SpacecraftType] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.SpacecraftType] = seq match {
+      case elem: scala.xml.Elem => Right(models.binding.SpacecraftType.fromString(elem.text, elem.scope))
+      case _ => Right(models.binding.SpacecraftType.fromString(seq.text, scala.xml.TopScope))
+    }
+    
+    def writes(__obj: models.binding.SpacecraftType, __namespace: Option[String], __elementLabel: Option[String],
+        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
+      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
+        __elementLabel getOrElse { sys.error("missing element label.") },
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
+  }
+
+  trait DefaultBindingDataPointValueFMIFormat extends scalaxb.ElemNameParser[models.binding.DataPointValueFMI] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("DataPointValue")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.DataPointValueFMI] =
+      phrase((scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "Variable")) ~ 
+      (scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "url_XYZ")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 =>
+      models.binding.DataPointValueFMI(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI](p3, scalaxb.ElemName(node) :: stack),
+        p4.headOption map { scalaxb.fromXML[models.binding.ExtraParams_getDataPointValueFMI](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.DataPointValueFMI, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://impex-fp7.fmi.fi"), Some("ResourceID"), __scope, false),
+        __obj.Variable map { scalaxb.toXML[Seq[String]](_, Some("http://impex-fp7.fmi.fi"), Some("Variable"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://impex-fp7.fmi.fi"), Some("url_XYZ"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_getDataPointValueFMI](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_getDataPointValueFMIFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_getDataPointValueFMI] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("extraParams_getDataPointValue")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_getDataPointValueFMI] =
+      phrase(opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "InterpolationMethod")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "OutputFileType")) ^^
+      { case p1 ~ p2 =>
+      models.binding.ExtraParams_getDataPointValueFMI(p1.headOption map { scalaxb.fromXML[models.binding.EnumInterpolation](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_getDataPointValueFMI, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.InterpolationMethod map { scalaxb.toXML[models.binding.EnumInterpolation](_, Some("http://impex-fp7.fmi.fi"), Some("InterpolationMethod"), __scope, false) } getOrElse {Nil},
+        __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, Some("http://impex-fp7.fmi.fi"), Some("OutputFileType"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingDataPointSpectraFMIFormat extends scalaxb.ElemNameParser[models.binding.DataPointSpectraFMI] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("DataPointSpectra")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.DataPointSpectraFMI] =
+      phrase((scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "Population")) ~ 
+      (scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "url_XYZ")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 =>
+      models.binding.DataPointSpectraFMI(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI](p3, scalaxb.ElemName(node) :: stack),
+        p4.headOption map { scalaxb.fromXML[models.binding.ExtraParams_getDataPointSpectraFMI](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.DataPointSpectraFMI, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://impex-fp7.fmi.fi"), Some("ResourceID"), __scope, false),
+        __obj.Population map { scalaxb.toXML[Seq[String]](_, Some("http://impex-fp7.fmi.fi"), Some("Population"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://impex-fp7.fmi.fi"), Some("url_XYZ"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_getDataPointSpectraFMI](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_getDataPointSpectraFMIFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_getDataPointSpectraFMI] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("extraParams_getDataPointSpectra")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_getDataPointSpectraFMI] =
+      phrase(opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "InterpolationMethod")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "OutputFileType")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "EnergyChannel")) ^^
+      { case p1 ~ p2 ~ p3 =>
+      models.binding.ExtraParams_getDataPointSpectraFMI(p1.headOption map { scalaxb.fromXML[models.binding.EnumInterpolation](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_getDataPointSpectraFMI, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.InterpolationMethod map { scalaxb.toXML[models.binding.EnumInterpolation](_, Some("http://impex-fp7.fmi.fi"), Some("InterpolationMethod"), __scope, false) } getOrElse {Nil},
+        __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, Some("http://impex-fp7.fmi.fi"), Some("OutputFileType"), __scope, false) } getOrElse {Nil},
+        __obj.EnergyChannel map { scalaxb.toXML[Seq[String]](_, Some("http://impex-fp7.fmi.fi"), Some("EnergyChannel"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingSurfaceFMIFormat extends scalaxb.ElemNameParser[models.binding.SurfaceFMI] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("Surface")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.SurfaceFMI] =
+      phrase((scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "Variable")) ~ 
+      (scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "PlanePoint")) ~ 
+      (scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "PlaneNormalVector")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 =>
+      models.binding.SurfaceFMI(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[Seq[Float]](p3, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[Seq[Float]](p4, scalaxb.ElemName(node) :: stack),
+        p5.headOption map { scalaxb.fromXML[models.binding.ExtraParams_getSurfaceFMI](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.SurfaceFMI, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://impex-fp7.fmi.fi"), Some("ResourceID"), __scope, false),
+        __obj.Variable map { scalaxb.toXML[Seq[String]](_, Some("http://impex-fp7.fmi.fi"), Some("Variable"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[Seq[Float]](__obj.PlanePoint, Some("http://impex-fp7.fmi.fi"), Some("PlanePoint"), __scope, false),
+        scalaxb.toXML[Seq[Float]](__obj.PlaneNormalVector, Some("http://impex-fp7.fmi.fi"), Some("PlaneNormalVector"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_getSurfaceFMI](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_getSurfaceFMIFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_getSurfaceFMI] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("extraParams_getSurface")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_getSurfaceFMI] =
+      phrase(opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "Resolution")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "OutputFileType")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "InterpolationMethod")) ^^
+      { case p1 ~ p2 ~ p3 =>
+      models.binding.ExtraParams_getSurfaceFMI(p1.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[models.binding.EnumInterpolation](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_getSurfaceFMI, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.Resolution map { scalaxb.toXML[Double](_, Some("http://impex-fp7.fmi.fi"), Some("Resolution"), __scope, false) } getOrElse {Nil},
+        __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, Some("http://impex-fp7.fmi.fi"), Some("OutputFileType"), __scope, false) } getOrElse {Nil},
+        __obj.InterpolationMethod map { scalaxb.toXML[models.binding.EnumInterpolation](_, Some("http://impex-fp7.fmi.fi"), Some("InterpolationMethod"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingDataPointValue_SpacecraftFMIFormat extends scalaxb.ElemNameParser[models.binding.DataPointValue_SpacecraftFMI] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("DataPointValue_Spacecraft")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.DataPointValue_SpacecraftFMI] =
+      phrase((scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "Variable")) ~ 
+      (scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "Spacecraft_name")) ~ 
+      (scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "StartTime")) ~ 
+      (scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "StopTime")) ~ 
+      (scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "Sampling")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 =>
+      models.binding.DataPointValue_SpacecraftFMI(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[models.binding.SpacecraftType](p3, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p4, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p5, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.Duration](p6, scalaxb.ElemName(node) :: stack),
+        p7.headOption map { scalaxb.fromXML[models.binding.ExtraParams_getDataPointValueFMI](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.DataPointValue_SpacecraftFMI, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://impex-fp7.fmi.fi"), Some("ResourceID"), __scope, false),
+        __obj.Variable map { scalaxb.toXML[Seq[String]](_, Some("http://impex-fp7.fmi.fi"), Some("Variable"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[models.binding.SpacecraftType](__obj.Spacecraft_name, Some("http://impex-fp7.fmi.fi"), Some("Spacecraft_name"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StartTime, Some("http://impex-fp7.fmi.fi"), Some("StartTime"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StopTime, Some("http://impex-fp7.fmi.fi"), Some("StopTime"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.Duration](__obj.Sampling, Some("http://impex-fp7.fmi.fi"), Some("Sampling"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_getDataPointValueFMI](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingDataPointSpectra_SpacecraftFMIFormat extends scalaxb.ElemNameParser[models.binding.DataPointSpectra_SpacecraftFMI] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("DataPointSpectra_Spacecraft")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.DataPointSpectra_SpacecraftFMI] =
+      phrase((scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "Population")) ~ 
+      (scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "Spacecraft_name")) ~ 
+      (scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "StartTime")) ~ 
+      (scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "StopTime")) ~ 
+      (scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "Sampling")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 =>
+      models.binding.DataPointSpectra_SpacecraftFMI(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[models.binding.SpacecraftType](p3, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p4, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p5, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.Duration](p6, scalaxb.ElemName(node) :: stack),
+        p7.headOption map { scalaxb.fromXML[models.binding.ExtraParams_getDataPointSpectraFMI](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.DataPointSpectra_SpacecraftFMI, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://impex-fp7.fmi.fi"), Some("ResourceID"), __scope, false),
+        __obj.Population map { scalaxb.toXML[Seq[String]](_, Some("http://impex-fp7.fmi.fi"), Some("Population"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[models.binding.SpacecraftType](__obj.Spacecraft_name, Some("http://impex-fp7.fmi.fi"), Some("Spacecraft_name"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StartTime, Some("http://impex-fp7.fmi.fi"), Some("StartTime"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StopTime, Some("http://impex-fp7.fmi.fi"), Some("StopTime"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.Duration](__obj.Sampling, Some("http://impex-fp7.fmi.fi"), Some("Sampling"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_getDataPointSpectraFMI](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingFieldLineFMIFormat extends scalaxb.ElemNameParser[models.binding.FieldLineFMI] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("FieldLine")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.FieldLineFMI] =
+      phrase((scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "Variable")) ~ 
+      (scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "url_XYZ")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 =>
+      models.binding.FieldLineFMI(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI](p3, scalaxb.ElemName(node) :: stack),
+        p4.headOption map { scalaxb.fromXML[models.binding.ExtraParams_getFieldLineFMI](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.FieldLineFMI, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://impex-fp7.fmi.fi"), Some("ResourceID"), __scope, false),
+        __obj.Variable map { scalaxb.toXML[Seq[String]](_, Some("http://impex-fp7.fmi.fi"), Some("Variable"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://impex-fp7.fmi.fi"), Some("url_XYZ"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_getFieldLineFMI](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_getFieldLineFMIFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_getFieldLineFMI] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("extraParams_getFieldLine")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_getFieldLineFMI] =
+      phrase(opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "Direction")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "StepSize")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "MaxSteps")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "StopCondition_Radius")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "StopCondition_Region")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "OutputFileType")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 =>
+      models.binding.ExtraParams_getFieldLineFMI(p1.headOption map { scalaxb.fromXML[models.binding.EnumDirection](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[BigInt](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_getFieldLineFMI, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.Direction map { scalaxb.toXML[models.binding.EnumDirection](_, Some("http://impex-fp7.fmi.fi"), Some("Direction"), __scope, false) } getOrElse {Nil},
+        __obj.StepSize map { scalaxb.toXML[Double](_, Some("http://impex-fp7.fmi.fi"), Some("StepSize"), __scope, false) } getOrElse {Nil},
+        __obj.MaxSteps map { scalaxb.toXML[BigInt](_, Some("http://impex-fp7.fmi.fi"), Some("MaxSteps"), __scope, false) } getOrElse {Nil},
+        __obj.StopCondition_Radius map { scalaxb.toXML[Double](_, Some("http://impex-fp7.fmi.fi"), Some("StopCondition_Radius"), __scope, false) } getOrElse {Nil},
+        __obj.StopCondition_Region map { scalaxb.toXML[Seq[String]](_, Some("http://impex-fp7.fmi.fi"), Some("StopCondition_Region"), __scope, false) } getOrElse {Nil},
+        __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, Some("http://impex-fp7.fmi.fi"), Some("OutputFileType"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingParticleTrajectoryFormat extends scalaxb.ElemNameParser[models.binding.ParticleTrajectory] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("ParticleTrajectory")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ParticleTrajectory] =
+      phrase((scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "ResourceID")) ~ 
+      (scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "url_XYZ")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 ~ p3 =>
+      models.binding.ParticleTrajectory(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[java.net.URI](p2, scalaxb.ElemName(node) :: stack),
+        p3.headOption map { scalaxb.fromXML[models.binding.ExtraParams_getParticleTrajectory](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ParticleTrajectory, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://impex-fp7.fmi.fi"), Some("ResourceID"), __scope, false),
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://impex-fp7.fmi.fi"), Some("url_XYZ"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_getParticleTrajectory](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_getParticleTrajectoryFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_getParticleTrajectory] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("extraParams_getParticleTrajectory")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_getParticleTrajectory] =
+      phrase(opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "Direction")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "StepSize")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "MaxSteps")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "StopCondition_Radius")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "StopCondition_Region")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "InterpolationMethod")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "OutputFileType")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 =>
+      models.binding.ExtraParams_getParticleTrajectory(p1.headOption map { scalaxb.fromXML[models.binding.EnumDirection](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[BigInt](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[models.binding.EnumInterpolation](_, scalaxb.ElemName(node) :: stack) },
+        p7.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_getParticleTrajectory, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.Direction map { scalaxb.toXML[models.binding.EnumDirection](_, Some("http://impex-fp7.fmi.fi"), Some("Direction"), __scope, false) } getOrElse {Nil},
+        __obj.StepSize map { scalaxb.toXML[Double](_, Some("http://impex-fp7.fmi.fi"), Some("StepSize"), __scope, false) } getOrElse {Nil},
+        __obj.MaxSteps map { scalaxb.toXML[BigInt](_, Some("http://impex-fp7.fmi.fi"), Some("MaxSteps"), __scope, false) } getOrElse {Nil},
+        __obj.StopCondition_Radius map { scalaxb.toXML[Double](_, Some("http://impex-fp7.fmi.fi"), Some("StopCondition_Radius"), __scope, false) } getOrElse {Nil},
+        __obj.StopCondition_Region map { scalaxb.toXML[Seq[String]](_, Some("http://impex-fp7.fmi.fi"), Some("StopCondition_Region"), __scope, false) } getOrElse {Nil},
+        __obj.InterpolationMethod map { scalaxb.toXML[models.binding.EnumInterpolation](_, Some("http://impex-fp7.fmi.fi"), Some("InterpolationMethod"), __scope, false) } getOrElse {Nil},
+        __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, Some("http://impex-fp7.fmi.fi"), Some("OutputFileType"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingMostRelevantRunFormat extends scalaxb.ElemNameParser[models.binding.MostRelevantRun] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("MostRelevantRun")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.MostRelevantRun] =
+      phrase((scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "Object")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex-fp7.fmi.fi"), "RunCount")) ~ 
+      rep(scalaxb.ElemName(None, "SW_parameters")) ^^
+      { case p1 ~ p2 ~ p3 =>
+      models.binding.MostRelevantRun(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[BigInt](_, scalaxb.ElemName(node) :: stack) },
+        p3.toSeq map { scalaxb.fromXML[models.binding.SW_parameter_list](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.MostRelevantRun, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.Object, Some("http://impex-fp7.fmi.fi"), Some("Object"), __scope, false),
+        __obj.RunCount map { scalaxb.toXML[BigInt](_, Some("http://impex-fp7.fmi.fi"), Some("RunCount"), __scope, false) } getOrElse {Nil},
+        __obj.SW_parameters flatMap { scalaxb.toXML[models.binding.SW_parameter_list](_, None, Some("SW_parameters"), __scope, false) })
+
+  }
+
+  trait DefaultBindingSW_parameter_listFormat extends scalaxb.ElemNameParser[models.binding.SW_parameter_list] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("SW_parameter_list")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.SW_parameter_list] =
+      phrase(opt(scalaxb.ElemName(None, "SW_Density")) ~ 
+      opt(scalaxb.ElemName(None, "SW_Utot")) ~ 
+      opt(scalaxb.ElemName(None, "SW_Temperature")) ~ 
+      opt(scalaxb.ElemName(None, "SW_Btot")) ~ 
+      opt(scalaxb.ElemName(None, "SW_Bx")) ~ 
+      opt(scalaxb.ElemName(None, "SW_By")) ~ 
+      opt(scalaxb.ElemName(None, "SW_Bz")) ~ 
+      opt(scalaxb.ElemName(None, "Solar_F10.7")) ~ 
+      opt(scalaxb.ElemName(None, "SW_Function")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 ~ p9 =>
+      models.binding.SW_parameter_list(p1.headOption map { scalaxb.fromXML[models.binding.SW_parameter](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[models.binding.SW_parameter](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[models.binding.SW_parameter](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[models.binding.SW_parameter](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[models.binding.SW_parameter](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[models.binding.SW_parameter](_, scalaxb.ElemName(node) :: stack) },
+        p7.headOption map { scalaxb.fromXML[models.binding.SW_parameter](_, scalaxb.ElemName(node) :: stack) },
+        p8.headOption map { scalaxb.fromXML[models.binding.SW_parameter](_, scalaxb.ElemName(node) :: stack) },
+        p9.headOption map { scalaxb.fromXML[models.binding.SW_parameter](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.SW_parameter_list, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.SW_Density map { scalaxb.toXML[models.binding.SW_parameter](_, None, Some("SW_Density"), __scope, false) } getOrElse {Nil},
+        __obj.SW_Utot map { scalaxb.toXML[models.binding.SW_parameter](_, None, Some("SW_Utot"), __scope, false) } getOrElse {Nil},
+        __obj.SW_Temperature map { scalaxb.toXML[models.binding.SW_parameter](_, None, Some("SW_Temperature"), __scope, false) } getOrElse {Nil},
+        __obj.SW_Btot map { scalaxb.toXML[models.binding.SW_parameter](_, None, Some("SW_Btot"), __scope, false) } getOrElse {Nil},
+        __obj.SW_Bx map { scalaxb.toXML[models.binding.SW_parameter](_, None, Some("SW_Bx"), __scope, false) } getOrElse {Nil},
+        __obj.SW_By map { scalaxb.toXML[models.binding.SW_parameter](_, None, Some("SW_By"), __scope, false) } getOrElse {Nil},
+        __obj.SW_Bz map { scalaxb.toXML[models.binding.SW_parameter](_, None, Some("SW_Bz"), __scope, false) } getOrElse {Nil},
+        __obj.Solar_F10u467 map { scalaxb.toXML[models.binding.SW_parameter](_, None, Some("Solar_F10.7"), __scope, false) } getOrElse {Nil},
+        __obj.SW_Function map { scalaxb.toXML[models.binding.SW_parameter](_, None, Some("SW_Function"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingSW_parameterFormat extends scalaxb.ElemNameParser[models.binding.SW_parameter] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("SW_parameter")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.SW_parameter] =
+      phrase((scalaxb.ElemName(None, "value")) ~ 
+      opt(scalaxb.ElemName(None, "weight")) ~ 
+      opt(scalaxb.ElemName(None, "scale")) ~ 
+      opt(scalaxb.ElemName(None, "function")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 =>
+      models.binding.SW_parameter(scalaxb.fromXML[Double](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.SW_parameter, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[Double](__obj.value, None, Some("value"), __scope, false),
+        __obj.weight map { scalaxb.toXML[Double](_, None, Some("weight"), __scope, false) } getOrElse {Nil},
+        __obj.scale map { scalaxb.toXML[Double](_, None, Some("scale"), __scope, false) } getOrElse {Nil},
+        __obj.function map { scalaxb.toXML[String](_, None, Some("function"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingVOTableURLFormat extends scalaxb.ElemNameParser[models.binding.VOTableURL] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("VOTableURL")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.VOTableURL] =
+      phrase(opt(scalaxb.ElemName(None, "Table_name")) ~ 
+      opt(scalaxb.ElemName(None, "Description")) ~ 
+      rep(scalaxb.ElemName(None, "Fields")) ^^
+      { case p1 ~ p2 ~ p3 =>
+      models.binding.VOTableURL(p1.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        p3.toSeq map { scalaxb.fromXML[models.binding.VOTable_field](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.VOTableURL, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.Table_name map { scalaxb.toXML[String](_, None, Some("Table_name"), __scope, false) } getOrElse {Nil},
+        __obj.Description map { scalaxb.toXML[String](_, None, Some("Description"), __scope, false) } getOrElse {Nil},
+        __obj.Fields flatMap { scalaxb.toXML[models.binding.VOTable_field](_, None, Some("Fields"), __scope, false) })
+
+  }
+
+  trait DefaultBindingVOTable_fieldFormat extends scalaxb.ElemNameParser[models.binding.VOTable_field] {
+    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    
+    override def typeName: Option[String] = Some("VOTable_field")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.VOTable_field] =
+      phrase((scalaxb.ElemName(None, "data")) ~ 
+      (scalaxb.ElemName(None, "name")) ~ 
+      opt(scalaxb.ElemName(None, "ID")) ~ 
+      opt(scalaxb.ElemName(None, "unit")) ~ 
+      opt(scalaxb.ElemName(None, "datatype")) ~ 
+      opt(scalaxb.ElemName(None, "xtype")) ~ 
+      opt(scalaxb.ElemName(None, "ucd")) ~ 
+      opt(scalaxb.ElemName(None, "utype")) ~ 
+      opt(scalaxb.ElemName(None, "description")) ~ 
+      opt(scalaxb.ElemName(None, "arraysize")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 ~ p9 ~ p10 =>
+      models.binding.VOTable_field(scalaxb.fromXML[Seq[models.binding.DataType]](p1, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[String](p2, scalaxb.ElemName(node) :: stack),
+        p3.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[models.binding.DataType](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        p7.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        p8.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        p9.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        p10.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.VOTable_field, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[Seq[models.binding.DataType]](__obj.data, None, Some("data"), __scope, false),
+        scalaxb.toXML[String](__obj.name, None, Some("name"), __scope, false),
+        __obj.ID map { scalaxb.toXML[String](_, None, Some("ID"), __scope, false) } getOrElse {Nil},
+        __obj.unit map { scalaxb.toXML[String](_, None, Some("unit"), __scope, false) } getOrElse {Nil},
+        __obj.datatype map { scalaxb.toXML[models.binding.DataType](_, None, Some("datatype"), __scope, false) } getOrElse {Nil},
+        __obj.xtype map { scalaxb.toXML[String](_, None, Some("xtype"), __scope, false) } getOrElse {Nil},
+        __obj.ucd map { scalaxb.toXML[String](_, None, Some("ucd"), __scope, false) } getOrElse {Nil},
+        __obj.utype map { scalaxb.toXML[String](_, None, Some("utype"), __scope, false) } getOrElse {Nil},
+        __obj.description map { scalaxb.toXML[String](_, None, Some("description"), __scope, false) } getOrElse {Nil},
+        __obj.arraysize map { scalaxb.toXML[String](_, None, Some("arraysize"), __scope, false) } getOrElse {Nil})
+
+  }
+
+
+  trait Methods_FMISoapBindings { this: scalaxb.Soap11Clients =>
+    lazy val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
+    lazy val service: models.binding.Methods_FMI = new Methods_FMISoapBinding {}
+    def baseAddress = new java.net.URI("http://impex-fp7.fmi.fi/ws/Methods_FMI.php")
+
+    trait Methods_FMISoapBinding extends models.binding.Methods_FMI {
+      def getDataPointValue(resourceID: String, variable: Option[Seq[String]], url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getDataPointValueFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.DataPointValueFMI(resourceID, variable, url_XYZ, extraParams), Some("http://impex-fp7.fmi.fi"), "getDataPointValue", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointValue"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def getDataPointValue_Spacecraft(resourceID: String, variable: Option[Seq[String]], spacecraft_name: models.binding.SpacecraftType, startTime: javax.xml.datatype.XMLGregorianCalendar, stopTime: javax.xml.datatype.XMLGregorianCalendar, 
+        sampling: javax.xml.datatype.Duration, extraParams: Option[models.binding.ExtraParams_getDataPointValueFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.DataPointValue_SpacecraftFMI(resourceID, variable, spacecraft_name, startTime, stopTime, sampling, extraParams), Some("http://impex-fp7.fmi.fi"), "getDataPointValue_Spacecraft", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointValue_Spacecraft"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def getDataPointSpectra(resourceID: String, population: Option[Seq[String]], url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getDataPointSpectraFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.DataPointSpectraFMI(resourceID, population, url_XYZ, extraParams), Some("http://impex-fp7.fmi.fi"), "getDataPointSpectra", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointSpectra"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def getSurface(resourceID: String, variable: Option[Seq[String]], planePoint: Seq[Float], planeNormalVector: Seq[Float], extraParams: Option[models.binding.ExtraParams_getSurfaceFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.SurfaceFMI(resourceID, variable, planePoint, planeNormalVector, extraParams), Some("http://impex-fp7.fmi.fi"), "getSurface", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("Surface"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def getDataPointSpectra_Spacecraft(resourceID: String, population: Option[Seq[String]], spacecraft_name: models.binding.SpacecraftType, startTime: javax.xml.datatype.XMLGregorianCalendar, stopTime: javax.xml.datatype.XMLGregorianCalendar, 
+        sampling: javax.xml.datatype.Duration, extraParams: Option[models.binding.ExtraParams_getDataPointSpectraFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.DataPointSpectra_SpacecraftFMI(resourceID, population, spacecraft_name, startTime, stopTime, sampling, extraParams), Some("http://impex-fp7.fmi.fi"), "getDataPointSpectra_Spacecraft", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointSpectra_Spacecraft"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def getFieldLine(resourceID: String, variable: Option[Seq[String]], url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getFieldLineFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.FieldLineFMI(resourceID, variable, url_XYZ, extraParams), Some("http://impex-fp7.fmi.fi"), "getFieldLine", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("FieldLine"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def getParticleTrajectory(resourceID: String, url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getParticleTrajectory]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.ParticleTrajectory(resourceID, url_XYZ, extraParams), Some("http://impex-fp7.fmi.fi"), "getParticleTrajectory", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("ParticleTrajectory"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def getMostRelevantRun(objectValue: String, runCount: Option[BigInt], sW_parameters: Seq[models.binding.SW_parameter_list]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.MostRelevantRun(objectValue, runCount, sW_parameters), Some("http://impex-fp7.fmi.fi"), "getMostRelevantRun", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("MostRelevantRun"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def getVOTableURL(table_name: Option[String], description: Option[String], fields: Seq[models.binding.VOTable_field]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.VOTableURL(table_name, description, fields), Some("http://impex-fp7.fmi.fi"), "getVOTableURL", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("VOTableURL"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+    }
+  }
+
+
+  /*def buildBindingOutputFormatFormat = new DefaultBindingOutputFormatFormat {}
+  trait DefaultBindingOutputFormatFormat extends scalaxb.XMLFormat[models.binding.OutputFormat] {
+    val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.OutputFormat] = seq match {
+      case elem: scala.xml.Elem => Right(models.binding.OutputFormat.fromString(elem.text, elem.scope))
+      case _ => Right(models.binding.OutputFormat.fromString(seq.text, scala.xml.TopScope))
+    }
+    
+    def writes(__obj: models.binding.OutputFormat, __namespace: Option[String], __elementLabel: Option[String],
+        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
+      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
+        __elementLabel getOrElse { sys.error("missing element label.") },
+        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+  }
+
+  def buildBindingSpacecraftFormat = new DefaultBindingSpacecraftFormat {}
+  trait DefaultBindingSpacecraftFormat extends scalaxb.XMLFormat[models.binding.Spacecraft] {
+    val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.Spacecraft] = seq match {
+      case elem: scala.xml.Elem => Right(models.binding.Spacecraft.fromString(elem.text, elem.scope))
+      case _ => Right(models.binding.Spacecraft.fromString(seq.text, scala.xml.TopScope))
+    }
+    
+    def writes(__obj: models.binding.Spacecraft, __namespace: Option[String], __elementLabel: Option[String],
+        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
+      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
+        __elementLabel getOrElse { sys.error("missing element label.") },
+        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+  }*/
+
+  trait DefaultBindingDataPointValueLATMOSFormat extends scalaxb.ElemNameParser[models.binding.DataPointValueLATMOS] {
+    val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
+    
+    override def typeName: Option[String] = Some("DataPointValue")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.DataPointValueLATMOS] =
+      phrase((scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "Variable")) ~ 
+      (scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "url_XYZ")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 =>
+      models.binding.DataPointValueLATMOS(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI](p3, scalaxb.ElemName(node) :: stack),
+        p4.headOption map { scalaxb.fromXML[models.binding.ExtraParams_getDataPointValueLATMOS](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.DataPointValueLATMOS, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://impex.latmos.ipsl.fr"), Some("ResourceID"), __scope, false),
+        __obj.Variable map { scalaxb.toXML[Seq[String]](_, Some("http://impex.latmos.ipsl.fr"), Some("Variable"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://impex.latmos.ipsl.fr"), Some("url_XYZ"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_getDataPointValueLATMOS](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_getDataPointValueLATMOSFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_getDataPointValueLATMOS] {
+    val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
+    
+    override def typeName: Option[String] = Some("extraParams_getDataPointValue")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_getDataPointValueLATMOS] =
+      phrase(opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "IMFClockAngle")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "OutputFileType")) ^^
+      { case p1 ~ p2 =>
+      models.binding.ExtraParams_getDataPointValueLATMOS(p1.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_getDataPointValueLATMOS, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.IMFClockAngle map { scalaxb.toXML[Double](_, Some("http://impex.latmos.ipsl.fr"), Some("IMFClockAngle"), __scope, false) } getOrElse {Nil},
+        __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, Some("http://impex.latmos.ipsl.fr"), Some("OutputFileType"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingDataPointSpectraLATMOSFormat extends scalaxb.ElemNameParser[models.binding.DataPointSpectraLATMOS] {
+    val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
+    
+    override def typeName: Option[String] = Some("DataPointSpectra")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.DataPointSpectraLATMOS] =
+      phrase((scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "Population")) ~ 
+      (scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "url_XYZ")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 =>
+      models.binding.DataPointSpectraLATMOS(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI](p3, scalaxb.ElemName(node) :: stack),
+        p4.headOption map { scalaxb.fromXML[models.binding.ExtraParams_getDataPointSpectraLATMOS](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.DataPointSpectraLATMOS, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://impex.latmos.ipsl.fr"), Some("ResourceID"), __scope, false),
+        __obj.Population map { scalaxb.toXML[Seq[String]](_, Some("http://impex.latmos.ipsl.fr"), Some("Population"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://impex.latmos.ipsl.fr"), Some("url_XYZ"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_getDataPointSpectraLATMOS](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_getDataPointSpectraLATMOSFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_getDataPointSpectraLATMOS] {
+    val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
+    
+    override def typeName: Option[String] = Some("extraParams_getDataPointSpectra")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_getDataPointSpectraLATMOS] =
+      phrase(opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "IMFClockAngle")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "OutputFileType")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "EnergyChannel")) ^^
+      { case p1 ~ p2 ~ p3 =>
+      models.binding.ExtraParams_getDataPointSpectraLATMOS(p1.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_getDataPointSpectraLATMOS, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.IMFClockAngle map { scalaxb.toXML[Double](_, Some("http://impex.latmos.ipsl.fr"), Some("IMFClockAngle"), __scope, false) } getOrElse {Nil},
+        __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, Some("http://impex.latmos.ipsl.fr"), Some("OutputFileType"), __scope, false) } getOrElse {Nil},
+        __obj.EnergyChannel map { scalaxb.toXML[Seq[String]](_, Some("http://impex.latmos.ipsl.fr"), Some("EnergyChannel"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingSurfaceLATMOSFormat extends scalaxb.ElemNameParser[models.binding.SurfaceLATMOS] {
+    val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
+    
+    override def typeName: Option[String] = Some("Surface")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.SurfaceLATMOS] =
+      phrase((scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "Variable")) ~ 
+      (scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "PlanePoint")) ~ 
+      (scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "PlaneNormalVector")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 =>
+      models.binding.SurfaceLATMOS(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[Seq[Float]](p3, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[Seq[Float]](p4, scalaxb.ElemName(node) :: stack),
+        p5.headOption map { scalaxb.fromXML[models.binding.ExtraParams_getSurfaceLATMOS](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.SurfaceLATMOS, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://impex.latmos.ipsl.fr"), Some("ResourceID"), __scope, false),
+        __obj.Variable map { scalaxb.toXML[Seq[String]](_, Some("http://impex.latmos.ipsl.fr"), Some("Variable"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[Seq[Float]](__obj.PlanePoint, Some("http://impex.latmos.ipsl.fr"), Some("PlanePoint"), __scope, false),
+        scalaxb.toXML[Seq[Float]](__obj.PlaneNormalVector, Some("http://impex.latmos.ipsl.fr"), Some("PlaneNormalVector"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_getSurfaceLATMOS](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_getSurfaceLATMOSFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_getSurfaceLATMOS] {
+    val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
+    
+    override def typeName: Option[String] = Some("extraParams_getSurface")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_getSurfaceLATMOS] =
+      phrase(opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "Resolution")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "IMFClockAngle")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "OutputFileType")) ^^
+      { case p1 ~ p2 ~ p3 =>
+      models.binding.ExtraParams_getSurfaceLATMOS(p1.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_getSurfaceLATMOS, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.Resolution map { scalaxb.toXML[Double](_, Some("http://impex.latmos.ipsl.fr"), Some("Resolution"), __scope, false) } getOrElse {Nil},
+        __obj.IMFClockAngle map { scalaxb.toXML[Double](_, Some("http://impex.latmos.ipsl.fr"), Some("IMFClockAngle"), __scope, false) } getOrElse {Nil},
+        __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, Some("http://impex.latmos.ipsl.fr"), Some("OutputFileType"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingDataPointValue_SpacecraftLATMOSFormat extends scalaxb.ElemNameParser[models.binding.DataPointValue_SpacecraftLATMOS] {
+    val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
+    
+    override def typeName: Option[String] = Some("DataPointValue_Spacecraft")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.DataPointValue_SpacecraftLATMOS] =
+      phrase((scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "Variable")) ~ 
+      (scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "Spacecraft_name")) ~ 
+      (scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "StartTime")) ~ 
+      (scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "StopTime")) ~ 
+      (scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "Sampling")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 =>
+      models.binding.DataPointValue_SpacecraftLATMOS(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[models.binding.SpacecraftType](p3, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p4, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p5, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.Duration](p6, scalaxb.ElemName(node) :: stack),
+        p7.headOption map { scalaxb.fromXML[models.binding.ExtraParams_getDataPointValueLATMOS](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.DataPointValue_SpacecraftLATMOS, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://impex.latmos.ipsl.fr"), Some("ResourceID"), __scope, false),
+        __obj.Variable map { scalaxb.toXML[Seq[String]](_, Some("http://impex.latmos.ipsl.fr"), Some("Variable"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[models.binding.SpacecraftType](__obj.Spacecraft_name, Some("http://impex.latmos.ipsl.fr"), Some("Spacecraft_name"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StartTime, Some("http://impex.latmos.ipsl.fr"), Some("StartTime"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StopTime, Some("http://impex.latmos.ipsl.fr"), Some("StopTime"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.Duration](__obj.Sampling, Some("http://impex.latmos.ipsl.fr"), Some("Sampling"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_getDataPointValueLATMOS](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingDataPointSpectra_SpacecraftLATMOSFormat extends scalaxb.ElemNameParser[models.binding.DataPointSpectra_SpacecraftLATMOS] {
+    val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
+    
+    override def typeName: Option[String] = Some("DataPointSpectra_Spacecraft")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.DataPointSpectra_SpacecraftLATMOS] =
+      phrase((scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "Population")) ~ 
+      (scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "Spacecraft_name")) ~ 
+      (scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "StartTime")) ~ 
+      (scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "StopTime")) ~ 
+      (scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "Sampling")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 =>
+      models.binding.DataPointSpectra_SpacecraftLATMOS(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[models.binding.SpacecraftType](p3, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p4, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p5, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.Duration](p6, scalaxb.ElemName(node) :: stack),
+        p7.headOption map { scalaxb.fromXML[models.binding.ExtraParams_getDataPointSpectraLATMOS](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.DataPointSpectra_SpacecraftLATMOS, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://impex.latmos.ipsl.fr"), Some("ResourceID"), __scope, false),
+        __obj.Population map { scalaxb.toXML[Seq[String]](_, Some("http://impex.latmos.ipsl.fr"), Some("Population"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[models.binding.SpacecraftType](__obj.Spacecraft_name, Some("http://impex.latmos.ipsl.fr"), Some("Spacecraft_name"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StartTime, Some("http://impex.latmos.ipsl.fr"), Some("StartTime"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StopTime, Some("http://impex.latmos.ipsl.fr"), Some("StopTime"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.Duration](__obj.Sampling, Some("http://impex.latmos.ipsl.fr"), Some("Sampling"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_getDataPointSpectraLATMOS](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingFileURLFormat extends scalaxb.ElemNameParser[models.binding.FileURL] {
+    val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
+    
+    override def typeName: Option[String] = Some("FileURL")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.FileURL] =
+      phrase((scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "ResourceID")) ~ 
+      (scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "StartTime")) ~ 
+      (scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "StopTime")) ^^
+      { case p1 ~ p2 ~ p3 =>
+      models.binding.FileURL(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p2, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p3, scalaxb.ElemName(node) :: stack)) })
+    
+    def writesChildNodes(__obj: models.binding.FileURL, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://impex.latmos.ipsl.fr"), Some("ResourceID"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StartTime, Some("http://impex.latmos.ipsl.fr"), Some("StartTime"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StopTime, Some("http://impex.latmos.ipsl.fr"), Some("StopTime"), __scope, false))
+
+  }
+
+  trait DefaultBindingFieldLineLATMOSFormat extends scalaxb.ElemNameParser[models.binding.FieldLineLATMOS] {
+    val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
+    
+    override def typeName: Option[String] = Some("FieldLine")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.FieldLineLATMOS] =
+      phrase((scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "Variable")) ~ 
+      (scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "url_XYZ")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 =>
+      models.binding.FieldLineLATMOS(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI](p3, scalaxb.ElemName(node) :: stack),
+        p4.headOption map { scalaxb.fromXML[models.binding.ExtraParams_getFieldLineLATMOS](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.FieldLineLATMOS, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://impex.latmos.ipsl.fr"), Some("ResourceID"), __scope, false),
+        __obj.Variable map { scalaxb.toXML[Seq[String]](_, Some("http://impex.latmos.ipsl.fr"), Some("Variable"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://impex.latmos.ipsl.fr"), Some("url_XYZ"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_getFieldLineLATMOS](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_getFieldLineLATMOSFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_getFieldLineLATMOS] {
+    val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
+    
+    override def typeName: Option[String] = Some("extraParams_getFieldLine")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_getFieldLineLATMOS] =
+      phrase(opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "Direction")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "StepSize")) ~ 
+      opt(scalaxb.ElemName(Some("http://impex.latmos.ipsl.fr"), "OutputFileType")) ^^
+      { case p1 ~ p2 ~ p3 =>
+      models.binding.ExtraParams_getFieldLineLATMOS(p1.headOption map { scalaxb.fromXML[models.binding.EnumDirection](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_getFieldLineLATMOS, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.Direction map { scalaxb.toXML[models.binding.EnumDirection](_, Some("http://impex.latmos.ipsl.fr"), Some("Direction"), __scope, false) } getOrElse {Nil},
+        __obj.StepSize map { scalaxb.toXML[Double](_, Some("http://impex.latmos.ipsl.fr"), Some("StepSize"), __scope, false) } getOrElse {Nil},
+        __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, Some("http://impex.latmos.ipsl.fr"), Some("OutputFileType"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  def buildBindingEnumDirectionFormat = new DefaultBindingEnumDirectionFormat {}
+  trait DefaultBindingEnumDirectionFormat extends scalaxb.XMLFormat[models.binding.EnumDirection] {
+    val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.EnumDirection] = seq match {
+      case elem: scala.xml.Elem => Right(models.binding.EnumDirection.fromString(elem.text, elem.scope))
+      case _ => Right(models.binding.EnumDirection.fromString(seq.text, scala.xml.TopScope))
+    }
+    
+    def writes(__obj: models.binding.EnumDirection, __namespace: Option[String], __elementLabel: Option[String],
+        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
+      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
+        __elementLabel getOrElse { sys.error("missing element label.") },
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
+  }
+
+
+  trait Methods_LATMOSSoapBindings { this: scalaxb.Soap11Clients =>
+    lazy val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
+    lazy val service: models.binding.Methods_LATMOS = new Methods_LATMOSSoapBinding {}
+    def baseAddress = new java.net.URI("http://impex.latmos.ipsl.fr/IMPExWS.php")
+
+    trait Methods_LATMOSSoapBinding extends models.binding.Methods_LATMOS {
+      def getDataPointValue(resourceID: String, variable: Option[Seq[String]], url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getDataPointValueLATMOS]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.DataPointValueLATMOS(resourceID, variable, url_XYZ, extraParams), Some("http://impex.latmos.ipsl.fr"), "getDataPointValue", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointValue"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def getDataPointSpectra(resourceID: String, population: Option[Seq[String]], url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getDataPointSpectraLATMOS]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.DataPointSpectraLATMOS(resourceID, population, url_XYZ, extraParams), Some("http://impex.latmos.ipsl.fr"), "getDataPointSpectra", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointSpectra"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def getSurface(resourceID: String, variable: Option[Seq[String]], planePoint: Seq[Float], planeNormalVector: Seq[Float], extraParams: Option[models.binding.ExtraParams_getSurfaceLATMOS]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.SurfaceLATMOS(resourceID, variable, planePoint, planeNormalVector, extraParams), Some("http://impex.latmos.ipsl.fr"), "getSurface", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("Surface"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def getDataPointValue_Spacecraft(resourceID: String, variable: Option[Seq[String]], spacecraft_name: models.binding.SpacecraftType, startTime: javax.xml.datatype.XMLGregorianCalendar, 
+        stopTime: javax.xml.datatype.XMLGregorianCalendar, sampling: javax.xml.datatype.Duration, extraParams: Option[models.binding.ExtraParams_getDataPointValueLATMOS]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.DataPointValue_SpacecraftLATMOS(resourceID, variable, spacecraft_name, startTime, stopTime, sampling, extraParams), Some("http://impex.latmos.ipsl.fr"), "getDataPointValue_Spacecraft", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointValue_Spacecraft"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def getDataPointSpectra_Spacecraft(resourceID: String, population: Option[Seq[String]], spacecraft_name: models.binding.SpacecraftType, startTime: javax.xml.datatype.XMLGregorianCalendar, 
+        stopTime: javax.xml.datatype.XMLGregorianCalendar, sampling: javax.xml.datatype.Duration, extraParams: Option[models.binding.ExtraParams_getDataPointSpectraLATMOS]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.DataPointSpectra_SpacecraftLATMOS(resourceID, population, spacecraft_name, startTime, stopTime, sampling, extraParams), Some("http://impex.latmos.ipsl.fr"), "getDataPointSpectra_Spacecraft", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointSpectra_Spacecraft"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def getFileURL(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, stopTime: javax.xml.datatype.XMLGregorianCalendar): Either[scalaxb.Soap11Fault[Any], models.binding.VOTABLE] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.FileURL(resourceID, startTime, stopTime), Some("http://impex.latmos.ipsl.fr"), "getFileURL", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("FileURL"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[models.binding.VOTABLE](body.headOption getOrElse {body}))
+        }
+      def getFieldLine(resourceID: String, variable: Option[Seq[String]], url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getFieldLineLATMOS]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.FieldLineLATMOS(resourceID, variable, url_XYZ, extraParams), Some("http://impex.latmos.ipsl.fr"), "getFieldLine", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("FieldLine"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+    }
+  }
+
+
+  /*def buildBindingOutputFormatType2Format = new DefaultBindingOutputFormatType2Format {}
+  trait DefaultBindingOutputFormatType2Format extends scalaxb.XMLFormat[models.binding.OutputFormatType2] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.OutputFormatType2] = seq match {
+      case elem: scala.xml.Elem => Right(models.binding.OutputFormatType2.fromString(elem.text, elem.scope))
+      case _ => Right(models.binding.OutputFormatType2.fromString(seq.text, scala.xml.TopScope))
+    }
+    
+    def writes(__obj: models.binding.OutputFormatType2, __namespace: Option[String], __elementLabel: Option[String],
+        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
+      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
+        __elementLabel getOrElse { sys.error("missing element label.") },
+        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+  }
+
+  def buildBindingInterpolationFormat = new DefaultBindingInterpolationFormat {}
+  trait DefaultBindingInterpolationFormat extends scalaxb.XMLFormat[models.binding.Interpolation] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.Interpolation] = seq match {
+      case elem: scala.xml.Elem => Right(models.binding.Interpolation.fromString(elem.text, elem.scope))
+      case _ => Right(models.binding.Interpolation.fromString(seq.text, scala.xml.TopScope))
+    }
+    
+    def writes(__obj: models.binding.Interpolation, __namespace: Option[String], __elementLabel: Option[String],
+        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
+      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
+        __elementLabel getOrElse { sys.error("missing element label.") },
+        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+  }*/
+
+  def buildBindingSpacecraftTypeSINPFormat = new DefaultBindingSpacecraftTypeSINPFormat {}
+  trait DefaultBindingSpacecraftTypeSINPFormat extends scalaxb.XMLFormat[models.binding.SpacecraftTypeSINP] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.SpacecraftTypeSINP] = seq match {
+      case elem: scala.xml.Elem => Right(models.binding.SpacecraftTypeSINP.fromString(elem.text, elem.scope))
+      case _ => Right(models.binding.SpacecraftTypeSINP.fromString(seq.text, scala.xml.TopScope))
+    }
+    
+    def writes(__obj: models.binding.SpacecraftTypeSINP, __namespace: Option[String], __elementLabel: Option[String],
+        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
+      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
+        __elementLabel getOrElse { sys.error("missing element label.") },
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
+  }
+
+  def buildBindingCoordinateSystemTypeSINPFormat = new DefaultBindingCoordinateSystemTypeSINPFormat {}
+  trait DefaultBindingCoordinateSystemTypeSINPFormat extends scalaxb.XMLFormat[models.binding.CoordinateSystemTypeSINP] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.CoordinateSystemTypeSINP] = seq match {
+      case elem: scala.xml.Elem => Right(models.binding.CoordinateSystemTypeSINP.fromString(elem.text, elem.scope))
+      case _ => Right(models.binding.CoordinateSystemTypeSINP.fromString(seq.text, scala.xml.TopScope))
+    }
+    
+    def writes(__obj: models.binding.CoordinateSystemTypeSINP, __namespace: Option[String], __elementLabel: Option[String],
+        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
+      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
+        __elementLabel getOrElse { sys.error("missing element label.") },
+        scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
+  }
+
+  trait DefaultBindingListOfDoubleFormat extends scalaxb.ElemNameParser[models.binding.ListOfDouble] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("ListOfDouble")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ListOfDouble] =
+      phrase(opt(scalaxb.ElemName(None, "x")) ~ 
+      opt(scalaxb.ElemName(None, "y")) ~ 
+      opt(scalaxb.ElemName(None, "z")) ^^
+      { case p1 ~ p2 ~ p3 =>
+      models.binding.ListOfDouble(p1.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ListOfDouble, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.x map { scalaxb.toXML[Double](_, None, Some("x"), __scope, false) } getOrElse {Nil},
+        __obj.y map { scalaxb.toXML[Double](_, None, Some("y"), __scope, false) } getOrElse {Nil},
+        __obj.z map { scalaxb.toXML[Double](_, None, Some("z"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingCube_size_arrayFormat extends scalaxb.ElemNameParser[models.binding.Cube_size_array] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("cube_size_array")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Cube_size_array] =
+      phrase(opt(scalaxb.ElemName(None, "x_low")) ~ 
+      opt(scalaxb.ElemName(None, "x_high")) ~ 
+      opt(scalaxb.ElemName(None, "y_low")) ~ 
+      opt(scalaxb.ElemName(None, "y_high")) ~ 
+      opt(scalaxb.ElemName(None, "z_low")) ~ 
+      opt(scalaxb.ElemName(None, "z_high")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 =>
+      models.binding.Cube_size_array(p1.headOption map { scalaxb.fromXML[BigInt](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[BigInt](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[BigInt](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[BigInt](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[BigInt](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[BigInt](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.Cube_size_array, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.x_low map { scalaxb.toXML[BigInt](_, None, Some("x_low"), __scope, false) } getOrElse {Nil},
+        __obj.x_high map { scalaxb.toXML[BigInt](_, None, Some("x_high"), __scope, false) } getOrElse {Nil},
+        __obj.y_low map { scalaxb.toXML[BigInt](_, None, Some("y_low"), __scope, false) } getOrElse {Nil},
+        __obj.y_high map { scalaxb.toXML[BigInt](_, None, Some("y_high"), __scope, false) } getOrElse {Nil},
+        __obj.z_low map { scalaxb.toXML[BigInt](_, None, Some("z_low"), __scope, false) } getOrElse {Nil},
+        __obj.z_high map { scalaxb.toXML[BigInt](_, None, Some("z_high"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_getDataPointValueSINPFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_getDataPointValueSINP] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("extraParams_getDataPointValue")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_getDataPointValueSINP] =
+      phrase(opt(scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "OutputFileType")) ~ 
+      opt(scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "InterpolationMethod")) ^^
+      { case p1 ~ p2 =>
+      models.binding.ExtraParams_getDataPointValueSINP(p1.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[models.binding.EnumInterpolation](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_getDataPointValueSINP, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, Some("http://smdc.sinp.msu.ru"), Some("OutputFileType"), __scope, false) } getOrElse {Nil},
+        __obj.InterpolationMethod map { scalaxb.toXML[models.binding.EnumInterpolation](_, Some("http://smdc.sinp.msu.ru"), Some("InterpolationMethod"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_calculateDataPointValueFixedTimeFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_calculateDataPointValueFixedTime] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("extraParams_calculateDataPointValueFixedTime")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_calculateDataPointValueFixedTime] =
+      phrase(opt(scalaxb.ElemName(None, "SWDensity")) ~ 
+      opt(scalaxb.ElemName(None, "SWVelocity")) ~ 
+      opt(scalaxb.ElemName(None, "IMF_B")) ~ 
+      opt(scalaxb.ElemName(None, "Dst")) ~ 
+      opt(scalaxb.ElemName(None, "AL")) ~ 
+      opt(scalaxb.ElemName(None, "OutputFileType")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 =>
+      models.binding.ExtraParams_calculateDataPointValueFixedTime(p1.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[BigInt](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[models.binding.ListOfDouble](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_calculateDataPointValueFixedTime, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.SWDensity map { scalaxb.toXML[Double](_, None, Some("SWDensity"), __scope, false) } getOrElse {Nil},
+        __obj.SWVelocity map { scalaxb.toXML[BigInt](_, None, Some("SWVelocity"), __scope, false) } getOrElse {Nil},
+        __obj.IMF_B map { scalaxb.toXML[models.binding.ListOfDouble](_, None, Some("IMF_B"), __scope, false) } getOrElse {Nil},
+        __obj.Dst map { scalaxb.toXML[Double](_, None, Some("Dst"), __scope, false) } getOrElse {Nil},
+        __obj.AL map { scalaxb.toXML[Double](_, None, Some("AL"), __scope, false) } getOrElse {Nil},
+        __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_calculateDataPointValueFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_calculateDataPointValue] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("extraParams_calculateDataPointValue")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_calculateDataPointValue] =
+      phrase(opt(scalaxb.ElemName(None, "OutputFileType")) ^^
+      { case p1 =>
+      models.binding.ExtraParams_calculateDataPointValue(p1.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_calculateDataPointValue, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      (__obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_calculateDataPointValueMercuryFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_calculateDataPointValueMercury] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("extraParams_calculateDataPointValueMercury")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_calculateDataPointValueMercury] =
+      phrase(opt(scalaxb.ElemName(None, "OutputFileType")) ~ 
+      opt(scalaxb.ElemName(None, "BD")) ~ 
+      opt(scalaxb.ElemName(None, "Flux")) ~ 
+      opt(scalaxb.ElemName(None, "Rss")) ~ 
+      opt(scalaxb.ElemName(None, "R2")) ~ 
+      opt(scalaxb.ElemName(None, "DZ")) ~ 
+      opt(scalaxb.ElemName(None, "IMF_B")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 =>
+      models.binding.ExtraParams_calculateDataPointValueMercury(p1.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p7.headOption map { scalaxb.fromXML[models.binding.ListOfDouble](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_calculateDataPointValueMercury, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil},
+        __obj.BD map { scalaxb.toXML[Double](_, None, Some("BD"), __scope, false) } getOrElse {Nil},
+        __obj.Flux map { scalaxb.toXML[Double](_, None, Some("Flux"), __scope, false) } getOrElse {Nil},
+        __obj.Rss map { scalaxb.toXML[Double](_, None, Some("Rss"), __scope, false) } getOrElse {Nil},
+        __obj.R2 map { scalaxb.toXML[Double](_, None, Some("R2"), __scope, false) } getOrElse {Nil},
+        __obj.DZ map { scalaxb.toXML[Double](_, None, Some("DZ"), __scope, false) } getOrElse {Nil},
+        __obj.IMF_B map { scalaxb.toXML[models.binding.ListOfDouble](_, None, Some("IMF_B"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_calculateDataPointValueSaturnFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_calculateDataPointValueSaturn] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("extraParams_calculateDataPointValueSaturn")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_calculateDataPointValueSaturn] =
+      phrase(opt(scalaxb.ElemName(None, "OutputFileType")) ~ 
+      opt(scalaxb.ElemName(None, "BDC")) ~ 
+      opt(scalaxb.ElemName(None, "BT")) ~ 
+      opt(scalaxb.ElemName(None, "RD2")) ~ 
+      opt(scalaxb.ElemName(None, "RD1")) ~ 
+      opt(scalaxb.ElemName(None, "R2")) ~ 
+      opt(scalaxb.ElemName(None, "Rss")) ~ 
+      opt(scalaxb.ElemName(None, "IMF_B")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 =>
+      models.binding.ExtraParams_calculateDataPointValueSaturn(p1.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p7.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p8.headOption map { scalaxb.fromXML[models.binding.ListOfDouble](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_calculateDataPointValueSaturn, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil},
+        __obj.BDC map { scalaxb.toXML[Double](_, None, Some("BDC"), __scope, false) } getOrElse {Nil},
+        __obj.BT map { scalaxb.toXML[Double](_, None, Some("BT"), __scope, false) } getOrElse {Nil},
+        __obj.RD2 map { scalaxb.toXML[Double](_, None, Some("RD2"), __scope, false) } getOrElse {Nil},
+        __obj.RD1 map { scalaxb.toXML[Double](_, None, Some("RD1"), __scope, false) } getOrElse {Nil},
+        __obj.R2 map { scalaxb.toXML[Double](_, None, Some("R2"), __scope, false) } getOrElse {Nil},
+        __obj.Rss map { scalaxb.toXML[Double](_, None, Some("Rss"), __scope, false) } getOrElse {Nil},
+        __obj.IMF_B map { scalaxb.toXML[models.binding.ListOfDouble](_, None, Some("IMF_B"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_calculateDataPointValueJupiterFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_calculateDataPointValueJupiter] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("extraParams_calculateDataPointValueJupiter")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_calculateDataPointValueJupiter] =
+      phrase(opt(scalaxb.ElemName(None, "OutputFileType")) ~ 
+      opt(scalaxb.ElemName(None, "BD")) ~ 
+      opt(scalaxb.ElemName(None, "BDC")) ~ 
+      opt(scalaxb.ElemName(None, "BT")) ~ 
+      opt(scalaxb.ElemName(None, "RD2")) ~ 
+      opt(scalaxb.ElemName(None, "RD1")) ~ 
+      opt(scalaxb.ElemName(None, "R2")) ~ 
+      opt(scalaxb.ElemName(None, "Rss")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 =>
+      models.binding.ExtraParams_calculateDataPointValueJupiter(p1.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p7.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p8.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_calculateDataPointValueJupiter, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil},
+        __obj.BD map { scalaxb.toXML[Double](_, None, Some("BD"), __scope, false) } getOrElse {Nil},
+        __obj.BDC map { scalaxb.toXML[Double](_, None, Some("BDC"), __scope, false) } getOrElse {Nil},
+        __obj.BT map { scalaxb.toXML[Double](_, None, Some("BT"), __scope, false) } getOrElse {Nil},
+        __obj.RD2 map { scalaxb.toXML[Double](_, None, Some("RD2"), __scope, false) } getOrElse {Nil},
+        __obj.RD1 map { scalaxb.toXML[Double](_, None, Some("RD1"), __scope, false) } getOrElse {Nil},
+        __obj.R2 map { scalaxb.toXML[Double](_, None, Some("R2"), __scope, false) } getOrElse {Nil},
+        __obj.Rss map { scalaxb.toXML[Double](_, None, Some("Rss"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_calculateDataPointValueSpacecraftFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_calculateDataPointValueSpacecraft] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("extraParams_calculateDataPointValueSpacecraft")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_calculateDataPointValueSpacecraft] =
+      phrase(opt(scalaxb.ElemName(None, "OutputFileType")) ^^
+      { case p1 =>
+      models.binding.ExtraParams_calculateDataPointValueSpacecraft(p1.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_calculateDataPointValueSpacecraft, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      (__obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_calculateFieldLineFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_calculateFieldLine] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("extraParams_calculateFieldLine")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_calculateFieldLine] =
+      phrase(opt(scalaxb.ElemName(None, "LineLength")) ~ 
+      opt(scalaxb.ElemName(None, "StepSize")) ~ 
+      opt(scalaxb.ElemName(None, "OutputFileType")) ^^
+      { case p1 ~ p2 ~ p3 =>
+      models.binding.ExtraParams_calculateFieldLine(p1.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_calculateFieldLine, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.LineLength map { scalaxb.toXML[Double](_, None, Some("LineLength"), __scope, false) } getOrElse {Nil},
+        __obj.StepSize map { scalaxb.toXML[Double](_, None, Some("StepSize"), __scope, false) } getOrElse {Nil},
+        __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_calculateCubeFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_calculateCube] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("extraParams_calculateCube")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_calculateCube] =
+      phrase(opt(scalaxb.ElemName(None, "SWDensity")) ~ 
+      opt(scalaxb.ElemName(None, "SWVelocity")) ~ 
+      opt(scalaxb.ElemName(None, "IMF_B")) ~ 
+      opt(scalaxb.ElemName(None, "Dst")) ~ 
+      opt(scalaxb.ElemName(None, "AL")) ~ 
+      opt(scalaxb.ElemName(None, "OutputFileType")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 =>
+      models.binding.ExtraParams_calculateCube(p1.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[BigInt](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[models.binding.ListOfDouble](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_calculateCube, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.SWDensity map { scalaxb.toXML[Double](_, None, Some("SWDensity"), __scope, false) } getOrElse {Nil},
+        __obj.SWVelocity map { scalaxb.toXML[BigInt](_, None, Some("SWVelocity"), __scope, false) } getOrElse {Nil},
+        __obj.IMF_B map { scalaxb.toXML[models.binding.ListOfDouble](_, None, Some("IMF_B"), __scope, false) } getOrElse {Nil},
+        __obj.Dst map { scalaxb.toXML[Double](_, None, Some("Dst"), __scope, false) } getOrElse {Nil},
+        __obj.AL map { scalaxb.toXML[Double](_, None, Some("AL"), __scope, false) } getOrElse {Nil},
+        __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_calculateCubeMercuryFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_calculateCubeMercury] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("extraParams_calculateCubeMercury")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_calculateCubeMercury] =
+      phrase(opt(scalaxb.ElemName(None, "BD")) ~ 
+      opt(scalaxb.ElemName(None, "Flux")) ~ 
+      opt(scalaxb.ElemName(None, "Rss")) ~ 
+      opt(scalaxb.ElemName(None, "R2")) ~ 
+      opt(scalaxb.ElemName(None, "DZ")) ~ 
+      opt(scalaxb.ElemName(None, "IMF_B")) ~ 
+      opt(scalaxb.ElemName(None, "OutputFileType")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 =>
+      models.binding.ExtraParams_calculateCubeMercury(p1.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[models.binding.ListOfDouble](_, scalaxb.ElemName(node) :: stack) },
+        p7.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_calculateCubeMercury, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.BD map { scalaxb.toXML[Double](_, None, Some("BD"), __scope, false) } getOrElse {Nil},
+        __obj.Flux map { scalaxb.toXML[Double](_, None, Some("Flux"), __scope, false) } getOrElse {Nil},
+        __obj.Rss map { scalaxb.toXML[Double](_, None, Some("Rss"), __scope, false) } getOrElse {Nil},
+        __obj.R2 map { scalaxb.toXML[Double](_, None, Some("R2"), __scope, false) } getOrElse {Nil},
+        __obj.DZ map { scalaxb.toXML[Double](_, None, Some("DZ"), __scope, false) } getOrElse {Nil},
+        __obj.IMF_B map { scalaxb.toXML[models.binding.ListOfDouble](_, None, Some("IMF_B"), __scope, false) } getOrElse {Nil},
+        __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_calculateCubeSaturnFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_calculateCubeSaturn] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("extraParams_calculateCubeSaturn")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_calculateCubeSaturn] =
+      phrase(opt(scalaxb.ElemName(None, "BDC")) ~ 
+      opt(scalaxb.ElemName(None, "BT")) ~ 
+      opt(scalaxb.ElemName(None, "RD2")) ~ 
+      opt(scalaxb.ElemName(None, "RD1")) ~ 
+      opt(scalaxb.ElemName(None, "R2")) ~ 
+      opt(scalaxb.ElemName(None, "Rss")) ~ 
+      opt(scalaxb.ElemName(None, "IMF_B")) ~ 
+      opt(scalaxb.ElemName(None, "OutputFileType")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 =>
+      models.binding.ExtraParams_calculateCubeSaturn(p1.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p7.headOption map { scalaxb.fromXML[models.binding.ListOfDouble](_, scalaxb.ElemName(node) :: stack) },
+        p8.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_calculateCubeSaturn, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.BDC map { scalaxb.toXML[Double](_, None, Some("BDC"), __scope, false) } getOrElse {Nil},
+        __obj.BT map { scalaxb.toXML[Double](_, None, Some("BT"), __scope, false) } getOrElse {Nil},
+        __obj.RD2 map { scalaxb.toXML[Double](_, None, Some("RD2"), __scope, false) } getOrElse {Nil},
+        __obj.RD1 map { scalaxb.toXML[Double](_, None, Some("RD1"), __scope, false) } getOrElse {Nil},
+        __obj.R2 map { scalaxb.toXML[Double](_, None, Some("R2"), __scope, false) } getOrElse {Nil},
+        __obj.Rss map { scalaxb.toXML[Double](_, None, Some("Rss"), __scope, false) } getOrElse {Nil},
+        __obj.IMF_B map { scalaxb.toXML[models.binding.ListOfDouble](_, None, Some("IMF_B"), __scope, false) } getOrElse {Nil},
+        __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingExtraParams_calculateCubeJupiterFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_calculateCubeJupiter] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("extraParams_calculateCubeJupiter")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_calculateCubeJupiter] =
+      phrase(opt(scalaxb.ElemName(None, "BDC")) ~ 
+      opt(scalaxb.ElemName(None, "BT")) ~ 
+      opt(scalaxb.ElemName(None, "RD2")) ~ 
+      opt(scalaxb.ElemName(None, "RD1")) ~ 
+      opt(scalaxb.ElemName(None, "R2")) ~ 
+      opt(scalaxb.ElemName(None, "Rss")) ~ 
+      opt(scalaxb.ElemName(None, "IMF_B")) ~ 
+      opt(scalaxb.ElemName(None, "OutputFileType")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 =>
+      models.binding.ExtraParams_calculateCubeJupiter(p1.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p7.headOption map { scalaxb.fromXML[models.binding.ListOfDouble](_, scalaxb.ElemName(node) :: stack) },
+        p8.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_calculateCubeJupiter, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.BDC map { scalaxb.toXML[Double](_, None, Some("BDC"), __scope, false) } getOrElse {Nil},
+        __obj.BT map { scalaxb.toXML[Double](_, None, Some("BT"), __scope, false) } getOrElse {Nil},
+        __obj.RD2 map { scalaxb.toXML[Double](_, None, Some("RD2"), __scope, false) } getOrElse {Nil},
+        __obj.RD1 map { scalaxb.toXML[Double](_, None, Some("RD1"), __scope, false) } getOrElse {Nil},
+        __obj.R2 map { scalaxb.toXML[Double](_, None, Some("R2"), __scope, false) } getOrElse {Nil},
+        __obj.Rss map { scalaxb.toXML[Double](_, None, Some("Rss"), __scope, false) } getOrElse {Nil},
+        __obj.IMF_B map { scalaxb.toXML[models.binding.ListOfDouble](_, None, Some("IMF_B"), __scope, false) } getOrElse {Nil},
+        __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingDataPointValueSINPFormat extends scalaxb.ElemNameParser[models.binding.DataPointValueSINP] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("DataPointValue")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.DataPointValueSINP] =
+      phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "Variable")) ~ 
+      opt(scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "url_XYZ")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 =>
+      models.binding.DataPointValueSINP(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[java.net.URI](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[models.binding.ExtraParams_getDataPointValueSINP](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.DataPointValueSINP, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
+        __obj.Variable map { scalaxb.toXML[Seq[String]](_, Some("http://smdc.sinp.msu.ru"), Some("Variable"), __scope, false) } getOrElse {Nil},
+        __obj.url_XYZ map { scalaxb.toXML[java.net.URI](_, Some("http://smdc.sinp.msu.ru"), Some("url_XYZ"), __scope, false) } getOrElse {Nil},
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_getDataPointValueSINP](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingCalculateDataPointValueFixedTimeFormat extends scalaxb.ElemNameParser[models.binding.CalculateDataPointValueFixedTime] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("calculateDataPointValueFixedTime")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CalculateDataPointValueFixedTime] =
+      phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "StartTime")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "url_XYZ")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 =>
+      models.binding.CalculateDataPointValueFixedTime(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p2, scalaxb.ElemName(node) :: stack),
+        p3.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateDataPointValueFixedTime](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI](p4, scalaxb.ElemName(node) :: stack)) })
+    
+    def writesChildNodes(__obj: models.binding.CalculateDataPointValueFixedTime, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StartTime, Some("http://smdc.sinp.msu.ru"), Some("StartTime"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateDataPointValueFixedTime](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://smdc.sinp.msu.ru"), Some("url_XYZ"), __scope, false))
+
+  }
+
+  trait DefaultBindingCalculateDataPointValueFormat extends scalaxb.ElemNameParser[models.binding.CalculateDataPointValue] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("calculateDataPointValue")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CalculateDataPointValue] =
+      phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "url_XYZ")) ^^
+      { case p1 ~ p2 ~ p3 =>
+      models.binding.CalculateDataPointValue(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateDataPointValue](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI](p3, scalaxb.ElemName(node) :: stack)) })
+    
+    def writesChildNodes(__obj: models.binding.CalculateDataPointValue, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateDataPointValue](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://smdc.sinp.msu.ru"), Some("url_XYZ"), __scope, false))
+
+  }
+
+  trait DefaultBindingCalculateDataPointValueMercuryFormat extends scalaxb.ElemNameParser[models.binding.CalculateDataPointValueMercury] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("calculateDataPointValueMercury")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CalculateDataPointValueMercury] =
+      phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "url_XYZ")) ^^
+      { case p1 ~ p2 ~ p3 =>
+      models.binding.CalculateDataPointValueMercury(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateDataPointValueMercury](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI](p3, scalaxb.ElemName(node) :: stack)) })
+    
+    def writesChildNodes(__obj: models.binding.CalculateDataPointValueMercury, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateDataPointValueMercury](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://smdc.sinp.msu.ru"), Some("url_XYZ"), __scope, false))
+
+  }
+
+  trait DefaultBindingCalculateDataPointValueSaturnFormat extends scalaxb.ElemNameParser[models.binding.CalculateDataPointValueSaturn] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("calculateDataPointValueSaturn")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CalculateDataPointValueSaturn] =
+      phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "url_XYZ")) ^^
+      { case p1 ~ p2 ~ p3 =>
+      models.binding.CalculateDataPointValueSaturn(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateDataPointValueSaturn](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI](p3, scalaxb.ElemName(node) :: stack)) })
+    
+    def writesChildNodes(__obj: models.binding.CalculateDataPointValueSaturn, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateDataPointValueSaturn](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://smdc.sinp.msu.ru"), Some("url_XYZ"), __scope, false))
+
+  }
+
+  trait DefaultBindingCalculateDataPointValueJupiterFormat extends scalaxb.ElemNameParser[models.binding.CalculateDataPointValueJupiter] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("calculateDataPointValueJupiter")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CalculateDataPointValueJupiter] =
+      phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "url_XYZ")) ^^
+      { case p1 ~ p2 ~ p3 =>
+      models.binding.CalculateDataPointValueJupiter(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateDataPointValueJupiter](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI](p3, scalaxb.ElemName(node) :: stack)) })
+    
+    def writesChildNodes(__obj: models.binding.CalculateDataPointValueJupiter, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateDataPointValueJupiter](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://smdc.sinp.msu.ru"), Some("url_XYZ"), __scope, false))
+
+  }
+
+  trait DefaultBindingCalculateDataPointValueSpacecraftFormat extends scalaxb.ElemNameParser[models.binding.CalculateDataPointValueSpacecraft] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("calculateDataPointValueSpacecraft")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CalculateDataPointValueSpacecraft] =
+      phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "Spacecraft_name")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "StartTime")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "StopTime")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "Sampling")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 =>
+      models.binding.CalculateDataPointValueSpacecraft(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[models.binding.SpacecraftTypeSINP](p2, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p3, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p4, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.Duration](p5, scalaxb.ElemName(node) :: stack),
+        p6.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateDataPointValueSpacecraft](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.CalculateDataPointValueSpacecraft, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
+        scalaxb.toXML[models.binding.SpacecraftTypeSINP](__obj.Spacecraft_name, Some("http://smdc.sinp.msu.ru"), Some("Spacecraft_name"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StartTime, Some("http://smdc.sinp.msu.ru"), Some("StartTime"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StopTime, Some("http://smdc.sinp.msu.ru"), Some("StopTime"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.Duration](__obj.Sampling, Some("http://smdc.sinp.msu.ru"), Some("Sampling"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateDataPointValueSpacecraft](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingCalculateFieldLineFormat extends scalaxb.ElemNameParser[models.binding.CalculateFieldLine] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("calculateFieldLine")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CalculateFieldLine] =
+      phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "StartTime")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "url_XYZ")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 =>
+      models.binding.CalculateFieldLine(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p2, scalaxb.ElemName(node) :: stack),
+        p3.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateFieldLine](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI](p4, scalaxb.ElemName(node) :: stack)) })
+    
+    def writesChildNodes(__obj: models.binding.CalculateFieldLine, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StartTime, Some("http://smdc.sinp.msu.ru"), Some("StartTime"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateFieldLine](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://smdc.sinp.msu.ru"), Some("url_XYZ"), __scope, false))
+
+  }
+
+  trait DefaultBindingCalculateCubeFormat extends scalaxb.ElemNameParser[models.binding.CalculateCube] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("calculateCube")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CalculateCube] =
+      phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "StartTime")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ~ 
+      opt(any(_ => true)) ~ 
+      opt(scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "cube_size_array")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 =>
+      models.binding.CalculateCube(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p2, scalaxb.ElemName(node) :: stack),
+        p3.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateCube](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[scalaxb.DataRecord[Any]](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[models.binding.Cube_size_array](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.CalculateCube, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StartTime, Some("http://smdc.sinp.msu.ru"), Some("StartTime"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateCube](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil},
+        __obj.Sampling map { x => scalaxb.toXML[scalaxb.DataRecord[Any]](x, x.namespace, x.key, __scope, true) } getOrElse {Nil},
+        __obj.cube_size_array map { scalaxb.toXML[models.binding.Cube_size_array](_, Some("http://smdc.sinp.msu.ru"), Some("cube_size_array"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingCalculateCubeMercuryFormat extends scalaxb.ElemNameParser[models.binding.CalculateCubeMercury] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("calculateCubeMercury")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CalculateCubeMercury] =
+      phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 =>
+      models.binding.CalculateCubeMercury(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateCubeMercury](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.CalculateCubeMercury, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateCubeMercury](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingCalculateCubeSaturnFormat extends scalaxb.ElemNameParser[models.binding.CalculateCubeSaturn] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("calculateCubeSaturn")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CalculateCubeSaturn] =
+      phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 =>
+      models.binding.CalculateCubeSaturn(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateCubeSaturn](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.CalculateCubeSaturn, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateCubeSaturn](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingCalculateCubeJupiterFormat extends scalaxb.ElemNameParser[models.binding.CalculateCubeJupiter] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("calculateCubeJupiter")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CalculateCubeJupiter] =
+      phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 =>
+      models.binding.CalculateCubeJupiter(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateCubeJupiter](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.CalculateCubeJupiter, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateCubeJupiter](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
+
+
+  trait Methods_SINPSoapBindings { this: scalaxb.Soap11Clients =>
+    lazy val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    lazy val service: models.binding.Methods_SINP = new Methods_SINPSoapBinding {}
+    def baseAddress = new java.net.URI("http://smdc.sinp.msu.ru/impex/SINPWebServiceServer.php")
+
+    trait Methods_SINPSoapBinding extends models.binding.Methods_SINP {
+      def getDataPointValue(resourceID: String, variable: Option[Seq[String]], url_XYZ: Option[java.net.URI], extraParams: Option[models.binding.ExtraParams_getDataPointValueSINP]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.DataPointValueSINP(resourceID, variable, url_XYZ, extraParams), Some("http://smdc.sinp.msu.ru"), "getDataPointValue", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointValue"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def calculateDataPointValueFixedTime(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateDataPointValueFixedTime], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateDataPointValueFixedTime(resourceID, startTime, extraParams, url_XYZ), Some("http://smdc.sinp.msu.ru"), "calculateDataPointValueFixedTime", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateDataPointValueFixedTime"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def calculateDataPointValue(resourceID: String, extraParams: Option[models.binding.ExtraParams_calculateDataPointValue], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateDataPointValue(resourceID, extraParams, url_XYZ), Some("http://smdc.sinp.msu.ru"), "calculateDataPointValue", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateDataPointValue"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope,false, body.toSeq: _*)))
+        }
+      def calculateDataPointValueSaturn(resourceID: String, extraParams: Option[models.binding.ExtraParams_calculateDataPointValueSaturn], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateDataPointValueSaturn(resourceID, extraParams, url_XYZ), Some("http://smdc.sinp.msu.ru"), "calculateDataPointValueSaturn", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateDataPointValueSaturn"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def calculateDataPointValueMercury(resourceID: String, extraParams: Option[models.binding.ExtraParams_calculateDataPointValueMercury], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateDataPointValueMercury(resourceID, extraParams, url_XYZ), Some("http://smdc.sinp.msu.ru"), "calculateDataPointValueMercury", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateDataPointValueMercury"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def calculateDataPointValueJupiter(resourceID: String, extraParams: Option[models.binding.ExtraParams_calculateDataPointValueJupiter], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateDataPointValueJupiter(resourceID, extraParams, url_XYZ), Some("http://smdc.sinp.msu.ru"), "calculateDataPointValueJupiter", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateDataPointValueJupiter"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def calculateDataPointValueSpacecraft(resourceID: String, spacecraft_name: models.binding.SpacecraftTypeSINP, startTime: javax.xml.datatype.XMLGregorianCalendar, stopTime: javax.xml.datatype.XMLGregorianCalendar, sampling: javax.xml.datatype.Duration, extraParams: Option[models.binding.ExtraParams_calculateDataPointValueSpacecraft]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateDataPointValueSpacecraft(resourceID, spacecraft_name, startTime, stopTime, sampling, extraParams), Some("http://smdc.sinp.msu.ru"), "calculateDataPointValueSpacecraft", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateDataPointValueSpacecraft"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def calculateFieldLine(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateFieldLine], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateFieldLine(resourceID, startTime, extraParams, url_XYZ), Some("http://smdc.sinp.msu.ru"), "calculateFieldLine", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateFieldLine"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def calculateCube(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateCube], sampling: Option[scalaxb.DataRecord[Any]], cube_size_array: Option[models.binding.Cube_size_array]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateCube(resourceID, startTime, extraParams, sampling, cube_size_array), Some("http://smdc.sinp.msu.ru"), "calculateCube", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateCube"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def calculateCubeMercury(resourceID: String, extraParams: Option[models.binding.ExtraParams_calculateCubeMercury]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateCubeMercury(resourceID, extraParams), Some("http://smdc.sinp.msu.ru"), "calculateCubeMercury", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateCubeMercury"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+    }
+  }
 
   trait DefaultBindingIdoptFormat extends scalaxb.AttributeGroupFormat[models.binding.Idopt] {
     val targetNamespace: Option[String] = Some("http://www.w3.org/XML/1998/namespace")
