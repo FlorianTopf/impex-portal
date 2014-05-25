@@ -56,4 +56,19 @@ object ProviderSpecs extends Specification {
       UrlProvider.decodeURI(string) must be equalTo expected
     }
   }
+  
+  // @TODO this might not be correct for the WS call
+  "TimeProvider" should {
+    "return ISO date for String" in {
+      val date = "2012-03-08 14:06:00"
+      
+      val isoDate = TimeProvider.getISODate(date)
+      
+      isoDate.toString must be equalTo "2012-01-01T14:06:00.000+01:00"
+      
+      
+    }
+    
+    
+  }
 }

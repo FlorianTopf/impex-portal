@@ -367,7 +367,7 @@ case class Table(DESCRIPTION: Option[models.binding.AnyTEXT] = None,
   tableoption: Seq[scalaxb.DataRecord[models.binding.TableOption]] = Nil,
   LINK: Seq[models.binding.Link] = Nil,
   DATA: Option[models.binding.Data] = None,
-  // @FIXME weird Table definition in xsd
+  // @FIXME weird Table definition in xsd (see also xmlprotocol)
   /*INFO: Seq[models.binding.Info] = Nil, */
   ID: Option[String] = None,
   name: Option[String] = None,

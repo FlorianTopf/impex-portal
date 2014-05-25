@@ -5,20 +5,21 @@ trait SpacecraftTypeSINP
 
 object SpacecraftTypeSINP {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): SpacecraftTypeSINP = value match {
-    case "ClusterA" => ClusterA
-    case "ClusterB" => ClusterB
-    case "ClusterC" => ClusterC
-    case "ClusterD" => ClusterD
+    case "Cluster1" => ClusterA
+    case "Cluster2" => ClusterB
+    case "Cluster3" => ClusterC
+    case "Cluster4" => ClusterD
     case "Polar" => PolarValue
     case "Cassini" => Cassini
 
   }
 }
 
-case object ClusterA extends SpacecraftTypeSINP { override def toString = "ClusterA" }
-case object ClusterB extends SpacecraftTypeSINP { override def toString = "ClusterB" }
-case object ClusterC extends SpacecraftTypeSINP { override def toString = "ClusterC" }
-case object ClusterD extends SpacecraftTypeSINP { override def toString = "ClusterD" }
+// @TODO this is wrong in the WSDDL CLUSTER1-4 is the value
+case object ClusterA extends SpacecraftTypeSINP { override def toString = "Cluster1" }
+case object ClusterB extends SpacecraftTypeSINP { override def toString = "Cluster2" }
+case object ClusterC extends SpacecraftTypeSINP { override def toString = "Cluster3" }
+case object ClusterD extends SpacecraftTypeSINP { override def toString = "Cluster4" }
 case object PolarValue extends SpacecraftTypeSINP { override def toString = "Polar" }
 case object Cassini extends SpacecraftTypeSINP { override def toString = "Cassini" }
 
