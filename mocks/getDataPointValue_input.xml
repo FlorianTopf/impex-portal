@@ -1,0 +1,34 @@
+<?xml version='1.0'?>
+<VOTABLE version="1.2"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://www.ivoa.net/xml/VOTable/v1.2 http://www.ivoa.net/xml/VOTable/v1.2"
+ xmlns="http://www.ivoa.net/xml/VOTable/v1.2">
+<!--
+ ! VOTable written by FMI web service getVOTableURL
+ ! 2014-03-18T08:29:57+0000
+ !-->
+<RESOURCE>
+<TABLE name="Points" nrows="2">
+<DESCRIPTION>
+  Test input VOTable file for getDataPointValue method
+</DESCRIPTION>
+<FIELD ID="col_X" name="X" ucd="pos.cartesian.x" unit="m" datatype="float" />
+<FIELD ID="col_Y" name="Y" ucd="pos.cartesian.y" unit="m" datatype="float" />
+<FIELD ID="col_Z" name="Z" ucd="pos.cartesian.z" unit="m" datatype="float" />
+<DATA>
+<TABLEDATA>
+	<TR>
+		<TD>4000000</TD>
+		<TD>-4000000</TD>
+		<TD>-800000</TD>
+	</TR>
+	<TR>
+		<TD>4000000</TD>
+		<TD>4000000</TD>
+		<TD>800000</TD>
+	</TR>
+</TABLEDATA>
+</DATA>
+</TABLE>
+</RESOURCE>
+</VOTABLE>

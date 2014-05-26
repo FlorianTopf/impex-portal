@@ -28,6 +28,8 @@ object VOTBindingSpecs extends org.specs2.mutable.Specification with Mockito {
             val voTableFMI2 = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile("mocks/fmi_hyb_orbite_60sec.xml")) 
             val voTableSINP3 = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile("mocks/getDPV_2003-11-20UT12_340.401.xml"))
             val voTableSINP4 = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile("mocks/points_calc_120points.xml"))
+            val voTableFMI3 = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile("mocks/hwa_getDPV.xml")) 
+            val voTableFMI4 = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile("mocks/getDataPointValue_input.xml"))
             
             voTableSINP must beAnInstanceOf[VOTABLE]
             scalaxb.toXML[VOTABLE](voTableSINP, "VOTABLE", 
@@ -52,6 +54,12 @@ object VOTBindingSpecs extends org.specs2.mutable.Specification with Mockito {
                 scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")) must beAnInstanceOf[NodeSeq]
             voTableSINP4 must beAnInstanceOf[VOTABLE]
             scalaxb.toXML[VOTABLE](voTableSINP4, "VOTABLE", 
+                scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")) must beAnInstanceOf[NodeSeq]
+            voTableFMI3 must beAnInstanceOf[VOTABLE]
+            scalaxb.toXML[VOTABLE](voTableFMI3, "VOTABLE", 
+                scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")) must beAnInstanceOf[NodeSeq]
+            voTableFMI4 must beAnInstanceOf[VOTABLE]
+            scalaxb.toXML[VOTABLE](voTableFMI4, "VOTABLE", 
                 scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")) must beAnInstanceOf[NodeSeq]
             
         }

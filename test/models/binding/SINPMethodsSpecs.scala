@@ -14,7 +14,7 @@ import akka.util.Timeout
 import scala.xml.NodeSeq
 
 
-// all test parameters are taken from ICD v0.6.1 (24.5.2014)
+// all test parameters are taken from ICD v0.6.1 (25.5.2014)
 object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 
   // @TODO include test cases for only mandatory (but also with optional parameters)
