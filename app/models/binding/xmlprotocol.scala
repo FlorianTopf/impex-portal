@@ -12,7 +12,7 @@ val document = scalaxb.toXML[models.binding.Foo](obj, "foo", models.binding.defa
 object `package` extends XMLProtocol { }
 
 trait XMLProtocol extends scalaxb.XMLStandardTypes {
-  val defaultScope = scalaxb.toScope(None -> "http://www.w3.org/XML/1998/namespace",
+  val defaultScope = scalaxb.toScope(//None -> "http://www.w3.org/XML/1998/namespace",
     Some("fr") -> "http://impex.latmos.ipsl.fr",
     Some("idm") -> "http://impex-fp7.oeaw.ac.at",
 	Some("imp") -> "http://www.impex.org/2012/configuration.xsd",
@@ -1702,18 +1702,18 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.DataPointValueSINP] =
       phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
       opt(scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "Variable")) ~ 
-      opt(scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "url_XYZ")) ~ 
+      scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "url_XYZ") ~ 
       opt(scalaxb.ElemName(None, "extraParams")) ^^
       { case p1 ~ p2 ~ p3 ~ p4 =>
       models.binding.DataPointValueSINP(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
         p2.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
-        p3.headOption map { scalaxb.fromXML[java.net.URI](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI](p3, scalaxb.ElemName(node) :: stack),
         p4.headOption map { scalaxb.fromXML[models.binding.ExtraParams_getDataPointValueSINP](_, scalaxb.ElemName(node) :: stack) }) })
     
     def writesChildNodes(__obj: models.binding.DataPointValueSINP, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
       Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
         __obj.Variable map { scalaxb.toXML[Seq[String]](_, Some("http://smdc.sinp.msu.ru"), Some("Variable"), __scope, false) } getOrElse {Nil},
-        __obj.url_XYZ map { scalaxb.toXML[java.net.URI](_, Some("http://smdc.sinp.msu.ru"), Some("url_XYZ"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://smdc.sinp.msu.ru"), Some("url_XYZ"), __scope, false),
         __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_getDataPointValueSINP](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
 
   }
@@ -1895,14 +1895,14 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       models.binding.CalculateCube(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
         scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p2, scalaxb.ElemName(node) :: stack),
         p3.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateCube](_, scalaxb.ElemName(node) :: stack) },
-        p4.headOption map { scalaxb.fromXML[scalaxb.DataRecord[Any]](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
         p5.headOption map { scalaxb.fromXML[models.binding.Cube_size_array](_, scalaxb.ElemName(node) :: stack) }) })
     
     def writesChildNodes(__obj: models.binding.CalculateCube, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
       Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
         scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StartTime, Some("http://smdc.sinp.msu.ru"), Some("StartTime"), __scope, false),
         __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateCube](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil},
-        __obj.Sampling map { x => scalaxb.toXML[scalaxb.DataRecord[Any]](x, x.namespace, x.key, __scope, true) } getOrElse {Nil},
+        __obj.Sampling map { scalaxb.toXML[Double](_, None, Some("Sampling"), __scope, false) } getOrElse {Nil},
         __obj.cube_size_array map { scalaxb.toXML[models.binding.Cube_size_array](_, Some("http://smdc.sinp.msu.ru"), Some("cube_size_array"), __scope, false) } getOrElse {Nil})
 
   }
@@ -1968,7 +1968,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def baseAddress = new java.net.URI("http://smdc.sinp.msu.ru/impex/SINPWebServiceServer.php")
 
     trait Methods_SINPSoapBinding extends models.binding.Methods_SINP {
-      def getDataPointValue(resourceID: String, variable: Option[Seq[String]], url_XYZ: Option[java.net.URI], extraParams: Option[models.binding.ExtraParams_getDataPointValueSINP]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+      def getDataPointValue(resourceID: String, variable: Option[Seq[String]], url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getDataPointValueSINP]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.DataPointValueSINP(resourceID, variable, url_XYZ, extraParams), Some("http://smdc.sinp.msu.ru"), "getDataPointValue", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("DataPointValue"))) match {
           case Left(x)  => Left(x)
@@ -2024,7 +2024,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
           case Right((header, body)) =>
             Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
-      def calculateCube(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateCube], sampling: Option[scalaxb.DataRecord[Any]], cube_size_array: Option[models.binding.Cube_size_array]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+      def calculateCube(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateCube], sampling: Option[Double], cube_size_array: Option[models.binding.Cube_size_array]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateCube(resourceID, startTime, extraParams, sampling, cube_size_array), Some("http://smdc.sinp.msu.ru"), "calculateCube", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateCube"))) match {
           case Left(x)  => Left(x)

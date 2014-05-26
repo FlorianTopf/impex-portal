@@ -12,7 +12,8 @@ object TimeProvider {
   }
   
   def getISODate(date: String): XMLGregorianCalendar = {
-    val dateFormat = new SimpleDateFormat("YYYY-mm-dd HH:mm:ss")
+    // maybe we only need the minutes!
+    val dateFormat = new SimpleDateFormat("yy-mm-dd H:m:s")
     val isoDate: Date = dateFormat.parse(date)
     val gregorianCalendar = new GregorianCalendar()
     gregorianCalendar.setTime(isoDate)

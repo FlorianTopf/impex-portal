@@ -5,23 +5,23 @@ trait SpacecraftTypeSINP
 
 object SpacecraftTypeSINP {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): SpacecraftTypeSINP = value match {
-    case "Cluster1" => ClusterA
-    case "Cluster2" => ClusterB
-    case "Cluster3" => ClusterC
-    case "Cluster4" => ClusterD
-    case "Polar" => PolarValue
-    case "Cassini" => Cassini
+    case "CLUSTER1" => ClusterA
+    case "CLUSTER2" => ClusterB
+    case "CLUSTER3" => ClusterC
+    case "CLUSTER4" => ClusterD
+    case "POLAR" => PolarValue
+    case "CASSINI" => Cassini
 
   }
 }
 
 // @TODO this is wrong in the WSDDL CLUSTER1-4 is the value
-case object ClusterA extends SpacecraftTypeSINP { override def toString = "Cluster1" }
-case object ClusterB extends SpacecraftTypeSINP { override def toString = "Cluster2" }
-case object ClusterC extends SpacecraftTypeSINP { override def toString = "Cluster3" }
-case object ClusterD extends SpacecraftTypeSINP { override def toString = "Cluster4" }
-case object PolarValue extends SpacecraftTypeSINP { override def toString = "Polar" }
-case object Cassini extends SpacecraftTypeSINP { override def toString = "Cassini" }
+case object ClusterA extends SpacecraftTypeSINP { override def toString = "CLUSTER1" }
+case object ClusterB extends SpacecraftTypeSINP { override def toString = "CLUSTER2" }
+case object ClusterC extends SpacecraftTypeSINP { override def toString = "CLUSTER3" }
+case object ClusterD extends SpacecraftTypeSINP { override def toString = "CLUSTER4" }
+case object PolarValue extends SpacecraftTypeSINP { override def toString = "POLAR" }
+case object Cassini extends SpacecraftTypeSINP { override def toString = "CASSINI" }
 
 trait CoordinateSystemTypeSINP
 
@@ -56,7 +56,7 @@ case class Cube_size_array(x_low: Option[BigInt] = None,
   
 case class DataPointValueSINP(ResourceID: String,
   Variable: Option[Seq[String]] = None,
-  url_XYZ: Option[java.net.URI] = None,
+  url_XYZ: java.net.URI,
   extraParams: Option[models.binding.ExtraParams_getDataPointValueSINP] = None)
   
 case class ExtraParams_getDataPointValueSINP(OutputFileType: Option[models.binding.OutputFormatType] = None,
@@ -213,7 +213,7 @@ case class CalculateFieldLine(ResourceID: String,
 case class CalculateCube(ResourceID: String,
   StartTime: javax.xml.datatype.XMLGregorianCalendar,
   extraParams: Option[models.binding.ExtraParams_calculateCube] = None,
-  Sampling: Option[scalaxb.DataRecord[Any]] = None,
+  Sampling: Option[Double] = None,
   cube_size_array: Option[models.binding.Cube_size_array] = None)
 
 
