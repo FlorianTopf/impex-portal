@@ -42,9 +42,8 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            result.fold(f => println(f), u => {
                println("Result URL: "+u)
                val promise = WS.url(u.toString).get()
-               // @FIXME not working because the file is empty
-               //val result = Await.result(promise, Duration(1, "minute")).xml
-               //scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+               val result = Await.result(promise, Duration(1, "minute")).xml
+               scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
             })
           
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
@@ -53,7 +52,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
         }
         
     
-        "respond to getDataPointValue_Spacecraft" in {
+       "respond to getDataPointValue_Spacecraft" in {
            
            val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
           
@@ -76,9 +75,8 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            result.fold(f => println(f), u => {
                println("Result URL: "+u)
                val promise = WS.url(u.toString).get()
-               // @FIXME not working because the file is empty
-               //val result = Await.result(promise, Duration(1, "minute")).xml
-               //scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+               val result = Await.result(promise, Duration(1, "minute")).xml
+               scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
             })
           
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
@@ -114,9 +112,8 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            result.fold(f => println(f), u => {
                println("Result URL: "+u)
                val promise = WS.url(u.toString).get()
-               // @FIXME not working because the file is empty
-               //val result = Await.result(promise, Duration(1, "minute")).xml
-               //scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+               val result = Await.result(promise, Duration(1, "minute")).xml
+               scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
            })
           
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
@@ -168,9 +165,8 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            result.fold(f => println(f), u => {
                println("Result URL: "+u)
                val promise = WS.url(u.toString).get()
-               // @FIXME not working because the file is empty
-               //val result = Await.result(promise, Duration(1, "minute")).xml
-               //scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+               val result = Await.result(promise, Duration(1, "minute")).xml
+               scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
            })
           
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]

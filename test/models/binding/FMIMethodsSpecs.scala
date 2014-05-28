@@ -41,7 +41,7 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            
            result.fold(f => println(f), u => {
                println("Result URL: "+u)
-               val promise = WS.url(u.toString).get()
+               //val promise = WS.url(u.toString).get()
                // @FIXME not working because it VOTABLE file is v1.1
                //val result = Await.result(promise, Duration(1, "minute")).xml
                //scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
