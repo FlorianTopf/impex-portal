@@ -12,8 +12,9 @@ object TimeProvider {
   }
   
   def getISODate(date: String): XMLGregorianCalendar = {
-    // maybe we only need the minutes!
-    val dateFormat = new SimpleDateFormat("yy-mm-dd H:m:s")
+    // @TODO recollect this in the client design, the string must be
+    // already in iso format
+    val dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
     val isoDate: Date = dateFormat.parse(date)
     val gregorianCalendar = new GregorianCalendar()
     gregorianCalendar.setTime(isoDate)
@@ -21,8 +22,10 @@ object TimeProvider {
     datatypeFactory.newXMLGregorianCalendar(gregorianCalendar)
   }
   
-  def getDuration(duration: Long): Duration = {
+  // this is provided in seconds and multiplied x1000
+  def getDuration(durationSec: Long): Duration = {
+    val durationMs = durationSec * 1000
     val datatypeFactory = DatatypeFactory.newInstance()
-    datatypeFactory.newDuration(duration)
+    datatypeFactory.newDuration(durationMs)
   }
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- IMPEx configuration file -->
-<!-- updated 2014-3-28T10:34:00 UTC-->
-<impexconfiguration xsi:schemaLocation="http://www.impex.org/2012/configuration.xsd http://impex-fp7.oeaw.ac.at/xsd/configuration-1_0_0.xsd" xmlns="http://www.impex.org/2012/configuration.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<!-- updated 2014-5-28T13:55:00 UTC-->
+<impexconfiguration xsi:schemaLocation="http://impex-fp7.oeaw.ac.at/xsd/configuration-1_0_1.xsd" xmlns="http://www.impex.org/2012/configuration.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <database id="impex://FMI" type="simulation">
     <name>FMI</name>
     <description>FMI Hybrid and MHD web archive</description>
@@ -79,19 +79,19 @@
   <tool>
     <name>AMDA</name>
     <description>Multi-mission data analysis tool for space plasma physics</description>
-    <dns>http://amda.cdpp.eu</dns>
+    <url>http://amda.cdpp.eu</url>
     <info>http://amda.cdpp.eu/help.html</info>
   </tool>
   <tool>
     <name>CLWeb</name>
     <description>Multi-mission space plasma data plotting tool</description>
-    <dns>http://clweb.cesr.fr</dns>
+    <url>http://clweb.cesr.fr</url>
     <info>http://clweb.cesr.fr/clweb_poster.pdf</info>
   </tool>
   <tool>
     <name>3DView</name>
     <description>3D multi-mission visualisation tool</description>
-    <dns>http://3dview.cdpp.eu</dns>
+    <url>http://3dview.cdpp.eu</url>
     <info>http://3dview.cdpp.eu/other/cdpp3dview_tutorial.pdf</info>
   </tool>
 </impexconfiguration> 

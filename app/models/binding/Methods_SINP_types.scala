@@ -23,6 +23,8 @@ case object ClusterD extends SpacecraftTypeSINP { override def toString = "CLUST
 case object PolarValue extends SpacecraftTypeSINP { override def toString = "POLAR" }
 case object Cassini extends SpacecraftTypeSINP { override def toString = "CASSINI" }
 
+// @TODO can be removed savely 
+// (not used ATM, will be imported from the IMPEx schema in the future)
 trait CoordinateSystemTypeSINP
 
 object CoordinateSystemTypeSINP {

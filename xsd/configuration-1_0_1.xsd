@@ -28,10 +28,7 @@
             <xs:sequence>
               <xs:element type="xs:string" name="name" minOccurs="1" maxOccurs="1"/>
               <xs:element type="xs:string" name="description" minOccurs="0" maxOccurs="1"/>
-              <xs:choice maxOccurs="2" minOccurs="1">
-                <xs:element type="xs:string" name="ip" maxOccurs="1"/>
-                <xs:element type="xs:string" name="dns" maxOccurs="1"/>
-              </xs:choice>
+              <xs:element type="xs:string" name="url" maxOccurs="1" minOccurs="1"></xs:element>
               <xs:element type="xs:string" name="info" maxOccurs="1" minOccurs="1"/>
             </xs:sequence>
           </xs:complexType>

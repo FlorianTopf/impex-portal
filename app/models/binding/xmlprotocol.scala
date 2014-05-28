@@ -2486,21 +2486,18 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.Tool] =
       phrase((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "name")) ~ 
       opt(scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "description")) ~ 
-      rep(((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "ip")) ^^ 
-      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)))) | 
-      ((scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "dns")) ^^ 
-      (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack))))) ~ 
+      (scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "url")) ~ 
       (scalaxb.ElemName(Some("http://www.impex.org/2012/configuration.xsd"), "info")) ^^
       { case p1 ~ p2 ~ p3 ~ p4 =>
       models.binding.Tool(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
         p2.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        p3.toSeq,
+        scalaxb.fromXML[String](p3, scalaxb.ElemName(node) :: stack),
         scalaxb.fromXML[String](p4, scalaxb.ElemName(node) :: stack)) })
     
     def writesChildNodes(__obj: models.binding.Tool, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
       Seq.concat(scalaxb.toXML[String](__obj.name, Some("http://www.impex.org/2012/configuration.xsd"), Some("name"), __scope, false),
         __obj.description map { scalaxb.toXML[String](_, Some("http://www.impex.org/2012/configuration.xsd"), Some("description"), __scope, false) } getOrElse {Nil},
-        __obj.tooloption flatMap { x => scalaxb.toXML[scalaxb.DataRecord[String]](x, x.namespace, x.key, __scope, false) },
+        scalaxb.toXML[String](__obj.url, Some("http://www.impex.org/2012/configuration.xsd"), Some("url"), __scope, false),
         scalaxb.toXML[String](__obj.info, Some("http://www.impex.org/2012/configuration.xsd"), Some("info"), __scope, false))
 
   }

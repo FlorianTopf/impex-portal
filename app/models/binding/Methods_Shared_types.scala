@@ -45,17 +45,18 @@ object EnumInterpolation {
 case object NearestGridPointValue extends EnumInterpolation { override def toString = "NearestGridPoint" }
 case object LinearValue extends EnumInterpolation { override def toString = "Linear" }
 
+// the spacecraft values were changed because of LATMOS (they use abbreviations)
 trait SpacecraftType
 
 object SpacecraftType {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): SpacecraftType = value match {
-    case "MarsExpress" => MarsExpressValue
-    case "MarsGlobalSurveyor" => MarsGlobalSurveyorValue
-    case "VenusExpress" => VenusExpressValue
+    case "MEX" => MarsExpressValue
+    case "MGS" => MarsGlobalSurveyorValue
+    case "VEX" => VenusExpressValue
 
   }
 }
 
-case object MarsExpressValue extends SpacecraftType { override def toString = "MarsExpress" }
-case object MarsGlobalSurveyorValue extends SpacecraftType { override def toString = "MarsGlobalSurveyor" }
-case object VenusExpressValue extends SpacecraftType { override def toString = "VenusExpress" }
+case object MarsExpressValue extends SpacecraftType { override def toString = "MEX" }
+case object MarsGlobalSurveyorValue extends SpacecraftType { override def toString = "MGS" }
+case object VenusExpressValue extends SpacecraftType { override def toString = "VEX" }

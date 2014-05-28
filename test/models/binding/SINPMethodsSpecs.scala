@@ -32,17 +32,16 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
             
             val result = sinp.service.getDataPointValue(
         	    "impex://SINP/NumericalOutput/Earth/2003-11-20UT12", // resourceId
-        		None, // variable (TO BE TESTED)
+        		None, // variables (TO BE TESTED)
         		new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_52points.vot"), // url_xyz
         		Some(extraParams) // extra params
             )
         		
             result.fold(f => println(f), u => {
                println("Result URL: "+u)
-               //val promise = WS.url(u.toString).get()
-               // @FIXME not working because there is a doctype in the body
-               //val result = Await.result(promise, Duration(1, "minute")).xml
-               //scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+               val promise = WS.url(u.toString).get()
+               val result = Await.result(promise, Duration(1, "minute")).xml
+               scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
             })
             
             result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
@@ -73,16 +72,15 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
         	
             val result = sinp.service.calculateDataPointValueFixedTime(
                 "impex://SINP/NumericalOutput/Earth/OnFly", // resourceId
-                TimeProvider.getISODate("2012-03-08 14:06:00"), 
+                TimeProvider.getISODate("2012-03-08T14:06:00"), 
                 Some(extraParams), // extra params
                 new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_120points.vot"))
                 
             result.fold(f => println(f), u => {
                println("Result URL: "+u)
-               //val promise = WS.url(u.toString).get()
-               // @FIXME not working because there is a doctype in the body
-               //val result = Await.result(promise, Duration(1, "minute")).xml
-               //scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+               val promise = WS.url(u.toString).get()
+               val result = Await.result(promise, Duration(1, "minute")).xml
+               scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
             })
         		
             result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
@@ -107,10 +105,9 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            
            result.fold(f => println(f), u => {
                println("Result URL: "+u)
-               //val promise = WS.url(u.toString).get()
-               // @FIXME not working because there is a doctype in the body
-               //val result = Await.result(promise, Duration(1, "minute")).xml
-               //scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+               val promise = WS.url(u.toString).get()
+               val result = Await.result(promise, Duration(1, "minute")).xml
+               scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
            })
         		
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
@@ -130,18 +127,17 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            val result = sinp.service.calculateDataPointValueSpacecraft(
                "impex://SINP/SimulationModel/Earth/OnFly", // resourceId
                ClusterA, // spacecraft name
-               TimeProvider.getISODate("2010-01-12 13:00:00"), // start time
-               TimeProvider.getISODate("2010-01-13 03:45:00"), // stop time
-               TimeProvider.getDuration(600), // samling
+               TimeProvider.getISODate("2010-01-12T13:00:00"), // start time
+               TimeProvider.getISODate("2010-01-13T03:45:00"), // stop time
+               TimeProvider.getDuration(600), // sampling
                Some(extraParams) // extra params
            )
            
            result.fold(f => println(f), u => {
                println("Result URL: "+u)
-               //val promise = WS.url(u.toString).get()
-               // @FIXME not working because there is a doctype in the body
-               //val result = Await.result(promise, Duration(1, "minute")).xml
-               //scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+               val promise = WS.url(u.toString).get()
+               val result = Await.result(promise, Duration(1, "minute")).xml
+               scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
            })
         		
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
@@ -150,7 +146,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
         }
         
     
-	  	"respond to calculateFieldline" in {
+	  	"respond to calculateFieldLine" in {
 	  	  
 	  	  val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
 	  	  
@@ -162,17 +158,16 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	  
 	  	  val result = sinp.service.calculateFieldLine(
 	  	      "impex://SINP/SimulationModel/Earth/OnFly", // resourceId
-	  	      TimeProvider.getISODate("2010-01-12 13:00:00"), // start time
+	  	      TimeProvider.getISODate("2010-01-12T13:00:00"), // start time
 	  	      Some(extraParams), // extra params
 	  	      new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_120points.vot") // url_xyz
 	  	  )
 	  	  
           result.fold(f => println(f), u => {
                println("Result URL: "+u)
-               //val promise = WS.url(u.toString).get()
-               // @FIXME not working because there is a doctype in the body
-               //val result = Await.result(promise, Duration(1, "minute")).xml
-               //scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+               val promise = WS.url(u.toString).get()
+               val result = Await.result(promise, Duration(1, "minute")).xml
+               scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
           })
 	  	  
 	  	  result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
@@ -211,7 +206,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	  
 	  	  val result = sinp.service.calculateCube(
 	  	      "impex://SINP/NumericalOutput/Earth/OnFly", // resourceId
-	  	      TimeProvider.getISODate("2005-09-11 02:00:00"), // start time 
+	  	      TimeProvider.getISODate("2005-09-11T02:00:00"), // start time 
 	  	      Some(extraParams), // extra params
 	  	      Some(0.7), // sampling 
 	  	      Some(cubeSize)) // cube_size_array
@@ -219,7 +214,6 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
           result.fold(f => println(f), u => {
               println("Result URL: "+u)
               //val promise = WS.url(u.toString).get()
-              // @FIXME not working because there is a doctype in the body
               //val result = Await.result(promise, Duration(1, "minute")).xml
               //scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
           })
@@ -258,7 +252,6 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
           result.fold(f => println(f), u => {
               println("Result URL: "+u)
               //val promise = WS.url(u.toString).get()
-              // @FIXME not working because there is a doctype in the body
               //val result = Await.result(promise, Duration(1, "minute")).xml
               //scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
           })
@@ -297,10 +290,9 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	   
           result.fold(f => println(f), u => {
               println("Result URL: "+u)
-              //val promise = WS.url(u.toString).get()
-              // @FIXME not working because there is a doctype in the body
-              //val result = Await.result(promise, Duration(1, "minute")).xml
-              //scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+              val promise = WS.url(u.toString).get()
+              val result = Await.result(promise, Duration(1, "minute")).xml
+              scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
           })
 	  	   
 	  	  result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
@@ -311,10 +303,12 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	// NOT YET IMPLEMENTED
 	  	/*"respond to calculateCubeSaturn" in {
 	  	  
+	  	  
 	  	}*/
 	  	
 	  	// NOT YET IMPLEMENTED
 	  	/*"respond to calculateDataPointValueSaturn" in {
+	  	
 	  	
 	  	}*/
 	  	

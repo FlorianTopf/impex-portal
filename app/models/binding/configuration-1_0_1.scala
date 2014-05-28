@@ -18,10 +18,9 @@ trait DatabaseOption
 
 case class Tool(name: String,
   description: Option[String] = None,
-  tooloption: Seq[scalaxb.DataRecord[String]] = Nil,
+  url: String,
   info: String) extends ImpexconfigurationOption
 
-trait ToolOption
 
 case class Impexconfiguration(impexconfigurationoption: scalaxb.DataRecord[models.binding.ImpexconfigurationOption]*)
 
@@ -58,7 +57,7 @@ object Impexconfiguration {
   
   implicit val toolWrites: Writes[Tool] = new Writes[Tool] {
     def writes(t: Tool): JsValue = 
-      Json.obj("name" -> t.name, "description" -> t.description, "dns" -> t.tooloption ,"info" -> t.info)
+      Json.obj("name" -> t.name, "description" -> t.description, "url" -> t.url ,"info" -> t.info)
   }
   
   implicit val databaseWrites: Writes[Database] = new Writes[Database] {
