@@ -10,7 +10,8 @@ trait Methods_FMI {
   def getDataPointSpectra_Spacecraft(resourceID: String, population: Option[Seq[String]], spacecraft_name: models.binding.SpacecraftType, startTime: javax.xml.datatype.XMLGregorianCalendar, stopTime: javax.xml.datatype.XMLGregorianCalendar, sampling: javax.xml.datatype.Duration, extraParams: Option[models.binding.ExtraParams_getDataPointSpectraFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
   def getFieldLine(resourceID: String, variable: Option[Seq[String]], url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getFieldLineFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
   def getParticleTrajectory(resourceID: String, url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getParticleTrajectory]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
-  def getMostRelevantRun(objectValue: String, runCount: Option[BigInt], sW_parameters: Seq[models.binding.SW_parameter_list]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
+  // this was change to a string response (instead of java.net.URI)
+  def getMostRelevantRun(objectValue: String, runCount: Option[BigInt], sW_parameters: Seq[models.binding.SW_parameter_list]): Either[scalaxb.Soap11Fault[Any], String]
   def getVOTableURL(table_name: Option[String], description: Option[String], fields: Seq[models.binding.VOTable_field]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
 }
 

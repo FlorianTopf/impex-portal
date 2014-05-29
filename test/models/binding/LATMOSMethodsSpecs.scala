@@ -21,7 +21,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
   
   "LATMOS Methods binding" should {
     
-        "respond to getDataPointValue" in {
+       "respond to getDataPointValue" in {
            
            val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
           
@@ -34,7 +34,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            
            val result = latmos.service.getDataPointValue(
                "impex://LATMOS/Hybrid/Mars_13_02_13/Mag/3D", // resourceId
-               Some(variable), // variables
+               Some(variable), // variable
                new URI("http://impex.latmos.ipsl.fr/Vmvrv5e.xml"), // url_xyz
                Some(extraParams) // extra params
            )
@@ -69,7 +69,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
                MarsExpressValue, // spacecraft name
                TimeProvider.getISODate("2007-07-12T00:00:00"), // start time
                TimeProvider.getISODate("2007-07-13T00:00:00"), // stop time
-               TimeProvider.getDuration(60), // sampling
+               TimeProvider.getDuration("PT60S"), // sampling
                Some(extraParams)) // extra params
           
            result.fold(f => println(f), u => {
@@ -176,14 +176,18 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
         
         // NOT YET IMPLEMENTED
         /*"respond to getDataPointsSpectra" in {
-          
-          
+                     
+           val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
+           
+           
         }*/
         
         // NOT YET IMPLEMENTED
         /*"respond to getDataPointsSpectra_Spacecraft" in {
-          
-          
+           
+           val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
+           
+           
         }*/
         
   }

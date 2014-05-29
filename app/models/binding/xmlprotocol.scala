@@ -762,7 +762,8 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       opt(scalaxb.ElemName(None, "description")) ~ 
       opt(scalaxb.ElemName(None, "arraysize")) ^^
       { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 ~ p9 ~ p10 =>
-      models.binding.VOTable_field(scalaxb.fromXML[Seq[models.binding.DataType]](p1, scalaxb.ElemName(node) :: stack),
+      // experimental change data to string seq
+      models.binding.VOTable_field(scalaxb.fromXML[Seq[String]](p1, scalaxb.ElemName(node) :: stack),
         scalaxb.fromXML[String](p2, scalaxb.ElemName(node) :: stack),
         p3.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p4.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
@@ -774,7 +775,8 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p10.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     def writesChildNodes(__obj: models.binding.VOTable_field, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(scalaxb.toXML[Seq[models.binding.DataType]](__obj.data, None, Some("data"), __scope, false),
+      // experimental change data to string seq
+      Seq.concat(scalaxb.toXML[Seq[String]](__obj.data, None, Some("data"), __scope, false),
         scalaxb.toXML[String](__obj.name, None, Some("name"), __scope, false),
         __obj.ID map { scalaxb.toXML[String](_, None, Some("ID"), __scope, false) } getOrElse {Nil},
         __obj.unit map { scalaxb.toXML[String](_, None, Some("unit"), __scope, false) } getOrElse {Nil},
@@ -845,12 +847,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
           case Right((header, body)) =>
             Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
-      def getMostRelevantRun(objectValue: String, runCount: Option[BigInt], sW_parameters: Seq[models.binding.SW_parameter_list]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+      def getMostRelevantRun(objectValue: String, runCount: Option[BigInt], sW_parameters: Seq[models.binding.SW_parameter_list]): Either[scalaxb.Soap11Fault[Any], String] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.MostRelevantRun(objectValue, runCount, sW_parameters), Some("http://impex-fp7.fmi.fi"), "getMostRelevantRun", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("MostRelevantRun"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[String](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
       def getVOTableURL(table_name: Option[String], description: Option[String], fields: Seq[models.binding.VOTable_field]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.VOTableURL(table_name, description, fields), Some("http://impex-fp7.fmi.fi"), "getVOTableURL", defaultScope),
@@ -6540,7 +6542,8 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
 
   }
-
+  
+  // removed duplicate INFO field
   trait DefaultBindingTableFormat extends scalaxb.ElemNameParser[models.binding.Table] {
     val targetNamespace: Option[String] = Some("http://www.ivoa.net/xml/VOTable/v1.2")
     

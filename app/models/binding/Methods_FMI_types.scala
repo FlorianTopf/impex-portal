@@ -106,8 +106,8 @@ case class VOTableURL(Table_name: Option[String] = None,
   Description: Option[String] = None,
   Fields: Seq[models.binding.VOTable_field] = Nil)
 
-
-case class VOTable_field(data: Seq[models.binding.DataType],
+// experimental changed data to string seq
+case class VOTable_field(data: Seq[String],
   name: String,
   ID: Option[String] = None,
   unit: Option[String] = None,

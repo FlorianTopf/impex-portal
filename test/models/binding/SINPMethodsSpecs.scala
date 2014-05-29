@@ -129,7 +129,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
                ClusterA, // spacecraft name
                TimeProvider.getISODate("2010-01-12T13:00:00"), // start time
                TimeProvider.getISODate("2010-01-13T03:45:00"), // stop time
-               TimeProvider.getDuration(600), // sampling
+               TimeProvider.getDuration("PT600S"), // sampling
                Some(extraParams) // extra params
            )
            
@@ -302,12 +302,16 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	
 	  	// NOT YET IMPLEMENTED
 	  	/*"respond to calculateCubeSaturn" in {
-	  	  
+	  	   
+	  	   val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
+	  	
 	  	  
 	  	}*/
 	  	
 	  	// NOT YET IMPLEMENTED
 	  	/*"respond to calculateDataPointValueSaturn" in {
+	  	 * 
+	  	   val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
 	  	
 	  	
 	  	}*/

@@ -53,10 +53,12 @@ object SpacecraftType {
     case "MEX" => MarsExpressValue
     case "MGS" => MarsGlobalSurveyorValue
     case "VEX" => VenusExpressValue
-
+    // @FIXME this is a hack because FMI doesn't work according to WSDL rules
+    case "c3_xyz" => Cluster3Value
   }
 }
 
 case object MarsExpressValue extends SpacecraftType { override def toString = "MEX" }
 case object MarsGlobalSurveyorValue extends SpacecraftType { override def toString = "MGS" }
 case object VenusExpressValue extends SpacecraftType { override def toString = "VEX" }
+case object Cluster3Value extends SpacecraftType { override def toString = "c3_xyz" }
