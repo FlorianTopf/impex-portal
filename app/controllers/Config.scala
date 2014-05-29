@@ -24,7 +24,6 @@ object Config extends Controller {
       value = "get config", 
       nickname = "getConfig",
       notes = "returns the configuration file", 
-      response = classOf[models.binding.Impexconfiguration], 
       httpMethod = "GET")
   def config(
       @ApiParam(value = "format in XML or JSON")

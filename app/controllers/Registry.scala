@@ -23,7 +23,7 @@ import scala.language.implicitConversions
 @Api(
     value = "/registry", 
     description = "operations for using the IMPEx registry services")
-@Path( "/registry" )
+@Path("/registry")
 @Produces(Array(APPLICATION_XML, APPLICATION_JSON))
 object Registry extends Controller {
   implicit def str2bool(s: String): Boolean = s.equals("true")
@@ -33,7 +33,6 @@ object Registry extends Controller {
       value = "get registry", 
       nickname = "getRegistry",
       notes = "returns the tree of a database or a full IMPEx registry", 
-      response = classOf[JsObject], 
       httpMethod = "GET")
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "unkown provider"), 
@@ -65,7 +64,6 @@ object Registry extends Controller {
       value = "get simulation repositories", 
       nickname = "getSimulationRepository",
       notes = "returns the repository elements of simulation databases", 
-      response = classOf[JsObject], 
       httpMethod = "GET")
   @Path("/simulations")
   def simulations(
@@ -87,7 +85,6 @@ object Registry extends Controller {
       value = "get observation repositories", 
       nickname = "getObservationRepository",
       notes = "returns the repository elements of observation databases", 
-      response = classOf[JsObject], 
       httpMethod = "GET")
   @Path("/observations")
   def observations(
@@ -109,7 +106,6 @@ object Registry extends Controller {
       value = "get repositories", 
       nickname = "getRepository",
       notes = "returns the repository elements of all databases", 
-      response = classOf[JsObject], 
       httpMethod = "GET")
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "unkown element")))
@@ -139,7 +135,6 @@ object Registry extends Controller {
       value = "get simulation models", 
       nickname = "getSimulationModel",
       notes = "returns the simulation model elements of all databases", 
-      response = classOf[JsObject], 
       httpMethod = "GET")
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "unkown element")))
@@ -175,7 +170,6 @@ object Registry extends Controller {
       value = "get simulation runs", 
       nickname = "getSimulationRun",
       notes = "returns the simulation run elements of all databases", 
-      response = classOf[JsObject], 
       httpMethod = "GET")
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "unkown element")))
@@ -211,7 +205,6 @@ object Registry extends Controller {
       value = "get numerical outputs", 
       nickname = "getNumericalOutput",
       notes = "returns the numerical output elements of all databases", 
-      response = classOf[JsObject], 
       httpMethod = "GET")
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "unkown element")))
@@ -247,7 +240,6 @@ object Registry extends Controller {
       value = "get granules", 
       nickname = "getGranule",
       notes = "returns the granule elements of all databases", 
-      response = classOf[JsObject], 
       httpMethod = "GET")
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "unkown element")))

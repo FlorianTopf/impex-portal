@@ -23,6 +23,7 @@ import java.io.FileNotFoundException
     description = "operations for using the IMPEx data acess services")
 @Path("/methods")
 @Produces(Array(APPLICATION_JSON, APPLICATION_XML))
+// @TODO maybe rename this object to WSDLMethods (to avoid confusion)
 object Methods extends Controller {
   
   // Returns WSDLs of individual databases  
@@ -31,7 +32,6 @@ object Methods extends Controller {
       value = "get WSDL file", 
       nickname = "getWSDL",
       notes = "returns the WDSL file of a database", 
-      response = classOf[Elem], 
       httpMethod = "GET")
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "unkown provider"), 
@@ -61,7 +61,6 @@ object Methods extends Controller {
       value = "get WSDL file for Taverna", 
       nickname = "getWSDLTaverna",
       notes = "returns the WDSL file of a database supported by Taverna", 
-      response = classOf[Elem], 
       httpMethod = "GET")
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "unkown provider"), 
