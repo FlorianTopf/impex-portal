@@ -33,13 +33,14 @@ trait Soap11Clients { this: HttpClients =>
       val headers = scala.collection.mutable.Map[String, String]("Content-Type" -> "text/xml; charset=utf-8") ++
         (action map { x => "SOAPAction" -> """"%s"""".format(x)})
       // DEBUG => prints SOAP message and headers
-      println("Request "+r)
-      println("Header" +headers)
+      //println("Request "+r)
+      //println("Header" +headers)
       val s = httpClient.request(r map {_.toString} getOrElse {""}, address, headers.toMap)
 
       try {
         val response = scala.xml.XML.loadString(s)
-        println(response)
+        // DEBUG => prints SOAP response
+        //println(response)
         scalaxb.fromXML[Envelope](response)
       }
       catch {

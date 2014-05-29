@@ -168,7 +168,7 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
         }
         
         
-        "getMostRelevantRun" in {
+        "respond to getMostRelevantRun" in {
           
            val fmi = new Methods_FMISoapBindings with Soap11Clients with DispatchHttpClients {}
            
@@ -208,7 +208,7 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            ) 
 
            result.fold(f => println(f), u => {
-               println("Result URL: "+u)
+               //println("Result URL: "+u)
                // result is a json string so we try this:
                Json.parse(u) must beAnInstanceOf[JsValue]
             })
