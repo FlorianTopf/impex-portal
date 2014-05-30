@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- IMPEx configuration file -->
 <!-- updated 2014-5-28T13:55:00 UTC-->
-<impexconfiguration xsi:schemaLocation="http://impex-fp7.oeaw.ac.at/xsd/configuration-1_0_1.xsd" xmlns="http://www.impex.org/2012/configuration.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<impexconfiguration xsi:schemaLocation="http://www.impex.org/2012/configuration.xsd http://impex-fp7.oeaw.ac.at/xsd/configuration-1_0_1.xsd" xmlns="http://www.impex.org/2012/configuration.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <database id="impex://FMI" type="simulation">
     <name>FMI</name>
     <description>FMI Hybrid and MHD web archive</description>
