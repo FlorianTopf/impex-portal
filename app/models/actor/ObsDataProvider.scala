@@ -17,7 +17,8 @@ import java.text.{
 import javax.xml.datatype._
 import java.util.Calendar
 
-
+// @FIXME all the resourceId creation mechanisms must be updated when 
+// the new guidelines are accepted
 class ObsDataProvider(var metadata: Database) 
 extends Actor with DataProvider {
   import models.actor.ConfigService._

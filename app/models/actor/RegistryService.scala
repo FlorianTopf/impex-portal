@@ -37,7 +37,7 @@ class RegistryService(val databases: Seq[Database]) extends Actor {
   private def register(props: Props, id: String) = {
     val provider: ActorRef = context.actorOf(props, id)
     // @TODO initial delay will be switched later
-    Akka.system.scheduler.schedule(5.minutes, 24.hours, provider, UpdateData)
+    Akka.system.scheduler.schedule(30.minutes, 24.hours, provider, UpdateData)
   }
   
   private def initChildActors: Unit = {
@@ -55,6 +55,7 @@ class RegistryService(val databases: Seq[Database]) extends Actor {
   
 }
 
+// @FIXME all id.contains checks with the config must be rewritten after changing to new IDs
 object RegistryService {
   import models.actor.ConfigService._
   import models.actor.DataProvider._

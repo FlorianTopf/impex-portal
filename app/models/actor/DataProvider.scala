@@ -47,6 +47,7 @@ trait DataProvider {
   
   private def getFiles(URLs: Seq[URI], folder: String): Seq[NodeSeq] = { 
     URLs map { URL => 
+      // encoding the id to represent a correct folder name
       val id: String = UrlProvider.encodeURI(getMetaData.id)
       val fileName: String = PathProvider.getPath(folder, id, URL.toString)
       
