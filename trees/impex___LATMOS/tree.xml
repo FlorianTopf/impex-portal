@@ -60929,6 +60929,51 @@ That is the altitude below which ion densities are computed analytically</Descri
         </Parameter>
         <SimulationProduct>3DCubes</SimulationProduct>
     </NumericalOutput>
+    
+    <NumericalOutput>
+        <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/IonSpectra</ResourceID>
+        <ResourceHeader>
+            <ResourceName>Ion_spectra</ResourceName>
+            <ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>
+            <Description/>
+            <Contact>
+                <PersonID>LATMOS</PersonID>
+                <Role>DataProducer</Role>
+            </Contact>
+        </ResourceHeader>
+        <AccessInformation>
+            <RepositoryID>impex://LATMOS</RepositoryID>
+            <AccessURL>
+                <URL>http://impex.latmos.ipsl.fr/Hybrid</URL>
+            </AccessURL>
+            <Format>NetCDF</Format>
+        </AccessInformation>
+        <MeasurementType>Spectrum</MeasurementType>
+        <SpatialDescription>
+            <Dimension>3</Dimension>
+            <CoordinateSystem>
+                <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+                <CoordinateSystemName>MSO</CoordinateSystemName>
+            </CoordinateSystem>
+            <Units>km</Units>
+            <UnitsConversion>1000 &gt; m</UnitsConversion>
+            <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+            <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+        </SpatialDescription>
+        <SimulatedRegion>Mars</SimulatedRegion>
+        <InputResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/SimRun</InputResourceID>
+        <Parameter>
+            <Name>IonEnergySpectra</Name>
+            <ParameterKey>EnergySpectra</ParameterKey>
+            <Units>m-2.s-1.sr-1.eV-1</Units>
+            <Particle>
+                <ParticleType>Ion</ParticleType>
+                <Qualifier>Differential</Qualifier>
+                <ParticleQuantity>EnergyFlux</ParticleQuantity>
+            </Particle>
+        </Parameter>
+        <SimulationProduct>3DCubes</SimulationProduct>
+    </NumericalOutput>
     <NumericalOutput>
 <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Mag/2D/XY</ResourceID>
 <ResourceHeader>
@@ -62538,6 +62583,16 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <SourceType>Data</SourceType>
 <URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/CO2p_YZ_14_03_14.xml</URL>
 </Source>
+</Granule><Granule>
+    <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/IonSpectra/Distrib_000_14_03_14</ResourceID>
+    <ReleaseDate>2014-05-31T00:00:00.000</ReleaseDate>
+    <ParentID>impex://LATMOS/Hybrid/Mars_14_03_14/IonSpectra</ParentID>
+    <RegionBegin>   -7941.0   -15314.9   -15314.9 </RegionBegin>
+    <RegionEnd>    8214.4    15556.5    15556.5 </RegionEnd>
+    <Source>
+        <SourceType>Data</SourceType>
+        <URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Distrib_000_14_03_14.nc</URL>
+    </Source>
 </Granule><Granule>
     <ResourceID>impex://LATMOS/Hybrid/Mars_14_03_14/Ele/3D/Elew_14_03_14_t00600</ResourceID>
     <ReleaseDate>2014-05-21T00:00:00.000</ReleaseDate>

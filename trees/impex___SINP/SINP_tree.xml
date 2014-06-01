@@ -1,4 +1,4 @@
-<Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_0.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_1.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
   <Version>2.2.2</Version>
   
   <SimulationModel>
@@ -101,7 +101,7 @@
     </Versions>
     <SimulationType>Paraboloid</SimulationType>
     <CodeLanguage>Fortran77</CodeLanguage>
-    <SimulatedRegion>Saturn</SimulatedRegion>
+    <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
     <InputProperties>
 	  <Property>
         <Name>BDC</Name>
@@ -209,7 +209,7 @@
     </Versions>
     <SimulationType>Paraboloid</SimulationType>
     <CodeLanguage>Fortran77</CodeLanguage>
-    <SimulatedRegion>Mercury</SimulatedRegion>
+    <SimulatedRegion>Mercury.Magnetosphere</SimulatedRegion>
     <InputProperties>
       <Property>
         <Name>BD</Name>
@@ -271,7 +271,7 @@
         <Description>URL of the netcdf/VoTable file containing the 3D coordinates and values</Description>
         <CoordinateSystem>
           <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-          <CoordinateSystemName>MSO</CoordinateSystemName>
+          <CoordinateSystemName>HSM</CoordinateSystemName>
         </CoordinateSystem>
         <Field>
           <FieldQuantity>Magnetic</FieldQuantity>
@@ -380,7 +380,7 @@
     </Versions>
     <SimulationType>Paraboloid</SimulationType>
     <CodeLanguage>Fortran77</CodeLanguage>
-    <SimulatedRegion>Saturn</SimulatedRegion>
+    <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
     <InputProperties>
 	  <Property>
         <Name>BDC</Name>
@@ -486,7 +486,7 @@
     </Versions>
     <SimulationType>Paraboloid</SimulationType>
     <CodeLanguage>Fortran77</CodeLanguage>
-    <SimulatedRegion>Mercury</SimulatedRegion>
+    <SimulatedRegion>Mercury.Magnetosphere</SimulatedRegion>
     <InputProperties>
       <Property>
         <Name>BD</Name>
@@ -548,7 +548,7 @@
         <Description>URL of the netcdf/VoTable file containing the 3D coordinates (HSM) and magnetic field vectors in this points</Description>
         <CoordinateSystem>
           <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-          <CoordinateSystemName>MSO</CoordinateSystemName>
+          <CoordinateSystemName>HSM</CoordinateSystemName>
         </CoordinateSystem>
         <Field>
           <FieldQuantity>Magnetic</FieldQuantity>
@@ -620,27 +620,6 @@
       <GridCellSize>0.5 0.5 0.5</GridCellSize>
       <Symmetry>None</Symmetry>
     </SimulationDomain>
-    <InputPopulation>
-      <Name>SW_p</Name>
-      <Description>Solar wind protons</Description>
-      <SimulatedRegion>Heliosphere</SimulatedRegion>
-      <ParticleType>Proton</ParticleType>
-      <AtomicNumber>1</AtomicNumber>
-      <PopulationMassNumber>1.00728</PopulationMassNumber>
-      <PopulationChargeState>1</PopulationChargeState>
-      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3"/>
-      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s"/>
-    </InputPopulation>
-    <InputPopulation>
-      <Name>SW_e-</Name>
-      <Description>Solar wind electrons</Description>
-      <SimulatedRegion>Heliosphere</SimulatedRegion>
-      <ParticleType>Electron</ParticleType>
-      <PopulationMassNumber>0</PopulationMassNumber>
-      <PopulationChargeState>-1</PopulationChargeState>
-      <PopulationDensity UnitsConversion="1.0e+6&gt;m^-3" Units="cm^-3"/>
-      <PopulationFlowSpeed UnitsConversion="1.0+3&gt;m/s" Units="km/s"/>
-    </InputPopulation>
     <InputField>
       <Name>IMF</Name>
       <Description>Interplanetary Magnetic Field</Description>
@@ -2842,13 +2821,13 @@
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
-    <SimulatedRegion>Mercury</SimulatedRegion>
+    <SimulatedRegion>Mercury.Magnetosphere</SimulatedRegion>
     <LikelihoodRating>Probable</LikelihoodRating>
     <SimulationTime/>
     <SimulationDomain>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-        <CoordinateSystemName>MSO</CoordinateSystemName>
+        <CoordinateSystemName>HSM</CoordinateSystemName>
       </CoordinateSystem>
       <SpatialDimension>3</SpatialDimension>
       <VelocityDimension>3</VelocityDimension>
@@ -2862,7 +2841,7 @@
 	<InputParameter>
       <Name>BD</Name>
       <Description>Dipole field strength on the equator of the Mercury</Description>
-      <SimulatedRegion>Mercury</SimulatedRegion>
+    <SimulatedRegion>Mercury.Magnetosphere</SimulatedRegion>
       <Qualifier>Scalar</Qualifier>
       <ParameterQuantity>MagneticField</ParameterQuantity>
       <Property>
@@ -2878,7 +2857,7 @@
     <InputParameter>
       <Name>Flux</Name>
       <Description>Field strength at the inner edge of the tail current</Description>
-      <SimulatedRegion>Mercury</SimulatedRegion>
+      <SimulatedRegion>Mercury.Magnetosphere</SimulatedRegion>
       <Qualifier>Scalar</Qualifier>
       <ParameterQuantity>Other</ParameterQuantity>
       <Property>
@@ -2894,7 +2873,7 @@
     <InputParameter>
       <Name>Rss</Name>
       <Description>Sub-solar magnetopause distance in Mercury radii (2439km)</Description>
-      <SimulatedRegion>Mercury</SimulatedRegion>
+      <SimulatedRegion>Mercury.Magnetosphere</SimulatedRegion>
       <Qualifier>Scalar</Qualifier>
       <ParameterQuantity>Other</ParameterQuantity>
       <Property>
@@ -2910,7 +2889,7 @@
     <InputParameter>
       <Name>R2</Name>
       <Description>Inner edge of the current sheet tail</Description>
-      <SimulatedRegion>Mercury</SimulatedRegion>
+      <SimulatedRegion>Mercury.Magnetosphere</SimulatedRegion>
       <Qualifier>Scalar</Qualifier>
       <ParameterQuantity>Other</ParameterQuantity>
       <Property>
@@ -2926,7 +2905,7 @@
     <InputParameter>
       <Name>DZ</Name>
       <Description>Northern displacement of the dipole relative to the center of the Mercury</Description>
-      <SimulatedRegion>Mercury</SimulatedRegion>
+      <SimulatedRegion>Mercury.Magnetosphere</SimulatedRegion>
       <Qualifier>Scalar</Qualifier>
       <ParameterQuantity>Other</ParameterQuantity>
       <Property>
@@ -2944,7 +2923,7 @@
     <InputParameter>
       <Name>IMF_B</Name>
       <Description>Penetrating IMF components in HSM coord</Description>
-      <SimulatedRegion>Mercury</SimulatedRegion>
+      <SimulatedRegion>Mercury.Magnetosphere</SimulatedRegion>
       <ParameterQuantity>MagneticField</ParameterQuantity>
       <Property>
         <Name>IMF_B</Name>
@@ -2953,8 +2932,6 @@
         <Qualifier>Vector</Qualifier>
         <Units>nT</Units>
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
-        <ValidMin/>
-        <ValidMax/>
       </Property>
     </InputParameter>    
     <RegionParameter>
@@ -2988,7 +2965,7 @@
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
-    <SimulatedRegion>Saturn</SimulatedRegion>
+    <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
     <LikelihoodRating>Probable</LikelihoodRating>
     <SimulationTime/>
     <SimulationDomain>
@@ -3009,7 +2986,7 @@
 	<InputParameter>
       <Name>BDC</Name>
       <Description>Magnetic field on the inner edge of MD</Description>
-      <SimulatedRegion>Saturn</SimulatedRegion>
+    <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
       <Qualifier>Scalar</Qualifier>
       <ParameterQuantity>MagneticField</ParameterQuantity>
       <Property>
@@ -3025,7 +3002,7 @@
 	<InputParameter>
       <Name>BT</Name>
       <Description>Magnetic field on the tail current inner edge</Description>
-      <SimulatedRegion>Saturn</SimulatedRegion>
+    <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
       <Qualifier>Scalar</Qualifier>
       <ParameterQuantity>MagneticField</ParameterQuantity>
       <Property>
@@ -3041,7 +3018,7 @@
     <InputParameter>
       <Name>RD2</Name>
       <Description>Distance to the external edge of MD</Description>
-      <SimulatedRegion>Saturn</SimulatedRegion>
+      <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
       <Qualifier>Scalar</Qualifier>
       <ParameterQuantity>Other</ParameterQuantity>
       <Property>
@@ -3057,7 +3034,7 @@
 	<InputParameter>
       <Name>RD1</Name>
       <Description>Distance to the inner edge of MD</Description>
-      <SimulatedRegion>Saturn</SimulatedRegion>
+    <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
       <Qualifier>Scalar</Qualifier>
       <ParameterQuantity>Other</ParameterQuantity>
       <Property>
@@ -3073,7 +3050,7 @@
     <InputParameter>
       <Name>Rss</Name>
       <Description>Sub-solar magnetopause distance in Saturn radii</Description>
-      <SimulatedRegion>Saturn</SimulatedRegion>
+      <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
       <Qualifier>Scalar</Qualifier>
       <ParameterQuantity>Other</ParameterQuantity>
       <Property>
@@ -3089,7 +3066,7 @@
     <InputParameter>
       <Name>R2</Name>
       <Description>Inner edge of the current sheet tail</Description>
-      <SimulatedRegion>Saturn</SimulatedRegion>
+      <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
       <Qualifier>Scalar</Qualifier>
       <ParameterQuantity>Other</ParameterQuantity>
       <Property>
@@ -3105,7 +3082,7 @@
     <InputParameter>
       <Name>IMF_B</Name>
       <Description>Penetrating IMF components in KSM coord</Description>
-      <SimulatedRegion>Saturn</SimulatedRegion>
+      <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
       <ParameterQuantity>MagneticField</ParameterQuantity>
       <Property>
         <Name>IMF_B</Name>
@@ -3114,8 +3091,6 @@
         <Qualifier>Vector</Qualifier>
         <Units>nT</Units>
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
-        <ValidMin/>
-        <ValidMax/>
       </Property>
     </InputParameter>    
     <RegionParameter>
@@ -4025,7 +4000,7 @@
       <Format>NetCDF</Format>
     </AccessInformation>
     <MeasurementType>MagneticField</MeasurementType>
-    <SimulatedRegion>Mercury</SimulatedRegion>
+    <SimulatedRegion>Mercury.Magnetosphere</SimulatedRegion>
     <InputResourceID>impex://SINP/SimulationRun/Mercury/OnFly</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
@@ -4034,7 +4009,7 @@
       <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
       <CoordinateSystem>
         <CoordinateRepresentation>Cartesian</CoordinateRepresentation>
-        <CoordinateSystemName>MSO</CoordinateSystemName>
+        <CoordinateSystemName>HSM</CoordinateSystemName>
       </CoordinateSystem>
       <Field>
         <FieldQuantity>Magnetic</FieldQuantity>
@@ -4063,7 +4038,7 @@
       <Format>NetCDF</Format>
     </AccessInformation>
     <MeasurementType>MagneticField</MeasurementType>
-    <SimulatedRegion>Saturn</SimulatedRegion>
+    <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
     <InputResourceID>impex://SINP/SimulationRun/Saturn/OnFly</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
