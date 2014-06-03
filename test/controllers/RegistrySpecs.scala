@@ -6,6 +6,7 @@ import play.api.test.Helpers._
 import models.binding._
 import java.util.Random
 
+// @TODO extend default timeout (how?)
 class RegistrySpecs extends Specification {
   
 	// test info

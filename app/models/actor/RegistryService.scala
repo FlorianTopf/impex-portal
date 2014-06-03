@@ -55,7 +55,6 @@ class RegistryService(val databases: Seq[Database]) extends Actor {
   
 }
 
-// @FIXME all id.contains checks with the config must be rewritten after changing to new IDs
 object RegistryService {
   import models.actor.ConfigService._
   import models.actor.DataProvider._
@@ -78,14 +77,20 @@ object RegistryService {
     Akka.system.actorSelection("user/registry/" + UrlProvider.encodeURI(id))
   }
   
+  // Hack method for checking the id of the request against the database id
+  private def checkId(msg: GetElement, id: URI): Boolean = { 
+    println("Computed ResourceID match"+id.toString.replaceAll(ERepository.toString, msg.dType.toString))
+    msg.id.toString.contains(id.toString.replaceAll(ERepository.toString, msg.dType.toString))
+  }
+  
   private def getElement(msg: GetElement): Future[Either[Spase, RequestError]] = {
     implicit val timeout = Timeout(1.minute)
     println("ResourceID="+msg.id)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- msg.id match {
-        case Some(id) if(databases.exists(d => id.contains(d.id.toString))) => {
-          val db: Database = databases.find(d => id.contains(d.id.toString)).get
+        case Some(id) if(databases.exists(d => checkId(msg, d.id))) => {
+          val db: Database = databases.find(d => checkId(msg, d.id)).get
           val provider: ActorSelection = getChild(db.id)
           (msg.dType, db.typeValue) match {
             case (e: SimElement, Simulation) => (provider ? msg).mapTo[Spase] map { Left(_) }
@@ -124,7 +129,6 @@ object RegistryService {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- {
         id match {
-          // @TODO improve this check everywhere
           // @FIXME this is only available for simulations for now!
           case Some(id) if databases.exists(d => id.contains(d.id.toString) && d.typeValue == Simulation) => {
             val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.id)
@@ -182,10 +186,10 @@ object RegistryService {
 
   // simulations methods
   def getSimulationModel(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = {
-    // little hack to check if a repository id is provided as query parameter
+    // Hack to check if a repository id is provided as query parameter
     id match {
-      case Some(id) if(id.contains("Repository")) => {
-        getElement(GetElement(ESimulationModel, Some(id.replace("Repository", "SimulationModel")), r))
+      case Some(id) if(id.contains(ERepository.toString)) => {
+        getElement(GetElement(ESimulationModel, Some(id.replace(ERepository.toString, ESimulationModel.toString)), r))
       }
       case _ => getElement(GetElement(ESimulationModel, id, r))  
     }

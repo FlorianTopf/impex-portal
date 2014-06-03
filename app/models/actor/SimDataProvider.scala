@@ -37,8 +37,9 @@ extends Actor with DataProvider {
     Spase(Number2u462u462, spase, "en")
   }
   
+  // @TODO integrate the element types of dataprovider
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]] = {
-    getTreeObjects.ResourceEntity.filter(_.key.get == element)
+    getTreeObjects.ResourceEntity.filter(_.key.get == element.toString)
   }
   
   protected def getRepository(id: Option[String]): Spase = {
@@ -55,7 +56,7 @@ extends Actor with DataProvider {
   
   private def getSimulationModel(id: Option[String], r: Boolean): Spase = {
     val records = getTreeObjects("SimulationModel") map {
-      _.as[SimulationModelType]
+      _.as[SimulationModel]
     }
     val models = id match {
       case Some(id) => records.filter(_.ResourceID.contains(id))

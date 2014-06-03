@@ -12,7 +12,6 @@ case class ExtraParams_getDataPointValueLATMOS(IMFClockAngle: Option[Double] = N
 
 
 case class DataPointSpectraLATMOS(ResourceID: String,
-  Population: Option[Seq[String]] = None,
   url_XYZ: java.net.URI,
   extraParams: Option[models.binding.ExtraParams_getDataPointSpectraLATMOS] = None)
 

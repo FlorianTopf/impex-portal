@@ -15,7 +15,7 @@ object SpacecraftTypeSINP {
   }
 }
 
-// @TODO this is wrong in the WSDDL CLUSTER1-4 is the value
+// @TODO this is wrong in the WSDL CLUSTER1-4 is the value
 case object ClusterA extends SpacecraftTypeSINP { override def toString = "CLUSTER1" }
 case object ClusterB extends SpacecraftTypeSINP { override def toString = "CLUSTER2" }
 case object ClusterC extends SpacecraftTypeSINP { override def toString = "CLUSTER3" }

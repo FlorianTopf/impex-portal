@@ -26,6 +26,7 @@ trait DataProvider {
   protected def getMetaData: Database = metadata
   protected def getTrees: Seq[NodeSeq] = trees
   protected def getMethods: Seq[NodeSeq] = methods
+  // @TODO this can be optimised to use the element classes below
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]]
   protected def getRepository(id: Option[String] = None): Spase
   
@@ -111,16 +112,16 @@ object DataProvider {
   trait SimElement extends Element
   trait ObsElement extends Element
   // general
-  case object ERepository extends GenElement
+  case object ERepository extends GenElement { override def toString = "Repository" }
   // simulations
-  case object ESimulationModel extends SimElement
-  case object ESimulationRun extends SimElement
-  case object ENumericalOutput extends SimElement
-  case object EGranule extends SimElement
+  case object ESimulationModel extends SimElement { override def toString = "SimulationModel" }
+  case object ESimulationRun extends SimElement { override def toString = "SimulationRun" }
+  case object ENumericalOutput extends SimElement { override def toString = "NumericalOutput" }
+  case object EGranule extends SimElement { override def toString = "Granule" }
   // observations
-  case object EObservatory extends ObsElement
-  case object EInstrument extends ObsElement
-  case object ENumericalData extends ObsElement
+  case object EObservatory extends ObsElement { override def toString = "Observatory" }
+  case object EInstrument extends ObsElement { override def toString = "Instrument" }
+  case object ENumericalData extends ObsElement { override def toString = "NumericalData" }
   
   // generic message for elements
   case class GetElement(

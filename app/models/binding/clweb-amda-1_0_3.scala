@@ -7,7 +7,7 @@ case class DataRoot(dataCenter: Seq[models.binding.DataCenter] = Nil,
 
 
 case class DataCenter(datacenteroption: Seq[scalaxb.DataRecord[models.binding.DataCenterOption]] = Nil,
-  available: Option[BigInt] = None,
+  available: Option[String] = None,
   desc: String,
   group: Option[String] = None,
   id1: Option[String] = None,
@@ -15,25 +15,50 @@ case class DataCenter(datacenteroption: Seq[scalaxb.DataRecord[models.binding.Da
   name: String,
   id: String)
 
-trait DataCenterOption
 trait DataCenterOption2 extends DataCenterOption
+trait DataCenterOption
 
 case class Mission(missionoption: Seq[scalaxb.DataRecord[models.binding.MissionOption]] = Nil,
   att: Option[String] = None,
-  available: Option[BigInt] = None,
+  available: Option[String] = None,
   desc: String,
   name: String,
-  rank: Option[BigInt] = None,
+  rank: Option[String] = None,
   target: Option[String] = None,
   targets: Option[String] = None,
   id: String) extends DataCenterOption2
 
 trait MissionOption
 
-case class SimulationModel(simulationmodeloption: Seq[scalaxb.DataRecord[models.binding.SimulationModelOption]] = Nil,
+case class ObservatoryType(instrument: Seq[models.binding.InstrumentType] = Nil,
+  att: String,
+  desc: String,
+  name: String,
+  restricted: String,
+  id: String) extends MissionOption
+
+
+case class GroupType(instrument: Seq[models.binding.InstrumentType] = Nil,
+  att: String,
+  desc: String,
+  name: String,
+  restricted: String,
+  id: String) extends MissionOption
+
+
+case class InstrumentType(dataset: Seq[models.binding.Dataset] = Nil,
   att: Option[String] = None,
   desc: String,
   name: String,
+  restricted: Option[String] = None,
+  id: String) extends MissionOption with SimulationModelOption
+
+
+case class SimulationModelType(simulationmodeloption: Seq[scalaxb.DataRecord[models.binding.SimulationModelOption]] = Nil,
+  att: Option[String] = None,
+  desc: String,
+  name: String,
+  restricted: Option[String] = None,
   id: String) extends DataCenterOption with MissionOption
 
 trait SimulationModelOption
@@ -75,14 +100,7 @@ case class MeasurementType(dataset: Seq[models.binding.Dataset] = Nil,
   id: String) extends RunIDOption
 
 
-case class Instrument(dataset: Seq[models.binding.Dataset] = Nil,
-  att: Option[String] = None,
-  desc: String,
-  name: String,
-  id: String) extends MissionOption with SimulationModelOption
-
-
-case class Dataset(parameter: Seq[models.binding.Parameter] = Nil,
+case class Dataset(parameter: Seq[models.binding.ParameterType] = Nil,
   AccessURL: Option[String] = None,
   SimulatedRegion: Option[String] = None,
   att: Option[String] = None,
@@ -95,6 +113,7 @@ case class Dataset(parameter: Seq[models.binding.Parameter] = Nil,
   maxSampling: Option[String] = None,
   name: String,
   rem_id: Option[String] = None,
+  restricted: Option[String] = None,
   sampling: Option[String] = None,
   start: Option[javax.xml.datatype.XMLGregorianCalendar] = None,
   stop: Option[javax.xml.datatype.XMLGregorianCalendar] = None,
@@ -102,12 +121,12 @@ case class Dataset(parameter: Seq[models.binding.Parameter] = Nil,
   id: String) extends DataCenterOption2 with RunIDOption
 
 
-case class Parameter(component: Seq[models.binding.Component] = Nil,
+case class ParameterType(component: Seq[models.binding.Component] = Nil,
   desc: Option[String] = None,
   display_type: Option[String] = None,
   labels: Option[String] = None,
   name: String,
-  needsArgs: Option[BigInt] = None,
+  needsArgs: Option[String] = None,
   parentID: Option[String] = None,
   size: Option[BigInt] = None,
   units: Option[String] = None,

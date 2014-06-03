@@ -21,7 +21,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
   
   "LATMOS Methods binding" should {
     
-       "respond to getDataPointValue" in {
+       /*"respond to getDataPointValue" in {
            
            val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
           
@@ -172,15 +172,37 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
            result must beRight // result must be successful
           
-        }
+        }*/
         
         // NOT YET IMPLEMENTED
-        /*"respond to getDataPointsSpectra" in {
+        "respond to getDataPointsSpectra" in {
                      
            val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
            
+           val extraParams = ExtraParams_getDataPointSpectraLATMOS(
+               None, // imf clockamgle
+               Some(VOTableType), // output filetype
+               None // energy channel
+           )
            
-        }*/
+           val variable = Seq("Btot")
+           
+           val result = latmos.service.getDataPointSpectra(
+               "impex://LATMOS/Hybrid/Mars_14_03_14/IonSpectra", // resourceId
+               new URI("http://impex.latmos.ipsl.fr/Vmrmf2.xml"), // url_xyz
+               None // extra params (TO BE TESTED)
+           )
+           
+           result.fold(f => println(f), u => {
+               println("Result URL: "+u)
+               val promise = WS.url(u.toString).get()
+               val result = Await.result(promise, Duration(1, "minute")).xml
+               scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+           })
+           
+           result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
+           result must beRight // result must be successful
+        }
         
         // NOT YET IMPLEMENTED
         /*"respond to getDataPointsSpectra_Spacecraft" in {

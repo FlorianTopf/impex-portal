@@ -27,8 +27,6 @@ extends Actor with DataProvider {
   override def preStart = initData
   
   def receive = {
-    // @TODO return unified tree in XML
-    // @FIXME we only serve what we have atm
     case GetTree => sender ! getTreeObjects
     case GetMethods => sender ! getMethods
     case GetElement(dType, id, r) => dType match {
@@ -48,9 +46,10 @@ extends Actor with DataProvider {
       getNumericalData(None).ResourceEntity, "en")
   }
 
+  
   // @FIXME we should only cast once (at init/update)
-  // @TODO this maybe not needed (because AMDA remote tree is not 
-  // accessible with Web services)
+  // @TODO this maybe not needed because the remote tree of AMDA is NOT 
+  // accessible with web services
   protected def getNativeTreeObjects: Seq[DataRoot] = {
     getTrees map { tree => { 
       // we select here only portions of the remote trees (e.g. AMDA)
@@ -59,7 +58,6 @@ extends Actor with DataProvider {
           { tree \\ "dataCenter" filterNot { element => 
             // CLWEB@IRAP is already natively included
             // Simulations are already natively included
-            // VEXMAG will also be obsolete in the future
             (element \\ "@name" exists (_.text.contains("CLWEB@IRAP"))) ||
    			(element \\ "@isSimulation" exists (_.text == "true"))
    		  }}
@@ -70,13 +68,12 @@ extends Actor with DataProvider {
   }
 
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]] = {
-    //filter out the simulation dataCenter elements (if there are any)
-    val records = getNativeTreeObjects flatMap { _.dataCenter.filter(p => p.isSimulation == None) map { 
+    val records = getNativeTreeObjects flatMap { _.dataCenter map { 
       _.datacenteroption.filter(_.key.get == element) }}
     records.flatten
   }
 
-  // @TODO finalise access methods
+  // @TODO finalise all access methods
   // @TODO must search for an specific Id
   protected def getRepository(id: Option[String]): Spase = {
     println("RepositoryID="+id)
@@ -94,7 +91,6 @@ extends Actor with DataProvider {
   }
   
   // @TODO add recursion for the remaining elements
-  // @TODO maybe remove models
   private def getObservatory(id: Option[String]): Spase = {
     import models.binding.Observatory
     val records = getTreeObjects("mission").map(_.as[Mission])   
@@ -106,7 +102,7 @@ extends Actor with DataProvider {
       }
       case _ => records
     }
-   Spase(Number2u462u462, missions map { mission => 
+   Spase(Number2u462u462, missions flatMap { mission => 
       val contact = Contact(getMetaData.id.toString, Seq(ArchiveSpecialist))
       val informationURL = InformationURL(None, getMetaData.info)
       val resourceHeader = ResourceHeader(mission.name, Nil, TimeProvider.getISONow, 
@@ -114,26 +110,49 @@ extends Actor with DataProvider {
       // replace all whitespaces with underscore
       val resourceId = getMetaData.id.toString+"/Observatory/"+mission.id.toString.replaceAll(" ", "_")
       // Location/ObservatoryRegion is taken from target/targets attribute
-      var missions = mission.target match {
-        case Some(m) => Seq(m)
+      var regions = mission.target match {
+        case Some(t) => Seq(t)
         case None => Seq()
       }
       mission.targets match {
-        case Some(m) => missions++Seq(m.split(" "))
-        case None => missions++Seq()
+        case Some(t) =>  regions++Seq(t.split(" "))
+        case None =>  regions++Seq()
         
       }
-      val location = Location(missions.map(m => EnumRegion.fromString(m, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at"))))
+      val location = Location(regions.map(r => EnumRegion.fromString(r, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at"))))
       
-      DataRecord(None, Some("Observatory"), Observatory(resourceId, resourceHeader, Nil, location, None, Nil))    
+      if(mission.missionoption.exists(_.key.get == "observatory")) {
+        val observatories = mission.missionoption.filter(_.key.get == "observatory") map(_.as[ObservatoryType])
+        observatories map { o => 
+          // taking the parent mission description here
+          val resourceHeader = ResourceHeader(o.name, Nil, TimeProvider.getISONow, 
+           None, mission.desc, None, Seq(contact))
+          val resourceId = getMetaData.id.toString+"/Observatory/"+o.id.toString.replaceAll(" ", "_")
+          println("resourceId:"+ resourceId)
+          // taking the parent mission targets here
+          DataRecord(None, Some("Observatory"), Observatory(resourceId, resourceHeader, Nil, location, None, Nil))
+        }
+      } else {
+        Seq(DataRecord(None, Some("Observatory"), Observatory(resourceId, resourceHeader, Nil, location, None, Nil)))
+      }
     }, "en")
   }
   
   private def getInstrument(id: Option[String]): Spase = {
     val records = getTreeObjects("mission").map(_.as[Mission])
-    val missions: Seq[(String, Seq[Instrument])] = records map { record => 
-      val parentId = getMetaData.id.toString+"/Observatory/"+record.id.toString.replaceAll(" ", "_")
-      (parentId, record.missionoption.filter(_.key.get == "instrument").map(_.as[Instrument]))
+    val missions: Seq[(String, Seq[InstrumentType])] = records map { record => 
+      val missionId = getMetaData.id.toString+"/Observatory/"+record.id.toString.replaceAll(" ", "_")
+      // @FIXME 
+      // observatory/instrument is not included
+      // simulationmodel/instrument is not included
+      if(record.missionoption.exists(_.key.get == "group")) {
+        val groups = record.missionoption.filter(_.key.get == "group").map(_.as[GroupType])
+        (missionId, record.missionoption.filter(_.key.get == "instrument").map(_.as[InstrumentType])++ 
+            groups.filter(_.restricted!="1").flatMap(g => g.instrument))
+      }
+      else {
+        (missionId, record.missionoption.filter(_.key.get == "instrument").map(_.as[InstrumentType]))
+      }
     }
     // @TODO here we need to filter the instruments for requested id
     Spase(Number2u462u462, missions flatMap { instruments =>
@@ -148,7 +167,7 @@ extends Actor with DataProvider {
         val instrumentType = Seq(Magnetometer)
         // @FIXME Investigation name is mandadory => take name
         DataRecord(None, Some("Instrument"), 
-            InstrumentType(resourceId, resourceHeader, instrumentType, Seq(instrument.name), None, instruments._1))
+            Instrument(resourceId, resourceHeader, instrumentType, Seq(instrument.name), None, instruments._1))
       }
     }, "en")
   }
@@ -159,17 +178,21 @@ extends Actor with DataProvider {
     val cal: GregorianCalendar = new GregorianCalendar
     
     val records = getTreeObjects("mission").map(_.as[Mission])
-    val missions: Seq[(String, Seq[String], Seq[Instrument])] = records map { record => 
+    val missions: Seq[(String, Seq[String], Seq[InstrumentType])] = records map { record => 
       val missionId = getMetaData.id.toString+"/Observatory/"+record.id.toString.replaceAll(" ", "_")
-      var missions = record.target match {
-        case Some(m) => Seq(m)
+      var regions = record.target match {
+        case Some(t) => Seq(t)
         case None => Seq()
       }
       record.targets match {
-        case Some(m) => missions++Seq(m.split(" "))
-        case None => missions++Seq()  
+        case Some(t) => regions++Seq(t.split(" "))
+        case None => regions++Seq()  
       }
-      (missionId, missions, record.missionoption.filter(_.key.get == "instrument").map(_.as[Instrument]))
+      // @FIXME  
+      // group/instrument missing (can be kicked out if restricted=1)
+      // observatory/instrument is not included
+      // simulationmodel/instrument is not included
+      (missionId, regions, record.missionoption.filter(_.key.get == "instrument").map(_.as[InstrumentType]))
     }
     // @TODO here we need to filter the numerical data for requested id
     Spase(Number2u462u462, missions flatMap { instruments =>
@@ -263,7 +286,7 @@ extends Actor with DataProvider {
       		            elements))
       		    }
       		    
-      		    ParameterType(param.name, Nil, Some(param.id), param.desc, None,
+      		    Parameter(param.name, Nil, Some(param.id), param.desc, None,
       		        None, param.units, None, None, Nil, structure, None, None, None, 
       		        addElem, Nil)
       		}

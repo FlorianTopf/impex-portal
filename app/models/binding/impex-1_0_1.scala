@@ -41,7 +41,7 @@ case class Catalog(ResourceID: String,
   Caveats: Option[String] = None,
   Keyword: Seq[String] = Nil,
   InputResourceID: Seq[String] = Nil,
-  Parameter: Seq[models.binding.ParameterType] = Nil,
+  Parameter: Seq[models.binding.Parameter] = Nil,
   Extension: Seq[models.binding.Extension] = Nil)
 
 
@@ -150,7 +150,7 @@ case class TimeSpan(StartDate: javax.xml.datatype.XMLGregorianCalendar,
                or more parameters.
             
 */
-case class ParameterType(Name: String,
+case class Parameter(Name: String,
   Set: Seq[String] = Nil,
   ParameterKey: Option[String] = None,
   Description: Option[String] = None,
@@ -382,7 +382,7 @@ case class DisplayData(ResourceID: String,
   Caveats: Option[String] = None,
   Keyword: Seq[String] = Nil,
   InputResourceID: Seq[String] = Nil,
-  Parameter: Seq[models.binding.ParameterType] = Nil,
+  Parameter: Seq[models.binding.Parameter] = Nil,
   Extension: Seq[models.binding.Extension] = Nil)
 
 
@@ -424,7 +424,7 @@ case class NumericalData(ResourceID: String,
   Caveats: Option[String] = None,
   Keyword: Seq[String] = Nil,
   InputResourceID: Seq[String] = Nil,
-  Parameter: Seq[models.binding.ParameterType] = Nil,
+  Parameter: Seq[models.binding.Parameter] = Nil,
   Extension: Seq[models.binding.Extension] = Nil)
 
 
@@ -476,7 +476,7 @@ case class Checksum(HashValue: String,
                devices.
             
 */
-case class InstrumentType(ResourceID: String,
+case class Instrument(ResourceID: String,
   ResourceHeader: models.binding.ResourceHeader,
   InstrumentType: Seq[models.binding.EnumInstrumentType] = Nil,
   InvestigationName: Seq[String] = Nil,
@@ -2170,7 +2170,7 @@ case class NumericalOutput(ResourceID: String,
   Caveats: Option[String] = None,
   Keyword: Seq[String] = Nil,
   InputResourceID: Seq[String] = Nil,
-  Parameter: Seq[models.binding.ParameterType] = Nil,
+  Parameter: Seq[models.binding.Parameter] = Nil,
   SimulationProduct: models.binding.EnumProduct,
   Property: Seq[models.binding.Property] = Nil,
   Extension: Option[models.binding.Extension] = None)
@@ -2208,7 +2208,7 @@ case class DisplayOutput(ResourceID: String,
   Caveats: Option[String] = None,
   Keyword: Seq[String] = Nil,
   InputResourceID: Seq[String] = Nil,
-  Parameter: Seq[models.binding.ParameterType] = Nil,
+  Parameter: Seq[models.binding.Parameter] = Nil,
   SimulationProduct: models.binding.EnumProduct,
   Property: Seq[models.binding.Property] = Nil,
   Extension: Option[models.binding.Extension] = None)
@@ -2217,7 +2217,7 @@ trait DisplayOutputOption
 
 /** Descriptor of a simulation model: type of numerical scheme, versions,...
 */
-case class SimulationModelType(ResourceID: String,
+case class SimulationModel(ResourceID: String,
   ResourceHeader: models.binding.ResourceHeader,
   Versions: Option[models.binding.Versions] = None,
   SimulationType: models.binding.EnumSimulationType,
@@ -2233,7 +2233,7 @@ case class SimulationModelType(ResourceID: String,
 case class InputProperties(Property: models.binding.Property*)
 
 
-case class OutputParameters(Parameter: models.binding.ParameterType*)
+case class OutputParameters(Parameter: models.binding.Parameter*)
 
 
 /** 
