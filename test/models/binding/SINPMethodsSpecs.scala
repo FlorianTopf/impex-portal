@@ -33,7 +33,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
             val result = sinp.service.getDataPointValue(
         	    "impex://SINP/NumericalOutput/Earth/2003-11-20UT12", // resourceId
         		None, // variables (TO BE TESTED)
-        		new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_52points.vot"), // url_xyz
+        		Some(new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_52points.vot")), // url_xyz
         		Some(extraParams) // extra params
             )
         		
@@ -63,7 +63,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
           
             val extraParams = ExtraParams_calculateDataPointValueFixedTime(
                 Some(4.0), // sw density
-                Some(BigInt(400)), // sw velocity 
+                Some(400.0), // sw velocity 
                 Some(imf_b), // imf b 
                 Some(30.0), // dst
                 Some(150.0), // al
@@ -116,7 +116,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
         }
         
         
-        "respond to calculateDataPointValue_Spacecraft" in { 
+        /*"respond to calculateDataPointValue_Spacecraft" in { 
           
            val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
            
@@ -126,7 +126,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
           
            val result = sinp.service.calculateDataPointValueSpacecraft(
                "impex://SINP/SimulationModel/Earth/OnFly", // resourceId
-               ClusterA, // spacecraft name
+               CLUSTER1, // spacecraft name
                TimeProvider.getISODate("2010-01-12T13:00:00"), // start time
                TimeProvider.getISODate("2010-01-13T03:45:00"), // stop time
                TimeProvider.getDuration("PT600S"), // sampling
@@ -143,7 +143,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
            result must beRight // result must be successful
            
-        }
+        }*/
         
     
 	  	"respond to calculateFieldLine" in {
@@ -188,7 +188,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	  
 	  	  val extraParams = ExtraParams_calculateCube(
 	  	      Some(5.0), // sw density
-	  	      Some(BigInt(879)), // sw velocity
+	  	      Some(800.0), // sw velocity
 	  	      Some(imf_b), // imf b
 	  	      Some(-23.0), // dst
 	  	      Some(-1117.0), // al
@@ -308,13 +308,45 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	  
 	  	}*/
 	  	
-	  	// NOT YET IMPLEMENTED
-	  	/*"respond to calculateDataPointValueSaturn" in {
-	  	 * 
+
+	  	"respond to calculateDataPointValueSaturn" in {
+	  	  
 	  	   val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
+	  	   
+	  	   val imf_b = ListOfDouble(
+	  	      Some(0.0), // x
+              Some(0.0), // y
+              Some(0.0) // z
+           ) 
+	  	   
+	  	   val extraParams = ExtraParams_calculateDataPointValueSaturn(
+	  	       Some(VOTableType), // output filetype
+	  	       Some(3.0), // bdc
+	  	       Some(7.0), // bt
+	  	       Some(15.0), // rd2
+	  	       Some(6.5), // rd1
+	  	       Some(18.0), // r2
+	  	       Some(22.0), // rss
+	  	       Some(imf_b) // imf b
+	  	   )
+	  	   
+	  	   val result = sinp.service.calculateDataPointValueSaturn(
+	  	       "impex://SINP/SimulationModel/Saturn/OnFly", 
+	  	       None, 
+	  	       new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_52points.vot")
+	  	   )
 	  	
+          result.fold(f => println(f), u => {
+              println("Result URL: "+u)
+              val promise = WS.url(u.toString).get()
+              val result = Await.result(promise, Duration(1, "minute")).xml
+              scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+          })
+	  	   
+	  	  result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
+	  	  result must beRight // result must be sucessful
 	  	
-	  	}*/
+	  	}
 	  	
   }
   

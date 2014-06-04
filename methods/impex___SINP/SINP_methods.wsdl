@@ -2,7 +2,7 @@
 
   <wsdl:types>
     <xs:schema version="0.0" targetNamespace="http://smdc.sinp.msu.ru" elementFormDefault="unqualified" xmlns:vot="http://www.ivoa.net/xml/VOTable/v1.2" xmlns:idm="http://impex-fp7.oeaw.ac.at" xmlns="http://smdc.sinp.msu.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:import schemaLocation="http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_0.xsd" namespace="http://impex-fp7.oeaw.ac.at"/>
+      <xs:import schemaLocation="http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_1.xsd" namespace="http://impex-fp7.oeaw.ac.at"/>
       <xs:import schemaLocation="http://www.ivoa.net/xml/VOTable/VOTable-1.2.xsd" namespace="http://www.ivoa.net/xml/VOTable/v1.2"/>
 
       
@@ -26,7 +26,6 @@
       <xs:element type="cube_size_array" name="cube_size_array"/>
       <xs:element type="Interpolation" name="InterpolationMethod"/>
       <xs:element type="ListOfDouble" name="ListOfDouble"/>
-      <xs:element type="CoordinateSystemName" name="CoordinateSystemName"/>
     
       <xs:simpleType name="OutputFormat">
         <xs:annotation>
@@ -62,12 +61,39 @@
           </xs:documentation>
         </xs:annotation>
         <xs:restriction base="xs:string">
-          <xs:enumeration value="ClusterA"/>
-          <xs:enumeration value="ClusterB"/>
-          <xs:enumeration value="ClusterC"/>
-          <xs:enumeration value="ClusterD"/>
-          <xs:enumeration value="Polar"/>
-          <xs:enumeration value="Cassini"/>
+			<xs:enumeration value="Cassini_Public"/>
+			<xs:enumeration value="Galileo"/>
+			<xs:enumeration value="Voyager_1"/>
+			<xs:enumeration value="Voyager_2"/>
+			<xs:enumeration value="Pioneer_10"/>
+			<xs:enumeration value="Pioneer_11"/>
+			<xs:enumeration value="PVO"/>
+			<xs:enumeration value="ACE"/>
+			<xs:enumeration value="VEX"/>
+			<xs:enumeration value="MEX"/>
+			<xs:enumeration value="MGS"/>
+			<xs:enumeration value="MAVEN"/>
+			<xs:enumeration value="MESSENGER"/>
+			<xs:enumeration value="ULYSSES"/>
+			<xs:enumeration value="Stereo-A"/>
+			<xs:enumeration value="Stereo-B"/>
+			<xs:enumeration value="WIND"/>
+			<xs:enumeration value="THEMIS-A"/>
+			<xs:enumeration value="THEMIS-B"/>
+			<xs:enumeration value="THEMIS-C"/>
+			<xs:enumeration value="THEMIS-D"/>
+			<xs:enumeration value="THEMIS-E"/>
+			<xs:enumeration value="CLUSTER1"/>
+			<xs:enumeration value="CLUSTER2"/>
+			<xs:enumeration value="CLUSTER3"/>
+			<xs:enumeration value="CLUSTER4"/>
+			<xs:enumeration value="DoubleStar1"/>
+			<xs:enumeration value="IMP-8"/>
+			<xs:enumeration value="GEOTAIL"/>
+			<xs:enumeration value="POLAR"/>
+			<xs:enumeration value="INTERBALL-Tail"/>
+			<xs:enumeration value="ISEE-1"/>
+			<xs:enumeration value="ISEE-2"/>
         </xs:restriction>
       </xs:simpleType>
       <xs:simpleType name="Variable">
@@ -76,23 +102,6 @@
         </xs:annotation>
         <xs:list itemType="idm:ParameterKey"/>
       </xs:simpleType>
-      <xs:simpleType name="CoordinateSystemName">
-        <xs:annotation>
-            <xs:documentation xml:lang="en">Identifiers of the origin and orientation of a set of typically orthogonal axes.</xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="GSM">
-                <xs:annotation>
-                    <xs:documentation xml:lang="en">Geocentric Solar Magnetospheric - A coordinate system where the X axis is from Earth to Sun, Z axis is northward in a plane containing the X axis and the geomagnetic dipole axis. See Russell, 1971</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="GSE">
-                <xs:annotation>
-                    <xs:documentation xml:lang="en">Geocentric Solar Ecliptic - A coordinate system where the X axis is from Earth to Sun. Z axis is normal to the ecliptic, positive northward. See Russell, 1971.</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-        </xs:restriction>
-    </xs:simpleType>
 
       <xs:complexType name="ListOfDouble">
         <xs:annotation>
@@ -137,7 +146,7 @@
         </xs:annotation>
         <xs:sequence>
           <xs:element type="xs:double" name="SWDensity" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:integer" name="SWVelocity" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="SWVelocity" maxOccurs="1" minOccurs="0"/>
           <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:double" name="Dst" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:double" name="AL" maxOccurs="1" minOccurs="0"/>
@@ -317,7 +326,7 @@
         </xs:annotation>
         <xs:sequence>
           <xs:element type="xs:double" name="SWDensity" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:integer" name="SWVelocity" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="SWVelocity" maxOccurs="1" minOccurs="0"/>
           <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:double" name="Dst" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:double" name="AL" maxOccurs="1" minOccurs="0"/>
@@ -550,7 +559,7 @@
               <xs:documentation>For Earth: SW Density, SW Velocity, IMF_B(Bx, By, Bz), Dst, AL; OutputFileType</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="Sampling" maxOccurs="1" minOccurs="0">
+          <xs:element type="xs:double" name="Sampling" maxOccurs="1" minOccurs="0">
             <xs:annotation>
               <xs:documentation>StepSize in a cube. By default = 0.5 Re</xs:documentation>
             </xs:annotation>

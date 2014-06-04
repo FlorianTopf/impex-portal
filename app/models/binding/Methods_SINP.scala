@@ -3,7 +3,7 @@ package models.binding
 
 
 trait Methods_SINP {
-  def getDataPointValue(resourceID: String, variable: Option[Seq[String]], url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getDataPointValueSINP]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
+  def getDataPointValue(resourceID: String, variable: Option[Seq[String]], url_XYZ: Option[java.net.URI], extraParams: Option[models.binding.ExtraParams_getDataPointValueSINP]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
   def calculateDataPointValueFixedTime(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateDataPointValueFixedTime], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI]
   def calculateDataPointValue(resourceID: String, extraParams: Option[models.binding.ExtraParams_calculateDataPointValue], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI]
   def calculateDataPointValueSaturn(resourceID: String, extraParams: Option[models.binding.ExtraParams_calculateDataPointValueSaturn], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI]

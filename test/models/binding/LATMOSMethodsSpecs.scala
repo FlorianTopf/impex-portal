@@ -21,7 +21,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
   
   "LATMOS Methods binding" should {
     
-       /*"respond to getDataPointValue" in {
+       "respond to getDataPointValue" in {
            
            val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
           
@@ -50,9 +50,9 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            result must beRight // result must be successful
            
         }
-        
+       
     
-       "respond to getDataPointValue_Spacecraft" in {
+       "respond to getDataPointValueSpacecraft" in {
            
            val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
           
@@ -63,7 +63,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            
            val variable = Seq("Ux", "Uy") // variable seq
            
-           val result = latmos.service.getDataPointValue_Spacecraft(
+           val result = latmos.service.getDataPointValueSpacecraft(
                "impex://LATMOS/Hybrid/Mars_13_02_13/The/3D", // resourceId
                Some(variable), // variable
                MarsExpressValue, // spacecraft name
@@ -172,25 +172,23 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
            result must beRight // result must be successful
           
-        }*/
+        }
         
-        // NOT YET IMPLEMENTED
+
         "respond to getDataPointsSpectra" in {
                      
            val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
            
            val extraParams = ExtraParams_getDataPointSpectraLATMOS(
-               None, // imf clockamgle
+               None, // imf clockangle (TO BE TESTED)
                Some(VOTableType), // output filetype
-               None // energy channel
+               None // energy channel (TO BE TESTED)
            )
-           
-           val variable = Seq("Btot")
            
            val result = latmos.service.getDataPointSpectra(
                "impex://LATMOS/Hybrid/Mars_14_03_14/IonSpectra", // resourceId
                new URI("http://impex.latmos.ipsl.fr/Vmrmf2.xml"), // url_xyz
-               None // extra params (TO BE TESTED)
+               Some(extraParams) // extra params
            )
            
            result.fold(f => println(f), u => {
@@ -204,13 +202,38 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            result must beRight // result must be successful
         }
         
-        // NOT YET IMPLEMENTED
-        /*"respond to getDataPointsSpectra_Spacecraft" in {
+
+        "respond to getDataPointsSpectraSpacecraft" in {
            
            val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
            
+           val extraParams = ExtraParams_getDataPointSpectraLATMOS(
+               None, // imf clockangle (TO BE TESTED)
+               Some(VOTableType), // output filetype
+               None // energy channel (TO BE TESTED)
+           )
            
-        }*/
+           val result = latmos.service.getDataPointSpectraSpacecraft(
+               "impex://LATMOS/Hybrid/Mars_14_03_14/IonSpectra", // resourceId
+               MarsExpressValue,  // spacecraft name
+               TimeProvider.getISODate("2010-01-01T18:00:00.000"), // start time
+               TimeProvider.getISODate("2010-01-01T19:00:00.000"), // stop time
+               TimeProvider.getDuration("PT60S"), // sampling
+               Some(extraParams) // extra params
+           )
+           
+           result.fold(f => println(f), u => {
+               println("Result URL: "+u)
+               val promise = WS.url(u.toString).get()
+               val result = Await.result(promise, Duration(1, "minute")).xml
+               scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+           })
+           
+           result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
+           result must beRight // result must be successful
+           
+           
+        }
         
   }
   

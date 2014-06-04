@@ -5,38 +5,76 @@ trait SpacecraftTypeSINP
 
 object SpacecraftTypeSINP {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): SpacecraftTypeSINP = value match {
-    case "CLUSTER1" => ClusterA
-    case "CLUSTER2" => ClusterB
-    case "CLUSTER3" => ClusterC
-    case "CLUSTER4" => ClusterD
-    case "POLAR" => PolarValue
-    case "CASSINI" => Cassini
+    case "Cassini_Public" => Cassini_Public
+    case "Galileo" => Galileo
+    case "Voyager_1" => Voyager_1
+    case "Voyager_2" => Voyager_2
+    case "Pioneer_10" => Pioneer_10
+    case "Pioneer_11" => Pioneer_11
+    case "PVO" => PVO
+    case "ACE" => ACE
+    case "VEX" => VEX
+    case "MEX" => MEX
+    case "MGS" => MGS
+    case "MAVEN" => MAVEN
+    case "MESSENGER" => MESSENGER
+    case "ULYSSES" => ULYSSES
+    case "Stereo-A" => Stereou45A
+    case "Stereo-B" => Stereou45B
+    case "WIND" => WIND
+    case "THEMIS-A" => THEMISu45A
+    case "THEMIS-B" => THEMISu45B
+    case "THEMIS-C" => THEMISu45C
+    case "THEMIS-D" => THEMISu45D
+    case "THEMIS-E" => THEMISu45E
+    case "CLUSTER1" => CLUSTER1
+    case "CLUSTER2" => CLUSTER2
+    case "CLUSTER3" => CLUSTER3
+    case "CLUSTER4" => CLUSTER4
+    case "DoubleStar1" => DoubleStar1
+    case "IMP-8" => IMPu458
+    case "GEOTAIL" => GEOTAIL
+    case "POLAR" => POLAR
+    case "INTERBALL-Tail" => INTERBALLu45Tail
+    case "ISEE-1" => ISEEu451
+    case "ISEE-2" => ISEEu452
 
   }
 }
 
-// @TODO this is wrong in the WSDL CLUSTER1-4 is the value
-case object ClusterA extends SpacecraftTypeSINP { override def toString = "CLUSTER1" }
-case object ClusterB extends SpacecraftTypeSINP { override def toString = "CLUSTER2" }
-case object ClusterC extends SpacecraftTypeSINP { override def toString = "CLUSTER3" }
-case object ClusterD extends SpacecraftTypeSINP { override def toString = "CLUSTER4" }
-case object PolarValue extends SpacecraftTypeSINP { override def toString = "POLAR" }
-case object Cassini extends SpacecraftTypeSINP { override def toString = "CASSINI" }
-
-// @TODO can be removed savely 
-// (not used ATM, will be imported from the IMPEx schema in the future)
-trait CoordinateSystemTypeSINP
-
-object CoordinateSystemTypeSINP {
-  def fromString(value: String, scope: scala.xml.NamespaceBinding): CoordinateSystemTypeSINP = value match {
-    case "GSM" => GSMValue
-    case "GSE" => GSEValue
-
-  }
-}
-
-case object GSMValue extends CoordinateSystemTypeSINP { override def toString = "GSM" }
-case object GSEValue extends CoordinateSystemTypeSINP { override def toString = "GSE" }
+case object Cassini_Public extends SpacecraftTypeSINP { override def toString = "Cassini_Public" }
+case object Galileo extends SpacecraftTypeSINP { override def toString = "Galileo" }
+case object Voyager_1 extends SpacecraftTypeSINP { override def toString = "Voyager_1" }
+case object Voyager_2 extends SpacecraftTypeSINP { override def toString = "Voyager_2" }
+case object Pioneer_10 extends SpacecraftTypeSINP { override def toString = "Pioneer_10" }
+case object Pioneer_11 extends SpacecraftTypeSINP { override def toString = "Pioneer_11" }
+case object PVO extends SpacecraftTypeSINP { override def toString = "PVO" }
+case object ACE extends SpacecraftTypeSINP { override def toString = "ACE" }
+case object VEX extends SpacecraftTypeSINP { override def toString = "VEX" }
+case object MEX extends SpacecraftTypeSINP { override def toString = "MEX" }
+case object MGS extends SpacecraftTypeSINP { override def toString = "MGS" }
+case object MAVEN extends SpacecraftTypeSINP { override def toString = "MAVEN" }
+case object MESSENGER extends SpacecraftTypeSINP { override def toString = "MESSENGER" }
+case object ULYSSES extends SpacecraftTypeSINP { override def toString = "ULYSSES" }
+case object Stereou45A extends SpacecraftTypeSINP { override def toString = "Stereo-A" }
+case object Stereou45B extends SpacecraftTypeSINP { override def toString = "Stereo-B" }
+case object WIND extends SpacecraftTypeSINP { override def toString = "WIND" }
+case object THEMISu45A extends SpacecraftTypeSINP { override def toString = "THEMIS-A" }
+case object THEMISu45B extends SpacecraftTypeSINP { override def toString = "THEMIS-B" }
+case object THEMISu45C extends SpacecraftTypeSINP { override def toString = "THEMIS-C" }
+case object THEMISu45D extends SpacecraftTypeSINP { override def toString = "THEMIS-D" }
+case object THEMISu45E extends SpacecraftTypeSINP { override def toString = "THEMIS-E" }
+case object CLUSTER1 extends SpacecraftTypeSINP { override def toString = "CLUSTER1" }
+case object CLUSTER2 extends SpacecraftTypeSINP { override def toString = "CLUSTER2" }
+case object CLUSTER3 extends SpacecraftTypeSINP { override def toString = "CLUSTER3" }
+case object CLUSTER4 extends SpacecraftTypeSINP { override def toString = "CLUSTER4" }
+case object DoubleStar1 extends SpacecraftTypeSINP { override def toString = "DoubleStar1" }
+case object IMPu458 extends SpacecraftTypeSINP { override def toString = "IMP-8" }
+case object GEOTAIL extends SpacecraftTypeSINP { override def toString = "GEOTAIL" }
+case object POLAR extends SpacecraftTypeSINP { override def toString = "POLAR" }
+case object INTERBALLu45Tail extends SpacecraftTypeSINP { override def toString = "INTERBALL-Tail" }
+case object ISEEu451 extends SpacecraftTypeSINP { override def toString = "ISEE-1" }
+case object ISEEu452 extends SpacecraftTypeSINP { override def toString = "ISEE-2" }
 
 
 /** x,y,z
@@ -58,7 +96,7 @@ case class Cube_size_array(x_low: Option[BigInt] = None,
   
 case class DataPointValueSINP(ResourceID: String,
   Variable: Option[Seq[String]] = None,
-  url_XYZ: java.net.URI,
+  url_XYZ: Option[java.net.URI] = None,
   extraParams: Option[models.binding.ExtraParams_getDataPointValueSINP] = None)
   
 case class ExtraParams_getDataPointValueSINP(OutputFileType: Option[models.binding.OutputFormatType] = None,
@@ -68,7 +106,7 @@ case class ExtraParams_getDataPointValueSINP(OutputFileType: Option[models.bindi
 /** List of individual parameters: SW Density, SW Velocity, IMF_B (Bx,By,Bz), Dst, AL, BD, BT, RD2, RD1, R2, R1.
 */
 case class ExtraParams_calculateDataPointValueFixedTime(SWDensity: Option[Double] = None,
-  SWVelocity: Option[BigInt] = None,
+  SWVelocity: Option[Double] = None,
   IMF_B: Option[models.binding.ListOfDouble] = None,
   Dst: Option[Double] = None,
   AL: Option[Double] = None,
@@ -130,7 +168,7 @@ case class ExtraParams_calculateFieldLine(LineLength: Option[Double] = None,
 /** List of individual parameters:SW Density,SW Velocity,IMF_B(Bx,By,Bz),Dst,AL.
 */
 case class ExtraParams_calculateCube(SWDensity: Option[Double] = None,
-  SWVelocity: Option[BigInt] = None,
+  SWVelocity: Option[Double] = None,
   IMF_B: Option[models.binding.ListOfDouble] = None,
   Dst: Option[Double] = None,
   AL: Option[Double] = None,

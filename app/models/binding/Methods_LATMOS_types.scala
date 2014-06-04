@@ -33,7 +33,7 @@ case class ExtraParams_getSurfaceLATMOS(Resolution: Option[Double] = None,
   OutputFileType: Option[models.binding.OutputFormatType] = None)
 
 
-case class DataPointValue_SpacecraftLATMOS(ResourceID: String,
+case class DataPointValueSpacecraftLATMOS(ResourceID: String,
   Variable: Option[Seq[String]] = None,
   Spacecraft_name: models.binding.SpacecraftType,
   StartTime: javax.xml.datatype.XMLGregorianCalendar,
@@ -42,8 +42,7 @@ case class DataPointValue_SpacecraftLATMOS(ResourceID: String,
   extraParams: Option[models.binding.ExtraParams_getDataPointValueLATMOS] = None)
 
 
-case class DataPointSpectra_SpacecraftLATMOS(ResourceID: String,
-  Population: Option[Seq[String]] = None,
+case class DataPointSpectraSpacecraftLATMOS(ResourceID: String,
   Spacecraft_name: models.binding.SpacecraftType,
   StartTime: javax.xml.datatype.XMLGregorianCalendar,
   StopTime: javax.xml.datatype.XMLGregorianCalendar,
