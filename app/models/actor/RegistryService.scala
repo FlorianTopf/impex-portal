@@ -186,7 +186,8 @@ object RegistryService {
 
   // simulations methods
   def getSimulationModel(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = {
-    // Hack to check if a repository id is provided as query parameter
+    // Hack to check if a repository id is provided as query parameter =>
+    // @TODO maybe add this to all methods (so that repository id can be used, update Definition/Swagger)
     id match {
       // @FIXME Temporary Hack for SINP (will be done after resourceId changes)
       case Some(id) if(id.contains(ERepository.toString+"/PMM")) => {

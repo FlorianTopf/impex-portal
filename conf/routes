@@ -52,12 +52,20 @@ GET		/registry/numericaldata		controllers.Registry.numericaldata(fmt: String ?= 
 # methods routes
 GET		/api-docs/methods			controllers.ApiHelpController.getResource(path = "/methods")
 
-# WSDLs
-#GET	/methods					controllers.Methods.methods
+# WSDLs 
 GET		/methods/:dbName			controllers.Methods.methods(dbName: String)
 
-# taverna WSDLs
+# taverna WSDLs 
 GET		/methods/taverna/:dbName	controllers.Methods.methodsTaverna(dbName: String)
+
+# sinp methods 
+GET		/methods/SINP/getDataPointValue			controllers.SINPMethods.getDataPointValue
+
+# latmos methods
+GET		/methods/LATMOS/getDataPointValue		controllers.LATMOSMethods.getDataPointValue
+
+# fmi methods
+GET		/methods/FMI/getDataPointValue			controllers.FMIMethods.getDataPointValue
 
 # general testing route
 GET		/test						controllers.Application.test
