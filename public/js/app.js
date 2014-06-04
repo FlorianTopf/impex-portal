@@ -777,6 +777,7 @@ var portal;
             var _this = this;
             // @FIXME improve this
             this.registryService.simulationModels = [];
+            this.registryService.simulationRuns = [];
             this.loading = true;
             this.transFinished = false;
 

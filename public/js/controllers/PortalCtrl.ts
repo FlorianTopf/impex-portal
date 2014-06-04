@@ -92,6 +92,7 @@ module portal {
         public getSimulationModel(id: string) {
             // @FIXME improve this
             this.registryService.simulationModels = []
+            this.registryService.simulationRuns = []
             this.loading = true
             this.transFinished = false
             // aligned with standard transition time of accordion
