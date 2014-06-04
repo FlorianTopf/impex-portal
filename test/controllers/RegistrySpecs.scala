@@ -7,6 +7,7 @@ import models.binding._
 import java.util.Random
 
 // @TODO extend default timeout (how?)
+// @TODO extend resourceId tests
 class RegistrySpecs extends Specification {
   
 	// test info

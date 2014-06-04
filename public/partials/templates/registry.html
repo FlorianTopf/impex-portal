@@ -11,8 +11,7 @@
     		<div class="btn-group-vertical">
     			<!-- @TODO we may add an active class here later -->
 				<button class="btn btn-default" ng-repeat="element in vm.registryService.repositories">
-					<!--  @FIXME we need to use the database id, because there are still issues with the repository elements -->
-					<span ng-click="vm.getSimulationModel(database.id)">{{element.resourceHeader.resourceName}}</span>
+					<span ng-click="vm.getSimulationModel(element.resourceId)">{{element.resourceHeader.resourceName}}</span>
 				</button>
 			</div>
 			<div class="btn-group-vertical">		

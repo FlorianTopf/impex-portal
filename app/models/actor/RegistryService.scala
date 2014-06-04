@@ -188,6 +188,10 @@ object RegistryService {
   def getSimulationModel(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = {
     // Hack to check if a repository id is provided as query parameter
     id match {
+      // @FIXME Temporary Hack for SINP (will be done after resourceId changes)
+      case Some(id) if(id.contains(ERepository.toString+"/PMM")) => {
+        getElement(GetElement(ESimulationModel, Some(id.replace(ERepository.toString+"/PMM", ESimulationModel.toString)), r))
+      }
       case Some(id) if(id.contains(ERepository.toString)) => {
         getElement(GetElement(ESimulationModel, Some(id.replace(ERepository.toString, ESimulationModel.toString)), r))
       }
