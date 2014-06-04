@@ -66,7 +66,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            val result = latmos.service.getDataPointValueSpacecraft(
                "impex://LATMOS/Hybrid/Mars_13_02_13/The/3D", // resourceId
                Some(variable), // variable
-               MarsExpressValue, // spacecraft name
+               MEXValue, // spacecraft name
                TimeProvider.getISODate("2007-07-12T00:00:00"), // start time
                TimeProvider.getISODate("2007-07-13T00:00:00"), // stop time
                TimeProvider.getDuration("PT60S"), // sampling
@@ -215,7 +215,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            
            val result = latmos.service.getDataPointSpectraSpacecraft(
                "impex://LATMOS/Hybrid/Mars_14_03_14/IonSpectra", // resourceId
-               MarsExpressValue,  // spacecraft name
+               MEXValue,  // spacecraft name
                TimeProvider.getISODate("2010-01-01T18:00:00.000"), // start time
                TimeProvider.getISODate("2010-01-01T19:00:00.000"), // stop time
                TimeProvider.getDuration("PT60S"), // sampling

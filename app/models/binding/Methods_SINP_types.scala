@@ -34,7 +34,7 @@ object SpacecraftTypeSINP {
     case "DoubleStar1" => DoubleStar1
     case "IMP-8" => IMPu458
     case "GEOTAIL" => GEOTAIL
-    case "POLAR" => POLAR
+    case "POLAR" => POLARValue
     case "INTERBALL-Tail" => INTERBALLu45Tail
     case "ISEE-1" => ISEEu451
     case "ISEE-2" => ISEEu452
@@ -71,7 +71,7 @@ case object CLUSTER4 extends SpacecraftTypeSINP { override def toString = "CLUST
 case object DoubleStar1 extends SpacecraftTypeSINP { override def toString = "DoubleStar1" }
 case object IMPu458 extends SpacecraftTypeSINP { override def toString = "IMP-8" }
 case object GEOTAIL extends SpacecraftTypeSINP { override def toString = "GEOTAIL" }
-case object POLAR extends SpacecraftTypeSINP { override def toString = "POLAR" }
+case object POLARValue extends SpacecraftTypeSINP { override def toString = "POLAR" }
 case object INTERBALLu45Tail extends SpacecraftTypeSINP { override def toString = "INTERBALL-Tail" }
 case object ISEEu451 extends SpacecraftTypeSINP { override def toString = "ISEE-1" }
 case object ISEEu452 extends SpacecraftTypeSINP { override def toString = "ISEE-2" }

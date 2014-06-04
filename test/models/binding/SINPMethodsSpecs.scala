@@ -115,8 +115,8 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            
         }
         
-        
-        /*"respond to calculateDataPointValue_Spacecraft" in { 
+
+        "respond to calculateDataPointValueSpacecraft" in { 
           
            val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
            
@@ -143,7 +143,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
            result must beRight // result must be successful
            
-        }*/
+        }
         
     
 	  	"respond to calculateFieldLine" in {
@@ -331,9 +331,9 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	   )
 	  	   
 	  	   val result = sinp.service.calculateDataPointValueSaturn(
-	  	       "impex://SINP/SimulationModel/Saturn/OnFly", 
-	  	       None, 
-	  	       new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_52points.vot")
+	  	       "impex://SINP/SimulationModel/Saturn/OnFly", // resourceId
+	  	       Some(extraParams), // extra params
+	  	       new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_52points.vot") // url_xyz
 	  	   )
 	  	
           result.fold(f => println(f), u => {

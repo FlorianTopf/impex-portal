@@ -4,14 +4,13 @@ package models.binding
 
 trait Methods_FMI {
   def getDataPointValue(resourceID: String, variable: Option[Seq[String]], url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getDataPointValueFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
-  def getDataPointValue_Spacecraft(resourceID: String, variable: Option[Seq[String]], spacecraft_name: models.binding.SpacecraftType, startTime: javax.xml.datatype.XMLGregorianCalendar, stopTime: javax.xml.datatype.XMLGregorianCalendar, sampling: javax.xml.datatype.Duration, extraParams: Option[models.binding.ExtraParams_getDataPointValueFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
-  def getDataPointSpectra(resourceID: String, population: Option[Seq[String]], url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getDataPointSpectraFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
+  def getDataPointValueSpacecraft(resourceID: String, variable: Option[Seq[String]], spacecraft_name: models.binding.SpacecraftType, startTime: javax.xml.datatype.XMLGregorianCalendar, stopTime: javax.xml.datatype.XMLGregorianCalendar, sampling: javax.xml.datatype.Duration, extraParams: Option[models.binding.ExtraParams_getDataPointValueFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
+  def getDataPointSpectra(resourceID: String, url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getDataPointSpectraFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
   def getSurface(resourceID: String, variable: Option[Seq[String]], planePoint: Seq[Float], planeNormalVector: Seq[Float], extraParams: Option[models.binding.ExtraParams_getSurfaceFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
-  def getDataPointSpectra_Spacecraft(resourceID: String, population: Option[Seq[String]], spacecraft_name: models.binding.SpacecraftType, startTime: javax.xml.datatype.XMLGregorianCalendar, stopTime: javax.xml.datatype.XMLGregorianCalendar, sampling: javax.xml.datatype.Duration, extraParams: Option[models.binding.ExtraParams_getDataPointSpectraFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
+  def getDataPointSpectraSpacecraft(resourceID: String, spacecraft_name: models.binding.SpacecraftType, startTime: javax.xml.datatype.XMLGregorianCalendar, stopTime: javax.xml.datatype.XMLGregorianCalendar, sampling: javax.xml.datatype.Duration, extraParams: Option[models.binding.ExtraParams_getDataPointSpectraFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
   def getFieldLine(resourceID: String, variable: Option[Seq[String]], url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getFieldLineFMI]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
   def getParticleTrajectory(resourceID: String, url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getParticleTrajectory]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
-  // this was change to a string response (instead of java.net.URI)
-  def getMostRelevantRun(objectValue: String, runCount: Option[BigInt], sW_parameters: Seq[models.binding.SW_parameter_list]): Either[scalaxb.Soap11Fault[Any], String]
+  def getMostRelevantRun(objectValue: EnumRegion, runCount: Option[BigInt], sW_parameters: models.binding.SW_parameter_list): Either[scalaxb.Soap11Fault[Any], String]
   def getVOTableURL(table_name: Option[String], description: Option[String], fields: Seq[models.binding.VOTable_field]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
 }
 

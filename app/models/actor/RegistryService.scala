@@ -77,9 +77,9 @@ object RegistryService {
     Akka.system.actorSelection("user/registry/" + UrlProvider.encodeURI(id))
   }
   
-  // Hack method for checking the id of the request against the database id
+  // Hack method for checking the id of the request against the database id (add to diagram)
   private def checkId(msg: GetElement, id: URI): Boolean = { 
-    println("Computed ResourceID match"+id.toString.replaceAll(ERepository.toString, msg.dType.toString))
+    println("Computed ResourceID match="+id.toString.replaceAll(ERepository.toString, msg.dType.toString))
     msg.id.toString.contains(id.toString.replaceAll(ERepository.toString, msg.dType.toString))
   }
   

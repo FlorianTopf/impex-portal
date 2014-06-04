@@ -12,7 +12,6 @@ case class ExtraParams_getDataPointValueFMI(InterpolationMethod: Option[models.b
 
 
 case class DataPointSpectraFMI(ResourceID: String,
-  Population: Option[Seq[String]] = None,
   url_XYZ: java.net.URI,
   extraParams: Option[models.binding.ExtraParams_getDataPointSpectraFMI] = None)
 
@@ -34,7 +33,7 @@ case class ExtraParams_getSurfaceFMI(Resolution: Option[Double] = None,
   InterpolationMethod: Option[models.binding.EnumInterpolation] = None)
 
 
-case class DataPointValue_SpacecraftFMI(ResourceID: String,
+case class DataPointValueSpacecraftFMI(ResourceID: String,
   Variable: Option[Seq[String]] = None,
   Spacecraft_name: models.binding.SpacecraftType,
   StartTime: javax.xml.datatype.XMLGregorianCalendar,
@@ -43,8 +42,7 @@ case class DataPointValue_SpacecraftFMI(ResourceID: String,
   extraParams: Option[models.binding.ExtraParams_getDataPointValueFMI] = None)
 
 
-case class DataPointSpectra_SpacecraftFMI(ResourceID: String,
-  Population: Option[Seq[String]] = None,
+case class DataPointSpectraSpacecraftFMI(ResourceID: String,
   Spacecraft_name: models.binding.SpacecraftType,
   StartTime: javax.xml.datatype.XMLGregorianCalendar,
   StopTime: javax.xml.datatype.XMLGregorianCalendar,
@@ -62,7 +60,7 @@ case class ExtraParams_getFieldLineFMI(Direction: Option[models.binding.EnumDire
   StepSize: Option[Double] = None,
   MaxSteps: Option[BigInt] = None,
   StopCondition_Radius: Option[Double] = None,
-  StopCondition_Region: Option[Seq[String]] = None,
+  StopCondition_Region: Option[Seq[Float]] = None,
   OutputFileType: Option[models.binding.OutputFormatType] = None)
 
 
@@ -75,14 +73,14 @@ case class ExtraParams_getParticleTrajectory(Direction: Option[models.binding.En
   StepSize: Option[Double] = None,
   MaxSteps: Option[BigInt] = None,
   StopCondition_Radius: Option[Double] = None,
-  StopCondition_Region: Option[Seq[String]] = None,
+  StopCondition_Region: Option[Seq[Float]] = None,
   InterpolationMethod: Option[models.binding.EnumInterpolation] = None,
   OutputFileType: Option[models.binding.OutputFormatType] = None)
 
 
-case class MostRelevantRun(Object: String,
+case class MostRelevantRun(Object: EnumRegion,
   RunCount: Option[BigInt] = None,
-  SW_parameters: Seq[models.binding.SW_parameter_list] = Nil)
+  SW_parameters: models.binding.SW_parameter_list)
 
 
 case class SW_parameter_list(SW_Density: Option[models.binding.SW_parameter] = None,
@@ -106,7 +104,7 @@ case class VOTableURL(Table_name: Option[String] = None,
   Description: Option[String] = None,
   Fields: Seq[models.binding.VOTable_field] = Nil)
 
-// experimental changed data to string seq
+
 case class VOTable_field(data: Seq[String],
   name: String,
   ID: Option[String] = None,

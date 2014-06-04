@@ -45,20 +45,38 @@ object EnumInterpolation {
 case object NearestGridPointValue extends EnumInterpolation { override def toString = "NearestGridPoint" }
 case object LinearValue extends EnumInterpolation { override def toString = "Linear" }
 
-// the spacecraft values were changed because of LATMOS (they use abbreviations)
+
 trait SpacecraftType
 
+// only MGS / VEX / MEX used at LATMOS
 object SpacecraftType {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): SpacecraftType = value match {
-    case "MEX" => MarsExpressValue
-    case "MGS" => MarsGlobalSurveyorValue
-    case "VEX" => VenusExpressValue
-    // @FIXME this is a hack because FMI doesn't work according to WSDL rules
-    case "c3_xyz" => Cluster3Value
+    case "MEX" => MEXValue
+    case "MGS" => MGSValue
+    case "VEX" => VEXValue
+    // only used at FMI
+    case "MAVEN" => MAVENValue
+    case "MESSENGER" => MESSENGERValue
+    case "CLUSTER1" => CLUSTER1Value
+    case "CLUSTER2" => CLUSTER2Value
+    case "CLUSTER3" => CLUSTER3Value
+    case "CLUSTER4" => CLUSTER4Value
+    case "IMP-8" => IMPu458Value
+    case "GEOTAIL" => GEOTAILValue
+    case "POLAR" => POLARValue2
   }
 }
 
-case object MarsExpressValue extends SpacecraftType { override def toString = "MEX" }
-case object MarsGlobalSurveyorValue extends SpacecraftType { override def toString = "MGS" }
-case object VenusExpressValue extends SpacecraftType { override def toString = "VEX" }
-case object Cluster3Value extends SpacecraftType { override def toString = "c3_xyz" }
+case object MEXValue extends SpacecraftType { override def toString = "MEX" }
+case object MGSValue extends SpacecraftType { override def toString = "MGS" }
+case object VEXValue extends SpacecraftType { override def toString = "VEX" }
+case object MAVENValue extends SpacecraftType { override def toString = "MAVEN" }
+case object MESSENGERValue extends SpacecraftType { override def toString = "MESSENGER" }
+case object CLUSTER1Value extends SpacecraftType { override def toString = "CLUSTER1" }
+case object CLUSTER2Value extends SpacecraftType { override def toString = "CLUSTER2" }
+case object CLUSTER3Value extends SpacecraftType { override def toString = "CLUSTER3" }
+case object CLUSTER4Value extends SpacecraftType { override def toString = "CLUSTER4" }
+case object IMPu458Value extends SpacecraftType { override def toString = "IMP-8" }
+case object GEOTAILValue extends SpacecraftType { override def toString = "GEOTAIL" }
+case object POLARValue2 extends SpacecraftType { override def toString = "POLAR" }
+
