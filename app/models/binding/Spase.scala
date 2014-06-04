@@ -37,7 +37,7 @@ object Spase {
             case r: Repository => Json.obj("repository" -> d.as[Repository])
           }
         }
-        case Some("SimulationModel") => Json.obj("simulationModel" -> d.as[SimulationModelType])
+        case Some("SimulationModel") => Json.obj("simulationModel" -> d.as[SimulationModel])
         case Some("SimulationRun") => { 
           d.value match {
             case n: NodeSeq => Json.obj("simulationRun" -> scalaxb.fromXML[SimulationRun](d.as[NodeSeq]))
@@ -99,8 +99,8 @@ object Spase {
   
   
   // writer for simulation model
-  implicit val simulationModelWrites: Writes[SimulationModelType] = new Writes[SimulationModelType] {
-    def writes(s: SimulationModelType): JsValue = {
+  implicit val simulationModelWrites: Writes[SimulationModel] = new Writes[SimulationModel] {
+    def writes(s: SimulationModel): JsValue = {
       Json.obj("resourceId" -> s.ResourceID, "resourceHeader" -> s.ResourceHeader, "versions" -> s.Versions, 
           "simulationType" -> s.SimulationType)
     }
@@ -357,8 +357,8 @@ object Spase {
   
   // parameter attribute is optional
   // @FIXME some elements make problems when directly converting (e.g. in full tree)
-  implicit val parameterWrites: Writes[ParameterType] = new Writes[ParameterType] {
-    def writes(p: ParameterType): JsValue = {
+  implicit val parameterWrites: Writes[Parameter] = new Writes[Parameter] {
+    def writes(p: Parameter): JsValue = {
       val param = p.ParameterEntity.key match {
         case Some("Field") => Json.obj("field" -> p.ParameterEntity.as[FieldType])
         case Some("Wave") =>  Json.obj("wave" -> p.ParameterEntity.as[Wave])
