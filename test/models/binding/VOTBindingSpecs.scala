@@ -11,6 +11,7 @@ import akka.testkit._
 import scala.concurrent.duration._
 import scala.concurrent.Await
 import scala.xml.NodeSeq
+import java.io._
 
 
 object VOTBindingSpecs extends org.specs2.mutable.Specification with Mockito {
@@ -18,50 +19,18 @@ object VOTBindingSpecs extends org.specs2.mutable.Specification with Mockito {
 
     "VOTable Binding" should {
         
-        "marshall VOTable XML files" in {
+        "marshall random VOTable 1.2 XML files" in {
           
-            val voTableSINP = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile("mocks/points_calc_52points.xml"))
-            val voTableLATMOS = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile("mocks/latmos_orbite_mex.xml"))
-            val voTableFMI = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile("mocks/Field_line.xml"))
-            val voTableSINP2 = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile("mocks/sinp_orbite_600sec.xml"))
-            val voTableLATMOS2 = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile("mocks/latmos_orbite_60sec.xml"))
-            val voTableFMI2 = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile("mocks/fmi_hyb_orbite_60sec.xml")) 
-            val voTableSINP3 = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile("mocks/getDPV_2003-11-20UT12_340.401.xml"))
-            val voTableSINP4 = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile("mocks/points_calc_120points.xml"))
-            val voTableFMI3 = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile("mocks/hwa_getDPV.xml")) 
-            val voTableFMI4 = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile("mocks/getDataPointValue_input.xml"))
+           val testFiles = new File("mocks/").listFiles.filter(_.getName.endsWith(".xml"))
+           
+           testFiles map { f => { 
+             val xml = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile(f))
+             xml must beAnInstanceOf[VOTABLE]
+             scalaxb.toXML[VOTABLE](xml, "VOTABLE", 
+                scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")) must beAnInstanceOf[NodeSeq]
+           }}
             
-            voTableSINP must beAnInstanceOf[VOTABLE]
-            scalaxb.toXML[VOTABLE](voTableSINP, "VOTABLE", 
-                scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")) must beAnInstanceOf[NodeSeq]
-            voTableLATMOS must beAnInstanceOf[VOTABLE]
-            scalaxb.toXML[VOTABLE](voTableLATMOS, "VOTABLE", 
-                scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")) must beAnInstanceOf[NodeSeq]
-            voTableFMI must beAnInstanceOf[VOTABLE]
-            scalaxb.toXML[VOTABLE](voTableFMI, "VOTABLE", 
-                scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")) must beAnInstanceOf[NodeSeq]
-            voTableSINP2 must beAnInstanceOf[VOTABLE]
-            scalaxb.toXML[VOTABLE](voTableSINP2, "VOTABLE", 
-                scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")) must beAnInstanceOf[NodeSeq]
-            voTableLATMOS2 must beAnInstanceOf[VOTABLE]
-            scalaxb.toXML[VOTABLE](voTableLATMOS2, "VOTABLE", 
-                scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")) must beAnInstanceOf[NodeSeq]
-            voTableFMI2 must beAnInstanceOf[VOTABLE]
-            scalaxb.toXML[VOTABLE](voTableFMI2, "VOTABLE", 
-                scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")) must beAnInstanceOf[NodeSeq]
-            voTableSINP3 must beAnInstanceOf[VOTABLE]
-            scalaxb.toXML[VOTABLE](voTableSINP3, "VOTABLE", 
-                scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")) must beAnInstanceOf[NodeSeq]
-            voTableSINP4 must beAnInstanceOf[VOTABLE]
-            scalaxb.toXML[VOTABLE](voTableSINP4, "VOTABLE", 
-                scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")) must beAnInstanceOf[NodeSeq]
-            voTableFMI3 must beAnInstanceOf[VOTABLE]
-            scalaxb.toXML[VOTABLE](voTableFMI3, "VOTABLE", 
-                scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")) must beAnInstanceOf[NodeSeq]
-            voTableFMI4 must beAnInstanceOf[VOTABLE]
-            scalaxb.toXML[VOTABLE](voTableFMI4, "VOTABLE", 
-                scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")) must beAnInstanceOf[NodeSeq]
-            
+           testFiles must beAnInstanceOf[Array[File]]
         }
 
     }

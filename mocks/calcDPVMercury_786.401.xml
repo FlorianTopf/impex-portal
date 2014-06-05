@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+<VOTABLE xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.ivoa.net/xml/VOTable/v1.2" xmlns:stc="http://www.ivoa.net/xml/STC/stc-v1.30.xsd" version="1.2">
+	<DESCRIPTION>Paraboloid Model calculateDataPointValueMercury results for: impex://SINP/SimulationModel/Mercury/OnFly. With parameters: OutputFileType=VOTable BD=-196 Flux=131 Rss=1.35 R2=1.32 DZ=0 x=5.1 y=-8.9 z=4.5 </DESCRIPTION>
+	<RESOURCE name="IMPEx Field/Flow line">
+		<TABLE name="MagneticFieldMercury">
+			<GROUP ID="PosFrame">
+				<FIELDref ref="col2" utype="stc:Astrocoords.Position3D.Value3.C1"/>
+				<FIELDref ref="col3" utype="stc:Astrocoords.Position3D.Value3.C1"/>
+				<FIELDref ref="col4" utype="stc:Astrocoords.Position3D.Value3.C1"/>
+			</GROUP>
+			<GROUP ID="FieldFrame">
+				<FIELDref ref="col5" utype="stc:Astrocoords.Position3D.Value3.C1"/>
+				<FIELDref ref="col6" utype="stc:Astrocoords.Position3D.Value3.C1"/>
+				<FIELDref ref="col7" utype="stc:Astrocoords.Position3D.Value3.C1"/>
+			</GROUP>
+			<FIELD name="time" ID="col1" datatype="char" arraysize="*" unit="UT" ucd="time.epoch" xtype="dateTime">
+				<DESCRIPTION>TimeStamp</DESCRIPTION>
+			</FIELD>
+			<FIELD name="x" ID="col2" datatype="float" ucd="pos.cartesian.x" utype="stc:Astrocoords.Position3D.Value3.C1" unit="Rm">
+				<DESCRIPTION>x component of the requested points coordinates</DESCRIPTION>
+			</FIELD>
+			<FIELD name="y" ID="col3" datatype="float" utype="stc:Astrocoords.Position3D.Value3.C2" unit="Rm" ucd="pos.cartesian.y">
+				<DESCRIPTION>y component of the requested points coordinates</DESCRIPTION>
+			</FIELD>
+			<FIELD name="z" ID="col4" datatype="float" utype="stc:Astrocoords.Position3D.Value3.C3" unit="Rm" ucd="pos.cartesian.z">
+				<DESCRIPTION>z component of the requested points coordinates</DESCRIPTION>
+			</FIELD>
+			<FIELD name="Bx" ID="col6" datatype="float" unit="nT" ucd="phys.magField">
+				<DESCRIPTION>x component of the magnetic field in the requested points</DESCRIPTION>
+			</FIELD>
+			<FIELD name="By" ID="col7" datatype="float" unit="nT" ucd="phys.magField">
+				<DESCRIPTION>y component of the magnetic field in the requested points</DESCRIPTION>
+			</FIELD>
+			<FIELD name="Bz" ID="col8" datatype="float" unit="nT" ucd="phys.magField">
+				<DESCRIPTION>z component of the magnetic field in the requested points</DESCRIPTION>
+			</FIELD>
+			<FIELD name="Btot" ID="col5" datatype="float" unit="nT">
+				<DESCRIPTION>module of the magnetic field in the requested points</DESCRIPTION>
+			</FIELD>
+			<DATA>
+				<TABLEDATA>
+				<TR><TD>2010-01-31T13:00</TD><TD>1.10</TD><TD>0.10</TD><TD>0.10</TD><TD>-27.90</TD><TD>-12.33</TD><TD>236.2</TD><TD>238.2</TD></TR><TR><TD>2010-01-31T13:18</TD><TD>-1.10</TD><TD>0.10</TD><TD>0.10</TD><TD>52.52</TD><TD>-12.72</TD><TD>109.0</TD><TD>121.7</TD></TR><TR><TD>2008-09-29T13:00</TD><TD>0.00</TD><TD>0.00</TD><TD>1.20</TD><TD>64.80</TD><TD>-8.900</TD><TD>-203.3</TD><TD>213.6</TD></TR><TR><TD>2008-09-29T13:18</TD><TD>0.00</TD><TD>0.00</TD><TD>-1.20</TD><TD>-54.60</TD><TD>-8.900</TD><TD>-203.3</TD><TD>210.7</TD></TR></TABLEDATA>
+			</DATA>
+		</TABLE>
+	</RESOURCE>
+</VOTABLE>
