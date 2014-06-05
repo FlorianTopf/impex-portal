@@ -19,7 +19,7 @@ object VOTBindingSpecs extends org.specs2.mutable.Specification with Mockito {
 
     "VOTable Binding" should {
         
-        "marshall random VOTable 1.2 XML files" in {
+        "marshall random VOTable 1.2 files" in {
           
            val testFiles = new File("mocks/").listFiles.filter(_.getName.endsWith(".xml"))
            
