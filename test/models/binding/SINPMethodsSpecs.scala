@@ -14,7 +14,7 @@ import akka.util.Timeout
 import scala.xml.NodeSeq
 
 
-// all test parameters are taken from ICD v0.6.1 (25.5.2014)
+// all test parameters are taken from ICD v0.7 (5.6.2014)
 object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 
   // @TODO include test cases for only mandatory (but also with optional parameters)
@@ -30,9 +30,11 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
                 None // interpolation method (TO BE TESTED)
             )
             
+            val variable = Seq("Bx", "By") // variable seq
+            
             val result = sinp.service.getDataPointValue(
         	    "impex://SINP/NumericalOutput/Earth/2003-11-20UT12", // resourceId
-        		None, // variables (TO BE TESTED)
+        		Some(variable), // variables (@FIXME NOT WORKING)
         		Some(new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_52points.vot")), // url_xyz
         		Some(extraParams) // extra params
             )
@@ -300,12 +302,40 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	  
 	  	}
 	  	
-	  	// NOT YET IMPLEMENTED
+    
 	  	/*"respond to calculateCubeSaturn" in {
 	  	   
 	  	   val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
-	  	
-	  	  
+	  	   
+	  	   val imf_b = ListOfDouble(
+	  	      Some(0.0), // x
+              Some(0.0), // y
+              Some(0.0) // z
+           ) 
+           
+           val extraParams = ExtraParams_calculateCubeSaturn(
+	  	       Some(3.0), // bdc
+	  	       Some(-7.0), // bt
+	  	       Some(6.5), // rd2
+	  	       Some(15.0), // rd1
+	  	       Some(18.0), // r2
+	  	       Some(22.0), // rss
+	  	       Some(imf_b), // imf b
+	  	       Some(VOTableType) // output filetype
+	  	   )
+	  	   
+	  	   val result = ???
+	  	   
+           result.fold(f => println(f), u => {
+              println("Result URL: "+u)
+              val promise = WS.url(u.toString).get()
+              val result = Await.result(promise, Duration(1, "minute")).xml
+              scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+           })
+	  	   
+	  	   result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
+	  	   result must beRight // result must be sucessful
+           
 	  	}*/
 	  	
 
@@ -322,9 +352,9 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	   val extraParams = ExtraParams_calculateDataPointValueSaturn(
 	  	       Some(VOTableType), // output filetype
 	  	       Some(3.0), // bdc
-	  	       Some(7.0), // bt
-	  	       Some(15.0), // rd2
-	  	       Some(6.5), // rd1
+	  	       Some(-7.0), // bt
+	  	       Some(6.5), // rd2
+	  	       Some(15.0), // rd1
 	  	       Some(18.0), // r2
 	  	       Some(22.0), // rss
 	  	       Some(imf_b) // imf b
@@ -333,7 +363,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	   val result = sinp.service.calculateDataPointValueSaturn(
 	  	       "impex://SINP/SimulationModel/Saturn/OnFly", // resourceId
 	  	       Some(extraParams), // extra params
-	  	       new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_52points.vot") // url_xyz
+	  	       new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_120points.vot") // url_xyz
 	  	   )
 	  	
           result.fold(f => println(f), u => {

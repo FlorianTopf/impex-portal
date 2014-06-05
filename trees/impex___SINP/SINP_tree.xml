@@ -123,7 +123,7 @@
       </Property>
       <Property>
         <Name>RD2</Name>
-        <Description>Distance to the external edge of MD</Description>
+        <Description>Distance to the inner edge of MD</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rs</Units>
         <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
@@ -132,7 +132,7 @@
       </Property>
       <Property>
         <Name>RD1</Name>
-        <Description>Distance to the inner edge of MD</Description>
+        <Description>Distance to the external edge of MD</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Qualifier>Scalar</Qualifier>
         <Units>Rs</Units>
@@ -402,7 +402,7 @@
       </Property>
       <Property>
         <Name>RD2</Name>
-        <Description>Distance to the external edge of MD</Description>
+        <Description>Distance to the inner edge of MD</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rs</Units>
         <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
@@ -411,7 +411,7 @@
       </Property>
       <Property>
         <Name>RD1</Name>
-        <Description>Distance to the inner edge of MD</Description>
+        <Description>Distance to the external edge of MD</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Qualifier>Scalar</Qualifier>
         <Units>Rs</Units>
@@ -3017,13 +3017,13 @@
     </InputParameter>
     <InputParameter>
       <Name>RD2</Name>
-      <Description>Distance to the external edge of MD</Description>
+      <Description>Distance to the inner edge of MD</Description>
       <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
       <Qualifier>Scalar</Qualifier>
       <ParameterQuantity>Other</ParameterQuantity>
       <Property>
         <Name>RD2</Name>
-        <Description>Distance to the external edge of MD</Description>
+        <Description>Distance to the inner edge of MD</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rs</Units>
         <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
@@ -3033,13 +3033,13 @@
     </InputParameter>
 	<InputParameter>
       <Name>RD1</Name>
-      <Description>Distance to the inner edge of MD</Description>
+      <Description>Distance to the external edge of MD</Description>
     <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
       <Qualifier>Scalar</Qualifier>
       <ParameterQuantity>Other</ParameterQuantity>
       <Property>
         <Name>RD1</Name>
-        <Description>Distance to the inner edge of MD</Description>
+        <Description>Distance to the external edge of MD</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rs</Units>
         <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>

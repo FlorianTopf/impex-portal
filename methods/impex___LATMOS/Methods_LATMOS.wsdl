@@ -197,11 +197,32 @@
 					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointValue" name="extraParams"> </xs:element>
 				</xs:sequence>
 			</xs:complexType>
+			
+			
+			
+			<xs:element type="DataPointValue_Spacecraft" name="getDataPointValue_Spacecraft"/>
+			
+			<xs:complexType name="DataPointValue_Spacecraft">
+				<xs:sequence>
+					<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>ResourceID of the NumericalOutput describing the 3D
+								cube in which the interpolation is performed</xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					<xs:element ref="Variable" maxOccurs="1" minOccurs="0"/>
+					<xs:element ref="Spacecraft_name" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="StopTime" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="Sampling" maxOccurs="1" minOccurs="1"/>
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointValue" name="extraParams"> </xs:element>
+				</xs:sequence>
+			</xs:complexType>			
 
 			
-			<xs:element type="DataPointSpectraSpacecraft" name="getDataPointSpectraSpacecraft"/>
+			<xs:element type="DataPointSpectra_Spacecraft" name="getDataPointSpectra_Spacecraft"/>
 
-			<xs:complexType name="DataPointSpectraSpacecraft">
+			<xs:complexType name="DataPointSpectra_Spacecraft">
 				<xs:sequence>
 					<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
 						<xs:annotation>
@@ -212,6 +233,28 @@
 						</xs:annotation>
 					</xs:element>
 	
+					<xs:element ref="Spacecraft_name" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="StopTime" maxOccurs="1" minOccurs="1"/>
+					<xs:element ref="Sampling" maxOccurs="1" minOccurs="1"/>
+					<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointSpectra" name="extraParams"> </xs:element>
+				</xs:sequence>
+			</xs:complexType>
+
+			
+			<xs:element type="DataPointSpectraSpacecraft" name="getDataPointSpectraSpacecraft"/>
+			
+			<xs:complexType name="DataPointSpectraSpacecraft">
+				<xs:sequence>
+					<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+						<xs:annotation>
+							<xs:documentation>If xpath=Spase/SimulationRun/ResourceID then the
+								method applies to all species. If xpath =
+								Spase/NumericalOutput/ResourceID then the method applies to the
+								species </xs:documentation>
+						</xs:annotation>
+					</xs:element>
+					
 					<xs:element ref="Spacecraft_name" maxOccurs="1" minOccurs="1"/>
 					<xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
 					<xs:element ref="StopTime" maxOccurs="1" minOccurs="1"/>
@@ -302,10 +345,18 @@
 	</wsdl:message>
 
 	<wsdl:message name="DataPointValue_Spacecraft_Request">
+		<wsdl:part element="getDataPointValue_Spacecraft" name="parameters"/>
+	</wsdl:message>
+	
+	<wsdl:message name="DataPointValueSpacecraft_Request">
 		<wsdl:part element="getDataPointValueSpacecraft" name="parameters"/>
 	</wsdl:message>
 
 	<wsdl:message name="DataPointSpectra_Spacecraft_Request">
+		<wsdl:part element="getDataPointSpectra_Spacecraft" name="parameters"/>
+	</wsdl:message>
+
+	<wsdl:message name="DataPointSpectraSpacecraft_Request">
 		<wsdl:part element="getDataPointSpectraSpacecraft" name="parameters"/>
 	</wsdl:message>
 
@@ -337,14 +388,22 @@
 			<wsdl:input message="Surface_Request"> </wsdl:input>
 			<wsdl:output message="Generic_Response"> </wsdl:output>
 		</wsdl:operation>
-		<wsdl:operation name="getDataPointValueSpacecraft">
+		<wsdl:operation name="getDataPointValue_Spacecraft">
 			<wsdl:input message="DataPointValue_Spacecraft_Request"> </wsdl:input>
 			<wsdl:output message="Generic_Response"> </wsdl:output>
 		</wsdl:operation>
-		<wsdl:operation name="getDataPointSpectraSpacecraft">
+		<wsdl:operation name="getDataPointValueSpacecraft">
+			<wsdl:input message="DataPointValueSpacecraft_Request"> </wsdl:input>
+			<wsdl:output message="Generic_Response"> </wsdl:output>
+		</wsdl:operation>		
+		<wsdl:operation name="getDataPointSpectra_Spacecraft">
 			<wsdl:input message="DataPointSpectra_Spacecraft_Request"> </wsdl:input>
 			<wsdl:output message="Generic_Response"> </wsdl:output>
 		</wsdl:operation>
+		<wsdl:operation name="getDataPointSpectraSpacecraft">
+			<wsdl:input message="DataPointSpectraSpacecraft_Request"> </wsdl:input>
+			<wsdl:output message="Generic_Response"> </wsdl:output>
+		</wsdl:operation>		
 		<wsdl:operation name="getFileURL">
 			<wsdl:input message="FileURL_Request"> </wsdl:input>
 			<wsdl:output message="FileURL_Response"> </wsdl:output>
@@ -391,6 +450,17 @@
 			</wsdl:output>
 		</wsdl:operation>
 
+		<wsdl:operation name="getDataPointValue_Spacecraft">
+			<soap:operation soapAction="DataPointValue_Spacecraft"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
+
+
 		<wsdl:operation name="getDataPointValueSpacecraft">
 			<soap:operation soapAction="DataPointValueSpacecraft"/>
 			<wsdl:input>
@@ -401,6 +471,15 @@
 			</wsdl:output>
 		</wsdl:operation>
 
+		<wsdl:operation name="getDataPointSpectra_Spacecraft">
+			<soap:operation soapAction="DataPointSpectra_Spacecraft"/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>
 
 		<wsdl:operation name="getDataPointSpectraSpacecraft">
 			<soap:operation soapAction="DataPointSpectraSpacecraft"/>
@@ -411,7 +490,8 @@
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>
-
+		
+		
 		<wsdl:operation name="getFileURL">
 			<soap:operation soapAction="FileURL"/>
 			<wsdl:input>
