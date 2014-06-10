@@ -1907,11 +1907,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CalculateCubeSaturn] =
       phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
-      opt(scalaxb.ElemName(None, "extraParams")) ^^
-      { case p1 ~ p2 =>
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "StartTime")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ~
+      opt(scalaxb.ElemName(None, "Sampling")) ~ 
+      opt(scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "cube_size_array")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 =>
       models.binding.CalculateCubeSaturn(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
-        p2.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateCubeSaturn](_, scalaxb.ElemName(node) :: stack) }) })
-    
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p2, scalaxb.ElemName(node) :: stack),
+        p3.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateCubeSaturn](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[Cube_size_array](_, scalaxb.ElemName(node) :: stack) }) })
+      
     def writesChildNodes(__obj: models.binding.CalculateCubeSaturn, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
       Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
         __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateCubeSaturn](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
@@ -2009,6 +2015,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       def calculateCubeMercury(resourceID: String, extraParams: Option[models.binding.ExtraParams_calculateCubeMercury]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateCubeMercury(resourceID, extraParams), Some("http://smdc.sinp.msu.ru"), "calculateCubeMercury", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateCubeMercury"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+     def calculateCubeSaturn(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[ExtraParams_calculateCubeSaturn], sampling: Option[Double], cube_size_array: Option[Cube_size_array]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(CalculateCubeSaturn(resourceID, startTime, extraParams, sampling, cube_size_array), Some("http://smdc.sinp.msu.ru"), "calculateCubeSaturn", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateCubeSaturn"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
             Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))

@@ -262,7 +262,10 @@ case class CalculateCubeMercury(ResourceID: String,
 
 
 case class CalculateCubeSaturn(ResourceID: String,
-  extraParams: Option[models.binding.ExtraParams_calculateCubeSaturn] = None)
+  StartTime: javax.xml.datatype.XMLGregorianCalendar,
+  extraParams: Option[models.binding.ExtraParams_calculateCubeSaturn] = None, 
+  Sampling: Option[Double] = None,
+  cube_size_array: Option[Cube_size_array] = None)
 
 
 case class CalculateCubeJupiter(ResourceID: String,

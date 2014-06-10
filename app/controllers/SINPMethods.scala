@@ -63,7 +63,7 @@ object SINPMethods extends Controller {
     
     val result = sinp.service.getDataPointValue(
         id.get, // resourceId
-        None, // variables (TO BE TESTED)
+        None, // variables (@FIXME NOT WORKING)
         Some(new URI(url.get)), // url_xyz
         Some(extraParams) // extra params
     )

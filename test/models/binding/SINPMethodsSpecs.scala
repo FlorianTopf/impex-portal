@@ -211,7 +211,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	      TimeProvider.getISODate("2005-09-11T02:00:00"), // start time 
 	  	      Some(extraParams), // extra params
 	  	      Some(0.7), // sampling 
-	  	      Some(cubeSize)) // cube_size_array
+	  	      Some(cubeSize)) // cube size
 	  	      
           result.fold(f => println(f), u => {
               println("Result URL: "+u)
@@ -302,8 +302,8 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	  
 	  	}
 	  	
-    
-	  	/*"respond to calculateCubeSaturn" in {
+	  	// @FIXME returns empty VOTable file
+	  	"respond to calculateCubeSaturn" in {
 	  	   
 	  	   val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
 	  	   
@@ -324,7 +324,22 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	       Some(VOTableType) // output filetype
 	  	   )
 	  	   
-	  	   val result = ???
+	  	  val cubeSize = Cube_size_array(
+	  	      Some(BigInt(-80)), // x_low
+	  	      Some(BigInt(-40)), // x_high
+	  	      Some(BigInt(-60)), // y_low
+	  	      Some(BigInt(60)), // y_high
+	  	      Some(BigInt(-60)), // z_low
+	  	      Some(BigInt(60)) // z_high
+	  	  )
+	  	   
+	  	   val result = sinp.service.calculateCubeSaturn(
+	  	       "impex://SINP/SimulationModel/Saturn/OnFly", // resourceId
+	  	       TimeProvider.getISODate("2008-09-10T12:00:00"),  // start time
+	  	       Some(extraParams), // extra params
+	  	       Some(1.0), // sampling 
+	  	       Some(cubeSize) // cube size
+	  	   )
 	  	   
            result.fold(f => println(f), u => {
               println("Result URL: "+u)
@@ -336,9 +351,9 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	   result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
 	  	   result must beRight // result must be sucessful
            
-	  	}*/
+	  	}
 	  	
-
+    
 	  	"respond to calculateDataPointValueSaturn" in {
 	  	  
 	  	   val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
