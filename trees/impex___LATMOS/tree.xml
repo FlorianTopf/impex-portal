@@ -18788,14 +18788,14 @@ Adiabatic profile below 10.75cm^-3, hydrostatic above.</Profile>
 <URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_01_13/The_14_01_13_MGS_ephem_2006_07_90.0.xml</URL>
 </Source>
 </Granule><Granule>
-<ResourceID>impex://LATMOS/Hybrid/Mars_14_01_13/The/3D/Thew_14_01_13_t00150</ResourceID>
+<ResourceID>impex://LATMOS/Hybrid/Mars_14_01_13/The/3D/Thew_14_01_13_t00600</ResourceID>
 <ReleaseDate>2013-06-11T00:00:00.000</ReleaseDate>
 <ParentID>impex://LATMOS/Hybrid/Mars_14_01_13/The/3D</ParentID>
 <RegionBegin>   -7180.1   -15879.1   -15879.1 </RegionBegin>
 <RegionEnd>    9555.1    16100.0    16100.0 </RegionEnd>
 <Source>
 <SourceType>Data</SourceType>
-<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_01_13/Thew_14_01_13_t00150.nc</URL>
+<URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_01_13/Thew_14_01_13_t00600.nc</URL>
 </Source>
 </Granule><Granule>
 <ResourceID>impex://LATMOS/Hybrid/Mars_14_01_13/The/2D/XY/Thew_XY_14_01_13</ResourceID>
