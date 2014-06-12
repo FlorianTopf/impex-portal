@@ -59,13 +59,37 @@ GET		/methods/:dbName			controllers.Methods.methods(dbName: String)
 GET		/methods/taverna/:dbName	controllers.Methods.methodsTaverna(dbName: String)
 
 # sinp methods 
-GET		/methods/SINP/getDataPointValue			controllers.SINPMethods.getDataPointValue
+GET		/methods/SINP/getDataPointValue						controllers.SINPMethods.getDataPointValue
+
+GET		/methods/SINP/calculateDataPointValueFixedTime		controllers.SINPMethods.calculateDataPointValueFixedTime
+
+GET		/methods/SINP/calculateDataPointValue				controllers.SINPMethods.calculateDataPointValue
+
+GET		/methods/SINP/calculateDataPointValueSpacecraft		controllers.SINPMethods.calculateDataPointValueSpacecraft
+
+GET		/methods/SINP/calculateFieldLine					controllers.SINPMethods.calculateFieldLine
+
+GET		/methods/SINP/calculateCube							controllers.SINPMethods.calculateCube
+
+GET		/methods/SINP/calculateCubeMercury					controllers.SINPMethods.calculateCubeMercury
+
+GET		/methods/SINP/calculateDataPointValueMercury		controllers.SINPMethods.calculateDataPointValueMercury
+
+GET		/methods/SINP/calculateCubeSaturn					controllers.SINPMethods.calculateCubeSaturn
+
+GET		/methods/SINP/calculateDataPointValueSaturn			controllers.SINPMethods.calculateDataPointValueSaturn
 
 # latmos methods
-GET		/methods/LATMOS/getDataPointValue		controllers.LATMOSMethods.getDataPointValue
+GET		/methods/LATMOS/getDataPointValue					controllers.LATMOSMethods.getDataPointValue
+
+GET		/methods/LATMOS/getDataPointValueSpacecraft			controllers.LATMOSMethods.getDataPointValueSpacecraft
+
 
 # fmi methods
-GET		/methods/FMI/getDataPointValue			controllers.FMIMethods.getDataPointValue
+GET		/methods/FMI/getDataPointValue						controllers.FMIMethods.getDataPointValue
+
+GET		/methods/FMI/getDataPointValueSpacecraft			controllers.FMIMethods.getDataPointValueSpacecraft
+
 
 # general testing route
 GET		/test						controllers.Application.test

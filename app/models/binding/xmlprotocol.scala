@@ -1920,7 +1920,10 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       
     def writesChildNodes(__obj: models.binding.CalculateCubeSaturn, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
       Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
-        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateCubeSaturn](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StartTime, Some("http://smdc.sinp.msu.ru"), Some("StartTime"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateCubeSaturn](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil},
+        __obj.Sampling map { scalaxb.toXML[Double](_, None, Some("Sampling"), __scope, false) } getOrElse {Nil},
+        __obj.cube_size_array map { scalaxb.toXML[models.binding.Cube_size_array](_, Some("http://smdc.sinp.msu.ru"), Some("cube_size_array"), __scope, false) } getOrElse {Nil})
 
   }
 

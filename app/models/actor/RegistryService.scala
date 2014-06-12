@@ -78,7 +78,7 @@ object RegistryService {
   }
   
   // Hack method for checking the id of the request against the database id (add to diagram)
-  private def checkId(msg: GetElement, id: URI): Boolean = { 
+  private def validateId(msg: GetElement, id: URI): Boolean = { 
     println("Computed ResourceID match="+id.toString.replaceAll(ERepository.toString, msg.dType.toString))
     msg.id.toString.contains(id.toString.replaceAll(ERepository.toString, msg.dType.toString))
   }
@@ -89,12 +89,22 @@ object RegistryService {
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- msg.id match {
-        case Some(id) if(databases.exists(d => checkId(msg, d.id))) => {
-          val db: Database = databases.find(d => checkId(msg, d.id)).get
+        case Some(id) if(databases.exists(d => validateId(msg, d.id))) => {
+          val db: Database = databases.find(d => validateId(msg, d.id)).get
           val provider: ActorSelection = getChild(db.id)
           (msg.dType, db.typeValue) match {
-            case (e: SimElement, Simulation) => (provider ? msg).mapTo[Spase] map { Left(_) }
-            case (e: ObsElement, Observation) => (provider ? msg).mapTo[Spase] map { Left(_) }
+            case (e: SimElement, Simulation) => (provider ? msg).mapTo[Spase] map { 
+              s => { s.ResourceEntity match {
+                case Seq() => Right(RequestError(ERequestError.UNKNOWN_ENTITY))
+                case _ => Left(s)
+              }}  
+            }
+            case (e: ObsElement, Observation) => (provider ? msg).mapTo[Spase] map { 
+              s => { s.ResourceEntity match {
+                case Seq() => Right(RequestError(ERequestError.UNKNOWN_ENTITY))
+                case _ => Left(s)
+              }}  
+            }
             case (e: GenElement, _) => (provider ? msg).mapTo[Spase] map { Left(_) }
             case _ => future { Right(RequestError(ERequestError.UNKNOWN_ENTITY)) }
           }   

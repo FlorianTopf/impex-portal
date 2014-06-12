@@ -3,7 +3,7 @@ package models.enums
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 
-case class RequestError(value: ERequestError.Value)
+case class RequestError(code: ERequestError.Value)
 
 object ERequestError extends Enumeration {
     val UNKNOWN_MSG = Value(400, "unknown message") //Bad request
@@ -37,7 +37,7 @@ object ERequestError extends Enumeration {
 object RequestError {
     implicit val requestErrorWrites = new Writes[RequestError] {
         def writes(r: RequestError): JsValue = {
-            Json.obj("code" -> r.value.id, "message" -> r.value)
+            Json.obj("code" -> r.code.id, "message" -> r.code)
         }
     }
 }

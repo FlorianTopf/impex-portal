@@ -22,14 +22,14 @@ object OutputFormatType {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): OutputFormatType = value match {
     case "netCDF" => NetCDFType
     case "VOTable" => VOTableType
-    case "ASCII" => ASCIIType
+    //case "ASCII" => ASCIIType
 
   }
 }
 
 case object NetCDFType extends OutputFormatType { override def toString = "netCDF" }
 case object VOTableType extends OutputFormatType { override def toString = "VOTable" }
-case object ASCIIType extends OutputFormatType { override def toString = "ASCII" }
+//case object ASCIIType extends OutputFormatType { override def toString = "ASCII" }
 
 
 trait EnumInterpolation
@@ -48,7 +48,7 @@ case object LinearValue extends EnumInterpolation { override def toString = "Lin
 
 trait SpacecraftType
 
-// only MGS / VEX / MEX used at LATMOS
+// only MEX / MGS / VEX used at LATMOS
 object SpacecraftType {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): SpacecraftType = value match {
     case "MEX" => MEXValue

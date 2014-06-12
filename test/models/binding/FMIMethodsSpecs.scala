@@ -74,7 +74,8 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
                TimeProvider.getISODate("2010-08-02T00:00:00"), // start time
                TimeProvider.getISODate("2010-08-02T01:00:00"), // stop time
                TimeProvider.getDuration("PT600S"), // sampling
-               Some(extraParams)) // extra params
+               Some(extraParams) // extra params 
+           )
                
            result.fold(f => println(f), u => {
                println("Result URL: "+u)
