@@ -34,8 +34,18 @@ object Helpers extends Controller {
     try {
       Some(EnumDirection.fromString(direction, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
     } catch {
-      // just use Both if something wrong is entered
-      case _: MatchError => Some(Both)
+      // just use None if something wrong is entered
+      case _: MatchError => None
+    }
+  }
+  
+  // helper method for validating interpolation methods
+  def validateInterpolation(interpolation: String): Option[EnumInterpolation] = {
+    try {
+      Some(EnumInterpolation.fromString(interpolation, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+    } catch {
+      // just use None if something wrong is entered
+      case _: MatchError => None
     }
   }
   
