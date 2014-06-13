@@ -24,8 +24,8 @@ object Helpers extends Controller {
     try {
       floats.split(",").map(_.toFloat)      
     } catch {
-      // in any error case return NULL vector
-      case _: Throwable => Seq(0.0f, 0.0f, 0.0f)
+      // @FIXME in any error case return empty sequence
+      case _: Throwable => Seq()
     }
   }
   
@@ -40,13 +40,13 @@ object Helpers extends Controller {
   }
   
   // helper method which returns the default result of WS (URI or FAULT)
-  def returnDefaultResult(result: Either[scalaxb.Soap11Fault[Any], java.net.URI]): SimpleResult = {
+  def returnDefaultResult(result: Either[scalaxb.Soap11Fault[Any], java.net.URI], request: Map[String, String]): SimpleResult = {
     result.fold(
         fault => BadRequest(Json.toJson(
             ServiceResponse(
                 EServiceResponse.BAD_REQUEST, 
-                fault.original.asInstanceOf[Fault].faultstring))), 
-        uri => Ok(Json.toJson(ServiceResponse(EServiceResponse.OK, uri.toString)))
+                fault.original.asInstanceOf[Fault].faultstring, request))), 
+        uri => Ok(Json.toJson(ServiceResponse(EServiceResponse.OK, uri.toString, request)))
     )
   }
   

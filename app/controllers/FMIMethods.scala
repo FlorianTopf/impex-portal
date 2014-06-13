@@ -19,7 +19,7 @@ import play.api.libs.json._
 import soapenvelope11._
 import java.text.ParseException
 
-// @TODO include request parameters to responses
+// @TODO include request parameters to responses (serialise rew map)
 
 @Api(
     value = "/methods", 
@@ -67,6 +67,10 @@ object FMIMethods extends Controller {
     // mandatory parameters
     val id = request.req.get("id").get
     val url = request.req.get("url_xyz").get
+    
+    val test = request.req
+    
+    println()
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
@@ -82,19 +86,19 @@ object FMIMethods extends Controller {
         Some(extraParams) // extra params
     )
     
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
   	} catch {
   	  case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       // @FIXME this is because there are errors not encoded as SOAP-FAULT
       case e: RuntimeException =>
         NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error")))
+                "unknown external web service error", request.req)))
   	}
   }
   
-@GET
+  @GET
   @ApiOperation(
       value = "getDataPointValueSpacecraft at FMI", 
       nickname = "getDataPointValueSpacecraftFMI",
@@ -176,18 +180,18 @@ object FMIMethods extends Controller {
         Some(extraParams) // extra params
     )
                
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       case e @ (_:ParseException | _:IllegalArgumentException) => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "time parameter not in ISO 8601 format")))
+                "time parameter not in ISO 8601 format", request.req)))
       // @FIXME this is because there are errors not encoded as SOAP-FAULT
       case e: RuntimeException =>
         NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error")))
+                "unknown external web service error", request.req)))
     }
   }
   
@@ -253,15 +257,15 @@ object FMIMethods extends Controller {
         Some(extraParams) // extra params
     ) 
     
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       // @FIXME this is because there are errors not encoded as SOAP-FAULT
       case e: RuntimeException =>
         NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error")))
+                "unknown external web service error", request.req)))
     }
   }
   
@@ -357,15 +361,15 @@ object FMIMethods extends Controller {
         Some(extraParams) // extra params
     )
            
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       // @FIXME this is because there are errors not encoded as SOAP-FAULT
       case e: RuntimeException =>
         NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error")))
+                "unknown external web service error", request.req)))
     }
   }
   
@@ -435,15 +439,15 @@ object FMIMethods extends Controller {
         Some(extraParams) // extra params
     )
     
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       // @FIXME this is because there are errors not encoded as SOAP-FAULT
       case e: RuntimeException =>
         NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error")))
+                "unknown external web service error", request.req)))
     }
   }
   
@@ -500,15 +504,15 @@ object FMIMethods extends Controller {
         Some(extraParams) // extra params
     ) 
     
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       // @FIXME this is because there are errors not encoded as SOAP-FAULT
       case e: RuntimeException =>
         NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error")))
+                "unknown external web service error", request.req)))
     }
   }
   
@@ -595,21 +599,21 @@ object FMIMethods extends Controller {
         Some(extraParams) // extra params
     )
     
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       case e @ (_:ParseException | _:IllegalArgumentException) => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "time parameter not in ISO 8601 format")))
+                "time parameter not in ISO 8601 format", request.req)))
       case e: MatchError => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "unkown spacecraft name")))
+                "unkown spacecraft name", request.req)))
       // @FIXME this is because there are errors not encoded as SOAP-FAULT
       case e: RuntimeException =>
         NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error")))
+                "unknown external web service error", request.req)))
     }
   }
   

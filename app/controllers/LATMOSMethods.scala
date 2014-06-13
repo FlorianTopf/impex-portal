@@ -79,11 +79,11 @@ object LATMOSMethods extends Controller {
         Some(extraParams) // extra params
      )
     
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
     }
   }
   
@@ -168,17 +168,17 @@ object LATMOSMethods extends Controller {
         TimeProvider.getDuration(sampling), // sampling
         Some(extraParams)) // extra params
     
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       case e @ (_:ParseException | _:IllegalArgumentException) => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "time parameter not in ISO 8601 format")))
+                "time parameter not in ISO 8601 format", request.req)))
       case e: MatchError => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "unkown spacecraft name")))
+                "unkown spacecraft name", request.req)))
     }
   }
   
@@ -244,11 +244,11 @@ object LATMOSMethods extends Controller {
         Some(extraParams) // extra params
     )
     
-    returnDefaultResult(result) 
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
     }
   }
   
@@ -304,16 +304,16 @@ object LATMOSMethods extends Controller {
         fault => BadRequest(Json.toJson(
             ServiceResponse(
                 EServiceResponse.BAD_REQUEST, 
-                fault.original.asInstanceOf[Fault].faultstring))), 
+                fault.original.asInstanceOf[Fault].faultstring, request.req))), 
         votable => Ok(scalaxb.toXML[VOTABLE](votable, "VOTABLE", scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")))
     )
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       case e: ParseException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "time parameter not in ISO 8601 format")))
+                "time parameter not in ISO 8601 format", request.req)))
     }
   }
   
@@ -380,11 +380,11 @@ object LATMOSMethods extends Controller {
         Some(extraParams) // extra params
     )
      
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
     }
   }
   
@@ -441,11 +441,11 @@ object LATMOSMethods extends Controller {
         Some(extraParams) // extra params
     )
     
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
     }
   }
   
@@ -531,17 +531,17 @@ object LATMOSMethods extends Controller {
         Some(extraParams) // extra params
     )
   
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       case e @ (_:ParseException | _:IllegalArgumentException) => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "time parameter not in ISO 8601 format")))
+                "time parameter not in ISO 8601 format", request.req)))
       case e: MatchError => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "unkown spacecraft name")))
+                "unkown spacecraft name", request.req)))
     }
   }
     

@@ -4,7 +4,7 @@ import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import java.net.URI
 
-case class ServiceResponse(code: EServiceResponse.Value, message: String)
+case class ServiceResponse(code: EServiceResponse.Value, message: String, request: Map[String, String])
 
 object EServiceResponse extends Enumeration {
     val OK = Value(200)
@@ -36,7 +36,7 @@ object EServiceResponse extends Enumeration {
 object ServiceResponse {
     implicit val serviceResponseWrites = new Writes[ServiceResponse] {
         def writes(r: ServiceResponse): JsValue = {
-            Json.obj("code" -> r.code.id, "message" -> r.message)
+            Json.obj("code" -> r.code.id, "message" -> r.message, "request" -> r.request)
         }
     }
     

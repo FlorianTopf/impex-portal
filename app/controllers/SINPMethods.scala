@@ -79,15 +79,15 @@ object SINPMethods extends Controller {
         Some(extraParams) // extra params
     )
     
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       // @FIXME this is because there are errors not encoded as SOAP-FAULT
       case e: RuntimeException =>
         NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error")))
+                "unknown external web service error", request.req)))
     }
   }
   
@@ -162,18 +162,18 @@ object SINPMethods extends Controller {
         Some(extraParams), // extra params
         new URI(url)) // url_xyz
                 
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       case e: ParseException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "time parameter not in ISO 8601 format")))
+                "time parameter not in ISO 8601 format", request.req)))
       // @FIXME this is because there are errors not encoded as SOAP-FAULT
       case e: RuntimeException =>
         NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error")))
+                "unknown external web service error", request.req)))
     }
   }
   
@@ -228,11 +228,11 @@ object SINPMethods extends Controller {
         new URI(url) // url_xyz  
     )
            
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
     }
   }
   
@@ -317,17 +317,17 @@ object SINPMethods extends Controller {
         Some(extraParams) // extra params
     )
     
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch  {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       case e @ (_:ParseException | _:IllegalArgumentException) => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "time parameter not in ISO 8601 format")))
+                "time parameter not in ISO 8601 format", request.req)))
       case e: MatchError => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "unkown spacecraft name")))
+                "unkown spacecraft name", request.req)))
     }
   }
   
@@ -393,14 +393,14 @@ object SINPMethods extends Controller {
 	  	new URI(url) // url_xyz
 	)
     
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       case  e @ (_:ParseException) => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "time parameter not in ISO 8601 format")))
+                "time parameter not in ISO 8601 format", request.req)))
     }
   }
   
@@ -488,17 +488,17 @@ object SINPMethods extends Controller {
 	    Some(cubeSize) // cube size
 	)
     
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       case e @ (_:ParseException) => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "time parameter not in ISO 8601 format")))
+                "time parameter not in ISO 8601 format", request.req)))
       case e @ (_:NumberFormatException) => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "illegal number provided")))
+                "illegal number provided", request.req)))
     }
   }
   
@@ -558,11 +558,11 @@ object SINPMethods extends Controller {
 	  	Some(extraParams) // extra params
 	)
     
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
     }
   }
   
@@ -631,15 +631,15 @@ object SINPMethods extends Controller {
 	  	new URI(url) // url_xyz
 	)
     
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       // @FIXME this is because there are errors not encoded as SOAP-FAULT
       case e: RuntimeException =>
         NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error")))
+                "unknown external web service error", request.req)))
     }
   }
   
@@ -729,17 +729,17 @@ object SINPMethods extends Controller {
 	  	Some(cubeSize) // cube size
 	)
     
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
       case e @ (_:ParseException) => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "time parameter not in ISO 8601 format")))
+                "time parameter not in ISO 8601 format", request.req)))
       case e @ (_:NumberFormatException) => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "illegal number provided")))
+                "illegal number provided", request.req)))
     }
   }
   
@@ -809,11 +809,11 @@ object SINPMethods extends Controller {
 	  	new URI(url) // url_xyz
 	)
 	  	
-    returnDefaultResult(result)
+    returnDefaultResult(result, request.req)
     } catch {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
-                "mandatory parameter missing")))
+                "mandatory parameter missing", request.req)))
     }
   }
   
