@@ -88,7 +88,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
            
            val extraParams = ExtraParams_getSurfaceLATMOS(
-               None, //resolution (@TODO TO BE TESTED)
+               None, // resolution (@TODO TO BE TESTED)
                Some(0), // imf clockangle
                Some(VOTableType) // output filetype
            )

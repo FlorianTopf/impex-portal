@@ -15,7 +15,6 @@ import play.api.libs.json._
 import models.enums._
 import java.text.ParseException
 
-// @TODO include request parameters to responses
 
 @Api(
     value = "/methods", 
@@ -65,11 +64,11 @@ object SINPMethods extends Controller {
     val id = request.req.get("id").get
     val url = request.req.get("url_xyz").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointValueSINP(
         validateFiletype(filetype), // output filetype
-        None // interpolation method (@TODO TO BE TESTED)
+        None // interpolation method (only linear anyway)
     )
     
     val result = sinp.service.getDataPointValue(
@@ -137,7 +136,7 @@ object SINPMethods extends Controller {
     val url = request.req.get("url_xyz").get
     val startTime = request.req.get("start_time").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
     
     // @TODO add IMF parameters as GET
     val imf_b = ListOfDouble(
@@ -216,7 +215,7 @@ object SINPMethods extends Controller {
     val id = request.req.get("id").get
     val url = request.req.get("url_xyz").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_calculateDataPointValue(
         validateFiletype(filetype) // output filetype
@@ -301,7 +300,7 @@ object SINPMethods extends Controller {
     val stopTime = request.req.get("stop_time").get
     val sampling = request.req.get("sampling").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_calculateDataPointValueSpacecraft(
         validateFiletype(filetype) // output filetype
@@ -378,7 +377,7 @@ object SINPMethods extends Controller {
     val startTime = request.req.get("start_time").get
     val url = request.req.get("url_xyz").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_calculateFieldLine(
         None, // line length (@TODO TO BE TESTED)
@@ -451,7 +450,7 @@ object SINPMethods extends Controller {
     val startTime = request.req.get("start_time").get
     val sampling = request.req.get("sampling").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
     
     // @TODO add IMF parameters as GET    
     val imf_b = ListOfDouble(
@@ -533,7 +532,7 @@ object SINPMethods extends Controller {
     // mandatory parameters
     val id = request.req.get("id").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
    
     // @TODO add IMF parameters as GET    
     val imf_b = ListOfDouble(
@@ -605,7 +604,7 @@ object SINPMethods extends Controller {
     val id = request.req.get("id").get
     val url = request.req.get("url_xyz").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
     
     // @TODO add IMF parameters as GET
     val imf_b = ListOfDouble(
@@ -690,7 +689,7 @@ object SINPMethods extends Controller {
     val startTime = request.req.get("start_time").get
     val sampling = request.req.get("sampling").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
     
 	// @TODO add IMF parameters as GET
     val imf_b = ListOfDouble(
@@ -782,7 +781,7 @@ object SINPMethods extends Controller {
     val id = request.req.get("id").get
     val url = request.req.get("url_xyz").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
 
 	// @TODO add IMF parameters as GET
 	val imf_b = ListOfDouble(

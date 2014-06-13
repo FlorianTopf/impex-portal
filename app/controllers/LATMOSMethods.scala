@@ -65,7 +65,7 @@ object LATMOSMethods extends Controller {
     val id = request.req.get("id").get
     val url = request.req.get("url_xyz").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointValueLATMOS(
         None, // imf clockangle (@TODO to be added)
@@ -151,7 +151,7 @@ object LATMOSMethods extends Controller {
     val stopTime = request.req.get("stop_time").get
     val sampling = request.req.get("sampling").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointValueLATMOS(
         Some(120.0), // imf clockangle (@TODO to be added)
@@ -228,10 +228,10 @@ object LATMOSMethods extends Controller {
     val plane_point = request.req.get("plane_point").get
     val plane_n_vector = request.req.get("plane_normal_vector").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getSurfaceLATMOS(
-        None, //resolution (@TODO TO BE TESTED)
+        None, // resolution (@TODO TO BE TESTED)
         Some(0), // imf clockangle (@TODO to be added)
         validateFiletype(filetype) // output filetype
     )
@@ -364,8 +364,8 @@ object LATMOSMethods extends Controller {
     val id = request.req.get("id").get
     val url = request.req.get("url_xyz").get
     // extra params
-    val direction = request.req.get("direction").getOrElse("Both")
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val direction = request.req.get("direction").getOrElse("")
+    val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getFieldLineLATMOS(
         validateDirection(direction), // direction
@@ -427,7 +427,7 @@ object LATMOSMethods extends Controller {
     val id = request.req.get("id").get
     val url = request.req.get("url_xyz").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointSpectraLATMOS(
         None, // imf clockangle (@TODO TO BE TESTED)
@@ -513,7 +513,7 @@ object LATMOSMethods extends Controller {
     val stopTime = request.req.get("stop_time").get
     val sampling = request.req.get("sampling").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointSpectraLATMOS(
         None, // imf clockangle (@TODO TO BE TESTED)

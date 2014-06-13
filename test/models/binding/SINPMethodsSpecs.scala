@@ -25,7 +25,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
         	
             val extraParams = ExtraParams_getDataPointValueSINP(
                 Some(VOTableType), // output filetype
-                None // interpolation method (@TODO TO BE TESTED)
+                None // interpolation method (only linear anyway)
             )
             
             val variable = Seq("Bx", "By") // variable seq

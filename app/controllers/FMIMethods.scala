@@ -54,6 +54,14 @@ object FMIMethods extends Controller {
         dataType = "string",
         paramType = "query"),
     new ApiImplicitParam(
+        name = "interpolation_method",
+        value = "interpolation method",
+        defaultValue = "Linear",
+        allowableValues = "Linear,NearestGridPoint",
+        required = false,
+        dataType = "string",
+        paramType = "query"),
+    new ApiImplicitParam(
         name = "output_filetype",
         value = "output filetype",
         defaultValue = "VOTable",
@@ -67,15 +75,12 @@ object FMIMethods extends Controller {
     // mandatory parameters
     val id = request.req.get("id").get
     val url = request.req.get("url_xyz").get
-    
-    val test = request.req
-    
-    println()
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
+    val interpolation = request.req.get("interpolation_method").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointValueFMI(
-        None, // interpolation method (@TODO to be added)
+        validateInterpolation(interpolation), // interpolation method (@TODO to be added)
         validateFiletype(filetype) // output filetype
     )
     
@@ -145,6 +150,14 @@ object FMIMethods extends Controller {
         dataType = "ISO 8601 duration",
         paramType = "query"),
     new ApiImplicitParam(
+        name = "interpolation_method",
+        value = "interpolation method",
+        defaultValue = "Linear",
+        allowableValues = "Linear,NearestGridPoint",
+        required = false,
+        dataType = "string",
+        paramType = "query"),
+    new ApiImplicitParam(
         name = "output_filetype",
         value = "output filetype",
         defaultValue = "VOTable",
@@ -162,10 +175,11 @@ object FMIMethods extends Controller {
     val stopTime = request.req.get("stop_time").get
     val sampling = request.req.get("sampling").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
+    val interpolation = request.req.get("interpolation_method").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointValueFMI(
-        Some(LinearValue), // interpolation method
+        validateInterpolation(interpolation), // interpolation method
         validateFiletype(filetype) // output filetype
     )
            
@@ -226,6 +240,14 @@ object FMIMethods extends Controller {
         dataType = "list(float)", 
         paramType = "query"),
     new ApiImplicitParam(
+        name = "interpolation_method",
+        value = "interpolation method",
+        defaultValue = "Linear",
+        allowableValues = "Linear,NearestGridPoint",
+        required = false,
+        dataType = "string",
+        paramType = "query"),
+    new ApiImplicitParam(
         name = "output_filetype",
         value = "output filetype",
         defaultValue = "VOTable",
@@ -241,12 +263,13 @@ object FMIMethods extends Controller {
     val plane_point = request.req.get("plane_point").get
     val plane_n_vector = request.req.get("plane_normal_vector").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
+    val interpolation = request.req.get("interpolation_method").getOrElse("")
     
     val extraParams = ExtraParams_getSurfaceFMI(
         None, // resolution (@TODO TO BE TESTED)
         validateFiletype(filetype), // output filetype
-        None // interpolation method (@TODO to be added)
+        validateInterpolation(interpolation) // interpolation method (@TODO to be added)
     )
            
     val result = fmi.service.getSurface(
@@ -342,8 +365,8 @@ object FMIMethods extends Controller {
     val id = request.req.get("id").get
     val url = request.req.get("url_xyz").get
     // extra params
-    val direction = request.req.get("direction").getOrElse("Both")
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val direction = request.req.get("direction").getOrElse("")
+    val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getFieldLineFMI(
         validateDirection(direction), // direction
@@ -406,6 +429,14 @@ object FMIMethods extends Controller {
         dataType = "string",
         paramType = "query"),
     new ApiImplicitParam(
+        name = "interpolation_method",
+        value = "interpolation method",
+        defaultValue = "Linear",
+        allowableValues = "Linear,NearestGridPoint",
+        required = false,
+        dataType = "string",
+        paramType = "query"),
+    new ApiImplicitParam(
         name = "direction",
         value = "direction",
         defaultValue = "Both",
@@ -421,7 +452,8 @@ object FMIMethods extends Controller {
     val url = request.req.get("url_xyz").get
     // extra params
     val direction = request.req.get("direction").getOrElse("Both")
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
+    val interpolation = request.req.get("interpolation_method").getOrElse("")
     
     val extraParams = ExtraParams_getParticleTrajectory(
         validateDirection(direction), // direction
@@ -429,7 +461,7 @@ object FMIMethods extends Controller {
         Some(BigInt(200)), // max steps (@TODO to be added)
         Some(0), // stop condition radius (@TODO to be added)
         None, // stop condition region (@TODO TO BE TESTED)
-        None, // interpolation method (@TODO TO BE TESTED)
+        validateInterpolation(interpolation), // interpolation method (@TODO TO BE TESTED)
         validateFiletype(filetype) // output filetype
     )
           
@@ -476,6 +508,14 @@ object FMIMethods extends Controller {
         dataType = "string",
         paramType = "query"),
     new ApiImplicitParam(
+        name = "interpolation_method",
+        value = "interpolation method",
+        defaultValue = "Linear",
+        allowableValues = "Linear,NearestGridPoint",
+        required = false,
+        dataType = "string",
+        paramType = "query"),
+    new ApiImplicitParam(
         name = "output_filetype",
         value = "output filetype",
         defaultValue = "VOTable",
@@ -490,10 +530,11 @@ object FMIMethods extends Controller {
     val id = request.req.get("id").get
     val url = request.req.get("url_xyz").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
+    val interpolation = request.req.get("interpolation_method").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointSpectraFMI(
-        None, // interpolation method (@TODO TO BE TESTED)
+        validateInterpolation(interpolation), // interpolation method (@TODO TO BE TESTED)
         validateFiletype(filetype), // output filetype
         None // energy channel (@TODO TO BE TESTED)
     )
@@ -564,6 +605,14 @@ object FMIMethods extends Controller {
         dataType = "ISO 8601 duration",
         paramType = "query"),
     new ApiImplicitParam(
+        name = "interpolation_method",
+        value = "interpolation method",
+        defaultValue = "Linear",
+        allowableValues = "Linear,NearestGridPoint",
+        required = false,
+        dataType = "string",
+        paramType = "query"),
+    new ApiImplicitParam(
         name = "output_filetype",
         value = "output filetype",
         defaultValue = "VOTable",
@@ -581,10 +630,11 @@ object FMIMethods extends Controller {
     val stopTime = request.req.get("stop_time").get
     val sampling = request.req.get("sampling").get
     // extra params
-    val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
+    val filetype = request.req.get("output_filetype").getOrElse("")
+    val interpolation = request.req.get("interpolation_method").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointSpectraFMI(
-        None, // interpolation method (@TODO TO BE TESTED)
+        validateInterpolation(interpolation), // interpolation method (@TODO TO BE TESTED)
         validateFiletype(filetype), // output filetype
         None // energy channel (@TODO TO BE TESTED)
     )
