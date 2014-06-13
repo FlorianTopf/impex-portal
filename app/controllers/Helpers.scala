@@ -6,6 +6,7 @@ import models.enums._
 import play.api.libs.json._
 import soapenvelope11._
 
+// @TODO add validators for timestamps, duration, sc names and URIs
 object Helpers extends Controller {
     
   // helper method for validating the output filetype 
@@ -15,6 +16,26 @@ object Helpers extends Controller {
     } catch {
       // just use VOTable if a match error occurs
       case e: MatchError => Some(VOTableType)
+    }
+  }
+  
+  // helper method for validating float sequences
+  def validateFloatSeq(floats: String): Seq[Float] = {
+    try {
+      floats.split(",").map(_.toFloat)      
+    } catch {
+      // in any error case return NULL vector
+      case _: Throwable => Seq(0.0f, 0.0f, 0.0f)
+    }
+  }
+  
+  // helper method for validating directions
+  def validateDirection(direction: String): Option[EnumDirection] = {
+    try {
+      Some(EnumDirection.fromString(direction, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+    } catch {
+      // just use Both if something wrong is entered
+      case _: MatchError => Some(Both)
     }
   }
   

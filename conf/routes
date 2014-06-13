@@ -84,6 +84,16 @@ GET		/methods/LATMOS/getDataPointValue					controllers.LATMOSMethods.getDataPoin
 
 GET		/methods/LATMOS/getDataPointValueSpacecraft			controllers.LATMOSMethods.getDataPointValueSpacecraft
 
+GET		/methods/LATMOS/getSurface							controllers.LATMOSMethods.getSurface
+
+GET		/methods/LATMOS/getFileURL							controllers.LATMOSMethods.getFileURL
+
+GET		/methods/LATMOS/getFieldLine						controllers.LATMOSMethods.getFieldLine
+
+GET		/methods/LATMOS/getDataPointSpectra					controllers.LATMOSMethods.getDataPointSpectra
+
+GET		/methods/LATMOS/getDataPointSpectraSpacecraft		controllers.LATMOSMethods.getDataPointSpectraSpacecraft
+
 
 # fmi methods
 GET		/methods/FMI/getDataPointValue						controllers.FMIMethods.getDataPointValue

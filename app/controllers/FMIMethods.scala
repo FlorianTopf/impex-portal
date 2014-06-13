@@ -127,7 +127,7 @@ object FMIMethods extends Controller {
     new ApiImplicitParam(
         name = "sampling",
         value = "sampling",
-        defaultValue = "PT600S",
+        defaultValue = "PT60S",
         required = true,
         dataType = "ISO 8601 duration",
         paramType = "query"),
@@ -170,25 +170,87 @@ object FMIMethods extends Controller {
     returnDefaultResult(result)
   }
   
-  
+  @GET
+  @ApiOperation(
+      value = "getSurface at FMI", 
+      nickname = "getSurfaceFMI",
+      notes = "returns a surface of interpolated simulation parameters", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "request failed")))
+  @Path("/getSurface")
   def getSurface = ???
   
   
+  @GET
+  @ApiOperation(
+      value = "getVOTableURL at FMI", 
+      nickname = "getVOTableURL",
+      notes = "", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "request failed")))
+  @Path("/getVOTableURL")
   def getVOTableURL = ???
   
   
+  @GET
+  @ApiOperation(
+      value = "getMostRelevantRun at FMI", 
+      nickname = "getMostRelevantRun",
+      notes = "returns a surface of interpolated simulation parameters", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "request failed")))
+  @Path("/getMostRelevantRun")
   def getMostRelevantRun = ???
   
   
+  @GET
+  @ApiOperation(
+      value = "getFieldLine at FMI", 
+      nickname = "getFieldLineFMI",
+      notes = "returns magnetic field lines of a given VOTable", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "request failed")))
+  @Path("/getFieldLine")
   def getFieldLine = ???
   
   
+  @GET
+  @ApiOperation(
+      value = "getParticleTrajectory at FMI", 
+      nickname = "getParticleTrajectory",
+      notes = "", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "request failed")))
+  @Path("/getParticleTrajectory")
   def getParticleTrajectory = ???
   
   
+  @GET
+  @ApiOperation(
+      value = "getDataPointSpectra at FMI", 
+      nickname = "getDataPointSpectraFMI",
+      notes = "returns spectra of a given VOTable", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "request failed")))
+  @Path("/getDataPointsSpectra")
   def getDataPointSpectra = ???
   
   
+  @GET
+  @ApiOperation(
+      value = "getDataPointSpectraSpacecraft at FMI", 
+      nickname = "getDataPointSpectraSpacecraftFMI",
+      notes = "returns spectra along a given spacecraft trajectory", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "request failed")))
+  @Path("/getDataPointsSpectraSpacecraft")
   def getDataPointSpectraSpacecraft = ???
   
 

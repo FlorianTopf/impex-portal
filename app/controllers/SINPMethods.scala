@@ -71,7 +71,7 @@ object SINPMethods extends Controller {
     
     val extraParams = ExtraParams_getDataPointValueSINP(
         validateFiletype(filetype), // output filetype
-        None // interpolation method (TO BE TESTED)
+        None // interpolation method (@TODO TO BE TESTED)
     )
     
     val result = sinp.service.getDataPointValue(
@@ -342,8 +342,8 @@ object SINPMethods extends Controller {
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
     val extraParams = ExtraParams_calculateFieldLine(
-        None, // line length (TO BE TESTED)
-	  	None, // step size (TO BE TESTED)
+        None, // line length (@TODO TO BE TESTED)
+	  	None, // step size (@TODO TO BE TESTED)
         validateFiletype(filetype) // output filetype
 	)
 	  	  
@@ -405,12 +405,14 @@ object SINPMethods extends Controller {
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
+    // @TODO add IMF parameters as GET    
     val imf_b = ListOfDouble(
         Some(5.1), // x
         Some(-8.9), // y
         Some(4.5) // z
     ) 
-	  	  
+	
+    // @TODO add extra parameters as GET
 	val extraParams = ExtraParams_calculateCube(
 	    Some(5.0), // sw density
 	    Some(800.0), // sw velocity
@@ -419,7 +421,8 @@ object SINPMethods extends Controller {
 	    Some(-1117.0), // al
         validateFiletype(filetype) // output filetype
 	)
-	  	  
+	
+	// @TODO add cube parameters as GET
 	val cubeSize = Cube_size_array(
 	    Some(BigInt(-40)), // x_low
 	    Some(BigInt(10)), // x_high
@@ -471,13 +474,15 @@ object SINPMethods extends Controller {
     val id = request.req.get("id")
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
-    
+   
+    // @TODO add IMF parameters as GET    
     val imf_b = ListOfDouble(
         Some(5.1), // x
         Some(-8.9), // y
         Some(4.5) // z
     ) 
-	  	  
+	
+	// @TODO add extra parameters as GET    
 	val extraParams = ExtraParams_calculateCubeMercury(
 	    Some(196.0), // bd
 	  	Some(4.0), // flux
@@ -536,12 +541,14 @@ object SINPMethods extends Controller {
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
+    // @TODO add IMF parameters as GET
     val imf_b = ListOfDouble(
         Some(5.1), // x
         Some(-8.9), // y
         Some(4.5) // z
     ) 
-          
+    
+     // @TODO add extra parameters as GET
     val extraParams = ExtraParams_calculateDataPointValueMercury(
         validateFiletype(filetype), // output filetype
         Some(-196.0), // bd
@@ -609,12 +616,14 @@ object SINPMethods extends Controller {
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
+	// @TODO add IMF parameters as GET
     val imf_b = ListOfDouble(
         Some(0.0), // x
         Some(0.0), // y
         Some(0.0) // z
     ) 
-           
+    
+	// @TODO add extra parameters as GET
     val extraParams = ExtraParams_calculateCubeSaturn(
 	    Some(3.0), // bdc
 	    Some(-7.0), // bt
@@ -625,7 +634,8 @@ object SINPMethods extends Controller {
 	    Some(imf_b), // imf b
         validateFiletype(filetype) // output filetype
 	)
-	  	   
+	
+	// @TODO add cube parameters as GET
 	val cubeSize = Cube_size_array(
 	    Some(BigInt(-6)), // x_low
 		Some(BigInt(7)), // x_high
@@ -685,13 +695,15 @@ object SINPMethods extends Controller {
     val url = request.req.get("url_xyz")
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
-    
+
+	// @TODO add IMF parameters as GET
 	val imf_b = ListOfDouble(
 	    Some(0.0), // x
         Some(0.0), // y
         Some(0.0) // z
     ) 
-	  	   
+	 
+	// @TODO add extra parameters as GET
 	val extraParams = ExtraParams_calculateDataPointValueSaturn(
         validateFiletype(filetype), // output filetype
 	  	Some(3.0), // bdc
