@@ -7,8 +7,9 @@ import java.net.URI
 case class ServiceResponse(code: EServiceResponse.Value, message: String)
 
 object EServiceResponse extends Enumeration {
-    val OK = Value(200, "request successful")
-    val BAD_REQUEST = Value(400, "request failed")
+    val OK = Value(200)
+    val BAD_REQUEST = Value(400)
+    val NOT_IMPLEMENTED = Value(501) 
 
     // does not work on enums :/
     //    implicit val serviceResponseFormat: Format[ServiceResponse.Value] = Json.format[ServiceResponse.Value]

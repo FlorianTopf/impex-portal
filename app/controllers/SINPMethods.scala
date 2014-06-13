@@ -9,15 +9,12 @@ import javax.ws.rs.core.MediaType._
 import scalaxb._
 import models.binding._
 import java.net.URI
-import play.api.libs.ws._
-import scala.concurrent.Await
-import scala.concurrent.duration._
-import akka.util.Timeout
 import models.provider._
+import java.util.concurrent._
+import play.api.libs.json._
+import models.enums._
+import java.text.ParseException
 
-
-// @TODO catch WS errors of any kind
-// @TODO add validation for mandatory parameters
 // @TODO include request parameters to responses
 
 @Api(
@@ -63,9 +60,10 @@ object SINPMethods extends Controller {
         paramType = "query")))
   @Path("/getDataPointValue")
   def getDataPointValue = PortalAction { implicit request => 
-    
-    val id = request.req.get("id")
-    val url = request.req.get("url_xyz")
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val url = request.req.get("url_xyz").get
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
@@ -75,13 +73,22 @@ object SINPMethods extends Controller {
     )
     
     val result = sinp.service.getDataPointValue(
-        id.get, // resourceId
+        id, // resourceId
         None, // variables (@FIXME NOT WORKING)
-        Some(new URI(url.get)), // url_xyz
+        Some(new URI(url)), // url_xyz
         Some(extraParams) // extra params
     )
     
     returnDefaultResult(result)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+      // @FIXME this is because there are errors not encoded as SOAP-FAULT
+      case e: RuntimeException =>
+        NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
+                "unknown external web service error")))
+    }
   }
   
   @GET
@@ -124,10 +131,11 @@ object SINPMethods extends Controller {
         paramType = "query")))
   @Path("/calculateDataPointValueFixedTime")
   def calculateDataPointValueFixedTime = PortalAction { implicit request => 
-    
-    val id = request.req.get("id")
-    val url = request.req.get("url_xyz")
-    val startTime = request.req.get("start_time")
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val url = request.req.get("url_xyz").get
+    val startTime = request.req.get("start_time").get
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
@@ -149,12 +157,24 @@ object SINPMethods extends Controller {
     )
         	
     val result = sinp.service.calculateDataPointValueFixedTime(
-        id.get, // resourceId
-        TimeProvider.getISODate(startTime.get), // start time
+        id, // resourceId
+        TimeProvider.getISODate(startTime), // start time
         Some(extraParams), // extra params
-        new URI(url.get)) // url_xyz
+        new URI(url)) // url_xyz
                 
     returnDefaultResult(result)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+      case e: ParseException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "time parameter not in ISO 8601 format")))
+      // @FIXME this is because there are errors not encoded as SOAP-FAULT
+      case e: RuntimeException =>
+        NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
+                "unknown external web service error")))
+    }
   }
   
   
@@ -191,9 +211,10 @@ object SINPMethods extends Controller {
         paramType = "query")))
   @Path("/calculateDataPointValue")
   def calculateDataPointValue = PortalAction { implicit request => 
-    
-    val id = request.req.get("id")
-    val url = request.req.get("url_xyz")
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val url = request.req.get("url_xyz").get
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
@@ -202,12 +223,17 @@ object SINPMethods extends Controller {
     )
           
     val result = sinp.service.calculateDataPointValue(
-        id.get, // resourceId
+        id, // resourceId
         Some(extraParams), // extra params
-        new URI(url.get) // url_xyz  
+        new URI(url) // url_xyz  
     )
            
     returnDefaultResult(result)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+    }
   }
   
   
@@ -267,12 +293,13 @@ object SINPMethods extends Controller {
         paramType = "query")))
   @Path("/calculateDataPointValueSpacecraft")
   def calculateDataPointValueSpacecraft = PortalAction { implicit request =>
-    
-    val id = request.req.get("id")
-    val scName = request.req.get("sc_name")
-    val startTime = request.req.get("start_time")
-    val stopTime = request.req.get("stop_time")
-    val sampling = request.req.get("sampling")
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val scName = request.req.get("sc_name").get
+    val startTime = request.req.get("start_time").get
+    val stopTime = request.req.get("stop_time").get
+    val sampling = request.req.get("sampling").get
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
@@ -281,16 +308,27 @@ object SINPMethods extends Controller {
     )
           
     val result = sinp.service.calculateDataPointValueSpacecraft(
-        id.get, // resourceId
-        SpacecraftTypeSINP.fromString(scName.get, 
+        id, // resourceId
+        SpacecraftTypeSINP.fromString(scName, 
             scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")), // spacecraft name
-        TimeProvider.getISODate(startTime.get), // start time
-        TimeProvider.getISODate(stopTime.get), // stop time
-        TimeProvider.getDuration(sampling.get), // sampling
+        TimeProvider.getISODate(startTime), // start time
+        TimeProvider.getISODate(stopTime), // stop time
+        TimeProvider.getDuration(sampling), // sampling
         Some(extraParams) // extra params
     )
     
     returnDefaultResult(result)
+    } catch  {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+      case e @ (_:ParseException | _:IllegalArgumentException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "time parameter not in ISO 8601 format")))
+      case e: MatchError => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "unkown spacecraft name")))
+    }
   }
   
   
@@ -334,10 +372,11 @@ object SINPMethods extends Controller {
         paramType = "query")))
   @Path("/calculateFieldline")
   def calculateFieldLine = PortalAction { implicit request => 
-    
-    val id = request.req.get("id")
-    val startTime = request.req.get("start_time")
-    val url = request.req.get("url_xyz")
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val startTime = request.req.get("start_time").get
+    val url = request.req.get("url_xyz").get
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
@@ -348,13 +387,21 @@ object SINPMethods extends Controller {
 	)
 	  	  
 	val result = sinp.service.calculateFieldLine(
-	  	id.get, // resourceId
-	  	TimeProvider.getISODate(startTime.get), // start time
+	  	id, // resourceId
+	  	TimeProvider.getISODate(startTime), // start time
 	  	Some(extraParams), // extra params
-	  	new URI(url.get) // url_xyz
+	  	new URI(url) // url_xyz
 	)
     
     returnDefaultResult(result)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+      case  e @ (_:ParseException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "time parameter not in ISO 8601 format")))
+    }
   }
   
   
@@ -398,10 +445,11 @@ object SINPMethods extends Controller {
         paramType = "query")))
   @Path("/calculateCube")
   def calculateCube = PortalAction { implicit request => 
-    
-    val id = request.req.get("id")
-    val startTime = request.req.get("start_time")
-    val sampling = request.req.get("sampling")
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val startTime = request.req.get("start_time").get
+    val sampling = request.req.get("sampling").get
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
@@ -433,14 +481,25 @@ object SINPMethods extends Controller {
 	)
 	  	  
 	val result = sinp.service.calculateCube(
-	  	id.get, // resourceId
-	  	TimeProvider.getISODate(startTime.get), // start time 
+	  	id, // resourceId
+	  	TimeProvider.getISODate(startTime), // start time 
 	  	Some(extraParams), // extra params
-	  	Some(sampling.get.toDouble), // sampling 
+	  	Some(sampling.toDouble), // sampling 
 	    Some(cubeSize) // cube size
 	)
     
     returnDefaultResult(result)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+      case e @ (_:ParseException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "time parameter not in ISO 8601 format")))
+      case e @ (_:NumberFormatException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "illegal number provided")))
+    }
   }
   
   
@@ -470,8 +529,9 @@ object SINPMethods extends Controller {
         paramType = "query")))
   @Path("/calculateCubeMercury")
   def calculateCubeMercury = PortalAction { implicit request => 
-    
-    val id = request.req.get("id")
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
    
@@ -494,11 +554,16 @@ object SINPMethods extends Controller {
 	)
 	  	  
 	val result = sinp.service.calculateCubeMercury(
-	    id.get, // resourceId
+	    id, // resourceId
 	  	Some(extraParams) // extra params
 	)
     
     returnDefaultResult(result)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+    }
   }
   
   
@@ -535,9 +600,10 @@ object SINPMethods extends Controller {
         paramType = "query")))
   @Path("/calculateDataPointValueMercury")
   def calculateDataPointValueMercury = PortalAction { implicit request => 
-    
-    val id = request.req.get("id")
-    val url = request.req.get("url_xyz")
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val url = request.req.get("url_xyz").get
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
@@ -560,12 +626,21 @@ object SINPMethods extends Controller {
     )
 	  	  
 	val result = sinp.service.calculateDataPointValueMercury(
-	  	id.get, // resourceId
+	  	id, // resourceId
 	  	Some(extraParams), // extra params
-	  	new URI(url.get) // url_xyz
+	  	new URI(url) // url_xyz
 	)
     
     returnDefaultResult(result)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+      // @FIXME this is because there are errors not encoded as SOAP-FAULT
+      case e: RuntimeException =>
+        NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
+                "unknown external web service error")))
+    }
   }
   
   
@@ -609,10 +684,11 @@ object SINPMethods extends Controller {
         paramType = "query")))
   @Path("/calculateCubeSaturn")
   def calculateCubeSaturn = PortalAction { implicit request => 
-    
-    val id = request.req.get("id")
-    val startTime = request.req.get("start_time")
-    val sampling = request.req.get("sampling")
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val startTime = request.req.get("start_time").get
+    val sampling = request.req.get("sampling").get
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
@@ -646,14 +722,25 @@ object SINPMethods extends Controller {
 	)
 	  	   
 	val result = sinp.service.calculateCubeSaturn(
-	    id.get, // resourceId
-	  	TimeProvider.getISODate(startTime.get),  // start time
+	    id, // resourceId
+	  	TimeProvider.getISODate(startTime),  // start time
 	  	Some(extraParams), // extra params
-	  	Some(sampling.get.toDouble), // sampling 
+	  	Some(sampling.toDouble), // sampling 
 	  	Some(cubeSize) // cube size
 	)
     
     returnDefaultResult(result)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+      case e @ (_:ParseException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "time parameter not in ISO 8601 format")))
+      case e @ (_:NumberFormatException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "illegal number provided")))
+    }
   }
   
   
@@ -690,9 +777,10 @@ object SINPMethods extends Controller {
         paramType = "query")))
   @Path("/calculateDataPointValueSaturn")
   def calculateDataPointValueSaturn = PortalAction { implicit request => 
-    
-    val id = request.req.get("id")
-    val url = request.req.get("url_xyz")
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val url = request.req.get("url_xyz").get
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
 
@@ -716,12 +804,17 @@ object SINPMethods extends Controller {
 	)
 	  	   
 	val result = sinp.service.calculateDataPointValueSaturn(
-	    id.get, // resourceId
+	    id, // resourceId
 	  	Some(extraParams), // extra params
-	  	new URI(url.get) // url_xyz
+	  	new URI(url) // url_xyz
 	)
 	  	
     returnDefaultResult(result)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+    }
   }
   
 

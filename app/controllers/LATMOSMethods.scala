@@ -9,17 +9,12 @@ import javax.ws.rs.core.MediaType._
 import scalaxb._
 import models.binding._
 import java.net.URI
-import play.api.libs.ws._
-import scala.concurrent.Await
-import scala.concurrent.duration._
-import akka.util.Timeout
 import models.provider._
 import models.enums._
 import play.api.libs.json._
 import soapenvelope11._
+import java.text.ParseException
 
-// @TODO catch WS errors of any kind
-// @TODO add validation for mandatory parameters
 // @TODO include request parameters to responses
 
 @Api(
@@ -65,9 +60,10 @@ object LATMOSMethods extends Controller {
         paramType = "query")))
   @Path("/getDataPointValue")
   def getDataPointValue = PortalAction { implicit request =>
-
-    val id = request.req.get("id")
-    val url = request.req.get("url_xyz")
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val url = request.req.get("url_xyz").get
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
@@ -77,13 +73,18 @@ object LATMOSMethods extends Controller {
     )
     
     val result = latmos.service.getDataPointValue(
-        id.get, // resourceId
+        id, // resourceId
         None, // variable (@TODO to be added)
-        new URI(url.get), // url_xyz
+        new URI(url), // url_xyz
         Some(extraParams) // extra params
      )
     
     returnDefaultResult(result)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+    }
   }
   
   
@@ -142,12 +143,13 @@ object LATMOSMethods extends Controller {
         paramType = "query")))
   @Path("/getDataPointValueSpacecraft")
   def getDataPointValueSpacecraft = PortalAction { implicit request => 
-    
-    val id = request.req.get("id")
-    val scName = request.req.get("sc_name")
-    val startTime = request.req.get("start_time")
-    val stopTime = request.req.get("stop_time")
-    val sampling = request.req.get("sampling")
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val scName = request.req.get("sc_name").get
+    val startTime = request.req.get("start_time").get
+    val stopTime = request.req.get("stop_time").get
+    val sampling = request.req.get("sampling").get
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
@@ -157,16 +159,27 @@ object LATMOSMethods extends Controller {
     )
                   
     val result = latmos.service.getDataPointValueSpacecraft(
-        id.get, // resourceId
+        id, // resourceId
         None, // variable (@TODO to be added)
-        SpacecraftType.fromString(scName.get, 
-            scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")), // spacecraft name
-        TimeProvider.getISODate(startTime.get), // start time
-        TimeProvider.getISODate(stopTime.get), // stop time
-        TimeProvider.getDuration(sampling.get), // sampling
+        SpacecraftType.fromString(scName, 
+        scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")), // spacecraft name
+        TimeProvider.getISODate(startTime), // start time
+        TimeProvider.getISODate(stopTime), // stop time
+        TimeProvider.getDuration(sampling), // sampling
         Some(extraParams)) // extra params
     
     returnDefaultResult(result)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+      case e @ (_:ParseException | _:IllegalArgumentException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "time parameter not in ISO 8601 format")))
+      case e: MatchError => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "unkown spacecraft name")))
+    }
   }
   
   @GET
@@ -209,10 +222,11 @@ object LATMOSMethods extends Controller {
         paramType = "query")))
   @Path("/getSurface")
   def getSurface = PortalAction { implicit request => 
-    
-    val id = request.req.get("id")
-    val plane_point = request.req.get("plane_point").getOrElse("0.0,0.0,0.0")
-    val plane_n_vector = request.req.get("plane_normal_vector").getOrElse("0.0,0.0,1.0")
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val plane_point = request.req.get("plane_point").get
+    val plane_n_vector = request.req.get("plane_normal_vector").get
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
@@ -223,14 +237,19 @@ object LATMOSMethods extends Controller {
     )
            
     val result = latmos.service.getSurface(
-        id.get, // resourceId
+        id, // resourceId
         None, // variable (@TODO to be added)
         validateFloatSeq(plane_point), // plane point
         validateFloatSeq(plane_n_vector), // plane normal vector
         Some(extraParams) // extra params
     )
     
-    returnDefaultResult(result)
+    returnDefaultResult(result) 
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+    }
   }
   
   
@@ -266,15 +285,16 @@ object LATMOSMethods extends Controller {
         paramType = "query")))    
   @Path("/getFileURL")
   def getFileURL = PortalAction { implicit request => 
-    
-    val id = request.req.get("id")
-    val startTime = request.req.get("start_time")
-    val stopTime = request.req.get("stop_time")
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val startTime = request.req.get("start_time").get
+    val stopTime = request.req.get("stop_time").get
     
     val result = latmos.service.getFileURL(
-        id.get, // resourceId
-        TimeProvider.getISODate(startTime.get), // start time
-        TimeProvider.getISODate(stopTime.get) // stop time
+        id, // resourceId
+        TimeProvider.getISODate(startTime), // start time
+        TimeProvider.getISODate(stopTime) // stop time
     )
            
     //@TODO save votable file on disk and provide link to it
@@ -287,6 +307,14 @@ object LATMOSMethods extends Controller {
                 fault.original.asInstanceOf[Fault].faultstring))), 
         votable => Ok(scalaxb.toXML[VOTABLE](votable, "VOTABLE", scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")))
     )
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+      case e: ParseException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "time parameter not in ISO 8601 format")))
+    }
   }
   
   
@@ -331,9 +359,10 @@ object LATMOSMethods extends Controller {
         paramType = "query")))  
   @Path("/getFieldLine")
   def getFieldLine = PortalAction { implicit request => 
-    
-    val id = request.req.get("id")
-    val url = request.req.get("url_xyz")
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val url = request.req.get("url_xyz").get
     // extra params
     val direction = request.req.get("direction").getOrElse("Both")
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
@@ -345,13 +374,18 @@ object LATMOSMethods extends Controller {
     )
      
     val result = latmos.service.getFieldLine(
-        id.get, // resourceId
+        id, // resourceId
         None, // variable (@TODO to be added)
-        new URI(url.get), // url_xyz
+        new URI(url), // url_xyz
         Some(extraParams) // extra params
     )
      
     returnDefaultResult(result)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+    }
   }
   
   
@@ -388,9 +422,10 @@ object LATMOSMethods extends Controller {
         paramType = "query")))
   @Path("/getDataPointSpectra")
   def getDataPointSpectra = PortalAction { implicit request => 
-    
-    val id = request.req.get("id")
-    val url = request.req.get("url_xyz")
+    try {
+    // mandatory
+    val id = request.req.get("id").get
+    val url = request.req.get("url_xyz").get
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
@@ -401,12 +436,17 @@ object LATMOSMethods extends Controller {
     )
            
     val result = latmos.service.getDataPointSpectra(
-        id.get, // resourceId
-        new URI(url.get), // url_xyz
+        id, // resourceId
+        new URI(url), // url_xyz
         Some(extraParams) // extra params
     )
     
     returnDefaultResult(result)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+    }
   }
   
   
@@ -465,12 +505,13 @@ object LATMOSMethods extends Controller {
         paramType = "query")))
   @Path("/getDataPointSpectraSpacecraft")
   def getDataPointSpectraSpacecraft = PortalAction { implicit request => 
-    
-    val id = request.req.get("id")
-    val scName = request.req.get("sc_name")
-    val startTime = request.req.get("start_time")
-    val stopTime = request.req.get("stop_time")
-    val sampling = request.req.get("sampling")
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val scName = request.req.get("sc_name").get
+    val startTime = request.req.get("start_time").get
+    val stopTime = request.req.get("stop_time").get
+    val sampling = request.req.get("sampling").get
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse(VOTableType.toString)
     
@@ -481,16 +522,27 @@ object LATMOSMethods extends Controller {
     )
            
     val result = latmos.service.getDataPointSpectraSpacecraft(
-        id.get, // resourceId
-        SpacecraftType.fromString(scName.get, 
+        id, // resourceId
+        SpacecraftType.fromString(scName, 
             scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")), // spacecraft name
-        TimeProvider.getISODate(startTime.get), // start time
-        TimeProvider.getISODate(stopTime.get), // stop time
-        TimeProvider.getDuration(sampling.get), // sampling
+        TimeProvider.getISODate(startTime), // start time
+        TimeProvider.getISODate(stopTime), // stop time
+        TimeProvider.getDuration(sampling), // sampling
         Some(extraParams) // extra params
     )
   
     returnDefaultResult(result)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing")))
+      case e @ (_:ParseException | _:IllegalArgumentException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "time parameter not in ISO 8601 format")))
+      case e: MatchError => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "unkown spacecraft name")))
+    }
   }
     
 

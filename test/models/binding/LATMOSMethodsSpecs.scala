@@ -16,8 +16,6 @@ import scala.xml.NodeSeq
 
 // all test parameters are taken from ICD v0.5 (25.5.2014)
 object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
-
-  // @TODO include test cases for only mandatory (but also with optional parameters)
   
   "LATMOS Methods binding" should {
     
@@ -90,15 +88,15 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
            
            val extraParams = ExtraParams_getSurfaceLATMOS(
-               None, //resolution (TO BE TESTED)
+               None, //resolution (@TODO TO BE TESTED)
                Some(0), // imf clockangle
                Some(VOTableType) // output filetype
            )
            
            val variable = Seq("Bx", "By", "Bz") // variable seq
-           // @FIXME must this be a float seq?
+
            val planePoint = Seq(0.0f, 0.0f, 0.0f) // plane point seq
-           // @FIXME must this be a float seq?
+
            val planeNormalVector = Seq(0.0f, 0.0f, 1.0f) // plane normal vector seq
            
            val result = latmos.service.getSurface(
@@ -149,7 +147,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            
            val extraParams = ExtraParams_getFieldLineLATMOS(
         	   Some(Both), // direction
-        	   None, // stepsize (TO BE TESTED)
+        	   None, // stepsize (@TODO TO BE TESTED)
                Some(VOTableType) // output filetype
            )
            
@@ -175,14 +173,14 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
         }
         
 
-        "respond to getDataPointsSpectra" in {
+        "respond to getDataPointSpectra" in {
                      
            val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
            
            val extraParams = ExtraParams_getDataPointSpectraLATMOS(
-               None, // imf clockangle (TO BE TESTED)
+               None, // imf clockangle (@TODO TO BE TESTED)
                Some(VOTableType), // output filetype
-               None // energy channel (TO BE TESTED)
+               None // energy channel (@TODO TO BE TESTED)
            )
            
            val result = latmos.service.getDataPointSpectra(
@@ -203,21 +201,21 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
         }
         
 
-        "respond to getDataPointsSpectraSpacecraft" in {
+        "respond to getDataPointSpectraSpacecraft" in {
            
            val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
            
            val extraParams = ExtraParams_getDataPointSpectraLATMOS(
-               None, // imf clockangle (TO BE TESTED)
+               None, // imf clockangle (@TODO TO BE TESTED)
                Some(VOTableType), // output filetype
-               None // energy channel (TO BE TESTED)
+               None // energy channel (@TODO TO BE TESTED)
            )
            
            val result = latmos.service.getDataPointSpectraSpacecraft(
                "impex://LATMOS/Hybrid/Mars_14_03_14/IonSpectra", // resourceId
                MEXValue,  // spacecraft name
-               TimeProvider.getISODate("2010-01-01T18:00:00.000"), // start time
-               TimeProvider.getISODate("2010-01-01T19:00:00.000"), // stop time
+               TimeProvider.getISODate("2010-01-01T18:00:00"), // start time
+               TimeProvider.getISODate("2010-01-01T19:00:00"), // stop time
                TimeProvider.getDuration("PT60S"), // sampling
                Some(extraParams) // extra params
            )

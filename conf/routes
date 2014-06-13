@@ -100,6 +100,17 @@ GET		/methods/FMI/getDataPointValue						controllers.FMIMethods.getDataPointValu
 
 GET		/methods/FMI/getDataPointValueSpacecraft			controllers.FMIMethods.getDataPointValueSpacecraft
 
+GET		/methods/FMI/getSurface								controllers.FMIMethods.getSurface
+
+
+GET		/methods/FMI/getFieldLine							controllers.FMIMethods.getFieldLine
+
+GET		/methods/FMI/getParticleTrajectory					controllers.FMIMethods.getParticleTrajectory
+
+GET		/methods/FMI/getDataPointSpectra					controllers.FMIMethods.getDataPointSpectra
+
+GET		/methods/FMI/getDataPointSpectraSpacecraft			controllers.FMIMethods.getDataPointSpectraSpacecraft
+
 
 # general testing route
 GET		/test						controllers.Application.test

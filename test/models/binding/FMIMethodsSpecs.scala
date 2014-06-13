@@ -20,8 +20,6 @@ import play.api.libs.json._
 // all test parameters are taken from ICD v0.9 (4.6.2014)
 object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
   
-  // @TODO include test cases for only mandatory (but also with optional parameters)
-  
   "FMI Methods binding" should {
     
         "respond to getDataPointValue" in {
@@ -73,7 +71,7 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
                CLUSTER3Value, // spacecraft name
                TimeProvider.getISODate("2010-08-02T00:00:00"), // start time
                TimeProvider.getISODate("2010-08-02T01:00:00"), // stop time
-               TimeProvider.getDuration("PT600S"), // sampling
+               TimeProvider.getDuration("PT60S"), // sampling
                Some(extraParams) // extra params 
            )
                
@@ -95,7 +93,7 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            val fmi = new Methods_FMISoapBindings with Soap11Clients with DispatchHttpClients {}
            
            val extraParams = ExtraParams_getSurfaceFMI(
-               None, // resolution (TO BE TESTED)
+               None, // resolution (@TODO TO BE TESTED)
                Some(VOTableType), // output filetype
                Some(LinearValue) // interpolation method
            )
@@ -226,11 +224,12 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            
            val extraParams = ExtraParams_getFieldLineFMI(
                Some(Forward), // direction
-               None, // step size
+               None, // step size (@TODO TO BE TESTED)
                Some(BigInt(100)), // max steps
                Some(0), // stop condition radius
-               None, //Some(stopConditionRegion), // stop condition region (TO BE TESTED)
-        	   Some(VOTableType)) // output filetype
+               None, //Some(stopConditionRegion), // stop condition region (@TODO TO BE TESTED)
+        	   Some(VOTableType) // output filetype
+           )
           
            val result = fmi.service.getFieldLine(
                "impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_90deg/Mag", // resourceId
@@ -260,15 +259,15 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
                Some(1), // step size
                Some(BigInt(200)), // max steps
                Some(0), // stop condition radius
-               None, // stop condition region (TO BE TESTED)
-               None, // interpolation method (TO BE TESTED)
+               None, // stop condition region (@TODO TO BE TESTED)
+               None, // interpolation method (@TODO TO BE TESTED)
                Some(VOTableType) // output filetype
            )
           
            val result = fmi.service.getParticleTrajectory(
                "impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_90deg/Mag", // resourceId
-               new URI("http://impex-fp7.fmi.fi/ws_tests/input/getParticleTrajectory_input.vot"), 
-               Some(extraParams)
+               new URI("http://impex-fp7.fmi.fi/ws_tests/input/getParticleTrajectory_input.vot"), // url_xyz
+               Some(extraParams) // extra params
            )
            
            result.fold(f => println(f), u => {
@@ -288,9 +287,9 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            val fmi = new Methods_FMISoapBindings with Soap11Clients with DispatchHttpClients {}
            
            val extraParams = ExtraParams_getDataPointSpectraFMI(
-               None, // interpolation method (TO BE TESTED)
+               None, // interpolation method (@TODO TO BE TESTED)
                Some(VOTableType), // output filetype
-               None // energy channel (TO BE TESTED)
+               None // energy channel (@TODO BE TESTED)
            )
            
            val result = fmi.service.getDataPointSpectra(
@@ -316,9 +315,9 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            val fmi = new Methods_FMISoapBindings with Soap11Clients with DispatchHttpClients {}
            
            val extraParams = ExtraParams_getDataPointSpectraFMI(
-               None, // interpolation method (TO BE TESTED)
+               None, // interpolation method (@TODO TO BE TESTED)
                Some(VOTableType), // output filetype
-               None // energy channel (TO BE TESTED)
+               None // energy channel (@TODO TO BE TESTED)
            )
            
            val result = fmi.service.getDataPointSpectraSpacecraft(

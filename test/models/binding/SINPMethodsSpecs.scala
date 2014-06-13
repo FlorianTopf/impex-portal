@@ -17,8 +17,6 @@ import scala.xml.NodeSeq
 // all test parameters are taken from ICD v0.7 (5.6.2014)
 object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 
-  // @TODO include test cases for only mandatory (but also with optional parameters)
-
   "SINP Methods binding" should {
         
         "respond to getDataPointValue" in {
@@ -27,7 +25,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
         	
             val extraParams = ExtraParams_getDataPointValueSINP(
                 Some(VOTableType), // output filetype
-                None // interpolation method (TO BE TESTED)
+                None // interpolation method (@TODO TO BE TESTED)
             )
             
             val variable = Seq("Bx", "By") // variable seq
@@ -153,8 +151,8 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	  val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
 	  	  
 	  	  val extraParams = ExtraParams_calculateFieldLine(
-	  	      None, // line length (TO BE TESTED)
-	  	      None, // step size (TO BE TESTED)
+	  	      None, // line length (@TODO TO BE TESTED)
+	  	      None, // step size (@TODO TO BE TESTED)
 	  	      Some(VOTableType) // output filetype
 	  	  )
 	  	  

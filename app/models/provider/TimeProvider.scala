@@ -11,10 +11,7 @@ object TimeProvider {
     datatypeFactory.newXMLGregorianCalendar(gregorianCalendar)
   }
   
-  // @TODO introduce error handling for parsers
   def getISODate(date: String): XMLGregorianCalendar = {
-    // @TODO recollect this in the client design, the string must be
-    // already in iso format
     val dateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss")
     val isoDate: Date = dateFormat.parse(date)
     val gregorianCalendar = new GregorianCalendar()
@@ -23,10 +20,7 @@ object TimeProvider {
     datatypeFactory.newXMLGregorianCalendar(gregorianCalendar)
   }
   
-  // @TODO introduce error handling for parsers
   def getDuration(duration: String): Duration = {
-    // @TODO recollect this in the client design, the string must be 
-    // already in iso format
     val datatypeFactory = DatatypeFactory.newInstance()
     datatypeFactory.newDuration(duration)
   }
