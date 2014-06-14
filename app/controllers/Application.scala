@@ -28,7 +28,7 @@ object Application extends Controller {
   // route for testing
   def test = PortalAction {
 
-    val fileName = "mocks/getDPs_FMI.xml"
+    val fileName = "mocks/getDPS_FMI.xml"
     val xml = scala.xml.XML.loadFile(fileName)
     val obj = scalaxb.fromXML[VOTABLE](xml)
     
