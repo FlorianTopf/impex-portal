@@ -28,6 +28,7 @@ object VOTBindingSpecs extends org.specs2.mutable.Specification with Mockito {
              xml must beAnInstanceOf[VOTABLE]
              scalaxb.toXML[VOTABLE](xml, "VOTABLE", 
                 scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")) must beAnInstanceOf[NodeSeq]
+             Json.toJson(xml) must beAnInstanceOf[JsValue]
            }}
             
            testFiles must beAnInstanceOf[Array[File]]

@@ -19,6 +19,7 @@ case class Spase(Version: models.binding.EnumVersion,
 
 
 // @TODO we may need to reorganise optional attributes for client-side deserialisation (remove them if not available?)
+// @TODO refactoring (according to new coding styles => Option can be null, use Format and ORIGINAL name)
 object Spase {
   
  implicit val spaseWrites: Writes[Spase] = new Writes[Spase] {
@@ -28,7 +29,7 @@ object Spase {
   }
   
   // @FIXME some elements make problems when directly converting (e.g. in full tree)
-  implicit val datarecordsWrites: Writes[scalaxb.DataRecord[Any]] = new Writes[scalaxb.DataRecord[Any]] {
+  implicit val datarecordWrites: Writes[scalaxb.DataRecord[Any]] = new Writes[scalaxb.DataRecord[Any]] {
     def writes(d: scalaxb.DataRecord[Any]): JsValue = {
       d.key match {
         case Some("Repository") => {

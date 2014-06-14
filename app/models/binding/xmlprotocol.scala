@@ -6615,6 +6615,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[models.binding.Group](x, scalaxb.ElemName(node) :: stack))))) ~ 
       rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "LINK")) ~ 
       opt(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "DATA")) ^^
+      // @FIXME weird Table definition in xsd
       //rep(scalaxb.ElemName(Some("http://www.ivoa.net/xml/VOTable/v1.2"), "INFO")) ^^
       { case p1 ~ p2 ~ p3 ~ p4 ~ p5 =>//~ p6 =>
       models.binding.Table(p1.headOption map { scalaxb.fromXML[models.binding.AnyTEXT](_, scalaxb.ElemName(node) :: stack) },
@@ -6622,6 +6623,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p3.toSeq,
         p4.toSeq map { scalaxb.fromXML[models.binding.Link](_, scalaxb.ElemName(node) :: stack) },
         p5.headOption map { scalaxb.fromXML[models.binding.Data](_, scalaxb.ElemName(node) :: stack) },
+        // @FIXME weird Table definition in xsd
         //p6.toSeq map { scalaxb.fromXML[models.binding.Info](_, scalaxb.ElemName(node) :: stack) },
         (node \ "@ID").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         (node \ "@name").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
