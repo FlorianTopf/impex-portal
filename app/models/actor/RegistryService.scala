@@ -105,6 +105,7 @@ object RegistryService {
                 case _ => Left(s)
               }}  
             }
+            // generic element must always exist (only Repository atm)
             case (e: GenElement, _) => (provider ? msg).mapTo[Spase] map { Left(_) }
             case _ => future { Right(RequestError(ERequestError.UNKNOWN_ENTITY)) }
           }   

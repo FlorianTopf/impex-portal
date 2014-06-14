@@ -25,6 +25,7 @@ import java.text.ParseException
     value = "/methods", 
     description = "operations for using the IMPEx data acess services")
 @Path("/methods/FMI")
+@Produces(Array(APPLICATION_XML, APPLICATION_JSON))
 object FMIMethods extends Controller {
   import controllers.Helpers._
   
