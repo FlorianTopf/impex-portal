@@ -424,10 +424,16 @@ module portal {
 
  
     // granule element
-    // @TODO needs to be extended!
     export class Granule extends SpaseElem {
         constructor(
-            public resourceId: string){ super(resourceId) }
+            public resourceId: string,
+            public releaseDate: string,
+            public parentId: string,
+            public source: string,
+            public regionBegin?: string,
+            public regionEnd?: string, 
+            public startDate?: string,
+            public stopDate?: string){ super(resourceId) }
     }    
       
 }

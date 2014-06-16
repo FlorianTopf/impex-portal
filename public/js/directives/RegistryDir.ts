@@ -4,7 +4,7 @@ module portal {
     'use strict';
     
     export interface IRegistryDirScope extends ng.IScope {
-       registryvm: RegistryDir
+       regvm: RegistryDir
     }
 
     export class RegistryDir {
@@ -28,7 +28,17 @@ module portal {
         private configService: portal.ConfigService
         private registryService: portal.RegistryService
         private timeout: ng.ITimeoutService
-        private myScope: ng.IScope
+        private myScope: ng.IScope 
+        private oneAtATime: boolean = true
+        private error: boolean = false
+        private errorMessage: string = "no resources found"
+        
+        // container for intermediate results
+        public repositories: Array<Repository> = []
+        public simulationModels: Array<SimulationModel> = []
+        public simulationRuns: Array<SimulationRun> = []
+        public numericalOutputs: Array<NumericalOutput> = []
+        public granules: Array<Granule> = []
 
         constructor($timeout: ng.ITimeoutService, configService: portal.ConfigService, 
             registryService: portal.RegistryService) {
@@ -43,8 +53,71 @@ module portal {
         }
 
         linkFn($scope: portal.IRegistryDirScope, element: JQuery, attributes: ng.IAttributes): any {
-            $scope.registryvm = this
+            $scope.regvm = this
             this.myScope = $scope
+            
+            $scope.$on('registry-error', (e, msg: string) => {
+                this.error = true
+                this.errorMessage = msg
+            })
+            
+            $scope.$on('clear-registry', (e) => {
+                console.log("clearing registry")
+                this.error = false
+                this.repositories = []
+                this.simulationModels = []
+                this.simulationRuns = []
+                this.numericalOutputs = []
+                this.granules = []
+            })
+            
+            $scope.$on('clear-simulation-models', (e) => {
+                this.error = false
+                this.simulationModels = []
+                this.simulationRuns = []
+                this.numericalOutputs = []
+                this.granules = []
+            })
+            
+            $scope.$on('clear-simulation-runs', (e) => {
+                this.error = false
+                this.simulationRuns = []
+                this.numericalOutputs = []
+                this.granules = []
+            })
+            
+            $scope.$on('clear-numerical-outputs', (e) => {
+                this.error = false
+                this.numericalOutputs = []
+                this.granules = []
+            })
+            
+            $scope.$on('clear-granules', (e) => {
+                this.error = false
+                this.granules = []
+            })
+   
+            $scope.$on('update-repositories', (e, id: string) => {
+                this.repositories = this.registryService.cachedElements[id].map((r) => <Repository>r)
+            })
+            
+            $scope.$on('update-simulation-models', (e, id: string) => {
+                this.simulationModels = this.registryService.cachedElements[id].map((r) => <SimulationModel>r)
+
+            })
+            
+            $scope.$on('update-simulation-runs', (e, id: string) => {
+                this.simulationRuns = this.registryService.cachedElements[id].map((r) => <SimulationRun>r)
+            })
+            
+            $scope.$on('update-numerical-outputs', (e, id: string) => {
+                this.numericalOutputs = this.registryService.cachedElements[id].map((r) => <NumericalOutput>r)
+            })
+            
+            $scope.$on('update-granules', (e, id: string) => {
+                this.granules = this.registryService.cachedElements[id].map((r) => <Granule>r)
+            })
+            
         }
         
         

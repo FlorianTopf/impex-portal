@@ -27,6 +27,9 @@ body {
 	position: relative;
 	width: 33px;
 }
+.error {
+	color: red;
+}
 
 .container {
 	min-width: 468px;

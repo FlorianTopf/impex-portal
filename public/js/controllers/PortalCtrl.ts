@@ -19,17 +19,12 @@ module portal {
         private window: ng.IWindowService
         private scope: portal.IPortalScope
         private configPromise: ng.IPromise<any>
-        private registryPromiseRepo: ng.IPromise<any>
-        private registryPromiseModel: ng.IPromise<any>
-        private registryPromiseRun: ng.IPromise<any>
-        private registryPromiseOutput: ng.IPromise<any>
-        private registryPromisegranule: ng.IPromise<any>
-        
+        private registryPromise: ng.IPromise<any>
+
         private configAble: boolean = true
         private ready: boolean = false
         private loading: boolean = false
         private transFinished: boolean = true
-        private oneAtATime: boolean = true
       
         static $inject: Array<string> = ['$scope', '$http', '$location', '$timeout',
             '$interval','$window', 'configService', 'registryService']
@@ -60,99 +55,152 @@ module portal {
                         
         }
         
-        // @TODO cache the current focus of resources,
-        // include custom events! 
-        
         public getRepository(id: string) {
-            // @FIXME improve this
-            this.registryService.repositories = []
-            this.registryService.simulationModels = []
-            this.registryService.simulationRuns = []
+            this.scope.$broadcast('clear-registry')
             this.loading = true
             this.transFinished = false
             // aligned with standard transition time of accordion
             this.timeout(() => { this.transFinished = true }, 200)
-            // @FIXME dont know if this is the optimal way to do it 
-            this.registryPromiseRepo = this.registryService.getRepository().get(
-                { fmt: 'json' , id: id }).$promise
-            this.registryPromiseRepo.then((res) => {
-                var result = <ISpase>res.spase
-                // @TODO here we should save the thing in a map
-                result.resources.forEach((res) => { 
-                    //console.log("repository="+res.repository.resourceId) 
-                    this.registryService.repositories.push(res.repository)
-                })
-                this.loading = false
-            })
             
+            var cacheId = "repo-"+id
+            if(!(cacheId in this.registryService.cachedElements)) {  
+                console.log("Not-Cached="+cacheId)
+                this.registryPromise = this.registryService.getRepository().get(
+                    { fmt: 'json' , id: id }).$promise
+                
+                this.registryPromise.then((res) => {
+                    var result = <ISpase>res.spase
+                    this.registryService.cachedElements[cacheId] = result.resources.map((r) => r.repository)            
+                    this.scope.$broadcast('update-repositories', cacheId)
+                    this.loading = false
+                })
+            } else {
+                console.log("Cached="+cacheId)
+                this.scope.$broadcast('update-repositories', cacheId)
+                this.loading = false
+            }
         }
         
-        // resource id must be transformed from repository id! 
-        //=> check if there is more than one repository
         public getSimulationModel(id: string) {
-            // @FIXME improve this
-            this.registryService.simulationModels = []
-            this.registryService.simulationRuns = []
+            this.scope.$broadcast('clear-simulation-models')
             this.loading = true
             this.transFinished = false
             // aligned with standard transition time of accordion
             this.timeout(() => { this.transFinished = true }, 200)
-            // @FIXME dont know if this is the optimal way to do it 
-            this.registryPromiseModel = this.registryService.getSimulationModel().get(
-                { fmt: 'json', id: id }).$promise
-            this.registryPromiseModel.then((res) => {
-                var result = <ISpase>res.spase
-                result.resources.forEach((res) => { 
-                    //console.log("model="+res.simulationModel.resourceId) 
-                    this.registryService.simulationModels.push(res.simulationModel)
-                })
-                this.loading = false
-            }) 
             
+            var cacheId = "model-"+id
+            if(!(cacheId in this.registryService.cachedElements)) {  
+                console.log("Not-Cached="+cacheId)
+                this.registryPromise = this.registryService.getSimulationModel().get(
+                    { fmt: 'json', id: id }).$promise
+                
+                this.registryPromise.then((res) => {
+                    var result = <ISpase>res.spase
+                    this.registryService.cachedElements[cacheId] = result.resources.map((r) => r.simulationModel)
+                    this.scope.$broadcast('update-simulation-models', cacheId)
+                    this.loading = false
+                })
+            } else {
+                console.log("Cached="+cacheId)
+                this.scope.$broadcast('update-simulation-models', cacheId)
+                this.loading = false
+            }
         }
         
         public getSimulationRun(id: string) {
-            // @FIXME improve this
-            this.registryService.simulationRuns = []
+            this.scope.$broadcast('clear-simulation-runs')
             this.loading = true
             this.transFinished = false
             // aligned with standard transition time of accordion
             this.timeout(() => { this.transFinished = true }, 200)
-            // @FIXME dont know if this is the optimal way to do it 
-            this.registryPromiseRun = this.registryService.getSimulationRun().get(
-                { fmt: 'json', id: id }).$promise
-            this.registryPromiseRun.then((res) => {
-                var result = <ISpase>res.spase
-                result.resources.forEach((res) => { 
-                    //if(res.simulationRun.simulationDomain.boundaryConditions)
-                        //console.log("run="+res.simulationRun.resourceId+" "+
-                    //        res.simulationRun.simulationDomain.boundaryConditions.fieldBoundary.frontWall) 
-                    this.registryService.simulationRuns.push(res.simulationRun)
+            
+            var cacheId = "run-"+id
+            if(!(cacheId in this.registryService.cachedElements)) {  
+                console.log("Not-Cached="+cacheId)
+                this.registryPromise = this.registryService.getSimulationRun().get(
+                    { fmt: 'json', id: id }).$promise
+                
+                this.registryPromise.then(
+                (res) => {
+                    var result = <ISpase>res.spase
+                    this.registryService.cachedElements[cacheId] = result.resources.map((r) => r.simulationRun)
+                    this.loading = false
+                    this.scope.$broadcast('update-simulation-runs', cacheId)
+                }, 
+                (err) => { 
+                    this.scope.$broadcast('registry-error', 'no simulation run')
+                    this.loading = false 
                 })
+            } else {
+                console.log("Cached="+cacheId)
+                this.scope.$broadcast('update-simulation-runs', cacheId)
                 this.loading = false
-            })
-                  
+            }
         }
         
-        // testing of angular resources
-        public doSomething() {
-            /* 
-            this.registryPromiseOutput = this.registryService.getNumericalOutput().get(
-                { fmt: 'json', id: 'impex://LATMOS/Hybrid/Gany_24_10_13' }).$promise
-            this.registryPromiseOutput.then((res) => {
-                var result = <ISpase>res.spase
-                result.resources.forEach((res) => {
-                    console.log("outputId="+res.numericalOutput.resourceId)
-                    
-                    if(res.numericalOutput.spatialDescription)
-                        console.log("outputS="+
-                            res.numericalOutput.spatialDescription.coordinateSystem.coordinateRepresentation)
-                     
-                    if(res.numericalOutput.temporalDescription)
-                        console.log("outputT="+res.numericalOutput.temporalDescription.timespan.startDate)
+        public getNumericalOutput(id: string) {
+            this.scope.$broadcast('clear-numerical-outputs')
+            this.loading = true
+            this.transFinished = false
+            // aligned with standard transition time of accordion
+            this.timeout(() => { this.transFinished = true }, 200)
+            
+            var cacheId = "output-"+id
+            if(!(cacheId in this.registryService.cachedElements)) {  
+                console.log("Not-Cached="+cacheId)
+                this.registryPromise = this.registryService.getNumericalOutput().get(
+                    { fmt: 'json', id: id }).$promise
+                
+                this.registryPromise.then(
+                (res) => {
+                    var result = <ISpase>res.spase
+                    this.registryService.cachedElements[cacheId] = result.resources.map((r) => r.numericalOutput)
+                    this.loading = false
+                    this.scope.$broadcast('update-numerical-outputs', cacheId)
+                }, 
+                (err) => { 
+                    this.scope.$broadcast('registry-error', 'no numerical output') 
+                    this.loading = false 
                 })
-            }) */
+            } else {
+                console.log("Cached="+cacheId)
+                this.scope.$broadcast('update-numerical-outputs', cacheId)
+                this.loading = false   
+            }      
         }
+        
+        public getGranule(id: string) {
+            this.scope.$broadcast('clear-granules')
+            this.loading = true
+            this.transFinished = false
+            // aligned with standard transition time of accordion
+            this.timeout(() => { this.transFinished = true }, 200)
+            var cacheId = "granule-"+id
+            
+            if(!(cacheId in this.registryService.cachedElements)) {  
+                console.log("Not-Cached="+cacheId)
+                this.registryPromise = this.registryService.getGranule().get(
+                    { fmt: 'json', id: id }).$promise
+                
+                this.registryPromise.then(
+                (res) => {
+                    var result = <ISpase>res.spase
+                    console.log("granule="+result.resources[0].granule.resourceId.split('/').reverse()[0])
+                    this.registryService.cachedElements[cacheId] = result.resources.map((r) => r.granule)
+                    this.loading = false
+                    this.scope.$broadcast('update-granules', cacheId)
+                }, 
+                (err) => { 
+                    this.scope.$broadcast('registry-error', 'no granule') 
+                    this.loading = false 
+                })
+            } else {
+                console.log("Cached="+cacheId)
+                this.scope.$broadcast('update-granules', cacheId)
+                this.loading = false   
+            }  
+        }
+        
 
     }
 }

@@ -1,6 +1,4 @@
-/// <reference path='libs/angularjs/angular.d.ts' />
-/// <reference path='libs/angularjs/angular-route.d.ts'/>
-/// <reference path='libs/angularjs/angular-resource.d.ts'/>
+/// <reference path="libs/tsd.d.ts" />
 
 /// <reference path='models/Config.ts' />
 /// <reference path='models/Spase.ts' />

@@ -3,6 +3,22 @@
   "repo": "borisyankov/DefinitelyTyped",
   "ref": "master",
   "path": "libs",
-  "bundle": "install/tsd.d.ts",
-  "installed": {}
+  "bundle": "libs/tsd.d.ts",
+  "installed": {
+    "jquery/jquery.d.ts": {
+      "commit": "88f38f5b582007f8a4e71cb9023f8a2daa98fbb7"
+    },
+    "angularjs/angular.d.ts": {
+      "commit": "88f38f5b582007f8a4e71cb9023f8a2daa98fbb7"
+    },
+    "angularjs/angular-resource.d.ts": {
+      "commit": "88f38f5b582007f8a4e71cb9023f8a2daa98fbb7"
+    },
+    "angularjs/angular-route.d.ts": {
+      "commit": "88f38f5b582007f8a4e71cb9023f8a2daa98fbb7"
+    },
+    "bootstrap/bootstrap.d.ts": {
+      "commit": "88f38f5b582007f8a4e71cb9023f8a2daa98fbb7"
+    }
+  }
 }

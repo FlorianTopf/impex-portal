@@ -559,12 +559,18 @@ var portal;
     portal.TimeSpan = TimeSpan;
 
     // granule element
-    // @TODO needs to be extended!
     var Granule = (function (_super) {
         __extends(Granule, _super);
-        function Granule(resourceId) {
+        function Granule(resourceId, releaseDate, parentId, source, regionBegin, regionEnd, startDate, stopDate) {
             _super.call(this, resourceId);
             this.resourceId = resourceId;
+            this.releaseDate = releaseDate;
+            this.parentId = parentId;
+            this.source = source;
+            this.regionBegin = regionBegin;
+            this.regionEnd = regionEnd;
+            this.startDate = startDate;
+            this.stopDate = stopDate;
         }
         return Granule;
     })(SpaseElem);
@@ -615,35 +621,26 @@ var portal;
                 },
                 isArray: false
             };
-            // @TODO we will store here a map of loaded resources
-            // we need do design an appropriate structure for that
-            // then we can make a cache out of it
-            this.repositories = [];
-            this.simulationModels = [];
-            this.simulationRuns = [];
-            this.numericalOutputs = [];
+            // cache for the elements (identified by request id)
+            this.cachedElements = {};
             this.resource = $resource;
         }
         RegistryService.prototype.getRepository = function () {
             return this.resource(this.url + 'registry/repository?', { id: '@id', fmt: '@fmt' }, { getRepository: this.registryAction });
         };
 
-        // @TODO we need to be able to provide an r (recursive) param
         RegistryService.prototype.getSimulationModel = function () {
             return this.resource(this.url + 'registry/simulationmodel?', { id: '@id', fmt: '@fmt' }, { getSimulationModel: this.registryAction });
         };
 
-        // @TODO we need to be able to provide an r (recursive) param
         RegistryService.prototype.getSimulationRun = function () {
             return this.resource(this.url + 'registry/simulationrun?', { id: '@id', fmt: '@fmt' }, { getSimulationRun: this.registryAction });
         };
 
-        // @TODO we need to be able to provide an r (recursive) param
         RegistryService.prototype.getNumericalOutput = function () {
             return this.resource(this.url + 'registry/numericaloutput?', { id: '@id', fmt: '@fmt' }, { getNumericalOutput: this.registryAction });
         };
 
-        // @TODO we need to be able to provide an r (recursive) param
         RegistryService.prototype.getGranule = function () {
             return this.resource(this.url + 'registry/granule?', { id: '@id', fmt: '@fmt' }, { getGranule: this.registryAction });
         };
@@ -721,7 +718,6 @@ var portal;
             this.ready = false;
             this.loading = false;
             this.transFinished = true;
-            this.oneAtATime = true;
             this.scope = $scope;
             this.scope.vm = this;
             this.http = $http;
@@ -741,14 +737,9 @@ var portal;
                 });
             }
         }
-        // @TODO cache the current focus of resources,
-        // include custom events!
         PortalCtrl.prototype.getRepository = function (id) {
             var _this = this;
-            // @FIXME improve this
-            this.registryService.repositories = [];
-            this.registryService.simulationModels = [];
-            this.registryService.simulationRuns = [];
+            this.scope.$broadcast('clear-registry');
             this.loading = true;
             this.transFinished = false;
 
@@ -757,27 +748,29 @@ var portal;
                 _this.transFinished = true;
             }, 200);
 
-            // @FIXME dont know if this is the optimal way to do it
-            this.registryPromiseRepo = this.registryService.getRepository().get({ fmt: 'json', id: id }).$promise;
-            this.registryPromiseRepo.then(function (res) {
-                var result = res.spase;
+            var cacheId = "repo-" + id;
+            if (!(cacheId in this.registryService.cachedElements)) {
+                console.log("Not-Cached=" + cacheId);
+                this.registryPromise = this.registryService.getRepository().get({ fmt: 'json', id: id }).$promise;
 
-                // @TODO here we should save the thing in a map
-                result.resources.forEach(function (res) {
-                    //console.log("repository="+res.repository.resourceId)
-                    _this.registryService.repositories.push(res.repository);
+                this.registryPromise.then(function (res) {
+                    var result = res.spase;
+                    _this.registryService.cachedElements[cacheId] = result.resources.map(function (r) {
+                        return r.repository;
+                    });
+                    _this.scope.$broadcast('update-repositories', cacheId);
+                    _this.loading = false;
                 });
-                _this.loading = false;
-            });
+            } else {
+                console.log("Cached=" + cacheId);
+                this.scope.$broadcast('update-repositories', cacheId);
+                this.loading = false;
+            }
         };
 
-        // resource id must be transformed from repository id!
-        //=> check if there is more than one repository
         PortalCtrl.prototype.getSimulationModel = function (id) {
             var _this = this;
-            // @FIXME improve this
-            this.registryService.simulationModels = [];
-            this.registryService.simulationRuns = [];
+            this.scope.$broadcast('clear-simulation-models');
             this.loading = true;
             this.transFinished = false;
 
@@ -786,22 +779,29 @@ var portal;
                 _this.transFinished = true;
             }, 200);
 
-            // @FIXME dont know if this is the optimal way to do it
-            this.registryPromiseModel = this.registryService.getSimulationModel().get({ fmt: 'json', id: id }).$promise;
-            this.registryPromiseModel.then(function (res) {
-                var result = res.spase;
-                result.resources.forEach(function (res) {
-                    //console.log("model="+res.simulationModel.resourceId)
-                    _this.registryService.simulationModels.push(res.simulationModel);
+            var cacheId = "model-" + id;
+            if (!(cacheId in this.registryService.cachedElements)) {
+                console.log("Not-Cached=" + cacheId);
+                this.registryPromise = this.registryService.getSimulationModel().get({ fmt: 'json', id: id }).$promise;
+
+                this.registryPromise.then(function (res) {
+                    var result = res.spase;
+                    _this.registryService.cachedElements[cacheId] = result.resources.map(function (r) {
+                        return r.simulationModel;
+                    });
+                    _this.scope.$broadcast('update-simulation-models', cacheId);
+                    _this.loading = false;
                 });
-                _this.loading = false;
-            });
+            } else {
+                console.log("Cached=" + cacheId);
+                this.scope.$broadcast('update-simulation-models', cacheId);
+                this.loading = false;
+            }
         };
 
         PortalCtrl.prototype.getSimulationRun = function (id) {
             var _this = this;
-            // @FIXME improve this
-            this.registryService.simulationRuns = [];
+            this.scope.$broadcast('clear-simulation-runs');
             this.loading = true;
             this.transFinished = false;
 
@@ -810,38 +810,96 @@ var portal;
                 _this.transFinished = true;
             }, 200);
 
-            // @FIXME dont know if this is the optimal way to do it
-            this.registryPromiseRun = this.registryService.getSimulationRun().get({ fmt: 'json', id: id }).$promise;
-            this.registryPromiseRun.then(function (res) {
-                var result = res.spase;
-                result.resources.forEach(function (res) {
-                    //if(res.simulationRun.simulationDomain.boundaryConditions)
-                    //console.log("run="+res.simulationRun.resourceId+" "+
-                    //        res.simulationRun.simulationDomain.boundaryConditions.fieldBoundary.frontWall)
-                    _this.registryService.simulationRuns.push(res.simulationRun);
+            var cacheId = "run-" + id;
+            if (!(cacheId in this.registryService.cachedElements)) {
+                console.log("Not-Cached=" + cacheId);
+                this.registryPromise = this.registryService.getSimulationRun().get({ fmt: 'json', id: id }).$promise;
+
+                this.registryPromise.then(function (res) {
+                    var result = res.spase;
+                    _this.registryService.cachedElements[cacheId] = result.resources.map(function (r) {
+                        return r.simulationRun;
+                    });
+                    _this.loading = false;
+                    _this.scope.$broadcast('update-simulation-runs', cacheId);
+                }, function (err) {
+                    _this.scope.$broadcast('registry-error', 'no simulation run');
+                    _this.loading = false;
                 });
-                _this.loading = false;
-            });
+            } else {
+                console.log("Cached=" + cacheId);
+                this.scope.$broadcast('update-simulation-runs', cacheId);
+                this.loading = false;
+            }
         };
 
-        // testing of angular resources
-        PortalCtrl.prototype.doSomething = function () {
-            /*
-            this.registryPromiseOutput = this.registryService.getNumericalOutput().get(
-            { fmt: 'json', id: 'impex://LATMOS/Hybrid/Gany_24_10_13' }).$promise
-            this.registryPromiseOutput.then((res) => {
-            var result = <ISpase>res.spase
-            result.resources.forEach((res) => {
-            console.log("outputId="+res.numericalOutput.resourceId)
-            
-            if(res.numericalOutput.spatialDescription)
-            console.log("outputS="+
-            res.numericalOutput.spatialDescription.coordinateSystem.coordinateRepresentation)
-            
-            if(res.numericalOutput.temporalDescription)
-            console.log("outputT="+res.numericalOutput.temporalDescription.timespan.startDate)
-            })
-            }) */
+        PortalCtrl.prototype.getNumericalOutput = function (id) {
+            var _this = this;
+            this.scope.$broadcast('clear-numerical-outputs');
+            this.loading = true;
+            this.transFinished = false;
+
+            // aligned with standard transition time of accordion
+            this.timeout(function () {
+                _this.transFinished = true;
+            }, 200);
+
+            var cacheId = "output-" + id;
+            if (!(cacheId in this.registryService.cachedElements)) {
+                console.log("Not-Cached=" + cacheId);
+                this.registryPromise = this.registryService.getNumericalOutput().get({ fmt: 'json', id: id }).$promise;
+
+                this.registryPromise.then(function (res) {
+                    var result = res.spase;
+                    _this.registryService.cachedElements[cacheId] = result.resources.map(function (r) {
+                        return r.numericalOutput;
+                    });
+                    _this.loading = false;
+                    _this.scope.$broadcast('update-numerical-outputs', cacheId);
+                }, function (err) {
+                    _this.scope.$broadcast('registry-error', 'no numerical output');
+                    _this.loading = false;
+                });
+            } else {
+                console.log("Cached=" + cacheId);
+                this.scope.$broadcast('update-numerical-outputs', cacheId);
+                this.loading = false;
+            }
+        };
+
+        PortalCtrl.prototype.getGranule = function (id) {
+            var _this = this;
+            this.scope.$broadcast('clear-granules');
+            this.loading = true;
+            this.transFinished = false;
+
+            // aligned with standard transition time of accordion
+            this.timeout(function () {
+                _this.transFinished = true;
+            }, 200);
+            var cacheId = "granule-" + id;
+
+            if (!(cacheId in this.registryService.cachedElements)) {
+                console.log("Not-Cached=" + cacheId);
+                this.registryPromise = this.registryService.getGranule().get({ fmt: 'json', id: id }).$promise;
+
+                this.registryPromise.then(function (res) {
+                    var result = res.spase;
+                    console.log("granule=" + result.resources[0].granule.resourceId.split('/').reverse()[0]);
+                    _this.registryService.cachedElements[cacheId] = result.resources.map(function (r) {
+                        return r.granule;
+                    });
+                    _this.loading = false;
+                    _this.scope.$broadcast('update-granules', cacheId);
+                }, function (err) {
+                    _this.scope.$broadcast('registry-error', 'no granule');
+                    _this.loading = false;
+                });
+            } else {
+                console.log("Cached=" + cacheId);
+                this.scope.$broadcast('update-granules', cacheId);
+                this.loading = false;
+            }
         };
         PortalCtrl.$inject = [
             '$scope',
@@ -899,6 +957,15 @@ var portal;
     var RegistryDir = (function () {
         function RegistryDir($timeout, configService, registryService) {
             var _this = this;
+            this.oneAtATime = true;
+            this.error = false;
+            this.errorMessage = "no resources found";
+            // container for intermediate results
+            this.repositories = [];
+            this.simulationModels = [];
+            this.simulationRuns = [];
+            this.numericalOutputs = [];
+            this.granules = [];
             this.configService = configService;
             this.registryService = registryService;
             this.timeout = $timeout;
@@ -921,8 +988,80 @@ var portal;
         };
 
         RegistryDir.prototype.linkFn = function ($scope, element, attributes) {
-            $scope.registryvm = this;
+            var _this = this;
+            $scope.regvm = this;
             this.myScope = $scope;
+
+            $scope.$on('registry-error', function (e, msg) {
+                _this.error = true;
+                _this.errorMessage = msg;
+            });
+
+            $scope.$on('clear-registry', function (e) {
+                console.log("clearing registry");
+                _this.error = false;
+                _this.repositories = [];
+                _this.simulationModels = [];
+                _this.simulationRuns = [];
+                _this.numericalOutputs = [];
+                _this.granules = [];
+            });
+
+            $scope.$on('clear-simulation-models', function (e) {
+                _this.error = false;
+                _this.simulationModels = [];
+                _this.simulationRuns = [];
+                _this.numericalOutputs = [];
+                _this.granules = [];
+            });
+
+            $scope.$on('clear-simulation-runs', function (e) {
+                _this.error = false;
+                _this.simulationRuns = [];
+                _this.numericalOutputs = [];
+                _this.granules = [];
+            });
+
+            $scope.$on('clear-numerical-outputs', function (e) {
+                _this.error = false;
+                _this.numericalOutputs = [];
+                _this.granules = [];
+            });
+
+            $scope.$on('clear-granules', function (e) {
+                _this.error = false;
+                _this.granules = [];
+            });
+
+            $scope.$on('update-repositories', function (e, id) {
+                _this.repositories = _this.registryService.cachedElements[id].map(function (r) {
+                    return r;
+                });
+            });
+
+            $scope.$on('update-simulation-models', function (e, id) {
+                _this.simulationModels = _this.registryService.cachedElements[id].map(function (r) {
+                    return r;
+                });
+            });
+
+            $scope.$on('update-simulation-runs', function (e, id) {
+                _this.simulationRuns = _this.registryService.cachedElements[id].map(function (r) {
+                    return r;
+                });
+            });
+
+            $scope.$on('update-numerical-outputs', function (e, id) {
+                _this.numericalOutputs = _this.registryService.cachedElements[id].map(function (r) {
+                    return r;
+                });
+            });
+
+            $scope.$on('update-granules', function (e, id) {
+                _this.granules = _this.registryService.cachedElements[id].map(function (r) {
+                    return r;
+                });
+            });
         };
         return RegistryDir;
     })();
