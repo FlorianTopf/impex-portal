@@ -176,13 +176,7 @@ module portal {
             public property: Array<Property>){}
     }
 
-    // @TODO finish this object (its a bit tricky)
     export class InputPopulation {
-        constructor(
-            public name: string){}
-    }
-    
-    export class InputProcess {
         constructor(
             public name: string,
             public set: Array<string>,
@@ -196,6 +190,31 @@ module portal {
             public processCoefficient: string,
             public processCoeffType: string,
             public processModel: string,
+            public modelUrl: string){}
+    }
+    
+    export class InputProcess {
+        constructor(
+            public name: string,
+            public set: Array<string>,
+            public parameterKey: string,
+            public description: string,
+            public caveats: string,
+            public simulatedRegion: Array<string>,
+            public qualifier: string,
+            public particleType: string,
+            public chemicalFormula: string,
+            public atomicNumber: string,
+            public populationMassNumber: string,
+            public populationChargeState: string,
+            public populationDensity: string,
+            public populationTemperature: string,
+            public populationFlowSpeed: string,
+            public distribution: string,
+            public productionRate: string,
+            public totalProductionRate: string,
+            public inputTableURL: string,
+            public profile: string,
             public modelUrl: string){}
     }
 

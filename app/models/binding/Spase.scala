@@ -24,7 +24,10 @@ object Spase {
   
  implicit val spaseWrites: Writes[Spase] = new Writes[Spase] {
     def writes(s: Spase): JsValue = {
-      Json.obj("spase" -> Json.obj("version" -> s.Version.toString, "resources" -> s.ResourceEntity, "lang" -> s.lang))
+      Json.obj("spase" -> Json.obj(
+          "version" -> s.Version.toString, 
+          "resources" -> s.ResourceEntity, 
+          "lang" -> s.lang))
     }
   }
   
@@ -62,7 +65,9 @@ object Spase {
   // writer for repository
   implicit val repositoryWrites: Writes[Repository] = new Writes[Repository] {
     def writes(r: Repository): JsValue = {
-      Json.obj("resourceId" -> r.ResourceID, "resourceHeader" -> r.ResourceHeader, 
+      Json.obj(
+          "resourceId" -> r.ResourceID, 
+          "resourceHeader" -> r.ResourceHeader, 
           "accessUrl" -> r.AccessURL)
     }
   }
@@ -73,8 +78,12 @@ object Spase {
   
   implicit val resourceHeaderWrites: Writes[ResourceHeader] = new Writes[ResourceHeader] {
     def writes(h: ResourceHeader): JsValue = {
-      Json.obj("resourceName" -> h.ResourceName, "releaseDate" -> h.ReleaseDate, 
-          "description" -> h.Description, "contact" -> h.Contact, "informationurl" -> h.InformationURL)
+      Json.obj(
+          "resourceName" -> h.ResourceName, 
+          "releaseDate" -> h.ReleaseDate, 
+          "description" -> h.Description, 
+          "contact" -> h.Contact, 
+          "informationurl" -> h.InformationURL)
     }
   }
   
@@ -102,7 +111,10 @@ object Spase {
   // writer for simulation model
   implicit val simulationModelWrites: Writes[SimulationModel] = new Writes[SimulationModel] {
     def writes(s: SimulationModel): JsValue = {
-      Json.obj("resourceId" -> s.ResourceID, "resourceHeader" -> s.ResourceHeader, "versions" -> s.Versions, 
+      Json.obj(
+          "resourceId" -> s.ResourceID, 
+          "resourceHeader" -> s.ResourceHeader, 
+          "versions" -> s.Versions, 
           "simulationType" -> s.SimulationType)
     }
   }
@@ -117,8 +129,10 @@ object Spase {
   
   implicit val modelVersionWrites: Writes[ModelVersion] = new Writes[ModelVersion] {
     def writes(v: ModelVersion): JsValue = { 
-      Json.obj("versionId" -> v.VersionID, "releaseDate" -> v.ReleaseDate, 
-         "description" -> v.Description)
+      Json.obj(
+          "versionId" -> v.VersionID, 
+          "releaseDate" -> v.ReleaseDate, 
+          "description" -> v.Description)
     }
   }
   
@@ -154,17 +168,26 @@ object Spase {
         }
       }
       val inputEntityFlat: Seq[JsValue] = inputEntity.flatten
-      Json.obj("resourceId" -> r.ResourceID, "resourceHeader" -> r.ResourceHeader, 
-          "modelId" -> r.Model.ModelID, "temporalDependence" -> r.TemporalDependence.getOrElse("").toString, 
-          "simulatedRegion" -> r.SimulatedRegion, "likelihoodRating" -> r.LikelihoodRating, 
-          "simulationTime" -> r.SimulationTime, "simulationDomain" -> r.SimulationDomain, "inputs" -> inputEntityFlat)
+      Json.obj(
+          "resourceId" -> r.ResourceID, 
+          "resourceHeader" -> r.ResourceHeader, 
+          "modelId" -> r.Model.ModelID, 
+          "temporalDependence" -> r.TemporalDependence.getOrElse("").toString, 
+          "simulatedRegion" -> r.SimulatedRegion, 
+          "likelihoodRating" -> r.LikelihoodRating, 
+          "simulationTime" -> r.SimulationTime, 
+          "simulationDomain" -> r.SimulationDomain, 
+          "inputs" -> inputEntityFlat)
     }
   }
   
   implicit val simulationTimeWrites: Writes[SimulationTime] = new Writes[SimulationTime] {
     def writes(s: SimulationTime): JsValue = {
-      Json.obj("duration" -> s.Duration, "timeStart" -> s.TimeStart, 
-          "timeStop" -> s.TimeStop, "timeStep" -> s.TimeStep)
+      Json.obj(
+          "duration" -> s.Duration, 
+          "timeStart" -> s.TimeStart, 
+          "timeStop" -> s.TimeStop, 
+          "timeStep" -> s.TimeStep)
     }
   }
   
@@ -193,11 +216,20 @@ object Spase {
         case Some(b) => Json.obj("boundaryConditions" -> b)
         case None => Json.obj()
       }
-      Json.obj("description" -> s.Description, "caveats" -> s.Caveats,
-          "spatialDimension" -> s.SpatialDimension, "velocityDimension" -> s.VelocityDimension , 
-          "fieldDimension" -> s.FieldDimension, "units" -> s.Units, "unitsConversion" -> s.UnitsConversion, 
-          "coordinatesLabel" -> s.CoordinatesLabel, "validMin" -> s.ValidMin, "validMax" -> s.ValidMax, 
-          "gridStructure" -> s.GridStructure, "gridCellSize" -> s.GridCellSize, "symmetry" -> s.Symmetry)++
+      Json.obj(
+          "description" -> s.Description, 
+          "caveats" -> s.Caveats,
+          "spatialDimension" -> s.SpatialDimension, 
+          "velocityDimension" -> s.VelocityDimension , 
+          "fieldDimension" -> s.FieldDimension, 
+          "units" -> s.Units, 
+          "unitsConversion" -> s.UnitsConversion, 
+          "coordinatesLabel" -> s.CoordinatesLabel, 
+          "validMin" -> s.ValidMin, 
+          "validMax" -> s.ValidMax, 
+          "gridStructure" -> s.GridStructure, 
+          "gridCellSize" -> s.GridCellSize, 
+          "symmetry" -> s.Symmetry)++
           boundaryConditions
     }
   }
@@ -218,19 +250,36 @@ object Spase {
   
   implicit val elementBoundaryWrites: Writes[Option[ElementBoundary]] = new Writes[Option[ElementBoundary]] {
     def writes(e: Option[ElementBoundary]): JsValue = e match {
-      case Some(e) => Json.obj("frontWall" -> e.FrontWall, "backWall" -> e.BackWall, 
-          "sideWall" -> e.SideWall, "obstacle" -> e.Obstacle, "caveats" -> e.Caveats)
+      case Some(e) => Json.obj(
+          "frontWall" -> e.FrontWall, 
+          "backWall" -> e.BackWall, 
+          "sideWall" -> e.SideWall, 
+          "obstacle" -> e.Obstacle, 
+          "caveats" -> e.Caveats)
       case None => JsString("")
     }
   } 
 
   implicit val inputFieldWrites: Writes[InputField] = new Writes[InputField] {
     def writes(i: InputField): JsValue = { 
-      Json.obj("name" -> i.Name, "set" -> i.Set, "parameterKey" -> i.ParameterKey,
-          "description" -> i.Description, "caveats" -> i.Caveats, "simulatedRegion" -> i.SimulatedRegion,
-          "coordinateSystem" -> i.CoordinateSystem, "qualifier" -> i.Qualifier, "fieldQuantity" -> i.FieldQuantity,
-          "units" -> i.Units, "unitsConversion" -> i.UnitsConversion, "inputLabel" -> i.InputLabel, "fieldValue" -> i.FieldValue,
-          "inputTableUrl" -> i.InputTableURL, "validMin" -> i.ValidMin, "validMax" -> i.ValidMax, "fieldModel" -> i.FieldModel,
+      Json.obj(
+          "name" -> i.Name, 
+          "set" -> i.Set, 
+          "parameterKey" -> i.ParameterKey,
+          "description" -> i.Description, 
+          "caveats" -> i.Caveats, 
+          "simulatedRegion" -> i.SimulatedRegion,
+          "coordinateSystem" -> i.CoordinateSystem, 
+          "qualifier" -> i.Qualifier, 
+          "fieldQuantity" -> i.FieldQuantity,
+          "units" -> i.Units, 
+          "unitsConversion" -> i.UnitsConversion, 
+          "inputLabel" -> i.InputLabel, 
+          "fieldValue" -> i.FieldValue,
+          "inputTableUrl" -> i.InputTableURL, 
+          "validMin" -> i.ValidMin, 
+          "validMax" -> i.ValidMax, 
+          "fieldModel" -> i.FieldModel,
           "modelUrl" -> i.ModelURL)
     }
   }
@@ -252,34 +301,91 @@ object Spase {
 
   implicit val inputParameterWrites: Writes[InputParameter] = new Writes[InputParameter] {
     def writes(i: InputParameter): JsValue = { 
-      Json.obj("name" -> i.Name, "description" -> i.Description, "caveats" -> i.Caveats, "simulatedRegion" -> i.SimulatedRegion,
-          "qualifier" -> i.Qualifier, "parameterQuantity" -> i.ParameterQuantity, "property" -> i.Property)
+      Json.obj(
+          "name" -> i.Name, 
+          "description" -> i.Description, 
+          "caveats" -> i.Caveats, 
+          "simulatedRegion" -> i.SimulatedRegion,
+          "qualifier" -> i.Qualifier, 
+          "parameterQuantity" -> i.ParameterQuantity, 
+          "property" -> i.Property)
     }
   }
   
   implicit val propertyWrites: Writes[Property] = new Writes[Property] {
     def writes(p: Property): JsValue = {
-      Json.obj("name" -> p.Name, "description" -> p.Description, "caveats" -> p.Caveats, "propertyQuantity" -> p.PropertyQuantity,
-          "qualifier" -> p.Qualifier, "units" -> p.Units, "unitsConversion" -> p.UnitsConversion, 
-          "propertyLabel" -> p.PropertyLabel, "propertyValue" -> p.PropertyValue, "propertyTableUrl" -> p.PropertyTableURL, 
-          "validMin" -> p.ValidMin, "validMax" -> p.ValidMax, "propertyModel" -> p.PropertyModel, "modelUrl" -> p.ModelURL)
+      Json.obj(
+          "name" -> p.Name, 
+          "description" -> p.Description, 
+          "caveats" -> p.Caveats, 
+          "propertyQuantity" -> p.PropertyQuantity,
+          "qualifier" -> p.Qualifier, 
+          "units" -> p.Units, 
+          "unitsConversion" -> p.UnitsConversion, 
+          "propertyLabel" -> p.PropertyLabel, 
+          "propertyValue" -> p.PropertyValue, 
+          "propertyTableUrl" -> p.PropertyTableURL, 
+          "validMin" -> p.ValidMin, 
+          "validMax" -> p.ValidMax, 
+          "propertyModel" -> p.PropertyModel, 
+          "modelUrl" -> p.ModelURL)
     } 
   }
   
-  // @TODO finish this object (its a bit tricky)
   implicit val inputPopulationWrites: Writes[InputPopulation] = new Writes[InputPopulation] {
     def writes(i: InputPopulation): JsValue = { 
-      Json.obj("name" -> i.Name)
+      Json.obj(
+          "name" -> i.Name, 
+          "set" -> i.Set, 
+          "parameterKey" -> i.ParameterKey, 
+          "description" -> i.Description,
+          "caveats" -> i.Caveats,
+          "simulatedRegion" -> i.SimulatedRegion,
+          "qualifier" -> i.Qualifier,
+          "particleType" -> i.ParticleType,
+          "chemicalFormula" -> i.ChemicalFormula,
+          "atomicNumber" -> i.AtomicNumber,
+          "populationMassNumber" -> i.PopulationMassNumber,
+          "populationChargeState" -> i.PopulationChargeState,
+          "populationDensity" -> i.PopulationDensity,
+          "populationTemperature" -> i.PopulationTemperature,
+          "populationFlowSpeed" -> i.PopulationFlowSpeed,
+          "distribution" -> i.Description,
+          "productionRate" -> i.ProductionRate,
+          "totalProductionRate" -> i.TotalProductionRate,
+          "inputTableURL" -> i.InputTableURL,
+          "profile" -> i.Profile,
+          "modelURL" -> i.ModelURL)
     }
+  }
+  
+  implicit val inputValueWrites: Writes[Option[InputValue]] = new Writes[Option[InputValue]] {
+    def writes(p: Option[InputValue]): JsValue = p match { 
+      case Some(p) => Json.obj(
+          "mixed" -> JsString(p.mixed.map(_.as[String]).mkString(" ")),
+          "units" -> p.Units,
+          "unitsConversion" -> p.UnitsConversion)
+      case None => Json.obj()
+    }
+    
   }
 
   implicit val inputProcessWrites: Writes[InputProcess] = new Writes[InputProcess] {
     def writes(i: InputProcess): JsValue = { 
-      Json.obj("name" -> i.Name, "set" -> i.Set, "parameterKey" -> i.ParameterKey,
-          "description" -> i.Description, "caveats" -> i.Caveats, "simulatedRegion" -> i.SimulatedRegion,
-          "processType" -> i.ProcessType, "units" -> i.Units, "unitsConversion" -> i.UnitsConversion, 
-          "processCoefficient" -> i.ProcessCoefficient, "processCoeffType" -> i.ProcessCoeffType, 
-          "processModel" -> i.ProcessModel, "modelUrl" -> i.ModelURL)
+      Json.obj(
+          "name" -> i.Name, 
+          "set" -> i.Set, 
+          "parameterKey" -> i.ParameterKey,
+          "description" -> i.Description, 
+          "caveats" -> i.Caveats,
+          "simulatedRegion" -> i.SimulatedRegion,
+          "processType" -> i.ProcessType, 
+          "units" -> i.Units, 
+          "unitsConversion" -> i.UnitsConversion, 
+          "processCoefficient" -> i.ProcessCoefficient, 
+          "processCoeffType" -> i.ProcessCoeffType, 
+          "processModel" -> i.ProcessModel, 
+          "modelUrl" -> i.ModelURL)
     }
   }
   
@@ -304,16 +410,26 @@ object Spase {
             case Some(o) if (o.key.get == "TemporalDescription") => Json.obj("temporalDescription" -> o.as[TemporalDescription])
             case _ => Json.obj()
       }
-      Json.obj("resourceId" -> n.ResourceID, "resourceHeader" -> n.ResourceHeader, "accessInformation" -> n.AccessInformation,
+      Json.obj(
+          "resourceId" -> n.ResourceID, 
+          "resourceHeader" -> n.ResourceHeader, 
+          "accessInformation" -> n.AccessInformation,
           "measurementType" -> n.MeasurementType)++nOption++
-      Json.obj("simulatedRegion" -> n.SimulatedRegion, "inputResourceId" -> n.InputResourceID, "parameter" -> n.Parameter)
+      Json.obj(
+          "simulatedRegion" -> n.SimulatedRegion, 
+          "inputResourceId" -> n.InputResourceID, 
+          "parameter" -> n.Parameter)
     }
   }
 
   implicit val accessInformationWrites: Writes[AccessInformation] = new Writes[AccessInformation] {
     def writes(a: AccessInformation): JsValue = {
-      Json.obj("repositoryId" -> a.RepositoryID, "availability" -> a.Availability,
-          "accessUrl" -> a.AccessURL, "format" -> a.Format, "encoding" -> a.Encoding, 
+      Json.obj(
+          "repositoryId" -> a.RepositoryID, 
+          "availability" -> a.Availability,
+          "accessUrl" -> a.AccessURL, 
+          "format" -> a.Format, 
+          "encoding" -> a.Encoding, 
           "dataExtent" -> a.DataExtent)
     }
   }
@@ -368,17 +484,29 @@ object Spase {
         case Some("Particle") => Json.obj("particle" -> p.ParameterEntity.as[Particle])
         case _ => Json.obj()
       }
-      Json.obj("name" -> p.Name, "set" -> p.Set, "parameterKey" -> p.ParameterKey, 
-          "description" -> p.Description, "caveats" -> p.Caveats, "cadence" -> p.Cadence, "units" -> p.Units,
-          "unitsConversion" -> p.UnitsConversion, "coordinateSystem" -> p.CoordinateSystem, "renderingHints" -> p.RenderingHints,
-          "structure" -> p.Structure, "validMin" -> p.ValidMin, "validMax" -> p.ValidMax, "fillValue" -> p.FillValue, 
+      Json.obj(
+          "name" -> p.Name, 
+          "set" -> p.Set, 
+          "parameterKey" -> p.ParameterKey, 
+          "description" -> p.Description, 
+          "caveats" -> p.Caveats, 
+          "cadence" -> p.Cadence, 
+          "units" -> p.Units,
+          "unitsConversion" -> p.UnitsConversion, 
+          "coordinateSystem" -> p.CoordinateSystem, 
+          "renderingHints" -> p.RenderingHints,
+          "structure" -> p.Structure, 
+          "validMin" -> p.ValidMin, 
+          "validMax" -> p.ValidMax, 
+          "fillValue" -> p.FillValue, 
           "property" -> p.Property)++param
     }
   }
   
   implicit val coordinateSystemWrites: Writes[CoordinateSystemType] = new Writes[CoordinateSystemType] {
     def writes(c: CoordinateSystemType): JsValue = {
-      Json.obj("coordinateRepresentation" -> c.CoordinateRepresentation, 
+      Json.obj(
+          "coordinateRepresentation" -> c.CoordinateRepresentation, 
           "coordinateSystem" -> c.CoordinateSystemName)
     }
   }
@@ -393,8 +521,15 @@ object Spase {
   
   implicit val renderingWrites: Writes[RenderingHints] = new Writes[RenderingHints] {
     def writes(r: RenderingHints): JsValue = {
-      Json.obj("axisLabel" -> r.AxisLabel, "displayType" -> r.DisplayType, "index" -> r.Index, "renderingAxis" -> r.RenderingAxis, 
-          "scaleMax" -> r.ScaleMax, "scaleMin" -> r.ScaleMin, "scaleType" -> r.ScaleType, "valueFormat" -> r.ValueFormat)
+      Json.obj(
+          "axisLabel" -> r.AxisLabel, 
+          "displayType" -> r.DisplayType, 
+          "index" -> r.Index, 
+          "renderingAxis" -> r.RenderingAxis, 
+          "scaleMax" -> r.ScaleMax, 
+          "scaleMin" -> r.ScaleMin, 
+          "scaleType" -> r.ScaleType, 
+          "valueFormat" -> r.ValueFormat)
     }
   }
   
@@ -411,27 +546,46 @@ object Spase {
   }
   
   implicit val structureWrites: Writes[Structure] = new Writes[Structure] {
-    def writes(s: Structure): JsValue = Json.obj("description" -> s.Description, "element" -> s.Element, "size" -> s.Size)
+    def writes(s: Structure): JsValue = Json.obj(
+        "description" -> s.Description, 
+        "element" -> s.Element, 
+        "size" -> s.Size)
     
   }
   
   implicit val elementWrites: Writes[Element] = new Writes[Element] {
     def writes(e: Element): JsValue = {
-      Json.obj("fillValue" -> e.FillValue, "index" -> e.Index, "name" -> e.Name, "parameterKey" -> e.ParameterKey, 
-          "qualifier" -> e.Qualifier, "renderingHints" -> e.RenderingHints, "units" -> e.Units, 
-          "unitsConversion" -> e.UnitsConversion, "validMax" -> e.ValidMax, "validMin" -> e.ValidMin)
+      Json.obj(
+          "fillValue" -> e.FillValue, 
+          "index" -> e.Index, 
+          "name" -> e.Name, 
+          "parameterKey" -> e.ParameterKey, 
+          "qualifier" -> e.Qualifier, 
+          "renderingHints" -> e.RenderingHints, 
+          "units" -> e.Units, 
+          "unitsConversion" -> e.UnitsConversion, 
+          "validMax" -> e.ValidMax, 
+          "validMin" -> e.ValidMin)
     }
   }
   
   implicit val fieldWrites: Writes[FieldType] = new Writes[FieldType] {
     def writes(f: FieldType): JsValue = {
-      Json.obj("fieldQuantity" -> f.FieldQuantity, "frequencyRange" -> f.FrequencyRange, "qualifier" -> f.Qualifier)
+      Json.obj(
+          "fieldQuantity" -> f.FieldQuantity, 
+          "frequencyRange" -> f.FrequencyRange, 
+          "qualifier" -> f.Qualifier)
     }
   }
   
   implicit val frequencyRangeWrites: Writes[FrequencyRange] = new Writes[FrequencyRange] {
     def writes(f: FrequencyRange): JsValue = {
-      Json.obj("bin" -> f.Bin, "high" -> f.High, "low" -> f.Low, "spectralRange" -> f.SpectralRange, "units" -> f.Units)
+      Json.obj(
+          "bin" -> f.Bin, 
+          "high" -> f.High, 
+          "low" -> f.Low, 
+          "spectralRange" -> f.SpectralRange, 
+          "units" -> f.Units)
     }
   }
   
@@ -445,8 +599,13 @@ object Spase {
   
   implicit val waveWrites: Writes[Wave] = new Writes[Wave] {
     def writes(w: Wave): JsValue = {
-      Json.obj("energyRange" -> w.EnergyRange, "frequencyRange" -> w.FrequencyRange, "qualifier" -> w.Qualifier, 
-        "wavelengthRange" -> w.WavelengthRange, "waveQuantity" -> w.WaveQuantity, "waveType" -> w.WaveType)
+      Json.obj(
+          "energyRange" -> w.EnergyRange, 
+          "frequencyRange" -> w.FrequencyRange, 
+          "qualifier" -> w.Qualifier, 
+          "wavelengthRange" -> w.WavelengthRange, 
+          "waveQuantity" -> w.WaveQuantity, 
+          "waveType" -> w.WaveType)
     }
   }
   
@@ -458,7 +617,12 @@ object Spase {
   
   implicit val wavelengthRangeWrites: Writes[WavelengthRange] = new Writes[WavelengthRange] {
     def writes(w: WavelengthRange): JsValue = {
-      Json.obj("bin" -> w.Bin, "high" -> w.High, "low " -> w.Low, "spectralRange" -> w.SpectralRange, "units" -> w.Units)
+      Json.obj(
+          "bin" -> w.Bin, 
+          "high" -> w.High, 
+          "low " -> w.Low, 
+          "spectralRange" -> w.SpectralRange, 
+          "units" -> w.Units)
     }
   }
   
@@ -490,9 +654,14 @@ object Spase {
   
   implicit val particleWrites: Writes[Particle] = new Writes[Particle] {
     def writes(p: Particle): JsValue = {
-      Json.obj("populationId" -> p.PopulationID, "particleType" -> p.ParticleType, "particleQuantitiy" -> p.ParticleQuantity,
-          "chemicalFormula" -> p.ChemicalFormula, "atomicNumber" -> p.AtomicNumber, 
-          "populationMassNumber" -> p.PopulationMassNumber, "populationChargeState" -> p.PopulationChargeState)
+      Json.obj(
+          "populationId" -> p.PopulationID, 
+          "particleType" -> p.ParticleType, 
+          "particleQuantitiy" -> p.ParticleQuantity,
+          "chemicalFormula" -> p.ChemicalFormula, 
+          "atomicNumber" -> p.AtomicNumber, 
+          "populationMassNumber" -> p.PopulationMassNumber, 
+          "populationChargeState" -> p.PopulationChargeState)
     }
   }
   
@@ -514,7 +683,9 @@ object Spase {
           Json.obj("cutsDescription" -> s.spatialdescriptionoption.as[CutsDescriptionSequence])
         case _ => Json.obj()
       }
-      Json.obj("dimension" -> s.Dimension.toString, "coordinateSystem" -> s.CoordinateSystem, 
+      Json.obj(
+          "dimension" -> s.Dimension.toString, 
+          "coordinateSystem" -> s.CoordinateSystem, 
           "coordinatesLabel" -> s.CoordinatesLabel, 
           "units" -> s.Units)++spatialDescription
     }

@@ -238,17 +238,8 @@ var portal;
     })();
     portal.InputParameter = InputParameter;
 
-    // @TODO finish this object (its a bit tricky)
     var InputPopulation = (function () {
-        function InputPopulation(name) {
-            this.name = name;
-        }
-        return InputPopulation;
-    })();
-    portal.InputPopulation = InputPopulation;
-
-    var InputProcess = (function () {
-        function InputProcess(name, set, parameterKey, description, caveats, simulatedRegion, processType, units, unitsConversion, processCoefficient, processCoeffType, processModel, modelUrl) {
+        function InputPopulation(name, set, parameterKey, description, caveats, simulatedRegion, processType, units, unitsConversion, processCoefficient, processCoeffType, processModel, modelUrl) {
             this.name = name;
             this.set = set;
             this.parameterKey = parameterKey;
@@ -261,6 +252,34 @@ var portal;
             this.processCoefficient = processCoefficient;
             this.processCoeffType = processCoeffType;
             this.processModel = processModel;
+            this.modelUrl = modelUrl;
+        }
+        return InputPopulation;
+    })();
+    portal.InputPopulation = InputPopulation;
+
+    var InputProcess = (function () {
+        function InputProcess(name, set, parameterKey, description, caveats, simulatedRegion, qualifier, particleType, chemicalFormula, atomicNumber, populationMassNumber, populationChargeState, populationDensity, populationTemperature, populationFlowSpeed, distribution, productionRate, totalProductionRate, inputTableURL, profile, modelUrl) {
+            this.name = name;
+            this.set = set;
+            this.parameterKey = parameterKey;
+            this.description = description;
+            this.caveats = caveats;
+            this.simulatedRegion = simulatedRegion;
+            this.qualifier = qualifier;
+            this.particleType = particleType;
+            this.chemicalFormula = chemicalFormula;
+            this.atomicNumber = atomicNumber;
+            this.populationMassNumber = populationMassNumber;
+            this.populationChargeState = populationChargeState;
+            this.populationDensity = populationDensity;
+            this.populationTemperature = populationTemperature;
+            this.populationFlowSpeed = populationFlowSpeed;
+            this.distribution = distribution;
+            this.productionRate = productionRate;
+            this.totalProductionRate = totalProductionRate;
+            this.inputTableURL = inputTableURL;
+            this.profile = profile;
             this.modelUrl = modelUrl;
         }
         return InputProcess;
