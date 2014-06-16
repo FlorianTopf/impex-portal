@@ -77,10 +77,16 @@ object RegistryService {
     Akka.system.actorSelection("user/registry/" + UrlProvider.encodeURI(id))
   }
   
-  // Hack method for checking the id of the request against the database id (add to diagram)
-  private def validateId(msg: GetElement, id: URI): Boolean = { 
-    println("Computed ResourceID match="+id.toString.replaceAll(ERepository.toString, msg.dType.toString))
-    msg.id.toString.contains(id.toString.replaceAll(ERepository.toString, msg.dType.toString))
+  // Hack method for checking the id of the request against the database id 
+  private def validateId(msg: GetElement, dbId: URI): Boolean = { 
+    val msgId = msg.id.get
+    // @TODO add all possible elements
+    .replace(ESimulationModel.toString, ERepository.toString)
+    .replace(ESimulationRun.toString, ERepository.toString)
+    .replace(ENumericalOutput.toString, ERepository.toString)
+    .replace(EGranule.toString, ERepository.toString)
+    println("Computed fake msgId="+msgId)
+    msgId.contains(dbId.toString)
   }
   
   private def getElement(msg: GetElement): Future[Either[Spase, RequestError]] = {
@@ -124,7 +130,7 @@ object RegistryService {
           }
           result.map(records => Left(Spase(Number2u462u462, records.flatten, "en"))) 
         }
-        case _ => future { Right(RequestError(ERequestError.UNKNOWN_ENTITY)) }
+        case _ => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
       }
     } yield provider 
   }

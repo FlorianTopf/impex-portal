@@ -13,8 +13,7 @@ import scala.xml._
 import java.net.URI
 import models.enums._
 
-// @TODO when updating the config, don't forget to inform the 
-// data providers registered in the registry
+
 class ConfigService extends Actor {
   import models.actor.ConfigService._
   

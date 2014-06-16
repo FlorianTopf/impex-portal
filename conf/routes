@@ -53,10 +53,10 @@ GET		/registry/numericaldata		controllers.Registry.numericaldata(fmt: String ?= 
 GET		/api-docs/methods			controllers.ApiHelpController.getResource(path = "/methods")
 
 # WSDLs 
-GET		/methods/:dbName			controllers.Methods.methods(dbName: String)
+GET		/methods/:dbName			controllers.WSDLMethods.methods(dbName: String)
 
 # taverna WSDLs 
-GET		/methods/taverna/:dbName	controllers.Methods.methodsTaverna(dbName: String)
+GET		/methods/taverna/:dbName	controllers.WSDLMethods.methodsTaverna(dbName: String)
 
 # sinp methods 
 GET		/methods/SINP/getDataPointValue						controllers.SINPMethods.getDataPointValue

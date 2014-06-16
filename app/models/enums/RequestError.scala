@@ -12,8 +12,6 @@ object ERequestError extends Enumeration {
     val NOT_IMPLEMENTED = Value(501, "not implemented") //Not implemented
     val UNKNOWN_PROVIDER = Value(502, "unknown provider") //Bad gateway
 
-    // does not work on enums :/
-    //    implicit val requestErrorFormat: Format[RequestError.Value] = Json.format[RequestError.Value]
     implicit val eRequestErrorFormat = new Format[ERequestError.Value] {
         def writes(r: ERequestError.Value): JsValue = {
             JsString(r.toString)

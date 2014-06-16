@@ -561,7 +561,6 @@ object VOTABLE {
 	 def reads(j: JsValue): JsResult[URI] = JsSuccess(new URI(j.as[String]))
    }
   
-  // @FIXME maybe not optimal => why can't we use JsNumber()?
   implicit val bigIntWrites: Writes[BigInt] = new Writes[BigInt] {
     def writes(i: BigInt): JsValue = JsString(i.toString)
   }

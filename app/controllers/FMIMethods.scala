@@ -8,18 +8,12 @@ import javax.ws.rs._
 import javax.ws.rs.core.MediaType._
 import scalaxb._
 import models.binding._
-import java.net.URI
-import play.api.libs.ws._
-import scala.concurrent.Await
-import scala.concurrent.duration._
-import akka.util.Timeout
 import models.provider._
 import models.enums._
+import java.net.URI
 import play.api.libs.json._
-import soapenvelope11._
 import java.text.ParseException
 
-// @TODO include request parameters to responses (serialise rew map)
 
 @Api(
     value = "/methods", 
@@ -81,7 +75,7 @@ object FMIMethods extends Controller {
     val interpolation = request.req.get("interpolation_method").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointValueFMI(
-        validateInterpolation(interpolation), // interpolation method (@TODO to be added)
+        validateInterpolation(interpolation), // interpolation method
         validateFiletype(filetype) // output filetype
     )
     
@@ -270,7 +264,7 @@ object FMIMethods extends Controller {
     val extraParams = ExtraParams_getSurfaceFMI(
         None, // resolution (@TODO TO BE TESTED)
         validateFiletype(filetype), // output filetype
-        validateInterpolation(interpolation) // interpolation method (@TODO to be added)
+        validateInterpolation(interpolation) // interpolation method
     )
            
     val result = fmi.service.getSurface(
@@ -462,7 +456,7 @@ object FMIMethods extends Controller {
         Some(BigInt(200)), // max steps (@TODO to be added)
         Some(0), // stop condition radius (@TODO to be added)
         None, // stop condition region (@TODO TO BE TESTED)
-        validateInterpolation(interpolation), // interpolation method (@TODO TO BE TESTED)
+        validateInterpolation(interpolation), // interpolation method
         validateFiletype(filetype) // output filetype
     )
           
@@ -535,7 +529,7 @@ object FMIMethods extends Controller {
     val interpolation = request.req.get("interpolation_method").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointSpectraFMI(
-        validateInterpolation(interpolation), // interpolation method (@TODO TO BE TESTED)
+        validateInterpolation(interpolation), // interpolation method
         validateFiletype(filetype), // output filetype
         None // energy channel (@TODO TO BE TESTED)
     )
@@ -635,7 +629,7 @@ object FMIMethods extends Controller {
     val interpolation = request.req.get("interpolation_method").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointSpectraFMI(
-        validateInterpolation(interpolation), // interpolation method (@TODO TO BE TESTED)
+        validateInterpolation(interpolation), // interpolation method
         validateFiletype(filetype), // output filetype
         None // energy channel (@TODO TO BE TESTED)
     )

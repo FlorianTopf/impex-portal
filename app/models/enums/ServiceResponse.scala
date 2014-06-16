@@ -11,8 +11,6 @@ object EServiceResponse extends Enumeration {
     val BAD_REQUEST = Value(400)
     val NOT_IMPLEMENTED = Value(501) 
 
-    // does not work on enums :/
-    //    implicit val serviceResponseFormat: Format[ServiceResponse.Value] = Json.format[ServiceResponse.Value]
     implicit val eServiceResponseFormat = new Format[EServiceResponse.Value] {
         def writes(r: EServiceResponse.Value): JsValue = {
             JsString(r.toString)

@@ -28,7 +28,7 @@ object Spase {
     }
   }
   
-  // @FIXME some elements make problems when directly converting (e.g. in full tree)
+  // some elements make problems when directly converting (e.g. in full tree)
   implicit val datarecordWrites: Writes[scalaxb.DataRecord[Any]] = new Writes[scalaxb.DataRecord[Any]] {
     def writes(d: scalaxb.DataRecord[Any]): JsValue = {
       d.key match {
@@ -131,7 +131,7 @@ object Spase {
   
   
   // writer for simulation run
-  // @FIXME input entities make problems when directly converting (e.g. in full tree)
+  // input entities make problems when directly converting (e.g. in full tree)
   implicit val simulationRunWrites: Writes[SimulationRun] = new Writes[SimulationRun] {
     def writes(r: SimulationRun): JsValue = {
       val inputEntity: Seq[Option[JsValue]] = r.InputEntity map { entity => 
@@ -202,7 +202,6 @@ object Spase {
     }
   }
   
-  // @FIXME maybe not optimal => why can't we use JsNumber()?
   implicit val bigIntWrites: Writes[BigInt] = new Writes[BigInt] {
     def writes(i: BigInt): JsValue = JsString(i.toString)
   }
@@ -357,7 +356,7 @@ object Spase {
   }
   
   // parameter attribute is optional
-  // @FIXME some elements make problems when directly converting (e.g. in full tree)
+  // some elements make problems when directly converting (e.g. in full tree)
   implicit val parameterWrites: Writes[Parameter] = new Writes[Parameter] {
     def writes(p: Parameter): JsValue = {
       val param = p.ParameterEntity.key match {
@@ -539,7 +538,7 @@ object Spase {
     }
   }
   
-  // @FIXME stopDate makes problems => see hack below
+  // stopDate makes problems => see hack below
   implicit val timeSpanWrites: Writes[TimeSpan] = new Writes[TimeSpan] {
     def writes(t: TimeSpan): JsValue = {
       Json.obj("startDate" -> t.StartDate, 

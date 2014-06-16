@@ -19,7 +19,6 @@ import javax.ws.rs.core.MediaType._
 import scala.language.implicitConversions
 
 
-// @TODO improve all namespaces of returned XML files
 @Api(
     value = "/registry", 
     description = "operations for using the IMPEx registry services")

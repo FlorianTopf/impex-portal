@@ -8,14 +8,13 @@ import javax.ws.rs._
 import javax.ws.rs.core.MediaType._
 import scalaxb._
 import models.binding._
-import java.net.URI
 import models.provider._
 import models.enums._
+import java.net.URI
 import play.api.libs.json._
-import soapenvelope11._
 import java.text.ParseException
+import soapenvelope11._
 
-// @TODO include request parameters to responses
 
 @Api(
     value = "/methods", 

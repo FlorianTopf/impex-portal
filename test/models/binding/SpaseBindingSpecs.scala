@@ -36,7 +36,7 @@ object SpaseBindingSpecs extends org.specs2.mutable.Specification with Mockito {
                 
             spase must beAnInstanceOf[Spase]
             scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")) must beAnInstanceOf[NodeSeq]
-            Json.toJson(spase) must beAnInstanceOf[JsObject]  
+            Json.toJson(spase) must beAnInstanceOf[JsValue]  
             
           }
 

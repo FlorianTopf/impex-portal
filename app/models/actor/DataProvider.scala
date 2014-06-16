@@ -131,7 +131,6 @@ object DataProvider {
   )
   
   // @TODO we need that later for updating the trees dynamically (on admin request)
-  // and when updating the config
   def updateData(provider: ActorSelection) = {
     (provider ? UpdateData)
   }

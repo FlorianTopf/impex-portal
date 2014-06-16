@@ -8,11 +8,10 @@ import javax.ws.rs._
 import javax.ws.rs.core.MediaType._
 import scalaxb._
 import models.binding._
-import java.net.URI
 import models.provider._
-import java.util.concurrent._
-import play.api.libs.json._
 import models.enums._
+import java.net.URI
+import play.api.libs.json._
 import java.text.ParseException
 
 
@@ -169,6 +168,9 @@ object SINPMethods extends Controller {
       case e: ParseException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "time parameter not in ISO 8601 format", request.req)))
+      case e @ (_:NumberFormatException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "illegal number provided", request.req)))
       // @FIXME this is because there are errors not encoded as SOAP-FAULT
       case e: RuntimeException =>
         NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
@@ -562,6 +564,9 @@ object SINPMethods extends Controller {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "mandatory parameter missing", request.req)))
+      case e @ (_:NumberFormatException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "illegal number provided", request.req)))
     }
   }
   
@@ -635,6 +640,9 @@ object SINPMethods extends Controller {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "mandatory parameter missing", request.req)))
+      case e @ (_:NumberFormatException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "illegal number provided", request.req)))
       // @FIXME this is because there are errors not encoded as SOAP-FAULT
       case e: RuntimeException =>
         NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
@@ -813,6 +821,9 @@ object SINPMethods extends Controller {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "mandatory parameter missing", request.req)))
+      case e @ (_:NumberFormatException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "illegal number provided", request.req)))
     }
   }
   

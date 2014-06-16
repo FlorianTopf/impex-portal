@@ -219,7 +219,7 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
           
            val fmi = new Methods_FMISoapBindings with Soap11Clients with DispatchHttpClients {}
            
-           // @FIXME not possible (should be a list of floats)
+           // this should be a list of floats
            //val stopConditionRegion = Seq("x_min", "x_max", "y_min", "y_max", "z_min", "z_max")
            
            val extraParams = ExtraParams_getFieldLineFMI(

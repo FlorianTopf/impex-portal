@@ -6,7 +6,7 @@ import models.enums._
 import play.api.libs.json._
 import soapenvelope11._
 
-// @TODO add validators for timestamps, duration, sc names and URIs
+
 object Helpers extends Controller {
     
   // helper method for validating the output filetype 
