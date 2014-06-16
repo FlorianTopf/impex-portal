@@ -80,12 +80,14 @@ object RegistryService {
   // Hack method for checking the id of the request against the database id 
   private def validateId(msg: GetElement, dbId: URI): Boolean = { 
     val msgId = msg.id.get
-    // @TODO add all possible elements
     .replace(ESimulationModel.toString, ERepository.toString)
     .replace(ESimulationRun.toString, ERepository.toString)
     .replace(ENumericalOutput.toString, ERepository.toString)
     .replace(EGranule.toString, ERepository.toString)
-    println("Computed fake msgId="+msgId)
+    .replace(EObservatory.toString, ERepository.toString)
+    .replace(EInstrument.toString, ERepository.toString)
+    .replace(ENumericalData.toString, ERepository.toString)
+    println("Computed search Id="+msgId)
     msgId.contains(dbId.toString)
   }
   
@@ -178,7 +180,7 @@ object RegistryService {
             val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.id)
             (provider ? GetMethods).mapTo[Seq[NodeSeq]] map { Left(_) } 
           }
-          // @TODO what do we do if None is given?
+          // if no id is provided, just return an error
           case _ => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
         }
       }
@@ -203,8 +205,7 @@ object RegistryService {
 
   // simulations methods
   def getSimulationModel(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = {
-    // Hack to check if a repository id is provided as query parameter =>
-    // @TODO maybe add this to all methods (so that repository id can be used, update Definition/Swagger)
+    // check if a repository id is given as parameter
     id match {
       // @FIXME Temporary Hack for SINP (will be done after resourceId changes)
       case Some(id) if(id.contains(ERepository.toString+"/PMM")) => {
@@ -217,23 +218,67 @@ object RegistryService {
     }
   }
   
-  def getSimulationRun(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = 
-    getElement(GetElement(ESimulationRun, id, r))
+  def getSimulationRun(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] =  {
+    // check if a repository id is given as parameter
+    id match {
+      case Some(id) if(id.contains(ERepository.toString)) => {
+        getElement(GetElement(ESimulationRun, Some(id.replace(ERepository.toString, ESimulationRun.toString)), r))
+      }
+      case _ => getElement(GetElement(ESimulationRun, id, r))
+    }
+  }
+    
   
-  def getNumericalOutput(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = 
-    getElement(GetElement(ENumericalOutput, id, r))
+  def getNumericalOutput(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = {
+    // check if a repository id is given as parameter
+    id match {
+      case Some(id) if(id.contains(ERepository.toString)) => {
+        getElement(GetElement(ENumericalOutput, Some(id.replace(ERepository.toString, ENumericalOutput.toString)), r))
+      }
+      case _ => getElement(GetElement(ENumericalOutput, id, r))
+    }
+  }
   
-  def getGranule(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] =
-    getElement(GetElement(EGranule, id, r))
+  def getGranule(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = {
+    // check if a repository id is given as parameter
+    id match {
+      case Some(id) if(id.contains(ERepository.toString)) => {
+        getElement(GetElement(EGranule, Some(id.replace(ERepository.toString, EGranule.toString)), r))
+      }
+      case _ => getElement(GetElement(EGranule, id, r))
+    }
+  }
   
   // observations methods
-  def getObservatory(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = 
-    getElement(GetElement(EObservatory, id))
+  def getObservatory(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = {
+    // check if a repository id is given as parameter
+    id match {
+      case Some(id) if(id.contains(ERepository.toString)) => {
+        getElement(GetElement(EObservatory, Some(id.replace(ERepository.toString, EObservatory.toString)), r))
+      }
+      case _ => getElement(GetElement(EObservatory, id))
+    }
+  }
   
-  def getInstrument(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = 
-    getElement(GetElement(EInstrument, id))
+  def getInstrument(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = {
+    // check if a repository id is given as parameter
+    id match {
+      case Some(id) if(id.contains(ERepository.toString)) => {
+        getElement(GetElement(EInstrument, Some(id.replace(ERepository.toString, EInstrument.toString)), r))
+      }
+      case _ => getElement(GetElement(EInstrument, id))
+    }
+  }
   
-  def getNumericalData(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = 
-    getElement(GetElement(ENumericalData, id))
+  def getNumericalData(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = {
+    // check if a repository id is given as parameter
+    id match {
+      case Some(id) if(id.contains(ERepository.toString)) => {
+        getElement(GetElement(ENumericalData, Some(id.replace(ERepository.toString, ENumericalData.toString)), r))
+      }
+      case _ => getElement(GetElement(ENumericalData, id))
+    }
+    
+  }
   
 }
