@@ -6,6 +6,8 @@ module portal {
     var impexPortal = angular.module('portal', ['ui.bootstrap', 'ngRoute', 'ngResource'])
     
     // here we may add options for bootstrap-ui
+    // maybe include angular.ui.router 
+    //(see infoday examples, it supports application state, very nice"!)
  
     impexPortal.service('configService', ConfigService)
     impexPortal.service('registryService', RegistryService)

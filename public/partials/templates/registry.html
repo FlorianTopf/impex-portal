@@ -1,5 +1,3 @@
-<!-- @TODO put all styles in CSS -->
-<!-- @TODO we need to add an active class to buttons here later -->
 <accordion close-others="regvm.oneAtATime">
   <div ng-repeat="database in vm.config.databases" style="margin-bottom: 5px;">
   	<accordion-group ng-if="database.type == 'simulation'">
@@ -14,28 +12,36 @@
   					</span>
   				</accordion-heading>
   				<div class="btn-group-vertical" style="vertical-align: top;">		
-					<button class="btn btn-default" ng-repeat="element in regvm.simulationModels">
-						<span ng-click="vm.getSimulationRun(element.resourceId)">
+					<button class="btn btn-default" 
+					ng-repeat="element in regvm.simulationModels" 
+					ng-class="{active: regvm.isActive('model', element)}">
+						<span ng-click="vm.getSimulationRun(element.resourceId, element, $event)">
 							{{ element.resourceHeader.resourceName }}
 						</span>
 					</button>
 				</div> 
-				<div class="btn-group-vertical" style="vertical-align: top; max-height: 450px; overflow: auto;">	
-					<button class="btn btn-default" ng-repeat="element in regvm.simulationRuns" style="margin-right: 10px;">
-						<span ng-click="vm.getNumericalOutput(element.resourceId)">
+				<div class="btn-group-vertical btn-group-overflow">	
+					<button class="btn btn-default margin-ten" 
+					ng-repeat="element in regvm.simulationRuns" 
+					ng-class="{active: regvm.isActive('run', element)}">
+						<span ng-click="vm.getNumericalOutput(element.resourceId, element, $event)">
 							{{ element.resourceHeader.resourceName.replace("FMI_HYB_", "") }}
 						</span>
 					</button>
 				</div>
-				<div class="btn-group-vertical" style="vertical-align: top; max-height: 450px; overflow: auto;">	
-					<button class="btn btn-default" ng-repeat="element in regvm.numericalOutputs" style="margin-right: 10px;">
-						<span ng-click="vm.getGranule(element.resourceId)">
+				<div class="btn-group-vertical btn-group-overflow">	
+					<button class="btn btn-default margin-ten" 
+					ng-repeat="element in regvm.numericalOutputs" 
+					ng-class="{active: regvm.isActive('output', element)}">
+						<span ng-click="vm.getGranule(element.resourceId, element, $event)">
 							{{ element.resourceHeader.resourceName.replace("FMI_HYB_", "") }}
 						</span>
 					</button>
 				</div>
-				<div class="btn-group-vertical" style="vertical-align: top; max-height: 450px; overflow: auto;">	
-					<button class="btn btn-default" ng-repeat="element in regvm.granules" style="margin-right: 10px;">
+				<div class="btn-group-vertical btn-group-overflow">		
+					<button class="btn btn-default margin-ten" 
+					ng-repeat="element in regvm.granules"
+					ng-class="{active: regvm.isActive('granule', element)}">
 						{{ element.resourceId.split('/').reverse()[0] }}
 					</button>
 				</div>

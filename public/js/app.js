@@ -818,9 +818,9 @@ var portal;
             }
         };
 
-        PortalCtrl.prototype.getSimulationRun = function (id) {
+        PortalCtrl.prototype.getSimulationRun = function (id, element, $event) {
             var _this = this;
-            this.scope.$broadcast('clear-simulation-runs');
+            this.scope.$broadcast('clear-simulation-runs', element);
             this.loading = true;
             this.transFinished = false;
 
@@ -852,9 +852,9 @@ var portal;
             }
         };
 
-        PortalCtrl.prototype.getNumericalOutput = function (id) {
+        PortalCtrl.prototype.getNumericalOutput = function (id, element, $event) {
             var _this = this;
-            this.scope.$broadcast('clear-numerical-outputs');
+            this.scope.$broadcast('clear-numerical-outputs', element);
             this.loading = true;
             this.transFinished = false;
 
@@ -886,9 +886,9 @@ var portal;
             }
         };
 
-        PortalCtrl.prototype.getGranule = function (id) {
+        PortalCtrl.prototype.getGranule = function (id, element, $event) {
             var _this = this;
-            this.scope.$broadcast('clear-granules');
+            this.scope.$broadcast('clear-granules', element);
             this.loading = true;
             this.transFinished = false;
 
@@ -985,6 +985,7 @@ var portal;
             this.simulationRuns = [];
             this.numericalOutputs = [];
             this.granules = [];
+            this.activeItems = {};
             this.configService = configService;
             this.registryService = registryService;
             this.timeout = $timeout;
@@ -1006,6 +1007,14 @@ var portal;
             ];
         };
 
+        RegistryDir.prototype.setActive = function (type, element) {
+            this.activeItems[type] = element;
+        };
+
+        RegistryDir.prototype.isActive = function (type, element) {
+            return this.activeItems[type] === element;
+        };
+
         RegistryDir.prototype.linkFn = function ($scope, element, attributes) {
             var _this = this;
             $scope.regvm = this;
@@ -1018,6 +1027,7 @@ var portal;
 
             $scope.$on('clear-registry', function (e) {
                 console.log("clearing registry");
+                _this.activeItems = {};
                 _this.error = false;
                 _this.repositories = [];
                 _this.simulationModels = [];
@@ -1034,20 +1044,23 @@ var portal;
                 _this.granules = [];
             });
 
-            $scope.$on('clear-simulation-runs', function (e) {
+            $scope.$on('clear-simulation-runs', function (e, element) {
+                _this.setActive("model", element);
                 _this.error = false;
                 _this.simulationRuns = [];
                 _this.numericalOutputs = [];
                 _this.granules = [];
             });
 
-            $scope.$on('clear-numerical-outputs', function (e) {
+            $scope.$on('clear-numerical-outputs', function (e, element) {
+                _this.setActive("run", element);
                 _this.error = false;
                 _this.numericalOutputs = [];
                 _this.granules = [];
             });
 
-            $scope.$on('clear-granules', function (e) {
+            $scope.$on('clear-granules', function (e, element) {
+                _this.setActive("output", element);
                 _this.error = false;
                 _this.granules = [];
             });
@@ -1094,6 +1107,8 @@ var portal;
     var impexPortal = angular.module('portal', ['ui.bootstrap', 'ngRoute', 'ngResource']);
 
     // here we may add options for bootstrap-ui
+    // maybe include angular.ui.router
+    //(see infoday examples, it supports application state, very nice"!)
     impexPortal.service('configService', portal.ConfigService);
     impexPortal.service('registryService', portal.RegistryService);
 

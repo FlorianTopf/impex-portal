@@ -30,6 +30,14 @@ body {
 .error {
 	color: red;
 }
+.margin-ten {
+	margin-right: 10px;
+}
+.btn-group-overflow {
+	vertical-align: top; 
+	max-height: 450px; 
+	overflow: auto;
+}
 
 .container {
 	min-width: 468px;

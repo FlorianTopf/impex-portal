@@ -13,7 +13,7 @@ module portal {
     }
     
     // simple resource map
-    export interface ElementMap {
+    export interface IElementMap {
         [requestId: string]: Array<SpaseElem>
     }
     
@@ -38,7 +38,7 @@ module portal {
         }
         
         // cache for the elements (identified by request id)
-        public cachedElements: ElementMap = { }
+        public cachedElements: IElementMap = { }
         
         
         public getRepository(): IRegistryResource {

@@ -6,6 +6,11 @@ module portal {
     export interface IRegistryDirScope extends ng.IScope {
        regvm: RegistryDir
     }
+    
+    // active buttons map
+    export interface IActiveMap {
+        [resourceType: string]: SpaseElem 
+    }
 
     export class RegistryDir {
 
@@ -39,6 +44,7 @@ module portal {
         public simulationRuns: Array<SimulationRun> = []
         public numericalOutputs: Array<NumericalOutput> = []
         public granules: Array<Granule> = []
+        public activeItems: IActiveMap = {}
 
         constructor($timeout: ng.ITimeoutService, configService: portal.ConfigService, 
             registryService: portal.RegistryService) {
@@ -50,6 +56,14 @@ module portal {
             this.link = ($scope: portal.IRegistryDirScope, element: JQuery, attributes: ng.IAttributes) => 
                 this.linkFn($scope, element, attributes)
             
+        }
+        
+        public setActive(type: string, element: SpaseElem) {
+            this.activeItems[type] = element
+        }
+        
+        public isActive(type: string, element: SpaseElem) {
+            return this.activeItems[type] === element
         }
 
         linkFn($scope: portal.IRegistryDirScope, element: JQuery, attributes: ng.IAttributes): any {
@@ -63,6 +77,7 @@ module portal {
             
             $scope.$on('clear-registry', (e) => {
                 console.log("clearing registry")
+                this.activeItems = {}
                 this.error = false
                 this.repositories = []
                 this.simulationModels = []
@@ -79,20 +94,23 @@ module portal {
                 this.granules = []
             })
             
-            $scope.$on('clear-simulation-runs', (e) => {
+            $scope.$on('clear-simulation-runs', (e, element: SpaseElem) => {
+                this.setActive("model", element)
                 this.error = false
                 this.simulationRuns = []
                 this.numericalOutputs = []
                 this.granules = []
             })
             
-            $scope.$on('clear-numerical-outputs', (e) => {
+            $scope.$on('clear-numerical-outputs', (e, element: SpaseElem) => {
+                this.setActive("run", element)
                 this.error = false
                 this.numericalOutputs = []
                 this.granules = []
             })
             
-            $scope.$on('clear-granules', (e) => {
+            $scope.$on('clear-granules', (e, element: SpaseElem) => {
+                this.setActive("output", element)
                 this.error = false
                 this.granules = []
             })
@@ -120,6 +138,7 @@ module portal {
             
         }
         
+ 
         
     }
 

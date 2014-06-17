@@ -107,8 +107,8 @@ module portal {
             }
         }
         
-        public getSimulationRun(id: string) {
-            this.scope.$broadcast('clear-simulation-runs')
+        public getSimulationRun(id: string, element: SpaseElem, $event: Event) {
+            this.scope.$broadcast('clear-simulation-runs', element)
             this.loading = true
             this.transFinished = false
             // aligned with standard transition time of accordion
@@ -138,8 +138,8 @@ module portal {
             }
         }
         
-        public getNumericalOutput(id: string) {
-            this.scope.$broadcast('clear-numerical-outputs')
+        public getNumericalOutput(id: string, element: SpaseElem, $event: Event) {
+            this.scope.$broadcast('clear-numerical-outputs', element)
             this.loading = true
             this.transFinished = false
             // aligned with standard transition time of accordion
@@ -169,8 +169,8 @@ module portal {
             }      
         }
         
-        public getGranule(id: string) {
-            this.scope.$broadcast('clear-granules')
+        public getGranule(id: string, element: SpaseElem, $event: Event) {
+            this.scope.$broadcast('clear-granules', element)
             this.loading = true
             this.transFinished = false
             // aligned with standard transition time of accordion
