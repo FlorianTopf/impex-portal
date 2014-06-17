@@ -14,28 +14,25 @@
   				<div class="btn-group-vertical" style="vertical-align: top;">		
 					<button class="btn btn-default" 
 					ng-repeat="element in regvm.simulationModels" 
+					ng-click="vm.getSimulationRun(element.resourceId, element, $event)" 
 					ng-class="{active: regvm.isActive('model', element)}">
-						<span ng-click="vm.getSimulationRun(element.resourceId, element, $event)">
-							{{ element.resourceHeader.resourceName }}
-						</span>
+						{{ element.resourceHeader.resourceName }}
 					</button>
 				</div> 
 				<div class="btn-group-vertical btn-group-overflow">	
 					<button class="btn btn-default margin-ten" 
 					ng-repeat="element in regvm.simulationRuns" 
+					ng-click="vm.getNumericalOutput(element.resourceId, element, $event)" 
 					ng-class="{active: regvm.isActive('run', element)}">
-						<span ng-click="vm.getNumericalOutput(element.resourceId, element, $event)">
-							{{ element.resourceHeader.resourceName.replace("FMI_HYB_", "") }}
-						</span>
+						{{ element.resourceHeader.resourceName.replace("FMI_HYB_", "") }}
 					</button>
 				</div>
 				<div class="btn-group-vertical btn-group-overflow">	
 					<button class="btn btn-default margin-ten" 
 					ng-repeat="element in regvm.numericalOutputs" 
+					ng-click="vm.getGranule(element.resourceId, element, $event)" 
 					ng-class="{active: regvm.isActive('output', element)}">
-						<span ng-click="vm.getGranule(element.resourceId, element, $event)">
-							{{ element.resourceHeader.resourceName.replace("FMI_HYB_", "") }}
-						</span>
+						{{ element.resourceHeader.resourceName.replace("FMI_HYB_", "") }}
 					</button>
 				</div>
 				<div class="btn-group-vertical btn-group-overflow">		
