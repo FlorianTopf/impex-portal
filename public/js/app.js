@@ -736,6 +736,7 @@ var portal;
             this.configAble = true;
             this.ready = false;
             this.loading = false;
+            this.initialising = false;
             this.transFinished = true;
             this.scope = $scope;
             this.scope.vm = this;
@@ -759,7 +760,7 @@ var portal;
         PortalCtrl.prototype.getRepository = function (id) {
             var _this = this;
             this.scope.$broadcast('clear-registry');
-            this.loading = true;
+            this.initialising = true;
             this.transFinished = false;
 
             // aligned with standard transition time of accordion
@@ -778,12 +779,12 @@ var portal;
                         return r.repository;
                     });
                     _this.scope.$broadcast('update-repositories', cacheId);
-                    _this.loading = false;
+                    _this.initialising = false;
                 });
             } else {
                 console.log("Cached=" + cacheId);
                 this.scope.$broadcast('update-repositories', cacheId);
-                this.loading = false;
+                this.initialising = false;
             }
         };
 

@@ -24,6 +24,7 @@ module portal {
         private configAble: boolean = true
         private ready: boolean = false
         private loading: boolean = false
+        private initialising: boolean = false
         private transFinished: boolean = true
       
         static $inject: Array<string> = ['$scope', '$http', '$location', '$timeout',
@@ -57,7 +58,7 @@ module portal {
         
         public getRepository(id: string) {
             this.scope.$broadcast('clear-registry')
-            this.loading = true
+            this.initialising = true
             this.transFinished = false
             // aligned with standard transition time of accordion
             this.timeout(() => { this.transFinished = true }, 200)
@@ -72,12 +73,12 @@ module portal {
                     var result = <ISpase>res.spase
                     this.registryService.cachedElements[cacheId] = result.resources.map((r) => r.repository)            
                     this.scope.$broadcast('update-repositories', cacheId)
-                    this.loading = false
+                    this.initialising = false
                 })
             } else {
                 console.log("Cached="+cacheId)
                 this.scope.$broadcast('update-repositories', cacheId)
-                this.loading = false
+                this.initialising = false
             }
         }
         

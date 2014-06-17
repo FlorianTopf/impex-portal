@@ -4,6 +4,9 @@
   		<accordion-heading>
   			<span ng-click="vm.getRepository(database.id)">{{ database.name }} Simulations</span>
   		</accordion-heading>
+  		<div ng-show="vm.initialising && vm.transFinished" class="text-left">
+			<img src="/public/img/layout/loading.gif" class="loadingImg-sm" alt="loading..." />
+		</div>
   		<accordion close-others="regvm.oneAtATime">
   			<accordion-group ng-repeat="element in regvm.repositories">
   				<accordion-heading>
