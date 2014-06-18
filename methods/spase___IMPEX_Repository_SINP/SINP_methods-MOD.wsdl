@@ -29,7 +29,7 @@
       <xs:element type="cube_size_array" name="cube_size_array"/>
       <xs:element type="Interpolation" name="InterpolationMethod"/>
       <xs:element type="ListOfDouble" name="ListOfDouble"/>
-      <xs:element type="CoordinateSystemName" name="CoordinateSystemName"/>
+	  <!-- COPIED FROM THE SimDM -->
       <xs:simpleType name="FloatSequence">
         <xs:list itemType="xs:float"/>
       </xs:simpleType>
@@ -61,22 +61,6 @@
         </xs:annotation>
         <xs:list itemType="xs:string"/>
       </xs:simpleType>
-      <!-- NOT USED ATM -->
-      <!--xs:simpleType name="Spacecraft">
-        <xs:annotation>
-          <xs:documentation>
-            Names of spacecrafts
-          </xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="ClusterA"/>
-          <xs:enumeration value="ClusterB"/>
-          <xs:enumeration value="ClusterC"/>
-          <xs:enumeration value="ClusterD"/>
-          <xs:enumeration value="Polar"/>
-          <xs:enumeration value="Cassini"/>
-        </xs:restriction>
-      </xs:simpleType-->
       <!-- MYSTERIOUSLY NOT WORKING WITH TAVERNA -->
       <!--xs:simpleType name="Variable">
         <xs:annotation>
@@ -84,23 +68,6 @@
         </xs:annotation>
         <xs:list itemType="xs:string"/>
       </xs:simpleType-->
-      <xs:simpleType name="CoordinateSystemName">
-        <xs:annotation>
-            <xs:documentation xml:lang="en">Identifiers of the origin and orientation of a set of typically orthogonal axes.</xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-            <xs:enumeration value="GSM">
-                <xs:annotation>
-                    <xs:documentation xml:lang="en">Geocentric Solar Magnetospheric - A coordinate system where the X axis is from Earth to Sun, Z axis is northward in a plane containing the X axis and the geomagnetic dipole axis. See Russell, 1971</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-            <xs:enumeration value="GSE">
-                <xs:annotation>
-                    <xs:documentation xml:lang="en">Geocentric Solar Ecliptic - A coordinate system where the X axis is from Earth to Sun. Z axis is normal to the ecliptic, positive northward. See Russell, 1971.</xs:documentation>
-                </xs:annotation>
-            </xs:enumeration>
-        </xs:restriction>
-    </xs:simpleType>
 
       <xs:complexType name="ListOfDouble">
         <xs:annotation>
@@ -145,7 +112,7 @@
         </xs:annotation>
         <xs:sequence>
           <xs:element type="xs:double" name="SWDensity" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:integer" name="SWVelocity" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="SWVelocity" maxOccurs="1" minOccurs="0"/>
           <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:double" name="Dst" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:double" name="AL" maxOccurs="1" minOccurs="0"/>
@@ -325,7 +292,7 @@
         </xs:annotation>
         <xs:sequence>
           <xs:element type="xs:double" name="SWDensity" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:integer" name="SWVelocity" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="xs:double" name="SWVelocity" maxOccurs="1" minOccurs="0"/>
           <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:double" name="Dst" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:double" name="AL" maxOccurs="1" minOccurs="0"/>
@@ -558,7 +525,7 @@
               <xs:documentation>For Earth: SW Density, SW Velocity, IMF_B(Bx, By, Bz), Dst, AL; OutputFileType</xs:documentation>
             </xs:annotation>
           </xs:element>
-          <xs:element name="Sampling" maxOccurs="1" minOccurs="0">
+          <xs:element type="xs:double" name="Sampling" maxOccurs="1" minOccurs="0">
             <xs:annotation>
               <xs:documentation>StepSize in a cube. By default = 0.5 Re</xs:documentation>
             </xs:annotation>
@@ -597,9 +564,20 @@
               <xs:documentation>ResourceID of a generic SimulationRun</xs:documentation>
             </xs:annotation>
           </xs:element>
+		  <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
           <xs:element type="extraParams_calculateCubeSaturn" name="extraParams" maxOccurs="1" minOccurs="0">
             <xs:annotation>
               <xs:documentation>List of parameters: BDC,BT,RD2,RD1,R2,Rss,IMF_B; OutputFileType</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+		  <xs:element type="xs:double" name="Sampling" maxOccurs="1" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>StepSize in a cube. By default = 0.5 Re</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+		  <xs:element ref="cube_size_array" maxOccurs="1" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Size of the requested cube</xs:documentation>
             </xs:annotation>
           </xs:element>
         </xs:sequence>
@@ -677,6 +655,11 @@
   <wsdl:message name="calculateCubeMercury_Request">
     <wsdl:part element="calculateCubeMercury" name="parameters"/>
   </wsdl:message>
+  
+  
+  <wsdl:message name="calculateCubeSaturn_Request">
+    <wsdl:part element="calculateCubeSaturn" name="parameters"/>
+  </wsdl:message>
 
   
   <wsdl:message name="Generic_Response">
@@ -729,6 +712,10 @@
     </wsdl:operation>
     <wsdl:operation name="calculateCubeMercury">
       <wsdl:input message="calculateCubeMercury_Request"> </wsdl:input>
+      <wsdl:output message="Generic_Response"> </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="calculateCubeSaturn">
+      <wsdl:input message="calculateCubeSaturn_Request"> </wsdl:input>
       <wsdl:output message="Generic_Response"> </wsdl:output>
     </wsdl:operation>
   </wsdl:portType>
@@ -824,6 +811,15 @@
     </wsdl:operation>
       <wsdl:operation name="calculateCubeMercury">
       <soap:operation soapAction="calculateCubeMercury"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+	<wsdl:operation name="calculateCubeSaturn">
+      <soap:operation soapAction="calculateCubeSaturn"/>
       <wsdl:input>
         <soap:body use="literal"/>
       </wsdl:input>

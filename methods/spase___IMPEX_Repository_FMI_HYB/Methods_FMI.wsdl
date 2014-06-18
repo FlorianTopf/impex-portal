@@ -1,41 +1,22 @@
-<wsdl:definitions targetNamespace="http://impex-fp7.fmi.fi" name="Methods_FMI"
-	xmlns="http://impex-fp7.fmi.fi" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
-	xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
-	<wsdl:types>
-
-		<xs:schema version="0.0" targetNamespace="http://impex-fp7.fmi.fi"
-			elementFormDefault="unqualified" xmlns="http://impex-fp7.fmi.fi"
-			xmlns:xs="http://www.w3.org/2001/XMLSchema">
-
-		<!-- Definitions for VOTable responses -->
-		<xs:simpleType name="dataType">
-			<xs:restriction base="xs:NMTOKEN">
-				<xs:enumeration value="boolean"/>
-				<xs:enumeration value="bit"/>
-				<xs:enumeration value="unsignedByte"/>
-				<xs:enumeration value="short"/>
-				<xs:enumeration value="int"/>
-				<xs:enumeration value="long"/>
-				<xs:enumeration value="char"/>
-				<xs:enumeration value="unicodeChar"/>
-				<xs:enumeration value="float"/>
-				<xs:enumeration value="double"/>
-				<xs:enumeration value="floatComplex"/>
-				<xs:enumeration value="doubleComplex"/>
-				</xs:restriction>
-		</xs:simpleType>
-		<xs:simpleType name="ucdType">
-			<xs:restriction base="xs:token">
-				<xs:pattern value="[A-Za-z0-9_.:;\-]*"/>
-				<!-- UCD1 use also / + % -->
-			</xs:restriction>
-		</xs:simpleType>
+<wsdl:definitions name="Methods_FMI" targetNamespace="http://impex-fp7.fmi.fi" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:idm="http://impex-fp7.oeaw.ac.at" xmlns:vot="http://www.ivoa.net/xml/VOTable/v1.2" xmlns="http://impex-fp7.fmi.fi">
 
 
-		<!-- CHANGED TO OVERCOME TAVERNA PROBLEMS -->
-		<xs:element type="xs:anyURI" name="ResourceID"/>
-		<xs:element type="xs:string" name="Variable"/>
+
+
+
+<wsdl:types>
+
+	<xs:schema elementFormDefault="unqualified" targetNamespace="http://impex-fp7.fmi.fi" version="0.9" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns="http://impex-fp7.fmi.fi" xmlns:idm="http://impex-fp7.oeaw.ac.at" xmlns:vot="http://www.ivoa.net/xml/VOTable/v1.2">
+
+
+
+		
+		<xs:import schemaLocation="http://impex-fp7.fmi.fi/ws/impex-1_0_1.xsd" namespace="http://impex-fp7.oeaw.ac.at"/>
+		<xs:import schemaLocation="http://impex-fp7.fmi.fi/ws/VOTable-1.2.xsd" namespace="http://www.ivoa.net/xml/VOTable/v1.2"/>
+
+
+		<xs:element type="idm:ResourceID" name="ResourceID"/>
+		<xs:element type="Variable" name="Variable"/>
 		
 		<xs:element default="netCDF" type="OutputFormat" name="OutputFileType"/>
 		<xs:element default="Linear" type="enumInterpolation" name="InterpolationMethod"/>
@@ -49,20 +30,15 @@
 		<xs:element type="xs:duration" name="Sampling"/>
 		<xs:element type="Population" name="Population"/>
 		<xs:element type="EnergyChannel" name="EnergyChannel"/>
-		<xs:element type="xs:string" name="PlanePoint"/>
-		<xs:element type="xs:string" name="PlaneNormalVector"/>
+		<xs:element type="idm:PlanePoint" name="PlanePoint"/>
+		<xs:element type="idm:PlaneNormalVector" name="PlaneNormalVector"/>
 		<xs:element type="xs:double" name="Resolution"/>
 		<xs:element type="xs:double" name="StepSize"/>
 		<xs:element type="xs:positiveInteger" name="MaxSteps"/>
 		<xs:element type="xs:double" name="StopCondition_Radius"/>
 		<xs:element type="Region" name="StopCondition_Region"/>
-		<xs:element type="xs:string" name="Spacecraft_name"/>
+		<xs:element type="Spacecraft" name="Spacecraft_name"/>
 		<xs:element default="Forward" type="enumDirection" name="Direction"/>
-		
-		<!-- COPIED FROM THE SimDM -->
-		<xs:simpleType name="FloatSequence">
-			<xs:list itemType="xs:float"/>
-		</xs:simpleType>
 
 		<xs:simpleType name="enumDirection">
 			<xs:restriction base="xs:string">
@@ -72,26 +48,25 @@
 			</xs:restriction>
 		</xs:simpleType>
 
-		<!-- MYSTERIOUSLY NOT WORKING WITH TAVERNA -->
-		<!--xs:simpleType name="Variable">
+		<xs:simpleType name="Variable">
 			<xs:annotation>
 				<xs:documentation>List of individual parameters from the selected NumericalOutput separated by a comma. Identified by the ParameterKey. By default: all parameters within the NumericalOutput are returned</xs:documentation>
 			</xs:annotation>
-			<xs:list itemType="xs:string"/>
-		</xs:simpleType-->
+			<xs:list itemType="idm:ParameterKey"/>
+		</xs:simpleType>
 		
 		<xs:simpleType name="Population">
 			<xs:annotation>
 				<xs:documentation>List of population species from the selected NumericalOutput separated by a comma. Identified by the PopulationId. By default: all populations within the NumericalOutput are returned</xs:documentation>
 			</xs:annotation>
-			<xs:list itemType="xs:string"/>
+			<xs:list itemType="idm:PopulationID"/>
 		</xs:simpleType>
 		
 		<xs:simpleType name="EnergyChannel">
 			<xs:annotation>
 				<xs:documentation>A list of Energy channel number (Ch0, Ch1, Ch2,...) separated by commas. The Energy of each energy channel is defined in the tree.xml. By default all energy channels are selected</xs:documentation>
 			</xs:annotation>
-			<xs:list itemType="xs:string"/>
+			<xs:list itemType="idm:BandName"/>
 		</xs:simpleType>
 
 
@@ -120,26 +95,31 @@
 			<xs:annotation>
 				<xs:documentation>A cubic region defined by list: x_min x_max y_min y_max z_min z_max</xs:documentation>
 			</xs:annotation>
-			<xs:list itemType="xs:string"/>
+			<xs:list itemType="xs:float"/>
 		</xs:simpleType>
 
-		<!-- NOT CORRECT ATM -->
-		<!--xs:simpleType name="Spacecraft">
+		<xs:simpleType name="Spacecraft">
 			<xs:annotation>
-				<xs:documentation>Currently three spacecraft: MarsExpress,MarsGlobalSurveyor and VenusExpress</xs:documentation>
+				<xs:documentation>Names of the spacecraft as defined by AMDA. See http://impex-fp7.oeaw.ac.at/fileadmin/user_upload/pdf/IMPEX_WP2_AMDA_WebServices_v1.4.pdf </xs:documentation>
 			</xs:annotation>
 			<xs:restriction base="xs:string">
-				<xs:enumeration value="MarsExpress"/>
-				<xs:enumeration value="MarsGlobalSurveyor"/>
-				<xs:enumeration value="VenusExpress"/>
+				<xs:enumeration value="VEX"/>
+				<xs:enumeration value="MEX"/>
+				<xs:enumeration value="MGS"/>
+				<xs:enumeration value="MAVEN"/>
+				<xs:enumeration value="MESSENGER"/>
+				<xs:enumeration value="CLUSTER1"/>
+				<xs:enumeration value="CLUSTER2"/>
+				<xs:enumeration value="CLUSTER3"/>
+				<xs:enumeration value="CLUSTER4"/>
+				<xs:enumeration value="GEOTAIL"/>
+				<xs:enumeration value="IMP-8"/>
+				<xs:enumeration value="POLAR"/>
 			</xs:restriction>
-		</xs:simpleType-->
+		</xs:simpleType>
 
 
-		<!-- CHANGED TO OVERCOME TAVERNA PROBLEMS -->
-		<!-- Generic Response definition -->
-		<xs:element name="genResponse" type="xs:anyURI"/>
-
+		
 		<xs:element type="DataPointValue" name="getDataPointValue"/>
 
 		<xs:complexType name="DataPointValue">
@@ -180,7 +160,7 @@
 						<xs:documentation>If xpath=Spase/Simulation/ResourceID then the method applies to all species. If xpath = Spase/NumericalOutput/ResourceID then the method applies to the species</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element ref="Population" maxOccurs="1" minOccurs="0"/>
+
 				<xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
 				<xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointSpectra" name="extraParams"> </xs:element>
 			</xs:sequence>
@@ -226,9 +206,9 @@
 
 
 		
-		<xs:element type="DataPointValue_Spacecraft" name="getDataPointValue_Spacecraft"/>
+		<xs:element type="DataPointValueSpacecraft" name="getDataPointValueSpacecraft"/>
 
-		<xs:complexType name="DataPointValue_Spacecraft">
+		<xs:complexType name="DataPointValueSpacecraft">
 			<xs:sequence>
 				<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
 					<xs:annotation>
@@ -246,16 +226,16 @@
 
 
 		
-		<xs:element type="DataPointSpectra_Spacecraft" name="getDataPointSpectra_Spacecraft"/>
+		<xs:element type="DataPointSpectraSpacecraft" name="getDataPointSpectraSpacecraft"/>
 
-		<xs:complexType name="DataPointSpectra_Spacecraft">
+		<xs:complexType name="DataPointSpectraSpacecraft">
 			<xs:sequence>
-				<xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+				<xs:element maxOccurs="1" minOccurs="1" ref="ResourceID">
 					<xs:annotation>
 						<xs:documentation>If xpath=Spase/SimulationRun/ResourceID then the method applies to all species. If xpath = Spase/NumericalOutput/ResourceID then the method applies to the species</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element ref="Population" maxOccurs="1" minOccurs="0"/>
+
 				<xs:element ref="Spacecraft_name" maxOccurs="1" minOccurs="1"/>
 				<xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
 				<xs:element ref="StopTime" maxOccurs="1" minOccurs="1"/>
@@ -320,36 +300,36 @@
 		
 		<xs:complexType name="extraParams_getParticleTrajectory">
 			<xs:sequence>
-				<xs:element ref="Direction" maxOccurs="1" minOccurs="0"/>
-				<xs:element ref="StepSize" maxOccurs="1" minOccurs="0"/>
-				<xs:element ref="MaxSteps" maxOccurs="1" minOccurs="0"/>
-				<xs:element ref="StopCondition_Radius" maxOccurs="1" minOccurs="0"/>
-				<xs:element ref="StopCondition_Region" maxOccurs="1" minOccurs="0"/>
-				<xs:element ref="InterpolationMethod" maxOccurs="1" minOccurs="0"/>
-				<xs:element ref="OutputFileType" maxOccurs="1" minOccurs="0"/>
+				<xs:element maxOccurs="1" minOccurs="0" ref="Direction"/>
+				<xs:element maxOccurs="1" minOccurs="0" ref="StepSize"/>
+				<xs:element maxOccurs="1" minOccurs="0" ref="MaxSteps"/>
+				<xs:element maxOccurs="1" minOccurs="0" ref="StopCondition_Radius"/>
+				<xs:element maxOccurs="1" minOccurs="0" ref="StopCondition_Region"/>
+				<xs:element maxOccurs="1" minOccurs="0" ref="InterpolationMethod"/>
+				<xs:element maxOccurs="1" minOccurs="0" ref="OutputFileType"/>
 			</xs:sequence>
 		</xs:complexType>
 
 
 		
 
-		<xs:element type="xs:string" name="Object"/>
+		<xs:element type="idm:enumRegion" name="Object"/>
 		<xs:element default="1" type="xs:positiveInteger" name="RunCount"/>
 
 		<xs:element type="MostRelevantRun" name="getMostRelevantRun"/>
 		<xs:complexType name="MostRelevantRun">
 			<xs:sequence>
-				<xs:element ref="Object" maxOccurs="1" minOccurs="1">
+				<xs:element maxOccurs="1" minOccurs="1" ref="Object">
 					<xs:annotation>
 						<xs:documentation>Name of the planet/comet/asteroid ... as defined in SimulationRun/SimulatedRegion</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element ref="RunCount" maxOccurs="1" minOccurs="0">
+				<xs:element maxOccurs="1" minOccurs="0" ref="RunCount">
 					<xs:annotation>
 						<xs:documentation>Number of matching simulation runs returned</xs:documentation>
 					</xs:annotation>
 				</xs:element>
-				<xs:element type="SW_parameter_list" name="SW_parameters" maxOccurs="unbounded" minOccurs="1">
+				<xs:element maxOccurs="1" minOccurs="1" type="SW_parameter_list" name="SW_parameters">
 					<xs:annotation>
 						<xs:documentation>An associative array of (key,value) pairs defining parameter criteria used in the search procedure</xs:documentation>
 					</xs:annotation>
@@ -360,24 +340,24 @@
 		
 		<xs:complexType name="SW_parameter_list">
 			<xs:sequence>
-				<xs:element type="SW_parameter" name="SW_Density" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="SW_parameter" name="SW_Utot" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="SW_parameter" name="SW_Temperature" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="SW_parameter" name="SW_Btot" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="SW_parameter" name="SW_Bx" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="SW_parameter" name="SW_By" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="SW_parameter" name="SW_Bz" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="SW_parameter" name="Solar_F10.7" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="SW_parameter" name="SW_Function" maxOccurs="1" minOccurs="0"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="SW_parameter" name="SW_Density"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="SW_parameter" name="SW_Utot"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="SW_parameter" name="SW_Temperature"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="SW_parameter" name="SW_Btot"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="SW_parameter" name="SW_Bx"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="SW_parameter" name="SW_By"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="SW_parameter" name="SW_Bz"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="SW_parameter" name="Solar_F10.7"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="SW_parameter" name="SW_Function"/>
 			</xs:sequence>
 		</xs:complexType>
 
 		<xs:complexType name="SW_parameter">
 			<xs:sequence>
-				<xs:element type="xs:double" name="value" maxOccurs="1" minOccurs="1"/>
-				<xs:element default="1.0" type="xs:double" name="weight" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="xs:double" name="scale" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="xs:string" name="function" maxOccurs="1" minOccurs="0"/>
+				<xs:element maxOccurs="1" minOccurs="1" type="xs:double" name="value"/>
+				<xs:element maxOccurs="1" minOccurs="0" default="1.0" type="xs:double" name="weight"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="xs:double" name="scale"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="function"/>
 			</xs:sequence>
 		</xs:complexType>
 		
@@ -407,25 +387,23 @@
 		<xs:complexType name="VOTable_field">
 			<xs:sequence>
 				
-				<xs:element type="listOfValues" name="data" maxOccurs="1" minOccurs="1"/>
+				<xs:element maxOccurs="1" minOccurs="1" type="listOfValues" name="data"/>
 				
 				
-				<xs:element type="xs:token" name="name" maxOccurs="1" minOccurs="1"/>
-				<xs:element type="xs:ID" name="ID" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="xs:token" name="unit" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="dataType" name="datatype" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="xs:token" name="xtype" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="ucdType" name="ucd" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="xs:string" name="utype" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="xs:token" name="xtype" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="xs:string" name="description" maxOccurs="1" minOccurs="0"/>
-				<xs:element type="xs:string" name="arraysize" maxOccurs="1" minOccurs="0"/>
+				<xs:element maxOccurs="1" minOccurs="1" type="xs:token" name="name"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="xs:ID" name="ID"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="xs:token" name="unit"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="vot:dataType" name="datatype"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="xs:token" name="xtype"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="vot:ucdType" name="ucd"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="utype"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="description"/>
+				<xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="arraysize"/>
 			</xs:sequence>
 		</xs:complexType>
 		
 		<xs:simpleType name="listOfValues">
-			<xs:list itemType="dataType">
-			</xs:list>
+			<xs:list itemType="xs:string"/>
 		</xs:simpleType>
 	</xs:schema>
 
@@ -438,10 +416,8 @@
 
 
 
-<!-- CHANGED TO OVERCOME TAVERNA PROBLEMS -->
-<!-- Message Generic_Response -->
 <wsdl:message name="Generic_Response">
-	<wsdl:part element="genResponse" name="parameters"/>
+	<wsdl:part type="xs:anyURI" name="parameters"/>
 </wsdl:message>
 
 
@@ -450,8 +426,8 @@
 </wsdl:message>
 
 
-<wsdl:message name="DataPointValue_Spacecraft_Request">
-	<wsdl:part element="getDataPointValue_Spacecraft" name="parameters"/>
+<wsdl:message name="DataPointValueSpacecraft_Request">
+	<wsdl:part element="getDataPointValueSpacecraft" name="parameters"/>
 </wsdl:message>
 
 
@@ -465,8 +441,8 @@
 </wsdl:message>
 
 
-<wsdl:message name="DataPointSpectra_Spacecraft_Request">
-	<wsdl:part element="getDataPointSpectra_Spacecraft" name="parameters"/>
+<wsdl:message name="DataPointSpectraSpacecraft_Request">
+	<wsdl:part element="getDataPointSpectraSpacecraft" name="parameters"/>
 </wsdl:message>
 
 
@@ -484,11 +460,19 @@
 	<wsdl:part element="getMostRelevantRun" name="parameters"/>
 </wsdl:message>
 
+<wsdl:message name="MostRelevantRun_Response">
+	<wsdl:part type="xs:string" name="parameters"/>
+</wsdl:message>
+
 
 <wsdl:message name="VOTableURL_Request">
 	<wsdl:part element="getVOTableURL" name="parameters"/>
 </wsdl:message>
 
+
+<wsdl:message name="isAlive_Response">
+	<wsdl:part type="xs:boolean" name="parameters"/>
+</wsdl:message>
 
 
 
@@ -501,8 +485,12 @@
 		<wsdl:input message="DataPointValue_Request"/>
 		<wsdl:output message="Generic_Response"/>
 	</wsdl:operation>
+	<wsdl:operation name="getDataPointValueSpacecraft">
+		<wsdl:input message="DataPointValueSpacecraft_Request"/>
+		<wsdl:output message="Generic_Response"/>
+	</wsdl:operation>
 	<wsdl:operation name="getDataPointValue_Spacecraft">
-		<wsdl:input message="DataPointValue_Spacecraft_Request"/>
+		<wsdl:input message="DataPointValueSpacecraft_Request"/>
 		<wsdl:output message="Generic_Response"/>
 	</wsdl:operation>
 	<wsdl:operation name="getDataPointSpectra">
@@ -513,8 +501,8 @@
 		<wsdl:input message="Surface_Request"/>
 		<wsdl:output message="Generic_Response"/>
 	</wsdl:operation>
-	<wsdl:operation name="getDataPointSpectra_Spacecraft">
-		<wsdl:input message="DataPointSpectra_Spacecraft_Request"/>
+	<wsdl:operation name="getDataPointSpectraSpacecraft">
+		<wsdl:input message="DataPointSpectraSpacecraft_Request"/>
 		<wsdl:output message="Generic_Response"/>
 	</wsdl:operation>
 	<wsdl:operation name="getFieldLine">
@@ -527,11 +515,14 @@
 	</wsdl:operation>
 	<wsdl:operation name="getMostRelevantRun">
 		<wsdl:input message="MostRelevantRun_Request"/>
-		<wsdl:output message="Generic_Response"/>
+		<wsdl:output message="MostRelevantRun_Response"/>
 	</wsdl:operation>
 	<wsdl:operation name="getVOTableURL">
 		<wsdl:input message="VOTableURL_Request"/>
 		<wsdl:output message="Generic_Response"/>
+	</wsdl:operation>
+	<wsdl:operation name="isAlive">
+		<wsdl:output message="isAlive_Response"/>
 	</wsdl:operation>
 </wsdl:portType>
 
@@ -545,6 +536,11 @@
 	<soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
 	<wsdl:operation name="getDataPointValue">
 		<soap:operation soapAction="DataPointValue"/>
+		<wsdl:input><soap:body use="literal"/></wsdl:input>
+		<wsdl:output><soap:body use="literal"/></wsdl:output>
+	</wsdl:operation>
+	<wsdl:operation name="getDataPointValueSpacecraft">
+		<soap:operation soapAction="DataPointValueSpacecraft"/>
 		<wsdl:input><soap:body use="literal"/></wsdl:input>
 		<wsdl:output><soap:body use="literal"/></wsdl:output>
 	</wsdl:operation>
@@ -563,8 +559,8 @@
 		<wsdl:input><soap:body use="literal"/></wsdl:input>
 		<wsdl:output><soap:body use="literal"/></wsdl:output>
 	</wsdl:operation>
-	<wsdl:operation name="getDataPointSpectra_Spacecraft">
-		<soap:operation soapAction="DataPointSpectra_Spacecraft"/>
+	<wsdl:operation name="getDataPointSpectraSpacecraft">
+		<soap:operation soapAction="DataPointSpectraSpacecraft"/>
 		<wsdl:input><soap:body use="literal"/></wsdl:input>
 		<wsdl:output><soap:body use="literal"/></wsdl:output>
 	</wsdl:operation>
@@ -588,9 +584,11 @@
 		<wsdl:input><soap:body use="literal"/></wsdl:input>
 		<wsdl:output><soap:body use="literal"/></wsdl:output>
 	</wsdl:operation>
+ 	<wsdl:operation name="isAlive">
+		<soap:operation soapAction="Alive"/>
+		<wsdl:output><soap:body use="literal"/></wsdl:output>
+	</wsdl:operation>
 </wsdl:binding>
-
-
 
 
 
