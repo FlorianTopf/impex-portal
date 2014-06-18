@@ -2,7 +2,7 @@
   <Version>2.2.2</Version>
   
   <SimulationModel>
-    <ResourceID>impex://SINP/SimulationModel/Earth/Static</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ResourceID>
     <ResourceHeader>
       <ResourceName>Static model for Earth</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -27,7 +27,7 @@
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
     <InputProperties>
       <Property>
-        <Name>SW_Speed</Name>
+        <Name>SWSpeed</Name>
         <PropertyQuantity>FlowSpeed</PropertyQuantity>
         <Units>km/s</Units>
         <UnitsConversion>1.0e+3&gt;m/s</UnitsConversion>
@@ -35,7 +35,7 @@
         <ValidMax>2000</ValidMax>
       </Property>
       <Property>
-        <Name>SW_Density</Name>
+        <Name>SWDensity</Name>
         <PropertyQuantity>NumberDensity</PropertyQuantity>
         <Units>cm^-3</Units>
         <UnitsConversion>1.0e+6&gt;m^-3</UnitsConversion>
@@ -79,7 +79,7 @@
   </SimulationModel>
   
   <SimulationModel>
-    <ResourceID>impex://SINP/SimulationModel/Saturn/Static</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationModel/SINP/Saturn/Static</ResourceID>
     <ResourceHeader>
       <ResourceName>Static model for Saturn</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -187,7 +187,7 @@
   </SimulationModel>
   
   <SimulationModel>
-    <ResourceID>impex://SINP/SimulationModel/Mercury/Static</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationModel/SINP/Mercury/Static</ResourceID>
     <ResourceHeader>
       <ResourceName>Static model for Mercury</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -281,7 +281,7 @@
   </SimulationModel>
   
   <SimulationModel>
-    <ResourceID>impex://SINP/SimulationModel/Earth/OnFly</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationModel/SINP/Earth/OnFly</ResourceID>
     <ResourceHeader>
       <ResourceName>OnFly model for Earth</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -306,7 +306,7 @@
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
     <InputProperties>
       <Property>
-        <Name>SW_Speed</Name>
+        <Name>SWSpeed</Name>
         <PropertyQuantity>FlowSpeed</PropertyQuantity>
         <Units>km/s</Units>
         <UnitsConversion>1.0e+3&gt;m/s</UnitsConversion>
@@ -314,7 +314,7 @@
         <ValidMax>2000</ValidMax>
       </Property>
       <Property>
-        <Name>SW_Density</Name>
+        <Name>SWDensity</Name>
         <PropertyQuantity>NumberDensity</PropertyQuantity>
         <Units>cm^-3</Units>
         <UnitsConversion>1.0e+6&gt;m^-3</UnitsConversion>
@@ -358,7 +358,7 @@
   </SimulationModel>
   
   <SimulationModel>
-    <ResourceID>impex://SINP/SimulationModel/Saturn/OnFly</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationModel/SINP/Saturn/OnFly</ResourceID>
     <ResourceHeader>
       <ResourceName>OnFly model for Saturn</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -464,7 +464,7 @@
   </SimulationModel>
   
   <SimulationModel>
-    <ResourceID>impex://SINP/SimulationModel/Mercury/OnFly</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationModel/SINP/Mercury/OnFly</ResourceID>
     <ResourceHeader>
       <ResourceName>OnFly model for Mercury</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -558,7 +558,7 @@
   </SimulationModel>
   
   <Repository>
-    <ResourceID>impex://SINP/Repository/PMM</ResourceID>
+    <ResourceID>spase://IMPEX/Repository/SINP</ResourceID>
     <ResourceHeader>
       <ResourceName>MF-PARABOLOID_SINP</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -578,7 +578,7 @@
   
   
   <SimulationRun> 
-    <ResourceID>impex://SINP/SimulationRun/Earth/OnFly</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/OnFly</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000--Earth On the Fly</ResourceName>
       <ReleaseDate>2013-07-01T00:00:00</ReleaseDate>
@@ -589,14 +589,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/OnFly</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/OnFly</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -658,7 +658,7 @@
   </SimulationRun>
   
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2008-09-10UT12</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2008-09-10UT12</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2008-09-10 UT12</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -669,14 +669,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -764,7 +764,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2010-09-25UT01</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2010-09-25UT01</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2010-09-25 UT01</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -775,14 +775,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -871,7 +871,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2003-11-19UT23</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2003-11-19UT23</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2003-11-19 UT23</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -882,14 +882,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -978,7 +978,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2003-11-20UT12</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2003-11-20UT12</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2003-11-20 UT12</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -989,14 +989,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -1085,7 +1085,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2003-11-20UT17</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2003-11-20UT17</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2003-11-20 UT17</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -1096,14 +1096,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -1192,7 +1192,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2003-11-20UT21</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2003-11-20UT21</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2003-11-20 UT21</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -1203,14 +1203,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -1299,7 +1299,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2003-11-21UT00</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2003-11-21UT00</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2003-11-21 UT00</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -1310,14 +1310,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -1406,7 +1406,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2003-11-21UT21</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2003-11-21UT21</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2003-11-21 UT21</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -1417,14 +1417,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -1513,7 +1513,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2005-08-23UT18</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2005-08-23UT18</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2005-08-23 UT18</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -1524,14 +1524,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -1620,7 +1620,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2005-08-24UT06</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2005-08-24UT06</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2005-08-24 UT06</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -1631,14 +1631,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -1727,7 +1727,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2005-08-24UT10</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2005-08-24UT10</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2005-08-24 UT10</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -1738,14 +1738,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -1834,7 +1834,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2005-08-24UT11</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2005-08-24UT11</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2005-08-24 UT11</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -1845,14 +1845,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -1941,7 +1941,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2005-08-24UT19</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2005-08-24UT19</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2005-08-24 UT19</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -1952,14 +1952,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -2048,7 +2048,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2005-08-25UT15</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2005-08-25UT15</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2005-08-25 UT15</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -2059,14 +2059,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -2155,7 +2155,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2012-03-06UT10</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2012-03-06UT10</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2012-03-06 UT10</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -2166,14 +2166,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -2262,7 +2262,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2012-03-08UT11</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2012-03-08UT11</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2012-03-08 UT11</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -2273,14 +2273,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -2369,7 +2369,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2012-03-09UT03</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2012-03-09UT03</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2012-03-09 UT03</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -2380,14 +2380,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -2476,7 +2476,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2012-03-09UT08</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2012-03-09UT08</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2012-03-09 UT08</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -2487,14 +2487,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -2583,7 +2583,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2012-03-10UT12</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2012-03-10UT12</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2012-03-10 UT12</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -2594,14 +2594,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -2690,7 +2690,7 @@
     </RegionParameter>
   </SimulationRun>
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Earth/2012-03-11UT12</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2012-03-11UT12</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000 Run 2012-03-11 UT12</ResourceName>
       <ReleaseDate>2012-11-21T00:00:00.000</ReleaseDate>
@@ -2701,14 +2701,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Earth/Static</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Earth/Static</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -2799,7 +2799,7 @@
 
   
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Mercury/OnFly</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Mercury/OnFly</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000--Mercury On the Fly</ResourceName>
       <ReleaseDate>2013-07-01T00:00:00</ReleaseDate>
@@ -2810,14 +2810,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Mercury/OnFly</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Mercury/OnFly</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -2943,7 +2943,7 @@
   
   
   <SimulationRun>
-    <ResourceID>impex://SINP/SimulationRun/Saturn/OnFly</ResourceID>
+    <ResourceID>spase://IMPEX/SimulationRun/SINP/Saturn/OnFly</ResourceID>
     <ResourceHeader>
       <ResourceName>A2000--Saturn On the Fly</ResourceName>
       <ReleaseDate>2013-07-01T00:00:00</ReleaseDate>
@@ -2954,14 +2954,14 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/</URL>
       </AccessURL>
       <Format>XML</Format>
     </AccessInformation>
     <Model>
-      <ModelID>impex://SINP/SimulationModel/Saturn/OnFly</ModelID>
+      <ModelID>spase://IMPEX/SimulationModel/SINP/Saturn/OnFly</ModelID>
       <VersionID>3.1</VersionID>
     </Model>
     <TemporalDependence>Yes</TemporalDependence>
@@ -3103,7 +3103,7 @@
 
   
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/OnFly</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/OnFly</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2013-07-01T00:00:00</ReleaseDate>
@@ -3114,7 +3114,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
       </AccessURL>
@@ -3122,7 +3122,7 @@
     </AccessInformation>
     <MeasurementType>MagneticField</MeasurementType>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/OnFly</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/OnFly</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3140,7 +3140,7 @@
   </NumericalOutput>
   
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2008-09-10UT12</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2008-09-10UT12</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3151,7 +3151,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2008-09-10UT12.nc</URL>
       </AccessURL>
@@ -3165,7 +3165,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2008-09-10UT12</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2008-09-10UT12</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3182,7 +3182,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2010-09-25UT01</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2010-09-25UT01</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3193,7 +3193,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2010-09-25UT01.nc</URL>
       </AccessURL>
@@ -3207,7 +3207,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2010-09-25UT01</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2010-09-25UT01</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3224,7 +3224,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2003-11-19UT23</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2003-11-19UT23</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3235,7 +3235,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-19UT23.nc</URL>
       </AccessURL>
@@ -3249,7 +3249,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2003-11-19UT23</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2003-11-19UT23</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3266,7 +3266,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2003-11-20UT12</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2003-11-20UT12</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3277,7 +3277,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-20UT12.nc</URL>
       </AccessURL>
@@ -3291,7 +3291,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2003-11-20UT12</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2003-11-20UT12</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3308,7 +3308,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2003-11-20UT17</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2003-11-20UT17</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3319,7 +3319,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-20UT17.nc</URL>
       </AccessURL>
@@ -3333,7 +3333,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2003-11-20UT17</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2003-11-20UT17</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3350,7 +3350,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2003-11-20UT21</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2003-11-20UT21</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3361,7 +3361,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-20UT21.nc</URL>
       </AccessURL>
@@ -3375,7 +3375,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2003-11-20UT21</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2003-11-20UT21</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3392,7 +3392,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2003-11-21UT00</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2003-11-21UT00</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3403,7 +3403,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-21UT00.nc</URL>
       </AccessURL>
@@ -3417,7 +3417,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2003-11-21UT00</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2003-11-21UT00</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3434,7 +3434,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2003-11-21UT21</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2003-11-21UT21</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3445,7 +3445,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2003-11-21UT21.nc</URL>
       </AccessURL>
@@ -3459,7 +3459,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2003-11-21UT21</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2003-11-21UT21</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3476,7 +3476,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2005-08-23UT18</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2005-08-23UT18</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3487,7 +3487,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-23UT18.nc</URL>
       </AccessURL>
@@ -3501,7 +3501,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2005-08-23UT18</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2005-08-23UT18</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3518,7 +3518,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2005-08-24UT06</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2005-08-24UT06</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3529,7 +3529,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-24UT06.nc</URL>
       </AccessURL>
@@ -3543,7 +3543,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2005-08-24UT06</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2005-08-24UT06</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3560,7 +3560,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2005-08-24UT10</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2005-08-24UT10</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3571,7 +3571,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-24UT10.nc</URL>
       </AccessURL>
@@ -3585,7 +3585,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2005-08-24UT10</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2005-08-24UT10</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3602,7 +3602,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2005-08-24UT11</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2005-08-24UT11</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3613,7 +3613,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-24UT11.nc</URL>
       </AccessURL>
@@ -3627,7 +3627,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2005-08-24UT11</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2005-08-24UT11</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3644,7 +3644,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2005-08-24UT19</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2005-08-24UT19</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3655,7 +3655,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-24UT19.nc</URL>
       </AccessURL>
@@ -3669,7 +3669,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2005-08-24UT19</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2005-08-24UT19</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3686,7 +3686,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2005-08-25UT15</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2005-08-25UT15</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3697,7 +3697,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2005-08-25UT15.nc</URL>
       </AccessURL>
@@ -3711,7 +3711,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2005-08-25UT15</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2005-08-25UT15</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3728,7 +3728,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2012-03-06UT10</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2012-03-06UT10</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3739,7 +3739,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-06UT10.nc</URL>
       </AccessURL>
@@ -3753,7 +3753,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2012-03-06UT10</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2012-03-06UT10</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3770,7 +3770,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2012-03-08UT11</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2012-03-08UT11</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3781,7 +3781,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-08UT11.nc</URL>
       </AccessURL>
@@ -3795,7 +3795,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2012-03-08UT11</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2012-03-08UT11</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3812,7 +3812,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2012-03-09UT03</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2012-03-09UT03</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3823,7 +3823,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-09UT03.nc</URL>
       </AccessURL>
@@ -3837,7 +3837,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2012-03-09UT03</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2012-03-09UT03</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3854,7 +3854,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2012-03-09UT08</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2012-03-09UT08</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3865,7 +3865,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-09UT08.nc</URL>
       </AccessURL>
@@ -3879,7 +3879,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2012-03-09UT08</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2012-03-09UT08</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3896,7 +3896,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2012-03-10UT12</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2012-03-10UT12</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3907,7 +3907,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-10UT12.nc</URL>
       </AccessURL>
@@ -3921,7 +3921,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2012-03-10UT12</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2012-03-10UT12</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3938,7 +3938,7 @@
     <SimulationProduct>3DCubes</SimulationProduct>
   </NumericalOutput>
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Earth/2012-03-11UT12</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Earth/2012-03-11UT12</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
@@ -3949,7 +3949,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/content/paraboloid/3dcube_cat/netcdf/2012-03-11UT12.nc</URL>
       </AccessURL>
@@ -3963,7 +3963,7 @@
       </TimeSpan>
     </TemporalDescription>
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Earth/2012-03-11UT12</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Earth/2012-03-11UT12</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -3982,7 +3982,7 @@
 
   
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Mercury/OnFly</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Mercury/OnFly</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2013-07-01T00:00:00</ReleaseDate>
@@ -3993,7 +3993,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
       </AccessURL>
@@ -4001,7 +4001,7 @@
     </AccessInformation>
     <MeasurementType>MagneticField</MeasurementType>
     <SimulatedRegion>Mercury.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Mercury/OnFly</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Mercury/OnFly</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>
@@ -4020,7 +4020,7 @@
   
   
   <NumericalOutput>
-    <ResourceID>impex://SINP/NumericalOutput/Saturn/OnFly</ResourceID>
+    <ResourceID>spase://IMPEX/NumericalOutput/SINP/Saturn/OnFly</ResourceID>
     <ResourceHeader>
       <ResourceName>Magnetic Field</ResourceName>
       <ReleaseDate>2013-07-01T00:00:00</ReleaseDate>
@@ -4031,7 +4031,7 @@
       </Contact>
     </ResourceHeader>
     <AccessInformation>
-      <RepositoryID>impex://SINP/Repository/PMM</RepositoryID>
+      <RepositoryID>spase://IMPEX/Repository/SINP</RepositoryID>
       <AccessURL>
         <URL>http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index</URL>
       </AccessURL>
@@ -4039,7 +4039,7 @@
     </AccessInformation>
     <MeasurementType>MagneticField</MeasurementType>
     <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
-    <InputResourceID>impex://SINP/SimulationRun/Saturn/OnFly</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/SINP/Saturn/OnFly</InputResourceID>
     <Parameter>
       <Name>Magnetic Field Vector</Name>
       <ParameterKey>Bx,By,Bz</ParameterKey>

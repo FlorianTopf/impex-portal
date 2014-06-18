@@ -76,13 +76,13 @@ class RegistrySpecs extends Specification {
         	}
         }
          
-        "respond one base route+unkown id with error" in {
+        "respond on base route+unkown id with error" in {
         	running(FakeApplication()) {
         	  val result = route(FakeRequest(GET, "/registry?id=boum"))
         	  result must beSome
         	  status(result.get) must equalTo(BAD_REQUEST)
         	  contentType(result.get) must beSome("application/json")
-        	  contentAsString(result.get) must contain("501")
+        	  contentAsString(result.get) must contain("502")
         	  contentAsString(result.get) must contain("unknown provider")
         	} 
         } 
@@ -103,8 +103,8 @@ class RegistrySpecs extends Specification {
         	  result must beSome
         	  status(result.get) must equalTo(BAD_REQUEST)
         	  contentType(result.get) must beSome("application/json")
-        	  contentAsString(result.get) must contain("404")
-        	  contentAsString(result.get) must contain("unknown element")
+        	  contentAsString(result.get) must contain("502")
+        	  contentAsString(result.get) must contain("unknown provider")
         	} 
         } 
         
@@ -159,6 +159,8 @@ class RegistrySpecs extends Specification {
         	  contentType(result.get) must beSome("application/json")
         	}
         } 
+        
+        // @TODO add more test cases for the registry
 
     }
 }

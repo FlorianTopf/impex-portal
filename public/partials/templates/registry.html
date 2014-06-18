@@ -35,7 +35,11 @@
 					ng-repeat="element in regvm.numericalOutputs" 
 					ng-click="vm.getGranule(element.resourceId, element, $event)" 
 					ng-class="{active: regvm.isActive('output', element)}">
-						{{ element.resourceHeader.resourceName.replace("FMI_HYB_", "") }}
+					<!--  @FIXME intermediate hack until we have shortener/tooltips -->
+						{{ element.resourceHeader.resourceName
+						.replace("FMI_HYB_venus_", "")
+						.replace("FMI_HYB_mars_", "")
+						.replace("spiral_angle_", "") }}				
 					</button>
 				</div>
 				<div class="btn-group-vertical btn-group-overflow">		

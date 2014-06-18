@@ -41,7 +41,7 @@ object Registry extends Controller {
         name = "id", 
         value = "database id stored in the config", 
         // provide default value for swagger-ui stability
-        defaultValue = "impex://SINP",
+        defaultValue = "spase://IMPEX/Repository/SINP",
         required = false, 
         dataType = "string", 
         paramType = "query")))
@@ -143,7 +143,7 @@ object Registry extends Controller {
         name = "id", 
         value = "database id stored in the config, repository id or simulation model id from a tree", 
         // provide default value for swagger-ui stability
-        defaultValue = "impex://FMI",
+        defaultValue = "spase://IMPEX/Repository/FMI/GUMICS",
         required = false, 
         dataType = "string", 
         paramType = "query")))
@@ -178,7 +178,7 @@ object Registry extends Controller {
         name = "id", 
         value = "database id stored in the config, model id or simulation run id from a tree", 
         // provide default value for swagger-ui stability
-        defaultValue = "impex://LATMOS",
+        defaultValue = "spase://IMPEX/Repository/FMI/HYB",
         required = false, 
         dataType = "string", 
         paramType = "query")))
@@ -213,7 +213,7 @@ object Registry extends Controller {
         name = "id", 
         value = "database id stored in the config, run id or numerical output id from a tree", 
         // provide default value for swagger-ui stability
-        defaultValue = "impex://SINP",
+        defaultValue = "spase://IMPEX/Repository/SINP",
         required = false, 
         dataType = "string", 
         paramType = "query")))
@@ -248,6 +248,7 @@ object Registry extends Controller {
         name = "id", 
         value = "database id stored in the config, output id or granule id from a tree", 
         // provide default value for swagger-ui stability
+        // @TODO change id after renaming
         defaultValue = "impex://LATMOS",
         required = false, 
         dataType = "string", 

@@ -26,7 +26,7 @@ trait DataProvider {
   protected def getMetaData: Database = metadata
   protected def getTrees: Seq[NodeSeq] = trees
   protected def getMethods: Seq[NodeSeq] = methods
-  // @TODO this can be optimised to use the element classes below
+  protected def getTreeObjects: Spase
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]]
   protected def getRepository(id: Option[String] = None): Spase
   

@@ -2,17 +2,17 @@
 
 <Version>2.2.2</Version>
 <SimulationModel>
-	<ResourceID>impex://FMI/SimulationModel/HYB</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationModel/FMI/HYB</ResourceID>
 	<ResourceHeader>
-		<ResourceName>FMI_HYB</ResourceName>
+		<ResourceName>FMI_HYB_SimulationModel</ResourceName>
 		<ReleaseDate>2012-01-01T00:00:00.000</ReleaseDate>
 		<Description>
 			HYB is a hybrid and kinetic plasma simulation platform for planetary plasma interactions developed at the FMI. The platform is developed for the interactions between unmagnetized or weakly magnetized Solar System bodies and the plasma flow such as the solar wind. In the hybrid approch ions are treated self-consistently as particles moving in the electric and magnetic fields and electrons are modeled as a charge neutralizing fluid. In the full kinetic model both ions and electrons are treated as particles. The HYB platform has been used to study the solar wind interactions of several objects such as Mercury, Venus, Moon, Mars, Ceres, Pluto and comets. Further, the platform has been used to study the interaction of Titan with Saturn's magnetospheric plasma and magnetic field. Kinetic modelling within HYB has been applied to the lunar plasma and dust environment.
 		</Description>
 		<Acknowledgement>We request that the user contacts the HYB and GUMICS simulation developers before publishing or presenting results from these simulation codes. We request that the user offers co-authorship for the developers and acknowledgements for the original model. Contacts at the Finnish Meteorological Institute are Riku Jarvinen (riku.jarvinen@fmi.fi) for the HYB simulation and Minna Palmroth (minna.palmroth@fmi.fi) for the GUMICS simulation.
-             HYB references: http://hwa.fmi.fi/hyb/refs.php
-             GUMICS references: http://gumics.fmi.fi/references/
-    	</Acknowledgement>
+			                 HYB references: http://hwa.fmi.fi/hyb/refs.php
+			                 GUMICS references: http://gumics.fmi.fi/references/
+		</Acknowledgement>
 		<Contact>
 			<PersonID>FMI</PersonID>
 			<Role>DataProducer</Role>
@@ -32,9 +32,9 @@
 	<CodeLanguage>C++</CodeLanguage>
 </SimulationModel>
 <Repository>
-	<ResourceID>impex://FMI/Repository/HYB</ResourceID>
+	<ResourceID>spase://IMPEX/Repository/FMI/HYB</ResourceID>
 	<ResourceHeader>
-		<ResourceName>FMI_Hybrid_Simulation_Database</ResourceName>
+		<ResourceName>FMI_HYB_Repository</ResourceName>
 		<ReleaseDate>2012-01-01T00:00:00</ReleaseDate>
 		<Description>FMI hybrid simulation database</Description>
 		<Contact>
@@ -47,7 +47,7 @@
 	</AccessURL>
 </Repository>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/venus/venus_nominal_lowres_cx_20121120</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/venus_nominal_lowres_cx_20121120</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_venus_nominal_lowres_cx_20121120</ResourceName>
 		<ReleaseDate>2013-01-22T09:06:21</ReleaseDate>
@@ -58,14 +58,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -453,7 +453,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/venus_nominal_lowres_cx_20121120/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/venus_nominal_lowres_cx_20121120/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_venus_nominal_lowres_cx_20121120/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2013-01-22T09:06:21</ReleaseDate>
@@ -464,7 +464,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -488,7 +488,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/venus_nominal_lowres_cx_20121120</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/venus_nominal_lowres_cx_20121120</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -569,7 +569,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/venus_nominal_lowres_cx_20121120/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/venus_nominal_lowres_cx_20121120/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_venus_nominal_lowres_cx_20121120/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2013-01-22T09:06:21</ReleaseDate>
@@ -580,7 +580,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -604,7 +604,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/venus_nominal_lowres_cx_20121120</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/venus_nominal_lowres_cx_20121120</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -685,7 +685,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/venus_nominal_lowres_cx_20121120/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/venus_nominal_lowres_cx_20121120/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_venus_nominal_lowres_cx_20121120/Mag</ResourceName>
 		<ReleaseDate>2013-01-22T09:06:21</ReleaseDate>
@@ -696,7 +696,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -720,7 +720,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/venus_nominal_lowres_cx_20121120</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/venus_nominal_lowres_cx_20121120</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -744,7 +744,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/venus/run01_nominal_with_cx</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/run01_nominal_with_cx</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_run01_nominal_with_cx</ResourceName>
 		<ReleaseDate>2013-01-22T09:05:27</ReleaseDate>
@@ -756,14 +756,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -1151,7 +1151,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/run01_nominal_with_cx/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/run01_nominal_with_cx/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_run01_nominal_with_cx/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2013-01-22T09:05:27</ReleaseDate>
@@ -1162,7 +1162,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -1186,7 +1186,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/run01_nominal_with_cx</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/run01_nominal_with_cx</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -1267,7 +1267,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/run01_nominal_with_cx/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/run01_nominal_with_cx/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_run01_nominal_with_cx/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2013-01-22T09:05:27</ReleaseDate>
@@ -1278,7 +1278,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -1302,7 +1302,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/run01_nominal_with_cx</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/run01_nominal_with_cx</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -1383,7 +1383,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/run01_nominal_with_cx/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/run01_nominal_with_cx/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_run01_nominal_with_cx/Mag</ResourceName>
 		<ReleaseDate>2013-01-22T09:05:27</ReleaseDate>
@@ -1394,7 +1394,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -1418,7 +1418,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/run01_nominal_with_cx</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/run01_nominal_with_cx</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -1442,7 +1442,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_020deg</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_020deg</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_020deg</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:35</ReleaseDate>
@@ -1454,14 +1454,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -1631,7 +1631,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_020deg/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_020deg/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_020deg/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:35</ReleaseDate>
@@ -1642,7 +1642,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -1666,7 +1666,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_020deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_020deg</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -1747,7 +1747,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_020deg/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_020deg/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_020deg/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:35</ReleaseDate>
@@ -1758,7 +1758,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -1782,7 +1782,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_020deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_020deg</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -1863,7 +1863,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_020deg/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_020deg/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_020deg/Mag</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:35</ReleaseDate>
@@ -1874,7 +1874,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -1898,7 +1898,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_020deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_020deg</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -1922,7 +1922,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_040deg</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_040deg</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_040deg</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:35</ReleaseDate>
@@ -1934,14 +1934,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -2111,7 +2111,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_040deg/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_040deg/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_040deg/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:35</ReleaseDate>
@@ -2122,7 +2122,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -2146,7 +2146,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_040deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_040deg</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -2227,7 +2227,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_040deg/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_040deg/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_040deg/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:35</ReleaseDate>
@@ -2238,7 +2238,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -2262,7 +2262,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_040deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_040deg</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -2343,7 +2343,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_040deg/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_040deg/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_040deg/Mag</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:35</ReleaseDate>
@@ -2354,7 +2354,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -2378,7 +2378,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_040deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_040deg</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -2402,7 +2402,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_060deg</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_060deg</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_060deg</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:35</ReleaseDate>
@@ -2414,14 +2414,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -2591,7 +2591,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_060deg/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_060deg/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_060deg/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:35</ReleaseDate>
@@ -2602,7 +2602,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -2626,7 +2626,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_060deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_060deg</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -2707,7 +2707,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_060deg/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_060deg/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_060deg/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:35</ReleaseDate>
@@ -2718,7 +2718,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -2742,7 +2742,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_060deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_060deg</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -2823,7 +2823,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_060deg/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_060deg/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_060deg/Mag</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:35</ReleaseDate>
@@ -2834,7 +2834,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -2858,7 +2858,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_060deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_060deg</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -2882,7 +2882,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_080deg</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_080deg</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_080deg</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:35</ReleaseDate>
@@ -2894,14 +2894,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -3071,7 +3071,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_080deg/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_080deg/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_080deg/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:35</ReleaseDate>
@@ -3082,7 +3082,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -3106,7 +3106,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_080deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_080deg</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -3187,7 +3187,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_080deg/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_080deg/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_080deg/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:35</ReleaseDate>
@@ -3198,7 +3198,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -3222,7 +3222,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_080deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_080deg</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -3303,7 +3303,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_080deg/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_080deg/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_080deg/Mag</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:35</ReleaseDate>
@@ -3314,7 +3314,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -3338,7 +3338,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_080deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_080deg</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -3362,7 +3362,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_090deg</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_090deg</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_090deg</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -3374,14 +3374,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -3551,7 +3551,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_090deg/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_090deg/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_090deg/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -3562,7 +3562,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -3586,7 +3586,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_090deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_090deg</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -3667,7 +3667,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_090deg/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_090deg/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_090deg/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -3678,7 +3678,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -3702,7 +3702,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_090deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_090deg</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -3783,7 +3783,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_090deg/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_090deg/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_090deg/Mag</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -3794,7 +3794,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -3818,7 +3818,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_090deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_090deg</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -3842,7 +3842,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_100deg</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_100deg</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_100deg</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -3854,14 +3854,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -4031,7 +4031,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_100deg/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_100deg/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_100deg/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -4042,7 +4042,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -4066,7 +4066,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_100deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_100deg</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -4147,7 +4147,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_100deg/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_100deg/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_100deg/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -4158,7 +4158,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -4182,7 +4182,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_100deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_100deg</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -4263,7 +4263,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_100deg/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_100deg/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_100deg/Mag</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -4274,7 +4274,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -4298,7 +4298,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_100deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_100deg</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -4322,7 +4322,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_120deg</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_120deg</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_120deg</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -4334,14 +4334,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -4511,7 +4511,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_120deg/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_120deg/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_120deg/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -4522,7 +4522,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -4546,7 +4546,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_120deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_120deg</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -4627,7 +4627,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_120deg/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_120deg/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_120deg/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -4638,7 +4638,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -4662,7 +4662,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_120deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_120deg</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -4743,7 +4743,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_120deg/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_120deg/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_120deg/Mag</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -4754,7 +4754,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -4778,7 +4778,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_120deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_120deg</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -4802,7 +4802,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_140deg</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_140deg</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_140deg</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -4814,14 +4814,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -4991,7 +4991,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_140deg/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_140deg/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_140deg/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -5002,7 +5002,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -5026,7 +5026,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_140deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_140deg</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -5107,7 +5107,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_140deg/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_140deg/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_140deg/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -5118,7 +5118,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -5142,7 +5142,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_140deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_140deg</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -5223,7 +5223,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_140deg/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_140deg/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_140deg/Mag</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -5234,7 +5234,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -5258,7 +5258,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_140deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_140deg</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -5282,7 +5282,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_160deg</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_160deg</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_160deg</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -5294,14 +5294,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -5471,7 +5471,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_160deg/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_160deg/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_160deg/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -5482,7 +5482,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -5506,7 +5506,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_160deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_160deg</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -5587,7 +5587,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_160deg/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_160deg/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_160deg/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -5598,7 +5598,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -5622,7 +5622,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_160deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_160deg</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -5703,7 +5703,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/spiral_angle_runset_20130607_venus_160deg/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/spiral_angle_runset_20130607_venus_160deg/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_spiral_angle_runset_20130607_venus_160deg/Mag</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -5714,7 +5714,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -5738,7 +5738,7 @@
 		<RegionEnd>18155400 24207200 24207200</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/spiral_angle_runset_20130607_venus_160deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/spiral_angle_runset_20130607_venus_160deg</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -5762,7 +5762,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/mars/Mars_testrun_lowres</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/Mars_testrun_lowres</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_Mars_testrun_lowres</ResourceName>
 		<ReleaseDate>2013-04-03T12:48:13</ReleaseDate>
@@ -5774,14 +5774,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -6141,7 +6141,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/Mars_testrun_lowres/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/Mars_testrun_lowres/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_Mars_testrun_lowres/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2013-04-03T12:48:13</ReleaseDate>
@@ -6152,7 +6152,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -6176,7 +6176,7 @@
 		<RegionEnd>13574000 13574000 13574000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/Mars_testrun_lowres</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/Mars_testrun_lowres</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -6257,7 +6257,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/Mars_testrun_lowres/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/Mars_testrun_lowres/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_Mars_testrun_lowres/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2013-04-03T12:48:13</ReleaseDate>
@@ -6268,7 +6268,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -6292,7 +6292,7 @@
 		<RegionEnd>13574000 13574000 13574000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/Mars_testrun_lowres</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/Mars_testrun_lowres</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -6373,7 +6373,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/Mars_testrun_lowres/O2+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/Mars_testrun_lowres/O2+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_Mars_testrun_lowres/O2+_ave_hybstate</ResourceName>
 		<ReleaseDate>2013-04-03T12:48:13</ReleaseDate>
@@ -6384,7 +6384,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -6408,7 +6408,7 @@
 		<RegionEnd>13574000 13574000 13574000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/Mars_testrun_lowres</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/Mars_testrun_lowres</InputResourceID>
 	<Parameter>
 		<Name>O2+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -6489,7 +6489,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/Mars_testrun_lowres/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/Mars_testrun_lowres/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_Mars_testrun_lowres/Mag</ResourceName>
 		<ReleaseDate>2013-04-03T12:48:13</ReleaseDate>
@@ -6500,7 +6500,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -6524,7 +6524,7 @@
 		<RegionEnd>13574000 13574000 13574000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/Mars_testrun_lowres</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/Mars_testrun_lowres</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -6548,7 +6548,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_20deg</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_20deg</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_20deg</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -6560,14 +6560,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -6749,7 +6749,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_20deg/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_20deg/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_20deg/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -6760,7 +6760,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -6784,7 +6784,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_20deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_20deg</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -6865,7 +6865,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_20deg/O2+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_20deg/O2+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_20deg/O2+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -6876,7 +6876,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -6900,7 +6900,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_20deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_20deg</InputResourceID>
 	<Parameter>
 		<Name>O2+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -6981,7 +6981,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_20deg/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_20deg/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_20deg/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -6992,7 +6992,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -7016,7 +7016,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_20deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_20deg</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -7097,7 +7097,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_20deg/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_20deg/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_20deg/Mag</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -7108,7 +7108,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -7132,7 +7132,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_20deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_20deg</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -7156,7 +7156,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_40deg</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_40deg</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_40deg</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -7168,14 +7168,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -7357,7 +7357,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_40deg/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_40deg/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_40deg/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -7368,7 +7368,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -7392,7 +7392,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_40deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_40deg</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -7473,7 +7473,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_40deg/O2+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_40deg/O2+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_40deg/O2+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -7484,7 +7484,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -7508,7 +7508,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_40deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_40deg</InputResourceID>
 	<Parameter>
 		<Name>O2+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -7589,7 +7589,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_40deg/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_40deg/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_40deg/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -7600,7 +7600,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -7624,7 +7624,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_40deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_40deg</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -7705,7 +7705,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_40deg/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_40deg/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_40deg/Mag</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -7716,7 +7716,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -7740,7 +7740,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_40deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_40deg</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -7764,7 +7764,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_60deg</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_60deg</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_60deg</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -7776,14 +7776,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -7965,7 +7965,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_60deg/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_60deg/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_60deg/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -7976,7 +7976,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -8000,7 +8000,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_60deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_60deg</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -8081,7 +8081,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_60deg/O2+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_60deg/O2+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_60deg/O2+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -8092,7 +8092,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -8116,7 +8116,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_60deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_60deg</InputResourceID>
 	<Parameter>
 		<Name>O2+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -8197,7 +8197,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_60deg/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_60deg/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_60deg/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -8208,7 +8208,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -8232,7 +8232,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_60deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_60deg</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -8313,7 +8313,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_60deg/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_60deg/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_60deg/Mag</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -8324,7 +8324,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -8348,7 +8348,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_60deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_60deg</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -8372,7 +8372,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_80deg</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_80deg</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_80deg</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -8384,14 +8384,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -8573,7 +8573,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_80deg/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_80deg/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_80deg/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -8584,7 +8584,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -8608,7 +8608,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_80deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_80deg</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -8689,7 +8689,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_80deg/O2+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_80deg/O2+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_80deg/O2+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -8700,7 +8700,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -8724,7 +8724,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_80deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_80deg</InputResourceID>
 	<Parameter>
 		<Name>O2+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -8805,7 +8805,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_80deg/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_80deg/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_80deg/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -8816,7 +8816,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -8840,7 +8840,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_80deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_80deg</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -8921,7 +8921,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_80deg/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_80deg/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_80deg/Mag</ResourceName>
 		<ReleaseDate>2014-01-27T08:21:36</ReleaseDate>
@@ -8932,7 +8932,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -8956,7 +8956,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_80deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_80deg</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -8980,7 +8980,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_90deg</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_90deg</ResourceName>
 		<ReleaseDate>2013-10-18T11:39:53</ReleaseDate>
@@ -8992,14 +8992,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -9181,7 +9181,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_90deg/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_90deg/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2013-10-18T11:39:53</ReleaseDate>
@@ -9192,7 +9192,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -9216,7 +9216,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_90deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -9297,7 +9297,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_90deg/O2+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg/O2+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_90deg/O2+_ave_hybstate</ResourceName>
 		<ReleaseDate>2013-10-18T11:39:53</ReleaseDate>
@@ -9308,7 +9308,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -9332,7 +9332,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_90deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg</InputResourceID>
 	<Parameter>
 		<Name>O2+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -9413,7 +9413,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_90deg/O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg/O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_90deg/O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2013-10-18T11:39:53</ReleaseDate>
@@ -9424,7 +9424,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -9448,7 +9448,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_90deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -9529,7 +9529,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_90deg/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_mars_spiral_angle_runset_20130607_mars_90deg/Mag</ResourceName>
 		<ReleaseDate>2013-10-18T11:39:53</ReleaseDate>
@@ -9540,7 +9540,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -9564,7 +9564,7 @@
 		<RegionEnd>10170000 13560000 13560000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Mars</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/mars/spiral_angle_runset_20130607_mars_90deg</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -9588,7 +9588,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/comet/comet_1.3AU_20140315</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_1.3AU_20140315</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_1.3AU_20140315</ResourceName>
 		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
@@ -9600,14 +9600,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -9707,7 +9707,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/comet_1.3AU_20140315/H2O+_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_1.3AU_20140315/H2O+_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_1.3AU_20140315/H2O+_hybstate</ResourceName>
 		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
@@ -9718,7 +9718,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -9742,7 +9742,7 @@
 		<RegionEnd>18155400 18155400 18155400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/comet_1.3AU_20140315</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_1.3AU_20140315</InputResourceID>
 	<Parameter>
 		<Name>H2O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -9823,7 +9823,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/comet_1.3AU_20140315/H+_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_1.3AU_20140315/H+_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_1.3AU_20140315/H+_hybstate</ResourceName>
 		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
@@ -9834,7 +9834,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -9858,7 +9858,7 @@
 		<RegionEnd>18155400 18155400 18155400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/comet_1.3AU_20140315</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_1.3AU_20140315</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -9939,7 +9939,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/comet_1.3AU_20140315/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_1.3AU_20140315/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_1.3AU_20140315/Mag</ResourceName>
 		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
@@ -9950,7 +9950,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -9974,7 +9974,7 @@
 		<RegionEnd>18155400 18155400 18155400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/comet_1.3AU_20140315</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_1.3AU_20140315</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -9998,7 +9998,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/comet_1.3AU_20140315/ElectricCurrent</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_1.3AU_20140315/ElectricCurrent</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_1.3AU_20140315/ElectricCurrent</ResourceName>
 		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
@@ -10009,7 +10009,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -10033,7 +10033,7 @@
 		<RegionEnd>18155400 18155400 18155400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/comet_1.3AU_20140315</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_1.3AU_20140315</InputResourceID>
 	<Parameter>
 		<Name>TotalCurrent</Name>
 		<ParameterKey>Jtot</ParameterKey>
@@ -10057,7 +10057,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/comet/comet_2.0AU_20140315</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_2.0AU_20140315</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_2.0AU_20140315</ResourceName>
 		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
@@ -10069,14 +10069,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -10176,7 +10176,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/comet_2.0AU_20140315/H2O+_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_2.0AU_20140315/H2O+_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_2.0AU_20140315/H2O+_hybstate</ResourceName>
 		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
@@ -10187,7 +10187,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -10211,7 +10211,7 @@
 		<RegionEnd>18155400 18155400 18155400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/comet_2.0AU_20140315</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_2.0AU_20140315</InputResourceID>
 	<Parameter>
 		<Name>H2O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -10292,7 +10292,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/comet_2.0AU_20140315/H+_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_2.0AU_20140315/H+_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_2.0AU_20140315/H+_hybstate</ResourceName>
 		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
@@ -10303,7 +10303,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -10327,7 +10327,7 @@
 		<RegionEnd>18155400 18155400 18155400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/comet_2.0AU_20140315</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_2.0AU_20140315</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -10408,7 +10408,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/comet_2.0AU_20140315/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_2.0AU_20140315/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_2.0AU_20140315/Mag</ResourceName>
 		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
@@ -10419,7 +10419,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -10443,7 +10443,7 @@
 		<RegionEnd>18155400 18155400 18155400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/comet_2.0AU_20140315</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_2.0AU_20140315</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -10467,7 +10467,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/comet_2.0AU_20140315/ElectricCurrent</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_2.0AU_20140315/ElectricCurrent</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_2.0AU_20140315/ElectricCurrent</ResourceName>
 		<ReleaseDate>2014-03-21T14:09:19</ReleaseDate>
@@ -10478,7 +10478,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -10502,7 +10502,7 @@
 		<RegionEnd>18155400 18155400 18155400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/comet_2.0AU_20140315</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_2.0AU_20140315</InputResourceID>
 	<Parameter>
 		<Name>TotalCurrent</Name>
 		<ParameterKey>Jtot</ParameterKey>
@@ -10526,7 +10526,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/comet/comet_2.7AU_manual_20140315</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_2.7AU_manual_20140315</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_2.7AU_manual_20140315</ResourceName>
 		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
@@ -10538,14 +10538,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -10645,7 +10645,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/comet_2.7AU_manual_20140315/H2O+_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_2.7AU_manual_20140315/H2O+_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_2.7AU_manual_20140315/H2O+_hybstate</ResourceName>
 		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
@@ -10656,7 +10656,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -10680,7 +10680,7 @@
 		<RegionEnd>18155400 18155400 18155400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/comet_2.7AU_manual_20140315</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_2.7AU_manual_20140315</InputResourceID>
 	<Parameter>
 		<Name>H2O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -10761,7 +10761,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/comet_2.7AU_manual_20140315/H+_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_2.7AU_manual_20140315/H+_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_2.7AU_manual_20140315/H+_hybstate</ResourceName>
 		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
@@ -10772,7 +10772,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -10796,7 +10796,7 @@
 		<RegionEnd>18155400 18155400 18155400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/comet_2.7AU_manual_20140315</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_2.7AU_manual_20140315</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -10877,7 +10877,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/comet_2.7AU_manual_20140315/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_2.7AU_manual_20140315/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_2.7AU_manual_20140315/Mag</ResourceName>
 		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
@@ -10888,7 +10888,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -10912,7 +10912,7 @@
 		<RegionEnd>18155400 18155400 18155400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/comet_2.7AU_manual_20140315</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_2.7AU_manual_20140315</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -10936,7 +10936,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/comet_2.7AU_manual_20140315/ElectricCurrent</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_2.7AU_manual_20140315/ElectricCurrent</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_2.7AU_manual_20140315/ElectricCurrent</ResourceName>
 		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
@@ -10947,7 +10947,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -10971,7 +10971,7 @@
 		<RegionEnd>18155400 18155400 18155400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/comet_2.7AU_manual_20140315</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_2.7AU_manual_20140315</InputResourceID>
 	<Parameter>
 		<Name>TotalCurrent</Name>
 		<ParameterKey>Jtot</ParameterKey>
@@ -10995,7 +10995,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/comet/comet_3.25AU_manual_20140315</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_3.25AU_manual_20140315</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_3.25AU_manual_20140315</ResourceName>
 		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
@@ -11007,14 +11007,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -11114,7 +11114,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/comet_3.25AU_manual_20140315/H2O+_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_3.25AU_manual_20140315/H2O+_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_3.25AU_manual_20140315/H2O+_hybstate</ResourceName>
 		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
@@ -11125,7 +11125,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -11149,7 +11149,7 @@
 		<RegionEnd>18155400 18155400 18155400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/comet_3.25AU_manual_20140315</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_3.25AU_manual_20140315</InputResourceID>
 	<Parameter>
 		<Name>H2O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -11230,7 +11230,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/comet_3.25AU_manual_20140315/H+_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_3.25AU_manual_20140315/H+_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_3.25AU_manual_20140315/H+_hybstate</ResourceName>
 		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
@@ -11241,7 +11241,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -11265,7 +11265,7 @@
 		<RegionEnd>18155400 18155400 18155400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/comet_3.25AU_manual_20140315</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_3.25AU_manual_20140315</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -11346,7 +11346,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/comet_3.25AU_manual_20140315/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_3.25AU_manual_20140315/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_3.25AU_manual_20140315/Mag</ResourceName>
 		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
@@ -11357,7 +11357,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -11381,7 +11381,7 @@
 		<RegionEnd>18155400 18155400 18155400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/comet_3.25AU_manual_20140315</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_3.25AU_manual_20140315</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -11405,7 +11405,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/comet_3.25AU_manual_20140315/ElectricCurrent</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_3.25AU_manual_20140315/ElectricCurrent</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_comet_3.25AU_manual_20140315/ElectricCurrent</ResourceName>
 		<ReleaseDate>2014-03-21T12:04:51</ReleaseDate>
@@ -11416,7 +11416,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -11440,7 +11440,7 @@
 		<RegionEnd>18155400 18155400 18155400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/comet_3.25AU_manual_20140315</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_3.25AU_manual_20140315</InputResourceID>
 	<Parameter>
 		<Name>TotalCurrent</Name>
 		<ParameterKey>Jtot</ParameterKey>
@@ -11464,7 +11464,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/comet/run_145AU_Huebner</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/run_145AU_Huebner</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_run_145AU_Huebner</ResourceName>
 		<ReleaseDate>2014-04-28T07:21:29</ReleaseDate>
@@ -11476,14 +11476,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -11583,7 +11583,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/run_145AU_Huebner/H2O+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/run_145AU_Huebner/H2O+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_run_145AU_Huebner/H2O+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-04-28T07:21:29</ReleaseDate>
@@ -11594,7 +11594,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -11618,7 +11618,7 @@
 		<RegionEnd>30259000 30259000 30259000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/run_145AU_Huebner</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/run_145AU_Huebner</InputResourceID>
 	<Parameter>
 		<Name>H2O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -11699,7 +11699,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/run_145AU_Huebner/H+_ave_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/run_145AU_Huebner/H+_ave_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_run_145AU_Huebner/H+_ave_hybstate</ResourceName>
 		<ReleaseDate>2014-04-28T07:21:29</ReleaseDate>
@@ -11710,7 +11710,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -11734,7 +11734,7 @@
 		<RegionEnd>30259000 30259000 30259000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/run_145AU_Huebner</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/run_145AU_Huebner</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -11815,7 +11815,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/run_145AU_Huebner/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/run_145AU_Huebner/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_run_145AU_Huebner/Mag</ResourceName>
 		<ReleaseDate>2014-04-28T07:21:29</ReleaseDate>
@@ -11826,7 +11826,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -11850,7 +11850,7 @@
 		<RegionEnd>30259000 30259000 30259000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/run_145AU_Huebner</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/run_145AU_Huebner</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -11874,7 +11874,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/comet/run_145AU_Huebner/ElectricCurrent</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/run_145AU_Huebner/ElectricCurrent</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_comet_run_145AU_Huebner/ElectricCurrent</ResourceName>
 		<ReleaseDate>2014-04-28T07:21:29</ReleaseDate>
@@ -11885,7 +11885,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -11909,7 +11909,7 @@
 		<RegionEnd>30259000 30259000 30259000</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Comet</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/comet/run_145AU_Huebner</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/run_145AU_Huebner</InputResourceID>
 	<Parameter>
 		<Name>TotalCurrent</Name>
 		<ParameterKey>Jtot</ParameterKey>
@@ -11933,7 +11933,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <SimulationRun>
-	<ResourceID>impex://FMI/SimulationRun/HYB/venus/run01_venus_nominal_spectra_20140417</ResourceID>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/run01_venus_nominal_spectra_20140417</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_run01_venus_nominal_spectra_20140417</ResourceName>
 		<ReleaseDate>2014-05-23T10:21:56</ReleaseDate>
@@ -11945,14 +11945,14 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<AccessURL>
 			<URL/>
 		</AccessURL>
 		<Format>XML</Format>
 	</AccessInformation>
 	<Model>
-		<ModelID>impex://FMI/SimulationModel/HYB</ModelID>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
 		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
 	</Model>
 	<TemporalDependence>No</TemporalDependence>
@@ -12122,7 +12122,7 @@
 	</InputParameter>
 </SimulationRun>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/run01_venus_nominal_spectra_20140417/H+_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/run01_venus_nominal_spectra_20140417/H+_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_run01_venus_nominal_spectra_20140417/H+_hybstate</ResourceName>
 		<ReleaseDate>2014-05-23T10:21:56</ReleaseDate>
@@ -12133,7 +12133,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -12157,7 +12157,7 @@
 		<RegionEnd>18155400 24207200 48414400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/run01_venus_nominal_spectra_20140417</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/run01_venus_nominal_spectra_20140417</InputResourceID>
 	<Parameter>
 		<Name>H+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -12238,7 +12238,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/run01_venus_nominal_spectra_20140417/O+_hybstate</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/run01_venus_nominal_spectra_20140417/O+_hybstate</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_run01_venus_nominal_spectra_20140417/O+_hybstate</ResourceName>
 		<ReleaseDate>2014-05-23T10:21:56</ReleaseDate>
@@ -12249,7 +12249,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -12273,7 +12273,7 @@
 		<RegionEnd>18155400 24207200 48414400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/run01_venus_nominal_spectra_20140417</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/run01_venus_nominal_spectra_20140417</InputResourceID>
 	<Parameter>
 		<Name>O+ number density</Name>
 		<ParameterKey>Density</ParameterKey>
@@ -12354,7 +12354,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/run01_venus_nominal_spectra_20140417/Mag</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/run01_venus_nominal_spectra_20140417/Mag</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_run01_venus_nominal_spectra_20140417/Mag</ResourceName>
 		<ReleaseDate>2014-05-23T10:21:56</ReleaseDate>
@@ -12365,7 +12365,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -12389,7 +12389,7 @@
 		<RegionEnd>18155400 24207200 48414400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/run01_venus_nominal_spectra_20140417</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/run01_venus_nominal_spectra_20140417</InputResourceID>
 	<Parameter>
 		<Name>TotalMagnetic field</Name>
 		<ParameterKey>Btot</ParameterKey>
@@ -12413,7 +12413,7 @@
 	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/run01_venus_nominal_spectra_20140417/H+_spectra</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/run01_venus_nominal_spectra_20140417/H+_spectra</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_run01_venus_nominal_spectra_20140417/H+_spectra</ResourceName>
 		<ReleaseDate>2014-05-23T10:21:56</ReleaseDate>
@@ -12424,7 +12424,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -12448,7 +12448,7 @@
 		<RegionEnd>18155400 24207200 48414400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/run01_venus_nominal_spectra_20140417</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/run01_venus_nominal_spectra_20140417</InputResourceID>
 	<Parameter>
 		<Name>H+ energy spectra</Name>
 		<ParameterKey>EnergySpectra</ParameterKey>
@@ -12952,7 +12952,7 @@
 	<SimulationProduct>Spectra</SimulationProduct>
 </NumericalOutput>
 <NumericalOutput>
-	<ResourceID>impex://FMI/NumericalOutput/HYB/venus/run01_venus_nominal_spectra_20140417/O+_spectra</ResourceID>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/venus/run01_venus_nominal_spectra_20140417/O+_spectra</ResourceID>
 	<ResourceHeader>
 		<ResourceName>FMI_HYB_venus_run01_venus_nominal_spectra_20140417/O+_spectra</ResourceName>
 		<ReleaseDate>2014-05-23T10:21:56</ReleaseDate>
@@ -12963,7 +12963,7 @@
 		</Contact>
 	</ResourceHeader>
 	<AccessInformation>
-		<RepositoryID>impex://FMI/Repository/HYB</RepositoryID>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
 		<Availability>Offline</Availability>
 		<AccessURL>
 			<URL/>
@@ -12987,7 +12987,7 @@
 		<RegionEnd>18155400 24207200 48414400</RegionEnd>
 	</SpatialDescription>
 	<SimulatedRegion>Venus</SimulatedRegion>
-	<InputResourceID>impex://FMI/SimulationRun/HYB/venus/run01_venus_nominal_spectra_20140417</InputResourceID>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/venus/run01_venus_nominal_spectra_20140417</InputResourceID>
 	<Parameter>
 		<Name>O+ energy spectra</Name>
 		<ParameterKey>EnergySpectra</ParameterKey>
@@ -13489,5 +13489,603 @@
 		</Particle>
 	</Parameter>
 	<SimulationProduct>Spectra</SimulationProduct>
+</NumericalOutput>
+<SimulationRun>
+	<ResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_1.45AU_20140616</ResourceID>
+	<ResourceHeader>
+		<ResourceName>FMI_HYB_comet_comet_1.45AU_20140616</ResourceName>
+		<ReleaseDate>2014-06-17T09:56:01</ReleaseDate>
+		<Description>
+		</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
+		<AccessURL>
+			<URL/>
+		</AccessURL>
+		<Format>XML</Format>
+	</AccessInformation>
+	<Model>
+		<ModelID>spase://IMPEX/SimulationModel/FMI/HYB</ModelID>
+		<VersionID>X.XXXXXXXXXXXXXXXX</VersionID>
+	</Model>
+	<TemporalDependence>No</TemporalDependence>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<LikelihoodRating>Probable</LikelihoodRating>
+	<SimulationTime>
+		<Duration>PT300.1S</Duration>
+		<TimeStart>00:00:00</TimeStart>
+		<TimeStep>PT0.01S</TimeStep>
+		<DiagnosisTimeStep Duration="PT5S" TimeStart="00:00:00"/>
+	</SimulationTime>
+	<SimulationDomain>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<SpatialDimension>3</SpatialDimension>
+		<VelocityDimension>3</VelocityDimension>
+		<FieldDimension>3</FieldDimension>
+		<Units>m</Units>
+		<CoordinatesLabel>X Y Z</CoordinatesLabel>
+		<ValidMin>-30259000 -30259000 -30259000</ValidMin>
+		<ValidMax>30259000 30259000 30259000</ValidMax>
+		<GridStructure>Variable. 3 levels.  GridCellSize gives the size of the smallest grid cell. GRID REFINEMENT FUNCTION: refineSpherical 0 1.21036e+07 0 6.0518e+06 0 3.0259e+06 0 1.51295e+06</GridStructure>
+		<GridCellSize>151295 151295 151295</GridCellSize>
+		<Symmetry>Axial</Symmetry>
+		<BoundaryConditions>
+			<ParticleBoundary>
+				<FrontWall>absorbing</FrontWall>
+				<BackWall>absorbing</BackWall>
+				<SideWall>absorbing</SideWall>
+				<Obstacle>absorbing</Obstacle>
+			</ParticleBoundary>
+			<FieldBoundary>
+				<FrontWall>IMF</FrontWall>
+				<BackWall>Neuman zero-gradient</BackWall>
+				<SideWall>Neuman zero-gradient</SideWall>
+				<Obstacle>zero Ue</Obstacle>
+			</FieldBoundary>
+		</BoundaryConditions>
+	</SimulationDomain>
+	<RegionParameter>
+		<SimulatedRegion>Comet</SimulatedRegion>
+		<Caveats>The radius of the comet is assumed to be zero. The element &quot;Radius&quot; refers to the length scale used in numeric parameters</Caveats>
+		<Radius Units="m">6051800</Radius>
+		<Property>
+			<Name>Exobase Altitude</Name>
+			<Description>Altitude of the exobase from the center of the object</Description>
+			<PropertyQuantity>Other</PropertyQuantity>
+			<Units>m</Units>
+			<PropertyValue>0</PropertyValue>
+		</Property>
+	</RegionParameter>
+	<InputField>
+		<Name>IMF</Name>
+		<Description>Interplanetary Magnetic Field</Description>
+		<SimulatedRegion>Heliosphere</SimulatedRegion>
+		<FieldQuantity>Magnetic</FieldQuantity>
+		<Units>T</Units>
+		<InputLabel>Bx By Bz</InputLabel>
+		<FieldValue>0 4.3931E-9 0</FieldValue>
+	</InputField>
+	<InputPopulation>
+		<Name>solarwind_H+</Name>
+		<Description>H+ ions in solar wind</Description>
+		<SimulatedRegion>Heliosphere</SimulatedRegion>
+		<ParticleType>Proton</ParticleType>
+		<ChemicalFormula>H</ChemicalFormula>
+		<AtomicNumber>1</AtomicNumber>
+		<PopulationMassNumber>1.00728</PopulationMassNumber>
+		<PopulationChargeState>1</PopulationChargeState>
+		<PopulationDensity Units="m^-3">4820000</PopulationDensity>
+		<PopulationTemperature Units="K">100000</PopulationTemperature>
+		<PopulationFlowSpeed Units="m/s">400000</PopulationFlowSpeed>
+	</InputPopulation>
+	<InputPopulation>
+		<Name>solarwind_He++</Name>
+		<Description>He+ ions in solar wind</Description>
+		<SimulatedRegion>Heliosphere</SimulatedRegion>
+		<ParticleType>AlphaParticle</ParticleType>
+		<ChemicalFormula>He</ChemicalFormula>
+		<AtomicNumber>2</AtomicNumber>
+		<PopulationMassNumber>4.0026</PopulationMassNumber>
+		<PopulationChargeState>2</PopulationChargeState>
+		<PopulationDensity Units="m^-3">192800</PopulationDensity>
+		<PopulationTemperature Units="K">100000</PopulationTemperature>
+		<PopulationFlowSpeed Units="m/s">400000</PopulationFlowSpeed>
+	</InputPopulation>
+	<InputPopulation>
+		<Name>exospheric_H2O+</Name>
+		<Description>H2O+ ions originating from ionosphere</Description>
+		<SimulatedRegion>Comet</SimulatedRegion>
+		<ParticleType>Ion</ParticleType>
+		<ChemicalFormula>H2O</ChemicalFormula>
+		<AtomicNumber>10</AtomicNumber>
+		<PopulationMassNumber>18.014</PopulationMassNumber>
+		<PopulationChargeState>1</PopulationChargeState>
+		<PopulationTemperature Units="K">6000</PopulationTemperature>
+		<Distribution>Maxwellian</Distribution>
+		<TotalProductionRate Units="1/s">1.603e+25</TotalProductionRate>
+	</InputPopulation>
+	<InputParameter>
+		<Name>Electrons</Name>
+		<ParameterQuantity>Electron</ParameterQuantity>
+		<Property>
+			<PropertyQuantity>Temperature</PropertyQuantity>
+			<Units>K</Units>
+			<PropertyValue>0</PropertyValue>
+		</Property>
+	</InputParameter>
+</SimulationRun>
+<NumericalOutput>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_1.45AU_20140616/H2O+_ave_hybstate</ResourceID>
+	<ResourceHeader>
+		<ResourceName>FMI_HYB_comet_comet_1.45AU_20140616/H2O+_ave_hybstate</ResourceName>
+		<ReleaseDate>2014-06-17T09:56:01</ReleaseDate>
+		<Description>H2O+ computed physical quantities</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_1.45AU_20140616/H2O+_ave_hybstate_00300000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>77151864</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>IonComposition</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-30259000 -30259000 -30259000</RegionBegin>
+		<RegionEnd>30259000 30259000 30259000</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_1.45AU_20140616</InputResourceID>
+	<Parameter>
+		<Name>H2O+ number density</Name>
+		<ParameterKey>Density</ParameterKey>
+		<Description>H2O+ number density</Description>
+		<Units>m^-3</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<ParticleQuantity>NumberDensity</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ velocity</Name>
+		<ParameterKey>Ux,Uy,Uz</ParameterKey>
+		<Description>H2O+ velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<Qualifier>Vector</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ total velocity</Name>
+		<ParameterKey>Utot</ParameterKey>
+		<Description>H2O+ total velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<Qualifier>Total</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ thermal pressure</Name>
+		<ParameterKey>Pressure</ParameterKey>
+		<Description>H2O+ thermal pressure</Description>
+		<Units>Pa</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<ParticleQuantity>Pressure</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H2O+ temperature</Name>
+		<ParameterKey>Temperature</ParameterKey>
+		<Description>H2O+ temperature</Description>
+		<Units>K</Units>
+		<Particle>
+			<PopulationID>H2O+</PopulationID>
+			<ParticleType>Ion</ParticleType>
+			<ParticleQuantity>Temperature</ParticleQuantity>
+			<ChemicalFormula>H2O</ChemicalFormula>
+			<AtomicNumber>10</AtomicNumber>
+			<PopulationMassNumber>18.01395</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<NumericalOutput>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_1.45AU_20140616/H+_ave_hybstate</ResourceID>
+	<ResourceHeader>
+		<ResourceName>FMI_HYB_comet_comet_1.45AU_20140616/H+_ave_hybstate</ResourceName>
+		<ReleaseDate>2014-06-17T09:56:01</ReleaseDate>
+		<Description>H+ computed physical quantities</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_1.45AU_20140616/H+_ave_hybstate_00300000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>77151859</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>IonComposition</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-30259000 -30259000 -30259000</RegionBegin>
+		<RegionEnd>30259000 30259000 30259000</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_1.45AU_20140616</InputResourceID>
+	<Parameter>
+		<Name>H+ number density</Name>
+		<ParameterKey>Density</ParameterKey>
+		<Description>H+ number density</Description>
+		<Units>m^-3</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<ParticleQuantity>NumberDensity</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ velocity</Name>
+		<ParameterKey>Ux,Uy,Uz</ParameterKey>
+		<Description>H+ velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<Qualifier>Vector</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ total velocity</Name>
+		<ParameterKey>Utot</ParameterKey>
+		<Description>H+ total velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<Qualifier>Total</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ thermal pressure</Name>
+		<ParameterKey>Pressure</ParameterKey>
+		<Description>H+ thermal pressure</Description>
+		<Units>Pa</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<ParticleQuantity>Pressure</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>H+ temperature</Name>
+		<ParameterKey>Temperature</ParameterKey>
+		<Description>H+ temperature</Description>
+		<Units>K</Units>
+		<Particle>
+			<PopulationID>H+</PopulationID>
+			<ParticleType>Proton</ParticleType>
+			<ParticleQuantity>Temperature</ParticleQuantity>
+			<ChemicalFormula>H</ChemicalFormula>
+			<AtomicNumber>1</AtomicNumber>
+			<PopulationMassNumber>1.00728</PopulationMassNumber>
+			<PopulationChargeState>1</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<NumericalOutput>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_1.45AU_20140616/He++_ave_hybstate</ResourceID>
+	<ResourceHeader>
+		<ResourceName>FMI_HYB_comet_comet_1.45AU_20140616/He++_ave_hybstate</ResourceName>
+		<ReleaseDate>2014-06-17T09:56:01</ReleaseDate>
+		<Description>He++ computed physical quantities</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_1.45AU_20140616/He++_ave_hybstate_00300000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>77151862</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>IonComposition</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-30259000 -30259000 -30259000</RegionBegin>
+		<RegionEnd>30259000 30259000 30259000</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_1.45AU_20140616</InputResourceID>
+	<Parameter>
+		<Name>He++ number density</Name>
+		<ParameterKey>Density</ParameterKey>
+		<Description>He++ number density</Description>
+		<Units>m^-3</Units>
+		<Particle>
+			<PopulationID>He++</PopulationID>
+			<ParticleType>AlphaParticle</ParticleType>
+			<ParticleQuantity>NumberDensity</ParticleQuantity>
+			<ChemicalFormula>He</ChemicalFormula>
+			<AtomicNumber>2</AtomicNumber>
+			<PopulationMassNumber>4.0026</PopulationMassNumber>
+			<PopulationChargeState>2</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>He++ velocity</Name>
+		<ParameterKey>Ux,Uy,Uz</ParameterKey>
+		<Description>He++ velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>He++</PopulationID>
+			<ParticleType>AlphaParticle</ParticleType>
+			<Qualifier>Vector</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>He</ChemicalFormula>
+			<AtomicNumber>2</AtomicNumber>
+			<PopulationMassNumber>4.0026</PopulationMassNumber>
+			<PopulationChargeState>2</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>He++ total velocity</Name>
+		<ParameterKey>Utot</ParameterKey>
+		<Description>He++ total velocity</Description>
+		<Units>m/s</Units>
+		<Particle>
+			<PopulationID>He++</PopulationID>
+			<ParticleType>AlphaParticle</ParticleType>
+			<Qualifier>Total</Qualifier>
+			<ParticleQuantity>Velocity</ParticleQuantity>
+			<ChemicalFormula>He</ChemicalFormula>
+			<AtomicNumber>2</AtomicNumber>
+			<PopulationMassNumber>4.0026</PopulationMassNumber>
+			<PopulationChargeState>2</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>He++ thermal pressure</Name>
+		<ParameterKey>Pressure</ParameterKey>
+		<Description>He++ thermal pressure</Description>
+		<Units>Pa</Units>
+		<Particle>
+			<PopulationID>He++</PopulationID>
+			<ParticleType>AlphaParticle</ParticleType>
+			<ParticleQuantity>Pressure</ParticleQuantity>
+			<ChemicalFormula>He</ChemicalFormula>
+			<AtomicNumber>2</AtomicNumber>
+			<PopulationMassNumber>4.0026</PopulationMassNumber>
+			<PopulationChargeState>2</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<Parameter>
+		<Name>He++ temperature</Name>
+		<ParameterKey>Temperature</ParameterKey>
+		<Description>He++ temperature</Description>
+		<Units>K</Units>
+		<Particle>
+			<PopulationID>He++</PopulationID>
+			<ParticleType>AlphaParticle</ParticleType>
+			<ParticleQuantity>Temperature</ParticleQuantity>
+			<ChemicalFormula>He</ChemicalFormula>
+			<AtomicNumber>2</AtomicNumber>
+			<PopulationMassNumber>4.0026</PopulationMassNumber>
+			<PopulationChargeState>2</PopulationChargeState>
+		</Particle>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<NumericalOutput>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_1.45AU_20140616/Mag</ResourceID>
+	<ResourceHeader>
+		<ResourceName>FMI_HYB_comet_comet_1.45AU_20140616/Mag</ResourceName>
+		<ReleaseDate>2014-06-17T09:56:01</ReleaseDate>
+		<Description>Magnetic field vector</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_1.45AU_20140616/He++_ave_hybstate_00300000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>77151862</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>MagneticField</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-30259000 -30259000 -30259000</RegionBegin>
+		<RegionEnd>30259000 30259000 30259000</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_1.45AU_20140616</InputResourceID>
+	<Parameter>
+		<Name>TotalMagnetic field</Name>
+		<ParameterKey>Btot</ParameterKey>
+		<Description>TotalMagnetic field</Description>
+		<Units>T</Units>
+		<Field>
+			<Qualifier>Total</Qualifier>
+			<FieldQuantity>Magnetic</FieldQuantity>
+		</Field>
+	</Parameter>
+	<Parameter>
+		<Name>Magnetic field components</Name>
+		<ParameterKey>Bx,By,Bz</ParameterKey>
+		<Description>Magnetic field components</Description>
+		<Units>T</Units>
+		<Field>
+			<Qualifier>Vector</Qualifier>
+			<FieldQuantity>Magnetic</FieldQuantity>
+		</Field>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
+</NumericalOutput>
+<NumericalOutput>
+	<ResourceID>spase://IMPEX/NumericalOutput/FMI/HYB/comet/comet_1.45AU_20140616/ElectricCurrent</ResourceID>
+	<ResourceHeader>
+		<ResourceName>FMI_HYB_comet_comet_1.45AU_20140616/ElectricCurrent</ResourceName>
+		<ReleaseDate>2014-06-17T09:56:01</ReleaseDate>
+		<Description>Electric current vector</Description>
+		<Contact>
+			<PersonID>FMI</PersonID>
+			<Role>DataProducer</Role>
+		</Contact>
+	</ResourceHeader>
+	<AccessInformation>
+		<RepositoryID>spase://IMPEX/Repository/FMI/HYB</RepositoryID>
+		<Availability>Offline</Availability>
+		<AccessURL>
+			<URL/>
+			<ProductKey>/hwa/hcfiles/comet/comet_1.45AU_20140616/He++_ave_hybstate_00300000.hc</ProductKey>
+		</AccessURL>
+		<Format>Binary</Format>
+		<Encoding>None</Encoding>
+		<DataExtent>
+			<Quantity>77151862</Quantity>
+		</DataExtent>
+	</AccessInformation>
+	<MeasurementType>Current</MeasurementType>
+	<SpatialDescription>
+		<Dimension>3</Dimension>
+		<CoordinateSystem>
+			<CoordinateRepresentation>Cartesian</CoordinateRepresentation>
+			<CoordinateSystemName>CSO</CoordinateSystemName>
+		</CoordinateSystem>
+		<Units>m</Units>
+		<RegionBegin>-30259000 -30259000 -30259000</RegionBegin>
+		<RegionEnd>30259000 30259000 30259000</RegionEnd>
+	</SpatialDescription>
+	<SimulatedRegion>Comet</SimulatedRegion>
+	<InputResourceID>spase://IMPEX/SimulationRun/FMI/HYB/comet/comet_1.45AU_20140616</InputResourceID>
+	<Parameter>
+		<Name>TotalCurrent</Name>
+		<ParameterKey>Jtot</ParameterKey>
+		<Description>Total electric current</Description>
+		<Units>A/m^2</Units>
+		<Field>
+			<Qualifier>Total</Qualifier>
+			<FieldQuantity>Current</FieldQuantity>
+		</Field>
+	</Parameter>
+	<Parameter>
+		<Name>Current</Name>
+		<ParameterKey>Jx,Jy,Jz</ParameterKey>
+		<Description>Current vector components</Description>
+		<Units>A/m^2</Units>
+		<Field>
+			<Qualifier>Vector</Qualifier>
+			<FieldQuantity>Current</FieldQuantity>
+		</Field>
+	</Parameter>
+	<SimulationProduct>3DCubes</SimulationProduct>
 </NumericalOutput>
 </Spase>

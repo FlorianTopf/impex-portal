@@ -718,7 +718,7 @@ else {
                 this.status = data + " " + status;
             }
         };
-        ConfigCtrl.$inject = ['$scope', '$http', '$location', '$window', 'configService', '$timeout'];
+        ConfigCtrl.$inject = ['$scope', '$http', '$location', '$window', 'configService'];
         return ConfigCtrl;
     })();
     portal.ConfigCtrl = ConfigCtrl;
@@ -731,7 +731,7 @@ var portal;
     var PortalCtrl = (function () {
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
-        function PortalCtrl($scope, $http, $location, $timeout, $interval, $window, configService, registryService) {
+        function PortalCtrl($scope, $http, $location, $timeout, $interval, $window, configService, registryService, $modal) {
             var _this = this;
             this.configAble = true;
             this.ready = false;
@@ -748,6 +748,7 @@ var portal;
             this.timeout = $timeout;
             this.interval = $interval;
             this.window = $window;
+            this.modal = $modal;
 
             if (this.config == null) {
                 $location.path('/config');
@@ -921,6 +922,20 @@ var portal;
                 this.loading = false;
             }
         };
+
+        PortalCtrl.prototype.open = function (size) {
+            var modalInstance = this.modal.open({
+                templateUrl: '/public/partials/templates/modal.html',
+                controller: portal.ModalCtrl,
+                size: size
+            });
+
+            modalInstance.result.then(function (ok) {
+                return console.log(ok);
+            }, function (cancel) {
+                return console.log(cancel);
+            });
+        };
         PortalCtrl.$inject = [
             '$scope',
             '$http',
@@ -929,11 +944,41 @@ var portal;
             '$interval',
             '$window',
             'configService',
-            'registryService'
+            'registryService',
+            '$modal'
         ];
         return PortalCtrl;
     })();
     portal.PortalCtrl = PortalCtrl;
+})(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
+    var ModalCtrl = (function () {
+        // dependencies are injected via AngularJS $injector
+        // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
+        function ModalCtrl($scope, $http, $location, $window, configService, $modalInstance) {
+            this.showError = false;
+            $scope.modvm = this;
+            this.configService = configService;
+            this.location = $location;
+            this.http = $http;
+            this.window = $window;
+            this.modalInstance = $modalInstance;
+        }
+        ModalCtrl.prototype.ok = function () {
+            this.modalInstance.close();
+        };
+
+        ModalCtrl.prototype.cancel = function () {
+            this.modalInstance.dismiss();
+        };
+        ModalCtrl.$inject = ['$scope', '$http', '$location', '$window', 'configService', '$modalInstance'];
+        return ModalCtrl;
+    })();
+    portal.ModalCtrl = ModalCtrl;
 })(portal || (portal = {}));
 /// <reference path='../_all.ts' />
 var portal;
@@ -1115,6 +1160,7 @@ var portal;
 
     impexPortal.controller('configCtrl', portal.ConfigCtrl);
     impexPortal.controller('portalCtrl', portal.PortalCtrl);
+    impexPortal.controller('modalCtrl', portal.ModalCtrl);
 
     impexPortal.directive('databasesDir', portal.DatabasesDir.prototype.injection());
     impexPortal.directive('registryDir', portal.RegistryDir.prototype.injection());

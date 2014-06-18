@@ -170,14 +170,14 @@ object RegistryService {
     } yield provider
   }
 
-  def getMethods(id: Option[String] = None): Future[Either[Seq[NodeSeq], RequestError]] = {
+  def getMethods(name: Option[String] = None): Future[Either[Seq[NodeSeq], RequestError]] = {
     implicit val timeout = Timeout(10.seconds)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- {
-        id match {
-          case Some(id) if databases.exists(d => id.contains(d.id.toString)) => {
-            val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.id)
+        name match {
+          case Some(name) if databases.exists(d => name == d.name) => {
+            val provider: ActorSelection = getChild(databases.find(d => name == d.name).get.id)
             (provider ? GetMethods).mapTo[Seq[NodeSeq]] map { Left(_) } 
           }
           // if no id is provided, just return an error
@@ -207,10 +207,6 @@ object RegistryService {
   def getSimulationModel(id: Option[String], r: Boolean): Future[Either[Spase, RequestError]] = {
     // check if a repository id is given as parameter
     id match {
-      // @FIXME Temporary Hack for SINP (will be done after resourceId changes)
-      case Some(id) if(id.contains(ERepository.toString+"/PMM")) => {
-        getElement(GetElement(ESimulationModel, Some(id.replace(ERepository.toString+"/PMM", ESimulationModel.toString)), r))
-      }
       case Some(id) if(id.contains(ERepository.toString)) => {
         getElement(GetElement(ESimulationModel, Some(id.replace(ERepository.toString, ESimulationModel.toString)), r))
       }

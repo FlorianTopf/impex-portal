@@ -14,6 +14,7 @@ module portal {
 
     impexPortal.controller('configCtrl', ConfigCtrl)
     impexPortal.controller('portalCtrl', PortalCtrl)
+    impexPortal.controller('modalCtrl', ModalCtrl)
 
     impexPortal.directive('databasesDir', DatabasesDir.prototype.injection())
     impexPortal.directive('registryDir', RegistryDir.prototype.injection())

@@ -6,7 +6,7 @@ object PathProvider {
     var name = path.split("/").last	
     // just check if there is a GET route in methods
     if(name.contains("?") && (folder == "methods"))
-        name = dbname.split("___").last+"_"+folder+".wsdl"    
+        name = dbname.split("_").last+"_"+folder+".wsdl"    
     folder+"/"+dbname+"/"+name
   }
   

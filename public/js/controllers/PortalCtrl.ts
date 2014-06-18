@@ -18,6 +18,7 @@ module portal {
         private interval: ng.IIntervalService
         private window: ng.IWindowService
         private scope: portal.IPortalScope
+        private modal: any
         private configPromise: ng.IPromise<any>
         private registryPromise: ng.IPromise<any>
 
@@ -26,15 +27,16 @@ module portal {
         private loading: boolean = false
         private initialising: boolean = false
         private transFinished: boolean = true
+ 
       
         static $inject: Array<string> = ['$scope', '$http', '$location', '$timeout',
-            '$interval','$window', 'configService', 'registryService']
+            '$interval','$window', 'configService', 'registryService', '$modal']
 
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
         constructor($scope: IPortalScope, $http: ng.IHttpService, $location: ng.ILocationService, 
             $timeout: ng.ITimeoutService, $interval: ng.IIntervalService,
-            $window: ng.IWindowService, configService: portal.ConfigService, registryService: portal.RegistryService) { 
+            $window: ng.IWindowService, configService: portal.ConfigService, registryService: portal.RegistryService, $modal) { 
             this.scope = $scope
             this.scope.vm = this
             this.http = $http
@@ -45,6 +47,7 @@ module portal {
             this.timeout = $timeout
             this.interval = $interval
             this.window = $window
+            this.modal = $modal
             
             if(this.config == null) {
                 $location.path('/config')
@@ -200,6 +203,20 @@ module portal {
                 this.scope.$broadcast('update-granules', cacheId)
                 this.loading = false   
             }  
+        }
+        
+        public open(size: string) {
+            
+            var modalInstance = this.modal.open({
+                    templateUrl: '/public/partials/templates/modal.html',
+                    controller: ModalCtrl,
+                    size: size
+            })
+            
+            modalInstance.result.then(
+            (ok) => console.log(ok), 
+            (cancel) => console.log(cancel))
+       
         }
         
 

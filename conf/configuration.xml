@@ -1,13 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- IMPEx configuration file -->
-<!-- updated 2014-5-28T13:55:00 UTC-->
+<!-- updated 2014-6-19T13:55:00 UTC-->
 <impexconfiguration xsi:schemaLocation="http://www.impex.org/2012/configuration.xsd http://impex-fp7.oeaw.ac.at/xsd/configuration-1_0_1.xsd" xmlns="http://www.impex.org/2012/configuration.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <database id="impex://FMI" type="simulation">
-    <name>FMI</name>
-    <description>FMI Hybrid and MHD web archive</description>
+  <database id="spase://IMPEX/Repository/FMI/HYB" type="simulation">
+    <name>FMI-HYBRID</name>
+    <description>FMI Hybrid web archive</description>
     <dns>impex-fp7.fmi.fi</dns>
     <methods>/ws/Methods_FMI.wsdl</methods>
     <tree>/ws/Tree_FMI_HYB.xml</tree>
+    <protocol>http</protocol>
+    <info>http://hwa.fmi.fi/beta/login.php</info>
+  </database>
+  <database id="spase://IMPEX/Repository/FMI/GUMICS" type="simulation">
+    <name>FMI-GUMICS</name>
+    <description>FMI MHD web archive</description>
+    <dns>impex-fp7.fmi.fi</dns>
+    <methods>/ws/Methods_FMI.wsdl</methods>
     <tree>/ws/Tree_FMI_GUMICS.xml</tree>
     <protocol>http</protocol>
     <info>http://hwa.fmi.fi/beta/login.php</info>
@@ -21,7 +29,7 @@
     <protocol>http</protocol>
     <info>http://impex.latmos.ipsl.fr/LatHyS.htm</info>
   </database>
-  <database id="impex://SINP" type="simulation">
+  <database id="spase://IMPEX/Repository/SINP" type="simulation">
     <name>SINP</name>
     <description>SINP Paraboloid Model simulations</description>
     <dns>smdc.sinp.msu.ru</dns>
@@ -57,17 +65,16 @@
     <protocol>http</protocol>
     <info/>
   </database-->
-  <database id="impex://AMDA" type="observation">
+  <database id="spase://IMPEX/Repository/AMDA" type="observation">
     <name>AMDA</name>
     <description>AMDA observational database</description>
     <dns>cdpp1.cesr.fr</dns>
     <methods>/AMDA/php/AMDA_METHODS_WSDL.php?wsdl</methods>
     <tree>/AMDA/data/WSRESULT/getObsDataTree_LocalParams.xml</tree>
-    <!--tree>/AMDA/data/WSRESULT/getObsDataTree_RemoteParams.xml</tree-->
     <protocol>http</protocol>
     <info>http://clweb.cesr.fr/webservice.html</info>
   </database>
-  <database id="impex://CLWEB" type="observation">
+  <database id="spase://IMPEX/Repository/CLWEB" type="observation">
     <name>CLWeb</name>
     <description>CLWeb observational databases</description>
     <dns>clweb.cesr.fr</dns>

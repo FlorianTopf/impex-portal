@@ -17,8 +17,7 @@ import java.text.{
 import javax.xml.datatype._
 import java.util.Calendar
 
-// @FIXME all the resourceId creation mechanisms must be updated when 
-// the new guidelines are accepted
+
 class ObsDataProvider(var metadata: Database) 
 extends Actor with DataProvider {
   import models.actor.ConfigService._
@@ -48,7 +47,7 @@ extends Actor with DataProvider {
 
   protected def getNativeTreeObjects: Seq[DataRoot] = {
     getTrees map { tree => { 
-      // we select here only portions of the remote trees (e.g. AMDA)
+      // we select here only portions of the tree (e.g. AMDA)
       val selection = 
         <dataRoot>
           { tree \\ "dataCenter" filterNot { element => 
@@ -69,21 +68,25 @@ extends Actor with DataProvider {
     records.flatten
   }
 
-  // @TODO finalise all access methods
-  // @TODO must search for an specific Id
+
+  // @TODO we must ensure that there is only one repository per tree
   protected def getRepository(id: Option[String]): Spase = {
-    println("RepositoryID="+id)
     val records = getNativeTreeObjects flatMap { _.dataCenter map { dataCenter => 
         val contact = Contact(getMetaData.id.toString, Seq(ArchiveSpecialist))
         val resourceHeader = ResourceHeader(dataCenter.id.toString, Nil, TimeProvider.getISONow, 
            None, dataCenter.name, None, Seq(contact))
         val accessURL = AccessURL(None , getMetaData.info)
-        // the original id is always encoded as part of the SPASE id
-        val resourceId = getMetaData.id.toString+"/Repository/"+dataCenter.id.toString
+        // we have only one repository, so we take the id from the config
+        val resourceId = getMetaData.id.toString
+        //val resourceId = getMetaData.id.toString+"/Repository/"+dataCenter.id.toString
         DataRecord(None, Some("Repository"), Repository(resourceId, resourceHeader, accessURL))
       }
     }
     Spase(Number2u462u462, records, "en")
+  }
+  
+  private def createId(element: ObsElement): String = {
+    getMetaData.id.toString.replace(ERepository.toString, element.toString)   
   }
   
   // @TODO add recursion for the remaining elements
@@ -93,7 +96,7 @@ extends Actor with DataProvider {
     val missions = id match {
       case Some(id) if(id != getMetaData.id.toString) => { 
         // creating and matching the proprietary Id
-        val propId = id.replace(getMetaData.id.toString+"/Observatory/", "")
+        val propId = id.replace(createId(EObservatory)+"/", "")
         records.filter(_.id.replaceAll(" ", "_") == propId)
       }
       case _ => records
@@ -104,7 +107,7 @@ extends Actor with DataProvider {
       val resourceHeader = ResourceHeader(mission.name, Nil, TimeProvider.getISONow, 
            None, mission.desc, None, Seq(contact))
       // replace all whitespaces with underscore
-      val resourceId = getMetaData.id.toString+"/Observatory/"+mission.id.toString.replaceAll(" ", "_")
+      val resourceId = createId(EObservatory)+"/"+mission.id.toString.replaceAll(" ", "_")
       // Location/ObservatoryRegion is taken from target/targets attribute
       var regions = mission.target match {
         case Some(t) => Seq(t)
@@ -123,8 +126,8 @@ extends Actor with DataProvider {
           // taking the parent mission description here
           val resourceHeader = ResourceHeader(o.name, Nil, TimeProvider.getISONow, 
            None, mission.desc, None, Seq(contact))
-          val resourceId = getMetaData.id.toString+"/Observatory/"+o.id.toString.replaceAll(" ", "_")
-          println("resourceId:"+ resourceId)
+          // replace all whitespaces with underscore
+          val resourceId = createId(EObservatory)+"/"+o.id.toString.replaceAll(" ", "_")
           // taking the parent mission targets here
           DataRecord(None, Some("Observatory"), Observatory(resourceId, resourceHeader, Nil, location, None, Nil))
         }
@@ -137,7 +140,7 @@ extends Actor with DataProvider {
   private def getInstrument(id: Option[String]): Spase = {
     val records = getTreeObjects("mission").map(_.as[Mission])
     val missions: Seq[(String, Seq[InstrumentType])] = records map { record => 
-      val missionId = getMetaData.id.toString+"/Observatory/"+record.id.toString.replaceAll(" ", "_")
+      val missionId = createId(EObservatory)+"/"+record.id.toString.replaceAll(" ", "_")
       // @FIXME 
       // observatory/instrument is not included
       // simulationmodel/instrument is not included
@@ -157,8 +160,8 @@ extends Actor with DataProvider {
       	val resourceHeader = ResourceHeader(instrument.name, Nil, TimeProvider.getISONow,
           None, instrument.desc, None, Seq(contact))
         // replace all whitespaces with underscore, replace @ with __at__
-        val resourceId = getMetaData.id.toString+"/Instrument/"+
-          instrument.id.toString.replaceAll(" ", "_").replaceAll("@", "__at__")
+        val resourceId = createId(EInstrument)+"/"
+        	instrument.id.toString.replaceAll(" ", "_").replaceAll("@", "__at__")
         // @FIXME InstrumentType is missing for Instrument
         val instrumentType = Seq(Magnetometer)
         // @FIXME Investigation name is mandadory => take name
@@ -175,7 +178,8 @@ extends Actor with DataProvider {
     
     val records = getTreeObjects("mission").map(_.as[Mission])
     val missions: Seq[(String, Seq[String], Seq[InstrumentType])] = records map { record => 
-      val missionId = getMetaData.id.toString+"/Observatory/"+record.id.toString.replaceAll(" ", "_")
+      // replace all whitespaces with underscore
+      val missionId = createId(EObservatory)+"/"+record.id.toString.replaceAll(" ", "_")
       var regions = record.target match {
         case Some(t) => Seq(t)
         case None => Seq()
@@ -195,18 +199,19 @@ extends Actor with DataProvider {
       val contact = Contact(getMetaData.id.toString, Seq(ArchiveSpecialist))
       
       instruments._3 flatMap { instrument =>
-        val instrumentId = getMetaData.id.toString+"/Instrument/"+
-          instrument.id.toString.replaceAll(" ", "_").replaceAll("@", "__at__")
+        // replace all whitespaces with underscore, replace @ with __at__
+        val instrumentId = createId(EInstrument)+"/"+
+        	instrument.id.toString.replaceAll(" ", "_").replaceAll("@", "__at__")
           
         instrument.dataset map { dataset => 
       		val resourceHeader = ResourceHeader(dataset.name, Nil, TimeProvider.getISONow,
       		    None, dataset.desc.getOrElse(""), None, Seq(contact))
-      		// replace all whitespaces with underscore, replace @ with __at__
-            val resourceId = getMetaData.id.toString+"/NumericalData/"+
-              instrument.id.toString.replaceAll(" ", "_").replaceAll("@", "__at__")
+            // replace all whitespaces with underscore, replace @ with __at__
+      		val resourceId = createId(ENumericalData)+"/"+
+      			instrument.id.toString.replaceAll(" ", "_").replaceAll("@", "__at__")
             // @TODO url is only data center location => dataSource cannot be used
             val accessURL = AccessURL(None, getMetaData.info) 
-            // @FIXME we only have one repository (datacenter) per file atm
+            // we only have one repository (datacenter) per file
             val accessInfo = AccessInformation(getMetaData.id.toString, None, None, 
                 Seq(accessURL), VOTableValue, Some(ASCIIValue))
             

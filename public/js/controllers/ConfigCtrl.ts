@@ -18,7 +18,7 @@ module portal {
         private location: ng.ILocationService
         private window: ng.IWindowService
 
-        static $inject: Array<string> = ['$scope', '$http', '$location', '$window', 'configService', '$timeout']
+        static $inject: Array<string> = ['$scope', '$http', '$location', '$window', 'configService']
 
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html

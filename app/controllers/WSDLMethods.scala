@@ -23,7 +23,6 @@ import java.io.FileNotFoundException
     description = "operations for using the IMPEx data acess services")
 @Path("/methods")
 @Produces(Array(APPLICATION_JSON, APPLICATION_XML))
-// @TODO maybe rename this object to WSDLMethods (to avoid confusion)
 object WSDLMethods extends Controller {
   
   // Returns WSDLs of individual databases  
@@ -36,17 +35,15 @@ object WSDLMethods extends Controller {
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "unkown provider"), 
     new ApiResponse(code = 400, message = "not implemented")))
-  //alternative route for returning WSDS of individual databases (by name path)
   def methods(
-      @ApiParam(value = "database name part of the id stored in the config", 
-          defaultValue = "SINP") @PathParam("dbName") dbName: String) = PortalAction.async {
-    // @FIXME prepare for possible changes with the prefixes! (spase://?)
-    val future = RegistryService.getMethods(Some("impex://"+dbName))
+      @ApiParam(value = "database name stored in the configuration", 
+          defaultValue = "FMI-HYBRID") @PathParam("dbName") dbName: String) = PortalAction.async {
+    val future = RegistryService.getMethods(Some(dbName))
     future.map { _ match {
-      // @FIXME we return a merged version of multiple WSDLs
       case Left(methods) => { 
         if(!methods.isEmpty)
-        	Ok(methods.reduce(_++_))
+            // there is always only one methods file
+        	Ok(methods.head)
         else
             // if there are no methods return error 501
         	BadRequest(Json.toJson(RequestError(ERequestError.NOT_IMPLEMENTED)))
@@ -55,7 +52,7 @@ object WSDLMethods extends Controller {
     }}
   }
   
-  // INTERMEDIATE: Provides paths to modified WSDL files for Taverna
+  // INTERMEDIATE: Returns modified WSDL files for Taverna
   @GET
   @ApiOperation(
       value = "get WSDL file for Taverna", 
@@ -66,17 +63,16 @@ object WSDLMethods extends Controller {
     new ApiResponse(code = 400, message = "unkown provider"), 
     new ApiResponse(code = 400, message = "not implemented")))
   def methodsTaverna(
-      @ApiParam(value = "database name part of the id stored in the config", 
+      @ApiParam(value = "database name stored in the configuration", 
           defaultValue = "SINP") @PathParam("dbName") dbName: String) = PortalAction.async {
     for {
       databases <- models.actor.ConfigService.request(GetDatabases).mapTo[Seq[Database]]
-      // @FIXME prepare for possible changes with the prefixes! (spase://?)
-      provider <- Some("impex://"+dbName) match {
-        case Some(id) if(databases.exists(d => id.contains(d.id.toString))) => {
-          val db: Database = databases.find(d => id.contains(d.id.toString)).get
+      provider <- Some(dbName) match {
+        case Some(name) if(databases.exists(d => name == d.name)) => {
+          val db: Database = databases.find(d => name == d.name).get
           val rId: String = UrlProvider.encodeURI(db.id)
+          // there is always only one methods file
           val modFileName: String = db.methods.head.take((db.methods.head.indexOf(".")))+"-MOD.wsdl"
-          println(modFileName)
           val fileName: String = PathProvider.getPath("methods", rId, modFileName)
           future { 
             try { 
