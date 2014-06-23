@@ -1,3 +1,8 @@
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
 body {
 	/* overflow-y: scroll; */
     -webkit-transform: translate3d(0, 0, 0);
@@ -27,15 +32,18 @@ body {
 	position: relative;
 	width: 33px;
 }
+
 .error {
 	color: red;
 }
+
 .margin-ten {
 	margin-right: 10px;
 }
+
 .btn-group-overflow {
 	vertical-align: top; 
-	max-height: 450px; 
+	max-height: 400px; 
 	overflow: auto;
 }
 
@@ -55,7 +63,6 @@ body {
 		top: 70px;
 	}
 }
-
 
 /** for devices (max-width 480px) */
 @media (max-device-width: 480px) {
@@ -86,6 +93,11 @@ body {
 		width: 100px;
 		top: 125px;
 	}
+	
+  	.modal-lg {
+    	width: 1000px;
+  	}
+}
 
 }
 

@@ -1,0 +1,20 @@
+<div ng-show="!vm.ready" class="loading text-center">
+	<img src="/public/img/layout/loading.gif" class="loadingImg" alt="loading..." />
+</div>
+<div class="row">
+	<div class="col-sm-3 text-center" ng-repeat="database in vm.configService.config.databases" ng-if="database.type == 'simulation'">
+		<div ng-show="vm.ready">
+			<button class="btn btn-default" ng-click="vm.openRegistryModal(database)">{{ database.name }} Simulations</button>
+    	</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">&nbsp;</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<div ng-show="vm.ready">
+			<databases-dir></databases-dir>
+    	</div>
+	</div>
+</div>

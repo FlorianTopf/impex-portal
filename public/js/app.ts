@@ -14,14 +14,14 @@ module portal {
 
     impexPortal.controller('configCtrl', ConfigCtrl)
     impexPortal.controller('portalCtrl', PortalCtrl)
-    impexPortal.controller('modalCtrl', ModalCtrl)
+    impexPortal.controller('registryCtrl', RegistryCtrl)
 
     impexPortal.directive('databasesDir', DatabasesDir.prototype.injection())
     impexPortal.directive('registryDir', RegistryDir.prototype.injection())
 
     impexPortal.config(['$routeProvider', function($routeProvider) {
 		    $routeProvider.when('/config', {templateUrl: '/public/partials/config.html', controller: 'configCtrl'}).
-                when('/portal', {templateUrl: '/public/partials/portal.html', controller: 'portalCtrl'}).
+                when('/portal', {templateUrl: '/public/partials/portalMap.html', controller: 'portalCtrl'}).
                 otherwise({redirectTo: '/config'})
   		}])
 

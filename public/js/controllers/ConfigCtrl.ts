@@ -7,16 +7,14 @@ module portal {
         vm: ConfigCtrl;
     }
 
-    export class ConfigCtrl {
-
-        public status: string
-        public showError: boolean = false
-        
-        private configService: portal.ConfigService
-
+    export class ConfigCtrl {        
         private http: ng.IHttpService
         private location: ng.ILocationService
         private window: ng.IWindowService
+        private configService: portal.ConfigService
+        
+        public status: string
+        public showError: boolean = false  
 
         static $inject: Array<string> = ['$scope', '$http', '$location', '$window', 'configService']
 

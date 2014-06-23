@@ -735,9 +735,6 @@ var portal;
             var _this = this;
             this.configAble = true;
             this.ready = false;
-            this.loading = false;
-            this.initialising = false;
-            this.transFinished = true;
             this.scope = $scope;
             this.scope.vm = this;
             this.http = $http;
@@ -758,7 +755,71 @@ var portal;
                 });
             }
         }
-        PortalCtrl.prototype.getRepository = function (id) {
+        // testing method for modals
+        PortalCtrl.prototype.openRegistryModal = function (database) {
+            var modalInstance = this.modal.open({
+                templateUrl: '/public/partials/templates/registryModal.html',
+                controller: portal.RegistryCtrl,
+                size: 'lg',
+                resolve: {
+                    database: function () {
+                        return database;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (ok) {
+                return console.log('ok');
+            }, function (cancel) {
+                return console.log('cancel');
+            });
+        };
+        PortalCtrl.$inject = [
+            '$scope',
+            '$http',
+            '$location',
+            '$timeout',
+            '$interval',
+            '$window',
+            'configService',
+            'registryService',
+            '$modal'
+        ];
+        return PortalCtrl;
+    })();
+    portal.PortalCtrl = PortalCtrl;
+})(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
+    var RegistryCtrl = (function () {
+        // dependencies are injected via AngularJS $injector
+        // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
+        function RegistryCtrl($scope, $http, $location, $timeout, configService, registryService, $modalInstance, database) {
+            var _this = this;
+            this.loading = false;
+            this.initialising = false;
+            this.transFinished = true;
+            this.showError = false;
+            this.scope = $scope;
+            $scope.regvm = this;
+            this.configService = configService;
+            this.registryService = registryService;
+            this.location = $location;
+            this.http = $http;
+            this.timeout = $timeout;
+            this.modalInstance = $modalInstance;
+            this.database = database;
+
+            // watches changes of variable
+            //(is changed each time modal is opened)
+            this.scope.$watch('this.database', function () {
+                _this.getRepository(database.id);
+            });
+        }
+        RegistryCtrl.prototype.getRepository = function (id) {
             var _this = this;
             this.scope.$broadcast('clear-registry');
             this.initialising = true;
@@ -789,7 +850,7 @@ var portal;
             }
         };
 
-        PortalCtrl.prototype.getSimulationModel = function (id) {
+        RegistryCtrl.prototype.getSimulationModel = function (id) {
             var _this = this;
             this.scope.$broadcast('clear-simulation-models');
             this.loading = true;
@@ -820,7 +881,7 @@ var portal;
             }
         };
 
-        PortalCtrl.prototype.getSimulationRun = function (id, element, $event) {
+        RegistryCtrl.prototype.getSimulationRun = function (id, element, $event) {
             var _this = this;
             this.scope.$broadcast('clear-simulation-runs', element);
             this.loading = true;
@@ -854,7 +915,7 @@ var portal;
             }
         };
 
-        PortalCtrl.prototype.getNumericalOutput = function (id, element, $event) {
+        RegistryCtrl.prototype.getNumericalOutput = function (id, element, $event) {
             var _this = this;
             this.scope.$broadcast('clear-numerical-outputs', element);
             this.loading = true;
@@ -888,7 +949,7 @@ var portal;
             }
         };
 
-        PortalCtrl.prototype.getGranule = function (id, element, $event) {
+        RegistryCtrl.prototype.getGranule = function (id, element, $event) {
             var _this = this;
             this.scope.$broadcast('clear-granules', element);
             this.loading = true;
@@ -923,62 +984,33 @@ var portal;
             }
         };
 
-        PortalCtrl.prototype.open = function (size) {
-            var modalInstance = this.modal.open({
-                templateUrl: '/public/partials/templates/modal.html',
-                controller: portal.ModalCtrl,
-                size: size
-            });
+        // testing methods for modal
+        RegistryCtrl.prototype.ok = function () {
+            this.modalInstance.close();
 
-            modalInstance.result.then(function (ok) {
-                return console.log(ok);
-            }, function (cancel) {
-                return console.log(cancel);
-            });
+            // @TODO just for the moment
+            this.scope.$broadcast('clear-registry');
         };
-        PortalCtrl.$inject = [
+
+        RegistryCtrl.prototype.cancel = function () {
+            this.modalInstance.dismiss();
+
+            // @TODO just for the moment
+            this.scope.$broadcast('clear-registry');
+        };
+        RegistryCtrl.$inject = [
             '$scope',
             '$http',
             '$location',
             '$timeout',
-            '$interval',
-            '$window',
             'configService',
             'registryService',
-            '$modal'
+            '$modalInstance',
+            'database'
         ];
-        return PortalCtrl;
+        return RegistryCtrl;
     })();
-    portal.PortalCtrl = PortalCtrl;
-})(portal || (portal = {}));
-/// <reference path='../_all.ts' />
-var portal;
-(function (portal) {
-    'use strict';
-
-    var ModalCtrl = (function () {
-        // dependencies are injected via AngularJS $injector
-        // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
-        function ModalCtrl($scope, $http, $location, $window, configService, $modalInstance) {
-            this.showError = false;
-            $scope.modvm = this;
-            this.configService = configService;
-            this.location = $location;
-            this.http = $http;
-            this.window = $window;
-            this.modalInstance = $modalInstance;
-        }
-        ModalCtrl.prototype.ok = function () {
-            this.modalInstance.close();
-        };
-
-        ModalCtrl.prototype.cancel = function () {
-            this.modalInstance.dismiss();
-        };
-        ModalCtrl.$inject = ['$scope', '$http', '$location', '$window', 'configService', '$modalInstance'];
-        return ModalCtrl;
-    })();
-    portal.ModalCtrl = ModalCtrl;
+    portal.RegistryCtrl = RegistryCtrl;
 })(portal || (portal = {}));
 /// <reference path='../_all.ts' />
 var portal;
@@ -1035,7 +1067,7 @@ var portal;
             this.configService = configService;
             this.registryService = registryService;
             this.timeout = $timeout;
-            this.templateUrl = '/public/partials/templates/registry.html';
+            this.templateUrl = '/public/partials/templates/registryTree.html';
             this.restrict = 'E';
             this.link = function ($scope, element, attributes) {
                 return _this.linkFn($scope, element, attributes);
@@ -1063,7 +1095,7 @@ var portal;
 
         RegistryDir.prototype.linkFn = function ($scope, element, attributes) {
             var _this = this;
-            $scope.regvm = this;
+            $scope.regdirvm = this;
             this.myScope = $scope;
 
             $scope.$on('registry-error', function (e, msg) {
@@ -1160,7 +1192,7 @@ var portal;
 
     impexPortal.controller('configCtrl', portal.ConfigCtrl);
     impexPortal.controller('portalCtrl', portal.PortalCtrl);
-    impexPortal.controller('modalCtrl', portal.ModalCtrl);
+    impexPortal.controller('registryCtrl', portal.RegistryCtrl);
 
     impexPortal.directive('databasesDir', portal.DatabasesDir.prototype.injection());
     impexPortal.directive('registryDir', portal.RegistryDir.prototype.injection());
@@ -1168,7 +1200,7 @@ var portal;
     impexPortal.config([
         '$routeProvider',
         function ($routeProvider) {
-            $routeProvider.when('/config', { templateUrl: '/public/partials/config.html', controller: 'configCtrl' }).when('/portal', { templateUrl: '/public/partials/portal.html', controller: 'portalCtrl' }).otherwise({ redirectTo: '/config' });
+            $routeProvider.when('/config', { templateUrl: '/public/partials/config.html', controller: 'configCtrl' }).when('/portal', { templateUrl: '/public/partials/portalMap.html', controller: 'portalCtrl' }).otherwise({ redirectTo: '/config' });
         }
     ]);
 

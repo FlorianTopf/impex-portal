@@ -8,7 +8,7 @@
 
 /// <reference path='controllers/ConfigCtrl.ts' />
 /// <reference path='controllers/PortalCtrl.ts' />
-/// <reference path='controllers/ModalCtrl.ts' />
+/// <reference path='controllers/RegistryCtrl.ts' />
 
 /// <reference path='directives/DatabasesDir.ts' />
 /// <reference path='directives/RegistryDir.ts' />

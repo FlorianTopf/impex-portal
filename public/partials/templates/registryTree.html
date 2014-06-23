@@ -1,0 +1,53 @@
+<div ng-show="regvm.initialising && regvm.transFinished" class="text-left">
+	<img src="/public/img/layout/loading.gif" class="loadingImg-sm" alt="loading..." />
+</div>
+<accordion close-others="regdirvm.oneAtATime" ng-show="!regvm.initialising">
+	<accordion-group ng-repeat="element in regdirvm.repositories">
+		<accordion-heading>
+			<span ng-click="regvm.getSimulationModel(element.resourceId)">
+  				{{ element.resourceHeader.resourceName.split("_").join(" ") }}
+  			</span>
+  		</accordion-heading>
+  		<div class="btn-group-vertical" style="vertical-align: top;">		
+			<button class="btn btn-default btn-sm" 
+				ng-repeat="element in regdirvm.simulationModels" 
+				ng-click="regvm.getSimulationRun(element.resourceId, element, $event)" 
+				ng-class="{active: regdirvm.isActive('model', element)}">
+					{{ element.resourceHeader.resourceName }}
+			</button>
+		</div> 
+		<div class="btn-group-vertical btn-group-overflow">	
+			<button class="btn btn-default btn-sm margin-ten" 
+				ng-repeat="element in regdirvm.simulationRuns" 
+				ng-click="regvm.getNumericalOutput(element.resourceId, element, $event)" 
+				ng-class="{active: regdirvm.isActive('run', element)}">
+					{{ element.resourceHeader.resourceName.replace("FMI_HYB_", "") }}
+			</button>
+		</div>
+		<div class="btn-group-vertical btn-group-overflow">	
+			<button class="btn btn-default btn-sm margin-ten" 
+				ng-repeat="element in regdirvm.numericalOutputs" 
+				ng-click="regvm.getGranule(element.resourceId, element, $event)" 
+				ng-class="{active: regdirvm.isActive('output', element)}">
+				<!--  @FIXME intermediate hack until we have shortener/tooltips -->
+					{{ element.resourceHeader.resourceName
+					.replace("FMI_HYB_venus_", "")
+					.replace("FMI_HYB_mars_", "")
+					.replace("spiral_angle_", "") }}				
+			</button>
+		</div>
+		<div class="btn-group-vertical btn-group-overflow">		
+			<button class="btn btn-default btn-sm margin-ten" 
+				ng-repeat="element in regdirvm.granules"
+				ng-class="{active: regdirvm.isActive('granule', element)}">
+					{{ element.resourceId.split('/').reverse()[0] }}
+			</button>
+		</div>
+		<div class="btn-group-vertical">		
+			<div ng-show="regvm.loading && regvm.transFinished" class="text-right">
+				<img src="/public/img/layout/loading.gif" class="loadingImg-sm" alt="loading..." />
+			</div>
+		</div>
+		<span class="error" ng-show="regdirvm.error">{{ regdirvm.errorMessage }}</span>
+	</accordion-group>
+</accordion>

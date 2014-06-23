@@ -4,7 +4,7 @@ module portal {
     'use strict';
     
     export interface IRegistryDirScope extends ng.IScope {
-       regvm: RegistryDir
+       regdirvm: RegistryDir
     }
     
     // active buttons map
@@ -30,9 +30,10 @@ module portal {
         public templateUrl: string
         public restrict: string
         
+        private config: IConfig
+        private timeout: ng.ITimeoutService
         private configService: portal.ConfigService
         private registryService: portal.RegistryService
-        private timeout: ng.ITimeoutService
         private myScope: ng.IScope 
         private oneAtATime: boolean = true
         private error: boolean = false
@@ -51,7 +52,7 @@ module portal {
             this.configService = configService
             this.registryService = registryService
             this.timeout = $timeout
-            this.templateUrl = '/public/partials/templates/registry.html'
+            this.templateUrl = '/public/partials/templates/registryTree.html'
             this.restrict = 'E'
             this.link = ($scope: portal.IRegistryDirScope, element: JQuery, attributes: ng.IAttributes) => 
                 this.linkFn($scope, element, attributes)
@@ -67,7 +68,7 @@ module portal {
         }
 
         linkFn($scope: portal.IRegistryDirScope, element: JQuery, attributes: ng.IAttributes): any {
-            $scope.regvm = this
+            $scope.regdirvm = this
             this.myScope = $scope
             
             $scope.$on('registry-error', (e, msg: string) => {
