@@ -480,10 +480,6 @@
 </wsdl:message>
 
 
-<wsdl:message name="isAlive_Response">
-	<wsdl:part type="xs:boolean" name="parameters"/>
-</wsdl:message>
-
 
 
 
@@ -526,9 +522,6 @@
 	<wsdl:operation name="getVOTableURL">
 		<wsdl:input message="VOTableURL_Request"/>
 		<wsdl:output message="Generic_Response"/>
-	</wsdl:operation>
-	<wsdl:operation name="isAlive">
-		<wsdl:output message="isAlive_Response"/>
 	</wsdl:operation>
 </wsdl:portType>
 
@@ -583,10 +576,6 @@
  	<wsdl:operation name="getVOTableURL">
 		<soap:operation soapAction="VOTableURL"/>
 		<wsdl:input><soap:body use="literal"/></wsdl:input>
-		<wsdl:output><soap:body use="literal"/></wsdl:output>
-	</wsdl:operation>
- 	<wsdl:operation name="isAlive">
-		<soap:operation soapAction="Alive"/>
 		<wsdl:output><soap:body use="literal"/></wsdl:output>
 	</wsdl:operation>
 </wsdl:binding>
