@@ -4,7 +4,7 @@
 <div class="row">
 	<div class="col-sm-3 text-center" ng-repeat="database in vm.configService.config.databases" ng-if="database.type == 'simulation'">
 		<div ng-show="vm.ready">
-			<button class="btn btn-default" ng-click="vm.openRegistryModal(database)">{{ database.name }} Simulations</button>
+			<button class="btn btn-default" ng-click="vm.openRegistryModal(database)" tooltip="Show registry of {{ database.name }}">{{ database.name }} Simulations</button>
     	</div>
 	</div>
 </div>

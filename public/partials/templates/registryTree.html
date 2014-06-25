@@ -4,7 +4,7 @@
 <accordion close-others="regdirvm.oneAtATime" ng-show="!regvm.initialising">
 	<accordion-group ng-repeat="element in regdirvm.repositories">
 		<accordion-heading>
-			<span ng-click="regvm.getSimulationModel(element.resourceId)">
+			<span ng-click="regvm.getSimulationModel(element.resourceId)" tooltip="Click for more details">
   				{{ regdirvm.format(element.resourceHeader.resourceName) }}
   			</span>
   		</accordion-heading>
