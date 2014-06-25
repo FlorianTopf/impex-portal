@@ -799,10 +799,9 @@ var portal;
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
         function RegistryCtrl($scope, $http, $location, $timeout, configService, registryService, $modalInstance, database) {
             var _this = this;
-            this.loading = false;
             this.initialising = false;
+            this.loading = false;
             this.transFinished = true;
-            this.showError = false;
             this.scope = $scope;
             $scope.regvm = this;
             this.configService = configService;
@@ -831,8 +830,8 @@ var portal;
             }, 200);
 
             var cacheId = "repo-" + id;
+
             if (!(cacheId in this.registryService.cachedElements)) {
-                console.log("Not-Cached=" + cacheId);
                 this.registryPromise = this.registryService.getRepository().get({ fmt: 'json', id: id }).$promise;
 
                 this.registryPromise.then(function (res) {
@@ -844,7 +843,6 @@ var portal;
                     _this.initialising = false;
                 });
             } else {
-                console.log("Cached=" + cacheId);
                 this.scope.$broadcast('update-repositories', cacheId);
                 this.initialising = false;
             }
@@ -854,16 +852,10 @@ var portal;
             var _this = this;
             this.scope.$broadcast('clear-simulation-models');
             this.loading = true;
-            this.transFinished = false;
-
-            // aligned with standard transition time of accordion
-            this.timeout(function () {
-                _this.transFinished = true;
-            }, 200);
 
             var cacheId = "model-" + id;
+
             if (!(cacheId in this.registryService.cachedElements)) {
-                console.log("Not-Cached=" + cacheId);
                 this.registryPromise = this.registryService.getSimulationModel().get({ fmt: 'json', id: id }).$promise;
 
                 this.registryPromise.then(function (res) {
@@ -875,7 +867,6 @@ var portal;
                     _this.loading = false;
                 });
             } else {
-                console.log("Cached=" + cacheId);
                 this.scope.$broadcast('update-simulation-models', cacheId);
                 this.loading = false;
             }
@@ -885,16 +876,10 @@ var portal;
             var _this = this;
             this.scope.$broadcast('clear-simulation-runs', element);
             this.loading = true;
-            this.transFinished = false;
-
-            // aligned with standard transition time of accordion
-            this.timeout(function () {
-                _this.transFinished = true;
-            }, 200);
 
             var cacheId = "run-" + id;
+
             if (!(cacheId in this.registryService.cachedElements)) {
-                console.log("Not-Cached=" + cacheId);
                 this.registryPromise = this.registryService.getSimulationRun().get({ fmt: 'json', id: id }).$promise;
 
                 this.registryPromise.then(function (res) {
@@ -905,11 +890,10 @@ var portal;
                     _this.loading = false;
                     _this.scope.$broadcast('update-simulation-runs', cacheId);
                 }, function (err) {
-                    _this.scope.$broadcast('registry-error', 'no simulation run');
+                    _this.scope.$broadcast('registry-error', 'no simulation run found');
                     _this.loading = false;
                 });
             } else {
-                console.log("Cached=" + cacheId);
                 this.scope.$broadcast('update-simulation-runs', cacheId);
                 this.loading = false;
             }
@@ -919,16 +903,10 @@ var portal;
             var _this = this;
             this.scope.$broadcast('clear-numerical-outputs', element);
             this.loading = true;
-            this.transFinished = false;
-
-            // aligned with standard transition time of accordion
-            this.timeout(function () {
-                _this.transFinished = true;
-            }, 200);
 
             var cacheId = "output-" + id;
+
             if (!(cacheId in this.registryService.cachedElements)) {
-                console.log("Not-Cached=" + cacheId);
                 this.registryPromise = this.registryService.getNumericalOutput().get({ fmt: 'json', id: id }).$promise;
 
                 this.registryPromise.then(function (res) {
@@ -939,11 +917,10 @@ var portal;
                     _this.loading = false;
                     _this.scope.$broadcast('update-numerical-outputs', cacheId);
                 }, function (err) {
-                    _this.scope.$broadcast('registry-error', 'no numerical output');
+                    _this.scope.$broadcast('registry-error', 'no numerical output found');
                     _this.loading = false;
                 });
             } else {
-                console.log("Cached=" + cacheId);
                 this.scope.$broadcast('update-numerical-outputs', cacheId);
                 this.loading = false;
             }
@@ -953,32 +930,24 @@ var portal;
             var _this = this;
             this.scope.$broadcast('clear-granules', element);
             this.loading = true;
-            this.transFinished = false;
 
-            // aligned with standard transition time of accordion
-            this.timeout(function () {
-                _this.transFinished = true;
-            }, 200);
             var cacheId = "granule-" + id;
 
             if (!(cacheId in this.registryService.cachedElements)) {
-                console.log("Not-Cached=" + cacheId);
                 this.registryPromise = this.registryService.getGranule().get({ fmt: 'json', id: id }).$promise;
 
                 this.registryPromise.then(function (res) {
                     var result = res.spase;
-                    console.log("granule=" + result.resources[0].granule.resourceId.split('/').reverse()[0]);
                     _this.registryService.cachedElements[cacheId] = result.resources.map(function (r) {
                         return r.granule;
                     });
                     _this.loading = false;
                     _this.scope.$broadcast('update-granules', cacheId);
                 }, function (err) {
-                    _this.scope.$broadcast('registry-error', 'no granule');
+                    _this.scope.$broadcast('registry-error', 'no granule found');
                     _this.loading = false;
                 });
             } else {
-                console.log("Cached=" + cacheId);
                 this.scope.$broadcast('update-granules', cacheId);
                 this.loading = false;
             }
@@ -1085,14 +1054,6 @@ var portal;
             ];
         };
 
-        RegistryDir.prototype.setActive = function (type, element) {
-            this.activeItems[type] = element;
-        };
-
-        RegistryDir.prototype.isActive = function (type, element) {
-            return this.activeItems[type] === element;
-        };
-
         RegistryDir.prototype.linkFn = function ($scope, element, attributes) {
             var _this = this;
             $scope.regdirvm = this;
@@ -1115,6 +1076,7 @@ var portal;
             });
 
             $scope.$on('clear-simulation-models', function (e) {
+                _this.activeItems = {};
                 _this.error = false;
                 _this.simulationModels = [];
                 _this.simulationRuns = [];
@@ -1173,6 +1135,26 @@ var portal;
                 });
             });
         };
+
+        RegistryDir.prototype.setActive = function (type, element) {
+            this.activeItems[type] = element;
+        };
+
+        RegistryDir.prototype.isActive = function (type, element) {
+            return this.activeItems[type] === element;
+        };
+
+        RegistryDir.prototype.trim = function (name, length) {
+            if (typeof length === "undefined") { length = 25; }
+            if (name.length > length)
+                return name.slice(0, length).trim() + "...";
+else
+                return name.trim();
+        };
+
+        RegistryDir.prototype.format = function (name) {
+            return name.split("_").join(" ").trim();
+        };
         return RegistryDir;
     })();
     portal.RegistryDir = RegistryDir;
@@ -1184,8 +1166,9 @@ var portal;
 
     var impexPortal = angular.module('portal', ['ui.bootstrap', 'ngRoute', 'ngResource']);
 
-    // here we may add options for bootstrap-ui
+    // here we also add options for bootstrap-ui
     // maybe include angular.ui.router
+    // check what we can directly add to the angular module
     //(see infoday examples, it supports application state, very nice"!)
     impexPortal.service('configService', portal.ConfigService);
     impexPortal.service('registryService', portal.RegistryService);
@@ -1197,12 +1180,39 @@ var portal;
     impexPortal.directive('databasesDir', portal.DatabasesDir.prototype.injection());
     impexPortal.directive('registryDir', portal.RegistryDir.prototype.injection());
 
+    // we can add here other configs too
     impexPortal.config([
         '$routeProvider',
         function ($routeProvider) {
             $routeProvider.when('/config', { templateUrl: '/public/partials/config.html', controller: 'configCtrl' }).when('/portal', { templateUrl: '/public/partials/portalMap.html', controller: 'portalCtrl' }).otherwise({ redirectTo: '/config' });
         }
     ]);
+
+    // global tooltip config
+    impexPortal.config([
+        '$tooltipProvider',
+        function ($tooltipProvider) {
+            $tooltipProvider.options({
+                'placement': 'bottom',
+                'animation': 'false',
+                'popupDelay': '0',
+                'appendToBody': 'true'
+            });
+        }
+    ]);
+
+    // custom filter for checking if an array is empty
+    impexPortal.filter('isEmpty', function () {
+        var bar;
+        return function (obj) {
+            for (bar in obj) {
+                if (obj.hasOwnProperty(bar)) {
+                    return false;
+                }
+            }
+            return true;
+        };
+    });
 
     impexPortal.run([
         '$rootScope',

@@ -40,12 +40,12 @@ module portal {
         private errorMessage: string = "no resources found"
         
         // container for intermediate results
-        public repositories: Array<Repository> = []
-        public simulationModels: Array<SimulationModel> = []
-        public simulationRuns: Array<SimulationRun> = []
-        public numericalOutputs: Array<NumericalOutput> = []
-        public granules: Array<Granule> = []
-        public activeItems: IActiveMap = {}
+        private repositories: Array<Repository> = []
+        private simulationModels: Array<SimulationModel> = []
+        private simulationRuns: Array<SimulationRun> = []
+        private numericalOutputs: Array<NumericalOutput> = []
+        private granules: Array<Granule> = []
+        private activeItems: IActiveMap = {}
 
         constructor($timeout: ng.ITimeoutService, configService: portal.ConfigService, 
             registryService: portal.RegistryService) {
@@ -57,14 +57,6 @@ module portal {
             this.link = ($scope: portal.IRegistryDirScope, element: JQuery, attributes: ng.IAttributes) => 
                 this.linkFn($scope, element, attributes)
             
-        }
-        
-        public setActive(type: string, element: SpaseElem) {
-            this.activeItems[type] = element
-        }
-        
-        public isActive(type: string, element: SpaseElem) {
-            return this.activeItems[type] === element
         }
 
         linkFn($scope: portal.IRegistryDirScope, element: JQuery, attributes: ng.IAttributes): any {
@@ -88,6 +80,7 @@ module portal {
             })
             
             $scope.$on('clear-simulation-models', (e) => {
+                this.activeItems = {}
                 this.error = false
                 this.simulationModels = []
                 this.simulationRuns = []
@@ -137,6 +130,25 @@ module portal {
                 this.granules = this.registryService.cachedElements[id].map((r) => <Granule>r)
             })
             
+        }
+        
+        private setActive(type: string, element: SpaseElem) {
+            this.activeItems[type] = element
+        }
+        
+        private isActive(type: string, element: SpaseElem) {
+            return this.activeItems[type] === element
+        }
+        
+        private trim(name: string, length: number = 25) {
+            if(name.length>length)
+                 return name.slice(0, length).trim()+"..."
+            else
+                 return name.trim()
+        }
+        
+        private format(name: string) {
+            return name.split("_").join(" ").trim()
         }
         
  

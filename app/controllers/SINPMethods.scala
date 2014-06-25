@@ -37,7 +37,7 @@ object SINPMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://SINP/NumericalOutput/Earth/2003-11-20UT12",
+        defaultValue = "spase://IMPEX/NumericalOutput/SINP/Earth/2003-11-20UT12",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -101,7 +101,7 @@ object SINPMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://SINP/NumericalOutput/Earth/OnFly",
+        defaultValue = "spase://IMPEX/NumericalOutput/SINP/Earth/OnFly",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -191,7 +191,7 @@ object SINPMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://SINP/SimulationModel/Earth/OnFly",
+        defaultValue = "spase://IMPEX/SimulationModel/SINP/Earth/OnFly",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -250,7 +250,7 @@ object SINPMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://SINP/SimulationModel/Earth/OnFly",
+        defaultValue = "spase://IMPEX/SimulationModel/SINP/Earth/OnFly",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -345,7 +345,7 @@ object SINPMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://SINP/SimulationModel/Earth/OnFly",
+        defaultValue = "spase://IMPEX/SimulationModel/SINP/Earth/OnFly",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -418,7 +418,7 @@ object SINPMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://SINP/NumericalOutput/Earth/OnFly",
+        defaultValue = "spase://IMPEX/NumericalOutput/SINP/Earth/OnFly",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -516,7 +516,7 @@ object SINPMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://SINP/SimulationModel/Mercury/OnFly",
+        defaultValue = "spase://IMPEX/SimulationModel/SINP/Mercury/OnFly",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -583,7 +583,7 @@ object SINPMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://SINP/SimulationModel/Mercury/OnFly",
+        defaultValue = "spase://IMPEX/SimulationModel/SINP/Mercury/OnFly",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -663,7 +663,7 @@ object SINPMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://SINP/SimulationModel/Saturn/OnFly",
+        defaultValue = "spase://IMPEX/SimulationModel/SINP/Saturn/OnFly",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -763,7 +763,7 @@ object SINPMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://SINP/SimulationModel/Saturn/OnFly",
+        defaultValue = "spase://IMPEX/SimulationModel/SINP/Saturn/OnFly",
         required = true, 
         dataType = "string", 
         paramType = "query"),

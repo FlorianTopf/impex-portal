@@ -43,14 +43,45 @@ body {
 
 .btn-group-overflow {
 	vertical-align: top; 
-	max-height: 400px; 
-	overflow: auto;
+	max-height: 300px;
+	overflow-y: auto; 
+	width: 200px;
 }
 
 .container {
 	min-width: 468px;
 	margin-top: 2%;
 }
+
+/* hack for angular-ui bootstrap */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.tooltip { 
+	z-index: 9999; 
+	max-width: 800px;
+}
+
+.tooltip-inner { 
+	max-width: 800px;
+}
+
+.elem-metadata {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.elem-header {
+	display: block;
+}
+
+.elem-caption {
+	display: inline-block;
+	padding-bottom: 5px;
+	font-weight: bold;
+	text-align: left;
+	width: 200px;
+}
+
 
 /** for all (max-width 480px) */
 @media (max-width: 480px) {
@@ -63,6 +94,7 @@ body {
 		top: 70px;
 	}
 }
+
 
 /** for devices (max-width 480px) */
 @media (max-device-width: 480px) {
@@ -79,6 +111,7 @@ body {
 	}
 }
 
+
 /* for all (width: 768px - 991px) */
 @media (min-width: 768px) {	
 	.loadingImg { 
@@ -86,6 +119,7 @@ body {
 		top: 120px;
 	}
 }
+
 
 /* for all (width: 992px - 1199px) */
 @media (min-width: 992px) {
@@ -101,6 +135,7 @@ body {
 
 }
 
+
 /* for all (width: 1200px - 1599px) */
 @media (min-width: 1200px) {
   	.container {
@@ -113,6 +148,7 @@ body {
 	}
 }
 
+
 /* for all (width: 1600px - xx) */
 @media (min-width: 1600px) {
 	.container {
@@ -124,7 +160,4 @@ body {
 		top: 200px;
 	}
 }
-
-/* hack for angular-ui bootstrap */
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
 

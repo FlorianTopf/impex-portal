@@ -17,12 +17,9 @@ module portal {
         private modalInstance: any
         private database: Database
         private registryPromise: ng.IPromise<any>
-
-        private loading: boolean = false
         private initialising: boolean = false
+        private loading: boolean = false
         private transFinished: boolean = true
-        public status: string
-        public showError: boolean = false      
         
         static $inject: Array<string> = ['$scope', '$http', '$location', '$timeout', 
             'configService', 'registryService', '$modalInstance', 'database']
@@ -56,8 +53,8 @@ module portal {
             this.timeout(() => { this.transFinished = true }, 200)
             
             var cacheId = "repo-"+id
+            
             if(!(cacheId in this.registryService.cachedElements)) {  
-                console.log("Not-Cached="+cacheId)
                 this.registryPromise = this.registryService.getRepository().get(
                     { fmt: 'json' , id: id }).$promise
                 
@@ -68,7 +65,6 @@ module portal {
                     this.initialising = false
                 })
             } else {
-                console.log("Cached="+cacheId)
                 this.scope.$broadcast('update-repositories', cacheId)
                 this.initialising = false
             }
@@ -77,13 +73,10 @@ module portal {
         public getSimulationModel(id: string) {
             this.scope.$broadcast('clear-simulation-models')
             this.loading = true
-            this.transFinished = false
-            // aligned with standard transition time of accordion
-            this.timeout(() => { this.transFinished = true }, 200)
             
             var cacheId = "model-"+id
+            
             if(!(cacheId in this.registryService.cachedElements)) {  
-                console.log("Not-Cached="+cacheId)
                 this.registryPromise = this.registryService.getSimulationModel().get(
                     { fmt: 'json', id: id }).$promise
                 
@@ -94,7 +87,6 @@ module portal {
                     this.loading = false
                 })
             } else {
-                console.log("Cached="+cacheId)
                 this.scope.$broadcast('update-simulation-models', cacheId)
                 this.loading = false
             }
@@ -103,13 +95,10 @@ module portal {
         public getSimulationRun(id: string, element: SpaseElem, $event: Event) {
             this.scope.$broadcast('clear-simulation-runs', element)
             this.loading = true
-            this.transFinished = false
-            // aligned with standard transition time of accordion
-            this.timeout(() => { this.transFinished = true }, 200)
             
             var cacheId = "run-"+id
+            
             if(!(cacheId in this.registryService.cachedElements)) {  
-                console.log("Not-Cached="+cacheId)
                 this.registryPromise = this.registryService.getSimulationRun().get(
                     { fmt: 'json', id: id }).$promise
                 
@@ -121,11 +110,10 @@ module portal {
                     this.scope.$broadcast('update-simulation-runs', cacheId)
                 }, 
                 (err) => { 
-                    this.scope.$broadcast('registry-error', 'no simulation run')
+                    this.scope.$broadcast('registry-error', 'no simulation run found')
                     this.loading = false 
                 })
             } else {
-                console.log("Cached="+cacheId)
                 this.scope.$broadcast('update-simulation-runs', cacheId)
                 this.loading = false
             }
@@ -134,13 +122,10 @@ module portal {
         public getNumericalOutput(id: string, element: SpaseElem, $event: Event) {
             this.scope.$broadcast('clear-numerical-outputs', element)
             this.loading = true
-            this.transFinished = false
-            // aligned with standard transition time of accordion
-            this.timeout(() => { this.transFinished = true }, 200)
             
             var cacheId = "output-"+id
+            
             if(!(cacheId in this.registryService.cachedElements)) {  
-                console.log("Not-Cached="+cacheId)
                 this.registryPromise = this.registryService.getNumericalOutput().get(
                     { fmt: 'json', id: id }).$promise
                 
@@ -152,11 +137,10 @@ module portal {
                     this.scope.$broadcast('update-numerical-outputs', cacheId)
                 }, 
                 (err) => { 
-                    this.scope.$broadcast('registry-error', 'no numerical output') 
+                    this.scope.$broadcast('registry-error', 'no numerical output found') 
                     this.loading = false 
                 })
             } else {
-                console.log("Cached="+cacheId)
                 this.scope.$broadcast('update-numerical-outputs', cacheId)
                 this.loading = false   
             }      
@@ -165,30 +149,25 @@ module portal {
         public getGranule(id: string, element: SpaseElem, $event: Event) {
             this.scope.$broadcast('clear-granules', element)
             this.loading = true
-            this.transFinished = false
-            // aligned with standard transition time of accordion
-            this.timeout(() => { this.transFinished = true }, 200)
+            
             var cacheId = "granule-"+id
             
             if(!(cacheId in this.registryService.cachedElements)) {  
-                console.log("Not-Cached="+cacheId)
                 this.registryPromise = this.registryService.getGranule().get(
                     { fmt: 'json', id: id }).$promise
                 
                 this.registryPromise.then(
                 (res) => {
                     var result = <ISpase>res.spase
-                    console.log("granule="+result.resources[0].granule.resourceId.split('/').reverse()[0])
                     this.registryService.cachedElements[cacheId] = result.resources.map((r) => r.granule)
                     this.loading = false
                     this.scope.$broadcast('update-granules', cacheId)
                 }, 
                 (err) => { 
-                    this.scope.$broadcast('registry-error', 'no granule') 
+                    this.scope.$broadcast('registry-error', 'no granule found') 
                     this.loading = false 
                 })
             } else {
-                console.log("Cached="+cacheId)
                 this.scope.$broadcast('update-granules', cacheId)
                 this.loading = false   
             }  

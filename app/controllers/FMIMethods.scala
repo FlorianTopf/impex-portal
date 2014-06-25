@@ -37,7 +37,7 @@ object FMIMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_20deg/Mag",
+        defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_20deg/Mag",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -110,7 +110,7 @@ object FMIMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://FMI/NumericalOutput/GUMICS/earth/synth_stationary/solarmin/EARTH___n_T_Vx_Bx_By_Bz__7_100_600_3p_03_15m/tilt15p/H+_mstate",
+        defaultValue = "spase://IMPEX/NumericalOutput/FMI/GUMICS/earth/synth_stationary/solarmin/EARTH___n_T_Vx_Bx_By_Bz__7_100_600_3p_03_15m/tilt15p/H+_mstate",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -216,7 +216,7 @@ object FMIMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://FMI/NumericalOutput/HYB/mars/Mars_testrun_lowres/O+_ave_hybstate",
+        defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/mars/Mars_testrun_lowres/O+_ave_hybstate",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -268,7 +268,7 @@ object FMIMethods extends Controller {
     )
            
     val result = fmi.service.getSurface(
-        "impex://FMI/NumericalOutput/HYB/mars/Mars_testrun_lowres/O+_ave_hybstate", // resoureId
+        id, // resoureId
         None, // variable (@TODO to be added)
         validateFloatSeq(plane_point), // plane point
         validateFloatSeq(plane_n_vector), // plane normal vector
@@ -326,7 +326,7 @@ object FMIMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_90deg/Mag",
+        defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg/Mag",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -404,7 +404,7 @@ object FMIMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://FMI/NumericalOutput/HYB/mars/spiral_angle_runset_20130607_mars_90deg/Mag",
+        defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg/Mag",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -491,7 +491,7 @@ object FMIMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://FMI/NumericalOutput/HYB/venus/run01_venus_nominal_spectra_20140417/H+_spectra",
+        defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/venus/run01_venus_nominal_spectra_20140417/H+_spectra",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -565,7 +565,7 @@ object FMIMethods extends Controller {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://FMI/NumericalOutput/HYB/venus/run01_venus_nominal_spectra_20140417/H+_spectra",
+        defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/venus/run01_venus_nominal_spectra_20140417/H+_spectra",
         required = true, 
         dataType = "string", 
         paramType = "query"),
