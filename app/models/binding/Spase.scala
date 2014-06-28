@@ -18,8 +18,6 @@ case class Spase(Version: models.binding.EnumVersion,
   lang: String)
 
 
-// @TODO we may need to reorganise optional attributes for client-side deserialisation (remove them if not available?)
-// @TODO refactoring (according to new coding styles => Option can be null, use Format and ORIGINAL name)
 object Spase {
   
  implicit val spaseWrites: Writes[Spase] = new Writes[Spase] {
