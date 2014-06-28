@@ -136,13 +136,6 @@ object Spase {
     }
   }
   
-  /* implicit val stringOptionWrites: Writes[Option[String]] = new Writes[Option[String]] {
-    def writes(s: Option[String]): JsValue = s match {
-      case Some(s) => JsString(s)
-      case None => JsNull
-    }
-  }*/
-  
   
   // writer for simulation run
   // input entities make problems when directly converting (e.g. in full tree)
