@@ -1,5 +1,7 @@
 package models.binding
 
+import play.api.libs.json._
+
 
 case class DataPointValueFMI(ResourceID: String,
   Variable: Option[Seq[String]] = None,
@@ -115,4 +117,31 @@ case class VOTable_field(data: Seq[String],
   utype: Option[String] = None,
   description: Option[String] = None,
   arraysize: Option[String] = None)
+  
+  
+// json formatter for VOTableURL request
+object VOTableURL {
+  implicit val dataTypeFormat: Format[DataType] = new Format[DataType] {
+    def writes(t: DataType): JsValue = JsString(t.toString)
+	    
+	def reads(json: JsValue): JsResult[DataType] = {
+      json match {
+        case json: JsString => {
+          try {
+            JsSuccess(DataType.fromString(json.as[String],
+                scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")))
+	        } catch {
+	          case e: Exception => JsError("Invalid DataType")
+	        }
+	      }
+	      case other => JsError("Malformed DataType")
+	  }
+	}
+  }
+  
+  implicit val voTableFieldFormat: Format[VOTable_field] = Json.format[VOTable_field]
+  
+  implicit val voTableURLFormat: Format[VOTableURL] = Json.format[VOTableURL]
+  
+}
 

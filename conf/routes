@@ -102,6 +102,9 @@ GET		/methods/FMI/getDataPointValueSpacecraft			controllers.FMIMethods.getDataPo
 
 GET		/methods/FMI/getSurface								controllers.FMIMethods.getSurface
 
+GET		/methods/FMI/getMostRelevantRun						controllers.FMIMethods.getMostRelevantRun
+
+POST	/methods/FMI/getVOTableURL							controllers.FMIMethods.getVOTableURL
 
 GET		/methods/FMI/getFieldLine							controllers.FMIMethods.getFieldLine
 

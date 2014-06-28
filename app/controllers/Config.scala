@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType._
     description = "operations for extracting the IMPEx configuration")
 @Path("/config")
 @Produces(Array(APPLICATION_JSON, APPLICATION_XML))
-object Config extends Controller {
+object Config extends BaseController {
   import models.actor.ConfigService._
   
   @GET

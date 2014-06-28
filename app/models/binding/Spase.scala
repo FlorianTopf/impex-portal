@@ -56,7 +56,7 @@ object Spase {
           }
         }
         // should never happen
-        case _ => Json.obj()
+        case _ => JsNull
       }
     }
   }
@@ -136,38 +136,38 @@ object Spase {
     }
   }
   
-  implicit val stringOptionWrites: Writes[Option[String]] = new Writes[Option[String]] {
+  /* implicit val stringOptionWrites: Writes[Option[String]] = new Writes[Option[String]] {
     def writes(s: Option[String]): JsValue = s match {
       case Some(s) => JsString(s)
-      case None => JsString("")
+      case None => JsNull
     }
-  }
+  }*/
   
   
   // writer for simulation run
   // input entities make problems when directly converting (e.g. in full tree)
   implicit val simulationRunWrites: Writes[SimulationRun] = new Writes[SimulationRun] {
     def writes(r: SimulationRun): JsValue = {
-      val inputEntity: Seq[Option[JsValue]] = r.InputEntity map { entity => 
+      val inputEntity: Seq[JsValue] = r.InputEntity map { entity => 
         entity.key match {
           case Some("InputField") => {
             entity.value match {
-              case e: NodeSeq => Some(Json.obj("inputField" -> scalaxb.fromXML[InputField](entity.as[NodeSeq])))
-              case e: InputField => Some(Json.obj("inputField" -> entity.as[InputField]))
+              case e: NodeSeq => Json.obj("inputField" -> scalaxb.fromXML[InputField](entity.as[NodeSeq]))
+              case e: InputField => Json.obj("inputField" -> entity.as[InputField])
             }
           }
-          case Some("InputParameter") => Some(Json.obj("inputParameter" -> entity.as[InputParameter]))
-          case Some("InputPopulation") => Some(Json.obj("inputPopulation" -> entity.as[InputPopulation]))
+          case Some("InputParameter") => Json.obj("inputParameter" -> entity.as[InputParameter])
+          case Some("InputPopulation") => Json.obj("inputPopulation" -> entity.as[InputPopulation])
           case Some("InputProcess") => { 
             entity.value match {
-              case e: NodeSeq => Some(Json.obj("inputProcess" -> scalaxb.fromXML[InputProcess](entity.as[NodeSeq])))
-              case e: InputProcess => Some(Json.obj("inputProcess" -> entity.as[InputProcess]))
+              case e: NodeSeq => Json.obj("inputProcess" -> scalaxb.fromXML[InputProcess](entity.as[NodeSeq]))
+              case e: InputProcess => Json.obj("inputProcess" -> entity.as[InputProcess])
             }
           }
-          case _ => None
+          // should never happen
+          case _ => JsNull
         }
       }
-      val inputEntityFlat: Seq[JsValue] = inputEntity.flatten
       Json.obj(
           "resourceId" -> r.ResourceID, 
           "resourceHeader" -> r.ResourceHeader, 
@@ -177,7 +177,7 @@ object Spase {
           "likelihoodRating" -> r.LikelihoodRating, 
           "simulationTime" -> r.SimulationTime, 
           "simulationDomain" -> r.SimulationDomain, 
-          "inputs" -> inputEntityFlat)
+          "inputs" -> inputEntity)
     }
   }
   
@@ -194,14 +194,14 @@ object Spase {
   implicit val durationOptionWrites: Writes[Option[Duration]] = new Writes[Option[Duration]] {
     def writes(d: Option[Duration]): JsValue = d match {
       case Some(d) => JsString(d.toString)
-      case None => JsString("")
+      case None => JsNull
     }
   }
   
   implicit val calenderOptionWrites: Writes[Option[XMLGregorianCalendar]] = new Writes[Option[XMLGregorianCalendar]] {
     def writes(c: Option[XMLGregorianCalendar]): JsValue = c match {
       case Some(c) => JsString(c.toString)
-      case None => JsString("")
+      case None => JsNull
     }
   }
   
@@ -256,7 +256,7 @@ object Spase {
           "sideWall" -> e.SideWall, 
           "obstacle" -> e.Obstacle, 
           "caveats" -> e.Caveats)
-      case None => JsString("")
+      case None => JsNull
     }
   } 
 
@@ -295,7 +295,7 @@ object Spase {
   implicit val urlOptionWrites: Writes[Option[URI]] = new Writes[Option[URI]] {
     def writes(u: Option[URI]): JsValue = u match {
       case Some(u) => JsString(u.toString)
-      case None => JsString("")
+      case None => JsNull
     }
   }
 
@@ -365,7 +365,7 @@ object Spase {
           "mixed" -> JsString(p.mixed.map(_.as[String]).mkString(" ")),
           "units" -> p.Units,
           "unitsConversion" -> p.UnitsConversion)
-      case None => Json.obj()
+      case None => JsNull
     }
     
   }
@@ -396,7 +396,7 @@ object Spase {
   implicit val processCoeffTypeOptionWrites: Writes[Option[EnumProcCoefType]] = new Writes[Option[EnumProcCoefType]] {
     def writes(p: Option[EnumProcCoefType]): JsValue = p match { 
       case Some(p) => JsString(p.toString)
-      case None => JsString("")
+      case None => JsNull
     }
   }
 
@@ -408,6 +408,7 @@ object Spase {
       val nOption = n.numericaloutputoption match {
             case Some(o) if (o.key.get == "SpatialDescription") => Json.obj("spatialDescription" -> o.as[SpatialDescription])
             case Some(o) if (o.key.get == "TemporalDescription") => Json.obj("temporalDescription" -> o.as[TemporalDescription])
+            // should never happen
             case _ => Json.obj()
       }
       Json.obj(
@@ -437,7 +438,7 @@ object Spase {
   implicit val availabilityWrites: Writes[Option[EnumAvailability]] = new Writes[Option[EnumAvailability]] {
     def writes(a: Option[EnumAvailability]): JsValue = a match {
       case Some(a) => JsString(a.toString)
-      case None => JsString("")
+      case None => JsNull
     }
   } 
   
@@ -448,7 +449,7 @@ object Spase {
   implicit val encodingWrites: Writes[Option[EnumEncoding]] = new Writes[Option[EnumEncoding]] {
     def writes(e: Option[EnumEncoding]): JsValue = e match {
       case Some(e) => JsString(e.toString)
-      case None => JsString("")
+      case None => JsNull
     }
   } 
   
@@ -482,6 +483,7 @@ object Spase {
         //case Some("Support") => Json.obj("support" -> p.ParameterEntity.as[Support])
         case Some("Support") => Json.obj("support" -> scalaxb.fromXML[Support](p.ParameterEntity.as[NodeSeq]))
         case Some("Particle") => Json.obj("particle" -> p.ParameterEntity.as[Particle])
+        // should never happen
         case _ => Json.obj()
       }
       Json.obj(
@@ -681,6 +683,7 @@ object Spase {
           Json.obj("cubeDescription" -> s.spatialdescriptionoption.as[CubesDescriptionSequence])
         case Some("CutsDescriptionSequence") => 
           Json.obj("cutsDescription" -> s.spatialdescriptionoption.as[CutsDescriptionSequence])
+        // should never happen
         case _ => Json.obj()
       }
       Json.obj(
@@ -726,8 +729,7 @@ object Spase {
       val params = g.granuleoption.key match {
         case Some("RegionBegin") => Json.obj("regionBegin" -> g.granuleoption.value.toString)
         case Some("StartDate") => Json.obj("startDate" -> g.granuleoption.value.toString)
-        case None => Json.obj()
-        // just in case anything else comes here
+        // should never happen
         case _ => Json.obj()
       } 
       val optParams = g.granuleoption2 match {
@@ -735,8 +737,7 @@ object Spase {
           Json.obj("regionEnd" -> o.value.toString)
         case Some(o) if(o.key == Some("StopDate")) =>
           Json.obj("stopDate" -> o.value.toString)
-        case None => Json.obj()
-        // just in case anything else comes here
+        // should never happen
         case _ => Json.obj()
       }
       Json.obj("resourceId" -> g.ResourceID, "releaseDate" -> g.ReleaseDate, 

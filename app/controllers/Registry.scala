@@ -24,7 +24,7 @@ import scala.language.implicitConversions
     description = "operations for using the IMPEx registry services")
 @Path("/registry")
 @Produces(Array(APPLICATION_XML, APPLICATION_JSON))
-object Registry extends Controller {
+object Registry extends BaseController {
   implicit def str2bool(s: String): Boolean = s.equals("true")
   
   @GET

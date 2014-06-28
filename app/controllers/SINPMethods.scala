@@ -20,9 +20,7 @@ import java.text.ParseException
     description = "operations for using the IMPEx data acess services")
 @Path("/methods/SINP")
 @Produces(Array(APPLICATION_XML, APPLICATION_JSON))
-object SINPMethods extends Controller {
-  import controllers.Helpers._
-  
+object SINPMethods extends MethodsController {
   val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
   
   @GET

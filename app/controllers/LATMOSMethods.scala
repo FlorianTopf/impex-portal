@@ -22,9 +22,7 @@ import soapenvelope11._
     description = "operations for using the IMPEx data acess services")
 @Path("/methods/LATMOS")
 @Produces(Array(APPLICATION_XML, APPLICATION_JSON))
-object LATMOSMethods extends Controller {
-  import controllers.Helpers._
-  
+object LATMOSMethods extends MethodsController {
   val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
   
   @GET

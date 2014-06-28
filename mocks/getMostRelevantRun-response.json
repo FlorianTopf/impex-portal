@@ -1,0 +1,41 @@
+{
+    "input": {
+        "Object": "Earth",
+        "RunCount": 2,
+        "SW_parameters": {} 
+    },
+    "runs": [
+        {
+            "ResourceID": "spase://IMPEX/SimulationRun/FMI/GUMICS/earth/synth_stationary/solarmin/EARTH___n_T_Vx_Bx_By_Bz__15_100_600_3p_03_6m/tilt15p",
+            "ResourceName": "GUMICS_Earth_run_000108",
+            "S_diff": "0",
+            "S_diff_n": {},
+            "Param_values": {
+                "SW_Density": "15000000",
+                "SW_Temperature": "99988.9",
+                "SW_Utot": "600008",
+                "SW_Btot": "6.7084648020244E-9",
+                "SW_Bx": "2.97E-9",
+                "SW_By": "2.5E-10",
+                "SW_Bz": "-6.01E-9",
+                "Solar_F10.7": "1.0E-20"
+            }
+        },
+        {
+            "ResourceID": "spase://IMPEX/SimulationRun/FMI/GUMICS/earth/synth_stationary/solarmin/EARTH___n_T_Vx_Bx_By_Bz__15_100_600_3p_03_6p/tilt0",
+            "ResourceName": "GUMICS_Earth_run_000109",
+            "S_diff": "0",
+            "S_diff_n": {},
+            "Param_values": {
+                "SW_Density": "15000000",
+                "SW_Temperature": "99997.2",
+                "SW_Utot": "599991",
+                "SW_Btot": "6.6950802833125E-9",
+                "SW_Bx": "2.96E-9",
+                "SW_By": "2.5E-10",
+                "SW_Bz": "6.0E-9",
+                "Solar_F10.7": "1.0E-20"
+            }
+        }
+    ]
+}

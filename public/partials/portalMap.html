@@ -2,15 +2,33 @@
 	<img src="/public/img/layout/loading.gif" class="loadingImg" alt="loading..." />
 </div>
 <div class="row">
-	<div class="col-sm-3 text-center" ng-repeat="database in vm.configService.config.databases" ng-if="database.type == 'simulation'">
+	<div class="col-sm-3 text-center" 
+		ng-repeat="database in vm.configService.config.databases" 
+		ng-if="(database.type == 'simulation') && !(database.tree | isEmpty)">
 		<div ng-show="vm.ready">
-			<button class="btn btn-default" ng-click="vm.openRegistryModal(database)" tooltip="Show registry of {{ database.name }}">{{ database.name }} Simulations</button>
+			<button class="btn btn-default" 
+				ng-click="vm.openRegistryModal(database)" 
+				tooltip="Show registry of {{ database.name }}">{{ database.name }} Simulations</button>
     	</div>
 	</div>
 </div>
 <div class="row">
 	<div class="col-sm-12">&nbsp;</div>
 </div>
+<!--div class="row">
+	<div class="col-sm-3 text-center" 
+		ng-repeat="database in vm.configService.config.databases" 
+		ng-if="(database.type == 'simulation')">
+		<div ng-show="vm.ready">
+			<button class="btn btn-default" 
+				ng-click="vm.openMethodsModal(database) && !(database.methods | isEmpty)" 
+				tooltip="Show methods of {{ database.name }}">{{ database.name }} Data Access</button>
+    	</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">&nbsp;</div>
+</div-->
 <div class="row">
 	<div class="col-sm-12">
 		<div ng-show="vm.ready">

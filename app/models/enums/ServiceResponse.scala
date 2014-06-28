@@ -3,6 +3,7 @@ package models.enums
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 import java.net.URI
+import com.fasterxml.jackson.core.JsonParseException
 
 case class ServiceResponse(code: EServiceResponse.Value, message: String, request: Map[String, String])
 
@@ -18,7 +19,7 @@ object EServiceResponse extends Enumeration {
 
         def reads(json: JsValue): JsResult[EServiceResponse.Value] = {
             json match {
-                case jsString: JsString => {
+                case json: JsString => {
                     try {
                         JsSuccess(EServiceResponse.withName((json).as[String]))
                     } catch {
@@ -37,6 +38,14 @@ object ServiceResponse {
             Json.obj("code" -> r.code.id, "message" -> r.message, "request" -> r.request)
         }
     }
-    
+}
 
+case class VOTableURLResponse(code: EServiceResponse.Value, message: String, request: JsValue)
+
+object VOTableURLResponse {
+    implicit val voTableURLResponseWrites = new Writes[VOTableURLResponse] {
+        def writes(r: VOTableURLResponse): JsValue = {
+            Json.obj("code" -> r.code.id, "message" -> r.message, "request" -> r.request)
+        }
+    }
 }

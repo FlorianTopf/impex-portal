@@ -174,13 +174,13 @@ module portal {
         }
         
         // testing methods for modal
-        public ok() {
+        public registryOk() {
             this.modalInstance.close()
             // @TODO just for the moment
             this.scope.$broadcast('clear-registry')
         }
         
-        public cancel() {
+        public registryCancel() {
             this.modalInstance.dismiss()
             // @TODO just for the moment
             this.scope.$broadcast('clear-registry')

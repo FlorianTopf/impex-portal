@@ -53,7 +53,7 @@ module portal {
                         
         }
           
-        // testing method for modals
+        // testing method for registry modal
         public openRegistryModal(database: Database) {
             var modalInstance = this.modal.open({
                     templateUrl: '/public/partials/templates/registryModal.html',
@@ -70,6 +70,22 @@ module portal {
        
         }
         
+        // testing method for methods modal
+        public openMethodsModal(database: Database) {
+            var modalInstance = this.modal.open({
+                    templateUrl: '/public/partials/templates/methodsModal.html',
+                    controller: MethodsCtrl,
+                    size: 'lg',
+                    resolve: {
+                        database: () => database 
+                    }
+            })
+            
+            modalInstance.result.then(
+            (ok) => console.log('ok'), 
+            (cancel) => console.log('cancel'))
+       
+        }        
 
     }
 }

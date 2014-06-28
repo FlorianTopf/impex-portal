@@ -23,7 +23,7 @@ import java.io.FileNotFoundException
     description = "operations for using the IMPEx data acess services")
 @Path("/methods")
 @Produces(Array(APPLICATION_JSON, APPLICATION_XML))
-object WSDLMethods extends Controller {
+object WSDLMethods extends BaseController {
   
   // Returns WSDLs of individual databases  
   @GET

@@ -17,7 +17,7 @@ import java.net.URI
 import javax.xml.datatype._
 
 
-object Application extends Controller {
+object Application extends BaseController {
   
   // route for portal client
   def index = Action { Ok(views.html.portal()) }
@@ -28,12 +28,17 @@ object Application extends Controller {
   // route for testing
   def test = PortalAction {
 
-    val fileName = "mocks/getDPS_FMI.xml"
+    val fileName = "mocks/getDPV_LATMOS.xml"
     val xml = scala.xml.XML.loadFile(fileName)
     val obj = scalaxb.fromXML[VOTABLE](xml)
+    val json = Json.toJson(obj)
     
-    Ok(Json.toJson(obj))
-     
+    // we must do it like this
+    val obj2 = json.as[VOTABLE]
+    
+    
+    Ok(Json.toJson(obj2))
+    //Ok(json)
   }
   
 }

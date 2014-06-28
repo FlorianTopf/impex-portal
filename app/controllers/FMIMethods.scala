@@ -13,6 +13,8 @@ import models.enums._
 import java.net.URI
 import play.api.libs.json._
 import java.text.ParseException
+import soapenvelope11._
+import models.binding.VOTableURL._
 
 
 @Api(
@@ -20,9 +22,7 @@ import java.text.ParseException
     description = "operations for using the IMPEx data acess services")
 @Path("/methods/FMI")
 @Produces(Array(APPLICATION_XML, APPLICATION_JSON))
-object FMIMethods extends Controller {
-  import controllers.Helpers._
-  
+object FMIMethods extends MethodsController {
   val fmi = new Methods_FMISoapBindings with Soap11Clients with DispatchHttpClients {}
   
   @GET
@@ -288,20 +288,47 @@ object FMIMethods extends Controller {
   }
   
   
-  // @FIXME how to include this method to the API?
-  @GET
+  // @FIXME the request data type is not displayed correctly 
+  // (maybe remove it from the API view, or wait for new swagger release)
+  @POST
   @ApiOperation(
       value = "getVOTableURL at FMI", 
       nickname = "getVOTableURL",
-      notes = "", 
-      httpMethod = "GET")
+      notes = "returns an URL to a VOTable XML file based on request JSON object", 
+      httpMethod = "POST")
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "request failed")))
+ @ApiImplicitParams(Array(
+    new ApiImplicitParam(
+        value = "VOTableURL object encoding the VOTable fields to be created", 
+        required = true, 
+        dataType = "VOTableURL", 
+        paramType = "body")))
   @Path("/getVOTableURL")
-  def getVOTableURL = ??? 
+  def getVOTableURL = PortalAction { implicit request => 
+    try {
+    request.body.asJson.map {
+      json => {
+        val voTable = json.as[VOTableURL]
+        val result = fmi.service.getVOTableURL(voTable.Table_name, voTable.Description, voTable.Fields)
+           
+        result.fold(
+            fault => BadRequest(Json.toJson(
+              VOTableURLResponse(
+                  EServiceResponse.BAD_REQUEST, 
+                  fault.original.asInstanceOf[Fault].faultstring, json))), 
+            uri => Ok(Json.toJson(VOTableURLResponse(EServiceResponse.OK, uri.toString, json)))
+        )
+        
+      }}.getOrElse(BadRequest(Json.toJson(VOTableURLResponse(EServiceResponse.BAD_REQUEST,
+          "mandatory parameter missing", Json.obj()))))
+    } catch {
+      case e: JsResultException => BadRequest(Json.toJson(VOTableURLResponse(EServiceResponse.BAD_REQUEST,
+          "input object malformed", request.body.asJson.get)))
+    }
+  }
   
   
-  // @FIXME how to include this method to the API?
   @GET
   @ApiOperation(
       value = "getMostRelevantRun at FMI", 
@@ -310,8 +337,309 @@ object FMIMethods extends Controller {
       httpMethod = "GET")
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "request failed")))
+  @ApiImplicitParams(Array(
+    new ApiImplicitParam(
+        name = "object", 
+        value = "Object", 
+        // @TODO at the moment only earth is existing
+        // we need to add a dropdown later
+        defaultValue = "Earth", 
+        required = true, 
+        dataType = "string", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "run_count", 
+        value = "Run count", 
+        defaultValue = "2",
+        required = false, 
+        dataType = "integer", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_density_value", 
+        value = "SW density value", 
+        defaultValue = "5e6",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_density_weight", 
+        value = "SW density weight", 
+        defaultValue = "2",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_density_scale", 
+        value = "SW density scale", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_density_fun", 
+        value = "SW density function", 
+        defaultValue = "",
+        required = false, 
+        dataType = "string", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_temp_value", 
+        value = "SW temperature value", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_temp_weight", 
+        value = "SW temperature weight", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_temp_scale", 
+        value = "SW temperature scale", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_temp_fun", 
+        value = "SW temperature function", 
+        defaultValue = "",
+        required = false, 
+        dataType = "string", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_utot_value", 
+        value = "SW total velocity value", 
+        defaultValue = "4.5e5",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_utot_weight", 
+        value = "SW total velocity weight", 
+        defaultValue = "1",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_utot_scale", 
+        value = "SW total velocity scale", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_utot_fun", 
+        value = "SW total velocity function", 
+        defaultValue = "",
+        required = false, 
+        dataType = "string", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_bx_value", 
+        value = "SW Bx value", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_bx_weight", 
+        value = "SW Bx weight", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_bx_scale", 
+        value = "SW Bx scale", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"), 
+    new ApiImplicitParam(
+        name = "sw_bx_fun", 
+        value = "SW Bx function", 
+        defaultValue = "",
+        required = false, 
+        dataType = "string", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_by_value", 
+        value = "SW By value", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_by_weight", 
+        value = "SW By weight", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_by_scale", 
+        value = "SW By scale", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_by_fun", 
+        value = "SW By function", 
+        defaultValue = "",
+        required = false, 
+        dataType = "string", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_bz_value", 
+        value = "SW Bz value", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_bz_weight", 
+        value = "SW Bz weight", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_bz_scale", 
+        value = "SW Bz scale", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_bz_fun", 
+        value = "SW Bz function", 
+        defaultValue = "",
+        required = false, 
+        dataType = "string", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_btot_value", 
+        value = "SW total B value", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_btot_weight", 
+        value = "SW total B weight", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_btot_scale", 
+        value = "SW total B scale", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_btot_fun", 
+        value = "SW Btot function", 
+        defaultValue = "",
+        required = false, 
+        dataType = "string", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_fun_value", 
+        value = "SW function value", 
+        defaultValue = "0.5",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_fun_weight", 
+        value = "SW function weight", 
+        defaultValue = "",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_fun_scale", 
+        value = "SW function scale", 
+        defaultValue = "1",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "sw_fun_fun", 
+        value = "SW function function", 
+        defaultValue = "abs(SW_Bx/SW_Btot)",
+        required = false, 
+        dataType = "string", 
+        paramType = "query")
+  ))
   @Path("/getMostRelevantRun")
-  def getMostRelevantRun = ???
+  def getMostRelevantRun = PortalAction { implicit request => 
+  	try {
+    // mandatory parameter
+    val region = request.req.get("object").get
+    // optional parameters
+    val runCount = request.req.get("run_count")
+    // sw parameters
+  	// note: these are also mandatory but we send an empty list
+  	// if the user enters no SW parameters => 
+  	// @TODO service returns malformed JSON then
+    val swDensityParam = validateSWParams("sw_density", request.req)
+    val swTempParam = validateSWParams("sw_temp", request.req)
+    val swUtotParam = validateSWParams("sw_utot", request.req)
+    val swBxParam = validateSWParams("sw_bx", request.req)
+    val swByParam = validateSWParams("sw_by", request.req)
+    val swBzParam = validateSWParams("sw_bz", request.req)
+    val swBtotParam = validateSWParams("sw_btot", request.req)
+    val swFunParam = validateSWParams("sw_fun", request.req) 
+  	val swParameters = SW_parameter_list(
+  	    swDensityParam, // sw density
+        swUtotParam, // sw Utot 
+        swTempParam, // sw temperature
+        swUtotParam, // sw Btot
+        swBxParam, // sw Bx
+        swByParam, //  sw By
+        swBzParam, // sw Bz
+        None, // solar F10.7 (@TODO to be added)
+        swFunParam // sw function
+    )
+           
+    val result = fmi.service.getMostRelevantRun(
+        EnumRegion.fromString(region, 
+            scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")), // object value (enumRegion)
+        runCount.map(BigInt(_)), // run count
+        swParameters // sw parameters
+    ) 
+    
+    result.fold(
+        fault => BadRequest(Json.toJson(
+            ServiceResponse(
+                EServiceResponse.BAD_REQUEST, 
+                fault.original.asInstanceOf[Fault].faultstring, request.req))), 
+        json => { println(json); Ok(Json.toJson(ServiceResponse(EServiceResponse.OK, json, request.req))) }
+    )
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing", request.req)))
+      case e: MatchError => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "unkown object name", request.req)))
+      case e @ (_:NumberFormatException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "illegal number provided", request.req)))
+      // @FIXME this is because there are errors not encoded as SOAP-FAULT
+      //case e: RuntimeException =>
+      //  NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
+      //          "unknown external web service error", request.req)))
+    }
+  }
   
   
   @GET

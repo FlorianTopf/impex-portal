@@ -673,6 +673,39 @@ var portal;
 (function (portal) {
     'use strict';
 
+    // actions for registry
+    /* export interface IRegistryResource extends ng.resource.IResourceClass<ISpase> {
+    getRepository(): ISpase
+    getSimulationModel(): ISpase
+    getSimulationRun(): ISpase
+    getNumericalOutput(): ISpase
+    getGranule(): ISpase
+    }*/
+    // @TODO here we need to add access to all relevant API-docs and methods routes
+    var MethodsService = (function () {
+        // action descriptor for registry actions
+        /* private registryAction: ng.resource.IActionDescriptor = {
+        method: 'GET',
+        params: {
+        id: '@id',
+        fmt: '@fmt'
+        },
+        isArray: false
+        }*/
+        function MethodsService($resource) {
+            this.url = '/';
+            this.resource = $resource;
+        }
+        MethodsService.$inject = ['$resource'];
+        return MethodsService;
+    })();
+    portal.MethodsService = MethodsService;
+})(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
     var ConfigCtrl = (function () {
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
@@ -755,11 +788,31 @@ var portal;
                 });
             }
         }
-        // testing method for modals
+        // testing method for registry modal
         PortalCtrl.prototype.openRegistryModal = function (database) {
             var modalInstance = this.modal.open({
                 templateUrl: '/public/partials/templates/registryModal.html',
                 controller: portal.RegistryCtrl,
+                size: 'lg',
+                resolve: {
+                    database: function () {
+                        return database;
+                    }
+                }
+            });
+
+            modalInstance.result.then(function (ok) {
+                return console.log('ok');
+            }, function (cancel) {
+                return console.log('cancel');
+            });
+        };
+
+        // testing method for methods modal
+        PortalCtrl.prototype.openMethodsModal = function (database) {
+            var modalInstance = this.modal.open({
+                templateUrl: '/public/partials/templates/methodsModal.html',
+                controller: portal.MethodsCtrl,
                 size: 'lg',
                 resolve: {
                     database: function () {
@@ -954,14 +1007,14 @@ var portal;
         };
 
         // testing methods for modal
-        RegistryCtrl.prototype.ok = function () {
+        RegistryCtrl.prototype.registryOk = function () {
             this.modalInstance.close();
 
             // @TODO just for the moment
             this.scope.$broadcast('clear-registry');
         };
 
-        RegistryCtrl.prototype.cancel = function () {
+        RegistryCtrl.prototype.registryCancel = function () {
             this.modalInstance.dismiss();
 
             // @TODO just for the moment
@@ -980,6 +1033,51 @@ var portal;
         return RegistryCtrl;
     })();
     portal.RegistryCtrl = RegistryCtrl;
+})(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
+    var MethodsCtrl = (function () {
+        // dependencies are injected via AngularJS $injector
+        // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
+        function MethodsCtrl($scope, $http, $location, $timeout, configService, methodsService, $modalInstance, database) {
+            this.scope = $scope;
+            $scope.methvm = this;
+            this.configService = configService;
+            this.methodsService = methodsService;
+            this.location = $location;
+            this.http = $http;
+            this.timeout = $timeout;
+            this.modalInstance = $modalInstance;
+            this.database = database;
+            // watches changes of variable
+            //(is changed each time modal is opened)
+            //this.scope.$watch('this.database',
+            //    () => { this.getRepository(database.id) })
+        }
+        // testing methods for modal
+        MethodsCtrl.prototype.methodsOk = function () {
+            this.modalInstance.close();
+        };
+
+        MethodsCtrl.prototype.methodsCancel = function () {
+            this.modalInstance.dismiss();
+        };
+        MethodsCtrl.$inject = [
+            '$scope',
+            '$http',
+            '$location',
+            '$timeout',
+            'configService',
+            'registryService',
+            '$modalInstance',
+            'database'
+        ];
+        return MethodsCtrl;
+    })();
+    portal.MethodsCtrl = MethodsCtrl;
 })(portal || (portal = {}));
 /// <reference path='../_all.ts' />
 var portal;
@@ -1172,10 +1270,12 @@ var portal;
     //(see infoday examples, it supports application state, very nice"!)
     impexPortal.service('configService', portal.ConfigService);
     impexPortal.service('registryService', portal.RegistryService);
+    impexPortal.service('methodsService', portal.MethodsService);
 
     impexPortal.controller('configCtrl', portal.ConfigCtrl);
     impexPortal.controller('portalCtrl', portal.PortalCtrl);
     impexPortal.controller('registryCtrl', portal.RegistryCtrl);
+    impexPortal.controller('methodsCtrl', portal.MethodsCtrl);
 
     impexPortal.directive('databasesDir', portal.DatabasesDir.prototype.injection());
     impexPortal.directive('registryDir', portal.RegistryDir.prototype.injection());

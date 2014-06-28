@@ -19,7 +19,7 @@ object ERequestError extends Enumeration {
 
         def reads(json: JsValue): JsResult[ERequestError.Value] = {
             json match {
-                case jsString: JsString => {
+                case json: JsString => {
                     try {
                         JsSuccess(ERequestError.withName((json).as[String]))
                     } catch {

@@ -3,6 +3,8 @@ package models.binding
 
 import play.api.libs.json._
 import java.net.URI
+import scalaxb.DataRecord
+import play.api.libs.functional.syntax._
 
 
 /** 
@@ -438,41 +440,66 @@ case class VOTABLE(DESCRIPTION: Option[models.binding.AnyTEXT] = None,
 trait VOTABLEOption
 
 
-// additions for JSON conversion (@TODO full two way conversion)
+// additions for JSON conversion 
+// @TODO update all Reads/Writes to play 2.2.x Specifications (if possible)
+// see: http://www.playframework.com/documentation/2.2.x/ScalaJsonCombinators
 object VOTABLE { 
-	  
-  implicit val votableFormat: Writes[VOTABLE] = new Writes[VOTABLE] {
-    def writes(v: VOTABLE): JsValue = Json.obj("VOTABLE" -> Json.obj(
+  
+  implicit val votableWrites: Format[VOTABLE] = new Format[VOTABLE] {
+    def writes(v: VOTABLE): JsValue = { 
+      Json.obj("VOTABLE" -> Json.obj(
         "DESCRIPTION" -> v.DESCRIPTION,
         "INFO" -> v.INFO,
 	    "ID" -> v.ID,
 	    "version" -> v.version,
-	    // left out (not used in VOTable v1.2)
+        // DEFINITIONS not used in VOTable v1.2
 	    //"DEFINITIONS" -> v.DEFINITIONS,
-	    // left out (@FIXME not used in IMPEx?)
-	    //"votableoption" -> v.votableoption.toString,
-	    // main resource container
-        "RESOURCE" -> v.RESOURCE
-	    ))
-	}
+        // votableoption not used in IMPEx
+	    //"votableoption" -> v.votableoption,
+        "RESOURCE" -> v.RESOURCE))
+    }
+    
+    def reads(json: JsValue): JsResult[VOTABLE] = {
+      val votable = (json \ "VOTABLE")
+      JsSuccess(VOTABLE(
+          (votable \ "DESCRIPTION").asOpt[AnyTEXT],
+          None,
+          Nil,
+          (votable \ "RESOURCE").as[Seq[Resource]],
+          (votable \ "INFO").as[Seq[Info]],
+          (votable \ "ID").asOpt[String],
+          (votable \ "version").asOpt[Version]))
+    }
+  } 
   
-  implicit val anyTextFormat: Writes[Option[AnyTEXT]] = new Writes[Option[AnyTEXT]] {
-    def writes(a: Option[AnyTEXT]): JsValue = a match {
-	  case Some(a) if(!a.mixed.isEmpty) => JsString(a.mixed.map(_.as[String]).mkString(" "))
-	  case _ => JsString("")
+  
+  implicit val anyTextFormat: Format[AnyTEXT] = new Format[AnyTEXT] {
+    def writes(a: AnyTEXT): JsValue = {
+      if(!a.mixed.isEmpty)
+        JsString(a.mixed.map(_.as[String]).mkString(" "))
+	  else
+	    JsNull
 	}
+    
+    def reads(json: JsValue): JsResult[AnyTEXT] = {
+      json match {
+        case JsNull => JsSuccess(AnyTEXT(Nil))
+        case js: JsString => JsSuccess(AnyTEXT(Seq(DataRecord(None, None, json.as[String]))))
+        case other => JsError("AnyTEXT unkown")
+      }
+    }
   }
+  
 	  
-  implicit val resourceFormat: Writes[Resource] = new Writes[Resource] {
+  implicit val resourceWrites: Format[Resource] = new Format[Resource] {
 	def writes(r: Resource): JsValue = { 
 	  val resources = r.resourcesequence1 map { c => 
 	  	   c.resourceoption2.key match {
 	  	     // @TODO let's see if TABLE only is sufficient
-	  	     case Some("TABLE") => Json.toJson(c.resourceoption2.as[Table])
-	  	     case _ => JsString("RESOURCE OPTION UNKNOWN")
+	  	     case Some("TABLE") => Some(c.resourceoption2.as[Table])
+	  	     case _ => None
 	  	   }
 	  }
-	  
 	  Json.obj(
 	    "DESCRIPTION" -> r.DESCRIPTION,
 	    "INFO" -> r.INFO,
@@ -480,22 +507,40 @@ object VOTABLE {
 	    "ID" -> r.ID,
 	    "utype" -> r.utype,
 	    "type" -> r.typeValue)++
-	    //"attributed -> r.attributes)
-	    // left out (not used in IMPEx?)
-	    //++Json.obj("resourceoption" -> r.resourceoption.toString)
+	    // attributes not used in IMPEx
+	    //"attributes" -> r.attributes)++
+	    // resourceoption not used in IMPEx
+	    //++Json.obj("resourceoption" -> r.resourceoption)
+	    // any is also not used in IMPEx
 	    Json.obj("TABLE" -> resources)
-
+	}
+	
+	def reads(json: JsValue): JsResult[Resource] = {
+	  val table = (json \ "TABLE").as[Seq[Table]]
+	  JsSuccess(Resource(
+      (json \ "DESCRIPTION").asOpt[AnyTEXT],
+      (json \ "INFO").as[Seq[Info]],
+      Nil,
+      table.map(t => ResourceSequence1(Nil, DataRecord(None, Some("TABLE"), t))),
+      Nil,
+      (json \ "name").asOpt[String],
+      (json \ "ID").asOpt[String],
+      (json \ "utype").asOpt[String],
+      (json \ "type").as[TypeType3],
+      Map()))
 	}
   }
+            
 
   implicit val infoFormat: Format[Info] = Json.format[Info]
+  
 	  
   implicit val versionFormat: Format[Version] = new Format[Version] {
     def writes(v: Version): JsValue = JsString(v.toString)
 	    
 	def reads(json: JsValue): JsResult[Version] = {
       json match {
-        case jsString: JsString => {
+        case json: JsString => {
           try {
             JsSuccess(Version.fromString(json.as[String],
                 scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")))
@@ -508,12 +553,13 @@ object VOTABLE {
 	}
   }
   
+  
   implicit val typeType3Format: Format[TypeType3] = new Format[TypeType3] {
     def writes(t: TypeType3): JsValue = JsString(t.toString)
 	    
 	def reads(json: JsValue): JsResult[TypeType3] = {
       json match {
-        case jsString: JsString => {
+        case json: JsString => {
           try {
             JsSuccess(TypeType3.fromString(json.as[String],
                 scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")))
@@ -526,46 +572,75 @@ object VOTABLE {
 	}
   }
   
-  implicit val tableformat: Writes[Table] = new Writes[Table] {
+  
+  implicit val tableformat: Format[Table] = new Format[Table] {
     def writes(t: Table) = {
-      val tableHeaders = t.tableoption map { o =>
+      val headers = t.tableoption map { o =>
         o.key match {
           // @TODO let's see if FIELD/PARAM only is sufficient
-          // GROUP and FIELDABLE possible
+          // GROUP and FIELDABLE is also possible
           case Some("FIELD") => (o.key.get -> Json.toJson(o.as[Field]))
           case Some("PARAM") => (o.key.get -> Json.toJson(o.as[Param]))
-          case _ => ("ERROR for"+o.key.get -> JsString("TABLE OPTION UNKNOWN"))
+          // should never happen in IMPEx
+          case _ => (o.key.get -> JsString("Table option unkown"))
         }
       }
-      
       Json.obj("DESCRIPTION" -> t.DESCRIPTION,
           "INFO" -> t.INFO,
-          "LINK" -> t.LINK)++
-          Json.obj("FIELD" -> tableHeaders.filter(p => p._1 == "FIELD").map(_._2))++
-          Json.obj("PARAM" -> tableHeaders.filter(p => p._1 == "PARAM").map(_._2))++
-      Json.obj("DATA" -> t.DATA, // the real data
+          "LINK" -> t.LINK,
           "ID" -> t.ID,
           "name" -> t.name,
+          // ref not used in IMPEx
           //"ref" -> t.ref,
           "ucd" -> t.ucd,
           "utype" -> t.utype
+          // nrows not used in IMPEx
           //"nrows" -> t.nrows
-          )
+          )++Json.obj("FIELD" -> headers.filter(p => p._1 == "FIELD").map(_._2))++
+          Json.obj("PARAM" -> headers.filter(p => p._1 == "PARAM").map(_._2))++
+          Json.obj("DATA" -> t.DATA)
+    }
+    
+    def reads(json: JsValue): JsResult[Table] = {
+      val fields = (json \ "FIELD").as[Seq[Field]]
+      val params = (json \ "PARAM").as[Seq[Param]]
+      val headers: Seq[DataRecord[TableOption]] = 
+        fields.map(f => DataRecord(None, Some("FIELD"), f))++
+        params.map(p => DataRecord(None, Some("PARAM"), p))
+      JsSuccess(Table(
+          (json \ "DESCRIPTION").asOpt[AnyTEXT],
+          (json \ "INFO").as[Seq[Info]],
+          headers,
+          (json \ "LINK").as[Seq[Link]],
+          (json \ "DATA").asOpt[Data],
+          (json \ "ID").asOpt[String],
+          (json \ "name").asOpt[String],
+          None,
+          (json \ "ucd").asOpt[String],
+          (json \ "utype").asOpt[String],
+          None))
     }
   }
   
+  
   implicit val linkFormat: Format[Link] = Json.format[Link]
   
-   implicit val urlFormat: Format[URI] = new Format[URI] {
-     def writes(u: URI): JsValue = JsString(u.toString)
-	 def reads(j: JsValue): JsResult[URI] = JsSuccess(new URI(j.as[String]))
-   }
   
-  implicit val bigIntWrites: Writes[BigInt] = new Writes[BigInt] {
-    def writes(i: BigInt): JsValue = JsString(i.toString)
+  implicit val urlFormat: Format[URI] = new Format[URI] {
+    def writes(u: URI): JsValue = JsString(u.toString)
+     
+	def reads(j: JsValue): JsResult[URI] = JsSuccess(new URI(j.as[String]))
   }
   
-  implicit val fieldFormat: Writes[Field] = new Writes[Field] {
+  
+  implicit val bigIntFormat: Format[BigInt] = new Format[BigInt] {
+    def writes(i: BigInt): JsValue = JsString(i.toString)
+    
+    def reads(json: JsValue): JsResult[BigInt] = JsSuccess(BigInt(json.as[String]))
+  }
+  
+  
+  implicit val fieldFormat: Format[Field] = new Format[Field] {
     def writes(f: Field) = Json.obj(
         "DESCRIPTION" -> f.DESCRIPTION,
         "VALUES" -> f.VALUES,
@@ -573,47 +648,100 @@ object VOTABLE {
         "ID" -> f.ID,
         "unit" -> f.unit,
         "datatype" -> f.datatype,
+        // precision not used in IMPEx
         //"precision" -> f.precision,
+        // width not used in IMPEx
         //"width" -> f.width,
         "xtype" -> f.xtype,
+        // ref not used in IMPEx
         //"ref" -> r.ref,
         "name" -> f.name,
         "ucd" -> f.ucd,
         "utype" -> f.utype,
         "arraysize" -> f.arraysize,
-        "typeValue" -> f.typeValue)
+        "type" -> f.typeValue)
+        
+    def reads(json: JsValue): JsResult[Field] = JsSuccess(Field(
+        (json \ "DESCRIPTION").asOpt[AnyTEXT],
+        (json \ "VALUES").asOpt[Values],
+        (json \ "LINK").as[Seq[Link]],
+        (json \ "ID").asOpt[String],
+        (json \ "unit").asOpt[String],
+        (json \ "datatype").as[DataType],
+        None,
+        None,
+        (json \ "xtype").asOpt[String],
+        None, 
+        (json \ "name").as[String],
+        (json \ "ucd").asOpt[String],
+        (json \ "utype").asOpt[String],
+        (json \ "arraysize").asOpt[String],
+        (json \ "type").asOpt[TypeType]))
   }
   
-  implicit val valuesFormat: Writes[Values] = new Writes[Values] {
-    def writes(v: Values) = Json.obj(
-        "MIN" -> v.MIN,
-        "MAX" -> v.MAX,
-        // @FIXME this value is weird in the parser classes
-        //"OPTION" -> v.OPTION,
-        "ID" -> v.ID,
-        "typeValue" -> v.typeValue,
-        "nullValue" -> v.nullValue
-        //"ref" -> v.ref
-    ) 
-  }
-  
-  implicit val minFormat: Writes[Min] = new Writes[Min] {
-    def writes(m: Min) = Json.obj("valueAttribute" -> m.valueAttribute,
-        "inclusive" -> m.inclusive)
+  implicit val valuesFormat: Format[Values] = new Format[Values] {
+    def writes(v: Values) = { 
+      Json.obj(
+          "MIN" -> v.MIN,
+          "MAX" -> v.MAX,
+          // @FIXME this value is weird in the parser classes
+          //"OPTION" -> v.OPTION,
+          "ID" -> v.ID,
+          "type" -> v.typeValue,
+          "null" -> v.nullValue)
+          // ref not used in IMPEx
+          //"ref" -> v.ref
+     }
     
+    def reads(json: JsValue): JsResult[Values] = {
+      json match {
+        case json: JsObject => JsSuccess(Values(
+          (json \ "MIN").asOpt[Min],
+          (json \ "MAX").asOpt[Max],
+          Nil,
+          (json \ "ID").asOpt[String],
+          (json \ "type").as[Type],
+          (json \ "null").asOpt[String]))
+        case other => JsError("No Values")   
+      }
+    }
   }
   
-  implicit val maxFormat: Writes[Max] = new Writes[Max] {
-    def writes(m: Max) = Json.obj("valueAttribute" -> m.valueAttribute,
-        "inclusive" -> m.inclusive)
+  
+  implicit val minFormat: Format[Min] = new Format[Min] {
+    def writes(m: Min) = {
+      Json.obj("valueAttribute" -> m.valueAttribute,
+          "inclusive" -> m.inclusive)
+    }
+
+    def reads(json: JsValue): JsResult[Min] = {
+      JsSuccess(Min(
+          (json \ "valueAttribute").as[String],
+    	  (json \ "inclusive").as[Yesno]))
+    }
   }
+  
+  
+  implicit val maxFormat: Format[Max] = new Format[Max] {
+    def writes(m: Max) = { 
+      Json.obj("valueAttribute" -> m.valueAttribute,
+          "inclusive" -> m.inclusive)
+    }
+        
+    def reads(json: JsValue): JsResult[Max] = { 
+      JsSuccess(Max(
+          (json \ "valueAttribute").as[String],
+    	  (json \ "inclusive").as[Yesno]))
+    }
+  }
+  
   
   implicit val inclusiveFormat: Format[Yesno] = new Format[Yesno] {
     def writes(yn: Yesno): JsValue = JsString(yn.toString)
 	    
 	def reads(json: JsValue): JsResult[Yesno] = {
       json match {
-        case jsString: JsString => {
+        case json: JsString => {
           try {
             JsSuccess(Yesno.fromString(json.as[String],
                 scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")))
@@ -625,13 +753,14 @@ object VOTABLE {
 	  }
 	}
   }
+  
 	 
   implicit val typeFormat: Format[Type] = new Format[Type] {
     def writes(t: Type): JsValue = JsString(t.toString)
 	    
 	def reads(json: JsValue): JsResult[Type] = {
       json match {
-        case jsString: JsString => {
+        case json: JsString => {
           try {
             JsSuccess(Type.fromString(json.as[String],
                 scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")))
@@ -644,12 +773,13 @@ object VOTABLE {
 	}
   }
   
+  
   implicit val dataTypeFormat: Format[DataType] = new Format[DataType] {
     def writes(t: DataType): JsValue = JsString(t.toString)
 	    
 	def reads(json: JsValue): JsResult[DataType] = {
       json match {
-        case jsString: JsString => {
+        case json: JsString => {
           try {
             JsSuccess(DataType.fromString(json.as[String],
                 scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")))
@@ -662,12 +792,13 @@ object VOTABLE {
 	}
   }
   
+  
   implicit val typeTypeFormat: Format[TypeType] = new Format[TypeType] {
     def writes(t: TypeType): JsValue = JsString(t.toString)
 	    
 	def reads(json: JsValue): JsResult[TypeType] = {
       json match {
-        case jsString: JsString => {
+        case json: JsString => {
           try {
             JsSuccess(TypeType.fromString(json.as[String],
                 scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")))
@@ -680,38 +811,65 @@ object VOTABLE {
 	}
   }
   
-  implicit val dataFormat: Writes[Data] = new Writes[Data] {
+  
+  implicit val dataFormat: Format[Data] = new Format[Data] {
     def writes(d: Data): JsValue = {
       val data = d.dataoption.key match {
         // @TODO let's see if TABLEDATA only is sufficient
-        // RESOURCE possible
+        // RESOURCE is also possible
         case Some("TABLEDATA")  => Json.obj("TABLEDATA" -> d.dataoption.as[TableData])
-        case _ => Json.obj("ERROR" -> "TABLE OPTION UNKNOWN")  
+        case _ => Json.obj()  
       }
       Json.obj("INFO" -> d.INFO)++data
     }
+    
+    def reads(json: JsValue): JsResult[Data] = JsSuccess(Data(
+        DataRecord(None, Some("TABLEDATA"), (json \ "TABLEDATA").as[TableData]), 
+        Nil))
   }
   
-  implicit val tableDataFormat: Writes[TableData] = new Writes[TableData] {
-    def writes(t: TableData): JsValue = Json.obj("TR" -> t.TR)
+  
+  implicit val tableDataFormat: Format[TableData] = new Format[TableData] {
+    def writes(t: TableData): JsValue = { 
+      JsArray(t.TR.map(tr => Json.obj("TR" -> tr)))
+    }
+    
+    def reads(json: JsValue): JsResult[TableData] = {
+      JsSuccess(TableData((json \\ "TR").map(_.as[Tr]):_*))
+    }
   }
   
-  implicit val trFormat: Writes[Tr] = new Writes[Tr] {
-    def writes(tr: Tr): JsValue = Json.obj("TD" -> tr.TD, "ID" -> tr.ID)
+  
+  implicit val trFormat: Format[Tr] = new Format[Tr] {
+    def writes(tr: Tr): JsValue = { 
+      Json.obj("ID" -> tr.ID, "TD" -> tr.TD)
+    }
+    
+    def reads(json: JsValue): JsResult[Tr] = {
+      JsSuccess(Tr((json \ "TD").as[Seq[Td]], (json \ "ID").as[Option[String]]))
+    }
   }
   
-  implicit val tdFormat: Writes[Td] = new Writes[Td] {
-    def writes(td: Td): JsValue = Json.obj("value" -> td.value)
-    // @TODO seems to be not needed
-    // , "encoding" -> td.encoding)
+  
+  implicit val tdFormat: Format[Td] = new Format[Td] {
+    def writes(td: Td): JsValue = { 
+      Json.obj("value" -> td.value)
+      // @TODO seems to be not needed
+      // , "encoding" -> td.encoding)
+    }
+    
+    def reads(json: JsValue): JsResult[Td] = { 
+      JsSuccess(Td((json \ "value").as[String]))
+    }
   }
+  
 	  
   implicit val encodingTypeFormat: Format[EncodingType] = new Format[EncodingType] {
     def writes(t: EncodingType): JsValue = JsString(t.toString)
 	    
 	def reads(json: JsValue): JsResult[EncodingType] = {
       json match {
-        case jsString: JsString => {
+        case json: JsString => {
           try {
             JsSuccess(EncodingType.fromString(json.as[String],
                 scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")))
@@ -724,26 +882,47 @@ object VOTABLE {
 	}
   }
   
-  implicit val paramFormat: Writes[Param] = new Writes[Param] {
-    def writes(p: Param) = Json.obj(
+  
+  implicit val paramFormat: Format[Param] = new Format[Param] {
+    def writes(p: Param): JsValue = Json.obj(
         "DESCRIPTION" -> p.DESCRIPTION,
         "VALUES" -> p.VALUES,
         "LINK" -> p.LINK,
         "ID" -> p.ID,
         "unit" -> p.unit,
         "datatype" -> p.datatype,
+        // precision is not used in IMPEx
         //"precision" -> p.precision,
+        // width is not used in IMPEx
         //"width" -> p.width,
         "xtype" -> p.xtype,
+        // ref is not used in IMPEx
         //"ref" -> p.ref,
         "name" -> p.name,
         "ucd" -> p.ucd,
         "utype" -> p.utype,
         "arraysize" -> p.arraysize,
         "typeValue" -> p.typeValue,
-        "valuAttribute" -> p.valueAttribute)
+        "valueAttribute" -> p.valueAttribute)
+        
+    def reads(json: JsValue): JsResult[Param] = JsSuccess(Param(
+        (json \ "DESCRIPTION").asOpt[AnyTEXT],
+        (json \ "VALUES").asOpt[Values],
+        (json \ "LINK").as[Seq[Link]],
+        (json \ "ID").asOpt[String],
+        (json \ "unit").asOpt[String],
+        (json \ "datatype").as[DataType],
+        None,
+        None,
+        (json \ "xtype").asOpt[String],
+        None,
+        (json \ "name").as[String],
+        (json \ "ucd").asOpt[String],
+        (json \ "utype").asOpt[String],
+        (json \ "arraysize").asOpt[String],
+        (json \ "typeValue").asOpt[TypeType],
+        (json \ "valueAttribute").as[String]))
   } 
-  
   
   
 }

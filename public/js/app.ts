@@ -12,10 +12,12 @@ module portal {
  
     impexPortal.service('configService', ConfigService)
     impexPortal.service('registryService', RegistryService)
+    impexPortal.service('methodsService', MethodsService)
 
     impexPortal.controller('configCtrl', ConfigCtrl)
     impexPortal.controller('portalCtrl', PortalCtrl)
     impexPortal.controller('registryCtrl', RegistryCtrl)
+    impexPortal.controller('methodsCtrl', MethodsCtrl)
 
     impexPortal.directive('databasesDir', DatabasesDir.prototype.injection())
     impexPortal.directive('registryDir', RegistryDir.prototype.injection())
