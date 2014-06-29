@@ -18,9 +18,6 @@ module portal {
         // creates an action descriptor
         private configAction: ng.resource.IActionDescriptor = {
             method: 'GET',
-            params: {
-                fmt: '@fmt'
-            },
             isArray: false
         }  
         

@@ -26,10 +26,10 @@ module portal {
         // action descriptor for registry actions
         private registryAction: ng.resource.IActionDescriptor = {
             method: 'GET',
-            params: {
+            /* params: {
                 id: '@id',
                 fmt: '@fmt'
-            },
+            },*/
             isArray: false
         }
           

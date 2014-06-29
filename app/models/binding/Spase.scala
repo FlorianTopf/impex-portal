@@ -22,10 +22,10 @@ object Spase {
   
  implicit val spaseWrites: Writes[Spase] = new Writes[Spase] {
     def writes(s: Spase): JsValue = {
-      Json.obj("spase" -> Json.obj(
+      Json.obj(
           "version" -> s.Version.toString, 
           "resources" -> s.ResourceEntity, 
-          "lang" -> s.lang))
+          "lang" -> s.lang)
     }
   }
   

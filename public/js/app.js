@@ -607,9 +607,6 @@ var portal;
             // creates an action descriptor
             this.configAction = {
                 method: 'GET',
-                params: {
-                    fmt: '@fmt'
-                },
                 isArray: false
             };
             this.resource = $resource;
@@ -634,10 +631,10 @@ var portal;
             // action descriptor for registry actions
             this.registryAction = {
                 method: 'GET',
-                params: {
-                    id: '@id',
-                    fmt: '@fmt'
-                },
+                /* params: {
+                id: '@id',
+                fmt: '@fmt'
+                },*/
                 isArray: false
             };
             // cache for the elements (identified by request id)
@@ -686,10 +683,6 @@ var portal;
         // action descriptor for registry actions
         /* private registryAction: ng.resource.IActionDescriptor = {
         method: 'GET',
-        params: {
-        id: '@id',
-        fmt: '@fmt'
-        },
         isArray: false
         }*/
         function MethodsService($resource) {
@@ -887,9 +880,8 @@ var portal;
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.getRepository().get({ fmt: 'json', id: id }).$promise;
 
-                this.registryPromise.then(function (res) {
-                    var result = res.spase;
-                    _this.registryService.cachedElements[cacheId] = result.resources.map(function (r) {
+                this.registryPromise.then(function (spase) {
+                    _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
                         return r.repository;
                     });
                     _this.scope.$broadcast('update-repositories', cacheId);
@@ -911,9 +903,8 @@ var portal;
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.getSimulationModel().get({ fmt: 'json', id: id }).$promise;
 
-                this.registryPromise.then(function (res) {
-                    var result = res.spase;
-                    _this.registryService.cachedElements[cacheId] = result.resources.map(function (r) {
+                this.registryPromise.then(function (spase) {
+                    _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
                         return r.simulationModel;
                     });
                     _this.scope.$broadcast('update-simulation-models', cacheId);
@@ -935,9 +926,8 @@ var portal;
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.getSimulationRun().get({ fmt: 'json', id: id }).$promise;
 
-                this.registryPromise.then(function (res) {
-                    var result = res.spase;
-                    _this.registryService.cachedElements[cacheId] = result.resources.map(function (r) {
+                this.registryPromise.then(function (spase) {
+                    _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
                         return r.simulationRun;
                     });
                     _this.loading = false;
@@ -962,9 +952,8 @@ var portal;
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.getNumericalOutput().get({ fmt: 'json', id: id }).$promise;
 
-                this.registryPromise.then(function (res) {
-                    var result = res.spase;
-                    _this.registryService.cachedElements[cacheId] = result.resources.map(function (r) {
+                this.registryPromise.then(function (spase) {
+                    _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
                         return r.numericalOutput;
                     });
                     _this.loading = false;
@@ -989,9 +978,8 @@ var portal;
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.getGranule().get({ fmt: 'json', id: id }).$promise;
 
-                this.registryPromise.then(function (res) {
-                    var result = res.spase;
-                    _this.registryService.cachedElements[cacheId] = result.resources.map(function (r) {
+                this.registryPromise.then(function (spase) {
+                    _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
                         return r.granule;
                     });
                     _this.loading = false;

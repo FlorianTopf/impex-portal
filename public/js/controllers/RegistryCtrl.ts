@@ -16,7 +16,7 @@ module portal {
         private registryService: portal.RegistryService
         private modalInstance: any
         private database: Database
-        private registryPromise: ng.IPromise<any>
+        private registryPromise: ng.IPromise<ISpase>
         private initialising: boolean = false
         private loading: boolean = false
         private transFinished: boolean = true
@@ -58,9 +58,8 @@ module portal {
                 this.registryPromise = this.registryService.getRepository().get(
                     { fmt: 'json' , id: id }).$promise
                 
-                this.registryPromise.then((res) => {
-                    var result = <ISpase>res.spase
-                    this.registryService.cachedElements[cacheId] = result.resources.map((r) => r.repository)            
+                this.registryPromise.then((spase) => {
+                    this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.repository)            
                     this.scope.$broadcast('update-repositories', cacheId)
                     this.initialising = false
                 })
@@ -80,9 +79,8 @@ module portal {
                 this.registryPromise = this.registryService.getSimulationModel().get(
                     { fmt: 'json', id: id }).$promise
                 
-                this.registryPromise.then((res) => {
-                    var result = <ISpase>res.spase
-                    this.registryService.cachedElements[cacheId] = result.resources.map((r) => r.simulationModel)
+                this.registryPromise.then((spase) => {
+                    this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.simulationModel)
                     this.scope.$broadcast('update-simulation-models', cacheId)
                     this.loading = false
                 })
@@ -103,9 +101,8 @@ module portal {
                     { fmt: 'json', id: id }).$promise
                 
                 this.registryPromise.then(
-                (res) => {
-                    var result = <ISpase>res.spase
-                    this.registryService.cachedElements[cacheId] = result.resources.map((r) => r.simulationRun)
+                (spase) => {
+                    this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.simulationRun)
                     this.loading = false
                     this.scope.$broadcast('update-simulation-runs', cacheId)
                 }, 
@@ -130,9 +127,8 @@ module portal {
                     { fmt: 'json', id: id }).$promise
                 
                 this.registryPromise.then(
-                (res) => {
-                    var result = <ISpase>res.spase
-                    this.registryService.cachedElements[cacheId] = result.resources.map((r) => r.numericalOutput)
+                (spase) => {
+                    this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.numericalOutput)
                     this.loading = false
                     this.scope.$broadcast('update-numerical-outputs', cacheId)
                 }, 
@@ -157,9 +153,8 @@ module portal {
                     { fmt: 'json', id: id }).$promise
                 
                 this.registryPromise.then(
-                (res) => {
-                    var result = <ISpase>res.spase
-                    this.registryService.cachedElements[cacheId] = result.resources.map((r) => r.granule)
+                (spase) => {
+                    this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.granule)
                     this.loading = false
                     this.scope.$broadcast('update-granules', cacheId)
                 }, 
