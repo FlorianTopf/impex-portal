@@ -600,6 +600,59 @@ var portal;
 (function (portal) {
     'use strict';
 
+    var Api = (function () {
+        function Api(path, operations) {
+            this.path = path;
+            this.operations = operations;
+        }
+        return Api;
+    })();
+    portal.Api = Api;
+
+    var Operation = (function () {
+        function Operation(method, summary, notes, type, nickname, // not needed at IMPEx
+        authorisations, parameters, responseMessages) {
+            this.method = method;
+            this.summary = summary;
+            this.notes = notes;
+            this.type = type;
+            this.nickname = nickname;
+            this.authorisations = authorisations;
+            this.parameters = parameters;
+            this.responseMessages = responseMessages;
+        }
+        return Operation;
+    })();
+    portal.Operation = Operation;
+
+    var Parameter = (function () {
+        function Parameter(name, description, defaultValue, required, type, paramType, allowMultiple) {
+            this.name = name;
+            this.description = description;
+            this.defaultValue = defaultValue;
+            this.required = required;
+            this.type = type;
+            this.paramType = paramType;
+            this.allowMultiple = allowMultiple;
+        }
+        return Parameter;
+    })();
+    portal.Parameter = Parameter;
+
+    var ResponseMessage = (function () {
+        function ResponseMessage(code, message) {
+            this.code = code;
+            this.message = message;
+        }
+        return ResponseMessage;
+    })();
+    portal.ResponseMessage = ResponseMessage;
+})(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
     var ConfigService = (function () {
         function ConfigService($resource) {
             this.url = '/';
@@ -670,25 +723,54 @@ var portal;
 (function (portal) {
     'use strict';
 
-    // actions for registry
-    /* export interface IRegistryResource extends ng.resource.IResourceClass<ISpase> {
-    getRepository(): ISpase
-    getSimulationModel(): ISpase
-    getSimulationRun(): ISpase
-    getNumericalOutput(): ISpase
-    getGranule(): ISpase
-    }*/
-    // @TODO here we need to add access to all relevant API-docs and methods routes
     var MethodsService = (function () {
-        // action descriptor for registry actions
-        /* private registryAction: ng.resource.IActionDescriptor = {
-        method: 'GET',
-        isArray: false
-        }*/
         function MethodsService($resource) {
             this.url = '/';
+            this.methods = null;
+            // action descriptor for registry actions
+            this.methodsAction = {
+                method: 'GET',
+                isArray: false
+            };
             this.resource = $resource;
         }
+        MethodsService.prototype.getMethodsAPI = function () {
+            return this.resource(this.url + 'api-docs/methods', // we can remove the params here!
+            {}, { getMethods: this.methodsAction });
+        };
+
+        MethodsService.prototype.getMethods = function (db) {
+            if (db.name.indexOf("FMI") != -1) {
+                return this.methods.apis.filter(function (e) {
+                    if (e.path.indexOf("FMI") != -1)
+                        return true;
+else
+                        return false;
+                });
+            } else {
+                return this.methods.apis.filter(function (e) {
+                    if (e.path.indexOf(db.name) != -1)
+                        return true;
+else
+                        return false;
+                });
+            }
+            // just for testing
+            /* this.methods.apis.forEach(
+            (a) => {
+            if(a.path.indexOf("FMI") != -1)
+            console.log(a.path)
+            a.operations.forEach(
+            (o) => o.parameters.forEach(
+            (p) => {
+            // enum cannot be used as property
+            if(p.hasOwnProperty("enum"))
+            console.log("enum: "+p["enum"])
+            }
+            )
+            )}
+            )*/
+        };
         MethodsService.$inject = ['$resource'];
         return MethodsService;
     })();
@@ -1030,7 +1112,8 @@ var portal;
     var MethodsCtrl = (function () {
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
-        function MethodsCtrl($scope, $http, $location, $timeout, configService, methodsService, $modalInstance, database) {
+        function MethodsCtrl($scope, $http, $location, $timeout, $window, configService, methodsService, $modalInstance, database) {
+            this.showError = false;
             this.scope = $scope;
             $scope.methvm = this;
             this.configService = configService;
@@ -1038,13 +1121,47 @@ var portal;
             this.location = $location;
             this.http = $http;
             this.timeout = $timeout;
+            this.window = $window;
             this.modalInstance = $modalInstance;
             this.database = database;
-            // watches changes of variable
-            //(is changed each time modal is opened)
-            //this.scope.$watch('this.database',
-            //    () => { this.getRepository(database.id) })
+
+            if (this.methodsService.methods)
+                this.methods = this.methodsService.getMethods(this.database);
+else
+                this.load();
         }
+        MethodsCtrl.prototype.retry = function () {
+            this.showError = false;
+            this.load();
+        };
+
+        MethodsCtrl.prototype.load = function () {
+            var _this = this;
+            this.methodsService.getMethodsAPI().get(function (data, status) {
+                return _this.handleData(data, status);
+            }, function (data, status) {
+                return _this.handleError(data, status);
+            });
+        };
+
+        MethodsCtrl.prototype.handleData = function (data, status) {
+            this.status = "success";
+
+            // we always get the right thing
+            this.methodsService.methods = data;
+            this.methods = this.methodsService.getMethods(this.database);
+        };
+
+        MethodsCtrl.prototype.handleError = function (data, status) {
+            console.log("config error");
+            if (this.window.confirm('connection timed out. retry?'))
+                this.load();
+else {
+                this.showError = true;
+                this.status = data + " " + status;
+            }
+        };
+
         // testing methods for modal
         MethodsCtrl.prototype.methodsOk = function () {
             this.modalInstance.close();
@@ -1058,8 +1175,9 @@ var portal;
             '$http',
             '$location',
             '$timeout',
+            '$window',
             'configService',
-            'registryService',
+            'methodsService',
             '$modalInstance',
             'database'
         ];

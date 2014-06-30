@@ -2,6 +2,7 @@
 
 /// <reference path='models/Config.ts' />
 /// <reference path='models/Spase.ts' />
+/// <reference path='models/Swagger.ts' />
 
 /// <reference path='services/ConfigService.ts' />
 /// <reference path='services/RegistryService.ts' />

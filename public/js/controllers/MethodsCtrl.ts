@@ -12,23 +12,29 @@ module portal {
         private http: ng.IHttpService
         private location: ng.ILocationService
         private timeout: ng.ITimeoutService
+        private window: ng.IWindowService
         private configService: portal.ConfigService
         private methodsService: portal.MethodsService
         private modalInstance: any
         private database: Database
         private methodsPromise: ng.IPromise<any>
+        private methods: Array<Api>
         //private initialising: boolean = false
         //private loading: boolean = false
         //private transFinished: boolean = true
+
         
-        static $inject: Array<string> = ['$scope', '$http', '$location', '$timeout', 
-            'configService', 'registryService', '$modalInstance', 'database']
+        public status: string
+        public showError: boolean = false  
+        
+        static $inject: Array<string> = ['$scope', '$http', '$location', '$timeout', '$window',
+            'configService', 'methodsService', '$modalInstance', 'database']
 
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
         constructor($scope: IMethodsScope, $http: ng.IHttpService, $location: ng.ILocationService,
-            $timeout: ng.ITimeoutService, configService: portal.ConfigService, methodsService: portal.MethodsService,
-            $modalInstance: any, database: Database) {   
+            $timeout: ng.ITimeoutService, $window: ng.IWindowService, configService: portal.ConfigService, 
+            methodsService: portal.MethodsService, $modalInstance: any, database: Database) {   
             this.scope = $scope
             $scope.methvm = this
             this.configService = configService
@@ -36,15 +42,44 @@ module portal {
             this.location = $location
             this.http = $http
             this.timeout = $timeout   
+            this.window = $window
             this.modalInstance = $modalInstance
             this.database = database
             
-            // watches changes of variable 
-            //(is changed each time modal is opened)
-            //this.scope.$watch('this.database', 
-            //    () => { this.getRepository(database.id) })
+            if(this.methodsService.methods)
+                this.methods = this.methodsService.getMethods(this.database)
+            else
+                this.load()
         }
         
+        public retry() {
+            this.showError = false
+            this.load()
+        }
+        
+        public load() {
+            this.methodsService.getMethodsAPI().get(
+                (data: ISwagger, status: any) => this.handleData(data, status),
+                (data: any, status: any) => this.handleError(data, status)
+            )
+        }
+        
+        public handleData(data: ISwagger, status?: any) {
+            this.status = "success"
+            // we always get the right thing
+            this.methodsService.methods = data
+            this.methods = this.methodsService.getMethods(this.database)
+        } 
+        
+        private handleError(data: any, status: any) {
+            console.log("config error")
+            if(this.window.confirm('connection timed out. retry?'))
+                this.load()
+            else {
+                this.showError = true
+                this.status = data+" "+status
+            }
+        }     
 
         
         // testing methods for modal

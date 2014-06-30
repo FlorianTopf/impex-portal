@@ -3,7 +3,7 @@
 module portal {
     'use strict';
     
-    // actions for registry
+    // describes the actions for registry
     export interface IRegistryResource extends ng.resource.IResourceClass<ISpase> {
         getRepository(): ISpase
         getSimulationModel(): ISpase

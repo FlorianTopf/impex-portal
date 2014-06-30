@@ -3,7 +3,7 @@
 module portal {
     'use strict';
     
-    // describes the actions
+    // describes the actions for config
     export interface IConfigResource extends ng.resource.IResourceClass<IConfig> {
         getConfig(): IConfig
     }
@@ -12,7 +12,7 @@ module portal {
         static $inject: Array<string> = ['$resource']
         
         private resource: ng.resource.IResourceService
-        public url: string = '/'
+        private url: string = '/'
         public config: IConfig = null      
         
         // creates an action descriptor

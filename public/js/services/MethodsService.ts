@@ -3,27 +3,23 @@
 module portal {
     'use strict';
     
-    // actions for registry
-    /* export interface IRegistryResource extends ng.resource.IResourceClass<ISpase> {
-        getRepository(): ISpase
-        getSimulationModel(): ISpase
-        getSimulationRun(): ISpase
-        getNumericalOutput(): ISpase
-        getGranule(): ISpase
-    }*/
+    // describes the actions for methods
+    export interface IMethodsResource extends ng.resource.IResourceClass<ISpase> {
+        getMethods(): ISwagger
+    }
     
-    // @TODO here we need to add access to all relevant API-docs and methods routes
     export class MethodsService {
         static $inject: Array<string> = ['$resource']
         
         private resource: ng.resource.IResourceService
         private url: string = '/'
+        public methods: ISwagger = null    
         
         // action descriptor for registry actions
-        /* private registryAction: ng.resource.IActionDescriptor = {
+        private methodsAction: ng.resource.IActionDescriptor = {
             method: 'GET',
             isArray: false
-        }*/
+        }
           
         constructor($resource: ng.resource.IResourceService) {
             this.resource = $resource
@@ -31,11 +27,48 @@ module portal {
         
 
         
-        /*public getRepository(): IRegistryResource {
-            return <IRegistryResource> this.resource(this.url+'registry/repository?', 
-                { id: '@id', fmt: '@fmt' },
-                { getRepository: this.registryAction })
-        }*/
+        public getMethodsAPI(): IMethodsResource {
+            return <IMethodsResource> this.resource(this.url+'api-docs/methods', 
+                // we can remove the params here!
+                {},{ getMethods: this.methodsAction })
+        }
+        
+
+        public getMethods(db: Database) {
+            // we only fetch the needed apis
+            // for FMI we need a special selector
+            if(db.name.indexOf("FMI") != -1) {
+                return this.methods.apis.filter((e) => { 
+                    if(e.path.indexOf("FMI") != -1)
+                        return true
+                    else 
+                        return false
+                })
+            } else {
+                return this.methods.apis.filter((e) => {
+                    if(e.path.indexOf(db.name) != -1)
+                        return true
+                    else
+                        return false
+                }) 
+            }
+            
+            // just for testing
+            /* this.methods.apis.forEach(
+                (a) => { 
+                  if(a.path.indexOf("FMI") != -1)
+                        console.log(a.path)
+                  a.operations.forEach(
+                    (o) => o.parameters.forEach(
+                        (p) => { 
+                                // enum cannot be used as property
+                                if(p.hasOwnProperty("enum"))
+                                    console.log("enum: "+p["enum"]) 
+                         }
+                    )
+               )}
+           )*/
+        }
         
 
 

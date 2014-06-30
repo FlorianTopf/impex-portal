@@ -2,7 +2,7 @@
 	<h3 class="modal-title">{{ methvm.database.name }} Data Access</h3>
 </div>
 <div class="modal-body">
-
+<p ng-repeat="method in methvm.methods">{{ method.path }}</p>
 </div>
 <div class="modal-footer">
 	<button class="btn btn-primary" ng-click="methvm.methodsOk()">OK</button>

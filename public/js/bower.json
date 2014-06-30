@@ -1,12 +1,28 @@
 {
-  "name" : "impex-portal",
-  "version": "0.1",
-  "dependencies" : {
-    "jquery" : "latest",
-    "angular" : "1.2.14",
-    "angular-route" : "1.2.14",
-    "angular-resource" : "1.2.14",
-    "bootstrap" : "latest",
-    "angular-ui-bootstrap" : "0.11.0"
-  }
+  "name": "impex-portal",
+  "version": "0.5",
+  "dependencies": {
+    "jquery": "~2.1.1",
+    "bootstrap": "~3.2.0",
+    "fastclick": "~1.0.2",
+    "angular": "1.2.14",
+    "angular-route": "1.2.14",
+    "angular-resource": "1.2.14",
+    "angular-ui-bootstrap": "0.11.0",
+    "ngstorage": "~0.3.0",
+    "angular-ui-router": "~0.2.10"
+  },
+  "homepage": "https://github.com/FlorianTopf/impex-portal",
+  "authors": [
+    "floriantopf <florian.topf@gmail.com>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
 }

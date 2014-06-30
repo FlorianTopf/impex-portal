@@ -300,6 +300,7 @@ object FMIMethods extends MethodsController {
     new ApiResponse(code = 400, message = "request failed")))
  @ApiImplicitParams(Array(
     new ApiImplicitParam(
+        name = "body",
         value = "VOTableURL object encoding the VOTable fields to be created", 
         required = true, 
         dataType = "VOTableURL", 
