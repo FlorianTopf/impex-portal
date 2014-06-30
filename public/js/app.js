@@ -755,21 +755,6 @@ else
                         return false;
                 });
             }
-            // just for testing
-            /* this.methods.apis.forEach(
-            (a) => {
-            if(a.path.indexOf("FMI") != -1)
-            console.log(a.path)
-            a.operations.forEach(
-            (o) => o.parameters.forEach(
-            (p) => {
-            // enum cannot be used as property
-            if(p.hasOwnProperty("enum"))
-            console.log("enum: "+p["enum"])
-            }
-            )
-            )}
-            )*/
         };
         MethodsService.$inject = ['$resource'];
         return MethodsService;
@@ -841,7 +826,6 @@ var portal;
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
         function PortalCtrl($scope, $http, $location, $timeout, $interval, $window, configService, registryService, $modal) {
             var _this = this;
-            this.configAble = true;
             this.ready = false;
             this.scope = $scope;
             this.scope.vm = this;
@@ -1114,6 +1098,12 @@ var portal;
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
         function MethodsCtrl($scope, $http, $location, $timeout, $window, configService, methodsService, $modalInstance, database) {
             this.showError = false;
+            this.request = {};
+            // helpers for methods modal
+            this.dropdownStatus = {
+                isopen: false,
+                active: "Choose Method"
+            };
             this.scope = $scope;
             $scope.methvm = this;
             this.configService = configService;
@@ -1128,14 +1118,14 @@ var portal;
             if (this.methodsService.methods)
                 this.methods = this.methodsService.getMethods(this.database);
 else
-                this.load();
+                this.loadMethodsAPI();
         }
         MethodsCtrl.prototype.retry = function () {
             this.showError = false;
-            this.load();
+            this.loadMethodsAPI();
         };
 
-        MethodsCtrl.prototype.load = function () {
+        MethodsCtrl.prototype.loadMethodsAPI = function () {
             var _this = this;
             this.methodsService.getMethodsAPI().get(function (data, status) {
                 return _this.handleData(data, status);
@@ -1155,11 +1145,40 @@ else
         MethodsCtrl.prototype.handleError = function (data, status) {
             console.log("config error");
             if (this.window.confirm('connection timed out. retry?'))
-                this.load();
+                this.loadMethodsAPI();
 else {
                 this.showError = true;
                 this.status = data + " " + status;
             }
+        };
+
+        MethodsCtrl.prototype.setActive = function (method) {
+            var _this = this;
+            this.dropdownStatus.active = this.trimPath(method.path);
+            this.currentMethod = method;
+
+            // @TODO there is for now only one operation per method
+            this.currentMethod.operations[0].parameters.forEach(function (p) {
+                _this.request[p.name] = p.defaultValue;
+            });
+        };
+
+        MethodsCtrl.prototype.isActive = function (path) {
+            return this.dropdownStatus.active === this.trimPath(path);
+        };
+
+        MethodsCtrl.prototype.getActive = function () {
+            return this.dropdownStatus.active;
+        };
+
+        MethodsCtrl.prototype.trimPath = function (path) {
+            var splitPath = path.split('/').reverse();
+            return splitPath[0];
+        };
+
+        // testing method for submission
+        MethodsCtrl.prototype.methodsSubmit = function () {
+            console.log("submitted " + this.currentMethod.path + " " + this.request['id']);
         };
 
         // testing methods for modal
@@ -1390,7 +1409,7 @@ var portal;
     impexPortal.config([
         '$routeProvider',
         function ($routeProvider) {
-            $routeProvider.when('/config', { templateUrl: '/public/partials/config.html', controller: 'configCtrl' }).when('/portal', { templateUrl: '/public/partials/portalMap.html', controller: 'portalCtrl' }).otherwise({ redirectTo: '/config' });
+            $routeProvider.when('/config', { templateUrl: '/public/partials/config.html', controller: 'configCtrl' }).when('/portal', { templateUrl: '/public/partials/portalMap.html', controller: 'portalCtrl' }).when('/databases', { templateUrl: '/public/partials/databaseMap.html', controller: 'portalCtrl' }).otherwise({ redirectTo: '/config' });
         }
     ]);
 

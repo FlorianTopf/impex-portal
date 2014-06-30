@@ -1,0 +1,691 @@
+{
+	"auto_complete":
+	{
+		"selected_items":
+		[
+			[
+				"fo",
+				"font-weight"
+			],
+			[
+				"margi",
+				"margin-bottom"
+			],
+			[
+				"fl",
+				"ffl-window"
+			],
+			[
+				"d",
+				"display"
+			],
+			[
+				"min-",
+				"min-height"
+			],
+			[
+				"Enum",
+				"EnumRegion"
+			],
+			[
+				"__",
+				"__obj"
+			],
+			[
+				"fr",
+				"from"
+			],
+			[
+				"scala",
+				"scalaxb"
+			],
+			[
+				"he",
+				"headOption"
+			],
+			[
+				"st",
+				"style	Tag"
+			],
+			[
+				"boot",
+				"bootstrap-lightbox"
+			],
+			[
+				"f",
+				"f3f6f8"
+			]
+		]
+	},
+	"buffers":
+	[
+		{
+			"file": "/Volumes/Boxcryptor Classic/Zugangsdaten/zugangsdaten-tsa.txt",
+			"settings":
+			{
+				"buffer_size": 262,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Volumes/Boxcryptor Classic/Zugangsdaten/Zugangsdaten-iwf.txt",
+			"settings":
+			{
+				"buffer_size": 3959,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "mocks/methods.json",
+			"settings":
+			{
+				"buffer_size": 77201,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2-client/index.html",
+			"settings":
+			{
+				"buffer_size": 1014,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "mocks/swagger-m.json",
+			"settings":
+			{
+				"buffer_size": 1999,
+				"line_ending": "Unix"
+			}
+		}
+	],
+	"build_system": "Packages/User/typescript.sublime-build",
+	"command_palette":
+	{
+		"height": 127.0,
+		"selected_items":
+		[
+			[
+				"Diff",
+				"FileDiffs: Menu"
+			],
+			[
+				"file",
+				"FileDiffs: Menu"
+			],
+			[
+				"",
+				"FileDiffs: Menu"
+			],
+			[
+				"Package Control: ",
+				"Package Control: Install Package"
+			],
+			[
+				"Control",
+				"Package Control: Install Package"
+			],
+			[
+				"Con",
+				"Package Control: Install Package"
+			],
+			[
+				"Contro",
+				"Package Control: Install Package"
+			]
+		],
+		"width": 449.0
+	},
+	"console":
+	{
+		"height": 551.0,
+		"history":
+		[
+			"import urllib.request,os,hashlib; h = '7183a2d3e96f11eeadd761d777e62404' + 'e330c659d4bb41d3bdf022e94cab3cd0'; pf = 'Package Control.sublime-package'; ipp = sublime.installed_packages_path(); urllib.request.install_opener( urllib.request.build_opener( urllib.request.ProxyHandler()) ); by = urllib.request.urlopen( 'http://sublime.wbond.net/' + pf.replace(' ', '%20')).read(); dh = hashlib.sha256(by).hexdigest(); print('Error validating download (got %s instead of %s), please try manual install' % (dh, h)) if dh != h else open(os.path.join( ipp, pf), 'wb' ).write(by)"
+		]
+	},
+	"distraction_free":
+	{
+		"menu_visible": true,
+		"show_minimap": false,
+		"show_open_files": false,
+		"show_tabs": false,
+		"side_bar_visible": false,
+		"status_bar_visible": false
+	},
+	"file_history":
+	[
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2-client/js/app.ts",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/models/GambleMessage.ts",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/js/bower.json",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/js/.bowerrc",
+		"/Users/floriantopf/Desktop/themeforest-2415788-gonzo-clean-responsive-wp-magazine/gonzo/style.css",
+		"/Users/floriantopf/Desktop/themeforest-2415788-gonzo-clean-responsive-wp-magazine/gonzo-child-theme/style.css",
+		"/Users/floriantopf/Desktop/themeforest-2415788-gonzo-clean-responsive-wp-magazine/documentation/doumentation.html",
+		"/Users/floriantopf/Desktop/magazin-requirements",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/polldaddy/rating.php",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/js/app.ts",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/partials/portalMap.html",
+		"/Volumes/Boxcryptor Classic/Zugangsdaten/Zugangsdaten-iwf.txt",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/polldaddy/polldaddy.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/polldaddy/locale/polldaddy-te.po",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/polldaddy/locale/polldaddy.pot",
+		"/Users/floriantopf/Library/Application Support/Sublime Text 3/Packages/User/typescript.sublime-build",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/js/_all.ts",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/js/app.js",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/.externalToolBuilders/Typescript.launch",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/js/_all.js",
+		"/Users/floriantopf/Desktop/input-clear",
+		"/Users/floriantopf/repositories/swagger-core/samples/scala-play2/app/controllers/PetApiController.scala",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/directives/CanvasDir.ts",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/controllers/GambleCtrl.ts",
+		"/Users/floriantopf/repositories/swagger-core/samples/scala-play2/app/controllers/BaseApiController.scala",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/test/models/binding/VOTBindingSpecs.scala",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/app/models/binding/VOTable-1.2.scala",
+		"/Users/floriantopf/Desktop/taverna-to-be-tested.txt",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/test/models/binding/FMIMethodsSpecs.scala",
+		"/Volumes/Boxcryptor Classic/Zugangsdaten/zugangsdaten-grohs.txt",
+		"/Volumes/Boxcryptor Classic/Zugangsdaten/zugangsdaten-tsa.txt",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/css/portal.css",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/themes/Avada/single.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/all-in-one-event-calendar-extended-views/public/themes-ai1ec/vortex/twig/posterboard.twig",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/calendar-ed/posterboard.twig",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/all-in-one-event-calendar/app/view/event/content.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/all-in-one-event-calendar/app/view/event/post.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/all-in-one-event-calendar/lib/command/clone.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/all-in-one-event-calendar/app/view/calendar/view/abstract.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/includes/classes/class.FrontendLogin.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/all-in-one-event-calendar-extended-views/app/view/calendar/view/posterboard.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/all-in-one-event-calendar-extended-views/app/view/calendar/view/stream.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/all-in-one-event-calendar/app/model/settings.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/all-in-one-event-calendar/app/model/settings-view.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/all-in-one-event-calendar/app/model/meta-post.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/newsletter/widget.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/newsletter/subscription/options.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/newsletter/subscription/subscription.php",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/controllers/ConfigCtrl.ts",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/controllers/GameCtrl.ts",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/controllers/PaytableCtrl.ts",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/directives/ImgDir.ts",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/directives/DeckDir.ts",
+		"/Users/floriantopf/Library/Application Support/taverna-astronomy-2.5.0/logs/taverna-astronomy-2.5.0.log",
+		"/Users/floriantopf/Google Drive/Work/Freelance/Postl/revisionary/languages/revisionary.pot",
+		"/Users/floriantopf/Google Drive/Work/Freelance/Postl/revisionary/languages/revisionary-de_DE.po",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/backups/6_tsa-21-06-14.sql",
+		"/Users/floriantopf/Desktop/users.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/backups/6_tsa-11-06-14_3.sql",
+		"/Volumes/Boxcryptor Classic/Zugangsdaten/zugangsdaten-lernhilfe.txt",
+		"/Users/floriantopf/Library/Application Support/Sublime Text 3/Packages/SublimeFileDiffs/README.md",
+		"/Users/floriantopf/Library/Application Support/Sublime Text 3/Packages/FileDiffs/FileDiffs.sublime-settings",
+		"/Users/floriantopf/Library/Application Support/Sublime Text 3/Packages/User/FileDiffs.sublime-settings",
+		"/Users/floriantopf/Library/Application Support/Sublime Text 3/Packages/Package Control/Package Control.sublime-settings",
+		"/Users/floriantopf/Google Drive/Work/Freelance/Postl/revisionary/admin/revision-action_rvy.php",
+		"/Users/floriantopf/Google Drive/Work/Freelance/Postl/revisionary/admin/admin_rvy.php",
+		"/Users/floriantopf/Google Drive/Work/Freelance/Postl/revisionary/revisionary-de_DE.po",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/woocommerce/templates/single-product/related.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/all-in-one-event-calendar/language/all-in-one-event-calendar-de_DE.po",
+		"/Users/floriantopf/Desktop/Fallout 3 - Game of the Year Edition [Final]-RELOADED/Read Me.txt",
+		"/Users/floriantopf/Downloads/vueScan x6492 - Version 9.2.23/VueScan 9.2.23 SN.txt",
+		"/Users/floriantopf/Desktop/taverna-to-be-tested",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/js/bower_components/angular-ui-router/README.md",
+		"/Users/floriantopf/Downloads/AngularDemo_Starter/readme.txt",
+		"/Users/floriantopf/Downloads/AngularDemo_Starter/AngularDemo/svc/app/app.js",
+		"/Users/floriantopf/Downloads/AngularDemo_Starter/AngularDemo/svc/app/app-controller.js",
+		"/Users/floriantopf/Downloads/AngularDemo_Starter/AngularDemo/svc/app/flugbuchen/_Chutzpah.1.flugbuchen.js",
+		"/Users/floriantopf/Desktop/googled772bc1669001d57.html",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/app/models/binding/Spase.scala",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/app/models/binding/impex-1_0_1.scala",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/themes/Avada/framework/headers/header-main-menu.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/themes/Avada/framework/woo-config.php",
+		"/opt/local/lib/node_modules/tsd/README.md",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/partials/templates/deck.html",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/app/models/entities/User.scala",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/app/models/entities/Round.scala",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/app/controllers/Actions.scala",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/app/controllers/DemoGame.scala",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/app/models/actor/Player.scala",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/app/views/apiview.scala.html",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/app/controllers/Application.scala",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/lib/swagger.js",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/wp-members/wp-members-dialogs.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/woocommerce/templates/emails/email-header.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/woocommerce/includes/gateways/bacs/class-wc-gateway-bacs.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/woocommerce/includes/class-wc-order.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/woocommerce/templates/emails/plain/email-order-items.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/woocommerce/templates/order/order-details.php",
+		"/Users/floriantopf/repositories/swagger-core/samples/scala-play2/app/controllers/StoreApiController.scala",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/woocommerce-de/readme.txt",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/themes/Avada/languages/de_DE.po",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/themes/Avada/woocommerce/checkout/review-order.php",
+		"/Applications/XAMPP/xamppfiles/htdocs/hilmgasse.at/js/custom.js",
+		"/Applications/XAMPP/xamppfiles/htdocs/hilmgasse.at/index.html",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/app/models/enums/Result.scala",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/app/models/binding/Win.scala",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/app/models/binding/Reel.scala",
+		"/Users/floriantopf/Google Drive/Work/Freelance/TSA/tsa-splash-site/index.html",
+		"/Users/floriantopf/Desktop/messages",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/all-in-one-calender-de_DE/all-in-one-event-calendar-de_DE.po",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/all-in-one-event-calendar/language/all-in-one-event-calendar.pot",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/all-in-one-event-calendar/public/themes-ai1ec/vortex/twig/agenda.twig",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/all-in-one-event-calendar/app/view/calendar/view/agenda.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/all-in-one-event-calendar/language/all-in-one-event-calendar.po",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/all-in-one-event-calendar/language/all-in-one-event-calendar-de_DE.po",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/avada-ed/review-order.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/newsletter/subscription/styles/neutral.css",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/wp-members/wp-members-dialogs.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/css/ffl-style.css",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/js/ffl.min.js",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/js/ffl.js",
+		"/Users/floriantopf/Desktop/getVOTableURL-info.txt",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/flexible-frontend-login.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/themes/Avada/framework/headers/header-v4.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/customization/ffl-template.tpl",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/includes/output.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/includes/styling.php",
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/includes/default-options.php"
+	],
+	"find":
+	{
+		"height": 35.0
+	},
+	"find_in_files":
+	{
+		"height": 93.0,
+		"where_history":
+		[
+			""
+		]
+	},
+	"find_state":
+	{
+		"case_sensitive": true,
+		"find_history":
+		[
+			"WP",
+			"AnyTEX",
+			"Type",
+			"VOTABLE",
+			"Resource",
+			"VOTABLE",
+			"Definitions",
+			"VOTABLE",
+			"AnyTEXT",
+			"any",
+			"VOTABLE",
+			"Info",
+			"ResourceOption2",
+			"Resource",
+			"Table",
+			"Data",
+			"excerpt",
+			"post_ex",
+			"excerpt",
+			"profile",
+			"email",
+			"$options_profile['email']",
+			"email",
+			"user-edit",
+			"edit",
+			"View it online:",
+			"Your mod",
+			"View it",
+			"View it online",
+			"scheduled revision notice",
+			"scheduled revision",
+			"InputPopulation",
+			"InputValue",
+			"draw",
+			"AnyTEXT",
+			"AnyText",
+			"TableOption",
+			"EncodingType",
+			"DataOption",
+			"Data",
+			"Type",
+			"DataType",
+			"Values",
+			"Field",
+			"TableOption",
+			"Table",
+			"ResourceOption",
+			"resource",
+			"list",
+			"header.php",
+			"Offset",
+			"Read",
+			"CalculateCubeSaturnFormat",
+			"h5",
+			"h4",
+			"über",
+			"ü",
+			"CalculateCubeSaturn",
+			"user pi",
+			"POSSIBLE BREAK-IN ATTEMPT!",
+			"POSSIBLE BREAK IN",
+			"main",
+			"google",
+			"MostRelevantRun",
+			"VOTable_field",
+			"EnumRegion",
+			"MostRelevantRun",
+			"ParameterType",
+			"Parameter",
+			"ParameterType",
+			"Observatory",
+			"InstrumentType",
+			"DefaultBindingInstrumentTypeFormat",
+			"Group",
+			"InstrumentType",
+			"instrument",
+			"Observato",
+			"There are no upcoming events to display at this time.",
+			"There are no upcoming events to display at this time. ",
+			"poster",
+			"board",
+			"Poster",
+			"Subsc",
+			"access",
+			"calculateCub",
+			"DataPointValueSINP",
+			"SINP",
+			"Type2",
+			"Type",
+			"Type2",
+			"???//",
+			"Type2",
+			"DefaultBindingDataPointValueFormat",
+			"Interpolation",
+			"OutputFormatType2",
+			"Spacecraft",
+			"OutputFormat",
+			"EnumDirectionType",
+			"Type",
+			"TypeFormat",
+			"  implicit lazy val BindingDataPointValueFMIFormat: scalaxb.XMLFormat[models.binding.DataPointValueFMI] = new DefaultBindingDataPointValueTypeFormat {}\nDefaultBindingOutputFormatType2Format",
+			"DefaultBindingOutputFormatType2Format",
+			"DefaultBindingOutputFormatFormat",
+			"Stell",
+			"inw",
+			"est",
+			"dark",
+			"windo",
+			"month",
+			"Poster",
+			"poster",
+			"where",
+			"When",
+			"impex",
+			"sprache",
+			"banner",
+			"back",
+			"wrapper",
+			"mini",
+			"h4",
+			", papercut",
+			"border",
+			"bg",
+			"green",
+			"urquoise",
+			"turquoise",
+			"tur",
+			"turquoise"
+		],
+		"highlight": true,
+		"in_selection": false,
+		"preserve_case": false,
+		"regex": false,
+		"replace_history":
+		[
+			"SINP",
+			"",
+			"SINP",
+			"OutputFormatType",
+			"FMI",
+			"FMIFormat",
+			"h3",
+			"green"
+		],
+		"reverse": false,
+		"show_context": true,
+		"use_buffer2": true,
+		"whole_word": false,
+		"wrap": true
+	},
+	"groups":
+	[
+		{
+			"selected": 3,
+			"sheets":
+			[
+				{
+					"buffer": 0,
+					"file": "/Volumes/Boxcryptor Classic/Zugangsdaten/zugangsdaten-tsa.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 262,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "/Volumes/Boxcryptor Classic/Zugangsdaten/Zugangsdaten-iwf.txt",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3959,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								165,
+								153
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Text/Plain text.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 3344.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "mocks/methods.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 77201,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								57025,
+								57025
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Better JavaScript/JSON.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 16.0,
+						"translation.y": 20208.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2-client/index.html",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1014,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								594,
+								594
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/HTML/HTML.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 0,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "mocks/swagger-m.json",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1999,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Better JavaScript/JSON.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				}
+			]
+		}
+	],
+	"incremental_find":
+	{
+		"height": 23.0
+	},
+	"input":
+	{
+		"height": 0.0
+	},
+	"layout":
+	{
+		"cells":
+		[
+			[
+				0,
+				0,
+				1,
+				1
+			]
+		],
+		"cols":
+		[
+			0.0,
+			1.0
+		],
+		"rows":
+		[
+			0.0,
+			1.0
+		]
+	},
+	"menu_visible": true,
+	"output.exec":
+	{
+		"height": 248.0
+	},
+	"output.find_results":
+	{
+		"height": 0.0
+	},
+	"project": "impex-portal.sublime-project",
+	"replace":
+	{
+		"height": 42.0
+	},
+	"save_all_on_build": true,
+	"select_file":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_project":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"select_symbol":
+	{
+		"height": 0.0,
+		"selected_items":
+		[
+		],
+		"width": 0.0
+	},
+	"settings":
+	{
+	},
+	"show_minimap": true,
+	"show_open_files": false,
+	"show_tabs": true,
+	"side_bar_visible": true,
+	"side_bar_width": 300.0,
+	"status_bar_visible": true,
+	"template_settings":
+	{
+	}
+}

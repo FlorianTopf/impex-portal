@@ -1,10 +1,53 @@
+<form class="form-horizontal" role="form" ng-submit="methvm.methodsSubmit()">
 <div class="modal-header">
 	<h3 class="modal-title">{{ methvm.database.name }} Data Access</h3>
 </div>
 <div class="modal-body">
-<p ng-repeat="method in methvm.methods">{{ method.path }}</p>
+	<div class="btn-group" dropdown is-open="methvm.dropdownStatus.isopen">
+		<button type="button" class="btn btn-primary dropdown-toggle">
+        	{{ methvm.dropdownStatus.active }} <span class="caret"></span>
+      	</button>
+      	<ul class="dropdown-menu" role="menu">
+        	<li ng-repeat="method in methvm.methods">
+        		<span ng-click="methvm.setActive(method)" 
+        			  ng-class="{ active: methvm.isActive(method.path) }">
+        			{{ methvm.trimPath(method.path) }}
+        		</span>
+        	</li>
+      	</ul>
+	</div>
+	<div class="row"><div class="col-sm-12">&nbsp;</div></div>
+	<div class="row">
+		<div class="col-sm-12">
+			<!-- maybe use a directive with attributes here => currentMethod -->
+			<div ng-repeat="operation in methvm.currentMethod.operations">
+				<p>{{ operation.summary }}<br/>{{ operation.notes }}</p>
+					<div class="form-group" ng-repeat="parameter in operation.parameters" 
+						ng-show="parameter.paramType == 'query'" >	
+						<label class="col-sm-3 control-label">{{ parameter.description }}</label>
+						<div class="col-sm-7">
+							<input ng-show="parameter['enum'] | isEmpty" 
+								type="text" class="form-control" 
+								ng-required="parameter.required" ng-model="methvm.request[parameter.name]">
+					    	<select class="form-control" ng-hide="parameter['enum'] | isEmpty"
+					    		ng-options="opt for opt in parameter['enum']" ng-model="methvm.request[parameter.name]" 
+					    		ng-required="parameter.required">
+					    	</select>
+						</div>
+						<label class="col-sm-2 control-label">
+							<div class="text-left" ng-if="parameter.required">required</div>
+							<div class="text-left" ng-if="!parameter.required">optional</div>
+						</label>
+					</div>
+					<!-- here we add a directive if paramType is body -->
+			</div>
+		</div>
+	</div>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-primary" ng-click="methvm.methodsOk()">OK</button>
+	<button type="submit" class="btn btn-primary" 
+		ng-show="methvm.dropdownStatus.active != 'Choose Method'">Request Data</button>
+	<button class="btn btn-primary" ng-click="methvm.methodsSave()">Save</button>
 	<button class="btn btn-warning" ng-click="methvm.methodsCancel()">Cancel</button>
 </div>
+</form>

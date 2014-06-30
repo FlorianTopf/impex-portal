@@ -25,15 +25,12 @@ module portal {
             this.resource = $resource
         }
         
-
-        
         public getMethodsAPI(): IMethodsResource {
             return <IMethodsResource> this.resource(this.url+'api-docs/methods', 
                 // we can remove the params here!
                 {},{ getMethods: this.methodsAction })
         }
         
-
         public getMethods(db: Database) {
             // we only fetch the needed apis
             // for FMI we need a special selector
@@ -52,22 +49,6 @@ module portal {
                         return false
                 }) 
             }
-            
-            // just for testing
-            /* this.methods.apis.forEach(
-                (a) => { 
-                  if(a.path.indexOf("FMI") != -1)
-                        console.log(a.path)
-                  a.operations.forEach(
-                    (o) => o.parameters.forEach(
-                        (p) => { 
-                                // enum cannot be used as property
-                                if(p.hasOwnProperty("enum"))
-                                    console.log("enum: "+p["enum"]) 
-                         }
-                    )
-               )}
-           )*/
         }
         
 

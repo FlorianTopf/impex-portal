@@ -12,7 +12,7 @@ module portal {
         [resourceType: string]: SpaseElem 
     }
 
-    export class RegistryDir {
+    export class RegistryDir implements ng.IDirective {
 
         // @TODO here we add dependencies for the used elements in bootstrap-ui
         public injection(): any[] {
@@ -136,18 +136,18 @@ module portal {
             this.activeItems[type] = element
         }
         
-        private isActive(type: string, element: SpaseElem) {
+        private isActive(type: string, element: SpaseElem): boolean {
             return this.activeItems[type] === element
         }
         
-        private trim(name: string, length: number = 25) {
+        private trim(name: string, length: number = 25): string {
             if(name.length>length)
                  return name.slice(0, length).trim()+"..."
             else
                  return name.trim()
         }
         
-        private format(name: string) {
+        private format(name: string): string {
             return name.split("_").join(" ").trim()
         }
         

@@ -22,10 +22,11 @@ module portal {
         //private initialising: boolean = false
         //private loading: boolean = false
         //private transFinished: boolean = true
-
-        
+  
         public status: string
         public showError: boolean = false  
+        public currentMethod: Api
+        public request: Object = {}
         
         static $inject: Array<string> = ['$scope', '$http', '$location', '$timeout', '$window',
             'configService', 'methodsService', '$modalInstance', 'database']
@@ -49,22 +50,22 @@ module portal {
             if(this.methodsService.methods)
                 this.methods = this.methodsService.getMethods(this.database)
             else
-                this.load()
+                this.loadMethodsAPI()
         }
         
         public retry() {
             this.showError = false
-            this.load()
+            this.loadMethodsAPI()
         }
         
-        public load() {
+        private loadMethodsAPI() {
             this.methodsService.getMethodsAPI().get(
                 (data: ISwagger, status: any) => this.handleData(data, status),
                 (data: any, status: any) => this.handleError(data, status)
             )
         }
         
-        public handleData(data: ISwagger, status?: any) {
+        private handleData(data: ISwagger, status?: any) {
             this.status = "success"
             // we always get the right thing
             this.methodsService.methods = data
@@ -74,13 +75,47 @@ module portal {
         private handleError(data: any, status: any) {
             console.log("config error")
             if(this.window.confirm('connection timed out. retry?'))
-                this.load()
+                this.loadMethodsAPI()
             else {
                 this.showError = true
                 this.status = data+" "+status
             }
         }     
-
+        
+        // helpers for methods modal
+        public dropdownStatus = {
+            isopen: false,
+            active: "Choose Method"
+        }
+        
+        public setActive(method: Api) {
+            this.dropdownStatus.active = this.trimPath(method.path)
+            this.currentMethod = method
+            // @TODO there is for now only one operation per method
+             this.currentMethod.operations[0].parameters.forEach((p) => {
+                   this.request[p.name] = p.defaultValue
+               })
+            
+        }
+        
+        public isActive(path: string): boolean {
+            return this.dropdownStatus.active === this.trimPath(path)
+        }
+        
+        public getActive(): string {
+            return this.dropdownStatus.active
+        }
+        
+        public trimPath(path: string): string {
+            var splitPath = path.split('/').reverse()
+            return splitPath[0]
+        }
+        
+        // testing method for submission
+        public methodsSubmit() {
+            console.log("submitted "+this.currentMethod.path+" "+this.request['id'])
+        
+        }
         
         // testing methods for modal
         public methodsOk() {
@@ -92,7 +127,6 @@ module portal {
             this.modalInstance.dismiss()
 
         }
-        
     
 
     }

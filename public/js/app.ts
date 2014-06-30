@@ -26,6 +26,7 @@ module portal {
     impexPortal.config(['$routeProvider', ($routeProvider) => {
 		    $routeProvider.when('/config', {templateUrl: '/public/partials/config.html', controller: 'configCtrl'}).
                 when('/portal', {templateUrl: '/public/partials/portalMap.html', controller: 'portalCtrl'}).
+                when('/databases', {templateUrl: '/public/partials/databaseMap.html', controller: 'portalCtrl'}).
                 otherwise({redirectTo: '/config'})
   		}])
     

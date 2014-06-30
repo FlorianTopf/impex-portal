@@ -19,8 +19,6 @@ module portal {
         private registryService: portal.RegistryService
         private modal: any
         private registryPromise: ng.IPromise<any>
-
-        private configAble: boolean = true
         private ready: boolean = false
       
         static $inject: Array<string> = ['$scope', '$http', '$location', '$timeout', 

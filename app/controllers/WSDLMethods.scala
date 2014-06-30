@@ -62,6 +62,7 @@ object WSDLMethods extends BaseController {
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "unkown provider"), 
     new ApiResponse(code = 400, message = "not implemented")))
+  @Path("/taverna")
   def methodsTaverna(
       @ApiParam(value = "database name stored in the configuration", 
           defaultValue = "SINP") @PathParam("dbName") dbName: String) = PortalAction.async {
