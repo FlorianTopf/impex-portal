@@ -16,12 +16,22 @@
         	</li>
       	</ul>
 	</div>
-	<div class="row"><div class="col-sm-12">&nbsp;</div></div>
+    <div class="row text-center">
+		<div ng-show="methvm.showError" class="col-sm-12">
+			<p>an error occurred while retrieving data: {{ methvm.status }} </p>
+			<p>please try again:</p>
+			<button ng-click="methvm.retry()" class="btn"><h4>retry</h4></button>
+		</div>
+		<div ng-show="!methvm.showError" class="col-sm-12">&nbsp;</div>
+		<div ng-show="methvm.initialising" class="col-sm-12">
+			<img src="/public/img/layout/loading.gif" class="loadingImg-sm" alt="loading..." />
+		</div>
+	</div>
 	<div class="row">
 		<div class="col-sm-12">
 			<!-- maybe use a directive with attributes here => currentMethod -->
 			<div ng-repeat="operation in methvm.currentMethod.operations">
-				<p>{{ operation.summary }}<br/>{{ operation.notes }}</p>
+				<p><strong>{{ operation.summary }}:</strong>&nbsp;&nbsp;{{ operation.notes }}</p>
 					<div class="form-group" ng-repeat="parameter in operation.parameters" 
 						ng-show="parameter.paramType == 'query'" >	
 						<label class="col-sm-3 control-label">{{ parameter.description }}</label>
@@ -39,15 +49,19 @@
 							<div class="text-left" ng-if="!parameter.required">optional</div>
 						</label>
 					</div>
-					<!-- here we add a directive if paramType is body -->
+					<!-- @TODO here we add a directive if paramType is body (getVOTableUrl) -->
 			</div>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-sm-12">&nbsp;</div>
+	</div>
+	<user-data-dir></user-data-dir>
 </div>
 <div class="modal-footer">
 	<button type="submit" class="btn btn-primary" 
 		ng-show="methvm.dropdownStatus.active != 'Choose Method'">Request Data</button>
-	<button class="btn btn-primary" ng-click="methvm.methodsSave()">Save</button>
-	<button class="btn btn-warning" ng-click="methvm.methodsCancel()">Cancel</button>
+	<button type="button" class="btn btn-primary" ng-click="methvm.methodsSave()">Save</button>
+	<button type="button" class="btn btn-warning" ng-click="methvm.methodsCancel()">Cancel</button>
 </div>
 </form>

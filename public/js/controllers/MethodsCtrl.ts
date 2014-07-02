@@ -9,41 +9,40 @@ module portal {
 
     export class MethodsCtrl {
         private scope: portal.IMethodsScope
-        private http: ng.IHttpService
         private location: ng.ILocationService
         private timeout: ng.ITimeoutService
         private window: ng.IWindowService
         private configService: portal.ConfigService
         private methodsService: portal.MethodsService
+        private userService: portal.UserService 
         private modalInstance: any
         private database: Database
         private methodsPromise: ng.IPromise<any>
         private methods: Array<Api>
-        //private initialising: boolean = false
-        //private loading: boolean = false
-        //private transFinished: boolean = true
+        private initialising: boolean = false
   
         public status: string
         public showError: boolean = false  
         public currentMethod: Api
         public request: Object = {}
         
-        static $inject: Array<string> = ['$scope', '$http', '$location', '$timeout', '$window',
-            'configService', 'methodsService', '$modalInstance', 'database']
+        static $inject: Array<string> = ['$scope', '$location', '$timeout', '$window',
+            'configService', 'methodsService', 'userService', '$modalInstance', 'database']
 
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
-        constructor($scope: IMethodsScope, $http: ng.IHttpService, $location: ng.ILocationService,
-            $timeout: ng.ITimeoutService, $window: ng.IWindowService, configService: portal.ConfigService, 
-            methodsService: portal.MethodsService, $modalInstance: any, database: Database) {   
+        constructor($scope: IMethodsScope, $location: ng.ILocationService, $timeout: ng.ITimeoutService, 
+            $window: ng.IWindowService, configService: portal.ConfigService, 
+            methodsService: portal.MethodsService, userService: portal.UserService,
+            $modalInstance: any, database: Database) {   
             this.scope = $scope
             $scope.methvm = this
-            this.configService = configService
-            this.methodsService = methodsService
             this.location = $location
-            this.http = $http
             this.timeout = $timeout   
             this.window = $window
+            this.configService = configService
+            this.methodsService = methodsService
+            this.userService = userService
             this.modalInstance = $modalInstance
             this.database = database
             
@@ -59,28 +58,50 @@ module portal {
         }
         
         private loadMethodsAPI() {
+            this.initialising = true
             this.methodsService.getMethodsAPI().get(
-                (data: ISwagger, status: any) => this.handleData(data, status),
-                (data: any, status: any) => this.handleError(data, status)
+                (data: ISwagger, status: any) => this.handleAPIData(data, status),
+                (error: any) => this.handleAPIError(error)
             )
         }
         
-        private handleData(data: ISwagger, status?: any) {
+        private handleAPIData(data: ISwagger, status?: any) {
+            this.initialising = false
             this.status = "success"
             // we always get the right thing
             this.methodsService.methods = data
             this.methods = this.methodsService.getMethods(this.database)
         } 
         
-        private handleError(data: any, status: any) {
-            console.log("config error")
+        private handleAPIError(error: any) {
+            this.initialising = false
             if(this.window.confirm('connection timed out. retry?'))
                 this.loadMethodsAPI()
             else {
                 this.showError = true
-                this.status = data+" "+status
+                // @TODO we need to extend this maybe
+                if(error.status = 404)
+                    this.status = error.status+" resource not found"
+                else
+                    this.status = error.data+" "+error.status
             }
-        }     
+        }  
+        
+        private handleServiceData(data: IResponse, status?: any) {
+            console.log("Success: "+data.message)
+            // @TODO we change id creation later
+            var id = this.userService.createId()
+            // @TODO we must take care of custom results (getMostRelevantRun)
+            this.userService.user.results[id] = data
+            this.scope.$broadcast('update-user-data', id)
+        }
+        
+        // @TODO display error in the user interface
+        private handleServiceError(error: any) {
+            console.log("Failure: "+<IResponse>error.data.message)
+            var message = <IResponse>error.data.message 
+            this.scope.$broadcast('handle-service-error', message)
+        }
         
         // helpers for methods modal
         public dropdownStatus = {
@@ -113,12 +134,17 @@ module portal {
         
         // testing method for submission
         public methodsSubmit() {
+            this.scope.$broadcast('load-service-data')
             console.log("submitted "+this.currentMethod.path+" "+this.request['id'])
+            this.methodsService.requestMethod(this.currentMethod.path, this.request).get(
+                (data: IResponse, status: any) => this.handleServiceData(data, status),
+                (error: any) => this.handleServiceError(error)
+            )
         
         }
         
         // testing methods for modal
-        public methodsOk() {
+        public methodsSave() {
             this.modalInstance.close()
 
         }

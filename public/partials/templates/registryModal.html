@@ -2,9 +2,12 @@
 	<h3 class="modal-title">{{ regvm.database.name }} Simulations</h3>
 </div>
 <div class="modal-body">
+	<div ng-show="regvm.initialising && regvm.transFinished" class="text-left">
+		<img src="/public/img/layout/loading.gif" class="loadingImg-sm" alt="loading..." />
+	</div>
 	<registry-dir></registry-dir>
 </div>
 <div class="modal-footer">
-	<button class="btn btn-primary" ng-click="regvm.registrySave()">Save</button>
-	<button class="btn btn-warning" ng-click="regvm.registryCancel()">Cancel</button>
+	<button type="button" class="btn btn-primary" ng-click="regvm.registrySave()">Save</button>
+	<button type="button" class="btn btn-warning" ng-click="regvm.registryCancel()">Cancel</button>
 </div>

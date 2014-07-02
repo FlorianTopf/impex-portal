@@ -30,10 +30,10 @@ module portal {
         public templateUrl: string
         public restrict: string
         
-        private config: IConfig
         private timeout: ng.ITimeoutService
         private configService: portal.ConfigService
         private registryService: portal.RegistryService
+        private config: IConfig
         private myScope: ng.IScope 
         private oneAtATime: boolean = true
         private error: boolean = false
@@ -49,9 +49,9 @@ module portal {
 
         constructor($timeout: ng.ITimeoutService, configService: portal.ConfigService, 
             registryService: portal.RegistryService) {
+            this.timeout = $timeout
             this.configService = configService
             this.registryService = registryService
-            this.timeout = $timeout
             this.templateUrl = '/public/partials/templates/registryTree.html'
             this.restrict = 'E'
             this.link = ($scope: portal.IRegistryDirScope, element: JQuery, attributes: ng.IAttributes) => 
@@ -63,12 +63,12 @@ module portal {
             $scope.regdirvm = this
             this.myScope = $scope
             
-            $scope.$on('registry-error', (e, msg: string) => {
+            this.myScope.$on('registry-error', (e, msg: string) => {
                 this.error = true
                 this.errorMessage = msg
             })
             
-            $scope.$on('clear-registry', (e) => {
+            this.myScope.$on('clear-registry', (e) => {
                 console.log("clearing registry")
                 this.activeItems = {}
                 this.error = false
@@ -79,7 +79,7 @@ module portal {
                 this.granules = []
             })
             
-            $scope.$on('clear-simulation-models', (e) => {
+            this.myScope.$on('clear-simulation-models', (e) => {
                 this.activeItems = {}
                 this.error = false
                 this.simulationModels = []
@@ -88,7 +88,7 @@ module portal {
                 this.granules = []
             })
             
-            $scope.$on('clear-simulation-runs', (e, element: SpaseElem) => {
+            this.myScope.$on('clear-simulation-runs', (e, element: SpaseElem) => {
                 this.setActive("model", element)
                 this.error = false
                 this.simulationRuns = []
@@ -96,37 +96,37 @@ module portal {
                 this.granules = []
             })
             
-            $scope.$on('clear-numerical-outputs', (e, element: SpaseElem) => {
+            this.myScope.$on('clear-numerical-outputs', (e, element: SpaseElem) => {
                 this.setActive("run", element)
                 this.error = false
                 this.numericalOutputs = []
                 this.granules = []
             })
             
-            $scope.$on('clear-granules', (e, element: SpaseElem) => {
+            this.myScope.$on('clear-granules', (e, element: SpaseElem) => {
                 this.setActive("output", element)
                 this.error = false
                 this.granules = []
             })
    
-            $scope.$on('update-repositories', (e, id: string) => {
+            this.myScope.$on('update-repositories', (e, id: string) => {
                 this.repositories = this.registryService.cachedElements[id].map((r) => <Repository>r)
             })
             
-            $scope.$on('update-simulation-models', (e, id: string) => {
+            this.myScope.$on('update-simulation-models', (e, id: string) => {
                 this.simulationModels = this.registryService.cachedElements[id].map((r) => <SimulationModel>r)
 
             })
             
-            $scope.$on('update-simulation-runs', (e, id: string) => {
+            this.myScope.$on('update-simulation-runs', (e, id: string) => {
                 this.simulationRuns = this.registryService.cachedElements[id].map((r) => <SimulationRun>r)
             })
             
-            $scope.$on('update-numerical-outputs', (e, id: string) => {
+            this.myScope.$on('update-numerical-outputs', (e, id: string) => {
                 this.numericalOutputs = this.registryService.cachedElements[id].map((r) => <NumericalOutput>r)
             })
             
-            $scope.$on('update-granules', (e, id: string) => {
+            this.myScope.$on('update-granules', (e, id: string) => {
                 this.granules = this.registryService.cachedElements[id].map((r) => <Granule>r)
             })
             

@@ -652,6 +652,27 @@ var portal;
 var portal;
 (function (portal) {
     'use strict';
+})(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
+    // @TODO let's see what the user object needs to have
+    // we might need another member for stored selections
+    var User = (function () {
+        function User(id) {
+            this.id = id;
+            this.results = {};
+        }
+        return User;
+    })();
+    portal.User = User;
+})(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
 
     var ConfigService = (function () {
         function ConfigService($resource) {
@@ -725,7 +746,7 @@ var portal;
 
     var MethodsService = (function () {
         function MethodsService($resource) {
-            this.url = '/';
+            this.url = '';
             this.methods = null;
             // action descriptor for registry actions
             this.methodsAction = {
@@ -734,9 +755,9 @@ var portal;
             };
             this.resource = $resource;
         }
+        // generic method for requesting
         MethodsService.prototype.getMethodsAPI = function () {
-            return this.resource(this.url + 'api-docs/methods', // we can remove the params here!
-            {}, { getMethods: this.methodsAction });
+            return this.resource(this.url + this.url + 'api-docs/methods', { getMethods: this.methodsAction });
         };
 
         MethodsService.prototype.getMethods = function (db) {
@@ -756,6 +777,11 @@ else
                 });
             }
         };
+
+        // generic method for requesting standard services (GET + params)
+        MethodsService.prototype.requestMethod = function (path, params) {
+            return this.resource(path, params, { requestMethod: this.methodsAction });
+        };
         MethodsService.$inject = ['$resource'];
         return MethodsService;
     })();
@@ -766,16 +792,33 @@ var portal;
 (function (portal) {
     'use strict';
 
+    // @TODO let's see what the user service needs to have
+    var UserService = (function () {
+        function UserService() {
+            this.user = null;
+        }
+        UserService.prototype.createId = function () {
+            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+        };
+        return UserService;
+    })();
+    portal.UserService = UserService;
+})(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
     var ConfigCtrl = (function () {
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
-        function ConfigCtrl($scope, $http, $location, $window, configService) {
+        function ConfigCtrl($scope, $location, $window, configService, userService) {
             this.showError = false;
             $scope.vm = this;
-            this.configService = configService;
             this.location = $location;
-            this.http = $http;
             this.window = $window;
+            this.configService = configService;
+            this.userService = userService;
 
             this.load();
         }
@@ -788,30 +831,34 @@ var portal;
             var _this = this;
             this.configService.getConfig().get({ fmt: 'json' }, function (data, status) {
                 return _this.handleData(data, status);
-            }, function (data, status) {
-                return _this.handleError(data, status);
+            }, function (error) {
+                return _this.handleError(error);
             });
         };
 
         ConfigCtrl.prototype.handleData = function (data, status) {
             this.status = "success";
             this.configService.config = data.impexconfiguration;
-            if (this.configService.config)
+
+            // @TODO this might come from the server in the future
+            this.userService.user = new portal.User(this.userService.createId());
+            if (this.configService.config && this.userService.user)
                 this.location.path('/portal');
 else
-                this.handleError(data, status);
+                this.handleError(data);
         };
 
-        ConfigCtrl.prototype.handleError = function (data, status) {
+        ConfigCtrl.prototype.handleError = function (error) {
             console.log("config error");
             if (this.window.confirm('connection timed out. retry?'))
                 this.load();
 else {
                 this.showError = true;
-                this.status = data + " " + status;
+                var error = error.data;
+                this.status = error.message;
             }
         };
-        ConfigCtrl.$inject = ['$scope', '$http', '$location', '$window', 'configService'];
+        ConfigCtrl.$inject = ['$scope', '$location', '$window', 'configService', 'userService'];
         return ConfigCtrl;
     })();
     portal.ConfigCtrl = ConfigCtrl;
@@ -824,22 +871,22 @@ var portal;
     var PortalCtrl = (function () {
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
-        function PortalCtrl($scope, $http, $location, $timeout, $interval, $window, configService, registryService, $modal) {
+        function PortalCtrl($scope, $location, $timeout, $interval, $window, configService, registryService, userService, $modal) {
             var _this = this;
             this.ready = false;
             this.scope = $scope;
             this.scope.vm = this;
-            this.http = $http;
             this.location = $location;
-            this.configService = configService;
-            this.config = this.configService.config;
-            this.registryService = registryService;
             this.timeout = $timeout;
             this.interval = $interval;
             this.window = $window;
+            this.configService = configService;
+            this.registryService = registryService;
+            this.userService = userService;
             this.modal = $modal;
+            this.config = this.configService.config;
 
-            if (this.config == null) {
+            if (this.config == null || this.userService.user == null) {
                 $location.path('/config');
             } else {
                 this.timeout(function () {
@@ -888,13 +935,13 @@ var portal;
         };
         PortalCtrl.$inject = [
             '$scope',
-            '$http',
             '$location',
             '$timeout',
             '$interval',
             '$window',
             'configService',
             'registryService',
+            'userService',
             '$modal'
         ];
         return PortalCtrl;
@@ -909,18 +956,17 @@ var portal;
     var RegistryCtrl = (function () {
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
-        function RegistryCtrl($scope, $http, $location, $timeout, configService, registryService, $modalInstance, database) {
+        function RegistryCtrl($scope, $location, $timeout, configService, registryService, $modalInstance, database) {
             var _this = this;
             this.initialising = false;
             this.loading = false;
             this.transFinished = true;
             this.scope = $scope;
             $scope.regvm = this;
+            this.location = $location;
+            this.timeout = $timeout;
             this.configService = configService;
             this.registryService = registryService;
-            this.location = $location;
-            this.http = $http;
-            this.timeout = $timeout;
             this.modalInstance = $modalInstance;
             this.database = database;
 
@@ -942,7 +988,6 @@ var portal;
             }, 200);
 
             var cacheId = "repo-" + id;
-
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.getRepository().get({ fmt: 'json', id: id }).$promise;
 
@@ -965,7 +1010,6 @@ var portal;
             this.loading = true;
 
             var cacheId = "model-" + id;
-
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.getSimulationModel().get({ fmt: 'json', id: id }).$promise;
 
@@ -988,7 +1032,6 @@ var portal;
             this.loading = true;
 
             var cacheId = "run-" + id;
-
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.getSimulationRun().get({ fmt: 'json', id: id }).$promise;
 
@@ -1014,7 +1057,6 @@ var portal;
             this.loading = true;
 
             var cacheId = "output-" + id;
-
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.getNumericalOutput().get({ fmt: 'json', id: id }).$promise;
 
@@ -1040,7 +1082,6 @@ var portal;
             this.loading = true;
 
             var cacheId = "granule-" + id;
-
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.getGranule().get({ fmt: 'json', id: id }).$promise;
 
@@ -1061,7 +1102,7 @@ var portal;
         };
 
         // testing methods for modal
-        RegistryCtrl.prototype.registryOk = function () {
+        RegistryCtrl.prototype.registrySave = function () {
             this.modalInstance.close();
 
             // @TODO just for the moment
@@ -1076,7 +1117,6 @@ var portal;
         };
         RegistryCtrl.$inject = [
             '$scope',
-            '$http',
             '$location',
             '$timeout',
             'configService',
@@ -1096,7 +1136,8 @@ var portal;
     var MethodsCtrl = (function () {
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
-        function MethodsCtrl($scope, $http, $location, $timeout, $window, configService, methodsService, $modalInstance, database) {
+        function MethodsCtrl($scope, $location, $timeout, $window, configService, methodsService, userService, $modalInstance, database) {
+            this.initialising = false;
             this.showError = false;
             this.request = {};
             // helpers for methods modal
@@ -1106,12 +1147,12 @@ var portal;
             };
             this.scope = $scope;
             $scope.methvm = this;
-            this.configService = configService;
-            this.methodsService = methodsService;
             this.location = $location;
-            this.http = $http;
             this.timeout = $timeout;
             this.window = $window;
+            this.configService = configService;
+            this.methodsService = methodsService;
+            this.userService = userService;
             this.modalInstance = $modalInstance;
             this.database = database;
 
@@ -1127,14 +1168,16 @@ else
 
         MethodsCtrl.prototype.loadMethodsAPI = function () {
             var _this = this;
+            this.initialising = true;
             this.methodsService.getMethodsAPI().get(function (data, status) {
-                return _this.handleData(data, status);
-            }, function (data, status) {
-                return _this.handleError(data, status);
+                return _this.handleAPIData(data, status);
+            }, function (error) {
+                return _this.handleAPIError(error);
             });
         };
 
-        MethodsCtrl.prototype.handleData = function (data, status) {
+        MethodsCtrl.prototype.handleAPIData = function (data, status) {
+            this.initialising = false;
             this.status = "success";
 
             // we always get the right thing
@@ -1142,14 +1185,36 @@ else
             this.methods = this.methodsService.getMethods(this.database);
         };
 
-        MethodsCtrl.prototype.handleError = function (data, status) {
-            console.log("config error");
+        MethodsCtrl.prototype.handleAPIError = function (error) {
+            this.initialising = false;
             if (this.window.confirm('connection timed out. retry?'))
                 this.loadMethodsAPI();
 else {
                 this.showError = true;
-                this.status = data + " " + status;
+
+                if (error.status = 404)
+                    this.status = error.status + " resource not found";
+else
+                    this.status = error.data + " " + error.status;
             }
+        };
+
+        MethodsCtrl.prototype.handleServiceData = function (data, status) {
+            console.log("Success: " + data.message);
+
+            // @TODO we change id creation later
+            var id = this.userService.createId();
+
+            // @TODO we must take care of custom results (getMostRelevantRun)
+            this.userService.user.results[id] = data;
+            this.scope.$broadcast('update-user-data', id);
+        };
+
+        // @TODO display error in the user interface
+        MethodsCtrl.prototype.handleServiceError = function (error) {
+            console.log("Failure: " + error.data.message);
+            var message = error.data.message;
+            this.scope.$broadcast('handle-service-error', message);
         };
 
         MethodsCtrl.prototype.setActive = function (method) {
@@ -1178,11 +1243,18 @@ else {
 
         // testing method for submission
         MethodsCtrl.prototype.methodsSubmit = function () {
+            var _this = this;
+            this.scope.$broadcast('load-service-data');
             console.log("submitted " + this.currentMethod.path + " " + this.request['id']);
+            this.methodsService.requestMethod(this.currentMethod.path, this.request).get(function (data, status) {
+                return _this.handleServiceData(data, status);
+            }, function (error) {
+                return _this.handleServiceError(error);
+            });
         };
 
         // testing methods for modal
-        MethodsCtrl.prototype.methodsOk = function () {
+        MethodsCtrl.prototype.methodsSave = function () {
             this.modalInstance.close();
         };
 
@@ -1191,12 +1263,12 @@ else {
         };
         MethodsCtrl.$inject = [
             '$scope',
-            '$http',
             '$location',
             '$timeout',
             '$window',
             'configService',
             'methodsService',
+            'userService',
             '$modalInstance',
             'database'
         ];
@@ -1212,8 +1284,9 @@ var portal;
     var DatabasesDir = (function () {
         function DatabasesDir($timeout, configService) {
             var _this = this;
-            this.configService = configService;
             this.timeout = $timeout;
+            this.configService = configService;
+            this.config = this.configService.config;
             this.templateUrl = '/public/partials/templates/databases.html';
             this.restrict = 'E';
             this.link = function ($scope, element, attributes) {
@@ -1231,7 +1304,7 @@ var portal;
         };
 
         DatabasesDir.prototype.linkFn = function ($scope, element, attributes) {
-            $scope.databasesvm = this;
+            $scope.dbdirvm = this;
             this.myScope = $scope;
         };
         return DatabasesDir;
@@ -1256,9 +1329,9 @@ var portal;
             this.numericalOutputs = [];
             this.granules = [];
             this.activeItems = {};
+            this.timeout = $timeout;
             this.configService = configService;
             this.registryService = registryService;
-            this.timeout = $timeout;
             this.templateUrl = '/public/partials/templates/registryTree.html';
             this.restrict = 'E';
             this.link = function ($scope, element, attributes) {
@@ -1282,12 +1355,12 @@ var portal;
             $scope.regdirvm = this;
             this.myScope = $scope;
 
-            $scope.$on('registry-error', function (e, msg) {
+            this.myScope.$on('registry-error', function (e, msg) {
                 _this.error = true;
                 _this.errorMessage = msg;
             });
 
-            $scope.$on('clear-registry', function (e) {
+            this.myScope.$on('clear-registry', function (e) {
                 console.log("clearing registry");
                 _this.activeItems = {};
                 _this.error = false;
@@ -1298,7 +1371,7 @@ var portal;
                 _this.granules = [];
             });
 
-            $scope.$on('clear-simulation-models', function (e) {
+            this.myScope.$on('clear-simulation-models', function (e) {
                 _this.activeItems = {};
                 _this.error = false;
                 _this.simulationModels = [];
@@ -1307,7 +1380,7 @@ var portal;
                 _this.granules = [];
             });
 
-            $scope.$on('clear-simulation-runs', function (e, element) {
+            this.myScope.$on('clear-simulation-runs', function (e, element) {
                 _this.setActive("model", element);
                 _this.error = false;
                 _this.simulationRuns = [];
@@ -1315,44 +1388,44 @@ var portal;
                 _this.granules = [];
             });
 
-            $scope.$on('clear-numerical-outputs', function (e, element) {
+            this.myScope.$on('clear-numerical-outputs', function (e, element) {
                 _this.setActive("run", element);
                 _this.error = false;
                 _this.numericalOutputs = [];
                 _this.granules = [];
             });
 
-            $scope.$on('clear-granules', function (e, element) {
+            this.myScope.$on('clear-granules', function (e, element) {
                 _this.setActive("output", element);
                 _this.error = false;
                 _this.granules = [];
             });
 
-            $scope.$on('update-repositories', function (e, id) {
+            this.myScope.$on('update-repositories', function (e, id) {
                 _this.repositories = _this.registryService.cachedElements[id].map(function (r) {
                     return r;
                 });
             });
 
-            $scope.$on('update-simulation-models', function (e, id) {
+            this.myScope.$on('update-simulation-models', function (e, id) {
                 _this.simulationModels = _this.registryService.cachedElements[id].map(function (r) {
                     return r;
                 });
             });
 
-            $scope.$on('update-simulation-runs', function (e, id) {
+            this.myScope.$on('update-simulation-runs', function (e, id) {
                 _this.simulationRuns = _this.registryService.cachedElements[id].map(function (r) {
                     return r;
                 });
             });
 
-            $scope.$on('update-numerical-outputs', function (e, id) {
+            this.myScope.$on('update-numerical-outputs', function (e, id) {
                 _this.numericalOutputs = _this.registryService.cachedElements[id].map(function (r) {
                     return r;
                 });
             });
 
-            $scope.$on('update-granules', function (e, id) {
+            this.myScope.$on('update-granules', function (e, id) {
                 _this.granules = _this.registryService.cachedElements[id].map(function (r) {
                     return r;
                 });
@@ -1382,6 +1455,76 @@ else
     })();
     portal.RegistryDir = RegistryDir;
 })(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
+    var UserDataDir = (function () {
+        function UserDataDir($timeout, configService, userService) {
+            var _this = this;
+            this.loading = false;
+            this.showError = false;
+            this.isCollapsed = {};
+            this.timeout = $timeout;
+            this.configService = configService;
+            this.userService = userService;
+            this.user = this.userService.user;
+            this.templateUrl = '/public/partials/templates/userdata.html';
+            this.restrict = 'E';
+            this.link = function ($scope, element, attributes) {
+                return _this.linkFn($scope, element, attributes);
+            };
+        }
+        UserDataDir.prototype.injection = function () {
+            return [
+                '$timeout',
+                'configService',
+                'userService',
+                function ($timeout, configService, userService) {
+                    return new UserDataDir($timeout, configService, userService);
+                }
+            ];
+        };
+
+        UserDataDir.prototype.linkFn = function ($scope, element, attributes) {
+            var _this = this;
+            $scope.userdirvm = this;
+            this.myScope = $scope;
+
+            this.myScope.$on('update-user-data', function (e, id) {
+                _this.loading = false;
+                _this.isCollapsed[id] = true;
+            });
+
+            this.myScope.$on('handle-service-error', function (e, msg) {
+                _this.loading = false;
+                _this.showError = true;
+                _this.status = msg;
+            });
+
+            this.myScope.$on('load-service-data', function (e) {
+                _this.showError = false;
+                _this.loading = true;
+            });
+        };
+
+        UserDataDir.prototype.showDetails = function (id) {
+            this.isCollapsed[id] = !this.isCollapsed[id];
+        };
+
+        UserDataDir.prototype.validateUrl = function (str) {
+            var pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+            if (!pattern.test(str)) {
+                return false;
+            } else {
+                return true;
+            }
+        };
+        return UserDataDir;
+    })();
+    portal.UserDataDir = UserDataDir;
+})(portal || (portal = {}));
 /// <reference path='_all.ts' />
 var portal;
 (function (portal) {
@@ -1392,10 +1535,11 @@ var portal;
     // here we also add options for bootstrap-ui
     // maybe include angular.ui.router
     // check what we can directly add to the angular module
-    //(see infoday examples, it supports application state, very nice"!)
+    //(see infoday examples, it supports application state, very nice!)
     impexPortal.service('configService', portal.ConfigService);
     impexPortal.service('registryService', portal.RegistryService);
     impexPortal.service('methodsService', portal.MethodsService);
+    impexPortal.service('userService', portal.UserService);
 
     impexPortal.controller('configCtrl', portal.ConfigCtrl);
     impexPortal.controller('portalCtrl', portal.PortalCtrl);
@@ -1404,6 +1548,7 @@ var portal;
 
     impexPortal.directive('databasesDir', portal.DatabasesDir.prototype.injection());
     impexPortal.directive('registryDir', portal.RegistryDir.prototype.injection());
+    impexPortal.directive('userDataDir', portal.UserDataDir.prototype.injection());
 
     // we can add here other configs too
     impexPortal.config([

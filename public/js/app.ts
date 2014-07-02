@@ -8,11 +8,12 @@ module portal {
     // here we also add options for bootstrap-ui
     // maybe include angular.ui.router 
     // check what we can directly add to the angular module
-    //(see infoday examples, it supports application state, very nice"!)
+    //(see infoday examples, it supports application state, very nice!)
  
     impexPortal.service('configService', ConfigService)
     impexPortal.service('registryService', RegistryService)
     impexPortal.service('methodsService', MethodsService)
+    impexPortal.service('userService', UserService)
 
     impexPortal.controller('configCtrl', ConfigCtrl)
     impexPortal.controller('portalCtrl', PortalCtrl)
@@ -21,6 +22,7 @@ module portal {
 
     impexPortal.directive('databasesDir', DatabasesDir.prototype.injection())
     impexPortal.directive('registryDir', RegistryDir.prototype.injection())
+    impexPortal.directive('userDataDir', UserDataDir.prototype.injection())
    
     // we can add here other configs too
     impexPortal.config(['$routeProvider', ($routeProvider) => {

@@ -1,6 +1,3 @@
-<div ng-show="regvm.initialising && regvm.transFinished" class="text-left">
-	<img src="/public/img/layout/loading.gif" class="loadingImg-sm" alt="loading..." />
-</div>
 <accordion close-others="regdirvm.oneAtATime" ng-show="!regvm.initialising">
 	<accordion-group ng-repeat="element in regdirvm.repositories">
 		<accordion-heading>
@@ -21,7 +18,7 @@
 	    	<span class="elem-caption" ng-hide="regdirvm.granules | isEmpty">Granules</span>
 	    </div>
   		<div class="btn-group-vertical btn-group-overflow" ng-hide="regdirvm.simulationModels | isEmpty">	
-			<button class="btn btn-default btn-sm" 
+			<button type="button" class="btn btn-default btn-sm" 
 				ng-repeat="element in regdirvm.simulationModels" 
 				ng-click="regvm.getSimulationRun(element.resourceId, element, $event)" 
 				ng-class="{ active: regdirvm.isActive('model', element) }"
@@ -30,7 +27,7 @@
 			</button>
 		</div> 
 		<div class="btn-group-vertical btn-group-overflow" ng-hide="regdirvm.simulationRuns | isEmpty">	
-			<button class="btn btn-default btn-sm margin-ten" 
+			<button type="button" class="btn btn-default btn-sm margin-ten" 
 				ng-repeat="element in regdirvm.simulationRuns" 
 				ng-click="regvm.getNumericalOutput(element.resourceId, element, $event)" 
 				ng-class="{ active: regdirvm.isActive('run', element) }"
@@ -39,7 +36,7 @@
 			</button>
 		</div>
 		<div class="btn-group-vertical btn-group-overflow" ng-hide="regdirvm.numericalOutputs | isEmpty">	
-			<button class="btn btn-default btn-sm margin-ten" 
+			<button type="button" class="btn btn-default btn-sm margin-ten" 
 				ng-repeat="element in regdirvm.numericalOutputs" 
 				ng-click="regvm.getGranule(element.resourceId, element, $event)" 
 				ng-class="{ active: regdirvm.isActive('output', element) }"
@@ -48,7 +45,7 @@
 			</button>
 		</div>
 		<div class="btn-group-vertical btn-group-overflow" ng-hide="regdirvm.granules | isEmpty">		
-			<button class="btn btn-default btn-sm margin-ten" 
+			<button type="button" class="btn btn-default btn-sm margin-ten" 
 				ng-repeat="element in regdirvm.granules"
 				ng-class="{ active: regdirvm.isActive('granule', element) }"
 				tooltip-html-unsafe="{{ element.releaseDate }}<br>{{ element.resourceId }}">

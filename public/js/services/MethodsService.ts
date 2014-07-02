@@ -3,16 +3,21 @@
 module portal {
     'use strict';
     
-    // describes the actions for methods
-    export interface IMethodsResource extends ng.resource.IResourceClass<ISpase> {
+    // describes the actions for API methods
+    export interface IMethodsAPIResource extends ng.resource.IResourceClass<ISwagger> {
         getMethods(): ISwagger
+    }
+    
+    // describes the actions for service methods
+    export interface IMethodsResource extends ng.resource.IResourceClass<IResponse> {
+        requestMethod(): IResponse
     }
     
     export class MethodsService {
         static $inject: Array<string> = ['$resource']
         
         private resource: ng.resource.IResourceService
-        private url: string = '/'
+        private url: string = ''
         public methods: ISwagger = null    
         
         // action descriptor for registry actions
@@ -25,13 +30,13 @@ module portal {
             this.resource = $resource
         }
         
-        public getMethodsAPI(): IMethodsResource {
-            return <IMethodsResource> this.resource(this.url+'api-docs/methods', 
-                // we can remove the params here!
-                {},{ getMethods: this.methodsAction })
+        // generic method for requesting 
+        public getMethodsAPI(): IMethodsAPIResource {
+            return <IMethodsAPIResource> this.resource(this.url+this.url+'api-docs/methods', 
+                { getMethods: this.methodsAction })
         }
         
-        public getMethods(db: Database) {
+        public getMethods(db: Database): Array<Api> {
             // we only fetch the needed apis
             // for FMI we need a special selector
             if(db.name.indexOf("FMI") != -1) {
@@ -49,6 +54,13 @@ module portal {
                         return false
                 }) 
             }
+        }
+        
+        // generic method for requesting standard services (GET + params)
+        public requestMethod(path: string, params: Object): IMethodsResource {
+            return <IMethodsResource> this.resource(path,
+                params,
+                { requestMethod: this.methodsAction })
         }
         
 

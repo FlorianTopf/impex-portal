@@ -9,7 +9,6 @@ module portal {
 
     export class RegistryCtrl {
         private scope: portal.IRegistryScope
-        private http: ng.IHttpService
         private location: ng.ILocationService
         private timeout: ng.ITimeoutService
         private configService: portal.ConfigService
@@ -21,21 +20,20 @@ module portal {
         private loading: boolean = false
         private transFinished: boolean = true
         
-        static $inject: Array<string> = ['$scope', '$http', '$location', '$timeout', 
+        static $inject: Array<string> = ['$scope', '$location', '$timeout', 
             'configService', 'registryService', '$modalInstance', 'database']
 
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
-        constructor($scope: IRegistryScope, $http: ng.IHttpService, $location: ng.ILocationService,
-            $timeout: ng.ITimeoutService, configService: portal.ConfigService, registryService: portal.RegistryService,
+        constructor($scope: IRegistryScope, $location: ng.ILocationService, $timeout: ng.ITimeoutService, 
+            configService: portal.ConfigService, registryService: portal.RegistryService,
             $modalInstance: any, database: Database) {   
             this.scope = $scope
             $scope.regvm = this
+            this.location = $location
+            this.timeout = $timeout   
             this.configService = configService
             this.registryService = registryService
-            this.location = $location
-            this.http = $http
-            this.timeout = $timeout   
             this.modalInstance = $modalInstance
             this.database = database
             
@@ -53,7 +51,6 @@ module portal {
             this.timeout(() => { this.transFinished = true }, 200)
             
             var cacheId = "repo-"+id
-            
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.getRepository().get(
                     { fmt: 'json' , id: id }).$promise
@@ -74,7 +71,6 @@ module portal {
             this.loading = true
             
             var cacheId = "model-"+id
-            
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.getSimulationModel().get(
                     { fmt: 'json', id: id }).$promise
@@ -95,7 +91,6 @@ module portal {
             this.loading = true
             
             var cacheId = "run-"+id
-            
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.getSimulationRun().get(
                     { fmt: 'json', id: id }).$promise
@@ -121,7 +116,6 @@ module portal {
             this.loading = true
             
             var cacheId = "output-"+id
-            
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.getNumericalOutput().get(
                     { fmt: 'json', id: id }).$promise
@@ -147,7 +141,6 @@ module portal {
             this.loading = true
             
             var cacheId = "granule-"+id
-            
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.getGranule().get(
                     { fmt: 'json', id: id }).$promise
@@ -169,7 +162,7 @@ module portal {
         }
         
         // testing methods for modal
-        public registryOk() {
+        public registrySave() {
             this.modalInstance.close()
             // @TODO just for the moment
             this.scope.$broadcast('clear-registry')

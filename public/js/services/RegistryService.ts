@@ -38,7 +38,7 @@ module portal {
         }
         
         // cache for the elements (identified by request id)
-        public cachedElements: IElementMap = { }
+        public cachedElements: IElementMap = {}
         
         
         public getRepository(): IRegistryResource {

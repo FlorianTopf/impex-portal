@@ -6,7 +6,7 @@
 		ng-repeat="database in vm.configService.config.databases" 
 		ng-if="(database.type == 'simulation') && !(database.tree | isEmpty)">
 		<div ng-show="vm.ready">
-			<button class="btn btn-default" 
+			<button type="button" class="btn btn-default" 
 				ng-click="vm.openRegistryModal(database)" 
 				tooltip="Show registry of {{ database.name }}">{{ database.name }} Simulations</button>
     	</div>
@@ -20,7 +20,7 @@
 		ng-repeat="database in vm.configService.config.databases" 
 		ng-if="(database.type == 'simulation')">
 		<div ng-show="vm.ready">
-			<button class="btn btn-default" 
+			<button type="button" class="btn btn-default" 
 				ng-click="vm.openMethodsModal(database) && !(database.methods | isEmpty)" 
 				tooltip="Show methods of {{ database.name }}">{{ database.name }} Data Access</button>
     	</div>

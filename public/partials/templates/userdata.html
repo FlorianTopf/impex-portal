@@ -1,0 +1,32 @@
+<div class="row">
+	<div class="col-sm-3">
+		<div class="btn-group-vertical btn-group-overflow" ng-hide="userdirvm.user.results | isEmpty">
+			<button type="button" class="btn btn-success btn-sm" 
+				ng-repeat="(key, elem) in userdirvm.user.results"
+			    ng-class="{ active: !userdirvm.isCollapsed[key] }"
+				ng-click="userdirvm.showDetails(key)">
+					Service Result {{ key }}
+			</button>
+		</div>
+		<div class="btn-group-vertical">
+			<div ng-show="userdirvm.loading">
+				<img src="/public/img/throbber.gif" alt="loading..."/>
+			</div>
+			<div class="error" ng-show="userdirvm.showError">{{ userdirvm.status }}</div>
+		</div>
+	</div>
+	<div class="col-sm-8">
+		<div ng-repeat="(key, elem) in userdirvm.user.results" collapse="userdirvm.isCollapsed[key]">
+			<div class="well well-sm">
+				<h5>Service Result {{ key }}</h5>
+				<!-- check if the result is an URL -->
+				<div ng-if="userdirvm.validateUrl(elem.message)">
+					<a href="{{ elem.message }}" target="_blank">{{ elem.message }}</a>
+				</div>
+				<div ng-if="!userdirvm.validateUrl(elem.message)">
+					<p>{{ elem.message }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
