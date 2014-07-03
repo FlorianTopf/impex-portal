@@ -37,7 +37,7 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://LATMOS/Hybrid/Mars_13_02_13/Mag/3D",
+        defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_13_02_13/Mag/3D",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -98,7 +98,7 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://LATMOS/Hybrid/Mars_13_02_13/The/3D",
+        defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_13_02_13/The/3D",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -192,7 +192,7 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://LATMOS/Hybrid/Mars_13_02_13/The/3D",
+        defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_13_02_13/The/3D",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -263,7 +263,7 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://LATMOS/Hybrid/Mars_14_01_13/Mag/MEX/0.0",
+        defaultValue = "spase://IMPEX/Granule/LATMOS/Hybrid/Mars_14_01_13/Mag/MEX/0.0",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -328,7 +328,7 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://LATMOS/Hybrid/Mars_13_02_13/Mag/3D",
+        defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_13_02_13/Mag/3D",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -399,7 +399,7 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://LATMOS/Hybrid/Mars_14_03_14/IonSpectra",
+        defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_14_03_14/IonSpectra",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -460,7 +460,7 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "impex://LATMOS/Hybrid/Mars_14_03_14/IonSpectra",
+        defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_14_03_14/IonSpectra",
         required = true, 
         dataType = "string", 
         paramType = "query"),

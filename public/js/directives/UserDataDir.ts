@@ -69,6 +69,11 @@ module portal {
                 this.showError = false
                 this.loading = true
             })
+            
+            this.myScope.$on('clear-service-error', (e) => {
+                this.showError = false
+                this.status = ''
+            })
         }
         
         public showDetails(id: string) {

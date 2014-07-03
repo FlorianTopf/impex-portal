@@ -1191,7 +1191,6 @@ else
                 this.loadMethodsAPI();
 else {
                 this.showError = true;
-
                 if (error.status = 404)
                     this.status = error.status + " resource not found";
 else
@@ -1212,8 +1211,13 @@ else
 
         // @TODO display error in the user interface
         MethodsCtrl.prototype.handleServiceError = function (error) {
-            console.log("Failure: " + error.data.message);
-            var message = error.data.message;
+            console.log("Failure: " + error.status);
+            if (error.status == 404)
+                var message = error.status + " resource not found";
+else {
+                var response = error.data;
+                var message = response.message;
+            }
             this.scope.$broadcast('handle-service-error', message);
         };
 
@@ -1256,10 +1260,12 @@ else
         // testing methods for modal
         MethodsCtrl.prototype.methodsSave = function () {
             this.modalInstance.close();
+            this.scope.$broadcast('clear-service-error');
         };
 
         MethodsCtrl.prototype.methodsCancel = function () {
             this.modalInstance.dismiss();
+            this.scope.$broadcast('clear-service-error');
         };
         MethodsCtrl.$inject = [
             '$scope',
@@ -1506,6 +1512,11 @@ var portal;
             this.myScope.$on('load-service-data', function (e) {
                 _this.showError = false;
                 _this.loading = true;
+            });
+
+            this.myScope.$on('clear-service-error', function (e) {
+                _this.showError = false;
+                _this.status = '';
             });
         };
 

@@ -31,7 +31,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            val variable = Seq("Bx", "By", "Btot") // variable seq
            
            val result = latmos.service.getDataPointValue(
-               "impex://LATMOS/Hybrid/Mars_13_02_13/Mag/3D", // resourceId
+               "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_13_02_13/Mag/3D", // resourceId
                Some(variable), // variable
                new URI("http://impex.latmos.ipsl.fr/Vmvrv5e.xml"), // url_xyz
                Some(extraParams) // extra params
@@ -62,7 +62,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            val variable = Seq("Ux", "Uy") // variable seq
            
            val result = latmos.service.getDataPointValueSpacecraft(
-               "impex://LATMOS/Hybrid/Mars_13_02_13/The/3D", // resourceId
+               "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_13_02_13/The/3D", // resourceId
                Some(variable), // variable
                MEXValue, // spacecraft name
                TimeProvider.getISODate("2007-07-12T00:00:00"), // start time
@@ -100,7 +100,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            val planeNormalVector = Seq(0.0f, 0.0f, 1.0f) // plane normal vector seq
            
            val result = latmos.service.getSurface(
-               "impex://LATMOS/Hybrid/Mars_13_02_13/Mag/3D", // resourceId
+               "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_13_02_13/Mag/3D", // resourceId
                Some(variable), // variable
                planePoint, // plane point
                planeNormalVector, // plane normal vector
@@ -125,7 +125,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
 
            val result = latmos.service.getFileURL(
-               "impex://LATMOS/Hybrid/Mars_14_01_13/Mag/MEX/0.0", // resourceId
+               "spase://IMPEX/Granule/LATMOS/Hybrid/Mars_14_01_13/Mag/MEX/0.0", // resourceId
                TimeProvider.getISODate("2007-07-12T00:00:00"), // start time
                TimeProvider.getISODate("2007-07-13T00:00:00") // stop time
            )
@@ -154,7 +154,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            val variable = Seq("Bx", "By", "Bz", "Btot")
           
            val result = latmos.service.getFieldLine(
-               "impex://LATMOS/Hybrid/Mars_13_02_13/Mag/3D", // resourceId
+               "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_13_02_13/Mag/3D", // resourceId
                Some(variable), // variable
                new URI("http://impex.latmos.ipsl.fr/Vmvrv5e.xml"), // url_xyz
                Some(extraParams) // extra params
@@ -184,7 +184,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            )
            
            val result = latmos.service.getDataPointSpectra(
-               "impex://LATMOS/Hybrid/Mars_14_03_14/IonSpectra", // resourceId
+               "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_14_03_14/IonSpectra", // resourceId
                new URI("http://impex.latmos.ipsl.fr/Vmrmf2.xml"), // url_xyz
                Some(extraParams) // extra params
            )
@@ -192,7 +192,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            result.fold(f => println(f), u => {
                println("Result URL: "+u)
                val promise = WS.url(u.toString).get()
-               val result = Await.result(promise, Duration(1, "minute")).xml
+               val result = Await.result(promise, Duration(2, "minute")).xml
                scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
            })
            
@@ -212,7 +212,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            )
            
            val result = latmos.service.getDataPointSpectraSpacecraft(
-               "impex://LATMOS/Hybrid/Mars_14_03_14/IonSpectra", // resourceId
+               "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_14_03_14/IonSpectra", // resourceId
                MEXValue,  // spacecraft name
                TimeProvider.getISODate("2010-01-01T18:00:00"), // start time
                TimeProvider.getISODate("2010-01-01T19:00:00"), // stop time
@@ -223,7 +223,7 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            result.fold(f => println(f), u => {
                println("Result URL: "+u)
                val promise = WS.url(u.toString).get()
-               val result = Await.result(promise, Duration(1, "minute")).xml
+               val result = Await.result(promise, Duration(2, "minute")).xml
                scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
            })
            

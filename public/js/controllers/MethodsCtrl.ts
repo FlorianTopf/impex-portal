@@ -79,11 +79,11 @@ module portal {
                 this.loadMethodsAPI()
             else {
                 this.showError = true
-                // @TODO we need to extend this maybe
                 if(error.status = 404)
                     this.status = error.status+" resource not found"
                 else
                     this.status = error.data+" "+error.status
+
             }
         }  
         
@@ -98,8 +98,13 @@ module portal {
         
         // @TODO display error in the user interface
         private handleServiceError(error: any) {
-            console.log("Failure: "+<IResponse>error.data.message)
-            var message = <IResponse>error.data.message 
+            console.log("Failure: "+error.status)
+            if(error.status == 404)
+                var message = error.status+" resource not found"
+            else {
+                var response = <IResponse>error.data
+                var message = response.message
+            }
             this.scope.$broadcast('handle-service-error', message)
         }
         
@@ -146,12 +151,13 @@ module portal {
         // testing methods for modal
         public methodsSave() {
             this.modalInstance.close()
+            this.scope.$broadcast('clear-service-error')
 
         }
         
         public methodsCancel() {
             this.modalInstance.dismiss()
-
+            this.scope.$broadcast('clear-service-error')
         }
     
 
