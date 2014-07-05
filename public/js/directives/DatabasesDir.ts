@@ -7,41 +7,37 @@ module portal {
        dbdirvm: DatabasesDir
     }
 
-    export class DatabasesDir {
+    export class DatabasesDir implements ng.IDirective {
 
     	public injection(): any[] {
             return [
-                '$timeout',
                 'configService',
-                ($timeout: ng.ITimeoutService, configService: portal.ConfigService) => 
-                    { return new DatabasesDir($timeout, configService); }
+                (configService: portal.ConfigService) => 
+                    { return new DatabasesDir(configService) }
             ]
         }
 
     	public link: ($scope: portal.IDatabasesDirScope, element: JQuery, attributes: ng.IAttributes) => any
     	public templateUrl: string
     	public restrict: string
+        public config: IConfig
 
-        private timeout: ng.ITimeoutService
+        private myScope: portal.IDatabasesDirScope
         private configService: portal.ConfigService
-        private config: IConfig
-        private myScope: ng.IScope
 
-    	constructor($timeout: ng.ITimeoutService, configService: portal.ConfigService) {
-            this.timeout = $timeout
+    	constructor(configService: portal.ConfigService) {
             this.configService = configService
-            this.config = this.configService.config
 	        this.templateUrl = '/public/partials/templates/databases.html'
 	        this.restrict = 'E'
 	        this.link = ($scope: portal.IDatabasesDirScope, element: JQuery, attributes: ng.IAttributes) => 
                 this.linkFn($scope, element, attributes)
             
-	        
     	}
 
     	linkFn($scope: portal.IDatabasesDirScope, element: JQuery, attributes: ng.IAttributes): any {
             $scope.dbdirvm = this
             this.myScope = $scope
+            this.config = this.configService.config
         }
     }
 

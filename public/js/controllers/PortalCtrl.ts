@@ -14,21 +14,23 @@ module portal {
         private interval: ng.IIntervalService
         private window: ng.IWindowService
         private configService: portal.ConfigService
+        private config: IConfig
         private registryService: portal.RegistryService
         private userService: portal.UserService
+        private state: ng.ui.IStateService
         private modal: any
-        private config: IConfig
-        private registryPromise: ng.IPromise<any>
-        private ready: boolean = false
+
+        public ready: boolean = false
+        public status: string
+        public showError: boolean = false  
       
         static $inject: Array<string> = ['$scope', '$location', '$timeout', '$interval', 
-            '$window', 'configService', 'registryService', 'userService', '$modal']
+            '$window', 'configService', 'registryService', 'userService', '$state', '$modal']
 
-        // dependencies are injected via AngularJS $injector
-        // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
         constructor($scope: IPortalScope, $location: ng.ILocationService, $timeout: ng.ITimeoutService, 
             $interval: ng.IIntervalService, $window: ng.IWindowService, configService: portal.ConfigService, 
-            registryService: portal.RegistryService, userService: portal.UserService, $modal) { 
+            registryService: portal.RegistryService, userService: portal.UserService, 
+            $state: ng.ui.IStateService, $modal) { 
             this.scope = $scope
             this.scope.vm = this
             this.location = $location
@@ -36,53 +38,20 @@ module portal {
             this.interval = $interval
             this.window = $window
             this.configService = configService
+            this.config = this.configService.config
             this.registryService = registryService
             this.userService = userService
+            this.state = $state
             this.modal = $modal
-            this.config = this.configService.config
+            
 
-            if(this.config == null || this.userService.user == null) {
-                $location.path('/config')
-            } else {
-                 this.timeout(() => { 
-                    this.ready = true 
-                 })
-            }
-        }
-          
-        // testing method for registry modal
-        public openRegistryModal(database: Database) {
-            var modalInstance = this.modal.open({
-                    templateUrl: '/public/partials/templates/registryModal.html',
-                    controller: RegistryCtrl,
-                    size: 'lg',
-                    resolve: {
-                        database: () => database 
-                    }
+            this.timeout(() => { 
+                  this.ready = true 
             })
             
-            modalInstance.result.then(
-            (ok) => console.log('ok'), 
-            (cancel) => console.log('cancel'))
-       
-        }
-        
-        // testing method for methods modal
-        public openMethodsModal(database: Database) {
-            var modalInstance = this.modal.open({
-                    templateUrl: '/public/partials/templates/methodsModal.html',
-                    controller: MethodsCtrl,
-                    size: 'lg',
-                    resolve: {
-                        database: () => database 
-                    }
-            })
             
-            modalInstance.result.then(
-            (ok) => console.log('ok'), 
-            (cancel) => console.log('cancel'))
-       
-        }        
+        }
+
 
     }
 }

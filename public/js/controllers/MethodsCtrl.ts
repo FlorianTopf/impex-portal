@@ -7,6 +7,7 @@ module portal {
         methvm: MethodsCtrl;
     }
 
+    // @TODO introduce error/offline handling later
     export class MethodsCtrl {
         private scope: portal.IMethodsScope
         private location: ng.ILocationService
@@ -15,26 +16,27 @@ module portal {
         private configService: portal.ConfigService
         private methodsService: portal.MethodsService
         private userService: portal.UserService 
+        private state: ng.ui.IStateService
         private modalInstance: any
-        private database: Database
         private methodsPromise: ng.IPromise<any>
-        private methods: Array<Api>
-        private initialising: boolean = false
-  
+        
+        public database: Database = null
+        public methods: Array<Api>
+        public initialising: boolean = false
         public status: string
         public showError: boolean = false  
         public currentMethod: Api
         public request: Object = {}
         
         static $inject: Array<string> = ['$scope', '$location', '$timeout', '$window',
-            'configService', 'methodsService', 'userService', '$modalInstance', 'database']
+            'configService', 'methodsService', 'userService', '$state', '$modalInstance', 'id']
 
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
         constructor($scope: IMethodsScope, $location: ng.ILocationService, $timeout: ng.ITimeoutService, 
             $window: ng.IWindowService, configService: portal.ConfigService, 
             methodsService: portal.MethodsService, userService: portal.UserService,
-            $modalInstance: any, database: Database) {   
+            $state: ng.ui.IStateService, $modalInstance: any, id: string) {   
             this.scope = $scope
             $scope.methvm = this
             this.location = $location
@@ -43,8 +45,10 @@ module portal {
             this.configService = configService
             this.methodsService = methodsService
             this.userService = userService
+            this.state = $state
             this.modalInstance = $modalInstance
-            this.database = database
+            
+            this.database = this.configService.getDatabase(id)
             
             if(this.methodsService.methods)
                 this.methods = this.methodsService.getMethods(this.database)
@@ -96,7 +100,6 @@ module portal {
             this.scope.$broadcast('update-user-data', id)
         }
         
-        // @TODO display error in the user interface
         private handleServiceError(error: any) {
             console.log("Failure: "+error.status)
             if(error.status == 404)

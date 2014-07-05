@@ -689,6 +689,17 @@ var portal;
         ConfigService.prototype.getConfig = function () {
             return this.resource(this.url + 'config?', { fmt: '@fmt' }, { getConfig: this.configAction });
         };
+
+        // returns promise for resource handler
+        ConfigService.prototype.loadConfig = function () {
+            return this.getConfig().get({ fmt: 'json' }).$promise;
+        };
+
+        ConfigService.prototype.getDatabase = function (id) {
+            return this.config.databases.filter(function (e) {
+                return e.id == id;
+            })[0];
+        };
         ConfigService.$inject = ['$resource'];
         return ConfigService;
     })();
@@ -810,55 +821,17 @@ var portal;
     'use strict';
 
     var ConfigCtrl = (function () {
-        // dependencies are injected via AngularJS $injector
-        // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
-        function ConfigCtrl($scope, $location, $window, configService, userService) {
-            this.showError = false;
-            $scope.vm = this;
-            this.location = $location;
-            this.window = $window;
+        function ConfigCtrl($scope, configService, userService, $state, config) {
             this.configService = configService;
             this.userService = userService;
+            this.state = $state;
 
-            this.load();
-        }
-        ConfigCtrl.prototype.retry = function () {
-            this.showError = false;
-            this.load();
-        };
+            this.configService.config = config;
 
-        ConfigCtrl.prototype.load = function () {
-            var _this = this;
-            this.configService.getConfig().get({ fmt: 'json' }, function (data, status) {
-                return _this.handleData(data, status);
-            }, function (error) {
-                return _this.handleError(error);
-            });
-        };
-
-        ConfigCtrl.prototype.handleData = function (data, status) {
-            this.status = "success";
-            this.configService.config = data.impexconfiguration;
-
-            // @TODO this might come from the server in the future
+            // @TODO this comes from the server in the future (add in resolver)
             this.userService.user = new portal.User(this.userService.createId());
-            if (this.configService.config && this.userService.user)
-                this.location.path('/portal');
-else
-                this.handleError(data);
-        };
-
-        ConfigCtrl.prototype.handleError = function (error) {
-            console.log("config error");
-            if (this.window.confirm('connection timed out. retry?'))
-                this.load();
-else {
-                this.showError = true;
-                var error = error.data;
-                this.status = error.message;
-            }
-        };
-        ConfigCtrl.$inject = ['$scope', '$location', '$window', 'configService', 'userService'];
+        }
+        ConfigCtrl.$inject = ['$scope', 'configService', 'userService', '$state', 'config'];
         return ConfigCtrl;
     })();
     portal.ConfigCtrl = ConfigCtrl;
@@ -869,11 +842,10 @@ var portal;
     'use strict';
 
     var PortalCtrl = (function () {
-        // dependencies are injected via AngularJS $injector
-        // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
-        function PortalCtrl($scope, $location, $timeout, $interval, $window, configService, registryService, userService, $modal) {
+        function PortalCtrl($scope, $location, $timeout, $interval, $window, configService, registryService, userService, $state, $modal) {
             var _this = this;
             this.ready = false;
+            this.showError = false;
             this.scope = $scope;
             this.scope.vm = this;
             this.location = $location;
@@ -881,58 +853,16 @@ var portal;
             this.interval = $interval;
             this.window = $window;
             this.configService = configService;
+            this.config = this.configService.config;
             this.registryService = registryService;
             this.userService = userService;
+            this.state = $state;
             this.modal = $modal;
-            this.config = this.configService.config;
 
-            if (this.config == null || this.userService.user == null) {
-                $location.path('/config');
-            } else {
-                this.timeout(function () {
-                    _this.ready = true;
-                });
-            }
+            this.timeout(function () {
+                _this.ready = true;
+            });
         }
-        // testing method for registry modal
-        PortalCtrl.prototype.openRegistryModal = function (database) {
-            var modalInstance = this.modal.open({
-                templateUrl: '/public/partials/templates/registryModal.html',
-                controller: portal.RegistryCtrl,
-                size: 'lg',
-                resolve: {
-                    database: function () {
-                        return database;
-                    }
-                }
-            });
-
-            modalInstance.result.then(function (ok) {
-                return console.log('ok');
-            }, function (cancel) {
-                return console.log('cancel');
-            });
-        };
-
-        // testing method for methods modal
-        PortalCtrl.prototype.openMethodsModal = function (database) {
-            var modalInstance = this.modal.open({
-                templateUrl: '/public/partials/templates/methodsModal.html',
-                controller: portal.MethodsCtrl,
-                size: 'lg',
-                resolve: {
-                    database: function () {
-                        return database;
-                    }
-                }
-            });
-
-            modalInstance.result.then(function (ok) {
-                return console.log('ok');
-            }, function (cancel) {
-                return console.log('cancel');
-            });
-        };
         PortalCtrl.$inject = [
             '$scope',
             '$location',
@@ -942,6 +872,7 @@ var portal;
             'configService',
             'registryService',
             'userService',
+            '$state',
             '$modal'
         ];
         return PortalCtrl;
@@ -953,11 +884,11 @@ var portal;
 (function (portal) {
     'use strict';
 
+    // @TODO introduce error/offline handling later
     var RegistryCtrl = (function () {
-        // dependencies are injected via AngularJS $injector
-        // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
-        function RegistryCtrl($scope, $location, $timeout, configService, registryService, $modalInstance, database) {
+        function RegistryCtrl($scope, $location, $timeout, $window, configService, registryService, $state, $modalInstance, id) {
             var _this = this;
+            this.database = null;
             this.initialising = false;
             this.loading = false;
             this.transFinished = true;
@@ -965,15 +896,18 @@ var portal;
             $scope.regvm = this;
             this.location = $location;
             this.timeout = $timeout;
+            this.window = $window;
             this.configService = configService;
             this.registryService = registryService;
+            this.state = $state;
             this.modalInstance = $modalInstance;
-            this.database = database;
+
+            this.database = this.configService.getDatabase(id);
 
             // watches changes of variable
             //(is changed each time modal is opened)
             this.scope.$watch('this.database', function () {
-                _this.getRepository(database.id);
+                _this.getRepository(_this.database.id);
             });
         }
         RegistryCtrl.prototype.getRepository = function (id) {
@@ -1119,10 +1053,12 @@ var portal;
             '$scope',
             '$location',
             '$timeout',
+            '$window',
             'configService',
             'registryService',
+            '$state',
             '$modalInstance',
-            'database'
+            'id'
         ];
         return RegistryCtrl;
     })();
@@ -1133,10 +1069,12 @@ var portal;
 (function (portal) {
     'use strict';
 
+    // @TODO introduce error/offline handling later
     var MethodsCtrl = (function () {
         // dependencies are injected via AngularJS $injector
         // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
-        function MethodsCtrl($scope, $location, $timeout, $window, configService, methodsService, userService, $modalInstance, database) {
+        function MethodsCtrl($scope, $location, $timeout, $window, configService, methodsService, userService, $state, $modalInstance, id) {
+            this.database = null;
             this.initialising = false;
             this.showError = false;
             this.request = {};
@@ -1153,8 +1091,10 @@ var portal;
             this.configService = configService;
             this.methodsService = methodsService;
             this.userService = userService;
+            this.state = $state;
             this.modalInstance = $modalInstance;
-            this.database = database;
+
+            this.database = this.configService.getDatabase(id);
 
             if (this.methodsService.methods)
                 this.methods = this.methodsService.getMethods(this.database);
@@ -1209,7 +1149,6 @@ else
             this.scope.$broadcast('update-user-data', id);
         };
 
-        // @TODO display error in the user interface
         MethodsCtrl.prototype.handleServiceError = function (error) {
             console.log("Failure: " + error.status);
             if (error.status == 404)
@@ -1275,8 +1214,9 @@ else {
             'configService',
             'methodsService',
             'userService',
+            '$state',
             '$modalInstance',
-            'database'
+            'id'
         ];
         return MethodsCtrl;
     })();
@@ -1288,11 +1228,9 @@ var portal;
     'use strict';
 
     var DatabasesDir = (function () {
-        function DatabasesDir($timeout, configService) {
+        function DatabasesDir(configService) {
             var _this = this;
-            this.timeout = $timeout;
             this.configService = configService;
-            this.config = this.configService.config;
             this.templateUrl = '/public/partials/templates/databases.html';
             this.restrict = 'E';
             this.link = function ($scope, element, attributes) {
@@ -1301,10 +1239,9 @@ var portal;
         }
         DatabasesDir.prototype.injection = function () {
             return [
-                '$timeout',
                 'configService',
-                function ($timeout, configService) {
-                    return new DatabasesDir($timeout, configService);
+                function (configService) {
+                    return new DatabasesDir(configService);
                 }
             ];
         };
@@ -1312,6 +1249,7 @@ var portal;
         DatabasesDir.prototype.linkFn = function ($scope, element, attributes) {
             $scope.dbdirvm = this;
             this.myScope = $scope;
+            this.config = this.configService.config;
         };
         return DatabasesDir;
     })();
@@ -1323,11 +1261,11 @@ var portal;
     'use strict';
 
     var RegistryDir = (function () {
-        function RegistryDir($timeout, configService, registryService) {
+        function RegistryDir(registryService) {
             var _this = this;
             this.oneAtATime = true;
-            this.error = false;
-            this.errorMessage = "no resources found";
+            this.showError = false;
+            this.status = "no resources found";
             // container for intermediate results
             this.repositories = [];
             this.simulationModels = [];
@@ -1335,8 +1273,6 @@ var portal;
             this.numericalOutputs = [];
             this.granules = [];
             this.activeItems = {};
-            this.timeout = $timeout;
-            this.configService = configService;
             this.registryService = registryService;
             this.templateUrl = '/public/partials/templates/registryTree.html';
             this.restrict = 'E';
@@ -1344,32 +1280,29 @@ var portal;
                 return _this.linkFn($scope, element, attributes);
             };
         }
-        // @TODO here we add dependencies for the used elements in bootstrap-ui
         RegistryDir.prototype.injection = function () {
             return [
-                '$timeout',
-                'configService',
                 'registryService',
-                function ($timeout, configService, registryService) {
-                    return new RegistryDir($timeout, configService, registryService);
+                function (registryService) {
+                    return new RegistryDir(registryService);
                 }
             ];
         };
 
         RegistryDir.prototype.linkFn = function ($scope, element, attributes) {
             var _this = this;
-            $scope.regdirvm = this;
             this.myScope = $scope;
+            $scope.regdirvm = this;
 
             this.myScope.$on('registry-error', function (e, msg) {
-                _this.error = true;
-                _this.errorMessage = msg;
+                _this.showError = true;
+                _this.status = msg;
             });
 
             this.myScope.$on('clear-registry', function (e) {
                 console.log("clearing registry");
                 _this.activeItems = {};
-                _this.error = false;
+                _this.showError = false;
                 _this.repositories = [];
                 _this.simulationModels = [];
                 _this.simulationRuns = [];
@@ -1379,7 +1312,7 @@ var portal;
 
             this.myScope.$on('clear-simulation-models', function (e) {
                 _this.activeItems = {};
-                _this.error = false;
+                _this.showError = false;
                 _this.simulationModels = [];
                 _this.simulationRuns = [];
                 _this.numericalOutputs = [];
@@ -1388,7 +1321,7 @@ var portal;
 
             this.myScope.$on('clear-simulation-runs', function (e, element) {
                 _this.setActive("model", element);
-                _this.error = false;
+                _this.showError = false;
                 _this.simulationRuns = [];
                 _this.numericalOutputs = [];
                 _this.granules = [];
@@ -1396,14 +1329,14 @@ var portal;
 
             this.myScope.$on('clear-numerical-outputs', function (e, element) {
                 _this.setActive("run", element);
-                _this.error = false;
+                _this.showError = false;
                 _this.numericalOutputs = [];
                 _this.granules = [];
             });
 
             this.myScope.$on('clear-granules', function (e, element) {
                 _this.setActive("output", element);
-                _this.error = false;
+                _this.showError = false;
                 _this.granules = [];
             });
 
@@ -1438,10 +1371,6 @@ var portal;
             });
         };
 
-        RegistryDir.prototype.setActive = function (type, element) {
-            this.activeItems[type] = element;
-        };
-
         RegistryDir.prototype.isActive = function (type, element) {
             return this.activeItems[type] === element;
         };
@@ -1457,6 +1386,10 @@ else
         RegistryDir.prototype.format = function (name) {
             return name.split("_").join(" ").trim();
         };
+
+        RegistryDir.prototype.setActive = function (type, element) {
+            this.activeItems[type] = element;
+        };
         return RegistryDir;
     })();
     portal.RegistryDir = RegistryDir;
@@ -1467,15 +1400,13 @@ var portal;
     'use strict';
 
     var UserDataDir = (function () {
-        function UserDataDir($timeout, configService, userService) {
+        function UserDataDir(configService, userService) {
             var _this = this;
             this.loading = false;
             this.showError = false;
             this.isCollapsed = {};
-            this.timeout = $timeout;
             this.configService = configService;
             this.userService = userService;
-            this.user = this.userService.user;
             this.templateUrl = '/public/partials/templates/userdata.html';
             this.restrict = 'E';
             this.link = function ($scope, element, attributes) {
@@ -1484,11 +1415,10 @@ var portal;
         }
         UserDataDir.prototype.injection = function () {
             return [
-                '$timeout',
                 'configService',
                 'userService',
-                function ($timeout, configService, userService) {
-                    return new UserDataDir($timeout, configService, userService);
+                function (configService, userService) {
+                    return new UserDataDir(configService, userService);
                 }
             ];
         };
@@ -1497,6 +1427,7 @@ var portal;
             var _this = this;
             $scope.userdirvm = this;
             this.myScope = $scope;
+            this.user = this.userService.user;
 
             this.myScope.$on('update-user-data', function (e, id) {
                 _this.loading = false;
@@ -1541,12 +1472,10 @@ var portal;
 (function (portal) {
     'use strict';
 
-    var impexPortal = angular.module('portal', ['ui.bootstrap', 'ngRoute', 'ngResource']);
+    //var impexPortal = angular.module('portal', ['ui.bootstrap', 'ngRoute', 'ngResource'])
+    var impexPortal = angular.module('portal', ['ui.bootstrap', 'ui.router', 'ngResource']);
 
     // here we also add options for bootstrap-ui
-    // maybe include angular.ui.router
-    // check what we can directly add to the angular module
-    //(see infoday examples, it supports application state, very nice!)
     impexPortal.service('configService', portal.ConfigService);
     impexPortal.service('registryService', portal.RegistryService);
     impexPortal.service('methodsService', portal.MethodsService);
@@ -1561,11 +1490,71 @@ var portal;
     impexPortal.directive('registryDir', portal.RegistryDir.prototype.injection());
     impexPortal.directive('userDataDir', portal.UserDataDir.prototype.injection());
 
-    // we can add here other configs too
+    // study type definitions for ui-router
     impexPortal.config([
-        '$routeProvider',
-        function ($routeProvider) {
-            $routeProvider.when('/config', { templateUrl: '/public/partials/config.html', controller: 'configCtrl' }).when('/portal', { templateUrl: '/public/partials/portalMap.html', controller: 'portalCtrl' }).when('/databases', { templateUrl: '/public/partials/databaseMap.html', controller: 'portalCtrl' }).otherwise({ redirectTo: '/config' });
+        '$stateProvider',
+        '$urlRouterProvider',
+        function ($stateProvider, $urlRouterProvider) {
+            $urlRouterProvider.otherwise('/portal');
+
+            $stateProvider.state('app', {
+                abstract: true,
+                url: '',
+                controller: portal.ConfigCtrl,
+                template: '<ui-view/>',
+                resolve: {
+                    config: [
+                        'configService',
+                        function (ConfigService) {
+                            return ConfigService.loadConfig();
+                        }
+                    ]
+                }
+            }).state('app.portal', {
+                url: '/portal',
+                templateUrl: '/public/partials/portalMap.html',
+                controller: portal.PortalCtrl
+            }).state('app.portal.registry', {
+                url: '/registry?id',
+                onEnter: function ($stateParams, $state, $modal) {
+                    $modal.open({
+                        templateUrl: '/public/partials/registryModal.html',
+                        controller: portal.RegistryCtrl,
+                        size: 'lg',
+                        resolve: {
+                            id: function () {
+                                return $stateParams.id;
+                            }
+                        }
+                    }).result.then(function () {
+                        $state.transitionTo('app.portal');
+                    }, function () {
+                        $state.transitionTo('app.portal');
+                    });
+                }
+            }).state('app.portal.methods', {
+                url: '/methods?id',
+                onEnter: function ($stateParams, $state, $modal) {
+                    $modal.open({
+                        templateUrl: '/public/partials/methodsModal.html',
+                        controller: portal.MethodsCtrl,
+                        size: 'lg',
+                        resolve: {
+                            id: function () {
+                                return $stateParams.id;
+                            }
+                        }
+                    }).result.then(function () {
+                        $state.transitionTo('app.portal');
+                    }, function () {
+                        $state.transitionTo('app.portal');
+                    });
+                }
+            }).state('app.databases', {
+                url: '/databases',
+                templateUrl: '/public/partials/databaseMap.html',
+                controller: portal.PortalCtrl
+            });
         }
     ]);
 
@@ -1603,6 +1592,24 @@ var portal;
             angular.element($window).bind('resize', function () {
                 $rootScope.windowWidth = $window.outerWidth;
                 $rootScope.$apply('windowWidth');
+            });
+        }
+    ]);
+
+    impexPortal.run([
+        '$rootScope',
+        '$state',
+        '$window',
+        function ($rootScope, $state, $window) {
+            $rootScope.$on('$stateChangeStart', function (event, toState, toParams, fromState, fromParams) {
+                //console.log("FROM "+JSON.stringify(fromState)+JSON.stringify(fromParams))
+                //console.log("TO "+JSON.stringify(toState)+JSON.stringify(toParams))
+            });
+
+            // @TODO when we use resolver, we must check errors on promises here!
+            $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+                if ($window.confirm('connection timed out. retry?'))
+                    $state.transitionTo(toState, toParams);
             });
         }
     ]);

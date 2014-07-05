@@ -4,43 +4,49 @@ module portal {
     'use strict';
 
     export interface IRegistryScope extends ng.IScope {
-        regvm: RegistryCtrl;
+        regvm: RegistryCtrl
     }
 
+    // @TODO introduce error/offline handling later
     export class RegistryCtrl {
         private scope: portal.IRegistryScope
         private location: ng.ILocationService
         private timeout: ng.ITimeoutService
+        private window: ng.IWindowService
         private configService: portal.ConfigService
         private registryService: portal.RegistryService
+        private state: ng.ui.IStateService
         private modalInstance: any
-        private database: Database
         private registryPromise: ng.IPromise<ISpase>
-        private initialising: boolean = false
-        private loading: boolean = false
-        private transFinished: boolean = true
         
-        static $inject: Array<string> = ['$scope', '$location', '$timeout', 
-            'configService', 'registryService', '$modalInstance', 'database']
+        public database: Database = null
+        public initialising: boolean = false
+        public loading: boolean = false
+        public transFinished: boolean = true
+        
+        static $inject: Array<string> = ['$scope', '$location', '$timeout', '$window',
+            'configService', 'registryService', '$state', '$modalInstance', 'id']
 
-        // dependencies are injected via AngularJS $injector
-        // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
         constructor($scope: IRegistryScope, $location: ng.ILocationService, $timeout: ng.ITimeoutService, 
-            configService: portal.ConfigService, registryService: portal.RegistryService,
-            $modalInstance: any, database: Database) {   
+            $window: ng.IWindowService, configService: portal.ConfigService, 
+            registryService: portal.RegistryService, $state: ng.ui.IStateService, 
+            $modalInstance: any, id: string) {   
             this.scope = $scope
             $scope.regvm = this
             this.location = $location
-            this.timeout = $timeout   
+            this.timeout = $timeout  
+            this.window = $window 
             this.configService = configService
             this.registryService = registryService
+            this.state = $state
             this.modalInstance = $modalInstance
-            this.database = database
             
-            // watches changes of variable 
+            this.database = this.configService.getDatabase(id)
+            
+              // watches changes of variable 
             //(is changed each time modal is opened)
             this.scope.$watch('this.database', 
-                () => { this.getRepository(database.id) })
+                () => { this.getRepository(this.database.id) })
         }
         
         public getRepository(id: string) {
@@ -175,6 +181,5 @@ module portal {
         }
         
     
-
     }
 }

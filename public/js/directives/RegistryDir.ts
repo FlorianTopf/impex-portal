@@ -14,15 +14,11 @@ module portal {
 
     export class RegistryDir implements ng.IDirective {
 
-        // @TODO here we add dependencies for the used elements in bootstrap-ui
         public injection(): any[] {
             return [
-                '$timeout',
-                'configService',
                 'registryService',
-                ($timeout: ng.ITimeoutService, configService: portal.ConfigService, 
-                    registryService: portal.RegistryService) => { 
-                    return new RegistryDir($timeout, configService, registryService); }
+                (registryService: portal.RegistryService) => { 
+                    return new RegistryDir(registryService) }
             ]
         }
         
@@ -30,48 +26,42 @@ module portal {
         public templateUrl: string
         public restrict: string
         
-        private timeout: ng.ITimeoutService
-        private configService: portal.ConfigService
-        private registryService: portal.RegistryService
-        private config: IConfig
-        private myScope: ng.IScope 
-        private oneAtATime: boolean = true
-        private error: boolean = false
-        private errorMessage: string = "no resources found"
+        public oneAtATime: boolean = true
+        public showError: boolean = false
+        public status: string = "no resources found"
         
         // container for intermediate results
-        private repositories: Array<Repository> = []
-        private simulationModels: Array<SimulationModel> = []
-        private simulationRuns: Array<SimulationRun> = []
-        private numericalOutputs: Array<NumericalOutput> = []
-        private granules: Array<Granule> = []
-        private activeItems: IActiveMap = {}
+        public repositories: Array<Repository> = []
+        public simulationModels: Array<SimulationModel> = []
+        public simulationRuns: Array<SimulationRun> = []
+        public numericalOutputs: Array<NumericalOutput> = []
+        public granules: Array<Granule> = []
+        public activeItems: IActiveMap = {}
+        
+        private myScope: IRegistryDirScope
+        private registryService: portal.RegistryService
 
-        constructor($timeout: ng.ITimeoutService, configService: portal.ConfigService, 
-            registryService: portal.RegistryService) {
-            this.timeout = $timeout
-            this.configService = configService
+        constructor(registryService: portal.RegistryService) {
             this.registryService = registryService
             this.templateUrl = '/public/partials/templates/registryTree.html'
             this.restrict = 'E'
             this.link = ($scope: portal.IRegistryDirScope, element: JQuery, attributes: ng.IAttributes) => 
                 this.linkFn($scope, element, attributes)
-            
         }
 
         linkFn($scope: portal.IRegistryDirScope, element: JQuery, attributes: ng.IAttributes): any {
-            $scope.regdirvm = this
             this.myScope = $scope
-            
+            $scope.regdirvm = this
+
             this.myScope.$on('registry-error', (e, msg: string) => {
-                this.error = true
-                this.errorMessage = msg
+                this.showError = true
+                this.status = msg
             })
             
             this.myScope.$on('clear-registry', (e) => {
                 console.log("clearing registry")
                 this.activeItems = {}
-                this.error = false
+                this.showError = false
                 this.repositories = []
                 this.simulationModels = []
                 this.simulationRuns = []
@@ -81,7 +71,7 @@ module portal {
             
             this.myScope.$on('clear-simulation-models', (e) => {
                 this.activeItems = {}
-                this.error = false
+                this.showError = false
                 this.simulationModels = []
                 this.simulationRuns = []
                 this.numericalOutputs = []
@@ -90,7 +80,7 @@ module portal {
             
             this.myScope.$on('clear-simulation-runs', (e, element: SpaseElem) => {
                 this.setActive("model", element)
-                this.error = false
+                this.showError = false
                 this.simulationRuns = []
                 this.numericalOutputs = []
                 this.granules = []
@@ -98,14 +88,14 @@ module portal {
             
             this.myScope.$on('clear-numerical-outputs', (e, element: SpaseElem) => {
                 this.setActive("run", element)
-                this.error = false
+                this.showError = false
                 this.numericalOutputs = []
                 this.granules = []
             })
             
             this.myScope.$on('clear-granules', (e, element: SpaseElem) => {
                 this.setActive("output", element)
-                this.error = false
+                this.showError = false
                 this.granules = []
             })
    
@@ -132,26 +122,24 @@ module portal {
             
         }
         
-        private setActive(type: string, element: SpaseElem) {
-            this.activeItems[type] = element
-        }
-        
-        private isActive(type: string, element: SpaseElem): boolean {
+        public isActive(type: string, element: SpaseElem): boolean {
             return this.activeItems[type] === element
         }
         
-        private trim(name: string, length: number = 25): string {
+        public trim(name: string, length: number = 25): string {
             if(name.length>length)
                  return name.slice(0, length).trim()+"..."
             else
                  return name.trim()
         }
         
-        private format(name: string): string {
+        public format(name: string): string {
             return name.split("_").join(" ").trim()
         }
         
- 
+        private setActive(type: string, element: SpaseElem) {
+            this.activeItems[type] = element
+        }
         
     }
 

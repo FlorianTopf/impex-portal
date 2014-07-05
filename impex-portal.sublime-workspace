@@ -76,26 +76,50 @@
 			}
 		},
 		{
-			"file": "mocks/methods.json",
+			"file": "/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/services/UserService.ts",
 			"settings":
 			{
-				"buffer_size": 77201,
+				"buffer_size": 164,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2-client/index.html",
+			"file": "/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/models/User.ts",
 			"settings":
 			{
-				"buffer_size": 1014,
+				"buffer_size": 464,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "mocks/swagger-m.json",
+			"file": "/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/controllers/ConfigCtrl.ts",
 			"settings":
 			{
-				"buffer_size": 1999,
+				"buffer_size": 3029,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/controllers/GameCtrl.ts",
+			"settings":
+			{
+				"buffer_size": 19146,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/config/karma.config.js",
+			"settings":
+			{
+				"buffer_size": 1825,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/config/jasmine-jquery.js",
+			"settings":
+			{
+				"buffer_size": 21653,
 				"line_ending": "Unix"
 			}
 		}
@@ -156,6 +180,25 @@
 	},
 	"file_history":
 	[
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/test/ConfigCtrl.specs.js",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/project/plugins.sbt",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/services/ConfigService.ts",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/services/SoundService.ts",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/directives/ImgDir.ts",
+		"/Users/floriantopf/repositories/swagger-core/samples/scala-play2/app/models/Order.scala",
+		"/Users/floriantopf/repositories/swagger-core/samples/scala-play2/app/models/Category.scala",
+		"/Users/floriantopf/repositories/swagger-core/samples/scala-play2/app/models/Pet.scala",
+		"/Users/floriantopf/repositories/swagger-core/samples/scala-play2/app/controllers/BaseApiController.scala",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/directives/DeckDir.ts",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2-client/js/controllers/ConfigCtrl.ts",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/conf/application.conf",
+		"/Users/floriantopf/repositories/swagger-core/samples/scala-play2/app/controllers/PetApiController.scala",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/directives/ReelDir.ts",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/directives/WinlineDir.ts",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/mocks/swagger-m.json",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2-client/index.html",
+		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/mocks/methods.json",
+		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/directives/CanvasDir.ts",
 		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2-client/js/app.ts",
 		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/models/GambleMessage.ts",
 		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/js/bower.json",
@@ -177,10 +220,7 @@
 		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/.externalToolBuilders/Typescript.launch",
 		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/js/_all.js",
 		"/Users/floriantopf/Desktop/input-clear",
-		"/Users/floriantopf/repositories/swagger-core/samples/scala-play2/app/controllers/PetApiController.scala",
-		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/directives/CanvasDir.ts",
 		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/controllers/GambleCtrl.ts",
-		"/Users/floriantopf/repositories/swagger-core/samples/scala-play2/app/controllers/BaseApiController.scala",
 		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/test/models/binding/VOTBindingSpecs.scala",
 		"/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/app/models/binding/VOTable-1.2.scala",
 		"/Users/floriantopf/Desktop/taverna-to-be-tested.txt",
@@ -207,8 +247,6 @@
 		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/controllers/ConfigCtrl.ts",
 		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/controllers/GameCtrl.ts",
 		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/controllers/PaytableCtrl.ts",
-		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/directives/ImgDir.ts",
-		"/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/directives/DeckDir.ts",
 		"/Users/floriantopf/Library/Application Support/taverna-astronomy-2.5.0/logs/taverna-astronomy-2.5.0.log",
 		"/Users/floriantopf/Google Drive/Work/Freelance/Postl/revisionary/languages/revisionary.pot",
 		"/Users/floriantopf/Google Drive/Work/Freelance/Postl/revisionary/languages/revisionary-de_DE.po",
@@ -269,21 +307,7 @@
 		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/all-in-one-event-calendar/language/all-in-one-event-calendar.pot",
 		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/all-in-one-event-calendar/public/themes-ai1ec/vortex/twig/agenda.twig",
 		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/all-in-one-event-calendar/app/view/calendar/view/agenda.php",
-		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/all-in-one-event-calendar/language/all-in-one-event-calendar.po",
-		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/all-in-one-event-calendar/language/all-in-one-event-calendar-de_DE.po",
-		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/avada-ed/review-order.php",
-		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/newsletter/subscription/styles/neutral.css",
-		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/wp-members/wp-members-dialogs.php",
-		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/css/ffl-style.css",
-		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/js/ffl.min.js",
-		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/js/ffl.js",
-		"/Users/floriantopf/Desktop/getVOTableURL-info.txt",
-		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/flexible-frontend-login.php",
-		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/themes/Avada/framework/headers/header-v4.php",
-		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/customization/ffl-template.tpl",
-		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/includes/output.php",
-		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/includes/styling.php",
-		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/html/wp-content/plugins/flexible-frontend-login/includes/default-options.php"
+		"/Users/floriantopf/Documents/CAMPUS-ÖSTERREICH/all-in-one-event-calendar/language/all-in-one-event-calendar.po"
 	],
 	"find":
 	{
@@ -455,7 +479,7 @@
 	"groups":
 	[
 		{
-			"selected": 3,
+			"selected": 1,
 			"sheets":
 			[
 				{
@@ -483,7 +507,7 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 4,
+					"stack_index": 7,
 					"type": "text"
 				},
 				{
@@ -499,8 +523,8 @@
 						"selection":
 						[
 							[
-								165,
-								153
+								1836,
+								1826
 							]
 						],
 						"settings":
@@ -508,79 +532,47 @@
 							"syntax": "Packages/Text/Plain text.tmLanguage"
 						},
 						"translation.x": 0.0,
-						"translation.y": 3344.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 3,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "mocks/methods.json",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 77201,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								57025,
-								57025
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Better JavaScript/JSON.tmLanguage",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 16.0,
-						"translation.y": 20208.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 3,
-					"file": "/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2-client/index.html",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 1014,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								594,
-								594
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/HTML/HTML.tmLanguage",
-							"tab_size": 2,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 1517.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 0,
 					"type": "text"
 				},
 				{
-					"buffer": 4,
-					"file": "mocks/swagger-m.json",
+					"buffer": 2,
+					"file": "/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/services/UserService.ts",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1999,
+						"buffer_size": 164,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								100,
+								100
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Better TypeScript/TypeScript.tmLanguage"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 6,
+					"type": "text"
+				},
+				{
+					"buffer": 3,
+					"file": "/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/models/User.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 464,
 						"regions":
 						{
 						},
@@ -593,7 +585,7 @@
 						],
 						"settings":
 						{
-							"syntax": "Packages/Better JavaScript/JSON.tmLanguage",
+							"syntax": "Packages/Better TypeScript/TypeScript.tmLanguage",
 							"tab_size": 4,
 							"translate_tabs_to_spaces": true
 						},
@@ -601,7 +593,127 @@
 						"translation.y": 0.0,
 						"zoom_level": 1.0
 					},
+					"stack_index": 5,
+					"type": "text"
+				},
+				{
+					"buffer": 4,
+					"file": "/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/controllers/ConfigCtrl.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 3029,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								1038,
+								1038
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Better TypeScript/TypeScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 5,
+					"file": "/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/controllers/GameCtrl.ts",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 19146,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								2190,
+								2243
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Better TypeScript/TypeScript.tmLanguage",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": 0.0,
+						"translation.y": 423.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 3,
+					"type": "text"
+				},
+				{
+					"buffer": 6,
+					"file": "/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/config/karma.config.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 1825,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Better JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 287.0,
+						"zoom_level": 1.0
+					},
 					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 7,
+					"file": "/Users/floriantopf/Documents/BIGDOG-GAMES/busybee2/public/js/config/jasmine-jquery.js",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 21653,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								0,
+								0
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/Better JavaScript/JavaScript.tmLanguage",
+							"tab_size": 2,
+							"translate_tabs_to_spaces": true
+						},
+						"translation.x": -0.0,
+						"translation.y": 9572.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 1,
 					"type": "text"
 				}
 			]

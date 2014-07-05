@@ -3,12 +3,10 @@
 module portal {
     'use strict';
 
-    var impexPortal = angular.module('portal', ['ui.bootstrap', 'ngRoute', 'ngResource'])
+    //var impexPortal = angular.module('portal', ['ui.bootstrap', 'ngRoute', 'ngResource'])
+    var impexPortal = angular.module('portal', ['ui.bootstrap', 'ui.router', 'ngResource'])
     
     // here we also add options for bootstrap-ui
-    // maybe include angular.ui.router 
-    // check what we can directly add to the angular module
-    //(see infoday examples, it supports application state, very nice!)
  
     impexPortal.service('configService', ConfigService)
     impexPortal.service('registryService', RegistryService)
@@ -24,13 +22,68 @@ module portal {
     impexPortal.directive('registryDir', RegistryDir.prototype.injection())
     impexPortal.directive('userDataDir', UserDataDir.prototype.injection())
    
-    // we can add here other configs too
-    impexPortal.config(['$routeProvider', ($routeProvider) => {
-		    $routeProvider.when('/config', {templateUrl: '/public/partials/config.html', controller: 'configCtrl'}).
-                when('/portal', {templateUrl: '/public/partials/portalMap.html', controller: 'portalCtrl'}).
-                when('/databases', {templateUrl: '/public/partials/databaseMap.html', controller: 'portalCtrl'}).
-                otherwise({redirectTo: '/config'})
-  		}])
+    
+    // study type definitions for ui-router
+    impexPortal.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => {
+
+        $urlRouterProvider.otherwise('/portal')
+        
+        $stateProvider.state('app', {
+            abstract: true,
+            url: '', 
+            controller: ConfigCtrl,
+            template: '<ui-view/>',
+            resolve: {
+                config: ['configService', (ConfigService) => {
+                           return ConfigService.loadConfig()
+                        }] 
+            }
+        }).state('app.portal', {
+            url: '/portal',
+            templateUrl: '/public/partials/portalMap.html',
+            controller: PortalCtrl
+        }).state('app.portal.registry', { 
+            url: '/registry?id',
+            onEnter: ($stateParams, $state, $modal) => {
+                $modal.open({
+                    templateUrl: '/public/partials/registryModal.html',
+                    controller: RegistryCtrl,
+                    size: 'lg',
+                    resolve: {
+                        id: () => $stateParams.id,
+                    }
+                }).result.then(
+                    () => { 
+                        $state.transitionTo('app.portal') // ok
+                    }, 
+                    () => { 
+                        $state.transitionTo('app.portal') // cancel
+                })
+            } 
+        }).state('app.portal.methods', { 
+            url: '/methods?id',
+            onEnter: ($stateParams, $state, $modal) => {
+                $modal.open({
+                    templateUrl: '/public/partials/methodsModal.html',
+                    controller: MethodsCtrl,
+                    size: 'lg',
+                    resolve: {
+                        id: () => $stateParams.id
+                    }
+                }).result.then(
+                    () => { 
+                        $state.transitionTo('app.portal') // ok
+                    }, 
+                    () => { 
+                        $state.transitionTo('app.portal') // cancel
+                })
+            }
+        }).state('app.databases', {
+            url: '/databases',
+            templateUrl: '/public/partials/databaseMap.html',
+            controller: PortalCtrl
+        })
+    }])
     
     // global tooltip config
     impexPortal.config(['$tooltipProvider', ($tooltipProvider) => {
@@ -39,7 +92,7 @@ module portal {
                 'animation': 'false',
                 'popupDelay': '0',
                 'appendToBody': 'true'})
-        }])
+    }])
     
      // custom filter for checking if an array is empty
     impexPortal.filter('isEmpty', () => {
@@ -61,5 +114,21 @@ module portal {
             $rootScope.$apply('windowWidth')
         })
     }])
+    
+    impexPortal.run(['$rootScope', '$state', '$window', ($rootScope, $state, $window) => {
+        $rootScope.$on('$stateChangeStart',  (event, toState, toParams, fromState, fromParams) => {
+            //console.log("FROM "+JSON.stringify(fromState)+JSON.stringify(fromParams))
+            //console.log("TO "+JSON.stringify(toState)+JSON.stringify(toParams))
+        })     
+        
+        // @TODO when we use resolver, we must check errors on promises here!
+        $rootScope.$on('$stateChangeError',  (event, toState, toParams, fromState, fromParams, error) => {
+               //console.log("Error "+JSON.stringify(error))
+                if($window.confirm('connection timed out. retry?'))
+                    $state.transitionTo(toState, toParams)
+        })  
+    }])
+    
+    
      
 }

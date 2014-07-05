@@ -16,11 +16,10 @@ module portal {
 
         public injection(): any[] {
             return [
-                '$timeout',
                 'configService',
                 'userService',
-                ($timeout: ng.ITimeoutService, configService: portal.ConfigService, userService: portal.UserService) => 
-                    { return new UserDataDir($timeout, configService, userService); }
+                (configService: portal.ConfigService, userService: portal.UserService) => 
+                    { return new UserDataDir(configService, userService); }
             ]
         }
 
@@ -38,11 +37,9 @@ module portal {
         private myScope: ng.IScope
         private isCollapsed: ICollapsedMap = {}
 
-        constructor($timeout: ng.ITimeoutService, configService: portal.ConfigService, userService: portal.UserService) {
-            this.timeout = $timeout
+        constructor(configService: portal.ConfigService, userService: portal.UserService) {
             this.configService = configService
             this.userService = userService
-            this.user = this.userService.user
             this.templateUrl = '/public/partials/templates/userdata.html'
             this.restrict = 'E'
             this.link = ($scope: portal.IUserDataDirScope, element: JQuery, attributes: ng.IAttributes) => 
@@ -53,6 +50,7 @@ module portal {
         linkFn($scope: portal.IUserDataDirScope, element: JQuery, attributes: ng.IAttributes): any {
             $scope.userdirvm = this
             this.myScope = $scope
+            this.user = this.userService.user
             
             this.myScope.$on('update-user-data', (e, id: string) => {
                 this.loading = false

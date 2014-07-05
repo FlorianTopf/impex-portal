@@ -1,27 +1,27 @@
 <div ng-show="!vm.ready" class="loading text-center">
 	<img src="/public/img/layout/loading.gif" class="loadingImg" alt="loading..." />
 </div>
-<div class="row">
+<div class="row" ng-show="vm.ready">
 	<div class="col-sm-3 text-center" 
 		ng-repeat="database in vm.configService.config.databases" 
 		ng-if="(database.type == 'simulation') && !(database.tree | isEmpty)">
 		<div ng-show="vm.ready">
 			<button type="button" class="btn btn-default" 
-				ng-click="vm.openRegistryModal(database)" 
+				ui-sref="app.portal.registry({id:database.id})" 
 				tooltip="Show registry of {{ database.name }}">{{ database.name }} Simulations</button>
     	</div>
 	</div>
 </div>
-<div class="row">
+<div class="row" ng-show="vm.ready">
 	<div class="col-sm-12">&nbsp;</div>
 </div>
-<div class="row">
+<div class="row" ng-show="vm.ready">
 	<div class="col-sm-3 text-center" 
 		ng-repeat="database in vm.configService.config.databases" 
-		ng-if="(database.type == 'simulation')">
+		ng-if="(database.type == 'simulation') && !(database.methods | isEmpty)">
 		<div ng-show="vm.ready">
 			<button type="button" class="btn btn-default" 
-				ng-click="vm.openMethodsModal(database) && !(database.methods | isEmpty)" 
+				ui-sref="app.portal.methods({id:database.id})" 
 				tooltip="Show methods of {{ database.name }}">{{ database.name }} Data Access</button>
     	</div>
 	</div>

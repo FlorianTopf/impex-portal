@@ -44,7 +44,7 @@ object Impexconfiguration {
     def writes(c: Impexconfiguration): JsValue = {
       val tools = c.impexconfigurationoption.filter(d => d.key.get == "tool").map(d => d.as[Tool])
       val dbs = c.impexconfigurationoption.filter(d => d.key.get == "database").map(d => d.as[Database])
-      Json.obj("impexconfiguration" -> Json.obj("databases" -> dbs, "tools" -> tools))
+      Json.obj("databases" -> dbs, "tools" -> tools)
     }
   }
   

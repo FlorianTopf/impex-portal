@@ -30,7 +30,19 @@ module portal {
             return <IConfigResource> this.resource(this.url+'config?', 
                 { fmt: '@fmt' }, 
                 { getConfig: this.configAction })
-        }      
+        } 
+        
+        // returns promise for resource handler
+        public loadConfig(): ng.IPromise<IConfig> {
+            return this.getConfig().get({fmt: 'json' }).$promise
+        }
+        
+        public getDatabase(id: string): Database {
+            return this.config.databases.filter((e) => e.id == id)[0]
+        }
+        
+
+        
 
     }
 }
