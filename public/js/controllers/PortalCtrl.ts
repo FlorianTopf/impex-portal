@@ -44,7 +44,6 @@ module portal {
             this.state = $state
             this.modal = $modal
             
-
             this.timeout(() => { 
                   this.ready = true 
             })

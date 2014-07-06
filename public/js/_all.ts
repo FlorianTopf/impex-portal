@@ -1,5 +1,6 @@
 /// <reference path="libs/tsd.d.ts" />
 
+/// <reference path='models/State.ts' />
 /// <reference path='models/Config.ts' />
 /// <reference path='models/Spase.ts' />
 /// <reference path='models/Swagger.ts' />

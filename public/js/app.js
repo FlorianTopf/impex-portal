@@ -3,6 +3,104 @@ var portal;
 (function (portal) {
     'use strict';
 
+    var App = (function () {
+        function App() {
+            this.name = 'app';
+            this.abstract = true;
+            //public url: string = ''
+            this.controller = portal.ConfigCtrl;
+            //public template: string = '<ui-view/>'
+            this.templateUrl = '/public/partials/config.html';
+            this.resolve = {
+                config: [
+                    'configService',
+                    function (ConfigService) {
+                        return ConfigService.loadConfig();
+                    }
+                ]
+            };
+        }
+        return App;
+    })();
+    portal.App = App;
+
+    var Portal = (function () {
+        function Portal() {
+            this.name = 'app.portal';
+            this.url = '/portal';
+            this.templateUrl = '/public/partials/portalMap.html';
+            this.controller = portal.PortalCtrl;
+        }
+        return Portal;
+    })();
+    portal.Portal = Portal;
+
+    var Registry = (function () {
+        function Registry() {
+            this.name = 'app.portal.registry';
+            this.url = '/registry?id';
+        }
+        Registry.prototype.onEnter = function ($stateParams, $state, $modal) {
+            $modal.open({
+                templateUrl: '/public/partials/registryModal.html',
+                controller: portal.RegistryCtrl,
+                size: 'lg',
+                resolve: {
+                    id: function () {
+                        return $stateParams.id;
+                    }
+                }
+            }).result.then(function () {
+                $state.transitionTo('app.portal');
+            }, function () {
+                $state.transitionTo('app.portal');
+            });
+        };
+        return Registry;
+    })();
+    portal.Registry = Registry;
+
+    var Methods = (function () {
+        function Methods() {
+            this.name = 'app.portal.methods';
+            this.url = '/methods?id';
+        }
+        Methods.prototype.onEnter = function ($stateParams, $state, $modal) {
+            $modal.open({
+                templateUrl: '/public/partials/methodsModal.html',
+                controller: portal.MethodsCtrl,
+                size: 'lg',
+                resolve: {
+                    id: function () {
+                        return $stateParams.id;
+                    }
+                }
+            }).result.then(function () {
+                $state.transitionTo('app.portal');
+            }, function () {
+                $state.transitionTo('app.portal');
+            });
+        };
+        return Methods;
+    })();
+    portal.Methods = Methods;
+
+    var Databases = (function () {
+        function Databases() {
+            this.name = 'app.databases';
+            this.url = '/databases';
+            this.templateUrl = '/public/partials/databaseMap.html';
+            this.controller = portal.PortalCtrl;
+        }
+        return Databases;
+    })();
+    portal.Databases = Databases;
+})(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
     var Database = (function () {
         function Database(id, type, name, description, dns, methods, tree, protocol, info) {
             this.id = id;
@@ -821,7 +919,13 @@ var portal;
     'use strict';
 
     var ConfigCtrl = (function () {
-        function ConfigCtrl($scope, configService, userService, $state, config) {
+        function ConfigCtrl($scope, $timeout, configService, userService, $state, config) {
+            var _this = this;
+            this.ready = false;
+            this.showError = false;
+            this.scope = $scope;
+            this.scope.vm = this;
+            this.timeout = $timeout;
             this.configService = configService;
             this.userService = userService;
             this.state = $state;
@@ -830,8 +934,12 @@ var portal;
 
             // @TODO this comes from the server in the future (add in resolver)
             this.userService.user = new portal.User(this.userService.createId());
+
+            this.timeout(function () {
+                _this.ready = true;
+            });
         }
-        ConfigCtrl.$inject = ['$scope', 'configService', 'userService', '$state', 'config'];
+        ConfigCtrl.$inject = ['$scope', '$timeout', 'configService', 'userService', '$state', 'config'];
         return ConfigCtrl;
     })();
     portal.ConfigCtrl = ConfigCtrl;
@@ -1490,71 +1598,19 @@ var portal;
     impexPortal.directive('registryDir', portal.RegistryDir.prototype.injection());
     impexPortal.directive('userDataDir', portal.UserDataDir.prototype.injection());
 
-    // study type definitions for ui-router
+    /* impexPortal.config(['$routeProvider', ($routeProvider) => {
+    $routeProvider.when('/config', {templateUrl: '/public/partials/config.html', controller: 'configCtrl'}).
+    when('/portal', {templateUrl: '/public/partials/portalMap.html', controller: 'portalCtrl'}).
+    when('/databases', {templateUrl: '/public/partials/databaseMap.html', controller: 'portalCtrl'}).
+    otherwise({redirectTo: '/config'})
+    }])*/
     impexPortal.config([
         '$stateProvider',
         '$urlRouterProvider',
         function ($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise('/portal');
 
-            $stateProvider.state('app', {
-                abstract: true,
-                url: '',
-                controller: portal.ConfigCtrl,
-                template: '<ui-view/>',
-                resolve: {
-                    config: [
-                        'configService',
-                        function (ConfigService) {
-                            return ConfigService.loadConfig();
-                        }
-                    ]
-                }
-            }).state('app.portal', {
-                url: '/portal',
-                templateUrl: '/public/partials/portalMap.html',
-                controller: portal.PortalCtrl
-            }).state('app.portal.registry', {
-                url: '/registry?id',
-                onEnter: function ($stateParams, $state, $modal) {
-                    $modal.open({
-                        templateUrl: '/public/partials/registryModal.html',
-                        controller: portal.RegistryCtrl,
-                        size: 'lg',
-                        resolve: {
-                            id: function () {
-                                return $stateParams.id;
-                            }
-                        }
-                    }).result.then(function () {
-                        $state.transitionTo('app.portal');
-                    }, function () {
-                        $state.transitionTo('app.portal');
-                    });
-                }
-            }).state('app.portal.methods', {
-                url: '/methods?id',
-                onEnter: function ($stateParams, $state, $modal) {
-                    $modal.open({
-                        templateUrl: '/public/partials/methodsModal.html',
-                        controller: portal.MethodsCtrl,
-                        size: 'lg',
-                        resolve: {
-                            id: function () {
-                                return $stateParams.id;
-                            }
-                        }
-                    }).result.then(function () {
-                        $state.transitionTo('app.portal');
-                    }, function () {
-                        $state.transitionTo('app.portal');
-                    });
-                }
-            }).state('app.databases', {
-                url: '/databases',
-                templateUrl: '/public/partials/databaseMap.html',
-                controller: portal.PortalCtrl
-            });
+            $stateProvider.state(new portal.App()).state(new portal.Portal()).state(new portal.Registry()).state(new portal.Methods()).state(new portal.Databases());
         }
     ]);
 

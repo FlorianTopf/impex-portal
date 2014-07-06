@@ -8,14 +8,23 @@ module portal {
     }
 
     export class ConfigCtrl {        
+        private timeout: ng.ITimeoutService
+        private scope: portal.IConfigScope
         private configService: portal.ConfigService
         private userService: portal.UserService
         private state: ng.ui.IStateService
+        
+        public ready: boolean = false
+        public status: string
+        public showError: boolean = false 
 
-        static $inject: Array<string> = ['$scope', 'configService', 'userService', '$state', 'config']
+        static $inject: Array<string> = ['$scope', '$timeout', 'configService', 'userService', '$state', 'config']
 
-        constructor($scope: IConfigScope, configService: portal.ConfigService, 
-            userService: portal.UserService, $state: ng.ui.IStateService, config: IConfig) {   
+        constructor($scope: IConfigScope, $timeout: ng.ITimeoutService, configService: portal.ConfigService, 
+            userService: portal.UserService, $state: ng.ui.IStateService, config: IConfig) {  
+            this.scope = $scope
+            this.scope.vm = this 
+            this.timeout = $timeout
             this.configService = configService  
             this.userService = userService
             this.state = $state   
@@ -25,9 +34,13 @@ module portal {
             // @TODO this comes from the server in the future (add in resolver)
             this.userService.user = new User(this.userService.createId())
             
-            
+            this.timeout(() => { 
+                this.ready = true 
+            })
+              
         }
-        
+
+      
         
     }
 }

@@ -4,7 +4,7 @@ module portal {
     'use strict';
 
     //var impexPortal = angular.module('portal', ['ui.bootstrap', 'ngRoute', 'ngResource'])
-    var impexPortal = angular.module('portal', ['ui.bootstrap', 'ui.router', 'ngResource'])
+    var impexPortal: ng.IModule = angular.module('portal', ['ui.bootstrap', 'ui.router', 'ngResource'])
     
     // here we also add options for bootstrap-ui
  
@@ -22,67 +22,24 @@ module portal {
     impexPortal.directive('registryDir', RegistryDir.prototype.injection())
     impexPortal.directive('userDataDir', UserDataDir.prototype.injection())
    
-    
-    // study type definitions for ui-router
-    impexPortal.config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider) => {
-
+    /* impexPortal.config(['$routeProvider', ($routeProvider) => {
+            $routeProvider.when('/config', {templateUrl: '/public/partials/config.html', controller: 'configCtrl'}).
+                when('/portal', {templateUrl: '/public/partials/portalMap.html', controller: 'portalCtrl'}).
+                when('/databases', {templateUrl: '/public/partials/databaseMap.html', controller: 'portalCtrl'}).
+                otherwise({redirectTo: '/config'})
+        }])*/
+    impexPortal.config(['$stateProvider', '$urlRouterProvider', 
+        ($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider) => {
+        
         $urlRouterProvider.otherwise('/portal')
         
-        $stateProvider.state('app', {
-            abstract: true,
-            url: '', 
-            controller: ConfigCtrl,
-            template: '<ui-view/>',
-            resolve: {
-                config: ['configService', (ConfigService) => {
-                           return ConfigService.loadConfig()
-                        }] 
-            }
-        }).state('app.portal', {
-            url: '/portal',
-            templateUrl: '/public/partials/portalMap.html',
-            controller: PortalCtrl
-        }).state('app.portal.registry', { 
-            url: '/registry?id',
-            onEnter: ($stateParams, $state, $modal) => {
-                $modal.open({
-                    templateUrl: '/public/partials/registryModal.html',
-                    controller: RegistryCtrl,
-                    size: 'lg',
-                    resolve: {
-                        id: () => $stateParams.id,
-                    }
-                }).result.then(
-                    () => { 
-                        $state.transitionTo('app.portal') // ok
-                    }, 
-                    () => { 
-                        $state.transitionTo('app.portal') // cancel
-                })
-            } 
-        }).state('app.portal.methods', { 
-            url: '/methods?id',
-            onEnter: ($stateParams, $state, $modal) => {
-                $modal.open({
-                    templateUrl: '/public/partials/methodsModal.html',
-                    controller: MethodsCtrl,
-                    size: 'lg',
-                    resolve: {
-                        id: () => $stateParams.id
-                    }
-                }).result.then(
-                    () => { 
-                        $state.transitionTo('app.portal') // ok
-                    }, 
-                    () => { 
-                        $state.transitionTo('app.portal') // cancel
-                })
-            }
-        }).state('app.databases', {
-            url: '/databases',
-            templateUrl: '/public/partials/databaseMap.html',
-            controller: PortalCtrl
-        })
+        $stateProvider.state(new App()).
+            state(new Portal()).
+                state(new Registry()).
+                state(new Methods()).
+            state(new Databases())
+            
+            
     }])
     
     // global tooltip config
