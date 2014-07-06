@@ -12,10 +12,18 @@
   			{{ element.resourceHeader.description }}
   		</div>
   		<div class="elem-header">
-  			<span class="elem-caption" ng-hide="regdirvm.simulationModels | isEmpty">Simulation Models</span>	
-  			<span class="elem-caption" ng-hide="regdirvm.simulationRuns | isEmpty">Simulation Runs</span>
-	    	<span class="elem-caption" ng-hide="regdirvm.numericalOutputs | isEmpty">Numerical Outputs</span>
-	    	<span class="elem-caption" ng-hide="regdirvm.granules | isEmpty">Granules</span>
+  			<span class="elem-caption" ng-hide="regdirvm.simulationModels | isEmpty">
+  				Simulation Models ({{ regdirvm.simulationModels.length }})
+  			</span>	
+  			<span class="elem-caption" ng-hide="regdirvm.simulationRuns | isEmpty">
+  				Simulation Runs ({{ regdirvm.simulationRuns.length }})
+  			</span>
+	    	<span class="elem-caption" ng-hide="regdirvm.numericalOutputs | isEmpty">
+	    		Numerical Outputs ({{ regdirvm.numericalOutputs.length }})
+	    	</span>
+	    	<span class="elem-caption" ng-hide="regdirvm.granules | isEmpty">
+	    		Granules ({{ regdirvm.granules.length }})
+	    	</span>
 	    </div>
   		<div class="btn-group-vertical btn-group-overflow" ng-hide="regdirvm.simulationModels | isEmpty">	
 			<button type="button" class="btn btn-default btn-sm" 
