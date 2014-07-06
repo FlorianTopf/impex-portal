@@ -8,8 +8,8 @@ module portal {
         public abstract: boolean = true
         //public url: string = ''
         public controller: any = ConfigCtrl
-        //public template: string = '<ui-view/>'
-        public templateUrl: string =  '/public/partials/config.html'
+        public template: string = '<ui-view/>'
+        //public templateUrl: string =  '/public/partials/config.html'
         public resolve: Object = {
             config: ['configService', (ConfigService) => {
                 return ConfigService.loadConfig()

@@ -9,8 +9,8 @@ var portal;
             this.abstract = true;
             //public url: string = ''
             this.controller = portal.ConfigCtrl;
-            //public template: string = '<ui-view/>'
-            this.templateUrl = '/public/partials/config.html';
+            this.template = '<ui-view/>';
+            //public templateUrl: string =  '/public/partials/config.html'
             this.resolve = {
                 config: [
                     'configService',
@@ -920,9 +920,6 @@ var portal;
 
     var ConfigCtrl = (function () {
         function ConfigCtrl($scope, $timeout, configService, userService, $state, config) {
-            var _this = this;
-            this.ready = false;
-            this.showError = false;
             this.scope = $scope;
             this.scope.vm = this;
             this.timeout = $timeout;
@@ -934,10 +931,6 @@ var portal;
 
             // @TODO this comes from the server in the future (add in resolver)
             this.userService.user = new portal.User(this.userService.createId());
-
-            this.timeout(function () {
-                _this.ready = true;
-            });
         }
         ConfigCtrl.$inject = ['$scope', '$timeout', 'configService', 'userService', '$state', 'config'];
         return ConfigCtrl;

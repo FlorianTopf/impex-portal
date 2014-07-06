@@ -14,9 +14,9 @@ module portal {
         private userService: portal.UserService
         private state: ng.ui.IStateService
         
-        public ready: boolean = false
-        public status: string
-        public showError: boolean = false 
+        //public ready: boolean = false
+        //public status: string
+        //public showError: boolean = false 
 
         static $inject: Array<string> = ['$scope', '$timeout', 'configService', 'userService', '$state', 'config']
 
@@ -33,10 +33,6 @@ module portal {
             
             // @TODO this comes from the server in the future (add in resolver)
             this.userService.user = new User(this.userService.createId())
-            
-            this.timeout(() => { 
-                this.ready = true 
-            })
               
         }
 
