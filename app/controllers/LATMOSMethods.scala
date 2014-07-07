@@ -263,7 +263,7 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         value = "resource id", 
-        defaultValue = "spase://IMPEX/Granule/LATMOS/Hybrid/Mars_14_01_13/Mag/MEX/0.0",
+        defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_14_01_13/Mag/MEX/0.0",
         required = true, 
         dataType = "string", 
         paramType = "query"),
@@ -295,7 +295,7 @@ object LATMOSMethods extends MethodsController {
         TimeProvider.getISODate(stopTime) // stop time
     )
            
-    //@TODO save votable file on disk and provide link to it
+    // @TODO save votable file on disk and provide link to it
     // first "use case" for session
            
     result.fold(
@@ -303,7 +303,11 @@ object LATMOSMethods extends MethodsController {
             ServiceResponse(
                 EServiceResponse.BAD_REQUEST, 
                 fault.original.asInstanceOf[Fault].faultstring, request.req))), 
-        votable => Ok(scalaxb.toXML[VOTABLE](votable, "VOTABLE", scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")))
+        votable => { 
+          Ok(Json.toJson(ServiceResponseJson(EServiceResponse.OK, Json.toJson(votable), request.req))) 
+          //Ok(scalaxb.toXML[VOTABLE](votable, "VOTABLE", scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")))
+        }
+          
     )
     } catch {
       case e: NoSuchElementException => 

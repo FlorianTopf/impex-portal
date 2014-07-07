@@ -623,7 +623,11 @@ object FMIMethods extends MethodsController {
             ServiceResponse(
                 EServiceResponse.BAD_REQUEST, 
                 fault.original.asInstanceOf[Fault].faultstring, request.req))), 
-        json => { println(json); Ok(Json.toJson(ServiceResponse(EServiceResponse.OK, json, request.req))) }
+        json => { 
+          // only extracting the runs 
+          val result = Json.obj("runs" -> Json.parse(json).\("runs"))
+          Ok(Json.toJson(ServiceResponseJson(EServiceResponse.OK, result, request.req))) 
+        }
     )
     } catch {
       case e: NoSuchElementException => 

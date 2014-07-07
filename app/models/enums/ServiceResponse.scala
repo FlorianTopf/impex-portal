@@ -49,3 +49,13 @@ object VOTableURLResponse {
         }
     }
 }
+
+case class ServiceResponseJson(code: EServiceResponse.Value, message: JsValue, request: Map[String, String])
+
+object ServiceResponseJson {
+    implicit val serviceResponseJson = new Writes[ServiceResponseJson] {
+        def writes(r: ServiceResponseJson): JsValue = {
+            Json.obj("code" -> r.code.id, "message" -> r.message, "request" -> r.request)
+        }
+    }
+}
