@@ -153,8 +153,9 @@ button.dropdown-toggle {
 		top: 125px;
 	}
 	
+	/* TODO this must be responsive */
   	.modal-lg {
-    	width: 1000px;
+    	width: 1050px;
   	}
 }
 
