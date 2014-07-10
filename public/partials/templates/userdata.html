@@ -8,12 +8,6 @@
 					Service Result {{ key }}
 			</button>
 		</div>
-		<div class="btn-group-vertical">
-			<div ng-show="userdirvm.loading">
-				<img src="/public/img/throbber.gif" alt="loading..."/>
-			</div>
-			<div class="error" ng-show="userdirvm.showError">{{ userdirvm.status }}</div>
-		</div>
 	</div>
 	<div class="col-sm-8">
 		<div ng-repeat="(key, elem) in userdirvm.user.results" collapse="userdirvm.isCollapsed[key]">
@@ -21,7 +15,7 @@
 				<h5>Service Result {{ key }}</h5>
 				<!-- check if the result is an URL -->
 				<div ng-if="userdirvm.validateUrl(elem.message)">
-					<a href="{{ elem.message }}" target="_blank">{{ elem.message }}</a>
+					<a href="elem.message" target="_blank">{{ elem.message }}</a>
 				</div>
 				<div ng-if="!userdirvm.validateUrl(elem.message)">
 					<p>{{ elem.message }}</p>
@@ -30,3 +24,137 @@
 		</div>
 	</div>
 </div>
+<div class="row">
+	<div class="col-sm-12">&nbsp;</div>
+</div>
+<div class="row">
+	<div class="col-sm-3">
+		<div class="btn-group-vertical btn-group-overflow" ng-hide="userdirvm.user.selections | isEmpty">
+			<button type="button" class="btn btn-success btn-sm" 
+				ng-repeat="sel in userdirvm.user.selections"
+			    ng-class="{ active: !userdirvm.isCollapsed[sel.id] }"
+				ng-click="userdirvm.showHeader(sel.id)">
+					Tree Selection {{ sel.id }}<br/>
+					{{ sel.type }}
+			</button>
+		</div>
+	</div>
+	<div class="col-sm-8">
+		<!-- we should not fill the info unless a selection is clicked / we close all when modal closes -->
+		<div ng-repeat="sel in userdirvm.user.selections" collapse="userdirvm.isCollapsed[sel.id]">
+			<div class="well well-sm" style="max-height: 450px; overflow-y: auto;">
+				<h4>Tree Selection {{ sel.id }}: {{ sel.type }}</h4>
+				<!-- @TODO we must introduce a directive here which handles the different resource models -->
+				<p style="word-wrap: break-word;"><!-- manual resource header hack for the moment -->
+					<strong>Resource Id:</strong> {{ sel.elem.resourceId }}<br/>
+					<span ng-repeat="(key, elem) in sel.elem.resourceHeader">
+						<span ng-if="!(elem | isEmpty)">
+							<span ng-switch="userdirvm.typeOf(elem)">
+								<!-- should only be CONTACT atm -->
+								<span ng-switch-when="array">
+									<strong>{{ userdirvm.beautify(key) }}:</strong><br/>
+									<span ng-repeat="(key, elem) in elem[0]">
+										<strong>&nbsp;&nbsp;{{userdirvm.beautify(key)}}:</strong> 
+										<span ng-if="userdirvm.typeOf(elem) == 'array'">{{elem[0]}}</span>
+										<span ng-if="userdirvm.typeOf(elem) != 'array'">{{elem}}</span>
+										<br ng-if="!(elem | isEmpty)"/>
+									</span>
+								</span>
+								<span ng-switch-when="string">
+									<span ng-if="!(elem | isEmpty)">
+              							<strong>{{ userdirvm.beautify(key) }}:</strong> {{elem}}<br/>
+              						</span>
+          						</span>
+          						<!--  @FIXME no single objects here? -->
+							</span>
+						</span>
+					</span>
+					<!-- introduce more -->
+				</p>
+				<p style="word-wrap: break-word;"><!-- manual resource info hack for the moment -->
+					<span ng-repeat="(key, elem) in sel.elem">
+						<span ng-if="key != 'resourceHeader' && key != 'resourceId'">
+							<span ng-switch="userdirvm.typeOf(elem)">
+								<span ng-switch-when="array">
+									<span ng-if="elem.length == 1">
+										<span ng-if="userdirvm.typeOf(elem[0]) === 'string'">
+											<strong>{{userdirvm.beautify(key)}}:</strong> {{elem[0]}}<br/>
+										</span>
+										<span ng-if="userdirvm.typeOf(elem[0]) === 'object'">
+											<strong>{{userdirvm.beautify(key)}}:</strong><br/>
+											<span ng-include="'elem.html'"></span>
+										</span>
+									</span>
+									<span ng-if="elem.length > 1">
+										<strong>{{userdirvm.beautify(key)}}:</strong><br/>
+										<span ng-include="'elem.html'"></span>
+									</span>
+								</span>
+								<span ng-switch-when="object">
+									<strong>{{userdirvm.beautify(key)}}:</strong><br/>
+									<span ng-include="'elem.html'"></span>
+								</span>
+								<span ng-switch-when="string">
+									<strong>{{userdirvm.beautify(key)}}:</strong> {{elem}}<br/>
+								</span>
+								<!-- span style="color: blue;">
+									<span style="color: red;">{{ userdirvm.typeOf(elem) }}</span>
+									<strong>{{userdirvm.beautify(key)}}:</strong> {{elem}}<br/>
+								</span-->
+							</span>
+						</span>
+					</span>
+				</p>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="row">
+	<div class="col-sm-12">
+		<div class="btn-group-vertical">
+			<div ng-show="userdirvm.loading">
+				<img src="/public/img/throbber.gif" alt="loading..."/>
+			</div>
+			<div class="error" ng-show="userdirvm.showError">{{ userdirvm.status }}</div>
+		</div>
+	</div>
+</div>
+<script type="text/ng-template" id="elem.html">
+	<span ng-switch="userdirvm.typeOf(elem)">
+         <span ng-switch-when="string">
+             {{ elem }}<br/>
+         </span>
+         <span ng-switch-when="url">
+             <a href="elem">{{elem}}</a><br/>
+         </span>
+         <span ng-switch-when="boolean">
+             {{ elem }}<br/>
+         </span>
+         <span ng-switch-when="number">
+             {{ elem }}<br/>
+         </span>
+         <span ng-switch-when="null">
+            <strong>null</strong><br/>
+         </span>
+         <span ng-switch-when="undefined">
+             <strong>undefined</strong><br/>
+         </span>
+         <span ng-switch-when="array">
+				<span ng-repeat="(key, elem) in elem">
+            	   <span ng-include="'elem.html'"></span>
+				</span>
+		 </span>
+         <span ng-switch-when="object">	
+			<span ng-repeat="(key, elem) in elem">
+				<span ng-if="elem != null && elem.length != 0">	
+            	   	&nbsp;&nbsp;&nbsp;&nbsp;<strong>{{ userdirvm.beautify(key) }}:</strong>
+					<br ng-if="userdirvm.typeOf(elem) === 'object'"/>
+					<span ng-if="userdirvm.typeOf(elem) === 'object'">
+						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					</span>
+					<span ng-include="'elem.html'"></span>
+				</span>
+			</span>
+         </span>
+    </span>
+</script>

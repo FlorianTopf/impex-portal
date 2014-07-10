@@ -385,8 +385,10 @@ var portal;
     portal.InputProcess = InputProcess;
 
     // numerical output element
-    var NumericalOutput = (function () {
+    var NumericalOutput = (function (_super) {
+        __extends(NumericalOutput, _super);
         function NumericalOutput(resourceId, resourceHeader, accessInformation, measurementType, simulatedRegion, inputResourceId, parameter, spatialDescription, temporalDescription) {
+            _super.call(this, resourceId);
             this.resourceId = resourceId;
             this.resourceHeader = resourceHeader;
             this.accessInformation = accessInformation;
@@ -398,7 +400,7 @@ var portal;
             this.temporalDescription = temporalDescription;
         }
         return NumericalOutput;
-    })();
+    })(SpaseElem);
     portal.NumericalOutput = NumericalOutput;
 
     var AccessInformation = (function () {
@@ -756,12 +758,23 @@ var portal;
 (function (portal) {
     'use strict';
 
+    // currently saved selections
+    var Selection = (function () {
+        function Selection(id, type, elem) {
+            this.id = id;
+            this.type = type;
+            this.elem = elem;
+        }
+        return Selection;
+    })();
+    portal.Selection = Selection;
+
     // @TODO let's see what the user object needs to have
-    // we might need another member for stored selections
     var User = (function () {
         function User(id) {
             this.id = id;
             this.results = {};
+            this.selections = [];
         }
         return User;
     })();
@@ -822,7 +835,14 @@ var portal;
             };
             // cache for the elements (identified by request id)
             this.cachedElements = {};
+            // defines which elements are selectables in the registry
+            this.selectables = {};
             this.resource = $resource;
+
+            this.selectables['spase://IMPEX/Repository/FMI/HYB'] = ['NumericalOutput'];
+            this.selectables['spase://IMPEX/Repository/FMI/GUMICS'] = ['NumericalOutput'];
+            this.selectables['spase://IMPEX/Repository/LATMOS'] = ['SimulationRun', 'NumericalOutput'];
+            this.selectables['spase://IMPEX/Repository/SINP'] = ['SimulationModel', 'NumericalOutput'];
         }
         RegistryService.prototype.getRepository = function () {
             return this.resource(this.url + 'registry/repository?', { id: '@id', fmt: '@fmt' }, { getRepository: this.registryAction });
@@ -907,7 +927,7 @@ var portal;
             this.user = null;
         }
         UserService.prototype.createId = function () {
-            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1) + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
         };
         return UserService;
     })();
@@ -930,6 +950,7 @@ var portal;
             this.configService.config = config;
 
             // @TODO this comes from the server in the future (add in resolver)
+            // maybe make a combined promise / resolve
             this.userService.user = new portal.User(this.userService.createId());
         }
         ConfigCtrl.$inject = ['$scope', '$timeout', 'configService', 'userService', '$state', 'config'];
@@ -987,7 +1008,7 @@ var portal;
 
     // @TODO introduce error/offline handling later
     var RegistryCtrl = (function () {
-        function RegistryCtrl($scope, $location, $timeout, $window, configService, registryService, $state, $modalInstance, id) {
+        function RegistryCtrl($scope, $location, $timeout, $window, configService, registryService, userService, $state, $modalInstance, id) {
             var _this = this;
             this.database = null;
             this.initialising = false;
@@ -1000,10 +1021,12 @@ var portal;
             this.window = $window;
             this.configService = configService;
             this.registryService = registryService;
+            this.userService = userService;
             this.state = $state;
             this.modalInstance = $modalInstance;
 
             this.database = this.configService.getDatabase(id);
+            console.log("Registry Ctrl");
 
             // watches changes of variable
             //(is changed each time modal is opened)
@@ -1137,14 +1160,14 @@ var portal;
         };
 
         // testing methods for modal
-        RegistryCtrl.prototype.registrySave = function () {
+        RegistryCtrl.prototype.saveRegistry = function () {
             this.modalInstance.close();
 
             // @TODO just for the moment
             this.scope.$broadcast('clear-registry');
         };
 
-        RegistryCtrl.prototype.registryCancel = function () {
+        RegistryCtrl.prototype.cancelRegistry = function () {
             this.modalInstance.dismiss();
 
             // @TODO just for the moment
@@ -1157,6 +1180,7 @@ var portal;
             '$window',
             'configService',
             'registryService',
+            'userService',
             '$state',
             '$modalInstance',
             'id'
@@ -1172,8 +1196,6 @@ var portal;
 
     // @TODO introduce error/offline handling later
     var MethodsCtrl = (function () {
-        // dependencies are injected via AngularJS $injector
-        // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
         function MethodsCtrl($scope, $location, $timeout, $window, configService, methodsService, userService, $state, $modalInstance, id) {
             this.database = null;
             this.initialising = false;
@@ -1286,7 +1308,7 @@ else {
         };
 
         // testing method for submission
-        MethodsCtrl.prototype.methodsSubmit = function () {
+        MethodsCtrl.prototype.submitMethod = function () {
             var _this = this;
             this.scope.$broadcast('load-service-data');
             console.log("submitted " + this.currentMethod.path + " " + this.request['id']);
@@ -1298,12 +1320,12 @@ else {
         };
 
         // testing methods for modal
-        MethodsCtrl.prototype.methodsSave = function () {
+        MethodsCtrl.prototype.saveMethods = function () {
             this.modalInstance.close();
             this.scope.$broadcast('clear-service-error');
         };
 
-        MethodsCtrl.prototype.methodsCancel = function () {
+        MethodsCtrl.prototype.cancelMethods = function () {
             this.modalInstance.dismiss();
             this.scope.$broadcast('clear-service-error');
         };
@@ -1362,7 +1384,7 @@ var portal;
     'use strict';
 
     var RegistryDir = (function () {
-        function RegistryDir(registryService) {
+        function RegistryDir(registryService, userService) {
             var _this = this;
             this.oneAtATime = true;
             this.showError = false;
@@ -1374,8 +1396,10 @@ var portal;
             this.numericalOutputs = [];
             this.granules = [];
             this.activeItems = {};
+            this.selectables = [];
             this.registryService = registryService;
-            this.templateUrl = '/public/partials/templates/registryTree.html';
+            this.userService = userService;
+            this.templateUrl = '/public/partials/templates/registry.html';
             this.restrict = 'E';
             this.link = function ($scope, element, attributes) {
                 return _this.linkFn($scope, element, attributes);
@@ -1384,8 +1408,9 @@ var portal;
         RegistryDir.prototype.injection = function () {
             return [
                 'registryService',
-                function (registryService) {
-                    return new RegistryDir(registryService);
+                'userService',
+                function (registryService, userService) {
+                    return new RegistryDir(registryService, userService);
                 }
             ];
         };
@@ -1394,6 +1419,10 @@ var portal;
             var _this = this;
             this.myScope = $scope;
             $scope.regdirvm = this;
+
+            attributes.$observe('db', function (value) {
+                _this.selectables = _this.registryService.selectables[value];
+            });
 
             this.myScope.$on('registry-error', function (e, msg) {
                 _this.showError = true;
@@ -1421,7 +1450,8 @@ var portal;
             });
 
             this.myScope.$on('clear-simulation-runs', function (e, element) {
-                _this.setActive("model", element);
+                _this.setActive('SimulationModel', element);
+                _this.activeItems['SimulationRun'] = null;
                 _this.showError = false;
                 _this.simulationRuns = [];
                 _this.numericalOutputs = [];
@@ -1429,14 +1459,16 @@ var portal;
             });
 
             this.myScope.$on('clear-numerical-outputs', function (e, element) {
-                _this.setActive("run", element);
+                _this.setActive('SimulationRun', element);
+                _this.activeItems['NumericalOutput'] = null;
                 _this.showError = false;
                 _this.numericalOutputs = [];
                 _this.granules = [];
             });
 
             this.myScope.$on('clear-granules', function (e, element) {
-                _this.setActive("output", element);
+                _this.setActive('NumericalOutput', element);
+                _this.activeItems['Granule'] = null;
                 _this.showError = false;
                 _this.granules = [];
             });
@@ -1472,6 +1504,16 @@ var portal;
             });
         };
 
+        RegistryDir.prototype.isSelectable = function (type) {
+            return this.selectables.indexOf(type) != -1;
+        };
+
+        // @FIXME we should allow multiple selections here!
+        RegistryDir.prototype.setActive = function (type, element) {
+            this.activeItems[type] = element;
+        };
+
+        // @FIXME we should allow multiple selections here!
         RegistryDir.prototype.isActive = function (type, element) {
             return this.activeItems[type] === element;
         };
@@ -1488,8 +1530,14 @@ else
             return name.split("_").join(" ").trim();
         };
 
-        RegistryDir.prototype.setActive = function (type, element) {
-            this.activeItems[type] = element;
+        // @FIXME we should allow multiple selections here!
+        RegistryDir.prototype.saveSelection = function (type) {
+            // @TODO we change id creation later
+            var id = this.userService.createId();
+
+            this.userService.user.selections.push(new portal.Selection(id, type, this.activeItems[type]));
+
+            this.myScope.$broadcast('update-user-data', id);
         };
         return RegistryDir;
     })();
@@ -1506,6 +1554,8 @@ var portal;
             this.loading = false;
             this.showError = false;
             this.isCollapsed = {};
+            // current resource selection which is fully displayed
+            this.currentSelection = portal.SpaseElem;
             this.configService = configService;
             this.userService = userService;
             this.templateUrl = '/public/partials/templates/userdata.html';
@@ -1532,7 +1582,7 @@ var portal;
 
             this.myScope.$on('update-user-data', function (e, id) {
                 _this.loading = false;
-                _this.isCollapsed[id] = true;
+                _this.isCollapsed[id] = false;
             });
 
             this.myScope.$on('handle-service-error', function (e, msg) {
@@ -1550,9 +1600,14 @@ var portal;
                 _this.showError = false;
                 _this.status = '';
             });
+
+            // we need to watch on the modal => how we can achieve this?
+            this.myScope.$watch('$includeContentLoaded', function (e) {
+                console.log("UserDataDir loaded");
+            });
         };
 
-        UserDataDir.prototype.showDetails = function (id) {
+        UserDataDir.prototype.showHeader = function (id) {
             this.isCollapsed[id] = !this.isCollapsed[id];
         };
 
@@ -1562,6 +1617,34 @@ var portal;
                 return false;
             } else {
                 return true;
+            }
+        };
+
+        UserDataDir.prototype.beautify = function (str) {
+            var array = str.match(/([A-Z]?[^A-Z]*)/g).slice(0, -1);
+            var first = array[0].charAt(0).toUpperCase() + array[0].slice(1);
+            array.shift();
+            return (first + " " + array.join(" ")).trim();
+        };
+
+        UserDataDir.prototype.typeOf = function (thing) {
+            switch (typeof thing) {
+                case "object":
+                    if (Object.prototype.toString.call(thing) === "[object Array]") {
+                        return 'array';
+                    } else if (thing == null) {
+                        return 'null';
+                    } else if (Object.prototype.toString.call(thing) === "[object Object]") {
+                        return 'object';
+                    }
+                case "string":
+                    if (this.validateUrl(thing)) {
+                        return 'url';
+                    } else {
+                        return 'string';
+                    }
+                default:
+                    return typeof thing;
             }
         };
         return UserDataDir;

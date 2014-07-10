@@ -17,8 +17,9 @@ module portal {
         public injection(): any[] {
             return [
                 'registryService',
-                (registryService: portal.RegistryService) => { 
-                    return new RegistryDir(registryService) }
+                'userService',
+                (registryService: portal.RegistryService, userService: portal.UserService) => { 
+                    return new RegistryDir(registryService, userService) }
             ]
         }
         
@@ -37,13 +38,16 @@ module portal {
         public numericalOutputs: Array<NumericalOutput> = []
         public granules: Array<Granule> = []
         public activeItems: IActiveMap = {}
+        public selectables: Array<string> = []
         
         private myScope: IRegistryDirScope
         private registryService: portal.RegistryService
+        private userService: portal.UserService
 
-        constructor(registryService: portal.RegistryService) {
+        constructor(registryService: portal.RegistryService, userService: portal.UserService) {
             this.registryService = registryService
-            this.templateUrl = '/public/partials/templates/registryTree.html'
+            this.userService = userService
+            this.templateUrl = '/public/partials/templates/registry.html'
             this.restrict = 'E'
             this.link = ($scope: portal.IRegistryDirScope, element: JQuery, attributes: ng.IAttributes) => 
                 this.linkFn($scope, element, attributes)
@@ -52,6 +56,10 @@ module portal {
         linkFn($scope: portal.IRegistryDirScope, element: JQuery, attributes: ng.IAttributes): any {
             this.myScope = $scope
             $scope.regdirvm = this
+            
+            attributes.$observe('db', (value?: string)  => { 
+                this.selectables = this.registryService.selectables[value]
+            })
 
             this.myScope.$on('registry-error', (e, msg: string) => {
                 this.showError = true
@@ -79,7 +87,8 @@ module portal {
             })
             
             this.myScope.$on('clear-simulation-runs', (e, element: SpaseElem) => {
-                this.setActive("model", element)
+                this.setActive('SimulationModel', element)
+                this.activeItems['SimulationRun'] = null
                 this.showError = false
                 this.simulationRuns = []
                 this.numericalOutputs = []
@@ -87,14 +96,16 @@ module portal {
             })
             
             this.myScope.$on('clear-numerical-outputs', (e, element: SpaseElem) => {
-                this.setActive("run", element)
+                this.setActive('SimulationRun', element)
+                this.activeItems['NumericalOutput'] = null
                 this.showError = false
                 this.numericalOutputs = []
                 this.granules = []
             })
             
             this.myScope.$on('clear-granules', (e, element: SpaseElem) => {
-                this.setActive("output", element)
+                this.setActive('NumericalOutput', element)
+                this.activeItems['Granule'] = null
                 this.showError = false
                 this.granules = []
             })
@@ -122,6 +133,16 @@ module portal {
             
         }
         
+        public isSelectable(type: string): boolean {
+            return this.selectables.indexOf(type) != -1
+        }
+        
+        // @FIXME we should allow multiple selections here!
+        public setActive(type: string, element: SpaseElem) {
+            this.activeItems[type] = element
+        }
+        
+        // @FIXME we should allow multiple selections here!
         public isActive(type: string, element: SpaseElem): boolean {
             return this.activeItems[type] === element
         }
@@ -137,9 +158,17 @@ module portal {
             return name.split("_").join(" ").trim()
         }
         
-        private setActive(type: string, element: SpaseElem) {
-            this.activeItems[type] = element
+        // @FIXME we should allow multiple selections here!
+        public saveSelection(type: string) {
+            // @TODO we change id creation later
+            var id = this.userService.createId()
+            
+            this.userService.user.selections.push(
+                new Selection(id, type, this.activeItems[type]))
+            
+            this.myScope.$broadcast('update-user-data', id)
         }
+
         
     }
 

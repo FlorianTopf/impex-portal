@@ -4,10 +4,11 @@
 <div class="modal-body">
 	<div ng-show="regvm.initialising && regvm.transFinished" class="text-left">
 		<img src="/public/img/layout/loading.gif" class="loadingImg-sm" alt="loading..." />
-	</div>
-	<registry-dir></registry-dir>
+	</div>	
+	<registry-dir db="{{ regvm.database.id }}"></registry-dir>
+	<user-data-dir></user-data-dir>
 </div>
 <div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="regvm.registrySave()">Save</button>
-	<button type="button" class="btn btn-warning" ng-click="regvm.registryCancel()">Cancel</button>
+	<button type="button" class="btn btn-primary" ng-click="regvm.saveRegistry()">Close</button>
+	<!-- button type="button" class="btn btn-warning" ng-click="regvm.cancelRegistry()">Cancel</button-->
 </div>

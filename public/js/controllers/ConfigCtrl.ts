@@ -8,8 +8,8 @@ module portal {
     }
 
     export class ConfigCtrl {        
-        private timeout: ng.ITimeoutService
         private scope: portal.IConfigScope
+        private timeout: ng.ITimeoutService
         private configService: portal.ConfigService
         private userService: portal.UserService
         private state: ng.ui.IStateService
@@ -31,7 +31,8 @@ module portal {
 
             this.configService.config = config
             
-            // @TODO this comes from the server in the future (add in resolver)
+            // @TODO this comes from the server in the future (add in resolver) 
+            // maybe make a combined promise / resolve
             this.userService.user = new User(this.userService.createId())
               
         }

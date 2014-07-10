@@ -220,7 +220,7 @@ module portal {
 
     
     // numerical output element
-    export class NumericalOutput {
+    export class NumericalOutput extends SpaseElem {
         constructor(
             public resourceId: string,
             public resourceHeader: ResourceHeader,
@@ -230,7 +230,7 @@ module portal {
             public inputResourceId: Array<string>,
             public parameter: Array<ParameterType>,
             public spatialDescription?: SpatialDescription,
-            public temporalDescription?: TemporalDescription){}
+            public temporalDescription?: TemporalDescription){ super(resourceId) }
     }
     
     export class AccessInformation {

@@ -15,6 +15,7 @@ module portal {
         private window: ng.IWindowService
         private configService: portal.ConfigService
         private registryService: portal.RegistryService
+        private userService: portal.UserService
         private state: ng.ui.IStateService
         private modalInstance: any
         private registryPromise: ng.IPromise<ISpase>
@@ -25,12 +26,12 @@ module portal {
         public transFinished: boolean = true
         
         static $inject: Array<string> = ['$scope', '$location', '$timeout', '$window',
-            'configService', 'registryService', '$state', '$modalInstance', 'id']
+            'configService', 'registryService', 'userService', '$state', '$modalInstance', 'id']
 
         constructor($scope: IRegistryScope, $location: ng.ILocationService, $timeout: ng.ITimeoutService, 
             $window: ng.IWindowService, configService: portal.ConfigService, 
-            registryService: portal.RegistryService, $state: ng.ui.IStateService, 
-            $modalInstance: any, id: string) {   
+            registryService: portal.RegistryService, userService: portal.UserService, 
+            $state: ng.ui.IStateService, $modalInstance: any, id: string) {   
             this.scope = $scope
             $scope.regvm = this
             this.location = $location
@@ -38,15 +39,18 @@ module portal {
             this.window = $window 
             this.configService = configService
             this.registryService = registryService
+            this.userService = userService
             this.state = $state
             this.modalInstance = $modalInstance
             
             this.database = this.configService.getDatabase(id)
+            console.log("Registry Ctrl")
             
               // watches changes of variable 
             //(is changed each time modal is opened)
             this.scope.$watch('this.database', 
                 () => { this.getRepository(this.database.id) })
+            
         }
         
         public getRepository(id: string) {
@@ -168,13 +172,13 @@ module portal {
         }
         
         // testing methods for modal
-        public registrySave() {
+        public saveRegistry() {
             this.modalInstance.close()
             // @TODO just for the moment
             this.scope.$broadcast('clear-registry')
         }
         
-        public registryCancel() {
+        public cancelRegistry() {
             this.modalInstance.dismiss()
             // @TODO just for the moment
             this.scope.$broadcast('clear-registry')

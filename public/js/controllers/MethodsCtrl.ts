@@ -31,8 +31,6 @@ module portal {
         static $inject: Array<string> = ['$scope', '$location', '$timeout', '$window',
             'configService', 'methodsService', 'userService', '$state', '$modalInstance', 'id']
 
-        // dependencies are injected via AngularJS $injector
-        // controller's name is registered in App.ts and invoked from ng-controller attribute in index.html
         constructor($scope: IMethodsScope, $location: ng.ILocationService, $timeout: ng.ITimeoutService, 
             $window: ng.IWindowService, configService: portal.ConfigService, 
             methodsService: portal.MethodsService, userService: portal.UserService,
@@ -141,7 +139,7 @@ module portal {
         }
         
         // testing method for submission
-        public methodsSubmit() {
+        public submitMethod() {
             this.scope.$broadcast('load-service-data')
             console.log("submitted "+this.currentMethod.path+" "+this.request['id'])
             this.methodsService.requestMethod(this.currentMethod.path, this.request).get(
@@ -152,13 +150,13 @@ module portal {
         }
         
         // testing methods for modal
-        public methodsSave() {
+        public saveMethods() {
             this.modalInstance.close()
             this.scope.$broadcast('clear-service-error')
 
         }
         
-        public methodsCancel() {
+        public cancelMethods() {
             this.modalInstance.dismiss()
             this.scope.$broadcast('clear-service-error')
         }

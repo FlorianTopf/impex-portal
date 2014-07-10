@@ -48,7 +48,6 @@ module portal {
                   this.ready = true 
             })
             
-            
         }
 
 

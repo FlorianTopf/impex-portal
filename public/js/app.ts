@@ -63,6 +63,7 @@ module portal {
             return true;
         }
     })
+    
 
     impexPortal.run(['$rootScope', '$window', ($rootScope, $window) => {
         $rootScope.windowWidth = $window.outerWidth

@@ -14,7 +14,12 @@ module portal {
     
     // simple resource map
     export interface IElementMap {
-        [requestId: string]: Array<SpaseElem>
+        [id: string]: Array<SpaseElem>
+    }
+    
+    // for selectables
+    export interface ISelectable {
+        [id: string]: Array<string>
     }
     
     export class RegistryService {
@@ -35,11 +40,18 @@ module portal {
           
         constructor($resource: ng.resource.IResourceService) {
             this.resource = $resource
+            
+            this.selectables['spase://IMPEX/Repository/FMI/HYB'] = [ 'NumericalOutput'  ]
+            this.selectables['spase://IMPEX/Repository/FMI/GUMICS'] = [ 'NumericalOutput' ]
+            this.selectables['spase://IMPEX/Repository/LATMOS'] = [ 'SimulationRun', 'NumericalOutput' ]
+            this.selectables['spase://IMPEX/Repository/SINP'] = [ 'SimulationModel', 'NumericalOutput' ]
         }
         
         // cache for the elements (identified by request id)
         public cachedElements: IElementMap = {}
         
+        // defines which elements are selectables in the registry
+        public selectables: ISelectable = {}
         
         public getRepository(): IRegistryResource {
             return <IRegistryResource> this.resource(this.url+'registry/repository?', 
