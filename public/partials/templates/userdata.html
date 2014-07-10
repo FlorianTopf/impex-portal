@@ -4,7 +4,7 @@
 			<button type="button" class="btn btn-success btn-sm" 
 				ng-repeat="(key, elem) in userdirvm.user.results"
 			    ng-class="{ active: !userdirvm.isCollapsed[key] }"
-				ng-click="userdirvm.showDetails(key)">
+				ng-click="userdirvm.toggleDetails(key)">
 					Service Result {{ key }}
 			</button>
 		</div>
@@ -33,7 +33,7 @@
 			<button type="button" class="btn btn-success btn-sm" 
 				ng-repeat="sel in userdirvm.user.selections"
 			    ng-class="{ active: !userdirvm.isCollapsed[sel.id] }"
-				ng-click="userdirvm.showHeader(sel.id)">
+				ng-click="userdirvm.toggleDetails(sel.id)">
 					Tree Selection {{ sel.id }}<br/>
 					{{ sel.type }}
 			</button>
@@ -69,7 +69,7 @@
 							</span>
 						</span>
 					</span>
-					<!-- introduce more -->
+					<!-- introduce more button -->
 				</p>
 				<p style="word-wrap: break-word;"><!-- manual resource info hack for the moment -->
 					<span ng-repeat="(key, elem) in sel.elem">

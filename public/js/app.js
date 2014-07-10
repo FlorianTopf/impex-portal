@@ -1555,7 +1555,7 @@ var portal;
             this.showError = false;
             this.isCollapsed = {};
             // current resource selection which is fully displayed
-            this.currentSelection = portal.SpaseElem;
+            this.currentSelection = null;
             this.configService = configService;
             this.userService = userService;
             this.templateUrl = '/public/partials/templates/userdata.html';
@@ -1582,7 +1582,7 @@ var portal;
 
             this.myScope.$on('update-user-data', function (e, id) {
                 _this.loading = false;
-                _this.isCollapsed[id] = false;
+                _this.isCollapsed[id] = true;
             });
 
             this.myScope.$on('handle-service-error', function (e, msg) {
@@ -1604,11 +1604,16 @@ var portal;
             // we need to watch on the modal => how we can achieve this?
             this.myScope.$watch('$includeContentLoaded', function (e) {
                 console.log("UserDataDir loaded");
+
+                for (var elem in _this.isCollapsed)
+                    _this.isCollapsed[elem] = true;
             });
         };
 
-        UserDataDir.prototype.showHeader = function (id) {
+        UserDataDir.prototype.toggleDetails = function (id) {
             this.isCollapsed[id] = !this.isCollapsed[id];
+            // should always return only one
+            //this.currentSelection = this.user.selections.filter((e) => e.id == id)[0]
         };
 
         UserDataDir.prototype.validateUrl = function (str) {

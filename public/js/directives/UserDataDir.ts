@@ -29,15 +29,15 @@ module portal {
         public loading: boolean = false
         public status: string
         public showError: boolean = false  
+        public isCollapsed: ICollapsedMap = {}
+        // current resource selection which is fully displayed
+        public currentSelection: Selection = null
 
         private timeout: ng.ITimeoutService
         private configService: portal.ConfigService
         private userService: portal.UserService
         private user: User
         private myScope: ng.IScope
-        private isCollapsed: ICollapsedMap = {}
-        // current resource selection which is fully displayed
-        private currentSelection = SpaseElem
 
         constructor(configService: portal.ConfigService, userService: portal.UserService) {
             this.configService = configService
@@ -56,7 +56,7 @@ module portal {
             
             this.myScope.$on('update-user-data', (e, id: string) => {
                 this.loading = false
-                this.isCollapsed[id] = false
+                this.isCollapsed[id] = true
             })
             
             this.myScope.$on('handle-service-error', (e, msg: string) => {
@@ -77,12 +77,17 @@ module portal {
             
             // we need to watch on the modal => how we can achieve this?
             this.myScope.$watch('$includeContentLoaded', (e) => {
-                console.log("UserDataDir loaded")
+                console.log("UserDataDir loaded") 
+                // just for the moment
+                for(var elem in this.isCollapsed)
+                   this.isCollapsed[elem] = true
             })
         }
         
-        public showHeader(id: string) {
+        public toggleDetails(id: string) {
             this.isCollapsed[id] = !this.isCollapsed[id]
+            // should always return only one
+            //this.currentSelection = this.user.selections.filter((e) => e.id == id)[0]
         }
         
         public validateUrl(str: string): boolean {

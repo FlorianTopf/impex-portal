@@ -67,29 +67,29 @@
 		<div class="btn-group-vertical" style="vertical-align: top">
 			<button type="button" class="btn btn-primary btn-sm"
 				ng-show="regdirvm.isSelectable('SimulationModel') && 
-				!regvm.loading && 
 				!(regdirvm.activeItems['SimulationModel'] | isEmpty)"
+				ng-disabled="regvm.loading"
 				ng-click="regdirvm.saveSelection('SimulationModel')">
 				Select Simulation Model
 			</button>
 			<button type="button" class="btn btn-primary btn-sm"
 				ng-show="regdirvm.isSelectable('SimulationRun') && 
-				!regvm.loading && 
 				!(regdirvm.activeItems['SimulationRun'] | isEmpty)"
+				ng-disabled="regvm.loading"
 				ng-click="regdirvm.saveSelection('SimulationRun')">
 				Select Simulation Run
 			</button>
 			<button type="button" class="btn btn-primary btn-sm"
 				ng-show="regdirvm.isSelectable('NumericalOutput') && 
-				!regvm.loading && 
 				!(regdirvm.activeItems['NumericalOutput'] | isEmpty)"
+				ng-disabled="regvm.loading"
 				ng-click="regdirvm.saveSelection('NumericalOutput')">
 				Select Numerical Output
 			</button>
-			<div class="text-right" ng-show="regvm.loading" >
+			<div class="error" style="margin-top: 10px;" ng-show="regdirvm.showError">{{ regdirvm.status }}</div>
+			<div class="text-right" style="margin-top: 10px;" ng-show="regvm.loading" >
 				<img src="/public/img/layout/loading.gif" class="loadingImg-sm" alt="loading..." />
 			</div>
-			<div class="error" style="margin-top: 10px;" ng-show="regdirvm.showError">{{ regdirvm.status }}</div>
 		</div>
 	</accordion-group>
 </accordion>
