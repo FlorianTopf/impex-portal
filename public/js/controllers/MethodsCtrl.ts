@@ -95,6 +95,10 @@ module portal {
             var id = this.userService.createId()
             // @TODO we must take care of custom results (getMostRelevantRun)
             this.userService.user.results[id] = data
+            
+            //refresh localStorage
+            this.userService.localStorage.results = this.userService.user.results
+            
             this.scope.$broadcast('update-user-data', id)
         }
         

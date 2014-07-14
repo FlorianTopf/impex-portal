@@ -30,8 +30,8 @@ module portal {
         public status: string
         public showError: boolean = false  
         public isCollapsed: ICollapsedMap = {}
-        // current resource selection which is fully displayed
-        public currentSelection: Selection = null
+        // current resource selections which are fully displayed
+        public currentSelection: Array<Selection> = []
 
         private timeout: ng.ITimeoutService
         private configService: portal.ConfigService
@@ -42,17 +42,31 @@ module portal {
         constructor(configService: portal.ConfigService, userService: portal.UserService) {
             this.configService = configService
             this.userService = userService
+            // @FIXME refactor this template (it's really ugly atm)
             this.templateUrl = '/public/partials/templates/userdata.html'
             this.restrict = 'E'
             this.link = ($scope: portal.IUserDataDirScope, element: JQuery, attributes: ng.IAttributes) => 
                 this.linkFn($scope, element, attributes)
-            
+          
         }
 
         linkFn($scope: portal.IUserDataDirScope, element: JQuery, attributes: ng.IAttributes): any {
             $scope.userdirvm = this
             this.myScope = $scope
             this.user = this.userService.user
+            
+            //collapsing all selections on init
+            if(this.userService.user.selections) {
+                this.userService.user.selections.map((e) => {
+                    this.isCollapsed[e.id] = true
+                })
+            }
+            
+            //collapsing all results on init
+            if(this.userService.user.results) {
+               for(var id in this.userService.user.results)
+                   this.isCollapsed[id] = true
+            }
             
             this.myScope.$on('update-user-data', (e, id: string) => {
                 this.loading = false
@@ -76,18 +90,29 @@ module portal {
             })
             
             // we need to watch on the modal => how we can achieve this?
-            this.myScope.$watch('$includeContentLoaded', (e) => {
-                console.log("UserDataDir loaded") 
-                // just for the moment
+            this.myScope.$watch('$includeContentLoaded', (e) => {                      
+                // just for the moment (collapse all on enter)
                 for(var elem in this.isCollapsed)
                    this.isCollapsed[elem] = true
+                // just for the moment (reset expanded selections)    
+                this.currentSelection = []
             })
         }
         
-        public toggleDetails(id: string) {
+        public toggleResultDetails(id: string) {
             this.isCollapsed[id] = !this.isCollapsed[id]
-            // should always return only one
-            //this.currentSelection = this.user.selections.filter((e) => e.id == id)[0]
+        }
+        
+        public toggleSelectionDetails(id: string) {
+            if(this.isCollapsed[id]) { // if it is closed 
+                this.isCollapsed[id] = false
+                this.currentSelection.push(
+                    this.user.selections.filter((e) => e.id == id)[0])
+            } else {
+                this.isCollapsed[id] = true
+                this.currentSelection = 
+                    this.currentSelection.filter((e) => e.id != id)
+            }
         }
         
         public validateUrl(str: string): boolean {
@@ -98,7 +123,6 @@ module portal {
                 return true;
             }
         }
-        
         
         public beautify(str: string) {
             var array = str.match(/([A-Z]?[^A-Z]*)/g).slice(0,-1)

@@ -923,12 +923,21 @@ var portal;
 
     // @TODO let's see what the user service needs to have
     var UserService = (function () {
-        function UserService() {
+        function UserService($localStorage) {
             this.user = null;
+            this.localStorage = null;
+            this.localStorage = $localStorage;
+
+            // initialise needed keys (doesn't overwrite existing ones)
+            this.localStorage.$default({
+                results: null,
+                selections: null
+            });
         }
         UserService.prototype.createId = function () {
             return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1) + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
         };
+        UserService.$inject = ['$localStorage'];
         return UserService;
     })();
     portal.UserService = UserService;
@@ -952,6 +961,12 @@ var portal;
             // @TODO this comes from the server in the future (add in resolver)
             // maybe make a combined promise / resolve
             this.userService.user = new portal.User(this.userService.createId());
+
+            if (this.userService.localStorage.results != null)
+                this.userService.user.results = this.userService.localStorage.results;
+
+            if (this.userService.localStorage.selections != null)
+                this.userService.user.selections = this.userService.localStorage.selections;
         }
         ConfigCtrl.$inject = ['$scope', '$timeout', 'configService', 'userService', '$state', 'config'];
         return ConfigCtrl;
@@ -1269,6 +1284,10 @@ else
 
             // @TODO we must take care of custom results (getMostRelevantRun)
             this.userService.user.results[id] = data;
+
+            //refresh localStorage
+            this.userService.localStorage.results = this.userService.user.results;
+
             this.scope.$broadcast('update-user-data', id);
         };
 
@@ -1537,6 +1556,9 @@ else
 
             this.userService.user.selections.push(new portal.Selection(id, type, this.activeItems[type]));
 
+            // refresh localStorage
+            this.userService.localStorage.selections = this.userService.user.selections;
+
             this.myScope.$broadcast('update-user-data', id);
         };
         return RegistryDir;
@@ -1554,10 +1576,12 @@ var portal;
             this.loading = false;
             this.showError = false;
             this.isCollapsed = {};
-            // current resource selection which is fully displayed
-            this.currentSelection = null;
+            // current resource selections which are fully displayed
+            this.currentSelection = [];
             this.configService = configService;
             this.userService = userService;
+
+            // @FIXME refactor this template (it's really ugly atm)
             this.templateUrl = '/public/partials/templates/userdata.html';
             this.restrict = 'E';
             this.link = function ($scope, element, attributes) {
@@ -1579,6 +1603,17 @@ var portal;
             $scope.userdirvm = this;
             this.myScope = $scope;
             this.user = this.userService.user;
+
+            if (this.userService.user.selections) {
+                this.userService.user.selections.map(function (e) {
+                    _this.isCollapsed[e.id] = true;
+                });
+            }
+
+            if (this.userService.user.results) {
+                for (var id in this.userService.user.results)
+                    this.isCollapsed[id] = true;
+            }
 
             this.myScope.$on('update-user-data', function (e, id) {
                 _this.loading = false;
@@ -1603,17 +1638,30 @@ var portal;
 
             // we need to watch on the modal => how we can achieve this?
             this.myScope.$watch('$includeContentLoaded', function (e) {
-                console.log("UserDataDir loaded");
-
                 for (var elem in _this.isCollapsed)
                     _this.isCollapsed[elem] = true;
+
+                // just for the moment (reset expanded selections)
+                _this.currentSelection = [];
             });
         };
 
-        UserDataDir.prototype.toggleDetails = function (id) {
+        UserDataDir.prototype.toggleResultDetails = function (id) {
             this.isCollapsed[id] = !this.isCollapsed[id];
-            // should always return only one
-            //this.currentSelection = this.user.selections.filter((e) => e.id == id)[0]
+        };
+
+        UserDataDir.prototype.toggleSelectionDetails = function (id) {
+            if (this.isCollapsed[id]) {
+                this.isCollapsed[id] = false;
+                this.currentSelection.push(this.user.selections.filter(function (e) {
+                    return e.id == id;
+                })[0]);
+            } else {
+                this.isCollapsed[id] = true;
+                this.currentSelection = this.currentSelection.filter(function (e) {
+                    return e.id != id;
+                });
+            }
         };
 
         UserDataDir.prototype.validateUrl = function (str) {
@@ -1662,7 +1710,7 @@ var portal;
     'use strict';
 
     //var impexPortal = angular.module('portal', ['ui.bootstrap', 'ngRoute', 'ngResource'])
-    var impexPortal = angular.module('portal', ['ui.bootstrap', 'ui.router', 'ngResource']);
+    var impexPortal = angular.module('portal', ['ui.bootstrap', 'ui.router', 'ngResource', 'ngStorage']);
 
     // here we also add options for bootstrap-ui
     impexPortal.service('configService', portal.ConfigService);

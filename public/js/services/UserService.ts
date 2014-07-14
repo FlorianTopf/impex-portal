@@ -5,8 +5,10 @@ module portal {
 
     // @TODO let's see what the user service needs to have
     export class UserService {
+        static $inject: Array<string> = ['$localStorage']
 
     	public user: User = null
+        public localStorage: any = null
         
         public createId(): string {
             return Math.floor((1 + Math.random()) * 0x10000)
@@ -17,7 +19,14 @@ module portal {
                .substring(1)
         }
 
-    	constructor() {}
+    	constructor($localStorage) {
+            this.localStorage = $localStorage
+            // initialise needed keys (doesn't overwrite existing ones)
+            this.localStorage.$default({
+                results: null,
+                selections: null
+             })
+        }
 
     }
 }

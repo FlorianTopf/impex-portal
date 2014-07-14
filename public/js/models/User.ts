@@ -19,6 +19,7 @@ module portal {
     
     // @TODO let's see what the user object needs to have
     export class User {
+        
         public id: string
         // maybe make array out of it (chronological)
         public results: IResultsMap
@@ -29,6 +30,7 @@ module portal {
             this.results = {}
             this.selections = []
         }
+        
     }
 }
 

@@ -1,10 +1,13 @@
 <div class="row">
+	<div class="col-sm-12">&nbsp;</div>
+</div>
+<div class="row">
 	<div class="col-sm-3">
 		<div class="btn-group-vertical btn-group-overflow" ng-hide="userdirvm.user.results | isEmpty">
 			<button type="button" class="btn btn-success btn-sm" 
 				ng-repeat="(key, elem) in userdirvm.user.results"
 			    ng-class="{ active: !userdirvm.isCollapsed[key] }"
-				ng-click="userdirvm.toggleDetails(key)">
+				ng-click="userdirvm.toggleResultDetails(key)">
 					Service Result {{ key }}
 			</button>
 		</div>
@@ -33,7 +36,7 @@
 			<button type="button" class="btn btn-success btn-sm" 
 				ng-repeat="sel in userdirvm.user.selections"
 			    ng-class="{ active: !userdirvm.isCollapsed[sel.id] }"
-				ng-click="userdirvm.toggleDetails(sel.id)">
+				ng-click="userdirvm.toggleSelectionDetails(sel.id)">
 					Tree Selection {{ sel.id }}<br/>
 					{{ sel.type }}
 			</button>
@@ -41,7 +44,7 @@
 	</div>
 	<div class="col-sm-8">
 		<!-- we should not fill the info unless a selection is clicked / we close all when modal closes -->
-		<div ng-repeat="sel in userdirvm.user.selections" collapse="userdirvm.isCollapsed[sel.id]">
+		<div ng-repeat="sel in userdirvm.currentSelection" collapse="userdirvm.isCollapsed[sel.id]">
 			<div class="well well-sm" style="max-height: 450px; overflow-y: auto;">
 				<h4>Tree Selection {{ sel.id }}: {{ sel.type }}</h4>
 				<!-- @TODO we must introduce a directive here which handles the different resource models -->
@@ -50,19 +53,24 @@
 					<span ng-repeat="(key, elem) in sel.elem.resourceHeader">
 						<span ng-if="!(elem | isEmpty)">
 							<span ng-switch="userdirvm.typeOf(elem)">
-								<!-- should only be CONTACT atm -->
+								<!-- should only be Contact/InformationUrl atm -->
 								<span ng-switch-when="array">
-									<strong>{{ userdirvm.beautify(key) }}:</strong><br/>
-									<span ng-repeat="(key, elem) in elem[0]">
-										<strong>&nbsp;&nbsp;{{userdirvm.beautify(key)}}:</strong> 
-										<span ng-if="userdirvm.typeOf(elem) == 'array'">{{elem[0]}}</span>
-										<span ng-if="userdirvm.typeOf(elem) != 'array'">{{elem}}</span>
-										<br ng-if="!(elem | isEmpty)"/>
+									<span ng-if="userdirvm.typeOf(elem[0]) === 'url'">
+										<strong>{{ userdirvm.beautify(key) }}:</strong> {{ elem[0] }}<br/>
+									</span>
+									<span ng-if="userdirvm.typeOf(elem[0]) === 'object'">
+										<strong>{{ userdirvm.beautify(key) }}:</strong><br/>
+										<span ng-repeat="(key, elem) in elem[0]">
+											<strong>&nbsp;&nbsp;{{ userdirvm.beautify(key) }}:</strong> 
+											<span ng-if="userdirvm.typeOf(elem) == 'array'">{{ elem[0] }}</span>
+											<span ng-if="userdirvm.typeOf(elem) != 'array'">{{ elem }}</span>
+											<br ng-if="!(elem | isEmpty)"/>
+										</span>
 									</span>
 								</span>
 								<span ng-switch-when="string">
 									<span ng-if="!(elem | isEmpty)">
-              							<strong>{{ userdirvm.beautify(key) }}:</strong> {{elem}}<br/>
+              							<strong>{{ userdirvm.beautify(key) }}:</strong> {{ elem }}<br/>
               						</span>
           						</span>
           						<!--  @FIXME no single objects here? -->
@@ -78,24 +86,24 @@
 								<span ng-switch-when="array">
 									<span ng-if="elem.length == 1">
 										<span ng-if="userdirvm.typeOf(elem[0]) === 'string'">
-											<strong>{{userdirvm.beautify(key)}}:</strong> {{elem[0]}}<br/>
+											<strong>{{ userdirvm.beautify(key) }}:</strong> {{ elem[0] }}<br/>
 										</span>
 										<span ng-if="userdirvm.typeOf(elem[0]) === 'object'">
-											<strong>{{userdirvm.beautify(key)}}:</strong><br/>
+											<strong>{{ userdirvm.beautify(key) }}:</strong><br/>
 											<span ng-include="'elem.html'"></span>
 										</span>
 									</span>
 									<span ng-if="elem.length > 1">
-										<strong>{{userdirvm.beautify(key)}}:</strong><br/>
+										<strong>{{ userdirvm.beautify(key) }}:</strong><br/>
 										<span ng-include="'elem.html'"></span>
 									</span>
 								</span>
 								<span ng-switch-when="object">
-									<strong>{{userdirvm.beautify(key)}}:</strong><br/>
+									<strong>{{ userdirvm.beautify(key) }}:</strong><br/>
 									<span ng-include="'elem.html'"></span>
 								</span>
 								<span ng-switch-when="string">
-									<strong>{{userdirvm.beautify(key)}}:</strong> {{elem}}<br/>
+									<strong>{{ userdirvm.beautify(key) }}:</strong> {{ elem }}<br/>
 								</span>
 								<!-- span style="color: blue;">
 									<span style="color: red;">{{ userdirvm.typeOf(elem) }}</span>
@@ -125,7 +133,7 @@
              {{ elem }}<br/>
          </span>
          <span ng-switch-when="url">
-             <a href="elem">{{elem}}</a><br/>
+             <a href="elem">{{ elem }}</a><br/>
          </span>
          <span ng-switch-when="boolean">
              {{ elem }}<br/>

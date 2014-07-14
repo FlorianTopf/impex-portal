@@ -166,6 +166,9 @@ module portal {
             this.userService.user.selections.push(
                 new Selection(id, type, this.activeItems[type]))
             
+            // refresh localStorage
+            this.userService.localStorage.selections = this.userService.user.selections
+            
             this.myScope.$broadcast('update-user-data', id)
         }
 

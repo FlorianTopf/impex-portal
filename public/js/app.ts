@@ -4,7 +4,7 @@ module portal {
     'use strict';
 
     //var impexPortal = angular.module('portal', ['ui.bootstrap', 'ngRoute', 'ngResource'])
-    var impexPortal: ng.IModule = angular.module('portal', ['ui.bootstrap', 'ui.router', 'ngResource'])
+    var impexPortal: ng.IModule = angular.module('portal', ['ui.bootstrap', 'ui.router', 'ngResource', 'ngStorage'])
     
     // here we also add options for bootstrap-ui
  

@@ -34,6 +34,16 @@ module portal {
             // @TODO this comes from the server in the future (add in resolver) 
             // maybe make a combined promise / resolve
             this.userService.user = new User(this.userService.createId())
+            
+            // as soon as we create a new user we have a localStorage connection
+            // initialising the stored results from localStorage
+            if(this.userService.localStorage.results != null)
+                this.userService.user.results = this.userService.localStorage.results
+                
+            if(this.userService.localStorage.selections != null)
+                this.userService.user.selections = this.userService.localStorage.selections
+            
+            
               
         }
 
