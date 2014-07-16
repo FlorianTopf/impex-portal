@@ -1651,8 +1651,8 @@ var portal;
 
             // we need to watch on the modal => how we can achieve this?
             this.myScope.$watch('$includeContentLoaded', function (e) {
-                for (var elem in _this.isCollapsed)
-                    _this.isCollapsed[elem] = true;
+                for (var id in _this.isCollapsed)
+                    _this.isCollapsed[id] = true;
 
                 // just for the moment (reset expanded selections)
                 _this.currentSelection = [];

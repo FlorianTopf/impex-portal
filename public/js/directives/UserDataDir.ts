@@ -90,8 +90,8 @@ module portal {
             // we need to watch on the modal => how we can achieve this?
             this.myScope.$watch('$includeContentLoaded', (e) => {                      
                 // just for the moment (collapse all on enter)
-                for(var elem in this.isCollapsed)
-                   this.isCollapsed[elem] = true
+                for(var id in this.isCollapsed)
+                   this.isCollapsed[id] = true
                 // just for the moment (reset expanded selections)    
                 this.currentSelection = []
             })
