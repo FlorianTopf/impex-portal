@@ -44,7 +44,6 @@ module portal {
             this.modalInstance = $modalInstance
             
             this.database = this.configService.getDatabase(id)
-            console.log("Registry Ctrl")
             
               // watches changes of variable 
             //(is changed each time modal is opened)

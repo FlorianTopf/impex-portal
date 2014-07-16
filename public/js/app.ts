@@ -3,10 +3,8 @@
 module portal {
     'use strict';
 
-    //var impexPortal = angular.module('portal', ['ui.bootstrap', 'ngRoute', 'ngResource'])
     var impexPortal: ng.IModule = angular.module('portal', ['ui.bootstrap', 'ui.router', 'ngResource', 'ngStorage'])
     
-    // here we also add options for bootstrap-ui
  
     impexPortal.service('configService', ConfigService)
     impexPortal.service('registryService', RegistryService)
@@ -21,13 +19,75 @@ module portal {
     impexPortal.directive('databasesDir', DatabasesDir.prototype.injection())
     impexPortal.directive('registryDir', RegistryDir.prototype.injection())
     impexPortal.directive('userDataDir', UserDataDir.prototype.injection())
+    
+    // simple directives for displaying JSON objects
+    impexPortal.directive('selection', () => {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                selection: '='
+            },
+            template: "<ul>"+
+                "<member ng-repeat='(key, elem) in selection' name='key' member='elem' "+
+                "ng-if='!(elem | isEmpty)'></member>"+
+                "</ul>"
+        }
+    })
+    
+    impexPortal.directive('member', ($compile) => {
+        function beautify(str: string): string {
+            var array = str.match(/([A-Z]?[^A-Z]*)/g).slice(0,-1)
+            var first = array[0].charAt(0).toUpperCase()+array[0].slice(1)
+            array.shift()
+            return (first+" "+array.join(" ")).trim()
+        }
+        
+        function validateUrl(str: string): boolean {
+            var pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+            if(!pattern.test(str)) {
+                return false
+            } else {
+                return true
+            }
+        }
+        
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                name: '=',
+                member: '=',
+            },
+            template: "<li></li>",
+            link: ($scope, element, attributes) => { 
+                element.append("<strong>"+beautify($scope.name)+"</strong>: ")
+                                 
+                if(angular.isArray($scope.member)) {
+                    angular.forEach($scope.member, (m, i) => {
+                        if(angular.isString(m) || angular.isNumber(m))
+                            element.append(m+" ")
+                        else if(angular.isObject(m)) {
+                            $compile("<br/><selection selection='"+JSON.stringify($scope.member[i])+"'></selection>")
+                                ($scope, (cloned, $scope) => { element.append(cloned) })
+                        } 
+                    })
+                    
+                } else if(angular.isObject($scope.member)) {
+                    element.append("<br/><selection selection='member'></selection>")
+                    $compile(element.contents())($scope)
+                } else if(validateUrl($scope.member)) {
+                    element.append("<a href='"+$scope.member+"' target='_blank'>"+$scope.member+"</a><br/>")
+                } else {
+                    element.append($scope.member+"<br/>")
+                }
+
+            }
+            
+        }
+    })
+     
    
-    /* impexPortal.config(['$routeProvider', ($routeProvider) => {
-            $routeProvider.when('/config', {templateUrl: '/public/partials/config.html', controller: 'configCtrl'}).
-                when('/portal', {templateUrl: '/public/partials/portalMap.html', controller: 'portalCtrl'}).
-                when('/databases', {templateUrl: '/public/partials/databaseMap.html', controller: 'portalCtrl'}).
-                otherwise({redirectTo: '/config'})
-        }])*/
     impexPortal.config(['$stateProvider', '$urlRouterProvider', 
         ($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider) => {
         

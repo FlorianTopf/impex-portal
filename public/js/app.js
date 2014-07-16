@@ -1041,7 +1041,6 @@ var portal;
             this.modalInstance = $modalInstance;
 
             this.database = this.configService.getDatabase(id);
-            console.log("Registry Ctrl");
 
             // watches changes of variable
             //(is changed each time modal is opened)
@@ -1571,14 +1570,13 @@ var portal;
     'use strict';
 
     var UserDataDir = (function () {
-        function UserDataDir(configService, userService) {
+        function UserDataDir(userService) {
             var _this = this;
             this.loading = false;
             this.showError = false;
             this.isCollapsed = {};
             // current resource selections which are fully displayed
             this.currentSelection = [];
-            this.configService = configService;
             this.userService = userService;
 
             // @FIXME refactor this template (it's really ugly atm)
@@ -1590,10 +1588,9 @@ var portal;
         }
         UserDataDir.prototype.injection = function () {
             return [
-                'configService',
                 'userService',
-                function (configService, userService) {
-                    return new UserDataDir(configService, userService);
+                function (userService) {
+                    return new UserDataDir(userService);
                 }
             ];
         };
@@ -1663,43 +1660,6 @@ var portal;
                 });
             }
         };
-
-        UserDataDir.prototype.validateUrl = function (str) {
-            var pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-            if (!pattern.test(str)) {
-                return false;
-            } else {
-                return true;
-            }
-        };
-
-        UserDataDir.prototype.beautify = function (str) {
-            var array = str.match(/([A-Z]?[^A-Z]*)/g).slice(0, -1);
-            var first = array[0].charAt(0).toUpperCase() + array[0].slice(1);
-            array.shift();
-            return (first + " " + array.join(" ")).trim();
-        };
-
-        UserDataDir.prototype.typeOf = function (thing) {
-            switch (typeof thing) {
-                case "object":
-                    if (Object.prototype.toString.call(thing) === "[object Array]") {
-                        return 'array';
-                    } else if (thing == null) {
-                        return 'null';
-                    } else if (Object.prototype.toString.call(thing) === "[object Object]") {
-                        return 'object';
-                    }
-                case "string":
-                    if (this.validateUrl(thing)) {
-                        return 'url';
-                    } else {
-                        return 'string';
-                    }
-                default:
-                    return typeof thing;
-            }
-        };
         return UserDataDir;
     })();
     portal.UserDataDir = UserDataDir;
@@ -1709,10 +1669,8 @@ var portal;
 (function (portal) {
     'use strict';
 
-    //var impexPortal = angular.module('portal', ['ui.bootstrap', 'ngRoute', 'ngResource'])
     var impexPortal = angular.module('portal', ['ui.bootstrap', 'ui.router', 'ngResource', 'ngStorage']);
 
-    // here we also add options for bootstrap-ui
     impexPortal.service('configService', portal.ConfigService);
     impexPortal.service('registryService', portal.RegistryService);
     impexPortal.service('methodsService', portal.MethodsService);
@@ -1727,12 +1685,68 @@ var portal;
     impexPortal.directive('registryDir', portal.RegistryDir.prototype.injection());
     impexPortal.directive('userDataDir', portal.UserDataDir.prototype.injection());
 
-    /* impexPortal.config(['$routeProvider', ($routeProvider) => {
-    $routeProvider.when('/config', {templateUrl: '/public/partials/config.html', controller: 'configCtrl'}).
-    when('/portal', {templateUrl: '/public/partials/portalMap.html', controller: 'portalCtrl'}).
-    when('/databases', {templateUrl: '/public/partials/databaseMap.html', controller: 'portalCtrl'}).
-    otherwise({redirectTo: '/config'})
-    }])*/
+    // simple directives for displaying JSON objects
+    impexPortal.directive('selection', function () {
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                selection: '='
+            },
+            template: "<ul>" + "<member ng-repeat='(key, elem) in selection' name='key' member='elem' " + "ng-if='!(elem | isEmpty)'></member>" + "</ul>"
+        };
+    });
+
+    impexPortal.directive('member', function ($compile) {
+        function beautify(str) {
+            var array = str.match(/([A-Z]?[^A-Z]*)/g).slice(0, -1);
+            var first = array[0].charAt(0).toUpperCase() + array[0].slice(1);
+            array.shift();
+            return (first + " " + array.join(" ")).trim();
+        }
+
+        function validateUrl(str) {
+            var pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+            if (!pattern.test(str)) {
+                return false;
+            } else {
+                return true;
+            }
+        }
+
+        return {
+            restrict: "E",
+            replace: true,
+            scope: {
+                name: '=',
+                member: '='
+            },
+            template: "<li></li>",
+            link: function ($scope, element, attributes) {
+                element.append("<strong>" + beautify($scope.name) + "</strong>: ");
+
+                if (angular.isArray($scope.member)) {
+                    angular.forEach($scope.member, function (m, i) {
+                        if (angular.isString(m) || angular.isNumber(m))
+                            element.append(m + " ");
+else if (angular.isObject(m)) {
+                            $compile("<br/><selection selection='" + JSON.stringify($scope.member[i]) + "'></selection>")($scope, function (cloned, $scope) {
+                                element.append(cloned);
+                            });
+                        }
+                    });
+                } else if (angular.isObject($scope.member)) {
+                    element.append("<br/><selection selection='member'></selection>");
+                    $compile(element.contents())($scope);
+                } else if (validateUrl($scope.member)) {
+                    element.append("<a href='" + $scope.member + "' target='_blank'>" + $scope.member + "</a><br/>");
+                } else {
+                    element.append($scope.member + "<br/>");
+                }
+            }
+        };
+    });
+
     impexPortal.config([
         '$stateProvider',
         '$urlRouterProvider',

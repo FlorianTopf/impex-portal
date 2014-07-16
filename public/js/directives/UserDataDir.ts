@@ -16,10 +16,9 @@ module portal {
 
         public injection(): any[] {
             return [
-                'configService',
                 'userService',
-                (configService: portal.ConfigService, userService: portal.UserService) => 
-                    { return new UserDataDir(configService, userService); }
+                (userService: portal.UserService) => 
+                    { return new UserDataDir(userService); }
             ]
         }
 
@@ -39,8 +38,7 @@ module portal {
         private user: User
         private myScope: ng.IScope
 
-        constructor(configService: portal.ConfigService, userService: portal.UserService) {
-            this.configService = configService
+        constructor(userService: portal.UserService) {
             this.userService = userService
             // @FIXME refactor this template (it's really ugly atm)
             this.templateUrl = '/public/partials/templates/userdata.html'
@@ -114,45 +112,7 @@ module portal {
                     this.currentSelection.filter((e) => e.id != id)
             }
         }
-        
-        public validateUrl(str: string): boolean {
-            var pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
-            if(!pattern.test(str)) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-        
-        public beautify(str: string) {
-            var array = str.match(/([A-Z]?[^A-Z]*)/g).slice(0,-1)
-            var first = array[0].charAt(0).toUpperCase()+array[0].slice(1)
-            array.shift()
-            return (first+" "+array.join(" ")).trim()
-        }
-        
-        public typeOf(thing: any): string {
-            switch(typeof thing){
-                case "object":
-                    if(Object.prototype.toString.call(thing) === "[object Array]"){
-                        return 'array'
-                    } else if (thing == null) {
-                        return 'null'
-                    } else if(Object.prototype.toString.call(thing) === "[object Object]"){
-                        return 'object'
-                    }
-                case "string":
-                    if(this.validateUrl(thing)){
-                        return 'url'
-                    } else {
-                        return 'string'
-                    }
-                default:
-                   return typeof thing
-            }
-        }
-            
-        
+
     }
 
 }

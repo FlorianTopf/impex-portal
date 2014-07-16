@@ -155,8 +155,9 @@ object Spase {
               case e: InputProcess => Json.obj("inputProcess" -> entity.as[InputProcess])
             }
           }
+          case Some("RegionParameter") => Json.obj("regionParameter" -> entity.as[RegionParameter])
           // should never happen
-          case _ => JsNull
+          case _ =>  JsNull
         }
       }
       Json.obj(
@@ -169,6 +170,22 @@ object Spase {
           "simulationTime" -> r.SimulationTime, 
           "simulationDomain" -> r.SimulationDomain, 
           "inputs" -> inputEntity)
+    }
+  }
+  
+  implicit val regionParameterWrites: Writes[RegionParameter] = new Writes[RegionParameter] {
+    def writes(r: RegionParameter): JsValue = {
+      Json.obj(
+         "description" -> r.Description,
+    	 "caveats" -> r.Caveats,
+    	 "inputTableUrl" -> r.InputTableURL,
+    	 "objectMass" -> r.ObjectMass,
+    	 "period" -> r.Period,
+    	 "property" -> r.Property,
+    	 "radius" -> r.Radius,
+    	 "simulatedRegion" -> r.SimulatedRegion,
+    	 "subLongitude" -> r.SubLongitude
+      )
     }
   }
   
@@ -344,9 +361,9 @@ object Spase {
           "distribution" -> i.Description,
           "productionRate" -> i.ProductionRate,
           "totalProductionRate" -> i.TotalProductionRate,
-          "inputTableURL" -> i.InputTableURL,
+          "inputTableUrl" -> i.InputTableURL,
           "profile" -> i.Profile,
-          "modelURL" -> i.ModelURL)
+          "modelUrl" -> i.ModelURL)
     }
   }
   
