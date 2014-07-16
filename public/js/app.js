@@ -336,8 +336,8 @@ var portal;
     })();
     portal.InputParameter = InputParameter;
 
-    var InputPopulation = (function () {
-        function InputPopulation(name, set, parameterKey, description, caveats, simulatedRegion, processType, units, unitsConversion, processCoefficient, processCoeffType, processModel, modelUrl) {
+    var InputProcess = (function () {
+        function InputProcess(name, set, parameterKey, description, caveats, simulatedRegion, processType, units, unitsConversion, processCoefficient, processCoeffType, processModel, modelUrl) {
             this.name = name;
             this.set = set;
             this.parameterKey = parameterKey;
@@ -352,12 +352,12 @@ var portal;
             this.processModel = processModel;
             this.modelUrl = modelUrl;
         }
-        return InputPopulation;
+        return InputProcess;
     })();
-    portal.InputPopulation = InputPopulation;
+    portal.InputProcess = InputProcess;
 
-    var InputProcess = (function () {
-        function InputProcess(name, set, parameterKey, description, caveats, simulatedRegion, qualifier, particleType, chemicalFormula, atomicNumber, populationMassNumber, populationChargeState, populationDensity, populationTemperature, populationFlowSpeed, distribution, productionRate, totalProductionRate, inputTableURL, profile, modelUrl) {
+    var InputPopulation = (function () {
+        function InputPopulation(name, set, parameterKey, description, caveats, simulatedRegion, qualifier, particleType, chemicalFormula, atomicNumber, populationMassNumber, populationChargeState, populationDensity, populationTemperature, populationFlowSpeed, distribution, productionRate, totalProductionRate, inputTableURL, profile, modelUrl) {
             this.name = name;
             this.set = set;
             this.parameterKey = parameterKey;
@@ -380,9 +380,25 @@ var portal;
             this.profile = profile;
             this.modelUrl = modelUrl;
         }
-        return InputProcess;
+        return InputPopulation;
     })();
-    portal.InputProcess = InputProcess;
+    portal.InputPopulation = InputPopulation;
+
+    var RegionParameter = (function () {
+        function RegionParameter(description, caveats, inputTableUrl, objectMass, period, property, radius, simulatedRegion, subLongitude) {
+            this.description = description;
+            this.caveats = caveats;
+            this.inputTableUrl = inputTableUrl;
+            this.objectMass = objectMass;
+            this.period = period;
+            this.property = property;
+            this.radius = radius;
+            this.simulatedRegion = simulatedRegion;
+            this.subLongitude = subLongitude;
+        }
+        return RegionParameter;
+    })();
+    portal.RegionParameter = RegionParameter;
 
     // numerical output element
     var NumericalOutput = (function (_super) {
@@ -1664,6 +1680,104 @@ var portal;
     })();
     portal.UserDataDir = UserDataDir;
 })(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
+    //@TODO implement loading visualisation
+    var SelectionDir = (function () {
+        function SelectionDir() {
+            this.template = "<ul>" + "<member-dir ng-repeat='(key, elem) in selection' name='key' member='elem' " + "ng-if='!(elem | isEmpty)'></member-dir>" + "</ul>";
+            this.restrict = 'E';
+            this.replace = true;
+            this.scope = {
+                selection: '='
+            };
+        }
+        SelectionDir.prototype.injection = function () {
+            return [
+                function () {
+                    return new SelectionDir();
+                }
+            ];
+        };
+        return SelectionDir;
+    })();
+    portal.SelectionDir = SelectionDir;
+
+    var MemberDir = (function () {
+        function MemberDir($compile) {
+            var _this = this;
+            this.compileService = $compile;
+            this.template = "<li></li>";
+            this.restrict = 'E';
+            this.replace = true;
+            this.scope = {
+                name: '=',
+                member: '='
+            };
+            this.link = function ($scope, element, attributes) {
+                return _this.linkFn($scope, element, attributes);
+            };
+        }
+        MemberDir.prototype.injection = function () {
+            return [
+                '$compile',
+                function ($compile) {
+                    return new MemberDir($compile);
+                }
+            ];
+        };
+
+        MemberDir.prototype.linkFn = function ($scope, element, attributes) {
+            var _this = this;
+            element.append("<strong>" + this.beautify($scope.name) + "</strong> : ");
+
+            if (angular.isArray($scope.member)) {
+                angular.forEach($scope.member, function (m, i) {
+                    if (angular.isString(m) || angular.isNumber(m))
+                        element.append(m + " ");
+else if (angular.isObject(m)) {
+                        // this is a really cool hack
+                        _this.compileService("<br/><selection-dir selection='" + JSON.stringify($scope.member[i]) + "'></selection-dir>")($scope, function (cloned, scope) {
+                            element.append(cloned);
+                        });
+                    }
+                });
+            } else if (angular.isObject($scope.member)) {
+                element.append("<br/><selection-dir selection='member'></selection-dir>");
+                this.compileService(element.contents())($scope);
+            } else if (this.validateUrl($scope.member)) {
+                element.append("<a href='" + $scope.member + "' target='_blank'>" + $scope.member + "</a><br/>");
+            } else {
+                element.append($scope.member + "<br/>");
+            }
+        };
+
+        MemberDir.prototype.beautify = function (str) {
+            if (str.indexOf("_") != -1) {
+                var split = str.split("_");
+                str = split[0] + split[1].charAt(0).toUpperCase() + split[1].slice(1);
+            }
+            var array = str.match(/([A-Z]?[^A-Z]*)/g).slice(0, -1);
+            var first = array[0].charAt(0).toUpperCase() + array[0].slice(1);
+            array.shift();
+            return (first + " " + array.join(" ")).trim();
+        };
+
+        MemberDir.prototype.validateUrl = function (str) {
+            var pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
+            if (!pattern.test(str)) {
+                return false;
+            } else {
+                return true;
+            }
+        };
+        return MemberDir;
+    })();
+    portal.MemberDir = MemberDir;
+})(portal || (portal = {}));
 /// <reference path='_all.ts' />
 var portal;
 (function (portal) {
@@ -1684,69 +1798,76 @@ var portal;
     impexPortal.directive('databasesDir', portal.DatabasesDir.prototype.injection());
     impexPortal.directive('registryDir', portal.RegistryDir.prototype.injection());
     impexPortal.directive('userDataDir', portal.UserDataDir.prototype.injection());
+    impexPortal.directive('selectionDir', portal.SelectionDir.prototype.injection());
+
+    // is in SelectionDir.ts
+    impexPortal.directive('memberDir', portal.MemberDir.prototype.injection());
 
     // simple directives for displaying JSON objects
-    impexPortal.directive('selection', function () {
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                selection: '='
-            },
-            template: "<ul>" + "<member ng-repeat='(key, elem) in selection' name='key' member='elem' " + "ng-if='!(elem | isEmpty)'></member>" + "</ul>"
-        };
-    });
-
-    impexPortal.directive('member', function ($compile) {
-        function beautify(str) {
-            var array = str.match(/([A-Z]?[^A-Z]*)/g).slice(0, -1);
-            var first = array[0].charAt(0).toUpperCase() + array[0].slice(1);
-            array.shift();
-            return (first + " " + array.join(" ")).trim();
-        }
-
-        function validateUrl(str) {
-            var pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-            if (!pattern.test(str)) {
-                return false;
-            } else {
-                return true;
-            }
-        }
-
-        return {
-            restrict: "E",
-            replace: true,
-            scope: {
-                name: '=',
-                member: '='
-            },
-            template: "<li></li>",
-            link: function ($scope, element, attributes) {
-                element.append("<strong>" + beautify($scope.name) + "</strong>: ");
-
-                if (angular.isArray($scope.member)) {
-                    angular.forEach($scope.member, function (m, i) {
-                        if (angular.isString(m) || angular.isNumber(m))
-                            element.append(m + " ");
-else if (angular.isObject(m)) {
-                            $compile("<br/><selection selection='" + JSON.stringify($scope.member[i]) + "'></selection>")($scope, function (cloned, $scope) {
-                                element.append(cloned);
-                            });
-                        }
-                    });
-                } else if (angular.isObject($scope.member)) {
-                    element.append("<br/><selection selection='member'></selection>");
-                    $compile(element.contents())($scope);
-                } else if (validateUrl($scope.member)) {
-                    element.append("<a href='" + $scope.member + "' target='_blank'>" + $scope.member + "</a><br/>");
-                } else {
-                    element.append($scope.member + "<br/>");
-                }
-            }
-        };
-    });
-
+    /*impexPortal.directive('selection', () => {
+    return {
+    restrict: "E",
+    replace: true,
+    scope: {
+    selection: '='
+    },
+    template: "<ul>"+
+    "<member ng-repeat='(key, elem) in selection' name='key' member='elem' "+
+    "ng-if='!(elem | isEmpty)'></member>"+
+    "</ul>"
+    }
+    })*/
+    /*impexPortal.directive('member', ($compile) => {
+    function beautify(str: string): string {
+    var array = str.match(/([A-Z]?[^A-Z]*)/g).slice(0,-1)
+    var first = array[0].charAt(0).toUpperCase()+array[0].slice(1)
+    array.shift()
+    return (first+" "+array.join(" ")).trim()
+    }
+    
+    function validateUrl(str: string): boolean {
+    var pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
+    if(!pattern.test(str)) {
+    return false
+    } else {
+    return true
+    }
+    }
+    
+    return {
+    restrict: "E",
+    replace: true,
+    scope: {
+    name: '=',
+    member: '=',
+    },
+    template: "<li></li>",
+    link: ($scope, element, attributes) => {
+    element.append("<strong>"+beautify($scope.name)+"</strong>: ")
+    
+    if(angular.isArray($scope.member)) {
+    angular.forEach($scope.member, (m, i) => {
+    if(angular.isString(m) || angular.isNumber(m))
+    element.append(m+" ")
+    else if(angular.isObject(m)) {
+    $compile("<br/><selection-dir selection='"+JSON.stringify($scope.member[i])+"'></selection-dir>")
+    ($scope, (cloned, $scope) => { element.append(cloned) })
+    }
+    })
+    
+    } else if(angular.isObject($scope.member)) {
+    element.append("<br/><selection-dir selection='member'></selection-dir>")
+    $compile(element.contents())($scope)
+    } else if(validateUrl($scope.member)) {
+    element.append("<a href='"+$scope.member+"' target='_blank'>"+$scope.member+"</a><br/>")
+    } else {
+    element.append($scope.member+"<br/>")
+    }
+    
+    }
+    
+    }
+    })*/
     impexPortal.config([
         '$stateProvider',
         '$urlRouterProvider',

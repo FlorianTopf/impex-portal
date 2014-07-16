@@ -141,6 +141,7 @@ module portal {
         inputParameter?: InputParameter
         inputPopulation?: InputPopulation
         inputProcess?: InputProcess
+        regionParameter: RegionParameter
     }
     
     export class InputField {
@@ -176,7 +177,7 @@ module portal {
             public property: Array<Property>){}
     }
 
-    export class InputPopulation {
+    export class InputProcess {
         constructor(
             public name: string,
             public set: Array<string>,
@@ -193,7 +194,7 @@ module portal {
             public modelUrl: string){}
     }
     
-    export class InputProcess {
+    export class InputPopulation {
         constructor(
             public name: string,
             public set: Array<string>,
@@ -216,6 +217,19 @@ module portal {
             public inputTableURL: string,
             public profile: string,
             public modelUrl: string){}
+    }
+    
+    export class RegionParameter {
+        constructor(
+            public description: string,
+            public caveats: string,
+            public inputTableUrl: string,
+            public objectMass: string,
+            public period: string,
+            public property: Array<Property>,
+            public radius: string,
+            public simulatedRegion: Array<string>,
+            public subLongitude: string){}
     }
 
     

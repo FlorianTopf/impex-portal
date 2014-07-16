@@ -19,9 +19,12 @@ module portal {
     impexPortal.directive('databasesDir', DatabasesDir.prototype.injection())
     impexPortal.directive('registryDir', RegistryDir.prototype.injection())
     impexPortal.directive('userDataDir', UserDataDir.prototype.injection())
+    impexPortal.directive('selectionDir', SelectionDir.prototype.injection())
+    // is in SelectionDir.ts
+    impexPortal.directive('memberDir', MemberDir.prototype.injection())
     
     // simple directives for displaying JSON objects
-    impexPortal.directive('selection', () => {
+    /*impexPortal.directive('selection', () => {
         return {
             restrict: "E",
             replace: true,
@@ -33,9 +36,9 @@ module portal {
                 "ng-if='!(elem | isEmpty)'></member>"+
                 "</ul>"
         }
-    })
+    })*/
     
-    impexPortal.directive('member', ($compile) => {
+    /*impexPortal.directive('member', ($compile) => {
         function beautify(str: string): string {
             var array = str.match(/([A-Z]?[^A-Z]*)/g).slice(0,-1)
             var first = array[0].charAt(0).toUpperCase()+array[0].slice(1)
@@ -68,13 +71,13 @@ module portal {
                         if(angular.isString(m) || angular.isNumber(m))
                             element.append(m+" ")
                         else if(angular.isObject(m)) {
-                            $compile("<br/><selection selection='"+JSON.stringify($scope.member[i])+"'></selection>")
+                            $compile("<br/><selection-dir selection='"+JSON.stringify($scope.member[i])+"'></selection-dir>")
                                 ($scope, (cloned, $scope) => { element.append(cloned) })
                         } 
                     })
                     
                 } else if(angular.isObject($scope.member)) {
-                    element.append("<br/><selection selection='member'></selection>")
+                    element.append("<br/><selection-dir selection='member'></selection-dir>")
                     $compile(element.contents())($scope)
                 } else if(validateUrl($scope.member)) {
                     element.append("<a href='"+$scope.member+"' target='_blank'>"+$scope.member+"</a><br/>")
@@ -85,7 +88,7 @@ module portal {
             }
             
         }
-    })
+    })*/
      
    
     impexPortal.config(['$stateProvider', '$urlRouterProvider', 

@@ -12,7 +12,7 @@ module portal {
         [id: string]: boolean
     }
 
-    export class UserDataDir {
+    export class UserDataDir implements ng.IDirective {
 
         public injection(): any[] {
             return [

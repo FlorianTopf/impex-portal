@@ -20,6 +20,7 @@
 /// <reference path='directives/DatabasesDir.ts' />
 /// <reference path='directives/RegistryDir.ts' />
 /// <reference path='directives/UserDataDir.ts' />
+/// <reference path='directives/SelectionDir.ts' />
 
 /// <reference path='app.ts' />
 
