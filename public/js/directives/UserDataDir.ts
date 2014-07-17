@@ -101,12 +101,26 @@ module portal {
         }
         
         public toggleResultDetails(id: string) {
-            this.isCollapsed[id] = !this.isCollapsed[id]
+            if(this.isCollapsed[id]) { // if it is closed
+                this.isCollapsed[id] = false
+                // closing all other collapsibles
+                for(var rId in this.isCollapsed) {
+                    if(rId != id)
+                        this.isCollapsed[rId] = true
+                }
+            } else {
+                this.isCollapsed[id] = true
+            }
         }
         
         public toggleSelectionDetails(id: string) {
             if(this.isCollapsed[id]) { // if it is closed 
                 this.isCollapsed[id] = false
+                // closing all other collapsibles
+                for(var rId in this.isCollapsed) {
+                    if(rId != id)
+                        this.isCollapsed[rId] = true
+                }
                 this.currentSelection.push(
                     this.user.selections.filter((e) => e.id == id)[0])
             } else {
@@ -115,7 +129,26 @@ module portal {
                     this.currentSelection.filter((e) => e.id != id)
             }
         }
-
+        
+        public deleteResult(id: string) {
+            this.user.results = this.user.results.filter((e) => e.id != id)
+            // update localStorage
+            this.userService.localStorage.results = this.user.results
+            // delete collapsed info
+            delete this.isCollapsed[id]
+        }
+        
+        public deleteSelection(id: string) {
+            this.user.selections = this.user.selections.filter((e) => e.id != id)
+            // update localStorage
+            this.userService.localStorage.selections = this.user.selections
+            // savely clear currentSelection => maybe we don't need that
+            this.currentSelection = []
+            // delete collapsed info
+            delete this.isCollapsed[id]
+        }
+        
+        
     }
 
 }

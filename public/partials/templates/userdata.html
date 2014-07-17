@@ -16,6 +16,10 @@
 	<div class="col-sm-8">
 		<div ng-repeat="res in userdirvm.user.results" collapse="userdirvm.isCollapsed[res.id]">
 			<div class="well well-sm">
+				<button type="button" class="btn btn-danger btn-sm" 
+					style="float: right;" ng-click="userdirvm.deleteResult(res.id)">
+					Delete
+				</button>
 				<h4>Service Result {{ res.id }}: {{ res.method }}</h4>
 				<p style="word-wrap: break-word;">
 					<selection-dir selection="res"></selection-dir>
@@ -41,9 +45,12 @@
 		</div>
 	</div>
 	<div class="col-sm-8">
-		<!-- we should not fill the info unless a selection is clicked / we close all when modal closes -->
 		<div ng-repeat="sel in userdirvm.currentSelection" collapse="userdirvm.isCollapsed[sel.id]">
 			<div class="well well-sm" style="max-height: 450px; overflow-y: auto;">
+				<button type="button" class="btn btn-danger btn-sm" 
+					style="float: right;" ng-click="userdirvm.deleteSelection(sel.id)">
+					Delete
+				</button>
 				<h4>Tree Selection {{ sel.id }}: {{ sel.type }}</h4>
 				<p style="word-wrap: break-word;">
 					<selection-dir selection="sel.elem"></selection-dir>

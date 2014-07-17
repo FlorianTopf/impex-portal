@@ -1672,12 +1672,26 @@ var portal;
         };
 
         UserDataDir.prototype.toggleResultDetails = function (id) {
-            this.isCollapsed[id] = !this.isCollapsed[id];
+            if (this.isCollapsed[id]) {
+                this.isCollapsed[id] = false;
+
+                for (var rId in this.isCollapsed) {
+                    if (rId != id)
+                        this.isCollapsed[rId] = true;
+                }
+            } else {
+                this.isCollapsed[id] = true;
+            }
         };
 
         UserDataDir.prototype.toggleSelectionDetails = function (id) {
             if (this.isCollapsed[id]) {
                 this.isCollapsed[id] = false;
+
+                for (var rId in this.isCollapsed) {
+                    if (rId != id)
+                        this.isCollapsed[rId] = true;
+                }
                 this.currentSelection.push(this.user.selections.filter(function (e) {
                     return e.id == id;
                 })[0]);
@@ -1687,6 +1701,33 @@ var portal;
                     return e.id != id;
                 });
             }
+        };
+
+        UserDataDir.prototype.deleteResult = function (id) {
+            this.user.results = this.user.results.filter(function (e) {
+                return e.id != id;
+            });
+
+            // update localStorage
+            this.userService.localStorage.results = this.user.results;
+
+            // delete collapsed info
+            delete this.isCollapsed[id];
+        };
+
+        UserDataDir.prototype.deleteSelection = function (id) {
+            this.user.selections = this.user.selections.filter(function (e) {
+                return e.id != id;
+            });
+
+            // update localStorage
+            this.userService.localStorage.selections = this.user.selections;
+
+            // savely clear currentSelection => maybe we don't need that
+            this.currentSelection = [];
+
+            // delete collapsed info
+            delete this.isCollapsed[id];
         };
         return UserDataDir;
     })();
