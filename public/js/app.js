@@ -774,6 +774,17 @@ var portal;
 (function (portal) {
     'use strict';
 
+    // currently saved results
+    var Result = (function () {
+        function Result(id, method, content) {
+            this.id = id;
+            this.method = method;
+            this.content = content;
+        }
+        return Result;
+    })();
+    portal.Result = Result;
+
     // currently saved selections
     var Selection = (function () {
         function Selection(id, type, elem) {
@@ -789,7 +800,7 @@ var portal;
     var User = (function () {
         function User(id) {
             this.id = id;
-            this.results = {};
+            this.results = [];
             this.selections = [];
         }
         return User;
@@ -1291,6 +1302,7 @@ else
             }
         };
 
+        // handling and saving the WS result
         MethodsCtrl.prototype.handleServiceData = function (data, status) {
             console.log("Success: " + data.message);
 
@@ -1298,11 +1310,10 @@ else
             var id = this.userService.createId();
 
             // @TODO we must take care of custom results (getMostRelevantRun)
-            this.userService.user.results[id] = data;
+            this.userService.user.results.push(new portal.Result(id, this.currentMethod.path, data));
 
             //refresh localStorage
             this.userService.localStorage.results = this.userService.user.results;
-
             this.scope.$broadcast('update-user-data', id);
         };
 
@@ -1568,12 +1579,10 @@ else
         RegistryDir.prototype.saveSelection = function (type) {
             // @TODO we change id creation later
             var id = this.userService.createId();
-
             this.userService.user.selections.push(new portal.Selection(id, type, this.activeItems[type]));
 
             // refresh localStorage
             this.userService.localStorage.selections = this.userService.user.selections;
-
             this.myScope.$broadcast('update-user-data', id);
         };
         return RegistryDir;
@@ -1624,8 +1633,11 @@ var portal;
             }
 
             if (this.userService.user.results) {
-                for (var id in this.userService.user.results)
-                    this.isCollapsed[id] = true;
+                //for(var id in this.userService.user.results)
+                //    this.isCollapsed[id] = true
+                this.userService.user.results.map(function (e) {
+                    _this.isCollapsed[e.id] = true;
+                });
             }
 
             this.myScope.$on('update-user-data', function (e, id) {
@@ -1685,7 +1697,7 @@ var portal;
 (function (portal) {
     'use strict';
 
-    //@TODO implement loading visualisation
+    // @TODO implement loading visualisation
     var SelectionDir = (function () {
         function SelectionDir() {
             this.template = "<ul>" + "<member-dir ng-repeat='(key, elem) in selection' name='key' member='elem' " + "ng-if='!(elem | isEmpty)'></member-dir>" + "</ul>";
@@ -1733,7 +1745,6 @@ var portal;
         MemberDir.prototype.linkFn = function ($scope, element, attributes) {
             var _this = this;
             element.append("<strong>" + this.beautify($scope.name) + "</strong> : ");
-
             if (angular.isArray($scope.member)) {
                 angular.forEach($scope.member, function (m, i) {
                     if (angular.isString(m) || angular.isNumber(m))

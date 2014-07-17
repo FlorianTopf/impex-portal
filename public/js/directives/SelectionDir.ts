@@ -3,7 +3,7 @@
 module portal {
     'use strict';
     
-    //@TODO implement loading visualisation
+    // @TODO implement loading visualisation
     
     export class SelectionDir implements ng.IDirective {
         
@@ -66,29 +66,25 @@ module portal {
         }
         
         linkFn($scope: any, element: JQuery, attributes: ng.IAttributes): any {   
-              
             element.append("<strong>"+this.beautify($scope.name)+"</strong> : ")
-                                 
-                if(angular.isArray($scope.member)) {
-                    angular.forEach($scope.member, (m, i) => {
-                        if(angular.isString(m) || angular.isNumber(m))
-                            element.append(m+" ")
-                        else if(angular.isObject(m)) {
-                            // this is a really cool hack
-                            this.compileService("<br/><selection-dir selection='"+JSON.stringify($scope.member[i])+"'></selection-dir>")
-                                ($scope, (cloned?: JQuery, scope?: any): any => { element.append(cloned) })
-                        } 
-                    })
-                    
-                } else if(angular.isObject($scope.member)) {
-                    element.append("<br/><selection-dir selection='member'></selection-dir>")
-                    this.compileService(element.contents())($scope)
-                } else if(this.validateUrl($scope.member)) {
-                    element.append("<a href='"+$scope.member+"' target='_blank'>"+$scope.member+"</a><br/>")
-                } else {
-                    element.append($scope.member+"<br/>")
-                }
-        
+            if(angular.isArray($scope.member)) {
+                angular.forEach($scope.member, (m, i) => {
+                    if(angular.isString(m) || angular.isNumber(m))
+                        element.append(m+" ")
+                    else if(angular.isObject(m)) {
+                        // this is a really cool hack
+                        this.compileService("<br/><selection-dir selection='"+JSON.stringify($scope.member[i])+"'></selection-dir>")
+                            ($scope, (cloned?: JQuery, scope?: any): any => { element.append(cloned) })
+                    } 
+                })    
+            } else if(angular.isObject($scope.member)) {
+                element.append("<br/><selection-dir selection='member'></selection-dir>")
+                this.compileService(element.contents())($scope)
+            } else if(this.validateUrl($scope.member)) {
+                element.append("<a href='"+$scope.member+"' target='_blank'>"+$scope.member+"</a><br/>")
+            } else {
+                element.append($scope.member+"<br/>")
+            }
         }
         
         private beautify(str: string): string {

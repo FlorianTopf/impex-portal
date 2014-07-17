@@ -162,13 +162,10 @@ module portal {
         public saveSelection(type: string) {
             // @TODO we change id creation later
             var id = this.userService.createId()
-            
             this.userService.user.selections.push(
                 new Selection(id, type, this.activeItems[type]))
-            
             // refresh localStorage
             this.userService.localStorage.selections = this.userService.user.selections
-            
             this.myScope.$broadcast('update-user-data', id)
         }
 

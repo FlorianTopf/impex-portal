@@ -43,10 +43,8 @@ module portal {
             if(this.userService.localStorage.selections != null)
                 this.userService.user.selections = this.userService.localStorage.selections
             
-            
               
         }
-
       
         
     }

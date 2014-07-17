@@ -62,8 +62,11 @@ module portal {
             
             //collapsing all results on init
             if(this.userService.user.results) {
-               for(var id in this.userService.user.results)
-                   this.isCollapsed[id] = true
+               //for(var id in this.userService.user.results)
+               //    this.isCollapsed[id] = true
+               this.userService.user.results.map((e) => {
+                    this.isCollapsed[e.id] = true
+               })
             }
             
             this.myScope.$on('update-user-data', (e, id: string) => {

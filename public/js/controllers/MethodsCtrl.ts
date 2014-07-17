@@ -85,20 +85,18 @@ module portal {
                     this.status = error.status+" resource not found"
                 else
                     this.status = error.data+" "+error.status
-
             }
         }  
         
+        // handling and saving the WS result
         private handleServiceData(data: IResponse, status?: any) {
             console.log("Success: "+data.message)
             // @TODO we change id creation later
             var id = this.userService.createId()
             // @TODO we must take care of custom results (getMostRelevantRun)
-            this.userService.user.results[id] = data
-            
+            this.userService.user.results.push(new Result(id, this.currentMethod.path, data))
             //refresh localStorage
             this.userService.localStorage.results = this.userService.user.results
-            
             this.scope.$broadcast('update-user-data', id)
         }
         
@@ -123,9 +121,9 @@ module portal {
             this.dropdownStatus.active = this.trimPath(method.path)
             this.currentMethod = method
             // @TODO there is for now only one operation per method
-             this.currentMethod.operations[0].parameters.forEach((p) => {
+            this.currentMethod.operations[0].parameters.forEach((p) => {
                    this.request[p.name] = p.defaultValue
-               })
+            })
             
         }
         
@@ -157,7 +155,6 @@ module portal {
         public saveMethods() {
             this.modalInstance.close()
             this.scope.$broadcast('clear-service-error')
-
         }
         
         public cancelMethods() {

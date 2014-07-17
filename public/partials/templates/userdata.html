@@ -5,19 +5,20 @@
 	<div class="col-sm-3">
 		<div class="btn-group-vertical btn-group-overflow" ng-hide="userdirvm.user.results | isEmpty">
 			<button type="button" class="btn btn-success btn-sm" 
-				ng-repeat="(key, elem) in userdirvm.user.results"
-			    ng-class="{ active: !userdirvm.isCollapsed[key] }"
-				ng-click="userdirvm.toggleResultDetails(key)">
-					Service Result {{ key }}
+				ng-repeat="res in userdirvm.user.results"
+			    ng-class="{ active: !userdirvm.isCollapsed[res.id] }"
+				ng-click="userdirvm.toggleResultDetails(res.id)">
+					Service Result {{ res.id }}<br/>
+					{{ res.method }}
 			</button>
 		</div>
 	</div>
 	<div class="col-sm-8">
-		<div ng-repeat="(key, elem) in userdirvm.user.results" collapse="userdirvm.isCollapsed[key]">
+		<div ng-repeat="res in userdirvm.user.results" collapse="userdirvm.isCollapsed[res.id]">
 			<div class="well well-sm">
-				<h4>Service Result {{ key }}</h4>
+				<h4>Service Result {{ res.id }}: {{ res.method }}</h4>
 				<p style="word-wrap: break-word;">
-					<selection-dir selection="elem"></selection-dir>
+					<selection-dir selection="res"></selection-dir>
 				</p>
 			</div>
 		</div>
@@ -28,7 +29,8 @@
 </div>
 <div class="row">
 	<div class="col-sm-3">
-		<div class="btn-group-vertical" style="max-height: 450px; overflow-y: auto; width: 200px;" ng-hide="userdirvm.user.selections | isEmpty">
+		<div class="btn-group-vertical" style="max-height: 450px; overflow-y: auto; width: 200px;" 
+			ng-hide="userdirvm.user.selections | isEmpty">
 			<button type="button" class="btn btn-success btn-sm" 
 				ng-repeat="sel in userdirvm.user.selections"
 			    ng-class="{ active: !userdirvm.isCollapsed[sel.id] }"

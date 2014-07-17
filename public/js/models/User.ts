@@ -2,10 +2,13 @@
 
 module portal {
     'use strict';
-
-    // currently saved results
-    export interface IResultsMap {
-        [id: string]: IResponse 
+    
+    // currently saved results 
+    export class Result {
+        constructor(
+            public id: string,
+            public method: string,
+            public content: IResponse) {}
     }
     
     // currently saved selections
@@ -16,18 +19,16 @@ module portal {
             public elem: SpaseElem) {}
     }    
     
-    
     // @TODO let's see what the user object needs to have
     export class User {
         
         public id: string
-        // maybe make array out of it (chronological)
-        public results: IResultsMap
+        public results: Array<Result>
         public selections: Array<Selection>
   
         constructor(id: string){
             this.id = id
-            this.results = {}
+            this.results = []
             this.selections = []
         }
         
