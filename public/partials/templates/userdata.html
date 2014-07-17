@@ -3,7 +3,8 @@
 </div>
 <div class="row">
 	<div class="col-sm-3">
-		<div class="btn-group-vertical btn-group-overflow" ng-hide="userdirvm.user.results | isEmpty">
+		<div class="btn-group-vertical" style="max-height: 450px; overflow-y: auto; width: 200px;" 
+			ng-hide="userdirvm.user.results | isEmpty">
 			<button type="button" class="btn btn-success btn-sm" 
 				ng-repeat="res in userdirvm.user.results"
 			    ng-class="{ active: !userdirvm.isCollapsed[res.id] }"
@@ -15,7 +16,7 @@
 	</div>
 	<div class="col-sm-8">
 		<div ng-repeat="res in userdirvm.user.results" collapse="userdirvm.isCollapsed[res.id]">
-			<div class="well well-sm">
+			<div class="well well-sm" style="max-height: 450px; overflow-y: auto;">
 				<button type="button" class="btn btn-danger btn-sm" 
 					style="float: right;" ng-click="userdirvm.deleteResult(res.id)">
 					Delete
