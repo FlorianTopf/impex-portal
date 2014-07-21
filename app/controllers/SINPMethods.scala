@@ -34,7 +34,8 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/SINP/Earth/2003-11-20UT12",
         required = true, 
         dataType = "string", 
@@ -98,7 +99,8 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "SimulationModel",
         defaultValue = "spase://IMPEX/NumericalOutput/SINP/Earth/OnFly",
         required = true, 
         dataType = "string", 
@@ -188,7 +190,8 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "SimulationModel",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Earth/OnFly",
         required = true, 
         dataType = "string", 
@@ -247,7 +250,8 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "SimulationModel",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Earth/OnFly",
         required = true, 
         dataType = "string", 
@@ -342,7 +346,8 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "SimulationModel",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Earth/OnFly",
         required = true, 
         dataType = "string", 
@@ -415,7 +420,8 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "SimulationModel",
         defaultValue = "spase://IMPEX/NumericalOutput/SINP/Earth/OnFly",
         required = true, 
         dataType = "string", 
@@ -513,7 +519,8 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "SimulationModel",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Mercury/OnFly",
         required = true, 
         dataType = "string", 
@@ -580,7 +587,8 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "SimulationModel",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Mercury/OnFly",
         required = true, 
         dataType = "string", 
@@ -660,7 +668,8 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "SimulationModel",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Saturn/OnFly",
         required = true, 
         dataType = "string", 
@@ -760,7 +769,8 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "SimulationModel",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Saturn/OnFly",
         required = true, 
         dataType = "string", 
@@ -825,5 +835,76 @@ object SINPMethods extends MethodsController {
     }
   }
   
-
+  
+  @GET
+  @ApiOperation(
+      value = "getSurface at SINP", 
+      nickname = "getSurfaceSINP",
+      notes = "returns a surface of interpolated simulation parameters", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "request failed")))
+  @ApiImplicitParams(Array(
+    new ApiImplicitParam(
+        name = "id", 
+        //value = "resource id", 
+        value = "NumericalOutput",
+        defaultValue = "spase://IMPEX/NumericalOutput/SINP/Earth/2003-11-20UT12",
+        required = true, 
+        dataType = "string", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "plane_point", 
+        value = "plane point", 
+        defaultValue = "0.0,0.0,0.0",
+        required = true, 
+        dataType = "list(float)", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "plane_normal_vector", 
+        value = "plane normal vector", 
+        defaultValue = "0.0,0.0,1.0",
+        required = true, 
+        dataType = "list(float)", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "output_filetype",
+        value = "output filetype",
+        defaultValue = "VOTable",
+        allowableValues = "VOTable,netCDF",
+        required = false,
+        dataType = "string",
+        paramType = "query")))
+  @Path("/getSurface")
+  def getSurface = PortalAction { implicit request => 
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val plane_point = request.req.get("plane_point").get
+    val plane_n_vector = request.req.get("plane_normal_vector").get
+    // extra params
+    val filetype = request.req.get("output_filetype").getOrElse("")
+    
+    val extraParams = ExtraParams_getSurfaceSINP(
+        Some(0.2), // resolution (@TODO TO BE ADDED)
+        validateFiletype(filetype) // output filetype
+    )
+           
+    val result = sinp.service.getSurface(
+        id, // resourceId
+        None, // variable (@TODO to be added)
+        validateFloatSeq(plane_point), // plane point
+        validateFloatSeq(plane_n_vector), // plane normal vector
+        Some(extraParams) // extra params
+    )
+    
+    returnDefaultResult(result, request.req)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing", request.req)))
+    }
+  }
+  
+  
 }

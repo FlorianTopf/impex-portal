@@ -36,7 +36,8 @@ object LATMOSMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_13_02_13/Mag/3D",
         required = true, 
         dataType = "string", 
@@ -97,7 +98,8 @@ object LATMOSMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_13_02_13/The/3D",
         required = true, 
         dataType = "string", 
@@ -191,7 +193,8 @@ object LATMOSMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_13_02_13/The/3D",
         required = true, 
         dataType = "string", 
@@ -262,7 +265,8 @@ object LATMOSMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_14_01_13/Mag/MEX/0.0",
         required = true, 
         dataType = "string", 
@@ -331,7 +335,8 @@ object LATMOSMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_13_02_13/Mag/3D",
         required = true, 
         dataType = "string", 
@@ -402,7 +407,8 @@ object LATMOSMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "SimulationRun, NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_14_03_14/IonSpectra",
         required = true, 
         dataType = "string", 
@@ -463,7 +469,8 @@ object LATMOSMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_14_03_14/IonSpectra",
         required = true, 
         dataType = "string", 

@@ -36,7 +36,8 @@ object FMIMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_20deg/Mag",
         required = true, 
         dataType = "string", 
@@ -109,7 +110,8 @@ object FMIMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/FMI/GUMICS/earth/synth_stationary/solarmin/EARTH___n_T_Vx_Bx_By_Bz__7_100_600_3p_03_15m/tilt15p/H+_mstate",
         required = true, 
         dataType = "string", 
@@ -215,7 +217,8 @@ object FMIMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/mars/Mars_testrun_lowres/O+_ave_hybstate",
         required = true, 
         dataType = "string", 
@@ -658,7 +661,8 @@ object FMIMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg/Mag",
         required = true, 
         dataType = "string", 
@@ -736,7 +740,8 @@ object FMIMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg/Mag",
         required = true, 
         dataType = "string", 
@@ -823,7 +828,8 @@ object FMIMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/venus/run01_venus_nominal_spectra_20140417/H+_spectra",
         required = true, 
         dataType = "string", 
@@ -851,7 +857,7 @@ object FMIMethods extends MethodsController {
         required = false,
         dataType = "string",
         paramType = "query")))
-  @Path("/getDataPointsSpectra")
+  @Path("/getDataPointSpectra")
   def getDataPointSpectra = PortalAction { implicit request => 
     try {
     // mandatory
@@ -897,7 +903,8 @@ object FMIMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        value = "resource id", 
+        //value = "resource id", 
+        value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/venus/run01_venus_nominal_spectra_20140417/H+_spectra",
         required = true, 
         dataType = "string", 
@@ -948,7 +955,7 @@ object FMIMethods extends MethodsController {
         required = false,
         dataType = "string",
         paramType = "query")))
-  @Path("/getDataPointsSpectraSpacecraft")
+  @Path("/getDataPointSpectraSpacecraft")
   def getDataPointSpectraSpacecraft = PortalAction { implicit request => 
     try {
     // mandatory parameters

@@ -208,6 +208,13 @@ case class ExtraParams_calculateCubeJupiter(BDC: Option[Double] = None,
   Rss: Option[Double] = None,
   IMF_B: Option[models.binding.ListOfDouble] = None,
   OutputFileType: Option[models.binding.OutputFormatType] = None)
+  
+
+case class ExtraParams_getSurfaceSINP(Resolution: Option[Double] = None,
+  OutputFileType: Option[models.binding.OutputFormatType] = None)
+
+
+case class EmptyElement()
 
 
 case class CalculateDataPointValueFixedTime(ResourceID: String,
@@ -271,3 +278,9 @@ case class CalculateCubeSaturn(ResourceID: String,
 case class CalculateCubeJupiter(ResourceID: String,
   extraParams: Option[models.binding.ExtraParams_calculateCubeJupiter] = None)
 
+  
+case class SurfaceSINP(ResourceID: String,
+  Variable: Option[Seq[String]] = None,
+  PlaneNormalVector: Seq[Float],
+  PlanePoint: Seq[Float],
+  extraParams: Option[models.binding.ExtraParams_getSurfaceSINP] = None)

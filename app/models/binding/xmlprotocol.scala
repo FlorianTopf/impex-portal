@@ -77,6 +77,9 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingExtraParams_calculateCubeMercuryFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateCubeMercury] = new DefaultBindingExtraParams_calculateCubeMercuryFormat {}
   implicit lazy val BindingExtraParams_calculateCubeSaturnFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateCubeSaturn] = new DefaultBindingExtraParams_calculateCubeSaturnFormat {}
   implicit lazy val BindingExtraParams_calculateCubeJupiterFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateCubeJupiter] = new DefaultBindingExtraParams_calculateCubeJupiterFormat {}
+  implicit lazy val BindingExtraParams_getSurfaceSINPFormat: scalaxb.XMLFormat[models.binding.ExtraParams_getSurfaceSINP] = new DefaultBindingExtraParams_getSurfaceSINPFormat {}
+  // @TODO should be used by all services
+  implicit lazy val BindingEmptyElementFormat: scalaxb.XMLFormat[models.binding.EmptyElement] = new DefaultBindingEmptyElementFormat {}
   implicit lazy val BindingDataPointValueSINPFormat: scalaxb.XMLFormat[models.binding.DataPointValueSINP] = new DefaultBindingDataPointValueSINPFormat {}
   implicit lazy val BindingCalculateDataPointValueFixedTimeFormat: scalaxb.XMLFormat[models.binding.CalculateDataPointValueFixedTime] = new DefaultBindingCalculateDataPointValueFixedTimeFormat {}
   implicit lazy val BindingCalculateDataPointValueFormat: scalaxb.XMLFormat[models.binding.CalculateDataPointValue] = new DefaultBindingCalculateDataPointValueFormat {}
@@ -88,6 +91,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingCalculateCubeFormat: scalaxb.XMLFormat[models.binding.CalculateCube] = new DefaultBindingCalculateCubeFormat {}
   implicit lazy val BindingCalculateCubeMercuryFormat: scalaxb.XMLFormat[models.binding.CalculateCubeMercury] = new DefaultBindingCalculateCubeMercuryFormat {}
   implicit lazy val BindingCalculateCubeSaturnFormat: scalaxb.XMLFormat[models.binding.CalculateCubeSaturn] = new DefaultBindingCalculateCubeSaturnFormat {}
+  implicit lazy val BindingSurfaceSINPFormat: scalaxb.XMLFormat[models.binding.SurfaceSINP] = new DefaultBindingSurfaceSINPFormat {}
   // AMDA/ CLWEB specific types
   implicit lazy val BindingIdoptFormat: scalaxb.AttributeGroupFormat[models.binding.Idopt] = new DefaultBindingIdoptFormat {}
   implicit lazy val BindingIdFormat: scalaxb.AttributeGroupFormat[models.binding.Id] = new DefaultBindingIdFormat {}
@@ -1668,6 +1672,39 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil})
 
   }
+  
+  trait DefaultBindingExtraParams_getSurfaceSINPFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_getSurfaceSINP] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("extraParams_getSurface")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_getSurfaceSINP] =
+      phrase(opt(scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "Resolution")) ~ 
+      opt(scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "OutputFileType")) ^^
+      { case p1 ~ p2 =>
+      models.binding.ExtraParams_getSurfaceSINP(p1.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_getSurfaceSINP, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.Resolution map { scalaxb.toXML[Double](_, Some("http://smdc.sinp.msu.ru"), Some("Resolution"), __scope, false) } getOrElse {Nil},
+        __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, Some("http://smdc.sinp.msu.ru"), Some("OutputFileType"), __scope, false) } getOrElse {Nil})
+
+  }
+
+  trait DefaultBindingEmptyElementFormat extends scalaxb.XMLFormat[models.binding.EmptyElement] with scalaxb.CanWriteChildNodes[models.binding.EmptyElement] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    import scalaxb.ElemName._
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.EmptyElement] = seq match {
+      case node: scala.xml.Node => Right(models.binding.EmptyElement())
+      case _ => Left("reads failed: seq must be scala.xml.Node")
+    }
+    
+    def writesChildNodes(__obj: models.binding.EmptyElement, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Nil
+
+
+  }
 
   trait DefaultBindingDataPointValueSINPFormat extends scalaxb.ElemNameParser[models.binding.DataPointValueSINP] {
     val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
@@ -1944,6 +1981,33 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateCubeJupiter](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
 
   }
+  
+  trait DefaultBindingSurfaceSINPFormat extends scalaxb.ElemNameParser[models.binding.SurfaceSINP] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("Surface")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.SurfaceSINP] =
+      phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
+      opt(scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "Variable")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "PlaneNormalVector")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "PlanePoint")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 =>
+      models.binding.SurfaceSINP(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        p2.headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[Seq[Float]](p3, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[Seq[Float]](p4, scalaxb.ElemName(node) :: stack),
+        p5.headOption map { scalaxb.fromXML[models.binding.ExtraParams_getSurfaceSINP](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.SurfaceSINP, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
+        __obj.Variable map { scalaxb.toXML[Seq[String]](_, Some("http://smdc.sinp.msu.ru"), Some("Variable"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[Seq[Float]](__obj.PlaneNormalVector, Some("http://smdc.sinp.msu.ru"), Some("PlaneNormalVector"), __scope, false),
+        scalaxb.toXML[Seq[Float]](__obj.PlanePoint, Some("http://smdc.sinp.msu.ru"), Some("PlanePoint"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_getSurfaceSINP](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+
+  }
 
 
   trait Methods_SINPSoapBindings { this: scalaxb.Soap11Clients =>
@@ -2022,12 +2086,27 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
           case Right((header, body)) =>
             Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
-     def calculateCubeSaturn(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[ExtraParams_calculateCubeSaturn], sampling: Option[Double], cube_size_array: Option[Cube_size_array]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
-        soapClient.requestResponse(scalaxb.toXML(CalculateCubeSaturn(resourceID, startTime, extraParams, sampling, cube_size_array), Some("http://smdc.sinp.msu.ru"), "calculateCubeSaturn", defaultScope),
+     def calculateCubeSaturn(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateCubeSaturn], sampling: Option[Double], cube_size_array: Option[Cube_size_array]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateCubeSaturn(resourceID, startTime, extraParams, sampling, cube_size_array), Some("http://smdc.sinp.msu.ru"), "calculateCubeSaturn", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateCubeSaturn"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
             Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+     def getSurface(resourceID: String, variable: Option[Seq[String]], planeNormalVector: Seq[Float], planePoint: Seq[Float], extraParams: Option[models.binding.ExtraParams_getSurfaceSINP]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.SurfaceSINP(resourceID, variable, planeNormalVector, planePoint, extraParams), Some("http://smdc.sinp.msu.ru"), "getSurface", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("Surface"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+     // @TODO this should be the same for all other providers
+     def isAlive(): Either[scalaxb.Soap11Fault[Any], Boolean] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.EmptyElement(), Some("http://smdc.sinp.msu.ru"), "emptyElement", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("Alive"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[Boolean](body.headOption getOrElse {body}))
         }
     }
   }

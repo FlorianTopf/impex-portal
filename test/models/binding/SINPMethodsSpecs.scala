@@ -31,7 +31,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
             val variable = Seq("Bx", "By") // variable seq
             
             val result = sinp.service.getDataPointValue(
-        	    "impex://SINP/NumericalOutput/Earth/2003-11-20UT12", // resourceId
+        	    "spase://IMPEX/NumericalOutput/SINP/Earth/2003-11-20UT12", // resourceId
         		Some(variable), // variables (@FIXME NOT WORKING)
         		Some(new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_52points.vot")), // url_xyz
         		Some(extraParams) // extra params
@@ -71,7 +71,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
             )
         	
             val result = sinp.service.calculateDataPointValueFixedTime(
-                "impex://SINP/NumericalOutput/Earth/OnFly", // resourceId
+                "spase://IMPEX/NumericalOutput/SINP/Earth/OnFly", // resourceId
                 TimeProvider.getISODate("2012-03-08T14:06:00"), // start time
                 Some(extraParams), // extra params
                 new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_120points.vot")) // url_xyz
@@ -98,7 +98,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            )
           
            val result = sinp.service.calculateDataPointValue(
-               "impex://SINP/SimulationModel/Earth/OnFly", // resourceId
+               "spase://IMPEX/SimulationModel/SINP/Earth/OnFly", // resourceId
                 Some(extraParams), // extra params
                 new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_120points.vot") // url_xyz  
            )
@@ -125,7 +125,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            )
           
            val result = sinp.service.calculateDataPointValueSpacecraft(
-               "impex://SINP/SimulationModel/Earth/OnFly", // resourceId
+               "spase://IMPEX/SimulationModel/SINP/Earth/OnFly", // resourceId
                CLUSTER1, // spacecraft name
                TimeProvider.getISODate("2010-01-12T13:00:00"), // start time
                TimeProvider.getISODate("2010-01-13T03:45:00"), // stop time
@@ -157,7 +157,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	  )
 	  	  
 	  	  val result = sinp.service.calculateFieldLine(
-	  	      "impex://SINP/SimulationModel/Earth/OnFly", // resourceId
+	  	      "spase://IMPEX/SimulationModel/SINP/Earth/OnFly", // resourceId
 	  	      TimeProvider.getISODate("2010-01-12T13:00:00"), // start time
 	  	      Some(extraParams), // extra params
 	  	      new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_120points.vot") // url_xyz
@@ -205,7 +205,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	  )
 	  	  
 	  	  val result = sinp.service.calculateCube(
-	  	      "impex://SINP/NumericalOutput/Earth/OnFly", // resourceId
+	  	      "spase://IMPEX/NumericalOutput/SINP/Earth/OnFly", // resourceId
 	  	      TimeProvider.getISODate("2005-09-11T02:00:00"), // start time 
 	  	      Some(extraParams), // extra params
 	  	      Some(0.7), // sampling 
@@ -246,7 +246,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	  )
 	  	  
 	  	  val result = sinp.service.calculateCubeMercury(
-	  	      "impex://SINP/SimulationModel/Mercury/OnFly", // resourceId
+	  	      "spase://IMPEX/SimulationModel/SINP/Mercury/OnFly", // resourceId
 	  	      Some(extraParams) // extra params
 	  	  )
 	  	  
@@ -284,7 +284,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
           )
 	  	  
 	  	  val result = sinp.service.calculateDataPointValueMercury(
-	  	      "impex://SINP/SimulationModel/Mercury/OnFly", // resourceId
+	  	      "spase://IMPEX/SimulationModel/SINP/Mercury/OnFly", // resourceId
 	  	      Some(extraParams), // extra params
 	  	      new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/XYZ_calcDPVMercury.vot") // url_xyz
 	  	   )
@@ -333,7 +333,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	  )
 	  	   
 	  	   val result = sinp.service.calculateCubeSaturn(
-	  	       "impex://SINP/SimulationModel/Saturn/OnFly", // resourceId
+	  	       "spase://IMPEX/SimulationModel/SINP/Saturn/OnFly", // resourceId
 	  	       TimeProvider.getISODate("2008-09-10T12:00:00"),  // start time
 	  	       Some(extraParams), // extra params
 	  	       Some(1.0), // sampling 
@@ -375,7 +375,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	   )
 	  	   
 	  	   val result = sinp.service.calculateDataPointValueSaturn(
-	  	       "impex://SINP/SimulationModel/Saturn/OnFly", // resourceId
+	  	       "spase://IMPEX/SimulationModel/SINP/Saturn/OnFly", // resourceId
 	  	       Some(extraParams), // extra params
 	  	       new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_120points.vot") // url_xyz
 	  	   )
@@ -390,6 +390,51 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	   result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
 	  	   result must beRight // result must be sucessful
 	  	
+	  	}
+	  	
+	  	"respond to getSurface" in {
+	  	  
+	  	   val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
+	  	  
+	  	   val planeNormalVector = Seq(0.0f, 0.0f, 1.0f) // plane normal vector seq
+	  	  
+	  	   val planePoint = Seq(0.0f, 0.0f, 0.0f) // plane point seq
+	  	  
+	  	   val extraParams = ExtraParams_getSurfaceSINP(
+	  	       Some(0.2), // resolution
+	  	       Some(VOTableType) // output filetype
+	  	   )
+	  	  
+	  	   val result = sinp.service.getSurface(
+	  	       "spase://IMPEX/NumericalOutput/SINP/Earth/2003-11-20UT12",
+	  	       None, // variable (@TODO to be tested) 
+	  	       planeNormalVector, // plane normal vector
+	  	       planePoint, // plane point
+	  	       Some(extraParams) // extra params
+	  	   )
+	  	  
+           result.fold(f => println(f), u => {
+               println("Result URL: "+u)
+               val promise = WS.url(u.toString).get()
+               val result = Await.result(promise, Duration(1, "minute")).xml
+               scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+           })
+	  	   
+	  	   result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
+	  	   result must beRight // result must be sucessful
+	  	   
+	  	}
+	  	
+	  	"respond to isAlive" in {
+	  	  
+	  	   val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
+	  	   
+	  	   val result = sinp.service.isAlive()
+	  	   
+	  	   result.fold(f => println(f), b => b must beTrue)
+	  	   result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], Boolean]]
+	  	   result must beRight
+	  	   
 	  	}
 	  	
   }

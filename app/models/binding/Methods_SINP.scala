@@ -13,7 +13,9 @@ trait Methods_SINP {
   def calculateFieldLine(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateFieldLine], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI]
   def calculateCube(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateCube], sampling: Option[Double], cube_size_array: Option[models.binding.Cube_size_array]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
   def calculateCubeMercury(resourceID: String, extraParams: Option[models.binding.ExtraParams_calculateCubeMercury]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
-  def calculateCubeSaturn(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[ExtraParams_calculateCubeSaturn], sampling: Option[Double], cube_size_array: Option[Cube_size_array]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
+  def calculateCubeSaturn(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[ExtraParams_calculateCubeSaturn], sampling: Option[Double], cube_size_array: Option[models.binding.Cube_size_array]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
+  def getSurface(resourceID: String, variable: Option[Seq[String]], planeNormalVector: Seq[Float], planePoint: Seq[Float], extraParams: Option[models.binding.ExtraParams_getSurfaceSINP]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
+  def isAlive(): Either[scalaxb.Soap11Fault[Any], Boolean]
 }
 
 

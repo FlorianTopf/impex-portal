@@ -79,6 +79,8 @@ GET		/methods/SINP/calculateCubeSaturn					controllers.SINPMethods.calculateCube
 
 GET		/methods/SINP/calculateDataPointValueSaturn			controllers.SINPMethods.calculateDataPointValueSaturn
 
+GET		/methods/SINP/getSurface							controllers.SINPMethods.getSurface
+
 # latmos methods
 GET		/methods/LATMOS/getDataPointValue					controllers.LATMOSMethods.getDataPointValue
 
@@ -93,7 +95,6 @@ GET		/methods/LATMOS/getFieldLine						controllers.LATMOSMethods.getFieldLine
 GET		/methods/LATMOS/getDataPointSpectra					controllers.LATMOSMethods.getDataPointSpectra
 
 GET		/methods/LATMOS/getDataPointSpectraSpacecraft		controllers.LATMOSMethods.getDataPointSpectraSpacecraft
-
 
 # fmi methods
 GET		/methods/FMI/getDataPointValue						controllers.FMIMethods.getDataPointValue
