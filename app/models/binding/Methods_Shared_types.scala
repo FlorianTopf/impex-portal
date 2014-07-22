@@ -1,5 +1,7 @@
 package models.binding
 
+case class EmptyElement()
+
 trait EnumDirection
 
 object EnumDirection {

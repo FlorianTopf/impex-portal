@@ -10,6 +10,7 @@ trait Methods_LATMOS {
   def getDataPointSpectraSpacecraft(resourceID: String, spacecraft_name: models.binding.SpacecraftType, startTime: javax.xml.datatype.XMLGregorianCalendar, stopTime: javax.xml.datatype.XMLGregorianCalendar, sampling: javax.xml.datatype.Duration, extraParams: Option[models.binding.ExtraParams_getDataPointSpectraLATMOS]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
   def getFileURL(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, stopTime: javax.xml.datatype.XMLGregorianCalendar): Either[scalaxb.Soap11Fault[Any], models.binding.VOTABLE]
   def getFieldLine(resourceID: String, variable: Option[Seq[String]], url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getFieldLineLATMOS]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
+  def isAlive(): Either[scalaxb.Soap11Fault[Any], Boolean]
 }
 
 

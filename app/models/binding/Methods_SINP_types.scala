@@ -214,9 +214,6 @@ case class ExtraParams_getSurfaceSINP(Resolution: Option[Double] = None,
   OutputFileType: Option[models.binding.OutputFormatType] = None)
 
 
-case class EmptyElement()
-
-
 case class CalculateDataPointValueFixedTime(ResourceID: String,
   StartTime: javax.xml.datatype.XMLGregorianCalendar,
   extraParams: Option[models.binding.ExtraParams_calculateDataPointValueFixedTime] = None,

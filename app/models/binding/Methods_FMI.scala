@@ -12,6 +12,7 @@ trait Methods_FMI {
   def getParticleTrajectory(resourceID: String, url_XYZ: java.net.URI, extraParams: Option[models.binding.ExtraParams_getParticleTrajectory]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
   def getMostRelevantRun(objectValue: EnumRegion, runCount: Option[BigInt], sW_parameters: models.binding.SW_parameter_list): Either[scalaxb.Soap11Fault[Any], String]
   def getVOTableURL(table_name: Option[String], description: Option[String], fields: Seq[models.binding.VOTable_field]): Either[scalaxb.Soap11Fault[Any], java.net.URI]
+  def isAlive(): Either[scalaxb.Soap11Fault[Any], Boolean]
 }
 
 

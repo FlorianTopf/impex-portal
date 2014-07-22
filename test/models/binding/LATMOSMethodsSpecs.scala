@@ -229,9 +229,9 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
            result must beRight // result must be successful
-           
-           
         }
+        
+        // @TODO isAlive is missing
         
   }
   

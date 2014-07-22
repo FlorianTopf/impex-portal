@@ -78,7 +78,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingExtraParams_calculateCubeSaturnFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateCubeSaturn] = new DefaultBindingExtraParams_calculateCubeSaturnFormat {}
   implicit lazy val BindingExtraParams_calculateCubeJupiterFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateCubeJupiter] = new DefaultBindingExtraParams_calculateCubeJupiterFormat {}
   implicit lazy val BindingExtraParams_getSurfaceSINPFormat: scalaxb.XMLFormat[models.binding.ExtraParams_getSurfaceSINP] = new DefaultBindingExtraParams_getSurfaceSINPFormat {}
-  // @TODO should be used by all services
+  // isAlive() request is used by all services
   implicit lazy val BindingEmptyElementFormat: scalaxb.XMLFormat[models.binding.EmptyElement] = new DefaultBindingEmptyElementFormat {}
   implicit lazy val BindingDataPointValueSINPFormat: scalaxb.XMLFormat[models.binding.DataPointValueSINP] = new DefaultBindingDataPointValueSINPFormat {}
   implicit lazy val BindingCalculateDataPointValueFixedTimeFormat: scalaxb.XMLFormat[models.binding.CalculateDataPointValueFixedTime] = new DefaultBindingCalculateDataPointValueFixedTimeFormat {}
@@ -860,6 +860,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
           case Right((header, body)) =>
             Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
+      def isAlive(): Either[scalaxb.Soap11Fault[Any], Boolean] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.EmptyElement(), Some("http://impex-fp7.fmi.fi"), "emptyElement", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("Alive"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[Boolean](body.headOption getOrElse {body}))
+        }
     }
   }
 
@@ -1230,6 +1237,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
             Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def isAlive(): Either[scalaxb.Soap11Fault[Any], Boolean] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.EmptyElement(), Some("http://impex.latmos.ipsl.fr"), "emptyElement", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("Alive"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[Boolean](body.headOption getOrElse {body}))
         }
     }
   }
@@ -2100,7 +2114,6 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
           case Right((header, body)) =>
             Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
-     // @TODO this should be the same for all other providers
      def isAlive(): Either[scalaxb.Soap11Fault[Any], Boolean] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.EmptyElement(), Some("http://smdc.sinp.msu.ru"), "emptyElement", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("Alive"))) match {

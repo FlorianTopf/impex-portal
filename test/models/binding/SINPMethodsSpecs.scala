@@ -425,6 +425,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	   
 	  	}
 	  	
+	  	
 	  	"respond to isAlive" in {
 	  	  
 	  	   val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
@@ -434,7 +435,6 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	   result.fold(f => println(f), b => b must beTrue)
 	  	   result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], Boolean]]
 	  	   result must beRight
-	  	   
 	  	}
 	  	
   }

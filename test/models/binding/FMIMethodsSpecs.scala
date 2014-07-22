@@ -338,7 +338,19 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
             
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
            result must beRight // result must be successful
-        }
+        } 
+    
+    
+	  	"respond to isAlive" in {
+	  	  
+	  	   val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
+	  	   
+	  	   val result = sinp.service.isAlive()
+	  	   
+	  	   result.fold(f => println(f), b => b must beTrue)
+	  	   result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], Boolean]]
+	  	   result must beRight
+	  	}
         
   }
   
