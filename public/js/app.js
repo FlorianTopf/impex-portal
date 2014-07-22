@@ -1328,6 +1328,7 @@ else {
             this.scope.$broadcast('handle-service-error', message);
         };
 
+        //@TODO here we might add a transition to a sub-state...
         MethodsCtrl.prototype.setActive = function (method) {
             var _this = this;
             this.dropdownStatus.active = this.trimPath(method.path);

@@ -10,7 +10,7 @@
 			    ng-class="{ active: !userdirvm.isCollapsed[res.id] }"
 				ng-click="userdirvm.toggleResultDetails(res.id)">
 					Service Result {{ res.id }}<br/>
-					{{ res.method }}
+					{{ res.method.replace('/methods', '') }}
 			</button>
 		</div>
 	</div>

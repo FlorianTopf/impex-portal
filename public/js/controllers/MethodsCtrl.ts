@@ -117,6 +117,7 @@ module portal {
             active: "Choose Method"
         }
         
+        //@TODO here we might add a transition to a sub-state...
         public setActive(method: Api) {
             this.dropdownStatus.active = this.trimPath(method.path)
             this.currentMethod = method

@@ -6,9 +6,13 @@
 		ng-repeat="database in vm.configService.config.databases" 
 		ng-if="(database.type == 'simulation') && !(database.tree | isEmpty)">
 		<div ng-show="vm.ready">
-			<button type="button" class="btn btn-default" 
+			<button type="button" class="btn btn-primary btn-map" 
 				ui-sref="app.portal.registry({id:database.id})" 
-				tooltip="Show registry of {{ database.name }}">{{ database.name }} Simulations</button>
+				tooltip="Show registry of {{ database.name }}">
+				<span style="float: left;">{{ database.name }}</span><br/>
+				<img src="public/img/layout/database.png"/><br/>
+				<span style="float: right;">Simulations</span>
+			</button>
     	</div>
 	</div>
 </div>
@@ -20,9 +24,13 @@
 		ng-repeat="database in vm.configService.config.databases" 
 		ng-if="(database.type == 'simulation') && !(database.methods | isEmpty)">
 		<div ng-show="vm.ready">
-			<button type="button" class="btn btn-default" 
+			<button type="button" class="btn btn-success btn-map"
 				ui-sref="app.portal.methods({id:database.id})" 
-				tooltip="Show methods of {{ database.name }}">{{ database.name }} Data Access</button>
+				tooltip="Show methods of {{ database.name }}">
+				<span style="float: left;">{{ database.name }}</span><br/>
+				<img src="public/img/layout/service.png"/><br/>
+				<span style="float: right;">Data Access</span>
+			</button>
     	</div>
 	</div>
 </div>
