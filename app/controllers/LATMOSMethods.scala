@@ -15,7 +15,6 @@ import play.api.libs.json._
 import java.text.ParseException
 import soapenvelope11._
 
-// @TODO change ids after renaming
 
 @Api(
     value = "/methods", 
@@ -43,15 +42,27 @@ object LATMOSMethods extends MethodsController {
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
-        name = "url_xyz",
-        value = "votable url",
+        name = "votable_url",
+        value = "VOTable URL",
         defaultValue = "http://impex.latmos.ipsl.fr/Vmvrv5e.xml",
         required = true,
         dataType = "string",
         paramType = "query"),
     new ApiImplicitParam(
+        name = "variable",
+        value = "Parameter Keys",
+        required = false,
+        dataType = "list(string)",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "imf_clockangle",
+        value = "IMF Clockangle",
+        required = false,
+        dataType = "double",
+        paramType = "query"),
+    new ApiImplicitParam(
         name = "output_filetype",
-        value = "output filetype",
+        value = "Output Filetype",
         defaultValue = "VOTable",
         allowableValues = "VOTable,netCDF",
         required = false,
@@ -62,19 +73,22 @@ object LATMOSMethods extends MethodsController {
     try {
     // mandatory parameters
     val id = request.req.get("id").get
-    val url = request.req.get("url_xyz").get
+    val url = request.req.get("votable_url").get
+    // opt params
+    val variable = request.req.get("variable")
     // extra params
+    val imf = request.req.get("imf_clockangle")
     val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointValueLATMOS(
-        None, // imf clockangle (@TODO to be added)
+        validateOptDouble(imf), // imf clockangle
         validateFiletype(filetype) // output filetype
     )
     
     val result = latmos.service.getDataPointValue(
         id, // resourceId
-        None, // variable (@TODO to be added)
-        new URI(url), // url_xyz
+        validateOptStringSeq(variable), // variable
+        new URI(url), // votable_url
         Some(extraParams) // extra params
      )
     
@@ -105,8 +119,8 @@ object LATMOSMethods extends MethodsController {
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
-        name = "sc_name",
-        value = "spacecraft name",
+        name = "spacecraft_name",
+        value = "Spacecraft Name",
         defaultValue = "MEX",
         allowableValues = "MEX,MGS,VEX",
         required = true,
@@ -114,28 +128,40 @@ object LATMOSMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "start_time",
-        value = "start time",
+        value = "Start Time",
         defaultValue = "2007-07-12T00:00:00",
         required = true,
-        dataType = "ISO 8601 datetime",
+        dataType = "dateTime",
         paramType = "query"),
     new ApiImplicitParam(
         name = "stop_time",
-        value = "stop time",
+        value = "Stop Time",
         defaultValue = "2007-07-13T00:00:00",
         required = true,
-        dataType = "ISO 8601 datetime",
+        dataType = "dateTime",
         paramType = "query"),
     new ApiImplicitParam(
         name = "sampling",
-        value = "sampling",
+        value = "Sampling",
         defaultValue = "PT60S",
         required = true,
-        dataType = "ISO 8601 duration",
+        dataType = "duration",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "variable",
+        value = "Parameter Keys",
+        required = false,
+        dataType = "list(string)",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "imf_clockangle",
+        value = "IMF Clockangle",
+        required = false,
+        dataType = "double",
         paramType = "query"),
     new ApiImplicitParam(
         name = "output_filetype",
-        value = "output filetype",
+        value = "Output Filetype",
         defaultValue = "VOTable",
         allowableValues = "VOTable,netCDF",
         required = false,
@@ -146,21 +172,24 @@ object LATMOSMethods extends MethodsController {
     try {
     // mandatory parameters
     val id = request.req.get("id").get
-    val scName = request.req.get("sc_name").get
+    val scName = request.req.get("spacecraft_name").get
     val startTime = request.req.get("start_time").get
     val stopTime = request.req.get("stop_time").get
     val sampling = request.req.get("sampling").get
+    // opt params
+    val variable = request.req.get("variable")
     // extra params
+    val imf = request.req.get("imf_clockangle")
     val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointValueLATMOS(
-        Some(120.0), // imf clockangle (@TODO to be added)
+        validateOptDouble(imf),//Some(120.0), // imf clockangle 
         validateFiletype(filetype) // output filetype
     )
                   
     val result = latmos.service.getDataPointValueSpacecraft(
         id, // resourceId
-        None, // variable (@TODO to be added)
+        validateOptStringSeq(variable), // variable
         SpacecraftType.fromString(scName, 
         scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")), // spacecraft name
         TimeProvider.getISODate(startTime), // start time
@@ -201,21 +230,39 @@ object LATMOSMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "plane_point", 
-        value = "plane point", 
+        value = "Plane Point", 
         defaultValue = "0.0,0.0,0.0",
         required = true, 
         dataType = "list(float)", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "plane_normal_vector", 
-        value = "plane normal vector", 
+        value = "Plane Normal Vector", 
         defaultValue = "0.0,0.0,1.0",
         required = true, 
         dataType = "list(float)", 
         paramType = "query"),
     new ApiImplicitParam(
+        name = "variable",
+        value = "Parameter Keys",
+        required = false,
+        dataType = "list(string)",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "imf_clockangle",
+        value = "IMF Clockangle",
+        required = false,
+        dataType = "double",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "resolution",
+        value = "Resolution",
+        required = false,
+        dataType = "double",
+        paramType = "query"),
+    new ApiImplicitParam(
         name = "output_filetype",
-        value = "output filetype",
+        value = "Output Filetype",
         defaultValue = "VOTable",
         allowableValues = "VOTable,netCDF",
         required = false,
@@ -228,18 +275,22 @@ object LATMOSMethods extends MethodsController {
     val id = request.req.get("id").get
     val plane_point = request.req.get("plane_point").get
     val plane_n_vector = request.req.get("plane_normal_vector").get
+    // opt params
+    val variable = request.req.get("variable")
     // extra params
+    val imf = request.req.get("imf_clock_angle")
+    val resolution = request.req.get("resolution")
     val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getSurfaceLATMOS(
-        None, // resolution (@TODO TO BE TESTED)
-        Some(0), // imf clockangle (@TODO to be added)
+        validateOptDouble(resolution), // resolution 
+        validateOptDouble(imf),//Some(0.0), // imf clockangle 
         validateFiletype(filetype) // output filetype
     )
            
     val result = latmos.service.getSurface(
         id, // resourceId
-        None, // variable (@TODO to be added)
+        validateOptStringSeq(variable), // variable 
         validateFloatSeq(plane_point), // plane point
         validateFloatSeq(plane_n_vector), // plane normal vector
         Some(extraParams) // extra params
@@ -273,17 +324,17 @@ object LATMOSMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "start_time",
-        value = "start time",
+        value = "Start Time",
         defaultValue = "2007-07-12T00:00:00",
         required = true,
-        dataType = "ISO 8601 datetime",
+        dataType = "dateTime",
         paramType = "query"),
     new ApiImplicitParam(
         name = "stop_time",
-        value = "stop time",
+        value = "Stop Time",
         defaultValue = "2007-07-13T00:00:00",
         required = true,
-        dataType = "ISO 8601 datetime",
+        dataType = "dateTime",
         paramType = "query")))    
   @Path("/getFileURL")
   def getFileURL = PortalAction { implicit request => 
@@ -342,25 +393,37 @@ object LATMOSMethods extends MethodsController {
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
-        name = "url_xyz",
-        value = "votable url",
+        name = "votable_url",
+        value = "VOTable URL",
         defaultValue = "http://impex.latmos.ipsl.fr/Vmvrv5e.xml",
         required = true,
         dataType = "string",
         paramType = "query"),
     new ApiImplicitParam(
-        name = "output_filetype",
-        value = "output filetype",
-        defaultValue = "VOTable",
-        allowableValues = "VOTable,netCDF",
+        name = "variable",
+        value = "Parameter Keys",
+        required = false,
+        dataType = "list(string)",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "step_size",
+        value = "Step Size",
+        required = false,
+        dataType = "double",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "direction",
+        value = "Direction",
+        defaultValue = "Both",
+        allowableValues = "Both,Forward,Backward",
         required = false,
         dataType = "string",
         paramType = "query"),
     new ApiImplicitParam(
-        name = "direction",
-        value = "direction",
-        defaultValue = "Both",
-        allowableValues = "Both,Forward,Backward",
+        name = "output_filetype",
+        value = "Output Filetype",
+        defaultValue = "VOTable",
+        allowableValues = "VOTable,netCDF",
         required = false,
         dataType = "string",
         paramType = "query")))  
@@ -369,21 +432,24 @@ object LATMOSMethods extends MethodsController {
     try {
     // mandatory parameters
     val id = request.req.get("id").get
-    val url = request.req.get("url_xyz").get
+    val url = request.req.get("votable_url").get
+    // opt params
+    val variable = request.req.get("variable")
     // extra params
     val direction = request.req.get("direction").getOrElse("")
     val filetype = request.req.get("output_filetype").getOrElse("")
+    val stepSize = request.req.get("step_size")
     
     val extraParams = ExtraParams_getFieldLineLATMOS(
         validateDirection(direction), // direction
-        None, // stepsize (@TODO TO BE TESTED)
+        validateOptDouble(stepSize), // stepsize 
         validateFiletype(filetype) // output filetype
     )
      
     val result = latmos.service.getFieldLine(
         id, // resourceId
-        None, // variable (@TODO to be added)
-        new URI(url), // url_xyz
+        validateOptStringSeq(variable), // variable 
+        new URI(url), // votable_url
         Some(extraParams) // extra params
     )
      
@@ -414,15 +480,27 @@ object LATMOSMethods extends MethodsController {
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
-        name = "url_xyz",
-        value = "votable url",
+        name = "votable_url",
+        value = "VOTable URL",
         defaultValue = "http://impex.latmos.ipsl.fr/Vmrmf2.xml",
         required = true,
         dataType = "string",
         paramType = "query"),
     new ApiImplicitParam(
+        name = "imf_clockangle",
+        value = "IMF Clockangle",
+        required = false,
+        dataType = "double",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "energy_channel",
+        value = "Energy Channel",
+        required = false,
+        dataType = "list(string)",
+        paramType = "query"),
+    new ApiImplicitParam(
         name = "output_filetype",
-        value = "output filetype",
+        value = "Output Filetype",
         defaultValue = "VOTable",
         allowableValues = "VOTable,netCDF",
         required = false,
@@ -433,19 +511,21 @@ object LATMOSMethods extends MethodsController {
     try {
     // mandatory
     val id = request.req.get("id").get
-    val url = request.req.get("url_xyz").get
+    val url = request.req.get("votable_url").get
     // extra params
+    val imf = request.req.get("imf_clockangle")
     val filetype = request.req.get("output_filetype").getOrElse("")
+    val energyChannel = request.req.get("energy_channel")
     
     val extraParams = ExtraParams_getDataPointSpectraLATMOS(
-        None, // imf clockangle (@TODO TO BE TESTED)
+        validateOptDouble(imf), // imf clockangle 
         validateFiletype(filetype), // output filetype
-        None // energy channel (@TODO TO BE TESTED)
+        validateOptStringSeq(energyChannel) // energy channel 
     )
            
     val result = latmos.service.getDataPointSpectra(
         id, // resourceId
-        new URI(url), // url_xyz
+        new URI(url), // votable_url
         Some(extraParams) // extra params
     )
     
@@ -476,8 +556,8 @@ object LATMOSMethods extends MethodsController {
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
-        name = "sc_name",
-        value = "spacecraft name",
+        name = "spacecraft_name",
+        value = "Spacecraft Name",
         defaultValue = "MEX",
         allowableValues = "MEX,MGS,VEX",
         required = true,
@@ -485,28 +565,40 @@ object LATMOSMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "start_time",
-        value = "start time",
+        value = "Start Time",
         defaultValue = "2010-01-01T18:00:00",
         required = true,
-        dataType = "ISO 8601 datetime",
+        dataType = "dateTime",
         paramType = "query"),
     new ApiImplicitParam(
         name = "stop_time",
-        value = "stop time",
+        value = "Stop Time",
         defaultValue = "2010-01-01T19:00:00",
         required = true,
-        dataType = "ISO 8601 datetime",
+        dataType = "datetime",
         paramType = "query"),
     new ApiImplicitParam(
         name = "sampling",
-        value = "sampling",
+        value = "Sampling",
         defaultValue = "PT60S",
         required = true,
-        dataType = "ISO 8601 duration",
+        dataType = "duration",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "imf_clockangle",
+        value = "IMF Clockangle",
+        required = false,
+        dataType = "double",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "energy_channel",
+        value = "Energy Channel",
+        required = false,
+        dataType = "list(string)",
         paramType = "query"),
     new ApiImplicitParam(
         name = "output_filetype",
-        value = "output filetype",
+        value = "Output Filetype",
         defaultValue = "VOTable",
         allowableValues = "VOTable,netCDF",
         required = false,
@@ -517,17 +609,19 @@ object LATMOSMethods extends MethodsController {
     try {
     // mandatory parameters
     val id = request.req.get("id").get
-    val scName = request.req.get("sc_name").get
+    val scName = request.req.get("spacecraft_name").get
     val startTime = request.req.get("start_time").get
     val stopTime = request.req.get("stop_time").get
     val sampling = request.req.get("sampling").get
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse("")
+    val imf = request.req.get("imf_clockangle")
+    val energyChannel = request.req.get("energy_channel")
     
     val extraParams = ExtraParams_getDataPointSpectraLATMOS(
-        None, // imf clockangle (@TODO TO BE TESTED)
+        validateOptDouble(imf), // imf clockangle 
         validateFiletype(filetype), // output filetype
-        None // energy channel (@TODO TO BE TESTED)
+        validateOptStringSeq(energyChannel) // energy channel 
     )
            
     val result = latmos.service.getDataPointSpectraSpacecraft(

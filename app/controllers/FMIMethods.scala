@@ -43,15 +43,21 @@ object FMIMethods extends MethodsController {
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
-        name = "url_xyz",
-        value = "votable url",
+        name = "votable_url",
+        value = "VOTable URL",
         defaultValue = "http://impex-fp7.fmi.fi/ws_tests/input/getDataPointValue_input.vot",
         required = true,
         dataType = "string",
         paramType = "query"),
     new ApiImplicitParam(
+        name = "variable",
+        value = "Parameter Keys",
+        required = false,
+        dataType = "list(string)",
+        paramType = "query"),
+    new ApiImplicitParam(
         name = "interpolation_method",
-        value = "interpolation method",
+        value = "Interpolation Method",
         defaultValue = "Linear",
         allowableValues = "Linear,NearestGridPoint",
         required = false,
@@ -59,7 +65,7 @@ object FMIMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "output_filetype",
-        value = "output filetype",
+        value = "Output Filetype",
         defaultValue = "VOTable",
         allowableValues = "VOTable,netCDF",
         required = false,
@@ -70,7 +76,9 @@ object FMIMethods extends MethodsController {
   	try {
     // mandatory parameters
     val id = request.req.get("id").get
-    val url = request.req.get("url_xyz").get
+    val url = request.req.get("votable_url").get
+    // opt params
+    val variable = request.req.get("variable")
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse("")
     val interpolation = request.req.get("interpolation_method").getOrElse("")
@@ -82,8 +90,8 @@ object FMIMethods extends MethodsController {
     
     val result = fmi.service.getDataPointValue(
         id, // resourceId
-        None, // variable (@TODO to be added)
-        new URI(url), // url_xyz
+        validateOptStringSeq(variable), // variable 
+        new URI(url), // votable_url
         Some(extraParams) // extra params
     )
     
@@ -93,11 +101,12 @@ object FMIMethods extends MethodsController {
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "mandatory parameter missing", request.req)))
       // @FIXME this is because there are errors not encoded as SOAP-FAULT
-      case e: RuntimeException =>
+      case e: RuntimeException => 
         NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
                 "unknown external web service error", request.req)))
   	}
   }
+  
   
   @GET
   @ApiOperation(
@@ -117,38 +126,43 @@ object FMIMethods extends MethodsController {
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
-        name = "sc_name",
-        value = "spacecraft name",
+        name = "spacecraft_name",
+        value = "Spacecraft Name",
         defaultValue = "CLUSTER1",
-        // @TODO add all possible values here
-        allowableValues = "CLUSTER1,CLUSTER2,CLUSTER3,CLUSTER4",
+        allowableValues = "MEX,MGS,VEX,MAVEN,MESSENGER,CLUSTER1,CLUSTER2,CLUSTER3,CLUSTER4,IMP-8,GEOTAIL,POLAR",
         required = true,
         dataType = "string",
         paramType = "query"),
     new ApiImplicitParam(
         name = "start_time",
-        value = "start time",
+        value = "Start Time",
         defaultValue = "2010-08-02T00:00:00",
         required = true,
-        dataType = "ISO 8601 datetime",
+        dataType = "dateTime",
         paramType = "query"),
     new ApiImplicitParam(
         name = "stop_time",
-        value = "stop time",
+        value = "Stop Time",
         defaultValue = "2010-08-02T01:00:00",
         required = true,
-        dataType = "ISO 8601 datetime",
+        dataType = "dateTime",
         paramType = "query"),
     new ApiImplicitParam(
         name = "sampling",
-        value = "sampling",
+        value = "Sampling",
         defaultValue = "PT60S",
         required = true,
-        dataType = "ISO 8601 duration",
+        dataType = "duration",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "variable",
+        value = "Parameter Keys",
+        required = false,
+        dataType = "list(string)",
         paramType = "query"),
     new ApiImplicitParam(
         name = "interpolation_method",
-        value = "interpolation method",
+        value = "Interpolation Method",
         defaultValue = "Linear",
         allowableValues = "Linear,NearestGridPoint",
         required = false,
@@ -156,7 +170,7 @@ object FMIMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "output_filetype",
-        value = "output filetype",
+        value = "Output Filetype",
         defaultValue = "VOTable",
         allowableValues = "VOTable,netCDF",
         required = false,
@@ -167,10 +181,12 @@ object FMIMethods extends MethodsController {
     try {
     // mandatory parameters
     val id = request.req.get("id").get
-    val scName = request.req.get("sc_name").get
+    val scName = request.req.get("spacecraft_name").get
     val startTime = request.req.get("start_time").get
     val stopTime = request.req.get("stop_time").get
     val sampling = request.req.get("sampling").get
+    // opt params
+    val variable = request.req.get("variable")
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse("")
     val interpolation = request.req.get("interpolation_method").getOrElse("")
@@ -182,7 +198,7 @@ object FMIMethods extends MethodsController {
            
     val result = fmi.service.getDataPointValueSpacecraft(
         id, // resourceId
-        None, // variable (@TODO to be added)
+        validateOptStringSeq(variable), // variable
         SpacecraftType.fromString(scName, 
             scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")), // spacecraft name
         TimeProvider.getISODate(startTime), // start time
@@ -206,6 +222,7 @@ object FMIMethods extends MethodsController {
     }
   }
   
+  
   @GET
   @ApiOperation(
       value = "getSurface at FMI", 
@@ -225,21 +242,33 @@ object FMIMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "plane_point", 
-        value = "plane point", 
+        value = "Plane Point", 
         defaultValue = "1.0,0.0,0.0",
         required = true, 
         dataType = "list(float)", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "plane_normal_vector", 
-        value = "plane normal vector", 
+        value = "Plane Normal Vector", 
         defaultValue = "3.7e6,0.0,0.0",
         required = true, 
         dataType = "list(float)", 
         paramType = "query"),
     new ApiImplicitParam(
+        name = "variable",
+        value = "Parameter Keys",
+        required = false,
+        dataType = "list(string)",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "resolution",
+        value = "Resolution",
+        required = false,
+        dataType = "double",
+        paramType = "query"),
+    new ApiImplicitParam(
         name = "interpolation_method",
-        value = "interpolation method",
+        value = "Interpolation Method",
         defaultValue = "Linear",
         allowableValues = "Linear,NearestGridPoint",
         required = false,
@@ -247,7 +276,7 @@ object FMIMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "output_filetype",
-        value = "output filetype",
+        value = "Output Filetype",
         defaultValue = "VOTable",
         allowableValues = "VOTable,netCDF",
         required = false,
@@ -258,23 +287,26 @@ object FMIMethods extends MethodsController {
     try {
     // mandatory parameters
     val id = request.req.get("id").get
-    val plane_point = request.req.get("plane_point").get
-    val plane_n_vector = request.req.get("plane_normal_vector").get
+    val planePoint = request.req.get("plane_point").get
+    val planeVector = request.req.get("plane_normal_vector").get
+    // opt params
+    val variable = request.req.get("variable")
     // extra params
+    val resolution = request.req.get("resolution")
     val filetype = request.req.get("output_filetype").getOrElse("")
     val interpolation = request.req.get("interpolation_method").getOrElse("")
     
     val extraParams = ExtraParams_getSurfaceFMI(
-        None, // resolution (@TODO TO BE TESTED)
+        validateOptDouble(resolution), // resolution
         validateFiletype(filetype), // output filetype
         validateInterpolation(interpolation) // interpolation method
     )
            
     val result = fmi.service.getSurface(
         id, // resoureId
-        None, // variable (@TODO to be added)
-        validateFloatSeq(plane_point), // plane point
-        validateFloatSeq(plane_n_vector), // plane normal vector
+        validateOptStringSeq(variable), // variable
+        validateFloatSeq(planePoint), // plane point
+        validateFloatSeq(planeVector), // plane normal vector
         Some(extraParams) // extra params
     ) 
     
@@ -298,6 +330,7 @@ object FMIMethods extends MethodsController {
       value = "getVOTableURL at FMI", 
       nickname = "getVOTableURL",
       notes = "returns an URL to a VOTable XML file based on request JSON object", 
+      //response = classOf[models.binding.VOTableURL],
       httpMethod = "POST")
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "request failed")))
@@ -353,236 +386,235 @@ object FMIMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "run_count", 
-        value = "Run count", 
+        value = "Run Count", 
         defaultValue = "2",
         required = false, 
         dataType = "integer", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_density_value", 
-        value = "SW density value", 
+        value = "SW Density", 
         defaultValue = "5e6",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_density_weight", 
-        value = "SW density weight", 
+        value = "SW Density Weight", 
         defaultValue = "2",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_density_scale", 
-        value = "SW density scale", 
+        value = "SW Density Scale", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_density_fun", 
-        value = "SW density function", 
+        value = "SW Density Function", 
         defaultValue = "",
         required = false, 
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_temp_value", 
-        value = "SW temperature value", 
+        value = "SW Temperature Value", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_temp_weight", 
-        value = "SW temperature weight", 
+        value = "SW Temperature Weight", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_temp_scale", 
-        value = "SW temperature scale", 
+        value = "SW Temperature Scale", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_temp_fun", 
-        value = "SW temperature function", 
+        value = "SW Temperature Function", 
         defaultValue = "",
         required = false, 
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_utot_value", 
-        value = "SW total velocity value", 
+        value = "SW Total Velocity", 
         defaultValue = "4.5e5",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_utot_weight", 
-        value = "SW total velocity weight", 
+        value = "SW Total Velocity Weight", 
         defaultValue = "1",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_utot_scale", 
-        value = "SW total velocity scale", 
+        value = "SW Total Velocity Scale", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_utot_fun", 
-        value = "SW total velocity function", 
+        value = "SW Total Velocity Function", 
         defaultValue = "",
         required = false, 
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_bx_value", 
-        value = "SW Bx value", 
+        value = "SW Bx", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_bx_weight", 
-        value = "SW Bx weight", 
+        value = "SW Bx Weight", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_bx_scale", 
-        value = "SW Bx scale", 
+        value = "SW Bx Scale", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"), 
     new ApiImplicitParam(
         name = "sw_bx_fun", 
-        value = "SW Bx function", 
+        value = "SW Bx Function", 
         defaultValue = "",
         required = false, 
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_by_value", 
-        value = "SW By value", 
+        value = "SW By", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_by_weight", 
-        value = "SW By weight", 
+        value = "SW By Weight", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_by_scale", 
-        value = "SW By scale", 
+        value = "SW By Scale", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_by_fun", 
-        value = "SW By function", 
+        value = "SW By Function", 
         defaultValue = "",
         required = false, 
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_bz_value", 
-        value = "SW Bz value", 
+        value = "SW Bz", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_bz_weight", 
-        value = "SW Bz weight", 
+        value = "SW Bz Weight", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_bz_scale", 
-        value = "SW Bz scale", 
+        value = "SW Bz Scale", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_bz_fun", 
-        value = "SW Bz function", 
+        value = "SW Bz Function", 
         defaultValue = "",
         required = false, 
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_btot_value", 
-        value = "SW total B value", 
+        value = "SW Total B", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_btot_weight", 
-        value = "SW total B weight", 
+        value = "SW Total B Weight", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_btot_scale", 
-        value = "SW total B scale", 
+        value = "SW Total B Scale", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_btot_fun", 
-        value = "SW Btot function", 
+        value = "SW Btot Function", 
         defaultValue = "",
         required = false, 
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_fun_value", 
-        value = "SW function value", 
+        value = "SW Function", 
         defaultValue = "0.5",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_fun_weight", 
-        value = "SW function weight", 
+        value = "SW Function Weight", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_fun_scale", 
-        value = "SW function scale", 
+        value = "SW Function Scale", 
         defaultValue = "1",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_fun_fun", 
-        value = "SW function function", 
+        value = "SW Function Function", 
         defaultValue = "abs(SW_Bx/SW_Btot)",
         required = false, 
         dataType = "string", 
-        paramType = "query")
-  ))
+        paramType = "query")))
   @Path("/getMostRelevantRun")
   def getMostRelevantRun = PortalAction { implicit request => 
   	try {
@@ -643,9 +675,9 @@ object FMIMethods extends MethodsController {
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "illegal number provided", request.req)))
       // @FIXME this is because there are errors not encoded as SOAP-FAULT
-      //case e: RuntimeException =>
-      //  NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-      //          "unknown external web service error", request.req)))
+      case e: RuntimeException =>
+        NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
+                "unknown external web service error", request.req)))
     }
   }
   
@@ -668,15 +700,45 @@ object FMIMethods extends MethodsController {
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
-        name = "url_xyz",
-        value = "votable url",
+        name = "votable_url",
+        value = "VOTable URL",
         defaultValue = "http://impex-fp7.fmi.fi/ws_tests/input/getFieldLine_input.vot",
         required = true,
         dataType = "string",
         paramType = "query"),
     new ApiImplicitParam(
+        name = "variable",
+        value = "Parameter Keys",
+        required = false,
+        dataType = "list(string)",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "step_size",
+        value = "Step Size",
+        required = false, 
+        dataType = "double",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "max_steps",
+        value = "Max Steps",
+        required = false,
+        dataType = "integer",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "stop_cond_radius",
+    	value = "Stop Condition Radius",
+    	required = false,
+    	dataType = "double",
+    	paramType = "query"),
+    new ApiImplicitParam(
+        name = "stop_cond_region",
+        value = "Stop Condition Region",
+        required = false,
+        dataType = "list(float)",
+        paramType = "query"),
+    new ApiImplicitParam(
         name = "output_filetype",
-        value = "output filetype",
+        value = "Output Filetype",
         defaultValue = "VOTable",
         allowableValues = "VOTable,netCDF",
         required = false,
@@ -684,7 +746,7 @@ object FMIMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "direction",
-        value = "direction",
+        value = "Direction",
         defaultValue = "Both",
         allowableValues = "Both,Forward,Backward",
         required = false,
@@ -695,24 +757,30 @@ object FMIMethods extends MethodsController {
     try {
     // mandatory parameters
     val id = request.req.get("id").get
-    val url = request.req.get("url_xyz").get
+    val url = request.req.get("votable_url").get
+    // opt params
+    val variable = request.req.get("variable")
     // extra params
     val direction = request.req.get("direction").getOrElse("")
     val filetype = request.req.get("output_filetype").getOrElse("")
+    val stepSize = request.req.get("step_size")
+    val maxSteps = request.req.get("max_steps")
+    val stopCondRadius = request.req.get("stop_cond_radius")
+    val stopCondRegion = request.req.get("stop_cond_region")
     
     val extraParams = ExtraParams_getFieldLineFMI(
         validateDirection(direction), // direction
-        None, // step size (@TODO TO BE TESTED)
-        Some(BigInt(100)), // max steps (@TODO to be added)
-        Some(0), // stop condition radius (@TODO to be added)
-        None, // stop condition region (@TODO TO BE TESTED)
+        validateOptDouble(stepSize), // step size
+        validateOptBigInt(maxSteps),//Some(BigInt(100)), // max steps 
+        validateOptDouble(stopCondRadius),//Some(0.0), // stop condition radius 
+        validateOptFloatSeq(stopCondRegion), // stop condition region 
         validateFiletype(filetype) // output filetype
     )
           
     val result = fmi.service.getFieldLine(
         id, // resourceId
-        None, // variable (not supported ATM) 
-        new URI(url), // url_xyz
+        validateOptStringSeq(variable), // variable
+        new URI(url), // votable_url
         Some(extraParams) // extra params
     )
            
@@ -747,15 +815,39 @@ object FMIMethods extends MethodsController {
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
-        name = "url_xyz",
-        value = "votable url",
+        name = "votable_url",
+        value = "VOTable URL",
         defaultValue = "http://impex-fp7.fmi.fi/ws_tests/input/getParticleTrajectory_input.vot",
         required = true,
         dataType = "string",
         paramType = "query"),
     new ApiImplicitParam(
+        name = "step_size",
+        value = "Step Size",
+        required = false, 
+        dataType = "double",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "max_steps",
+        value = "Max Steps",
+        required = false,
+        dataType = "integer",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "stop_cond_radius",
+    	value = "Stop Condition Radius",
+    	required = false,
+    	dataType = "double",
+    	paramType = "query"),
+    new ApiImplicitParam(
+        name = "stop_cond_region",
+        value = "Stop Condition Region",
+        required = false,
+        dataType = "list(float)",
+        paramType = "query"),
+    new ApiImplicitParam(
         name = "output_filetype",
-        value = "output filetype",
+        value = "Output Filetype",
         defaultValue = "VOTable",
         allowableValues = "VOTable,netCDF",
         required = false,
@@ -763,7 +855,7 @@ object FMIMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "interpolation_method",
-        value = "interpolation method",
+        value = "Interpolation Method",
         defaultValue = "Linear",
         allowableValues = "Linear,NearestGridPoint",
         required = false,
@@ -782,25 +874,29 @@ object FMIMethods extends MethodsController {
     try {
     // mandatory parameters
     val id = request.req.get("id").get
-    val url = request.req.get("url_xyz").get
+    val url = request.req.get("votable_url").get
     // extra params
     val direction = request.req.get("direction").getOrElse("Both")
     val filetype = request.req.get("output_filetype").getOrElse("")
     val interpolation = request.req.get("interpolation_method").getOrElse("")
+    val stepSize = request.req.get("step_size")
+    val maxSteps = request.req.get("max_steps")
+    val stopCondRadius = request.req.get("stop_cond_radius")
+    val stopCondRegion = request.req.get("stop_cond_region")
     
     val extraParams = ExtraParams_getParticleTrajectory(
         validateDirection(direction), // direction
-        Some(1), // step size (@TODO to be added)
-        Some(BigInt(200)), // max steps (@TODO to be added)
-        Some(0), // stop condition radius (@TODO to be added)
-        None, // stop condition region (@TODO TO BE TESTED)
+        validateOptDouble(stepSize),//Some(1.0), // step size
+        validateOptBigInt(maxSteps),//Some(BigInt(200)), // max steps
+        validateOptDouble(stopCondRadius),//Some(0.0), // stop condition radius
+        validateOptFloatSeq(stopCondRegion), // stop condition region
         validateInterpolation(interpolation), // interpolation method
         validateFiletype(filetype) // output filetype
     )
           
     val result = fmi.service.getParticleTrajectory(
         id, // resourceId
-        new URI(url), // url_xyz
+        new URI(url), // votable_url
         Some(extraParams) // extra params
     )
     
@@ -835,15 +931,21 @@ object FMIMethods extends MethodsController {
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
-        name = "url_xyz",
-        value = "votable url",
+        name = "votable_url",
+        value = "VOTable URL",
         defaultValue = "http://impex-fp7.fmi.fi/ws_tests/input/getDataPointSpectra_input.vot",
         required = true,
         dataType = "string",
         paramType = "query"),
     new ApiImplicitParam(
+        name = "energy_channel",
+        value = "Energy Channel",
+        required = false,
+        dataType = "list(string)",
+        paramType = "query"),
+    new ApiImplicitParam(
         name = "interpolation_method",
-        value = "interpolation method",
+        value = "Interpolation Method",
         defaultValue = "Linear",
         allowableValues = "Linear,NearestGridPoint",
         required = false,
@@ -851,7 +953,7 @@ object FMIMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "output_filetype",
-        value = "output filetype",
+        value = "Output Filetype",
         defaultValue = "VOTable",
         allowableValues = "VOTable,netCDF",
         required = false,
@@ -862,7 +964,9 @@ object FMIMethods extends MethodsController {
     try {
     // mandatory
     val id = request.req.get("id").get
-    val url = request.req.get("url_xyz").get
+    val url = request.req.get("votable_url").get
+    // opt params
+    val energyChannel = request.req.get("energy_channel")
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse("")
     val interpolation = request.req.get("interpolation_method").getOrElse("")
@@ -870,12 +974,12 @@ object FMIMethods extends MethodsController {
     val extraParams = ExtraParams_getDataPointSpectraFMI(
         validateInterpolation(interpolation), // interpolation method
         validateFiletype(filetype), // output filetype
-        None // energy channel (@TODO TO BE TESTED)
+        validateOptStringSeq(energyChannel) // energy channel
     )
            
     val result = fmi.service.getDataPointSpectra(
         id, // resourceId
-        new URI(url), // url_xyz
+        new URI(url), // votable_url
         Some(extraParams) // extra params
     ) 
     
@@ -910,38 +1014,43 @@ object FMIMethods extends MethodsController {
         dataType = "string", 
         paramType = "query"),
     new ApiImplicitParam(
-        name = "sc_name",
-        value = "spacecraft name",
+        name = "spacecraft_name",
+        value = "Spacecraft Name",
         defaultValue = "VEX",
-        // @TODO add all possible values here
-        allowableValues = "MEX,MGS,VEX",
+        allowableValues = "MEX,MGS,VEX,MAVEN,MESSENGER,CLUSTER1,CLUSTER2,CLUSTER3,CLUSTER4,IMP-8,GEOTAIL,POLAR",
         required = true,
         dataType = "string",
         paramType = "query"),
     new ApiImplicitParam(
         name = "start_time",
-        value = "start time",
+        value = "Start Time",
         defaultValue = "2010-08-02T06:00:00",
         required = true,
-        dataType = "ISO 8601 datetime",
+        dataType = "dateTime",
         paramType = "query"),
     new ApiImplicitParam(
         name = "stop_time",
-        value = "stop time",
+        value = "Stop Time",
         defaultValue = "2010-08-02T09:00:00",
         required = true,
-        dataType = "ISO 8601 datetime",
+        dataType = "dateTime",
         paramType = "query"),
     new ApiImplicitParam(
         name = "sampling",
-        value = "sampling",
+        value = "Sampling",
         defaultValue = "PT60S",
         required = true,
-        dataType = "ISO 8601 duration",
+        dataType = "duration",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "energy_channel",
+        value = "Energy Channel",
+        required = false,
+        dataType = "list(string)",
         paramType = "query"),
     new ApiImplicitParam(
         name = "interpolation_method",
-        value = "interpolation method",
+        value = "Interpolation Method",
         defaultValue = "Linear",
         allowableValues = "Linear,NearestGridPoint",
         required = false,
@@ -949,7 +1058,7 @@ object FMIMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "output_filetype",
-        value = "output filetype",
+        value = "Output Filetype",
         defaultValue = "VOTable",
         allowableValues = "VOTable,netCDF",
         required = false,
@@ -960,10 +1069,12 @@ object FMIMethods extends MethodsController {
     try {
     // mandatory parameters
     val id = request.req.get("id").get
-    val scName = request.req.get("sc_name").get
+    val scName = request.req.get("spacecraft_name").get
     val startTime = request.req.get("start_time").get
     val stopTime = request.req.get("stop_time").get
     val sampling = request.req.get("sampling").get
+    // opt params
+    val energyChannel = request.req.get("energy_channel")
     // extra params
     val filetype = request.req.get("output_filetype").getOrElse("")
     val interpolation = request.req.get("interpolation_method").getOrElse("")
@@ -971,7 +1082,7 @@ object FMIMethods extends MethodsController {
     val extraParams = ExtraParams_getDataPointSpectraFMI(
         validateInterpolation(interpolation), // interpolation method
         validateFiletype(filetype), // output filetype
-        None // energy channel (@TODO TO BE TESTED)
+        validateOptStringSeq(energyChannel) // energy channel (@TODO TO BE TESTED)
     )
            
     val result = fmi.service.getDataPointSpectraSpacecraft(

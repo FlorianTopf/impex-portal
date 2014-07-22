@@ -231,7 +231,9 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            result must beRight // result must be successful
         }
         
+        
         // @TODO isAlive is missing
+        
         
   }
   

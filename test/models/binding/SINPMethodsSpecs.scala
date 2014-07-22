@@ -14,7 +14,7 @@ import akka.util.Timeout
 import scala.xml.NodeSeq
 
 
-// all test parameters are taken from ICD v0.7 (5.6.2014)
+// all test parameters are taken from ICD v0.7 (30.6.2014)
 object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 
   "SINP Methods binding" should {
@@ -46,7 +46,6 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
             
             result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
         	result must beRight // result must be successful
-        	
         	
         }
         
@@ -435,7 +434,9 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	   result.fold(f => println(f), b => b must beTrue)
 	  	   result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], Boolean]]
 	  	   result must beRight
+	  	   
 	  	}
+	  	
 	  	
   }
   

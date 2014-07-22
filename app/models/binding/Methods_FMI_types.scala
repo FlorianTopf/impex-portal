@@ -1,6 +1,8 @@
 package models.binding
 
 import play.api.libs.json._
+import com.wordnik.swagger.annotations._
+import scala.annotation.target.field
 
 
 case class DataPointValueFMI(ResourceID: String,
@@ -101,22 +103,24 @@ case class SW_parameter(value: Double,
   scale: Option[Double] = None,
   function: Option[String] = None)
 
+@ApiModel("VOTableURL")
+case class VOTableURL(
+  @(ApiModelProperty @field)(position=1, value="Table_name")Table_name: Option[String] = None,
+  @(ApiModelProperty @field)(position=2, value="Description")Description: Option[String] = None,
+  @(ApiModelProperty @field)(position=3, value="Fields")Fields: Seq[models.binding.VOTable_field] = Nil)
 
-case class VOTableURL(Table_name: Option[String] = None,
-  Description: Option[String] = None,
-  Fields: Seq[models.binding.VOTable_field] = Nil)
-
-
-case class VOTable_field(data: Seq[String],
-  name: String,
-  ID: Option[String] = None,
-  unit: Option[String] = None,
-  datatype: Option[models.binding.DataType] = None,
-  xtype: Option[String] = None,
-  ucd: Option[String] = None,
-  utype: Option[String] = None,
-  description: Option[String] = None,
-  arraysize: Option[String] = None)
+@ApiModel("VOTable_field")
+case class VOTable_field(
+  @(ApiModelProperty @field)(position=1, value="data")data: Seq[String],
+  @(ApiModelProperty @field)(position=2, value="name")name: String,
+  @(ApiModelProperty @field)(position=3, value="ID")ID: Option[String] = None,
+  @(ApiModelProperty @field)(position=4, value="unit")unit: Option[String] = None,
+  @(ApiModelProperty @field)(position=5, value="datatype")datatype: Option[models.binding.DataType] = None,
+  @(ApiModelProperty @field)(position=6, value="xtype")xtype: Option[String] = None,
+  @(ApiModelProperty @field)(position=7, value="ucd")ucd: Option[String] = None,
+  @(ApiModelProperty @field)(position=8, value="utype")utype: Option[String] = None,
+  @(ApiModelProperty @field)(position=9, value="description")description: Option[String] = None,
+  @(ApiModelProperty @field)(position=10, value="arraysize")arraysize: Option[String] = None)
   
   
 // json formatter for VOTableURL request
