@@ -27,14 +27,6 @@
     <SimulatedRegion>Earth.Magnetosphere</SimulatedRegion>
     <InputProperties>
       <Property>
-        <Name>SWSpeed</Name>
-        <PropertyQuantity>FlowSpeed</PropertyQuantity>
-        <Units>km/s</Units>
-        <UnitsConversion>1.0e+3&gt;m/s</UnitsConversion>
-        <ValidMin>200</ValidMin>
-        <ValidMax>2000</ValidMax>
-      </Property>
-      <Property>
         <Name>SWDensity</Name>
         <PropertyQuantity>NumberDensity</PropertyQuantity>
         <Units>cm^-3</Units>
@@ -43,22 +35,34 @@
         <ValidMax>200</ValidMax>
       </Property>
       <Property>
-        <Name>IMF_B</Name>
-        <Description>IMF penetrated components in GSM coord</Description>
-        <PropertyQuantity>MagneticField</PropertyQuantity>
-        <Qualifier>Vector</Qualifier>
+        <Name>SWSpeed</Name>
+        <PropertyQuantity>FlowSpeed</PropertyQuantity>
+        <Units>km/s</Units>
+        <UnitsConversion>1.0e+3&gt;m/s</UnitsConversion>
+        <ValidMin>200</ValidMin>
+        <ValidMax>2000</ValidMax>
+      </Property>
+      <Property>
+        <Name>AL</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
+        <ValidMin>-4000</ValidMin>
+        <ValidMax>0</ValidMax>
       </Property>
       <Property>
         <Name>DST</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
+        <ValidMin>-600</ValidMin>
+        <ValidMax>150</ValidMax>
       </Property>
       <Property>
-        <Name>AL</Name>
-        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Name>IMF_B</Name>
+        <Description>IMF penetrated components in GSM coord</Description>
+        <PropertyQuantity>MagneticField</PropertyQuantity>
+        <Qualifier>Vector</Qualifier>
         <Units>nT</Units>
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
       </Property>
@@ -105,7 +109,7 @@
     <InputProperties>
 	  <Property>
         <Name>BDC</Name>
-        <Description>Magnetic field on the outer edge of MD</Description>
+        <Description>Magnetic field on the outer edge of magnetodisk</Description>
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
@@ -123,7 +127,7 @@
       </Property>
       <Property>
         <Name>RD2</Name>
-        <Description>Distance to the inner edge of MD</Description>
+        <Description>Distance to the inner edge of magnetodisk</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rs</Units>
         <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
@@ -132,7 +136,7 @@
       </Property>
       <Property>
         <Name>RD1</Name>
-        <Description>Distance to the external edge of MD</Description>
+        <Description>Distance to the external edge of magnetodisk</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Qualifier>Scalar</Qualifier>
         <Units>Rs</Units>
@@ -330,16 +334,20 @@
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
       </Property>
       <Property>
-        <Name>DST</Name>
-        <PropertyQuantity>ActivityIndex</PropertyQuantity>
-        <Units>nT</Units>
-        <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
-      </Property>
-      <Property>
         <Name>AL</Name>
         <PropertyQuantity>ActivityIndex</PropertyQuantity>
         <Units>nT</Units>
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
+        <ValidMin>-4000</ValidMin>
+        <ValidMax>0</ValidMax>
+      </Property>
+      <Property>
+        <Name>DST</Name>
+        <PropertyQuantity>ActivityIndex</PropertyQuantity>
+        <Units>nT</Units>
+        <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
+        <ValidMin>-600</ValidMin>
+        <ValidMax>150</ValidMax>
       </Property>
     </InputProperties>
     <OutputParameters>
@@ -384,7 +392,7 @@
     <InputProperties>
 	  <Property>
         <Name>BDC</Name>
-        <Description>Magnetic field on the outer edge of MD</Description>
+        <Description>Magnetic field on the outer edge of magnetodisk</Description>
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
@@ -402,7 +410,7 @@
       </Property>
       <Property>
         <Name>RD2</Name>
-        <Description>Distance to the inner edge of MD</Description>
+        <Description>Distance to the inner edge of magnetodisk</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rs</Units>
         <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
@@ -411,7 +419,7 @@
       </Property>
       <Property>
         <Name>RD1</Name>
-        <Description>Distance to the external edge of MD</Description>
+        <Description>Distance to the external edge of magnetodisk</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Qualifier>Scalar</Qualifier>
         <Units>Rs</Units>
@@ -2985,13 +2993,13 @@
     </SimulationDomain>
 	<InputParameter>
       <Name>BDC</Name>
-      <Description>Magnetic field on the inner edge of MD</Description>
+      <Description>Magnetic field on the inner edge of magnetodisk</Description>
     <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
       <Qualifier>Scalar</Qualifier>
       <ParameterQuantity>MagneticField</ParameterQuantity>
       <Property>
         <Name>BDC</Name>
-        <Description>Magnetic field on the inner edge of MD</Description>
+        <Description>Magnetic field on the inner edge of magnetodisk</Description>
         <PropertyQuantity>MagneticField</PropertyQuantity>
         <Units>nT</Units>
         <UnitsConversion>1.0E-9&gt;T</UnitsConversion>
@@ -3017,13 +3025,13 @@
     </InputParameter>
     <InputParameter>
       <Name>RD2</Name>
-      <Description>Distance to the inner edge of MD</Description>
+      <Description>Distance to the inner edge of magnetodisk</Description>
       <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
       <Qualifier>Scalar</Qualifier>
       <ParameterQuantity>Other</ParameterQuantity>
       <Property>
         <Name>RD2</Name>
-        <Description>Distance to the inner edge of MD</Description>
+        <Description>Distance to the inner edge of magnetodisk</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rs</Units>
         <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>
@@ -3033,13 +3041,13 @@
     </InputParameter>
 	<InputParameter>
       <Name>RD1</Name>
-      <Description>Distance to the external edge of MD</Description>
+      <Description>Distance to the external edge of magnetodisk</Description>
     <SimulatedRegion>Saturn.Magnetosphere</SimulatedRegion>
       <Qualifier>Scalar</Qualifier>
       <ParameterQuantity>Other</ParameterQuantity>
       <Property>
         <Name>RD1</Name>
-        <Description>Distance to the external edge of MD</Description>
+        <Description>Distance to the external edge of magnetodisk</Description>
         <PropertyQuantity>Other</PropertyQuantity>
         <Units>Rs</Units>
         <UnitsConversion>6.0268e+7&gt;m</UnitsConversion>

@@ -100,6 +100,62 @@ class MethodsController extends BaseController {
     }
   }
   
+  def validateOptFloatSeq(floats: Option[String]): Option[Seq[Float]] = {
+    try {
+      floats match {
+        case Some(f) => Some(f.split(",").map(_.toFloat))
+        case None => None
+      }
+    } catch {
+      // @FIXME in any error case return none
+      case _: Throwable => None
+    }
+  }
+  
+  def validateOptDoubleSeq(doubles: Option[String]): Option[Seq[Double]] = {
+    try {
+      doubles match {
+        case Some(f) => Some(f.split(",").map(_.toDouble))
+        case None => None
+      }
+    } catch {
+      // @FIXME in any error case return none
+      case _: Throwable => None
+    }
+  }
+  
+  // helper method for validation string sequences
+  def validateOptStringSeq(strings: Option[String]): Option[Seq[String]] = {
+    strings match {
+      case Some(s) => Some(s.split(","))
+      case None => None
+    }
+  }
+  
+  def validateOptDouble(double: Option[String]): Option[Double] = {
+    try {
+      double match {
+        case Some(d) => Some(d.toDouble)
+        case None => None
+      }
+    } catch {
+      // @FIXME in any error case return none
+      case _: Throwable => None
+    }
+  }
+  
+  def validateOptBigInt(bigInt: Option[String]): Option[BigInt] = {
+    try {
+      bigInt match {
+        case Some(b) => Some(BigInt(b))
+        case None => None
+      }
+    } catch {
+      // @FIXME in any error case return none
+      case _: Throwable => None
+    }
+  }
+  
   // helper method for validating directions
   def validateDirection(direction: String): Option[EnumDirection] = {
     try {

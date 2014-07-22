@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<Spase xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://impex-fp7.oeaw.ac.at" xsi:schemaLocation="http://impex-fp7.oeaw.ac.at http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_1.xsd">
+<Spase xsi:schemaLocation="http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_1.xsd" xmlns="http://impex-fp7.oeaw.ac.at" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 <Version>2.2.2</Version>
     <SimulationModel>
         <ResourceID>spase://IMPEX/SimulationModel/LATMOS/Hybrid</ResourceID>
@@ -12460,7 +12459,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
 <PopulationDensity Units="cm^-3">2.84E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">8.50</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">8.50</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">485.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 <Profile>Adiabatic</Profile>
@@ -12473,7 +12472,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
 <PopulationDensity Units="cm^-3">2.70E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">13.01</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">13.01</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">485.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -12485,7 +12484,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>4</PopulationMassNumber>
 <PopulationChargeState>2</PopulationChargeState>
 <PopulationDensity Units="cm^-3">1.42E-01</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">4.72</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">4.72</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">485.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -12496,7 +12495,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <ParticleType>Electron</ParticleType>
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0.09</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0.09</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
 <Profile> Temperature for a density of 27.00cm^-3,
 Adiabatic profile below 10.75cm^-3, hydrostatic above.</Profile>
@@ -12508,7 +12507,7 @@ Adiabatic profile below 10.75cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>44</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -12519,7 +12518,7 @@ Adiabatic profile below 10.75cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -12530,7 +12529,7 @@ Adiabatic profile below 10.75cm^-3, hydrostatic above.</Profile>
 <ParticleType>Proton</ParticleType>
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -12541,7 +12540,7 @@ Adiabatic profile below 10.75cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>32</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -12552,7 +12551,7 @@ Adiabatic profile below 10.75cm^-3, hydrostatic above.</Profile>
 <ParticleType>Atom</ParticleType>
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Krasnopolsky et al, 2002,Kim et al, 1998</Profile>
@@ -12565,7 +12564,7 @@ Adiabatic profile below 10.75cm^-3, hydrostatic above.</Profile>
 <ParticleType>Atom</ParticleType>
 <PopulationMassNumber>44</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Ma et al, 2004</Profile>
@@ -12577,7 +12576,7 @@ Adiabatic profile below 10.75cm^-3, hydrostatic above.</Profile>
 <ParticleType>Atom</ParticleType>
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Krasnopolsky et al, 1993</Profile>
@@ -31346,7 +31345,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
 <PopulationDensity Units="cm^-3">4.21E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">5.58</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">5.58</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">400.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 <Profile>Adiabatic</Profile>
@@ -31360,7 +31359,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
 <PopulationDensity Units="cm^-3">4.00E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">8.84</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">8.84</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">400.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -31373,7 +31372,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>4</PopulationMassNumber>
 <PopulationChargeState>2</PopulationChargeState>
 <PopulationDensity Units="cm^-3">2.11E-01</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">5.32</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">5.32</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">400.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -31384,7 +31383,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0.06</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0.06</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
 <Profile> Temperature for a density of 40.00cm^-3,
 Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
@@ -31396,7 +31395,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Molecule</ParticleType>
 <PopulationMassNumber>44</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -31407,7 +31406,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Molecule</ParticleType>
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -31418,7 +31417,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Molecule</ParticleType>
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -31429,7 +31428,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Molecule</ParticleType>
 <PopulationMassNumber>32</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -31440,7 +31439,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Ma et al, 2004</Profile>
@@ -31453,7 +31452,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>44</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Ma et al, 2004</Profile>
@@ -31465,7 +31464,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km*s^-1">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Ma et al, 2004</Profile>
@@ -40613,7 +40612,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
 <PopulationDensity Units="cm-3">2.84E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">8.50</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">8.50</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">485.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 <Profile>Adiabatic</Profile>
@@ -40626,7 +40625,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
 <PopulationDensity Units="cm^-3">2.70E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">13.01</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">13.01</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">485.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -40638,7 +40637,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>4</PopulationMassNumber>
 <PopulationChargeState>2</PopulationChargeState>
 <PopulationDensity Units="cm^-3">1.42E-01</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">4.72</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">4.72</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">485.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -40649,7 +40648,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <ParticleType>Electron</ParticleType>
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0.09</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0.09</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Profile> Temperature for a density of 27.00cm-3,
 Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
@@ -40661,7 +40660,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>44</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -40672,7 +40671,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -40683,7 +40682,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -40694,7 +40693,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>32</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -40705,7 +40704,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Atom</ParticleType>
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Bougher et al,2000; Valeille et al, 2010, ISSI RUN C</Profile>
@@ -40718,7 +40717,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Molecule</ParticleType>
 <PopulationMassNumber>44</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Bougher et al,2000; ISSI RUN C</Profile>
@@ -40731,7 +40730,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Atom</ParticleType>
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Chaufray et al,2008; Anderson et al, 1971; ISSI RUN C</Profile>
@@ -44115,7 +44114,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
 <PopulationDensity Units="cm-3">2.84E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">8.50</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">8.50</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">485.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 <Profile>Adiabatic</Profile>
@@ -44129,7 +44128,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
 <PopulationDensity Units="cm^-3">2.70E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">13.01</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">13.01</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">485.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -44142,7 +44141,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>4</PopulationMassNumber>
 <PopulationChargeState>2</PopulationChargeState>
 <PopulationDensity Units="cm^-3">1.42E-01</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">4.72</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">4.72</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">485.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -44153,7 +44152,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <ParticleType>Electron</ParticleType>
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0.09</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0.09</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Profile> Temperature for a density of 27.00cm-3,
 Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
@@ -44165,7 +44164,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>44</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -44176,7 +44175,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -44187,7 +44186,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -44198,7 +44197,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>32</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -44209,7 +44208,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Atom</ParticleType>
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Bougher et al, 2000; Valeille et al, 2010; ISSI RUNC</Profile>
@@ -44222,7 +44221,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Molecule</ParticleType>
 <PopulationMassNumber>44</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>    
 <Profile>Bougher et al, 2000; ISSI RUNC</Profile>
@@ -44235,7 +44234,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Atom</ParticleType>
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>    
 <Profile>Chaufray et al, 2008; Anderson et al, 1971; ISSI RUNC</Profile>
@@ -46224,7 +46223,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
 <PopulationDensity Units="cm-3">3.20E+01</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">16.11</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">16.11</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">500.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 <Profile>Adiabatic</Profile>
@@ -46238,7 +46237,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
 <PopulationDensity Units="cm^-3">3.04E+01</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">11.54</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">11.54</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">500.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -46251,7 +46250,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>4</PopulationMassNumber>
 <PopulationChargeState>2</PopulationChargeState>
 <PopulationDensity Units="cm^-3">1.60E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">41.13</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">41.13</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">583.38</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -46262,7 +46261,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <ParticleType>Electron</ParticleType>
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">16.11</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">16.11</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Profile> Temperature for a density of 304.00cm-3,
 Adiabatic profile below 120.99cm-3, hydrostatic above.</Profile>
@@ -49430,7 +49429,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
 <PopulationDensity Units="cm-3">2.84E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">8.50</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">8.50</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">485.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 <Profile>Adiabatic</Profile>
@@ -49444,7 +49443,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
 <PopulationDensity Units="cm^-3">2.70E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">13.01</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">13.01</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">485.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -49457,7 +49456,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>4</PopulationMassNumber>
 <PopulationChargeState>2</PopulationChargeState>
 <PopulationDensity Units="cm^-3">1.42E-01</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">4.72</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">4.72</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">485.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -49468,7 +49467,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <ParticleType>Electron</ParticleType>
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0.09</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0.09</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Profile> Temperature for a density of 27.00cm-3,
 Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
@@ -49480,7 +49479,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>      
 <PopulationMassNumber>44</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -49491,7 +49490,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -49502,7 +49501,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -49513,7 +49512,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>32</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -49524,7 +49523,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Atom</ParticleType>      
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Bougher et al, 2000; Valeille et al, 2010; ISSI RUNC</Profile>
@@ -49537,7 +49536,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Atom</ParticleType>
 <PopulationMassNumber>44</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>    
 <Profile>Bougher et al, 2000;  ISSI RUNC</Profile>
@@ -49550,7 +49549,7 @@ Adiabatic profile below 10.75cm-3, hydrostatic above.</Profile>
 <ParticleType>Atom</ParticleType>
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Chaufray et al, 2008; Anderson et al, 1971; ISSI RUNC</Profile>
@@ -52939,7 +52938,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
 <PopulationDensity Units="cm^-3">4.21E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">5.58</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">5.58</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">400.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 <Profile>Adiabatic</Profile>
@@ -52952,7 +52951,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
 <PopulationDensity Units="cm^-3">4.00E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">8.84</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">8.84</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">400.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -52964,7 +52963,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>4</PopulationMassNumber>
 <PopulationChargeState>2</PopulationChargeState>
 <PopulationDensity Units="cm^-3">2.11E-01</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">5.32</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">5.32</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">400.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -52975,7 +52974,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <ParticleType>Electron</ParticleType>
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0.06</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0.06</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Profile> Temperature for a density of 40.00cm^-3,
 Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
@@ -52987,7 +52986,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>44</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -52998,7 +52997,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -53009,7 +53008,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -53020,7 +53019,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>32</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -53031,7 +53030,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Molecule</ParticleType>
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Krasnopolsky et al, 2002,Kim et al, 1998</Profile>
@@ -53044,7 +53043,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Molecule</ParticleType>
 <PopulationMassNumber>44</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Ma et al, 2004</Profile>
@@ -53056,7 +53055,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Atom</ParticleType>
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Krasnopolsky et al, 1993</Profile>
@@ -56444,7 +56443,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
 <PopulationDensity Units="cm^-3">4.21E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">5.58</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">5.58</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">400.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 <Profile>Adiabatic</Profile>
@@ -56457,7 +56456,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
 <PopulationDensity Units="cm^-3">4.00E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">8.84</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">8.84</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">400.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -56469,7 +56468,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>4</PopulationMassNumber>
 <PopulationChargeState>2</PopulationChargeState>
 <PopulationDensity Units="cm^-3">2.11E-01</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">5.32</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">5.32</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">400.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -56480,7 +56479,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <ParticleType>Electron</ParticleType>
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0.06</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0.06</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Profile> Temperature for a density of 40.00cm^-3,
 Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
@@ -56492,7 +56491,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>44</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -56503,7 +56502,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -56514,7 +56513,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -56525,7 +56524,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>32</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -56536,7 +56535,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Atom</ParticleType>
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Krasnopolsky et al, 2002,Kim et al, 1998</Profile>
@@ -56549,7 +56548,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Molecule</ParticleType>
 <PopulationMassNumber>44</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Ma et al, 2004</Profile>
@@ -56561,7 +56560,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Atom</ParticleType>
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 <Profile>Krasnopolsky et al, 1993</Profile>
@@ -58913,7 +58912,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
 <PopulationDensity Units="cm-3">4.00E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">77.53</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">77.53</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">140.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 <Profile>Isothermal</Profile>
@@ -58926,7 +58925,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
 <PopulationDensity Units="cm-3">3.47E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">357.81</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">357.81</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">140.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -58938,7 +58937,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
 <PopulationDensity Units="cm-3">5.34E-01</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">34.89</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">34.89</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">140.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -58949,7 +58948,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <ParticleType>Electron</ParticleType>    
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0.08</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0.08</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Profile>Isothermal profile</Profile>
 </InputPopulation>
@@ -58960,7 +58959,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -58971,7 +58970,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <ParticleType>Ion</ParticleType>   
 <PopulationMassNumber>2</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -58982,7 +58981,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <ParticleType>Atom</ParticleType>   
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -58993,7 +58992,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <ParticleType>Molecule</ParticleType>
 <PopulationMassNumber>2</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -59377,7 +59376,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PlanePoint>0 0 0</PlanePoint>
 </SpatialDescription>
 <SimulatedRegion>Mars</SimulatedRegion>
-    <InputResourceID>spase://IMPEX/Repository/LATMOS/Hybrid/Mars_14_03_14</InputResourceID>
+    <InputResourceID>spase://IMPEX/SimulationRun/LATMOS/Hybrid/Mars_14_03_14</InputResourceID>
 <Parameter>
 <Name>n_i</Name>
 <ParameterKey>Density</ParameterKey>
@@ -62454,7 +62453,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
 <PopulationDensity Units="cm^-3">4.21E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">5.74</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">5.74</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">400.00</PopulationFlowSpeed>
     <Distribution>Maxwellian</Distribution>
 <Profile>Adiabatic</Profile>
@@ -62467,7 +62466,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
 <PopulationDensity Units="cm^-3">4.00E+00</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">8.78</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">8.78</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">400.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -62479,7 +62478,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <PopulationMassNumber>4</PopulationMassNumber>
 <PopulationChargeState>2</PopulationChargeState>
 <PopulationDensity Units="cm^-3">2.11E-01</PopulationDensity>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">3.19</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">3.19</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">400.00</PopulationFlowSpeed>
 <Distribution>Maxwellian</Distribution>
 </InputPopulation>
@@ -62490,7 +62489,7 @@ That is the altitude below which ion densities are computed analytically</Descri
 <ParticleType>Electron</ParticleType>
 <PopulationMassNumber>0</PopulationMassNumber>
 <PopulationChargeState>-1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0.06</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0.06</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Profile> Temperature for a density of 40.00cm^-3,
 Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
@@ -62502,7 +62501,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>44</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -62513,7 +62512,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -62524,7 +62523,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -62535,7 +62534,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Ion</ParticleType>
 <PopulationMassNumber>32</PopulationMassNumber>
 <PopulationChargeState>1</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
 <Distribution>Dirac</Distribution>
 </InputPopulation>
@@ -62546,7 +62545,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Molecule</ParticleType>
 <PopulationMassNumber>16</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
     <Distribution>Dirac</Distribution>
 <Profile>Krasnopolsky et al, 2002,Kim et al, 1998</Profile>
@@ -62559,7 +62558,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Molecule</ParticleType>
 <PopulationMassNumber>44</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
     <Distribution>Dirac</Distribution>
 <Profile>Ma et al, 2004</Profile>
@@ -62571,7 +62570,7 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <ParticleType>Molecule</ParticleType>
 <PopulationMassNumber>1</PopulationMassNumber>
 <PopulationChargeState>0</PopulationChargeState>
-<PopulationTemperature Units="eV" UnitsConversion="11605 &gt; K">0</PopulationTemperature>
+<PopulationTemperature UnitsConversion="11605 &gt; K" Units="eV">0</PopulationTemperature>
 <PopulationFlowSpeed Units="km/s">0</PopulationFlowSpeed>
     <Distribution>Dirac</Distribution>
 <Profile>Krasnopolsky et al, 1993</Profile>
@@ -63040,4 +63039,4 @@ Adiabatic profile below 15.92cm^-3, hydrostatic above.</Profile>
 <SourceType>Data</SourceType>
 <URL>http://impex.latmos.ipsl.fr/Hybrid/Mars_14_03_14/Thew_YZ_14_03_14.xml</URL>
 </Source>
-</Granule></Spase>    
+</Granule></Spase>
