@@ -489,10 +489,6 @@
 		<wsdl:input message="DataPointValueSpacecraft_Request"/>
 		<wsdl:output message="Generic_Response"/>
 	</wsdl:operation>
-	<wsdl:operation name="getDataPointValue_Spacecraft">
-		<wsdl:input message="DataPointValueSpacecraft_Request"/>
-		<wsdl:output message="Generic_Response"/>
-	</wsdl:operation>
 	<wsdl:operation name="getDataPointSpectra">
 		<wsdl:input message="DataPointSpectra_Request"/>
 		<wsdl:output message="Generic_Response"/>
@@ -541,11 +537,6 @@
 	</wsdl:operation>
 	<wsdl:operation name="getDataPointValueSpacecraft">
 		<soap:operation soapAction="DataPointValueSpacecraft"/>
-		<wsdl:input><soap:body use="literal"/></wsdl:input>
-		<wsdl:output><soap:body use="literal"/></wsdl:output>
-	</wsdl:operation>
-	<wsdl:operation name="getDataPointValue_Spacecraft">
-		<soap:operation soapAction="DataPointValue_Spacecraft"/>
 		<wsdl:input><soap:body use="literal"/></wsdl:input>
 		<wsdl:output><soap:body use="literal"/></wsdl:output>
 	</wsdl:operation>
