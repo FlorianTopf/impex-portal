@@ -330,7 +330,11 @@
           <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:double" name="Dst" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:double" name="AL" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0">
+		    <xs:annotation>
+            <xs:documentation>VOTable format should be used for less than 1500000 the number of points in the resulting cube. For larger cubes only NetCDF format should be used</xs:documentation>
+          </xs:annotation>
+		</xs:element>
         </xs:sequence>
       </xs:complexType>
 
@@ -347,7 +351,11 @@
           <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:double" name="DZ" maxOccurs="1" minOccurs="0"/>
           <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0">
+		    <xs:annotation>
+            <xs:documentation>VOTable format should be used for less than 1300000 the number of points in the resulting cube. For larger cubes only NetCDF format should be used</xs:documentation>
+          </xs:annotation>
+		</xs:element>
         </xs:sequence>
       </xs:complexType>
       
@@ -365,7 +373,11 @@
           <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0"/>
           <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0">
+		    <xs:annotation>
+            <xs:documentation>VOTable format should be used for less than 1300000 the number of points in the resulting cube. For larger cubes only NetCDF format should be used</xs:documentation>
+          </xs:annotation>
+		</xs:element>
         </xs:sequence>
       </xs:complexType>
       
@@ -383,9 +395,38 @@
           <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0"/>
           <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0"/>
           <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
+          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0">
+		    <xs:annotation>
+            <xs:documentation>VOTable format should be used for less than 1300000 the number of points in the resulting cube. For larger cubes only NetCDF format should be used</xs:documentation>
+          </xs:annotation>
+		</xs:element>
         </xs:sequence>
       </xs:complexType>
+	
+	 
+	<xs:complexType name="extraParams_getSurface">
+		<xs:sequence>
+			<xs:element ref="Resolution" maxOccurs="1" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>Spatial resolution of the grid mesh</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+			<xs:element ref="OutputFileType" maxOccurs="1" minOccurs="0">
+            <xs:annotation>
+              <xs:documentation>The output file format, selected by the user: NetCDF or VOTable</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
+	
+	<xs:element name="emptyElement"> 
+		<xs:complexType>
+			<xs:sequence/>
+		</xs:complexType> 
+	</xs:element>
+	<xs:element type="xs:anyURI" name="anyURI"/>
+	<xs:element type="xs:boolean" name="boolean"/>
 
 
       
@@ -633,6 +674,36 @@
           </xs:element>
         </xs:sequence>
       </xs:complexType>
+	  
+	  
+      <xs:element type="Surface" name="getSurface"/>
+      <xs:complexType name="Surface">
+        <xs:sequence>
+          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>ResourceID of the NumericalOutput describing the 3D cube in which the interpolation is performed</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element ref="Variable" maxOccurs="1" minOccurs="0"/>
+		  <xs:element ref="PlaneNormalVector" maxOccurs="1" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>3D components of a normalized vector normal to the requested plane</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+		  <xs:element ref="PlanePoint" maxOccurs="1" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>A 3D coordinate indicating the position of one point in the plane requested. Coordinate of the point must be expressed in the Spase/SimulationRun/SimulationDomain/CoordinateSystem and with Space Coordinate label names</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" type="extraParams_getSurface" name="extraParams">
+            <xs:annotation>
+              <xs:documentation>Resolution,OutputFiletype</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+	  
+
     </xs:schema>
   </wsdl:types>
   
@@ -696,6 +767,21 @@
   </wsdl:message>
 
   
+  <wsdl:message name="Surface_Request">
+		<wsdl:part element="getSurface" name="parameters"/>
+	</wsdl:message>
+	
+	
+	<wsdl:message name="isAlive_Request">
+	<wsdl:part element="emptyElement" name="parameters"/>
+	</wsdl:message>
+
+	
+	<wsdl:message name="isAlive_Response">
+	<wsdl:part element="boolean" name="parameters"/>
+	</wsdl:message>
+  
+  
   <wsdl:message name="Generic_Response">
     <wsdl:part type="xs:anyURI" name="parameters"/>
   </wsdl:message>
@@ -752,6 +838,14 @@
       <wsdl:input message="calculateCubeSaturn_Request"> </wsdl:input>
       <wsdl:output message="Generic_Response"> </wsdl:output>
     </wsdl:operation>
+	<wsdl:operation name="getSurface">
+		<wsdl:input message="Surface_Request"> </wsdl:input>
+		<wsdl:output message="Generic_Response"> </wsdl:output>
+	</wsdl:operation>
+	<wsdl:operation name="isAlive">
+	<wsdl:input message="isAlive_Request"/>
+	<wsdl:output message="isAlive_Response"/>
+	</wsdl:operation>
   </wsdl:portType>
 
 
@@ -861,6 +955,24 @@
         <soap:body use="literal"/>
       </wsdl:output>
     </wsdl:operation>
+	<wsdl:operation name="getSurface">
+		<soap:operation soapAction="Surface"/>
+		<wsdl:input>
+			<soap:body use="literal"/>
+		</wsdl:input>
+		<wsdl:output>
+			<soap:body use="literal"/>
+		</wsdl:output>
+	</wsdl:operation>
+	<wsdl:operation name="isAlive">
+		<soap:operation soapAction="Alive"/>
+		<wsdl:input>
+			<soap:body use="literal"/>
+		</wsdl:input>
+		<wsdl:output>
+			<soap:body use="literal"/>
+		</wsdl:output>
+	</wsdl:operation>
   </wsdl:binding>
 
 
