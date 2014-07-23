@@ -2,7 +2,8 @@
 	<img src="/public/img/layout/loading.gif" class="loadingImg" alt="loading..." />
 </div>
 <div class="row" ng-show="vm.ready">
-	<div class="col-sm-3 text-center" 
+	<div class="col-sm-2">&nbsp;</div>
+	<div class="col-sm-2 text-center" 
 		ng-repeat="database in vm.configService.config.databases" 
 		ng-if="(database.type == 'simulation') && !(database.tree | isEmpty)">
 		<div ng-show="vm.ready">
@@ -15,12 +16,49 @@
 			</button>
     	</div>
 	</div>
+	<div class="col-sm-2 text-center">
+		<a class="btn btn-danger btn-map"
+			ng-href="{{ vm.configService.config.tools[0].url }}" target="_blank">
+			<br/>
+			<img src="public/img/layout/tool.png"/><br/>
+			<span style="float:right; margin-top: 7px;">
+				{{ vm.configService.config.tools[0].name }}
+			</span>
+		</a>
+	</div>
 </div>
 <div class="row" ng-show="vm.ready">
 	<div class="col-sm-12">&nbsp;</div>
 </div>
 <div class="row" ng-show="vm.ready">
-	<div class="col-sm-3 text-center" 
+	<div class="col-sm-2 text-center">
+		<div ng-show="vm.ready">
+			<button type="button" class="btn btn-warning btn-map"
+				ui-sref="app.portal.mydata()" 
+				tooltip="Show Saved Selections and Results">
+				<img src="public/img/layout/my-data.png"/><br/>
+				<span style="float:right; margin-top: 15px;">My Data</span>
+			</button>
+		</div>
+	</div>
+	<div class="col-sm-2 col-sm-offset-8 text-center">
+		<a class="btn btn-danger btn-map"
+			ng-href="{{ vm.configService.config.tools[1].url }}"
+			target="_blank">
+			<br/>
+			<img src="public/img/layout/tool.png"/><br/>
+			<span style="float:right; margin-top: 7px;">
+				{{ vm.configService.config.tools[1].name }}
+			</span>
+		</a>
+	</div>
+</div>
+<div class="row" ng-show="vm.ready">
+	<div class="col-sm-12">&nbsp;</div>
+</div>
+<div class="row" ng-show="vm.ready">
+	<div class="col-sm-2">&nbsp;</div>
+	<div class="col-sm-2 text-center" 
 		ng-repeat="database in vm.configService.config.databases" 
 		ng-if="(database.type == 'simulation') && !(database.methods | isEmpty)">
 		<div ng-show="vm.ready">
@@ -32,5 +70,16 @@
 				<span style="float: right;">Data Access</span>
 			</button>
     	</div>
+	</div>
+	<div class="col-sm-2 text-center">
+		<a class="btn btn-danger btn-map" 
+			ng-href="{{ vm.configService.config.tools[2].url }}"
+			target="_blank">
+			<br/>
+			<img src="public/img/layout/tool.png"/><br/>
+			<span style="float:right; margin-top: 7px;">
+				{{ vm.configService.config.tools[2].name }}
+			</span>
+		</a>
 	</div>
 </div>

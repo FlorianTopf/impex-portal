@@ -85,6 +85,26 @@ var portal;
     })();
     portal.Methods = Methods;
 
+    var MyData = (function () {
+        function MyData() {
+            this.name = 'app.portal.mydata';
+            this.url = '/mydata';
+        }
+        MyData.prototype.onEnter = function ($stateParams, $state, $modal) {
+            $modal.open({
+                templateUrl: '/public/partials/myDataModal.html',
+                controller: portal.MyDataCtrl,
+                size: 'lg'
+            }).result.then(function () {
+                $state.transitionTo('app.portal');
+            }, function () {
+                $state.transitionTo('app.portal');
+            });
+        };
+        return MyData;
+    })();
+    portal.MyData = MyData;
+
     var Databases = (function () {
         function Databases() {
             this.name = 'app.databases';
@@ -118,10 +138,10 @@ var portal;
     portal.Database = Database;
 
     var Tool = (function () {
-        function Tool(name, description, dns, info) {
+        function Tool(name, description, url, info) {
             this.name = name;
             this.description = description;
-            this.dns = dns;
+            this.url = url;
             this.info = info;
         }
         return Tool;
@@ -1200,9 +1220,10 @@ var portal;
             }
         };
 
-        // testing methods for modal
+        // methods for modal
         RegistryCtrl.prototype.saveRegistry = function () {
             this.modalInstance.close();
+            this.scope.$broadcast('clear-registry-error');
 
             // @TODO just for the moment
             this.scope.$broadcast('clear-registry');
@@ -1210,6 +1231,7 @@ var portal;
 
         RegistryCtrl.prototype.cancelRegistry = function () {
             this.modalInstance.dismiss();
+            this.scope.$broadcast('clear-registry-error');
 
             // @TODO just for the moment
             this.scope.$broadcast('clear-registry');
@@ -1353,7 +1375,7 @@ else {
             return splitPath[0];
         };
 
-        // testing method for submission
+        // method for submission
         MethodsCtrl.prototype.submitMethod = function () {
             var _this = this;
             this.scope.$broadcast('load-service-data');
@@ -1365,7 +1387,7 @@ else {
             });
         };
 
-        // testing methods for modal
+        // methods for modal
         MethodsCtrl.prototype.saveMethods = function () {
             this.modalInstance.close();
             this.scope.$broadcast('clear-service-error');
@@ -1390,6 +1412,46 @@ else {
         return MethodsCtrl;
     })();
     portal.MethodsCtrl = MethodsCtrl;
+})(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
+    // @TODO introduce error/offline handling later
+    var MyDataCtrl = (function () {
+        function MyDataCtrl($scope, $location, $timeout, $window, userService, $state, $modalInstance) {
+            this.initialising = false;
+            this.showError = false;
+            this.scope = $scope;
+            $scope.datavm = this;
+            this.location = $location;
+            this.timeout = $timeout;
+            this.window = $window;
+            this.userService = userService;
+            this.state = $state;
+            this.modalInstance = $modalInstance;
+        }
+        // methods for modal
+        MyDataCtrl.prototype.saveData = function () {
+            this.modalInstance.close();
+        };
+
+        MyDataCtrl.prototype.cancelData = function () {
+            this.modalInstance.dismiss();
+        };
+        MyDataCtrl.$inject = [
+            '$scope',
+            '$location',
+            '$timeout',
+            '$window',
+            'userService',
+            '$state',
+            '$modalInstance'
+        ];
+        return MyDataCtrl;
+    })();
+    portal.MyDataCtrl = MyDataCtrl;
 })(portal || (portal = {}));
 /// <reference path='../_all.ts' />
 var portal;
@@ -1434,7 +1496,7 @@ var portal;
             var _this = this;
             this.oneAtATime = true;
             this.showError = false;
-            this.status = "no resources found";
+            this.status = '';
             // container for intermediate results
             this.repositories = [];
             this.simulationModels = [];
@@ -1473,6 +1535,11 @@ var portal;
             this.myScope.$on('registry-error', function (e, msg) {
                 _this.showError = true;
                 _this.status = msg;
+            });
+
+            this.myScope.$on('clear-registry-error', function (e) {
+                _this.showError = false;
+                _this.status = '';
             });
 
             this.myScope.$on('clear-registry', function (e) {
@@ -1847,6 +1914,7 @@ var portal;
     impexPortal.controller('portalCtrl', portal.PortalCtrl);
     impexPortal.controller('registryCtrl', portal.RegistryCtrl);
     impexPortal.controller('methodsCtrl', portal.MethodsCtrl);
+    impexPortal.controller('myDataCtrl', portal.MyDataCtrl);
 
     impexPortal.directive('databasesDir', portal.DatabasesDir.prototype.injection());
     impexPortal.directive('registryDir', portal.RegistryDir.prototype.injection());
@@ -1856,78 +1924,13 @@ var portal;
     // is in SelectionDir.ts
     impexPortal.directive('memberDir', portal.MemberDir.prototype.injection());
 
-    // simple directives for displaying JSON objects
-    /*impexPortal.directive('selection', () => {
-    return {
-    restrict: "E",
-    replace: true,
-    scope: {
-    selection: '='
-    },
-    template: "<ul>"+
-    "<member ng-repeat='(key, elem) in selection' name='key' member='elem' "+
-    "ng-if='!(elem | isEmpty)'></member>"+
-    "</ul>"
-    }
-    })*/
-    /*impexPortal.directive('member', ($compile) => {
-    function beautify(str: string): string {
-    var array = str.match(/([A-Z]?[^A-Z]*)/g).slice(0,-1)
-    var first = array[0].charAt(0).toUpperCase()+array[0].slice(1)
-    array.shift()
-    return (first+" "+array.join(" ")).trim()
-    }
-    
-    function validateUrl(str: string): boolean {
-    var pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
-    if(!pattern.test(str)) {
-    return false
-    } else {
-    return true
-    }
-    }
-    
-    return {
-    restrict: "E",
-    replace: true,
-    scope: {
-    name: '=',
-    member: '=',
-    },
-    template: "<li></li>",
-    link: ($scope, element, attributes) => {
-    element.append("<strong>"+beautify($scope.name)+"</strong>: ")
-    
-    if(angular.isArray($scope.member)) {
-    angular.forEach($scope.member, (m, i) => {
-    if(angular.isString(m) || angular.isNumber(m))
-    element.append(m+" ")
-    else if(angular.isObject(m)) {
-    $compile("<br/><selection-dir selection='"+JSON.stringify($scope.member[i])+"'></selection-dir>")
-    ($scope, (cloned, $scope) => { element.append(cloned) })
-    }
-    })
-    
-    } else if(angular.isObject($scope.member)) {
-    element.append("<br/><selection-dir selection='member'></selection-dir>")
-    $compile(element.contents())($scope)
-    } else if(validateUrl($scope.member)) {
-    element.append("<a href='"+$scope.member+"' target='_blank'>"+$scope.member+"</a><br/>")
-    } else {
-    element.append($scope.member+"<br/>")
-    }
-    
-    }
-    
-    }
-    })*/
     impexPortal.config([
         '$stateProvider',
         '$urlRouterProvider',
         function ($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise('/portal');
 
-            $stateProvider.state(new portal.App()).state(new portal.Portal()).state(new portal.Registry()).state(new portal.Methods()).state(new portal.Databases());
+            $stateProvider.state(new portal.App()).state(new portal.Portal()).state(new portal.Registry()).state(new portal.Methods()).state(new portal.MyData()).state(new portal.Databases());
         }
     ]);
 

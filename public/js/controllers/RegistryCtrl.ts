@@ -170,15 +170,17 @@ module portal {
             }  
         }
         
-        // testing methods for modal
+        // methods for modal
         public saveRegistry() {
             this.modalInstance.close()
+            this.scope.$broadcast('clear-registry-error')
             // @TODO just for the moment
             this.scope.$broadcast('clear-registry')
         }
         
         public cancelRegistry() {
             this.modalInstance.dismiss()
+            this.scope.$broadcast('clear-registry-error')
             // @TODO just for the moment
             this.scope.$broadcast('clear-registry')
         }

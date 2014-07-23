@@ -29,7 +29,7 @@ module portal {
         
         public oneAtATime: boolean = true
         public showError: boolean = false
-        public status: string = "no resources found"
+        public status: string = ''
         
         // container for intermediate results
         public repositories: Array<Repository> = []
@@ -64,6 +64,11 @@ module portal {
             this.myScope.$on('registry-error', (e, msg: string) => {
                 this.showError = true
                 this.status = msg
+            })
+            
+            this.myScope.$on('clear-registry-error', (e) => {
+                this.showError = false
+                this.status = ''
             })
             
             this.myScope.$on('clear-registry', (e) => {

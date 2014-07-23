@@ -76,6 +76,28 @@ module portal {
         constructor(){}
     }
     
+    export class MyData implements ng.ui.IState {
+        public name: string = 'app.portal.mydata'
+        public url: string = '/mydata'
+    
+        public onEnter($stateParams, $state, $modal) {
+            $modal.open({
+                templateUrl: '/public/partials/myDataModal.html',
+                controller: MyDataCtrl,
+                size: 'lg',
+            }).result.then(
+                () => { 
+                    $state.transitionTo('app.portal') // ok
+                }, 
+                () => { 
+                    $state.transitionTo('app.portal') // cancel
+            })
+        }
+        
+        constructor(){}
+    
+    }
+    
     export class Databases implements ng.ui.IState {
         public name: string = 'app.databases'
         public url: string =  '/databases'

@@ -26,7 +26,7 @@ module portal {
         constructor(
             public name: string,
             public description: string,
-            public dns: Array<string>,
+            public url: Array<string>,
             public info: string){}
     }
 }

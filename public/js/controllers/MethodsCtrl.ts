@@ -141,7 +141,7 @@ module portal {
             return splitPath[0]
         }
         
-        // testing method for submission
+        // method for submission
         public submitMethod() {
             this.scope.$broadcast('load-service-data')
             console.log("submitted "+this.currentMethod.path+" "+this.request['id'])
@@ -152,7 +152,7 @@ module portal {
         
         }
         
-        // testing methods for modal
+        // methods for modal
         public saveMethods() {
             this.modalInstance.close()
             this.scope.$broadcast('clear-service-error')
