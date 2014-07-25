@@ -15,6 +15,7 @@ import akka.actor._
 import akka.pattern.ask
 import java.net.URI
 import javax.xml.datatype._
+import org.bson.types.ObjectId
 
 
 object Application extends BaseController {
@@ -26,7 +27,7 @@ object Application extends BaseController {
   def apiview = Action { Ok(views.html.apiview()) }
   
   // route for testing
-  def test = PortalAction {
+  def test = PortalAction { implicit request =>
 
     val fileName = "mocks/getDPV_LATMOS.xml"
     val xml = scala.xml.XML.loadFile(fileName)
@@ -36,8 +37,7 @@ object Application extends BaseController {
     // we must do it like this
     val obj2 = json.as[VOTABLE]
     
-    
-    Ok(Json.toJson(obj2))
+    Ok(Json.toJson(obj2)).withSession("id" -> request.sessionId)
     //Ok(json)
   }
   

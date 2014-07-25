@@ -10,6 +10,7 @@ import scala.concurrent.Future
 import models.binding._
 import models.enums._
 import soapenvelope11._
+import org.bson.types.ObjectId
 
 
 class BaseController extends Controller {
@@ -24,13 +25,22 @@ class BaseController extends Controller {
 }
 
 // custom portal request mapper
-case class PortalRequest[A](val req: Map[String, String], request: Request[A]) extends WrappedRequest(request)
+case class PortalRequest[A](val req: Map[String, String], val sessionId: String, request: Request[A]) extends WrappedRequest(request)
 
 // custom portal action
 object PortalAction extends ActionBuilder[PortalRequest] {
   def invokeBlock[A](request: Request[A], block: (PortalRequest[A]) => Future[SimpleResult]) = {
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
-    block(PortalRequest(req, request))
+    // creating or getting the session id
+    val sessionId: String = request.session.get("id") match {
+      case Some(id) => id.toString
+      case None => { 
+        val id = new ObjectId
+        id.toString
+      }
+    }
+    
+    block(PortalRequest(req, sessionId, request))
   }
   //composing PortalAction with CACHE and CORS action
   override def composeAction[A](action: Action[A]) = CACHE(CORS(action))

@@ -28,11 +28,11 @@ object Config extends BaseController {
   def config(
       @ApiParam(value = "format in XML or JSON")
       @QueryParam("fmt")
-      @DefaultValue("xml") fmt: String = "xml") = PortalAction.async {
+      @DefaultValue("xml") fmt: String = "xml") = PortalAction.async { implicit request =>
     val future = ConfigService.request(GetConfig(fmt))
     fmt.toLowerCase match {
-      case "xml" => future.mapTo[NodeSeq].map(config => Ok(config))
-      case "json" => future.mapTo[JsValue].map(config => Ok(config))
+      case "xml" => future.mapTo[NodeSeq].map(config => Ok(config).withSession("id" -> request.sessionId))
+      case "json" => future.mapTo[JsValue].map(config => Ok(config).withSession("id" -> request.sessionId))
       case _ => future.mapTo[JsValue].map(error => BadRequest(error))
     }
   }

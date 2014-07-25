@@ -14,6 +14,7 @@ object ApplicationBuild extends Build {
     jdbc,
     anorm,
     cache,
+    "se.radley" %% "play-plugins-salat" % "1.3.0",
     "org.scalaxb" %% "scalaxb" % "1.1.2",
     "net.databinder.dispatch" %% "dispatch-core" % "0.9.5",
     "org.scala-lang.modules" %% "scala-async" % "0.9.0-M4",
@@ -26,8 +27,10 @@ object ApplicationBuild extends Build {
 
   val main = play.Project(appName, appVersion, appDependencies).settings(
     // Add your own project settings here
+    routesImport += "se.radley.plugin.salat.Binders._",
     scalacOptions ++= Seq("-feature"),
-    resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots"
+    resolvers += "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
+    templatesImport += "org.bson.types.ObjectId"  
   )
 /*
   val main = PlayProject(appName, appVersion, appDependencies, mainLang = SCALA,
