@@ -57,8 +57,8 @@ module portal {
             this.myScope = $scope
             $scope.regdirvm = this
             
-            attributes.$observe('db', (value?: string)  => { 
-                this.selectables = this.registryService.selectables[value]
+            attributes.$observe('db', (id?: string)  => { 
+                this.selectables = this.registryService.selectables[id]
             })
 
             this.myScope.$on('registry-error', (e, msg: string) => {

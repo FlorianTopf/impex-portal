@@ -1543,8 +1543,8 @@ var portal;
             this.myScope = $scope;
             $scope.regdirvm = this;
 
-            attributes.$observe('db', function (value) {
-                _this.selectables = _this.registryService.selectables[value];
+            attributes.$observe('db', function (id) {
+                _this.selectables = _this.registryService.selectables[id];
             });
 
             this.myScope.$on('registry-error', function (e, msg) {
@@ -1707,14 +1707,14 @@ var portal;
             this.myScope = $scope;
             this.user = this.userService.user;
 
-            if (this.userService.user.selections) {
-                this.userService.user.selections.map(function (e) {
+            if (this.user.selections) {
+                this.user.selections.map(function (e) {
                     _this.isCollapsed[e.id] = true;
                 });
             }
 
-            if (this.userService.user.results) {
-                this.userService.user.results.map(function (e) {
+            if (this.user.results) {
+                this.user.results.map(function (e) {
                     _this.isCollapsed[e.id] = true;
                 });
             }
@@ -1786,26 +1786,34 @@ var portal;
         };
 
         UserDataDir.prototype.deleteResult = function (id) {
+            // update local selection
             this.user.results = this.user.results.filter(function (e) {
                 return e.id != id;
             });
 
-            // update localStorage
-            this.userService.localStorage.results = this.user.results;
+            // update global service/localStorage
+            this.userService.user.results = this.userService.user.results.filter(function (e) {
+                return e.id != id;
+            });
+            this.userService.localStorage.results = this.userService.user.results;
 
             // delete collapsed info
             delete this.isCollapsed[id];
         };
 
         UserDataDir.prototype.deleteSelection = function (id) {
+            // update local selections
             this.user.selections = this.user.selections.filter(function (e) {
                 return e.id != id;
             });
 
-            // update localStorage
-            this.userService.localStorage.selections = this.user.selections;
+            // update global service/localStorage
+            this.userService.user.selections = this.userService.user.selections.filter(function (e) {
+                return e.id != id;
+            });
+            this.userService.localStorage.selections = this.userService.user.selections;
 
-            // savely clear currentSelection
+            // safely clear currentSelection
             this.currentSelection = [];
 
             // delete collapsed info

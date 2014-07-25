@@ -49,16 +49,18 @@ module portal {
             this.myScope = $scope
             this.user = this.userService.user
             
+            // @TODO watch attribute (repository id)
+            
             // collapsing all selections on init
-            if(this.userService.user.selections) {
-                this.userService.user.selections.map((e) => {
+            if(this.user.selections) {
+                this.user.selections.map((e) => {
                     this.isCollapsed[e.id] = true
                 })
             }
             
             // collapsing all results on init
-            if(this.userService.user.results) {
-               this.userService.user.results.map((e) => {
+            if(this.user.results) {
+               this.user.results.map((e) => {
                     this.isCollapsed[e.id] = true
                })
             }
@@ -128,18 +130,24 @@ module portal {
         }
         
         public deleteResult(id: string) {
+            // update local selection
             this.user.results = this.user.results.filter((e) => e.id != id)
-            // update localStorage
-            this.userService.localStorage.results = this.user.results
+            // update global service/localStorage
+            this.userService.user.results = 
+                this.userService.user.results.filter((e) => e.id != id)
+            this.userService.localStorage.results = this.userService.user.results
             // delete collapsed info
             delete this.isCollapsed[id]
         }
         
         public deleteSelection(id: string) {
+            // update local selections
             this.user.selections = this.user.selections.filter((e) => e.id != id)
-            // update localStorage
-            this.userService.localStorage.selections = this.user.selections
-            // savely clear currentSelection
+            // update global service/localStorage
+            this.userService.user.selections = 
+                this.userService.user.selections.filter((e) => e.id != id)
+            this.userService.localStorage.selections = this.userService.user.selections 
+            // safely clear currentSelection
             this.currentSelection = []
             // delete collapsed info
             delete this.isCollapsed[id]
