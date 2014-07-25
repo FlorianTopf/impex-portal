@@ -104,7 +104,7 @@ module portal {
             //refresh localStorage
             this.userService.localStorage.results = this.userService.user.results
             
-            this.scope.$broadcast('handle-service-success', id)
+            this.scope.$broadcast('update-results', id)
         }
         
         private handleServiceError(error: any) {

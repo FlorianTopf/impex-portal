@@ -1345,7 +1345,7 @@ else
             //refresh localStorage
             this.userService.localStorage.results = this.userService.user.results;
 
-            this.scope.$broadcast('handle-service-success', id);
+            this.scope.$broadcast('update-results', id);
         };
 
         MethodsCtrl.prototype.handleServiceError = function (error) {
@@ -1662,11 +1662,13 @@ else
         RegistryDir.prototype.saveSelection = function (type) {
             // @TODO we change id creation later
             var id = this.userService.createId();
+
             this.userService.user.selections.push(new portal.Selection(id, type, this.activeItems[type]));
 
             // refresh localStorage
             this.userService.localStorage.selections = this.userService.user.selections;
-            this.myScope.$broadcast('update-user-data', id);
+
+            this.myScope.$broadcast('update-selections', id);
         };
         return RegistryDir;
     })();
@@ -1717,8 +1719,28 @@ var portal;
                 });
             }
 
-            this.myScope.$on('handle-service-success', function (e, id) {
-                _this.isCollapsed[id] = true;
+            this.myScope.$on('update-selections', function (e, id) {
+                _this.isCollapsed[id] = false;
+
+                for (var rId in _this.isCollapsed) {
+                    if (rId != id)
+                        _this.isCollapsed[rId] = true;
+                }
+                _this.currentSelection.push(_this.user.selections.filter(function (e) {
+                    return e.id == id;
+                })[0]);
+            });
+
+            this.myScope.$on('update-results', function (e, id) {
+                _this.isCollapsed[id] = false;
+
+                for (var rId in _this.isCollapsed) {
+                    if (rId != id)
+                        _this.isCollapsed[rId] = true;
+                }
+
+                // just for the moment (reset expanded selections)
+                _this.currentSelection = [];
             });
 
             // watch event when all content is loading into the dir
@@ -1759,9 +1781,7 @@ var portal;
                 })[0]);
             } else {
                 this.isCollapsed[id] = true;
-                this.currentSelection = this.currentSelection.filter(function (e) {
-                    return e.id != id;
-                });
+                this.currentSelection = [];
             }
         };
 
@@ -1785,7 +1805,7 @@ var portal;
             // update localStorage
             this.userService.localStorage.selections = this.user.selections;
 
-            // savely clear currentSelection => maybe we don't need that
+            // savely clear currentSelection
             this.currentSelection = [];
 
             // delete collapsed info

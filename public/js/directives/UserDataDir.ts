@@ -49,22 +49,41 @@ module portal {
             this.myScope = $scope
             this.user = this.userService.user
             
-            //collapsing all selections on init
+            // collapsing all selections on init
             if(this.userService.user.selections) {
                 this.userService.user.selections.map((e) => {
                     this.isCollapsed[e.id] = true
                 })
             }
             
-            //collapsing all results on init
+            // collapsing all results on init
             if(this.userService.user.results) {
                this.userService.user.results.map((e) => {
                     this.isCollapsed[e.id] = true
                })
             }
             
-            this.myScope.$on('handle-service-success', (e, id: string) => {
-                this.isCollapsed[id] = true
+            this.myScope.$on('update-selections', (e, id: string) => {
+                this.isCollapsed[id] = false
+                // closing all other collapsibles
+                for(var rId in this.isCollapsed) {
+                    if(rId != id)
+                        this.isCollapsed[rId] = true
+                }
+                this.currentSelection.push(
+                    this.user.selections.filter((e) => e.id == id)[0])
+
+            })
+            
+            this.myScope.$on('update-results', (e, id: string) => {
+                this.isCollapsed[id] = false
+                // closing all other collapsibles
+                for(var rId in this.isCollapsed) {
+                    if(rId != id)
+                        this.isCollapsed[rId] = true
+                }
+                // just for the moment (reset expanded selections)
+                this.currentSelection = []
             })
             
             // watch event when all content is loading into the dir
@@ -104,8 +123,7 @@ module portal {
                     this.user.selections.filter((e) => e.id == id)[0])
             } else {
                 this.isCollapsed[id] = true
-                this.currentSelection = 
-                    this.currentSelection.filter((e) => e.id != id)
+                this.currentSelection = []
             }
         }
         
@@ -121,7 +139,7 @@ module portal {
             this.user.selections = this.user.selections.filter((e) => e.id != id)
             // update localStorage
             this.userService.localStorage.selections = this.user.selections
-            // savely clear currentSelection => maybe we don't need that
+            // savely clear currentSelection
             this.currentSelection = []
             // delete collapsed info
             delete this.isCollapsed[id]
