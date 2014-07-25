@@ -1732,6 +1732,8 @@ var portal;
         };
 
         UserDataDir.prototype.toggleResultDetails = function (id) {
+            // just for the moment (reset expanded selections)
+            this.currentSelection = [];
             if (this.isCollapsed[id]) {
                 this.isCollapsed[id] = false;
 

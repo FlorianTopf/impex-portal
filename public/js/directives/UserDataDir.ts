@@ -78,6 +78,8 @@ module portal {
         }
         
         public toggleResultDetails(id: string) {
+            // just for the moment (reset expanded selections)
+            this.currentSelection = []
             if(this.isCollapsed[id]) { // if it is closed
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
