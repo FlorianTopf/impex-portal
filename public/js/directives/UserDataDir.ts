@@ -37,7 +37,7 @@ module portal {
 
         constructor(userService: portal.UserService) {
             this.userService = userService
-            this.templateUrl = '/public/partials/templates/userdata.html'
+            this.templateUrl = '/public/partials/templates/userdataDir.html'
             this.restrict = 'E'
             this.link = ($scope: portal.IUserDataDirScope, element: JQuery, attributes: ng.IAttributes) => 
                 this.linkFn($scope, element, attributes)

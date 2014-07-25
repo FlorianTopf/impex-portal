@@ -77,13 +77,13 @@ module portal {
     }
     
     export class MyData implements ng.ui.IState {
-        public name: string = 'app.portal.mydata'
-        public url: string = '/mydata'
+        public name: string = 'app.portal.userdata'
+        public url: string = '/userdata'
     
         public onEnter($stateParams, $state, $modal) {
             $modal.open({
-                templateUrl: '/public/partials/myDataModal.html',
-                controller: MyDataCtrl,
+                templateUrl: '/public/partials/userDataModal.html',
+                controller: UserDataCtrl,
                 size: 'lg',
             }).result.then(
                 () => { 

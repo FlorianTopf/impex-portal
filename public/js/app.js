@@ -87,13 +87,13 @@ var portal;
 
     var MyData = (function () {
         function MyData() {
-            this.name = 'app.portal.mydata';
-            this.url = '/mydata';
+            this.name = 'app.portal.userdata';
+            this.url = '/userdata';
         }
         MyData.prototype.onEnter = function ($stateParams, $state, $modal) {
             $modal.open({
-                templateUrl: '/public/partials/myDataModal.html',
-                controller: portal.MyDataCtrl,
+                templateUrl: '/public/partials/userDataModal.html',
+                controller: portal.UserDataCtrl,
                 size: 'lg'
             }).result.then(function () {
                 $state.transitionTo('app.portal');
@@ -1434,8 +1434,8 @@ var portal;
     'use strict';
 
     // @TODO introduce error/offline handling later
-    var MyDataCtrl = (function () {
-        function MyDataCtrl($scope, $location, $timeout, $window, userService, $state, $modalInstance) {
+    var UserDataCtrl = (function () {
+        function UserDataCtrl($scope, $location, $timeout, $window, userService, $state, $modalInstance) {
             this.initialising = false;
             this.showError = false;
             this.scope = $scope;
@@ -1448,14 +1448,14 @@ var portal;
             this.modalInstance = $modalInstance;
         }
         // methods for modal
-        MyDataCtrl.prototype.saveData = function () {
+        UserDataCtrl.prototype.saveData = function () {
             this.modalInstance.close();
         };
 
-        MyDataCtrl.prototype.cancelData = function () {
+        UserDataCtrl.prototype.cancelData = function () {
             this.modalInstance.dismiss();
         };
-        MyDataCtrl.$inject = [
+        UserDataCtrl.$inject = [
             '$scope',
             '$location',
             '$timeout',
@@ -1464,9 +1464,9 @@ var portal;
             '$state',
             '$modalInstance'
         ];
-        return MyDataCtrl;
+        return UserDataCtrl;
     })();
-    portal.MyDataCtrl = MyDataCtrl;
+    portal.UserDataCtrl = UserDataCtrl;
 })(portal || (portal = {}));
 /// <reference path='../_all.ts' />
 var portal;
@@ -1477,7 +1477,7 @@ var portal;
         function DatabasesDir(configService) {
             var _this = this;
             this.configService = configService;
-            this.templateUrl = '/public/partials/templates/databases.html';
+            this.templateUrl = '/public/partials/templates/databasesDir.html';
             this.restrict = 'E';
             this.link = function ($scope, element, attributes) {
                 return _this.linkFn($scope, element, attributes);
@@ -1522,7 +1522,7 @@ var portal;
             this.selectables = [];
             this.registryService = registryService;
             this.userService = userService;
-            this.templateUrl = '/public/partials/templates/registry.html';
+            this.templateUrl = '/public/partials/templates/registryDir.html';
             this.restrict = 'E';
             this.link = function ($scope, element, attributes) {
                 return _this.linkFn($scope, element, attributes);
@@ -1684,7 +1684,7 @@ var portal;
             // current resource selections which are fully displayed
             this.currentSelection = [];
             this.userService = userService;
-            this.templateUrl = '/public/partials/templates/userdata.html';
+            this.templateUrl = '/public/partials/templates/userdataDir.html';
             this.restrict = 'E';
             this.link = function ($scope, element, attributes) {
                 return _this.linkFn($scope, element, attributes);
@@ -1906,7 +1906,7 @@ var portal;
     impexPortal.controller('portalCtrl', portal.PortalCtrl);
     impexPortal.controller('registryCtrl', portal.RegistryCtrl);
     impexPortal.controller('methodsCtrl', portal.MethodsCtrl);
-    impexPortal.controller('myDataCtrl', portal.MyDataCtrl);
+    impexPortal.controller('userDataCtrl', portal.UserDataCtrl);
 
     impexPortal.directive('databasesDir', portal.DatabasesDir.prototype.injection());
     impexPortal.directive('registryDir', portal.RegistryDir.prototype.injection());

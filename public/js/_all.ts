@@ -16,7 +16,7 @@
 /// <reference path='controllers/PortalCtrl.ts' />
 /// <reference path='controllers/RegistryCtrl.ts' />
 /// <reference path='controllers/MethodsCtrl.ts' />
-/// <reference path='controllers/MyDataCtrl.ts' />
+/// <reference path='controllers/UserDataCtrl.ts' />
 
 /// <reference path='directives/DatabasesDir.ts' />
 /// <reference path='directives/RegistryDir.ts' />

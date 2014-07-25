@@ -27,7 +27,7 @@ module portal {
 
     	constructor(configService: portal.ConfigService) {
             this.configService = configService
-	        this.templateUrl = '/public/partials/templates/databases.html'
+	        this.templateUrl = '/public/partials/templates/databasesDir.html'
 	        this.restrict = 'E'
 	        this.link = ($scope: portal.IDatabasesDirScope, element: JQuery, attributes: ng.IAttributes) => 
                 this.linkFn($scope, element, attributes)

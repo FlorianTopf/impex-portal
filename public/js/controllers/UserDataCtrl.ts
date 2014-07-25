@@ -3,13 +3,13 @@
 module portal {
     'use strict';
 
-    export interface IMyDataScope extends ng.IScope {
-        datavm: MyDataCtrl;
+    export interface IUserDataScope extends ng.IScope {
+        datavm: UserDataCtrl;
     }
 
     // @TODO introduce error/offline handling later
-    export class MyDataCtrl {
-        private scope: portal.IMyDataScope
+    export class UserDataCtrl {
+        private scope: portal.IUserDataScope
         private location: ng.ILocationService
         private timeout: ng.ITimeoutService
         private window: ng.IWindowService
@@ -24,7 +24,7 @@ module portal {
         static $inject: Array<string> = ['$scope', '$location', '$timeout', '$window',
             'userService', '$state', '$modalInstance']
 
-        constructor($scope: IMyDataScope, $location: ng.ILocationService, $timeout: ng.ITimeoutService, 
+        constructor($scope: IUserDataScope, $location: ng.ILocationService, $timeout: ng.ITimeoutService, 
             $window: ng.IWindowService, userService: portal.UserService,
             $state: ng.ui.IStateService, $modalInstance: any) {   
             this.scope = $scope

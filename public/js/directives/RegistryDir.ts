@@ -47,7 +47,7 @@ module portal {
         constructor(registryService: portal.RegistryService, userService: portal.UserService) {
             this.registryService = registryService
             this.userService = userService
-            this.templateUrl = '/public/partials/templates/registry.html'
+            this.templateUrl = '/public/partials/templates/registryDir.html'
             this.restrict = 'E'
             this.link = ($scope: portal.IRegistryDirScope, element: JQuery, attributes: ng.IAttributes) => 
                 this.linkFn($scope, element, attributes)
