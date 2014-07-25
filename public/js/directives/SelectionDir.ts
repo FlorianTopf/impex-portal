@@ -54,7 +54,7 @@ module portal {
         
         constructor($compile: ng.ICompileService) {
             this.compileService = $compile
-            this.template = "<li></li>"
+            this.template = '<li></li>'
             this.restrict = 'E'
             this.replace = true 
             this.scope = {

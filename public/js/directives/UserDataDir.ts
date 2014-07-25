@@ -25,9 +25,6 @@ module portal {
         public link: ($scope: portal.IUserDataDirScope, element: JQuery, attributes: ng.IAttributes) => any
         public templateUrl: string
         public restrict: string
-        public loading: boolean = false
-        public status: string
-        public showError: boolean = false  
         public isCollapsed: ICollapsedMap = {}
         // current resource selections which are fully displayed
         public currentSelection: Array<Selection> = []
@@ -40,7 +37,6 @@ module portal {
 
         constructor(userService: portal.UserService) {
             this.userService = userService
-            // @FIXME refactor this template (it's really ugly atm)
             this.templateUrl = '/public/partials/templates/userdata.html'
             this.restrict = 'E'
             this.link = ($scope: portal.IUserDataDirScope, element: JQuery, attributes: ng.IAttributes) => 
@@ -62,35 +58,16 @@ module portal {
             
             //collapsing all results on init
             if(this.userService.user.results) {
-               //for(var id in this.userService.user.results)
-               //    this.isCollapsed[id] = true
                this.userService.user.results.map((e) => {
                     this.isCollapsed[e.id] = true
                })
             }
             
-            this.myScope.$on('update-user-data', (e, id: string) => {
-                this.loading = false
+            this.myScope.$on('handle-service-success', (e, id: string) => {
                 this.isCollapsed[id] = true
             })
             
-            this.myScope.$on('handle-service-error', (e, msg: string) => {
-                this.loading = false
-                this.showError = true
-                this.status = msg
-            })
-            
-            this.myScope.$on('load-service-data', (e) => {
-                this.showError = false
-                this.loading = true
-            })
-            
-            this.myScope.$on('clear-service-error', (e) => {
-                this.showError = false
-                this.status = ''
-            })
-            
-            // we need to watch on the modal => how we can achieve this?
+            // watch event when all content is loading into the dir
             this.myScope.$watch('$includeContentLoaded', (e) => {                      
                 // just for the moment (collapse all on enter)
                 for(var id in this.isCollapsed)

@@ -23,7 +23,7 @@ module portal {
         public database: Database = null
         public methods: Array<Api>
         public initialising: boolean = false
-        public status: string
+        public status: string = ''
         public showError: boolean = false  
         public currentMethod: Api
         public request: Object = {}
@@ -61,6 +61,7 @@ module portal {
         
         private loadMethodsAPI() {
             this.initialising = true
+            this.status = ''
             this.methodsService.getMethodsAPI().get(
                 (data: ISwagger, status: any) => this.handleAPIData(data, status),
                 (error: any) => this.handleAPIError(error)
@@ -69,7 +70,7 @@ module portal {
         
         private handleAPIData(data: ISwagger, status?: any) {
             this.initialising = false
-            this.status = "success"
+            this.status = 'success'
             // we always get the right thing
             this.methodsService.methods = data
             this.methods = this.methodsService.getMethods(this.database)
@@ -82,42 +83,65 @@ module portal {
             else {
                 this.showError = true
                 if(error.status = 404)
-                    this.status = error.status+" resource not found"
+                    this.status = error.status+' resource not found'
                 else
-                    this.status = error.data+" "+error.status
+                    this.status = error.data+' '+error.status
             }
         }  
         
         // handling and saving the WS result
         private handleServiceData(data: IResponse, status?: any) {
-            console.log("Success: "+data.message)
+            console.log('success: '+data.message)
+            
+            this.methodsService.loading = false
+            this.methodsService.status = 'success'
+            
             // @TODO we change id creation later
             var id = this.userService.createId()
-            // @TODO we must take care of custom results (getMostRelevantRun)
+            
+            // @TODO we must take care of custom results (e.g. getMostRelevantRun)
             this.userService.user.results.push(new Result(id, this.currentMethod.path, data))
             //refresh localStorage
             this.userService.localStorage.results = this.userService.user.results
-            this.scope.$broadcast('update-user-data', id)
+            
+            this.scope.$broadcast('handle-service-success', id)
         }
         
         private handleServiceError(error: any) {
-            console.log("Failure: "+error.status)
+            console.log('failure: '+error.status)
+
+            this.methodsService.loading = false
+            this.methodsService.showError = true
             if(error.status == 404)
-                var message = error.status+" resource not found"
+                this.methodsService.status = error.status+' resource not found'
             else {
                 var response = <IResponse>error.data
-                var message = response.message
+                this.methodsService.status = response.message
             }
-            this.scope.$broadcast('handle-service-error', message)
         }
+        
+        // method for submission
+        public submitMethod() {
+            console.log('submitted '+this.currentMethod.path+' '+this.request['id'])
+            
+            this.methodsService.loading = true
+            this.methodsService.status = ''
+            this.methodsService.showError = false
+            
+            this.methodsService.requestMethod(this.currentMethod.path, this.request).get(
+                (data: IResponse, status: any) => this.handleServiceData(data, status),
+                (error: any) => this.handleServiceError(error)
+            )
+        }
+        
         
         // helpers for methods modal
         public dropdownStatus = {
             isopen: false,
-            active: "Choose Method"
+            active: 'Choose Method'
         }
         
-        //@TODO here we might add a transition to a sub-state...
+        //@TODO move this to directive later
         public setActive(method: Api) {
             this.dropdownStatus.active = this.trimPath(method.path)
             this.currentMethod = method
@@ -141,26 +165,16 @@ module portal {
             return splitPath[0]
         }
         
-        // method for submission
-        public submitMethod() {
-            this.scope.$broadcast('load-service-data')
-            console.log("submitted "+this.currentMethod.path+" "+this.request['id'])
-            this.methodsService.requestMethod(this.currentMethod.path, this.request).get(
-                (data: IResponse, status: any) => this.handleServiceData(data, status),
-                (error: any) => this.handleServiceError(error)
-            )
-        
-        }
         
         // methods for modal
         public saveMethods() {
             this.modalInstance.close()
-            this.scope.$broadcast('clear-service-error')
+            this.methodsService.showError = false
         }
         
         public cancelMethods() {
             this.modalInstance.dismiss()
-            this.scope.$broadcast('clear-service-error')
+            this.methodsService.showError = false
         }
     
 

@@ -19,6 +19,9 @@ module portal {
         private resource: ng.resource.IResourceService
         private url: string = ''
         public methods: ISwagger = null    
+        public loading: boolean = false
+        public status: string = ''
+        public showError: boolean = false  
         
         // action descriptor for registry actions
         private methodsAction: ng.resource.IActionDescriptor = {

@@ -924,6 +924,9 @@ var portal;
         function MethodsService($resource) {
             this.url = '';
             this.methods = null;
+            this.loading = false;
+            this.status = '';
+            this.showError = false;
             // action descriptor for registry actions
             this.methodsAction = {
                 method: 'GET',
@@ -1262,12 +1265,13 @@ var portal;
         function MethodsCtrl($scope, $location, $timeout, $window, configService, methodsService, userService, $state, $modalInstance, id) {
             this.database = null;
             this.initialising = false;
+            this.status = '';
             this.showError = false;
             this.request = {};
             // helpers for methods modal
             this.dropdownStatus = {
                 isopen: false,
-                active: "Choose Method"
+                active: 'Choose Method'
             };
             this.scope = $scope;
             $scope.methvm = this;
@@ -1295,6 +1299,7 @@ else
         MethodsCtrl.prototype.loadMethodsAPI = function () {
             var _this = this;
             this.initialising = true;
+            this.status = '';
             this.methodsService.getMethodsAPI().get(function (data, status) {
                 return _this.handleAPIData(data, status);
             }, function (error) {
@@ -1304,7 +1309,7 @@ else
 
         MethodsCtrl.prototype.handleAPIData = function (data, status) {
             this.initialising = false;
-            this.status = "success";
+            this.status = 'success';
 
             // we always get the right thing
             this.methodsService.methods = data;
@@ -1318,39 +1323,61 @@ else
 else {
                 this.showError = true;
                 if (error.status = 404)
-                    this.status = error.status + " resource not found";
+                    this.status = error.status + ' resource not found';
 else
-                    this.status = error.data + " " + error.status;
+                    this.status = error.data + ' ' + error.status;
             }
         };
 
         // handling and saving the WS result
         MethodsCtrl.prototype.handleServiceData = function (data, status) {
-            console.log("Success: " + data.message);
+            console.log('success: ' + data.message);
+
+            this.methodsService.loading = false;
+            this.methodsService.status = 'success';
 
             // @TODO we change id creation later
             var id = this.userService.createId();
 
-            // @TODO we must take care of custom results (getMostRelevantRun)
+            // @TODO we must take care of custom results (e.g. getMostRelevantRun)
             this.userService.user.results.push(new portal.Result(id, this.currentMethod.path, data));
 
             //refresh localStorage
             this.userService.localStorage.results = this.userService.user.results;
-            this.scope.$broadcast('update-user-data', id);
+
+            this.scope.$broadcast('handle-service-success', id);
         };
 
         MethodsCtrl.prototype.handleServiceError = function (error) {
-            console.log("Failure: " + error.status);
+            console.log('failure: ' + error.status);
+
+            this.methodsService.loading = false;
+            this.methodsService.showError = true;
             if (error.status == 404)
-                var message = error.status + " resource not found";
+                this.methodsService.status = error.status + ' resource not found';
 else {
                 var response = error.data;
-                var message = response.message;
+                this.methodsService.status = response.message;
             }
-            this.scope.$broadcast('handle-service-error', message);
         };
 
-        //@TODO here we might add a transition to a sub-state...
+        // method for submission
+        MethodsCtrl.prototype.submitMethod = function () {
+            var _this = this;
+            console.log('submitted ' + this.currentMethod.path + ' ' + this.request['id']);
+
+            this.methodsService.loading = true;
+            this.methodsService.status = '';
+            this.methodsService.showError = false;
+
+            this.methodsService.requestMethod(this.currentMethod.path, this.request).get(function (data, status) {
+                return _this.handleServiceData(data, status);
+            }, function (error) {
+                return _this.handleServiceError(error);
+            });
+        };
+
+        //@TODO move this to directive later
         MethodsCtrl.prototype.setActive = function (method) {
             var _this = this;
             this.dropdownStatus.active = this.trimPath(method.path);
@@ -1375,27 +1402,15 @@ else {
             return splitPath[0];
         };
 
-        // method for submission
-        MethodsCtrl.prototype.submitMethod = function () {
-            var _this = this;
-            this.scope.$broadcast('load-service-data');
-            console.log("submitted " + this.currentMethod.path + " " + this.request['id']);
-            this.methodsService.requestMethod(this.currentMethod.path, this.request).get(function (data, status) {
-                return _this.handleServiceData(data, status);
-            }, function (error) {
-                return _this.handleServiceError(error);
-            });
-        };
-
         // methods for modal
         MethodsCtrl.prototype.saveMethods = function () {
             this.modalInstance.close();
-            this.scope.$broadcast('clear-service-error');
+            this.methodsService.showError = false;
         };
 
         MethodsCtrl.prototype.cancelMethods = function () {
             this.modalInstance.dismiss();
-            this.scope.$broadcast('clear-service-error');
+            this.methodsService.showError = false;
         };
         MethodsCtrl.$inject = [
             '$scope',
@@ -1665,14 +1680,10 @@ var portal;
     var UserDataDir = (function () {
         function UserDataDir(userService) {
             var _this = this;
-            this.loading = false;
-            this.showError = false;
             this.isCollapsed = {};
             // current resource selections which are fully displayed
             this.currentSelection = [];
             this.userService = userService;
-
-            // @FIXME refactor this template (it's really ugly atm)
             this.templateUrl = '/public/partials/templates/userdata.html';
             this.restrict = 'E';
             this.link = function ($scope, element, attributes) {
@@ -1701,35 +1712,16 @@ var portal;
             }
 
             if (this.userService.user.results) {
-                //for(var id in this.userService.user.results)
-                //    this.isCollapsed[id] = true
                 this.userService.user.results.map(function (e) {
                     _this.isCollapsed[e.id] = true;
                 });
             }
 
-            this.myScope.$on('update-user-data', function (e, id) {
-                _this.loading = false;
+            this.myScope.$on('handle-service-success', function (e, id) {
                 _this.isCollapsed[id] = true;
             });
 
-            this.myScope.$on('handle-service-error', function (e, msg) {
-                _this.loading = false;
-                _this.showError = true;
-                _this.status = msg;
-            });
-
-            this.myScope.$on('load-service-data', function (e) {
-                _this.showError = false;
-                _this.loading = true;
-            });
-
-            this.myScope.$on('clear-service-error', function (e) {
-                _this.showError = false;
-                _this.status = '';
-            });
-
-            // we need to watch on the modal => how we can achieve this?
+            // watch event when all content is loading into the dir
             this.myScope.$watch('$includeContentLoaded', function (e) {
                 for (var id in _this.isCollapsed)
                     _this.isCollapsed[id] = true;
@@ -1831,7 +1823,7 @@ var portal;
         function MemberDir($compile) {
             var _this = this;
             this.compileService = $compile;
-            this.template = "<li></li>";
+            this.template = '<li></li>';
             this.restrict = 'E';
             this.replace = true;
             this.scope = {

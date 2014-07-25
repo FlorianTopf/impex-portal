@@ -54,6 +54,16 @@
 		</div>
 	</div>
 	<user-data-dir></user-data-dir>
+	<div class="row">
+	<div class="col-sm-12">
+		<div class="btn-group-vertical">
+			<div ng-show="methvm.methodsService.loading">
+				<img src="/public/img/throbber.gif" alt="loading..."/>
+			</div>
+			<div class="error" ng-show="methvm.methodsService.showError">{{ methvm.methodsService.status }}</div>
+		</div>
+	</div>
+</div>
 </div>
 <div class="modal-footer">
 	<button type="submit" class="btn btn-primary" 
