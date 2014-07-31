@@ -25,6 +25,7 @@ module portal {
         public link: ($scope: portal.IUserDataDirScope, element: JQuery, attributes: ng.IAttributes) => any
         public templateUrl: string
         public restrict: string
+        public repositoryId: string = null
         public isCollapsed: ICollapsedMap = {}
         // current resource selections which are fully displayed
         public currentSelection: Array<Selection> = []
@@ -49,7 +50,9 @@ module portal {
             this.myScope = $scope
             this.user = this.userService.user
             
-            // @TODO watch attribute (repository id)
+            attributes.$observe('db', (id?: string)  => { 
+                this.repositoryId = id
+            })
             
             // collapsing all selections on init
             if(this.user.selections) {

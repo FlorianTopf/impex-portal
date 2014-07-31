@@ -796,7 +796,8 @@ var portal;
 
     // currently saved results
     var Result = (function () {
-        function Result(id, method, content) {
+        function Result(repositoryId, id, method, content) {
+            this.repositoryId = repositoryId;
             this.id = id;
             this.method = method;
             this.content = content;
@@ -807,7 +808,8 @@ var portal;
 
     // currently saved selections
     var Selection = (function () {
-        function Selection(id, type, elem) {
+        function Selection(repositoryId, id, type, elem) {
+            this.repositoryId = repositoryId;
             this.id = id;
             this.type = type;
             this.elem = elem;
@@ -1340,7 +1342,7 @@ else
             var id = this.userService.createId();
 
             // @TODO we must take care of custom results (e.g. getMostRelevantRun)
-            this.userService.user.results.push(new portal.Result(id, this.currentMethod.path, data));
+            this.userService.user.results.push(new portal.Result(this.database.id, id, this.currentMethod.path, data));
 
             //refresh localStorage
             this.userService.localStorage.results = this.userService.user.results;
@@ -1512,6 +1514,7 @@ var portal;
             this.oneAtATime = true;
             this.showError = false;
             this.status = '';
+            this.repositoryId = null;
             // container for intermediate results
             this.repositories = [];
             this.simulationModels = [];
@@ -1545,6 +1548,7 @@ var portal;
 
             attributes.$observe('db', function (id) {
                 _this.selectables = _this.registryService.selectables[id];
+                _this.repositoryId = id;
             });
 
             this.myScope.$on('registry-error', function (e, msg) {
@@ -1663,7 +1667,7 @@ else
             // @TODO we change id creation later
             var id = this.userService.createId();
 
-            this.userService.user.selections.push(new portal.Selection(id, type, this.activeItems[type]));
+            this.userService.user.selections.push(new portal.Selection(this.repositoryId, id, type, this.activeItems[type]));
 
             // refresh localStorage
             this.userService.localStorage.selections = this.userService.user.selections;
@@ -1682,6 +1686,7 @@ var portal;
     var UserDataDir = (function () {
         function UserDataDir(userService) {
             var _this = this;
+            this.repositoryId = null;
             this.isCollapsed = {};
             // current resource selections which are fully displayed
             this.currentSelection = [];
@@ -1706,6 +1711,10 @@ var portal;
             $scope.userdirvm = this;
             this.myScope = $scope;
             this.user = this.userService.user;
+
+            attributes.$observe('db', function (id) {
+                _this.repositoryId = id;
+            });
 
             if (this.user.selections) {
                 this.user.selections.map(function (e) {

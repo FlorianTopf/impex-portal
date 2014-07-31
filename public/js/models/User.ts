@@ -6,6 +6,7 @@ module portal {
     // currently saved results 
     export class Result {
         constructor(
+            public repositoryId: string,
             public id: string,
             public method: string,
             public content: IResponse) {}
@@ -14,6 +15,7 @@ module portal {
     // currently saved selections
     export class Selection {
         constructor(
+            public repositoryId: string,
             public id: string,
             public type: string,
             public elem: SpaseElem) {}

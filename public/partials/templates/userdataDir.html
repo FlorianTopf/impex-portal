@@ -6,7 +6,7 @@
 		<div class="btn-group-vertical" style="max-height: 450px; overflow-y: auto; width: 200px; margin-top: 20px;" 
 			ng-hide="userdirvm.user.results | isEmpty">
 			<button type="button" class="btn btn-success btn-sm" 
-				ng-repeat="res in userdirvm.user.results"
+				ng-repeat="res in userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId }"
 			    ng-class="{ active: !userdirvm.isCollapsed[res.id] }"
 				ng-click="userdirvm.toggleResultDetails(res.id)">
 					Service Result {{ res.id }}<br/>
@@ -16,7 +16,7 @@
 		<div class="btn-group-vertical" style="max-height: 450px; overflow-y: auto; width: 200px; margin-top: 20px;" 
 			ng-hide="userdirvm.user.selections | isEmpty">
 			<button type="button" class="btn btn-success btn-sm" 
-				ng-repeat="sel in userdirvm.user.selections"
+				ng-repeat="sel in userdirvm.user.selections | filter:{ repositoryId:userdirvm.repositoryId }"
 			    ng-class="{ active: !userdirvm.isCollapsed[sel.id] }"
 				ng-click="userdirvm.toggleSelectionDetails(sel.id)">
 					Tree Selection {{ sel.id }}<br/>
@@ -25,7 +25,8 @@
 		</div>
 	</div>
 	<div class="col-sm-8">
-		<div ng-repeat="res in userdirvm.user.results" ng-hide="userdirvm.isCollapsed[res.id]">
+		<div ng-repeat="res in userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId }" 
+			ng-hide="userdirvm.isCollapsed[res.id]">
 			<div class="well well-sm" style="max-height: 450px; overflow-y: auto;">
 				<button type="button" class="btn btn-danger btn-sm" 
 					style="float: right;" ng-click="userdirvm.deleteResult(res.id)">

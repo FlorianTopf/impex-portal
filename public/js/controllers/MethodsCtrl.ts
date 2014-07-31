@@ -100,7 +100,7 @@ module portal {
             var id = this.userService.createId()
             
             // @TODO we must take care of custom results (e.g. getMostRelevantRun)
-            this.userService.user.results.push(new Result(id, this.currentMethod.path, data))
+            this.userService.user.results.push(new Result(this.database.id, id, this.currentMethod.path, data))
             //refresh localStorage
             this.userService.localStorage.results = this.userService.user.results
             

@@ -6,7 +6,7 @@
 		<img src="/public/img/layout/loading.gif" class="loadingImg-sm" alt="loading..." />
 	</div>	
 	<registry-dir db="{{ regvm.database.id }}"></registry-dir>
-	<user-data-dir></user-data-dir>
+	<user-data-dir db="{{ regvm.database.id }}"></user-data-dir>
 </div>
 <div class="modal-footer">
 	<button type="button" class="btn btn-primary" ng-click="regvm.saveRegistry()">Close</button>

@@ -31,6 +31,7 @@ module portal {
         public showError: boolean = false
         public status: string = ''
         
+        public repositoryId: string = null
         // container for intermediate results
         public repositories: Array<Repository> = []
         public simulationModels: Array<SimulationModel> = []
@@ -59,6 +60,7 @@ module portal {
             
             attributes.$observe('db', (id?: string)  => { 
                 this.selectables = this.registryService.selectables[id]
+                this.repositoryId = id
             })
 
             this.myScope.$on('registry-error', (e, msg: string) => {
@@ -169,7 +171,7 @@ module portal {
             var id = this.userService.createId()
             
             this.userService.user.selections.push(
-                new Selection(id, type, this.activeItems[type]))
+                new Selection(this.repositoryId, id, type, this.activeItems[type]))
             // refresh localStorage
             this.userService.localStorage.selections = this.userService.user.selections
             
