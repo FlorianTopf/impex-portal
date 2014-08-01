@@ -1402,7 +1402,7 @@ else {
                 })[0];
                 this.scope.$broadcast('set-applyable-elements', param.description);
             } else {
-                // if there is no id broadcast empty string
+                // if there is no id, broadcast empty string
                 this.scope.$broadcast('set-applyable-elements', '');
             }
         };
@@ -1710,7 +1710,7 @@ var portal;
             var _this = this;
             this.repositoryId = null;
             this.isCollapsed = {};
-            // current resource selection which are fully displayed
+            // current resource selection which is fully displayed
             this.currentSelection = [];
             // currently applyable elements (according to current method)
             this.applyableElements = [];
@@ -1759,9 +1759,8 @@ var portal;
             this.myScope.$on('set-applyable-elements', function (e, elements) {
                 _this.applyableElements = elements.split(',');
                 _this.isApplyable = false;
-                if (_this.currentSelection.length != 0) {
+                if (_this.currentSelection.length == 1) {
                     _this.applyableElements.forEach(function (e) {
-                        // @FIXME there should be only one selection anyway
                         console.log("Element " + e);
                         if (_this.currentSelection[0].type === e)
                             _this.isApplyable = true;
@@ -1770,6 +1769,8 @@ var portal;
             });
 
             this.myScope.$on('update-selections', function (e, id) {
+                // reset expanded selection
+                _this.currentSelection = [];
                 _this.isCollapsed[id] = false;
 
                 for (var rId in _this.isCollapsed) {
@@ -1789,7 +1790,7 @@ var portal;
                         _this.isCollapsed[rId] = true;
                 }
 
-                // just for the moment (reset expanded selections)
+                // reset expanded selection
                 _this.currentSelection = [];
             });
 
@@ -1808,7 +1809,7 @@ var portal;
         };
 
         UserDataDir.prototype.toggleResultDetails = function (id) {
-            // just for the moment (reset expanded selections)
+            // reset expanded selection
             this.currentSelection = [];
             if (this.isCollapsed[id]) {
                 this.isCollapsed[id] = false;
@@ -1823,6 +1824,8 @@ var portal;
         };
 
         UserDataDir.prototype.toggleSelectionDetails = function (id) {
+            // reset expanded selection
+            this.currentSelection = [];
             if (this.isCollapsed[id]) {
                 this.isCollapsed[id] = false;
 
@@ -1838,11 +1841,9 @@ var portal;
                     this.isApplyable = true;
                     console.log("isApplyable");
                 }
-                this.currentSelection = [];
                 this.currentSelection.push(selection);
             } else {
                 this.isCollapsed[id] = true;
-                this.currentSelection = [];
 
                 // set isApplyable to false
                 this.isApplyable = false;
