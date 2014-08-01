@@ -162,7 +162,7 @@ module portal {
                 var param = this.currentMethod.operations[0].parameters.filter((e) => e.name === 'id')[0]
                 this.scope.$broadcast('set-applyable-elements', param.description)
             } else {
-                // if there is no id broadcast empty string
+                // if there is no id, broadcast empty string
                 this.scope.$broadcast('set-applyable-elements', '')
             }
         }

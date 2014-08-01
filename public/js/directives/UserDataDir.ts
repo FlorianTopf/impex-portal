@@ -28,7 +28,7 @@ module portal {
         public restrict: string
         public repositoryId: string = null
         public isCollapsed: ICollapsedMap = {}
-        // current resource selection which are fully displayed
+        // current resource selection which is fully displayed
         public currentSelection: Array<Selection> = []
         // currently applyable elements (according to current method)
         public applyableElements: Array<string> = []
@@ -76,9 +76,8 @@ module portal {
             this.myScope.$on('set-applyable-elements', (e, elements: string) => {
                this.applyableElements = elements.split(',')
                this.isApplyable = false
-               if(this.currentSelection.length != 0) {
+               if(this.currentSelection.length == 1) {
                     this.applyableElements.forEach((e) => {
-                        // @FIXME there should be only one selection anyway
                         console.log("Element "+e)
                         if(this.currentSelection[0].type === e)
                             this.isApplyable = true  
@@ -87,14 +86,15 @@ module portal {
             })
             
             this.myScope.$on('update-selections', (e, id: string) => {
+                // reset expanded selection
+                this.currentSelection = []
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
                 for(var rId in this.isCollapsed) {
                     if(rId != id)
                         this.isCollapsed[rId] = true
                 }
-                this.currentSelection.push(
-                    this.user.selections.filter((e) => e.id == id)[0])
+                this.currentSelection.push(this.user.selections.filter((e) => e.id == id)[0])
             })
             
             this.myScope.$on('update-results', (e, id: string) => {
@@ -104,7 +104,7 @@ module portal {
                     if(rId != id)
                         this.isCollapsed[rId] = true
                 }
-                // just for the moment (reset expanded selections)
+                // reset expanded selection
                 this.currentSelection = []
             })
             
@@ -122,7 +122,7 @@ module portal {
         }
         
         public toggleResultDetails(id: string) {
-            // just for the moment (reset expanded selections)
+            // reset expanded selection
             this.currentSelection = []
             if(this.isCollapsed[id]) { // if it is closed
                 this.isCollapsed[id] = false
@@ -137,6 +137,8 @@ module portal {
         }
         
         public toggleSelectionDetails(id: string) {
+            // reset expanded selection
+            this.currentSelection = []
             if(this.isCollapsed[id]) { // if it is closed 
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
@@ -150,12 +152,10 @@ module portal {
                     this.isApplyable = true
                     console.log("isApplyable")  
                 }
-                this.currentSelection = []
                 this.currentSelection.push(selection)
                 
             } else {
                 this.isCollapsed[id] = true
-                this.currentSelection = []
                 // set isApplyable to false
                 this.isApplyable = false
             }
