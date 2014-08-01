@@ -30,21 +30,25 @@
 	<div class="row">
 		<div class="col-sm-12">
 			<!-- maybe use a directive with attributes here => currentMethod -->
-			<div ng-repeat="operation in methvm.currentMethod.operations">
+			<div ng-repeat="operation in methvm.currentMethod.operations" 
+				style="max-height: 500px; overflow-y: auto; overflow-x: hidden;">
 				<p><strong>{{ operation.summary }}:</strong>&nbsp;&nbsp;{{ operation.notes }}</p>
+					<!-- if paramType == 'query' -->
 					<div class="form-group" ng-repeat="parameter in operation.parameters" 
 						ng-show="parameter.paramType == 'query'" >	
 						<label class="col-sm-3 control-label">{{ parameter.description }}</label>
 						<div class="col-sm-7">
+						    <!-- normal inputs -->
 							<input ng-show="parameter['enum'] | isEmpty" 
-								type="text" class="form-control" 
+								type="text" class="form-control input-sm" 
 								ng-required="parameter.required" ng-model="methvm.request[parameter.name]">
-					    	<select class="form-control" ng-hide="parameter['enum'] | isEmpty"
+						    <!-- enum inputs -->
+					    	<select class="form-control input-sm" ng-hide="parameter['enum'] | isEmpty"
 					    		ng-options="opt for opt in parameter['enum']" ng-model="methvm.request[parameter.name]" 
 					    		ng-required="parameter.required">
 					    	</select>
 						</div>
-						<label class="col-sm-2 control-label">
+						<label class="col-sm-1 control-label">
 							<div class="text-left" ng-if="parameter.required">required</div>
 							<div class="text-left" ng-if="!parameter.required">optional</div>
 						</label>

@@ -1077,6 +1077,7 @@ var portal;
     var RegistryCtrl = (function () {
         function RegistryCtrl($scope, $location, $timeout, $window, configService, registryService, userService, $state, $modalInstance, id) {
             var _this = this;
+            this.isFirstOpen = true;
             this.database = null;
             this.initialising = false;
             this.loading = false;
@@ -1098,6 +1099,8 @@ var portal;
             //(is changed each time modal is opened)
             this.scope.$watch('this.database', function () {
                 _this.getRepository(_this.database.id);
+                if (_this.isFirstOpen)
+                    _this.getSimulationModel(_this.database.id);
             });
         }
         RegistryCtrl.prototype.getRepository = function (id) {
@@ -1606,6 +1609,8 @@ var portal;
             this.myScope.$on('clear-simulation-runs', function (e, element) {
                 _this.setActive('SimulationModel', element);
                 _this.activeItems['SimulationRun'] = null;
+                _this.activeItems['NumericalOutput'] = null;
+                _this.activeItems['Granule'] = null;
                 _this.showError = false;
                 _this.simulationRuns = [];
                 _this.numericalOutputs = [];
@@ -1615,6 +1620,7 @@ var portal;
             this.myScope.$on('clear-numerical-outputs', function (e, element) {
                 _this.setActive('SimulationRun', element);
                 _this.activeItems['NumericalOutput'] = null;
+                _this.activeItems['Granule'] = null;
                 _this.showError = false;
                 _this.numericalOutputs = [];
                 _this.granules = [];

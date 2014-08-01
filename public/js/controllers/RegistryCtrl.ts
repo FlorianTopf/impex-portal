@@ -20,6 +20,7 @@ module portal {
         private modalInstance: any
         private registryPromise: ng.IPromise<ISpase>
         
+        public isFirstOpen: boolean = true
         public database: Database = null
         public initialising: boolean = false
         public loading: boolean = false
@@ -48,7 +49,10 @@ module portal {
               // watches changes of variable 
             //(is changed each time modal is opened)
             this.scope.$watch('this.database', 
-                () => { this.getRepository(this.database.id) })
+                () => {        
+                    this.getRepository(this.database.id) 
+                    if(this.isFirstOpen) this.getSimulationModel(this.database.id)
+                })
             
         }
         

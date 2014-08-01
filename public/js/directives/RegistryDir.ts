@@ -96,6 +96,8 @@ module portal {
             this.myScope.$on('clear-simulation-runs', (e, element: SpaseElem) => {
                 this.setActive('SimulationModel', element)
                 this.activeItems['SimulationRun'] = null
+                this.activeItems['NumericalOutput'] = null
+                this.activeItems['Granule'] = null
                 this.showError = false
                 this.simulationRuns = []
                 this.numericalOutputs = []
@@ -105,6 +107,7 @@ module portal {
             this.myScope.$on('clear-numerical-outputs', (e, element: SpaseElem) => {
                 this.setActive('SimulationRun', element)
                 this.activeItems['NumericalOutput'] = null
+                this.activeItems['Granule'] = null
                 this.showError = false
                 this.numericalOutputs = []
                 this.granules = []
