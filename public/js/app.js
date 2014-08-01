@@ -1333,7 +1333,7 @@ else
 
         // handling and saving the WS result
         MethodsCtrl.prototype.handleServiceData = function (data, status) {
-            console.log('success: ' + data.message);
+            console.log('success: ' + JSON.stringify(data.message));
 
             this.methodsService.loading = false;
             this.methodsService.status = 'success';
@@ -1341,7 +1341,10 @@ else
             // @TODO we change id creation later
             var id = this.userService.createId();
 
-            // @TODO we must take care of custom results (e.g. getMostRelevantRun)
+            if (data.message.hasOwnProperty('VOTABLE')) {
+                //console.log(JSON.stringify(data.message.VOTABLE.RESOURCE[0].FIELD))
+            }
+
             this.userService.user.results.push(new portal.Result(this.database.id, id, this.currentMethod.path, data));
 
             //refresh localStorage
@@ -1379,16 +1382,29 @@ else {
             });
         };
 
-        //@TODO move this to directive later
+        // @TODO move this to directive later
         MethodsCtrl.prototype.setActive = function (method) {
             var _this = this;
             this.dropdownStatus.active = this.trimPath(method.path);
             this.currentMethod = method;
 
-            // @TODO there is for now only one operation per method
+            // there is only one operation per method
             this.currentMethod.operations[0].parameters.forEach(function (p) {
                 _this.request[p.name] = p.defaultValue;
             });
+
+            if (this.currentMethod.operations[0].parameters.filter(function (e) {
+                return e.name === 'id';
+            }).length != 0) {
+                // there is only one id param per method
+                var param = this.currentMethod.operations[0].parameters.filter(function (e) {
+                    return e.name === 'id';
+                })[0];
+                this.scope.$broadcast('set-applyable-elements', param.description);
+            } else {
+                // if there is no id broadcast empty string
+                this.scope.$broadcast('set-applyable-elements', '');
+            }
         };
 
         MethodsCtrl.prototype.isActive = function (path) {
@@ -1413,6 +1429,12 @@ else {
         MethodsCtrl.prototype.cancelMethods = function () {
             this.modalInstance.dismiss();
             this.methodsService.showError = false;
+        };
+
+        // method for applying a selection to the current method
+        MethodsCtrl.prototype.applySelection = function (resourceId) {
+            console.log("applySelection " + resourceId);
+            this.request['id'] = resourceId;
         };
         MethodsCtrl.$inject = [
             '$scope',
@@ -1684,13 +1706,17 @@ var portal;
     'use strict';
 
     var UserDataDir = (function () {
-        function UserDataDir(userService) {
+        function UserDataDir(userService, $state) {
             var _this = this;
             this.repositoryId = null;
             this.isCollapsed = {};
-            // current resource selections which are fully displayed
+            // current resource selection which are fully displayed
             this.currentSelection = [];
+            // currently applyable elements (according to current method)
+            this.applyableElements = [];
+            this.isApplyable = false;
             this.userService = userService;
+            this.stateService = $state;
             this.templateUrl = '/public/partials/templates/userdataDir.html';
             this.restrict = 'E';
             this.link = function ($scope, element, attributes) {
@@ -1700,8 +1726,9 @@ var portal;
         UserDataDir.prototype.injection = function () {
             return [
                 'userService',
-                function (userService) {
-                    return new UserDataDir(userService);
+                '$state',
+                function (userService, $state) {
+                    return new UserDataDir(userService, $state);
                 }
             ];
         };
@@ -1727,6 +1754,20 @@ var portal;
                     _this.isCollapsed[e.id] = true;
                 });
             }
+
+            // comes from MethodsCtrl
+            this.myScope.$on('set-applyable-elements', function (e, elements) {
+                _this.applyableElements = elements.split(',');
+                _this.isApplyable = false;
+                if (_this.currentSelection.length != 0) {
+                    _this.applyableElements.forEach(function (e) {
+                        // @FIXME there should be only one selection anyway
+                        console.log("Element " + e);
+                        if (_this.currentSelection[0].type === e)
+                            _this.isApplyable = true;
+                    });
+                }
+            });
 
             this.myScope.$on('update-selections', function (e, id) {
                 _this.isCollapsed[id] = false;
@@ -1757,8 +1798,12 @@ var portal;
                 for (var id in _this.isCollapsed)
                     _this.isCollapsed[id] = true;
 
-                // just for the moment (reset expanded selections)
+                // reset expanded selections
                 _this.currentSelection = [];
+
+                // reset also applyables
+                _this.applyableElements = [];
+                _this.isApplyable = false;
             });
         };
 
@@ -1785,12 +1830,22 @@ var portal;
                     if (rId != id)
                         this.isCollapsed[rId] = true;
                 }
-                this.currentSelection.push(this.user.selections.filter(function (e) {
+
+                var selection = this.user.selections.filter(function (e) {
                     return e.id == id;
-                })[0]);
+                })[0];
+                if (this.applyableElements.indexOf(selection.type) != -1) {
+                    this.isApplyable = true;
+                    console.log("isApplyable");
+                }
+                this.currentSelection = [];
+                this.currentSelection.push(selection);
             } else {
                 this.isCollapsed[id] = true;
                 this.currentSelection = [];
+
+                // set isApplyable to false
+                this.isApplyable = false;
             }
         };
 

@@ -6,7 +6,8 @@ module portal {
     // describes a generic response resource
     export interface IResponse extends ng.resource.IResource<IResponse> {
             code: string
-            message: string
+            //changed this to any because it can be a string or an object
+            message: any 
             request?: Object
     }
     

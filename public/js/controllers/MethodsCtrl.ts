@@ -52,6 +52,7 @@ module portal {
                 this.methods = this.methodsService.getMethods(this.database)
             else
                 this.loadMethodsAPI()
+
         }
         
         public retry() {
@@ -91,7 +92,7 @@ module portal {
         
         // handling and saving the WS result
         private handleServiceData(data: IResponse, status?: any) {
-            console.log('success: '+data.message)
+            console.log('success: '+JSON.stringify(data.message))
             
             this.methodsService.loading = false
             this.methodsService.status = 'success'
@@ -99,7 +100,11 @@ module portal {
             // @TODO we change id creation later
             var id = this.userService.createId()
             
-            // @TODO we must take care of custom results (e.g. getMostRelevantRun)
+            // @TODO we must take care of custom results (e.g. getMostRelevantRun and getFileUrl)
+            if(data.message.hasOwnProperty('VOTABLE')) {
+                //console.log(JSON.stringify(data.message.VOTABLE.RESOURCE[0].FIELD)) 
+            }
+            
             this.userService.user.results.push(new Result(this.database.id, id, this.currentMethod.path, data))
             //refresh localStorage
             this.userService.localStorage.results = this.userService.user.results
@@ -141,15 +146,25 @@ module portal {
             active: 'Choose Method'
         }
         
-        //@TODO move this to directive later
+        // @TODO move this to directive later
         public setActive(method: Api) {
             this.dropdownStatus.active = this.trimPath(method.path)
             this.currentMethod = method
-            // @TODO there is for now only one operation per method
+            
+            // there is only one operation per method
             this.currentMethod.operations[0].parameters.forEach((p) => {
-                   this.request[p.name] = p.defaultValue
+                this.request[p.name] = p.defaultValue     
             })
             
+            // check if there is an id field and broadcast applyable elements
+            if(this.currentMethod.operations[0].parameters.filter((e) => e.name === 'id').length != 0) {
+                // there is only one id param per method 
+                var param = this.currentMethod.operations[0].parameters.filter((e) => e.name === 'id')[0]
+                this.scope.$broadcast('set-applyable-elements', param.description)
+            } else {
+                // if there is no id broadcast empty string
+                this.scope.$broadcast('set-applyable-elements', '')
+            }
         }
         
         public isActive(path: string): boolean {
@@ -177,6 +192,11 @@ module portal {
             this.methodsService.showError = false
         }
     
+        // method for applying a selection to the current method
+        public applySelection(resourceId: string) {
+            console.log("applySelection "+resourceId)
+            this.request['id'] = resourceId
+        }
 
     }
 }

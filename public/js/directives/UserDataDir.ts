@@ -17,8 +17,9 @@ module portal {
         public injection(): any[] {
             return [
                 'userService',
-                (userService: portal.UserService) => 
-                    { return new UserDataDir(userService); }
+                '$state',
+                (userService: portal.UserService, $state: ng.ui.IStateService) => 
+                    { return new UserDataDir(userService, $state); }
             ]
         }
 
@@ -27,17 +28,20 @@ module portal {
         public restrict: string
         public repositoryId: string = null
         public isCollapsed: ICollapsedMap = {}
-        // current resource selections which are fully displayed
+        // current resource selection which are fully displayed
         public currentSelection: Array<Selection> = []
+        // currently applyable elements (according to current method)
+        public applyableElements: Array<string> = []
+        public isApplyable = false
 
-        private timeout: ng.ITimeoutService
-        private configService: portal.ConfigService
         private userService: portal.UserService
+        private stateService: ng.ui.IStateService
         private user: User
         private myScope: ng.IScope
 
-        constructor(userService: portal.UserService) {
+        constructor(userService: portal.UserService, $state: ng.ui.IStateService) {
             this.userService = userService
+            this.stateService = $state
             this.templateUrl = '/public/partials/templates/userdataDir.html'
             this.restrict = 'E'
             this.link = ($scope: portal.IUserDataDirScope, element: JQuery, attributes: ng.IAttributes) => 
@@ -68,6 +72,20 @@ module portal {
                })
             }
             
+            // comes from MethodsCtrl
+            this.myScope.$on('set-applyable-elements', (e, elements: string) => {
+               this.applyableElements = elements.split(',')
+               this.isApplyable = false
+               if(this.currentSelection.length != 0) {
+                    this.applyableElements.forEach((e) => {
+                        // @FIXME there should be only one selection anyway
+                        console.log("Element "+e)
+                        if(this.currentSelection[0].type === e)
+                            this.isApplyable = true  
+                    })
+               } 
+            })
+            
             this.myScope.$on('update-selections', (e, id: string) => {
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
@@ -77,7 +95,6 @@ module portal {
                 }
                 this.currentSelection.push(
                     this.user.selections.filter((e) => e.id == id)[0])
-
             })
             
             this.myScope.$on('update-results', (e, id: string) => {
@@ -93,11 +110,14 @@ module portal {
             
             // watch event when all content is loading into the dir
             this.myScope.$watch('$includeContentLoaded', (e) => {                      
-                // just for the moment (collapse all on enter)
+                // collapse all on enter
                 for(var id in this.isCollapsed)
                    this.isCollapsed[id] = true
-                // just for the moment (reset expanded selections)    
+                // reset expanded selections  
                 this.currentSelection = []
+                // reset also applyables
+                this.applyableElements = []
+                this.isApplyable = false
             })
         }
         
@@ -124,11 +144,20 @@ module portal {
                     if(rId != id)
                         this.isCollapsed[rId] = true
                 }
-                this.currentSelection.push(
-                    this.user.selections.filter((e) => e.id == id)[0])
+                
+                var selection = this.user.selections.filter((e) => e.id == id)[0]
+                if(this.applyableElements.indexOf(selection.type) != -1) {
+                    this.isApplyable = true
+                    console.log("isApplyable")  
+                }
+                this.currentSelection = []
+                this.currentSelection.push(selection)
+                
             } else {
                 this.isCollapsed[id] = true
                 this.currentSelection = []
+                // set isApplyable to false
+                this.isApplyable = false
             }
         }
         
@@ -155,8 +184,8 @@ module portal {
             // delete collapsed info
             delete this.isCollapsed[id]
         }
-        
-        
+ 		
+  		
     }
 
 }
