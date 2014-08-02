@@ -45,7 +45,6 @@ class UserService(val id: ObjectId) extends Actor {
   
   def receive = {
     case GetData => sender ! files
-    // @TODO maybe we should return something (+ error handling)
     case AddXMLData(xml) => {
     	val fileName = "votable-"+new ObjectId()+".xml"
     	val file = new File("userdata/"+id+"/"+fileName)
@@ -82,9 +81,10 @@ object UserService {
     val actorRef: Option[ActorRef] = identity.ref
     
     actorRef match {
-      case Some(a) => a
+      case Some(actorRef) => actorRef
       case None => { 
         val actorRef: ActorRef = Akka.system.actorOf(Props(new UserService(new ObjectId(id))), name = id)
+        // user actors get killed after 24 hours
         Akka.system.scheduler.scheduleOnce(24.hours, actorRef, Kill)
         actorRef
       }

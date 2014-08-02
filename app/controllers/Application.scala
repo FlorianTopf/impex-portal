@@ -66,7 +66,7 @@ object Application extends BaseController {
     UserService.addXMLUserData(request.sessionId, xml.asInstanceOf[Node])
   }
   Ok("Ok").withSession("id" -> request.sessionId)
- }*/
+  }*/
   
   // route for listing userdata
   def listUserdata = PortalAction.async { implicit request => 
