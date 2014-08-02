@@ -118,3 +118,10 @@ GET		/methods/FMI/getDataPointSpectraSpacecraft			controllers.FMIMethods.getData
 
 # general testing route
 GET		/test						controllers.Application.test
+
+GET		/uploader					controllers.Application.uploadTest
+POST    /upload						controllers.Application.uploadUserData
+
+POST	/userdata					controllers.Application.addUserData
+GET		/userdata				    controllers.Application.listUserdata
+GET		/userdata/:fileName			controllers.Application.getUserdata(fileName: String)
