@@ -13,6 +13,7 @@ import java.io.File
 import scala.xml._
 import play.api.libs.Files._
 import org.apache.commons.io.FileUtils
+import scala.collection.mutable.ListBuffer
 
 
 case class AddXMLData(xml: Node)
@@ -32,7 +33,7 @@ class UserService(val id: ObjectId) extends Actor {
      if(fileDir.exists) {
        // fetch all existing files
        val exFiles = fileDir.listFiles.filter(_.getName.endsWith(".xml"))
-       files = files ++ exFiles.map(f => f.getName())
+       files++=exFiles.map(f => f.getName())
      }
      else {
        fileDir.mkdir()
@@ -46,7 +47,7 @@ class UserService(val id: ObjectId) extends Actor {
     	val file = new File("userdata/"+id+"/"+fileName)
     	if(!file.exists) file.createNewFile()
     	// here we add the fileName
-    	files = files ++ Seq(fileName)
+    	files++=Seq(fileName)
     	// here we save the content
     	scala.xml.XML.save("userdata/"+id+"/"+fileName, xml, "UTF-8")
     }
@@ -54,7 +55,7 @@ class UserService(val id: ObjectId) extends Actor {
     	val fileName = "votable-"+new ObjectId()+".xml"
     	file.moveTo(new File("userdata/"+id+"/"+fileName))
     	// here we add the fileName
-    	files = files ++ Seq(fileName)
+    	files++=Seq(fileName)
     }
     case StopUserService => { 
       context.stop(self)
@@ -70,7 +71,7 @@ object UserService {
    implicit val timeout = Timeout(10.seconds)
   
    // returns ActorRef
-  def checkIfExists(userId: String): ActorRef = {
+  private def checkIfExists(userId: String): ActorRef = {
     val actorSel: ActorSelection = Akka.system.actorSelection("user/"+userId) 
     val askSel: AskableActorSelection = new AskableActorSelection(actorSel)
     val identityFuture: Future[ActorIdentity] = (askSel ? Identify(None)).mapTo[ActorIdentity]
@@ -89,6 +90,9 @@ object UserService {
     }
       
   }
+   
+  // simple action to initialise a userservice actor
+  def init(userId: String): ActorRef = checkIfExists(userId)
    
   def getUserData(userId: String): Future[Seq[String]] = {
     val actorRef: ActorRef = checkIfExists(userId)

@@ -1463,8 +1463,12 @@ var portal;
     // @TODO introduce error/offline handling later
     var UserDataCtrl = (function () {
         function UserDataCtrl($scope, $location, $timeout, $window, userService, $state, $modalInstance, $upload) {
+            this.uploads = [];
+            this.uploadResults = [];
             this.initialising = false;
             this.showError = false;
+            this.selectedFiles = [];
+            this.progress = [];
             this.scope = $scope;
             $scope.datavm = this;
             this.location = $location;
@@ -1475,30 +1479,34 @@ var portal;
             this.modalInstance = $modalInstance;
             this.uploader = $upload;
         }
+        // see: https://github.com/danialfarid/angular-file-upload/blob/master/demo/war/js/upload.js
         UserDataCtrl.prototype.onFileSelect = function ($files) {
-            for (var i = 0; i < $files.length; i++) {
-                var file = $files[i];
-                this.upload = this.uploader.upload({
+            var _this = this;
+            this.selectedFiles = $files;
+            this.uploads = [];
+            this.uploadResults = [];
+            this.showError = false;
+            for (var i = 0; i < this.selectedFiles.length; i++) {
+                this.progress[i] = 0;
+                this.uploads[i] = this.uploader.upload({
                     url: '/userdata',
                     method: 'POST',
-                    //headers: {'header-key': 'header-value'},
-                    //withCredentials: true,
-                    file: file
+                    file: this.selectedFiles[i],
+                    fileFormDataName: 'votable'
+                }).success(function (response) {
+                    _this.timeout(function () {
+                        _this.uploadResults.push(response.data);
+                    });
+                }).error(function (response) {
+                    if (response.status > 0) {
+                        _this.status = response.status + ': ' + response.data;
+                        _this.showError = true;
+                    }
                 }).progress(function (evt) {
-                    console.log('percent: ' + 100.0 * evt.loaded / evt.total);
-                }).success(function (data, status, headers, config) {
-                    // file is uploaded successfully
-                    console.log(data);
+                    console.log("progress " + Math.min(100, 100.0 * evt.loaded / evt.total));
+                    _this.progress[i] = Math.min(100, 100.0 * evt.loaded / evt.total);
                 });
-                //.error(...)
-                //.then(success, error, progress);
-                // access or attach event listeners to the underlying XMLHttpRequest.
-                //.xhr(function(xhr){xhr.upload.addEventListener(...)})
             }
-            /* alternative way of uploading, send the file binary with the file's content-type.
-            Could be used to upload files to CouchDB, imgur, etc... html5 FileReader is needed.
-            It could also be used to monitor the progress of a normal http post/put request with large data*/
-            // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
         };
 
         // methods for modal

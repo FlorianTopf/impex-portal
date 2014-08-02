@@ -116,6 +116,22 @@ button.dropdown-toggle {
 	width: 300px;
 }
 
+.nav-tabs > li > a {
+	font-size: 12px;
+}
+
+.sel-file {
+	padding: 1px 5px;
+	font-size: smaller;
+	color: grey;
+}
+
+.progress {
+	display: inline-block;
+	width: 100px;	
+	border: 3px groove #CCC;
+}
+
 
 /** for all (max-width 480px) */
 @media (max-width: 480px) {

@@ -56,7 +56,7 @@ object Application extends BaseController {
   
   // route for upload forms
   def addUserData = PortalAction(parse.multipartFormData) { implicit request =>
-    request.body.file("file") map { votable =>
+    request.body.file("votable") map { votable =>
       UserService.addFileUserData(request.sessionId, votable.ref)
     }
     Ok("Ok").withSession("id" -> request.sessionId)

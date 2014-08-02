@@ -4,115 +4,71 @@
 
 # Home page
 GET     /                           controllers.Application.index
-
-# route for angular.js
+# route for angular.js resources
 GET     /public/*file      			controllers.Assets.at(path="/public", file)
-
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
 
 # route for swagger main api in json
 GET		/api-docs					controllers.ApiHelpController.getResources
-
 # route for swagger ui
 GET		/api-view					controllers.Application.apiview
 
 # config routes
 GET		/api-docs/config			controllers.ApiHelpController.getResource(path = "/config")
-
 GET		/config						controllers.Config.config(fmt: String ?= "xml")
 
 # registry routes 
 GET		/api-docs/registry			controllers.ApiHelpController.getResource(path = "/registry")
-
 GET		/registry					controllers.Registry.registry(fmt: String ?= "xml")
-
 # simulations
 GET 	/registry/simulations	    controllers.Registry.simulations(fmt: String ?= "xml")
-
 GET		/registry/observations		controllers.Registry.observations(fmt: String ?= "xml")
-
 GET		/registry/repository		controllers.Registry.repository(fmt: String ?= "xml")
-
 GET		/registry/simulationmodel	controllers.Registry.simulationmodel(fmt: String ?= "xml", r: String ?= "false")
-
 GET		/registry/simulationrun  	controllers.Registry.simulationrun(fmt: String ?= "xml", r: String ?= "false")
-
 GET		/registry/numericaloutput  	controllers.Registry.numericaloutput(fmt: String ?= "xml", r: String ?= "false")
-
 GET		/registry/granule		  	controllers.Registry.granule(fmt: String ?= "xml", r: String ?= "false")
-
 # observations
 GET 	/registry/observatory		controllers.Registry.observatory(fmt: String ?= "xml", r: String ?= "false")
-
 GET		/registry/instrument		controllers.Registry.instrument(fmt: String ?= "xml", r: String ?= "false")
-
 GET		/registry/numericaldata		controllers.Registry.numericaldata(fmt: String ?= "xml", r: String ?= "false")
 
 # methods routes
 GET		/api-docs/methods			controllers.ApiHelpController.getResource(path = "/methods")
-
 # WSDLs 
 GET		/methods/:dbName			controllers.WSDLMethods.methods(dbName: String)
-
 # taverna WSDLs 
 GET		/methods/taverna/:dbName	controllers.WSDLMethods.methodsTaverna(dbName: String)
-
 # sinp methods 
 GET		/methods/SINP/getDataPointValue						controllers.SINPMethods.getDataPointValue
-
 GET		/methods/SINP/calculateDataPointValueFixedTime		controllers.SINPMethods.calculateDataPointValueFixedTime
-
 GET		/methods/SINP/calculateDataPointValue				controllers.SINPMethods.calculateDataPointValue
-
 GET		/methods/SINP/calculateDataPointValueSpacecraft		controllers.SINPMethods.calculateDataPointValueSpacecraft
-
 GET		/methods/SINP/calculateFieldLine					controllers.SINPMethods.calculateFieldLine
-
 GET		/methods/SINP/calculateCube							controllers.SINPMethods.calculateCube
-
 GET		/methods/SINP/calculateCubeMercury					controllers.SINPMethods.calculateCubeMercury
-
 GET		/methods/SINP/calculateDataPointValueMercury		controllers.SINPMethods.calculateDataPointValueMercury
-
 GET		/methods/SINP/calculateCubeSaturn					controllers.SINPMethods.calculateCubeSaturn
-
 GET		/methods/SINP/calculateDataPointValueSaturn			controllers.SINPMethods.calculateDataPointValueSaturn
-
 GET		/methods/SINP/getSurface							controllers.SINPMethods.getSurface
-
 # latmos methods
 GET		/methods/LATMOS/getDataPointValue					controllers.LATMOSMethods.getDataPointValue
-
 GET		/methods/LATMOS/getDataPointValueSpacecraft			controllers.LATMOSMethods.getDataPointValueSpacecraft
-
 GET		/methods/LATMOS/getSurface							controllers.LATMOSMethods.getSurface
-
 GET		/methods/LATMOS/getFileURL							controllers.LATMOSMethods.getFileURL
-
 GET		/methods/LATMOS/getFieldLine						controllers.LATMOSMethods.getFieldLine
-
 GET		/methods/LATMOS/getDataPointSpectra					controllers.LATMOSMethods.getDataPointSpectra
-
 GET		/methods/LATMOS/getDataPointSpectraSpacecraft		controllers.LATMOSMethods.getDataPointSpectraSpacecraft
-
 # fmi methods
 GET		/methods/FMI/getDataPointValue						controllers.FMIMethods.getDataPointValue
-
 GET		/methods/FMI/getDataPointValueSpacecraft			controllers.FMIMethods.getDataPointValueSpacecraft
-
 GET		/methods/FMI/getSurface								controllers.FMIMethods.getSurface
-
 GET		/methods/FMI/getMostRelevantRun						controllers.FMIMethods.getMostRelevantRun
-
 POST	/methods/FMI/getVOTableURL							controllers.FMIMethods.getVOTableURL
-
 GET		/methods/FMI/getFieldLine							controllers.FMIMethods.getFieldLine
-
 GET		/methods/FMI/getParticleTrajectory					controllers.FMIMethods.getParticleTrajectory
-
 GET		/methods/FMI/getDataPointSpectra					controllers.FMIMethods.getDataPointSpectra
-
 GET		/methods/FMI/getDataPointSpectraSpacecraft			controllers.FMIMethods.getDataPointSpectraSpacecraft
 
 # userdata routes

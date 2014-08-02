@@ -2,8 +2,10 @@
 	<div class="col-sm-12">&nbsp;</div>
 </div>
 <div class="row">
-	<div class="col-sm-3">
-		<div class="btn-group-vertical" style="max-height: 450px; overflow-y: auto; width: 200px; margin-top: 20px;" 
+	<div class="col-sm-4">
+		<tabset>
+		<tab heading="Service Results">
+		<div class="btn-group-vertical" style="max-height: 450px; overflow-y: auto; width: 90%; margin-top: 20px;" 
 			ng-hide="userdirvm.user.results | isEmpty">
 			<button type="button" class="btn btn-success btn-sm" 
 				ng-repeat="res in userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId }"
@@ -13,7 +15,9 @@
 					{{ res.method.replace('/methods', '') }}
 			</button>
 		</div>
-		<div class="btn-group-vertical" style="max-height: 450px; overflow-y: auto; width: 200px; margin-top: 20px;" 
+		</tab>
+		<tab heading="Tree Selections">
+		<div class="btn-group-vertical" style="max-height: 450px; overflow-y: auto; width: 90%; margin-top: 20px;" 
 			ng-hide="userdirvm.user.selections | isEmpty">
 			<button type="button" class="btn btn-success btn-sm" 
 				ng-repeat="sel in userdirvm.user.selections | filter:{ repositoryId:userdirvm.repositoryId }"
@@ -23,6 +27,10 @@
 					{{ sel.type }}
 			</button>
 		</div>
+		</tab>
+		<!--  tab heading="VOTables">
+		</tab-->
+		</tabset>
 	</div>
 	<div class="col-sm-8">
 		<div ng-repeat="res in userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId }" 
