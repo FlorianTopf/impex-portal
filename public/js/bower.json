@@ -10,7 +10,8 @@
     "angular-resource": "1.2.14",
     "angular-ui-bootstrap": "0.11.0",
     "ngstorage": "~0.3.0",
-    "angular-ui-router": "~0.2.10"
+    "angular-ui-router": "~0.2.10",
+    "danialfarid-angular-file-upload": "~1.6.5"
   },
   "homepage": "https://github.com/FlorianTopf/impex-portal",
   "authors": [
