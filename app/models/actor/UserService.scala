@@ -85,7 +85,7 @@ object UserService {
       case Some(a) => a
       case None => { 
         val actorRef: ActorRef = Akka.system.actorOf(Props(new UserService(new ObjectId(id))), name = id)
-        Akka.system.scheduler.scheduleOnce(5.minutes, actorRef, Kill)
+        Akka.system.scheduler.scheduleOnce(24.hours, actorRef, Kill)
         actorRef
       }
     }

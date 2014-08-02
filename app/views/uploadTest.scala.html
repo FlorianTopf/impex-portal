@@ -10,8 +10,8 @@
   <title>VOTable upload</title>
 </head>
 <body>
-	@helper.form(action = routes.Application.uploadUserData, 'enctype -> "multipart/form-data") {   
-    	<input type="file" name="votable">
+	@helper.form(action = routes.Application.addUserData, 'enctype -> "multipart/form-data") {   
+    	<input type="file" name="file">
     	<p><input type="submit"></p> 
 	}
 </body>

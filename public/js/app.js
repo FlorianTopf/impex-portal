@@ -1462,7 +1462,7 @@ var portal;
 
     // @TODO introduce error/offline handling later
     var UserDataCtrl = (function () {
-        function UserDataCtrl($scope, $location, $timeout, $window, userService, $state, $modalInstance) {
+        function UserDataCtrl($scope, $location, $timeout, $window, userService, $state, $modalInstance, $upload) {
             this.initialising = false;
             this.showError = false;
             this.scope = $scope;
@@ -1473,7 +1473,34 @@ var portal;
             this.userService = userService;
             this.state = $state;
             this.modalInstance = $modalInstance;
+            this.uploader = $upload;
         }
+        UserDataCtrl.prototype.onFileSelect = function ($files) {
+            for (var i = 0; i < $files.length; i++) {
+                var file = $files[i];
+                this.upload = this.uploader.upload({
+                    url: '/userdata',
+                    method: 'POST',
+                    //headers: {'header-key': 'header-value'},
+                    //withCredentials: true,
+                    file: file
+                }).progress(function (evt) {
+                    console.log('percent: ' + 100.0 * evt.loaded / evt.total);
+                }).success(function (data, status, headers, config) {
+                    // file is uploaded successfully
+                    console.log(data);
+                });
+                //.error(...)
+                //.then(success, error, progress);
+                // access or attach event listeners to the underlying XMLHttpRequest.
+                //.xhr(function(xhr){xhr.upload.addEventListener(...)})
+            }
+            /* alternative way of uploading, send the file binary with the file's content-type.
+            Could be used to upload files to CouchDB, imgur, etc... html5 FileReader is needed.
+            It could also be used to monitor the progress of a normal http post/put request with large data*/
+            // $scope.upload = $upload.http({...})  see 88#issuecomment-31366487 for sample code.
+        };
+
         // methods for modal
         UserDataCtrl.prototype.saveData = function () {
             this.modalInstance.close();
@@ -1489,7 +1516,8 @@ var portal;
             '$window',
             'userService',
             '$state',
-            '$modalInstance'
+            '$modalInstance',
+            '$upload'
         ];
         return UserDataCtrl;
     })();
@@ -1996,7 +2024,7 @@ var portal;
 (function (portal) {
     'use strict';
 
-    var impexPortal = angular.module('portal', ['ui.bootstrap', 'ui.router', 'ngResource', 'ngStorage']);
+    var impexPortal = angular.module('portal', ['ui.bootstrap', 'ui.router', 'ngResource', 'ngStorage', 'angularFileUpload']);
 
     impexPortal.service('configService', portal.ConfigService);
     impexPortal.service('registryService', portal.RegistryService);

@@ -3,7 +3,8 @@
 module portal {
     'use strict';
 
-    var impexPortal: ng.IModule = angular.module('portal', ['ui.bootstrap', 'ui.router', 'ngResource', 'ngStorage'])
+    var impexPortal: ng.IModule = angular.module('portal', 
+        ['ui.bootstrap', 'ui.router', 'ngResource', 'ngStorage', 'angularFileUpload'])
     
  
     impexPortal.service('configService', ConfigService)

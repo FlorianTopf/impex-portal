@@ -49,30 +49,32 @@ object Application extends BaseController {
   }
   
 
+  // test form for uploader
   def uploadTest = PortalAction { implicit request => 
     Ok(views.html.uploadTest()).withSession("id" -> request.sessionId) 
   }
   
-  // alternative route for upload form
-  def uploadUserData = PortalAction(parse.multipartFormData) { implicit request =>
-    request.body.file("votable") map { votable =>
+  // route for upload forms
+  def addUserData = PortalAction(parse.multipartFormData) { implicit request =>
+    request.body.file("file") map { votable =>
       UserService.addFileUserData(request.sessionId, votable.ref)
     }
     Ok("Ok").withSession("id" -> request.sessionId)
   }
-  
-  def addUserData = PortalAction { implicit request =>
-    request.body.asXml.map { xml =>
-      UserService.addXMLUserData(request.sessionId, xml.asInstanceOf[Node])
-    }
-    Ok("Ok").withSession("id" -> request.sessionId)
+  /*def addUserData = PortalAction { implicit request =>
+  request.body.asXml.map { xml =>
+    UserService.addXMLUserData(request.sessionId, xml.asInstanceOf[Node])
   }
+  Ok("Ok").withSession("id" -> request.sessionId)
+ }*/
   
+  // route for listing userdata
   def listUserdata = PortalAction.async { implicit request => 
     val future = UserService.getUserData(request.sessionId)
     future.map(files => Ok(Json.toJson(files)).withSession("id" -> request.sessionId))   
   }
   
+  // route for getting one file
   def getUserdata(fileName: String) = PortalAction { implicit request => 
     // catch error here! 
     val file = new File("userdata/"+request.sessionId+"/"+fileName)
