@@ -18,10 +18,11 @@ module portal {
         //public status: string
         //public showError: boolean = false 
 
-        static $inject: Array<string> = ['$scope', '$timeout', 'configService', 'userService', '$state', 'config']
+        static $inject: Array<string> = ['$scope', '$timeout', 'configService', 'userService', '$state', 
+            'config', 'userData']
 
         constructor($scope: IConfigScope, $timeout: ng.ITimeoutService, configService: portal.ConfigService, 
-            userService: portal.UserService, $state: ng.ui.IStateService, config: IConfig) {  
+            userService: portal.UserService, $state: ng.ui.IStateService, config: IConfig, userData: Array<IUserData>) {  
             this.scope = $scope
             this.scope.vm = this 
             this.timeout = $timeout
@@ -31,9 +32,13 @@ module portal {
 
             this.configService.config = config
             
-            // @TODO this comes from the server in the future (add in resolver) 
-            // maybe make a combined promise / resolve
+            // user info comes from the server in the future (add in resolver too) 
             this.userService.user = new User(this.userService.createId())
+            
+            // loading stored votables from server
+            if(userData.length > 0)
+                this.userService.user.voTables = userData
+            console.log(JSON.stringify(this.userService.user.voTables))
             
             // as soon as we create a new user we have a localStorage connection
             // initialising the stored results from localStorage

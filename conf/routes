@@ -73,6 +73,7 @@ GET		/methods/FMI/getDataPointSpectraSpacecraft			controllers.FMIMethods.getData
 
 # userdata routes
 POST	/userdata					controllers.Application.addUserData
+#POST	/userdata					controllers.Application.addXMLUserData
 GET		/userdata				    controllers.Application.listUserdata
 GET		/userdata/:fileName			controllers.Application.getUserdata(fileName: String)
 

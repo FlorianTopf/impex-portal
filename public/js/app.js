@@ -17,6 +17,12 @@ var portal;
                     function (ConfigService) {
                         return ConfigService.loadConfig();
                     }
+                ],
+                userData: [
+                    'userService',
+                    function (UserService) {
+                        return UserService.loadUserData();
+                    }
                 ]
             };
         }
@@ -818,12 +824,12 @@ var portal;
     })();
     portal.Selection = Selection;
 
-    // @TODO let's see what the user object needs to have
     var User = (function () {
         function User(id) {
             this.id = id;
             this.results = [];
             this.selections = [];
+            this.voTables = [];
         }
         return User;
     })();
@@ -973,11 +979,16 @@ var portal;
 (function (portal) {
     'use strict';
 
-    // @TODO let's see what the user service needs to have
     var UserService = (function () {
-        function UserService($localStorage) {
+        function UserService($localStorage, $resource) {
+            this.url = '/';
             this.user = null;
             this.localStorage = null;
+            // creates an action descriptor
+            this.userAction = {
+                method: 'GET',
+                isArray: true
+            };
             this.localStorage = $localStorage;
 
             // initialise needed keys (doesn't overwrite existing ones)
@@ -985,11 +996,22 @@ var portal;
                 results: null,
                 selections: null
             });
+            this.resource = $resource;
         }
         UserService.prototype.createId = function () {
             return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1) + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
         };
-        UserService.$inject = ['$localStorage'];
+
+        // returns the resource handler
+        UserService.prototype.listUserData = function () {
+            return this.resource(this.url + 'userdata', {}, { listUserData: this.userAction });
+        };
+
+        // returns promise for resource handler
+        UserService.prototype.loadUserData = function () {
+            return this.listUserData().query().$promise;
+        };
+        UserService.$inject = ['$localStorage', '$resource'];
         return UserService;
     })();
     portal.UserService = UserService;
@@ -1000,7 +1022,7 @@ var portal;
     'use strict';
 
     var ConfigCtrl = (function () {
-        function ConfigCtrl($scope, $timeout, configService, userService, $state, config) {
+        function ConfigCtrl($scope, $timeout, configService, userService, $state, config, userData) {
             this.scope = $scope;
             this.scope.vm = this;
             this.timeout = $timeout;
@@ -1010,9 +1032,12 @@ var portal;
 
             this.configService.config = config;
 
-            // @TODO this comes from the server in the future (add in resolver)
-            // maybe make a combined promise / resolve
+            // user info comes from the server in the future (add in resolver too)
             this.userService.user = new portal.User(this.userService.createId());
+
+            if (userData.length > 0)
+                this.userService.user.voTables = userData;
+            console.log(JSON.stringify(this.userService.user.voTables));
 
             if (this.userService.localStorage.results != null)
                 this.userService.user.results = this.userService.localStorage.results;
@@ -1020,7 +1045,15 @@ var portal;
             if (this.userService.localStorage.selections != null)
                 this.userService.user.selections = this.userService.localStorage.selections;
         }
-        ConfigCtrl.$inject = ['$scope', '$timeout', 'configService', 'userService', '$state', 'config'];
+        ConfigCtrl.$inject = [
+            '$scope',
+            '$timeout',
+            'configService',
+            'userService',
+            '$state',
+            'config',
+            'userData'
+        ];
         return ConfigCtrl;
     })();
     portal.ConfigCtrl = ConfigCtrl;
@@ -1463,8 +1496,6 @@ var portal;
     // @TODO introduce error/offline handling later
     var UserDataCtrl = (function () {
         function UserDataCtrl($scope, $location, $timeout, $window, userService, $state, $modalInstance, $upload) {
-            this.uploads = [];
-            this.uploadResults = [];
             this.initialising = false;
             this.showError = false;
             this.selectedFiles = [];
@@ -1480,28 +1511,30 @@ var portal;
             this.uploader = $upload;
         }
         // see: https://github.com/danialfarid/angular-file-upload/blob/master/demo/war/js/upload.js
+        // @TODO improve this routine (return types + error handling)
         UserDataCtrl.prototype.onFileSelect = function ($files) {
             var _this = this;
             this.selectedFiles = $files;
-            this.uploads = [];
-            this.uploadResults = [];
             this.showError = false;
             for (var i = 0; i < this.selectedFiles.length; i++) {
                 this.progress[i] = 0;
-                this.uploads[i] = this.uploader.upload({
+                this.uploader.upload({
                     url: '/userdata',
                     method: 'POST',
                     file: this.selectedFiles[i],
                     fileFormDataName: 'votable'
                 }).success(function (response) {
                     _this.timeout(function () {
-                        _this.uploadResults.push(response.data);
+                        // adding the info of the posted votable to userservice
+                        _this.userService.user.voTables.push(response);
+                        console.log(JSON.stringify(_this.userService.user.voTables));
                     });
                 }).error(function (response) {
                     if (response.status > 0) {
                         _this.status = response.status + ': ' + response.data;
                         _this.showError = true;
                     }
+                    // @TODO progress doesn't really work
                 }).progress(function (evt) {
                     console.log("progress " + Math.min(100, 100.0 * evt.loaded / evt.total));
                     _this.progress[i] = Math.min(100, 100.0 * evt.loaded / evt.total);
@@ -1757,6 +1790,8 @@ var portal;
             // currently applyable elements (according to current method)
             this.applyableElements = [];
             this.isApplyable = false;
+            // active tabs (first by default)
+            this.tabsActive = [];
             this.userService = userService;
             this.stateService = $state;
             this.templateUrl = '/public/partials/templates/userdataDir.html';
@@ -1780,6 +1815,7 @@ var portal;
             $scope.userdirvm = this;
             this.myScope = $scope;
             this.user = this.userService.user;
+            this.tabsActive = [true, false, false];
 
             attributes.$observe('db', function (id) {
                 _this.repositoryId = id;
@@ -1787,6 +1823,12 @@ var portal;
 
             if (this.user.selections) {
                 this.user.selections.map(function (e) {
+                    _this.isCollapsed[e.id] = true;
+                });
+            }
+
+            if (this.user.voTables) {
+                this.user.voTables.map(function (e) {
                     _this.isCollapsed[e.id] = true;
                 });
             }
@@ -1822,6 +1864,12 @@ var portal;
                 _this.currentSelection.push(_this.user.selections.filter(function (e) {
                     return e.id == id;
                 })[0]);
+
+                // set selections tab active
+                _this.tabsActive = _this.tabsActive.map(function (t) {
+                    return t = false;
+                });
+                _this.tabsActive[0] = true;
             });
 
             this.myScope.$on('update-results', function (e, id) {
@@ -1834,6 +1882,12 @@ var portal;
 
                 // reset expanded selection
                 _this.currentSelection = [];
+
+                // set selections tab active
+                _this.tabsActive = _this.tabsActive.map(function (t) {
+                    return t = false;
+                });
+                _this.tabsActive[1] = true;
             });
 
             // watch event when all content is loading into the dir

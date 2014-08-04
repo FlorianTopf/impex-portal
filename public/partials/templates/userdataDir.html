@@ -4,21 +4,10 @@
 <div class="row">
 	<div class="col-sm-4">
 		<tabset>
-		<tab heading="Service Results">
-		<div class="btn-group-vertical" style="max-height: 450px; overflow-y: auto; width: 90%; margin-top: 20px;" 
-			ng-hide="userdirvm.user.results | isEmpty">
-			<button type="button" class="btn btn-success btn-sm" 
-				ng-repeat="res in userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId }"
-			    ng-class="{ active: !userdirvm.isCollapsed[res.id] }"
-				ng-click="userdirvm.toggleResultDetails(res.id)">
-					Service Result {{ res.id }}<br/>
-					{{ res.method.replace('/methods', '') }}
-			</button>
-		</div>
-		</tab>
-		<tab heading="Tree Selections">
-		<div class="btn-group-vertical" style="max-height: 450px; overflow-y: auto; width: 90%; margin-top: 20px;" 
-			ng-hide="userdirvm.user.selections | isEmpty">
+		<tab heading="Tree Selections" 
+			ng-hide="userdirvm.user.selections | filter:{ repositoryId:userdirvm.repositoryId } | isEmpty" 
+			active="userdirvm.tabsActive[0]">
+		<div class="btn-group-vertical" style="max-height: 450px; overflow-y: auto; width: 90%; margin-top: 20px;">
 			<button type="button" class="btn btn-success btn-sm" 
 				ng-repeat="sel in userdirvm.user.selections | filter:{ repositoryId:userdirvm.repositoryId }"
 			    ng-class="{ active: !userdirvm.isCollapsed[sel.id] }"
@@ -28,8 +17,27 @@
 			</button>
 		</div>
 		</tab>
-		<!--  tab heading="VOTables">
-		</tab-->
+		<tab heading="VOTables" ng-hide="userdirvm.user.voTables | isEmpty" active="userdirvm.tabsActive[1]">
+		<div class="btn-group-vertical" style="max-height: 450px; overflow-y: auto; width: 90%; margin-top: 20px;">
+			<button type="button" class="btn btn-success btn-sm" 
+				ng-repeat="vot in userdirvm.user.voTables">
+					VOTable<br/>{{ vot.id }}
+			</button>
+		</div>
+		</tab>
+		<tab heading="Service Results" 
+			ng-hide="userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId } | isEmpty" 
+			active="userdirvm.tabsActive[2]">
+		<div class="btn-group-vertical" style="max-height: 450px; overflow-y: auto; width: 90%; margin-top: 20px;">
+			<button type="button" class="btn btn-success btn-sm" 
+				ng-repeat="res in userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId }"
+			    ng-class="{ active: !userdirvm.isCollapsed[res.id] }"
+				ng-click="userdirvm.toggleResultDetails(res.id)">
+					Service Result {{ res.id }}<br/>
+					{{ res.method.replace('/methods', '') }}
+			</button>
+		</div>
+		</tab>
 		</tabset>
 	</div>
 	<div class="col-sm-8">

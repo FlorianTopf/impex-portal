@@ -11,7 +11,7 @@
 </head>
 <body>
 	@helper.form(action = routes.Application.addUserData, 'enctype -> "multipart/form-data") {   
-    	<input type="file" name="votable">
+    	<input type="file" name="votable" accept="text/xml">
     	<p><input type="submit"></p> 
 	}
 </body>

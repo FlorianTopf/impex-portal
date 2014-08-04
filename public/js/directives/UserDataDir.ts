@@ -32,7 +32,9 @@ module portal {
         public currentSelection: Array<Selection> = []
         // currently applyable elements (according to current method)
         public applyableElements: Array<string> = []
-        public isApplyable = false
+        public isApplyable: boolean = false
+        // active tabs (first by default)
+        public tabsActive: Array<boolean> = []
 
         private userService: portal.UserService
         private stateService: ng.ui.IStateService
@@ -53,6 +55,7 @@ module portal {
             $scope.userdirvm = this
             this.myScope = $scope
             this.user = this.userService.user
+            this.tabsActive = [true, false, false] // selections, votables, results
             
             attributes.$observe('db', (id?: string)  => { 
                 this.repositoryId = id
@@ -61,6 +64,13 @@ module portal {
             // collapsing all selections on init
             if(this.user.selections) {
                 this.user.selections.map((e) => {
+                    this.isCollapsed[e.id] = true
+                })
+            }
+            
+            // collapsing all votables on init
+            if(this.user.voTables) {
+                this.user.voTables.map((e) => {
                     this.isCollapsed[e.id] = true
                 })
             }
@@ -95,6 +105,9 @@ module portal {
                         this.isCollapsed[rId] = true
                 }
                 this.currentSelection.push(this.user.selections.filter((e) => e.id == id)[0])
+                // set selections tab active
+                this.tabsActive=this.tabsActive.map((t) => t = false)
+                this.tabsActive[0] = true
             })
             
             this.myScope.$on('update-results', (e, id: string) => {
@@ -106,6 +119,9 @@ module portal {
                 }
                 // reset expanded selection
                 this.currentSelection = []
+                // set selections tab active
+                this.tabsActive=this.tabsActive.map((t) => t = false)
+                this.tabsActive[1] = true
             })
             
             // watch event when all content is loading into the dir

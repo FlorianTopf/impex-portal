@@ -13,27 +13,31 @@ import java.io.File
 import scala.xml._
 import play.api.libs.Files._
 import org.apache.commons.io.FileUtils
-import scala.collection.mutable.ListBuffer
 
 
 case class AddXMLData(xml: Node)
 case class AddFileData(file: TemporaryFile)
+case class UserData(id: String, name: String)
 case object GetUserData
 case object StopUserService
 
 // @TODO improve error handling (timeouts etc.)
-class UserService(val id: ObjectId) extends Actor {
+class UserService(val userId: ObjectId) extends Actor {
   implicit val timeout = Timeout(10.seconds)
   
-  val fileDir = new File("userdata/"+id+"/")
-  var files: Seq[String] = Nil
+  val fileDir = new File("userdata/"+userId+"/")
+  var files: Seq[UserData] = Nil
   
   // this is needed when the actor died, but the session data is still existing
   override def preStart: Unit = {
      if(fileDir.exists) {
        // fetch all existing files
        val exFiles = fileDir.listFiles.filter(_.getName.endsWith(".xml"))
-       files++=exFiles.map(f => f.getName())
+       files++=exFiles map { f => 
+         UserData(f.getName().replace(".xml", "").replace("votable-", ""), f.getName())
+       }
+       //files++=exFiles.map(f => f.getName())
+       println(files)
      }
      else {
        fileDir.mkdir()
@@ -43,19 +47,26 @@ class UserService(val id: ObjectId) extends Actor {
   def receive = {
     case GetUserData => sender ! files
     case AddXMLData(xml) => {
-    	val fileName = "votable-"+new ObjectId()+".xml"
-    	val file = new File("userdata/"+id+"/"+fileName)
+        val dataId = new ObjectId()
+    	val fileName = "votable-"+dataId+".xml"
+    	val file = new File("userdata/"+userId+"/"+fileName)
     	if(!file.exists) file.createNewFile()
     	// here we add the fileName
-    	files++=Seq(fileName)
+    	val userdata = UserData(dataId.toString, fileName)
+    	files++=Seq(userdata)
+    	//files++=Seq(fileName)
     	// here we save the content
-    	scala.xml.XML.save("userdata/"+id+"/"+fileName, xml, "UTF-8")
+    	scala.xml.XML.save("userdata/"+userId+"/"+fileName, xml, "UTF-8")
+    	sender ! userdata
     }
     case AddFileData(file) => {
-    	val fileName = "votable-"+new ObjectId()+".xml"
-    	file.moveTo(new File("userdata/"+id+"/"+fileName))
+        val dataId = new ObjectId()
+    	val fileName = "votable-"+dataId+".xml"
+    	file.moveTo(new File("userdata/"+userId+"/"+fileName))
     	// here we add the fileName
-    	files++=Seq(fileName)
+    	val userdata = UserData(dataId.toString, fileName)
+    	files++=Seq(userdata)
+    	sender ! userdata
     }
     case StopUserService => { 
       context.stop(self)
@@ -94,19 +105,19 @@ object UserService {
   // simple action to initialise a userservice actor
   def init(userId: String): ActorRef = checkIfExists(userId)
    
-  def getUserData(userId: String): Future[Seq[String]] = {
+  def getUserData(userId: String): Future[Seq[UserData]] = {
     val actorRef: ActorRef = checkIfExists(userId)
-    (actorRef ? GetUserData).mapTo[Seq[String]]
+    (actorRef ? GetUserData).mapTo[Seq[UserData]]
   }
   
-  def addXMLUserData(userId: String, xml: Node) = {
+  def addXMLUserData(userId: String, xml: Node): Future[UserData] = {
     val actorRef: ActorRef = checkIfExists(userId) 
-    (actorRef ? AddXMLData(xml))   
+    (actorRef ? AddXMLData(xml)).mapTo[UserData]   
   }
   
-  def addFileUserData(userId: String, file: TemporaryFile) = {
+  def addFileUserData(userId: String, file: TemporaryFile): Future[UserData] = {
     val actorRef: ActorRef = checkIfExists(userId)
-    (actorRef? AddFileData(file))
+    (actorRef? AddFileData(file)).mapTo[UserData]
   }
     
   

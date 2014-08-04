@@ -21,17 +21,18 @@ module portal {
             public elem: SpaseElem) {}
     }    
     
-    // @TODO let's see what the user object needs to have
     export class User {
         
         public id: string
         public results: Array<Result>
         public selections: Array<Selection>
-  
+        public voTables: Array<IUserData>
+        
         constructor(id: string){
             this.id = id
             this.results = []
             this.selections = []
+            this.voTables = []
         }
         
     }

@@ -17,8 +17,6 @@ module portal {
         private state: ng.ui.IStateService
         private modalInstance: any
         private uploader: any
-        private uploads: Array<any> = [] 
-        private uploadResults: Array<any> = []
         
         public initialising: boolean = false
         public status: string
@@ -44,32 +42,36 @@ module portal {
         }
         
         // see: https://github.com/danialfarid/angular-file-upload/blob/master/demo/war/js/upload.js
+        // @TODO improve this routine (return types + error handling)
         public onFileSelect($files) {
             this.selectedFiles = $files
-            this.uploads = [] 
-            this.uploadResults = []
             this.showError = false
             for (var i= 0; i < this.selectedFiles.length; i++) {
                 this.progress[i] = 0
-                this.uploads[i] = this.uploader.upload({
+                this.uploader.upload({
                     url: '/userdata', 
                     method: 'POST', 
                     file: this.selectedFiles[i], 
                     fileFormDataName: 'votable'
                 }).success((response) => {
                     this.timeout(() => {
-                        this.uploadResults.push(response.data)
+                        // adding the info of the posted votable to userservice
+                        this.userService.user.voTables.push(<IUserData>response)
+                        console.log(JSON.stringify(this.userService.user.voTables))
                     })
                 }).error((response) => {
                     if (response.status > 0) { 
                         this.status = response.status + ': ' + response.data
                         this.showError = true
                     }
+                // @TODO progress doesn't really work
                 }).progress((evt) => {
                     console.log("progress "+Math.min(100, 100.0 * evt.loaded / evt.total))
                     this.progress[i] = Math.min(100, 100.0 * evt.loaded / evt.total)
                 })
             }
+            
+            
         }
         
         // methods for modal

@@ -13,7 +13,10 @@ module portal {
         public resolve: Object = {
             config: ['configService', (ConfigService) => {
                 return ConfigService.loadConfig()
-            }] 
+            }],
+            userData: ['userService', (UserService) => {
+                return UserService.loadUserData()
+            }]
         }
         
         constructor(){}
