@@ -65,7 +65,7 @@ module portal {
             
             var cacheId = "repo-"+id
             if(!(cacheId in this.registryService.cachedElements)) {  
-                this.registryPromise = this.registryService.getRepository().get(
+                this.registryPromise = this.registryService.Repository().get(
                     { fmt: 'json' , id: id }).$promise
                 
                 this.registryPromise.then((spase) => {
@@ -85,7 +85,7 @@ module portal {
             
             var cacheId = "model-"+id
             if(!(cacheId in this.registryService.cachedElements)) {  
-                this.registryPromise = this.registryService.getSimulationModel().get(
+                this.registryPromise = this.registryService.SimulationModel().get(
                     { fmt: 'json', id: id }).$promise
                 
                 this.registryPromise.then((spase) => {
@@ -105,7 +105,7 @@ module portal {
             
             var cacheId = "run-"+id
             if(!(cacheId in this.registryService.cachedElements)) {  
-                this.registryPromise = this.registryService.getSimulationRun().get(
+                this.registryPromise = this.registryService.SimulationRun().get(
                     { fmt: 'json', id: id }).$promise
                 
                 this.registryPromise.then(
@@ -130,7 +130,7 @@ module portal {
             
             var cacheId = "output-"+id
             if(!(cacheId in this.registryService.cachedElements)) {  
-                this.registryPromise = this.registryService.getNumericalOutput().get(
+                this.registryPromise = this.registryService.NumericalOutput().get(
                     { fmt: 'json', id: id }).$promise
                 
                 this.registryPromise.then(
@@ -155,7 +155,7 @@ module portal {
             
             var cacheId = "granule-"+id
             if(!(cacheId in this.registryService.cachedElements)) {  
-                this.registryPromise = this.registryService.getGranule().get(
+                this.registryPromise = this.registryService.Granule().get(
                     { fmt: 'json', id: id }).$promise
                 
                 this.registryPromise.then(

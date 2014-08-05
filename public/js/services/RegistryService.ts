@@ -53,31 +53,31 @@ module portal {
         // defines which elements are selectables in the registry
         public selectables: ISelectable = {}
         
-        public getRepository(): IRegistryResource {
+        public Repository(): IRegistryResource {
             return <IRegistryResource> this.resource(this.url+'registry/repository?', 
                 { id: '@id', fmt: '@fmt' },
                 { getRepository: this.registryAction })
         }
         
-        public getSimulationModel(): IRegistryResource {
+        public SimulationModel(): IRegistryResource {
             return <IRegistryResource> this.resource(this.url+'registry/simulationmodel?',
                 { id: '@id', fmt: '@fmt' },
                 { getSimulationModel: this.registryAction })
         }
 
-        public getSimulationRun(): IRegistryResource {
+        public SimulationRun(): IRegistryResource {
             return <IRegistryResource> this.resource(this.url+'registry/simulationrun?',
                 { id: '@id', fmt: '@fmt' },
                 { getSimulationRun: this.registryAction })
         }
         
-        public getNumericalOutput(): IRegistryResource {
+        public NumericalOutput(): IRegistryResource {
             return <IRegistryResource> this.resource(this.url+'registry/numericaloutput?',
                 { id: '@id', fmt: '@fmt' },
                 { getNumericalOutput: this.registryAction })
         }
         
-        public getGranule(): IRegistryResource {
+        public Granule(): IRegistryResource {
             return <IRegistryResource> this.resource(this.url+'registry/granule?',
                 { id: '@id', fmt: '@fmt' },
                 { getGranule: this.registryAction })

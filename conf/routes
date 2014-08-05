@@ -72,7 +72,7 @@ GET		/methods/FMI/getDataPointSpectra					controllers.FMIMethods.getDataPointSpe
 GET		/methods/FMI/getDataPointSpectraSpacecraft			controllers.FMIMethods.getDataPointSpectraSpacecraft
 
 # userdata routes
-POST	/userdata					controllers.Application.addUserData
+POST	/userdata					controllers.Application.addFileUserData
 #POST	/userdata					controllers.Application.addXMLUserData
 GET		/userdata				    controllers.Application.listUserdata
 GET		/userdata/:fileName			controllers.Application.getUserdata(fileName: String)

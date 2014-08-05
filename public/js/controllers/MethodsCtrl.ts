@@ -63,7 +63,7 @@ module portal {
         private loadMethodsAPI() {
             this.initialising = true
             this.status = ''
-            this.methodsService.getMethodsAPI().get(
+            this.methodsService.MethodsAPI().get(
                 (data: ISwagger, status: any) => this.handleAPIData(data, status),
                 (error: any) => this.handleAPIError(error)
             )

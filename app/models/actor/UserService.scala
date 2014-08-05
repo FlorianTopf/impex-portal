@@ -13,11 +13,12 @@ import java.io.File
 import scala.xml._
 import play.api.libs.Files._
 import org.apache.commons.io.FileUtils
+import java.io.FileNotFoundException
 
 
 case class AddXMLData(xml: Node)
 case class AddFileData(file: TemporaryFile)
-case class DeleteFileData(name: String)
+case class DeleteUserData(name: String)
 case class UserData(id: String, name: String)
 case object GetUserData
 case object StopUserService
@@ -69,13 +70,16 @@ class UserService(val userId: ObjectId) extends Actor {
     	files++=Seq(userdata)
     	sender ! userdata
     }
-    // @TODO catch errors here (on delete())
-    case DeleteFileData(fileName) => {
-        println(fileName)
-        val delFile = new File("userdata/"+userId+"/"+fileName)
-        println(delFile.delete())
-        // filter out element, which is to be removed
-    	files=files.filter(data => data.name != fileName)
+    case DeleteUserData(fileName) => {
+        try {
+        	val delFile = new File("userdata/"+userId+"/"+fileName)
+        	// filter out element, which is to be removed
+    		files=files.filter(data => data.name != fileName)
+    		// remove file on HD
+    		sender ! delFile.delete()
+        } catch {
+           case e: FileNotFoundException => sender ! false
+        }
     }
     case StopUserService => { 
       context.stop(self)
@@ -128,11 +132,10 @@ object UserService {
     val actorRef: ActorRef = checkIfExists(userId)
     (actorRef ? AddFileData(file)).mapTo[UserData]
   }
-    
-  // @TODO maybe we should return something
-  def deleteFileUserData(userId: String, name: String) = {
+  
+  def deleteUserData(userId: String, name: String) = {
     val actorRef: ActorRef = checkIfExists(userId)
-    (actorRef ? DeleteFileData(name))
+    (actorRef ? DeleteUserData(name))
   }
   
   

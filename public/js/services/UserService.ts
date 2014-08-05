@@ -12,6 +12,7 @@ module portal {
     // describes the actions for user
     export interface IUserResource extends ng.resource.IResourceClass<IUserData> {
         listUserData(): Array<IUserData>
+        deleteUserData(): string
     }
     
     export class UserService {
@@ -22,11 +23,16 @@ module portal {
     	public user: User = null
         public localStorage: any = null
 
-         // creates an action descriptor
-        private userAction: ng.resource.IActionDescriptor = {
+         // creates an action descriptor for list
+        private userListAction: ng.resource.IActionDescriptor = {
             method: 'GET',
             isArray: true
         }  
+        
+         // creates an action descriptor for delete
+        private userDeleteAction: ng.resource.IActionDescriptor = {
+            method: 'DELETE',
+        }
         
     	constructor($localStorage, $resource) {
             this.localStorage = $localStorage
@@ -47,17 +53,24 @@ module portal {
                .substring(1)
         }
         
-        // returns the resource handler 
-        public listUserData(): IUserResource {
-            return <IUserResource>this.resource(this.url+'userdata', {},
-                { listUserData: this.userAction })
+        // returns the resource handler for userdata
+        public UserData(): IUserResource {
+            return <IUserResource>this.resource(this.url+'userdata/:name', { name: '@name' },
+                { listUserData: this.userListAction, 
+                  deleteUserData: this.userDeleteAction 
+                })
         } 
         
-        // returns promise for resource handler
+        // returns promise for load resources
         public loadUserData(): ng.IPromise<ng.resource.IResourceArray<IUserData>> {
-            return this.listUserData().query().$promise
+            return this.UserData().query().$promise
         }
         
+        // calls delete on a specific userdata file
+        // @TODO what do we return in error case?
+        public deleteUserData(name: string): IUserData {
+            return this.UserData().delete({}, { 'name': name })
+        }
         
     }
 }

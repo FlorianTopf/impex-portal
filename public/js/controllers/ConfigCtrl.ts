@@ -40,6 +40,9 @@ module portal {
                 this.userService.user.voTables = userData
             //console.log(JSON.stringify(this.userService.user.voTables))
             
+            //var name = "votable-53dfe33c3004d0ef2d6f570e.xml"
+            //this.userService.UserData().delete({}, {'name': name})
+            
             // as soon as we create a new user we have a localStorage connection
             // initialising the stored results from localStorage
             if(this.userService.localStorage.results != null)

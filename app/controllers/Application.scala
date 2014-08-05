@@ -17,6 +17,7 @@ import javax.xml.datatype._
 import org.bson.types.ObjectId
 import java.io.File
 import scala.concurrent._
+import java.io.FileNotFoundException
 
 
 object Application extends BaseController {
@@ -63,7 +64,7 @@ object Application extends BaseController {
   }
   
   // route for upload forms
-  def addUserData = PortalAction.async(parse.multipartFormData) { implicit request =>
+  def addFileUserData = PortalAction.async(parse.multipartFormData) { implicit request =>
     request.body.file("votable").map(_.ref) match {
       case Some(votable) => {
         UserService.addFileUserData(request.sessionId, votable) map { data =>
@@ -72,8 +73,7 @@ object Application extends BaseController {
           Ok(json).withSession("id" -> request.sessionId)
         }   
       }
-      // @TODO generalise response
-      case None => future { BadRequest("Upload failed") }
+      case None => future { BadRequest("Upload Failed").withSession("id" -> request.sessionId) }
     }
   }
   
@@ -87,8 +87,7 @@ object Application extends BaseController {
           Ok(json).withSession("id" -> request.sessionId)
         }
       }
-      // @TODO generalise response
-      case None => future { BadRequest("Upload failed") }
+      case None => future { BadRequest("Upload Failed").withSession("id" -> request.sessionId) }
     }
   }
   
@@ -106,18 +105,22 @@ object Application extends BaseController {
   
   // route for getting one file
   def getUserdata(fileName: String) = PortalAction { implicit request => 
-    // @TODO atch errors here! 
-    val file = new File("userdata/"+request.sessionId+"/"+fileName)
-    val xml = scala.xml.XML.loadFile(file)
-    Ok(xml).withSession("id" -> request.sessionId)
+    try {
+      val file = new File("userdata/"+request.sessionId+"/"+fileName)
+      val xml = scala.xml.XML.loadFile(file)
+      Ok(xml).withSession("id" -> request.sessionId)
+    } catch {
+      case e: FileNotFoundException => BadRequest("File Not Found")
+    }
   }
   
   // route for removing one file
-  def deleteUserData(fileName: String) = PortalAction { implicit request => 
-    // @TODO catch errors here!
-    UserService.deleteFileUserData(request.sessionId, fileName)
-    Ok("File deleted").withSession("id" -> request.sessionId)
-  
+  def deleteUserData(fileName: String) = PortalAction.async { implicit request => 
+    val future = UserService.deleteUserData(request.sessionId, fileName)
+    future map { _ match {
+      case true => Ok("File Deleted").withSession("id" -> request.sessionId)
+      case false => BadRequest("File Not Deleted").withSession("id" -> request.sessionId)
+    }}
   }
   
 }

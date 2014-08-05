@@ -34,7 +34,7 @@ module portal {
         }
         
         // generic method for requesting 
-        public getMethodsAPI(): IMethodsAPIResource {
+        public MethodsAPI(): IMethodsAPIResource {
             return <IMethodsAPIResource> this.resource(this.url+this.url+'api-docs/methods', 
                 { getMethods: this.methodsAction })
         }
@@ -61,11 +61,9 @@ module portal {
         
         // generic method for requesting standard services (GET + params)
         public requestMethod(path: string, params: Object): IMethodsResource {
-            return <IMethodsResource> this.resource(path,
-                params,
+            return <IMethodsResource> this.resource(path, params,
                 { requestMethod: this.methodsAction })
-        }
-        
+        }   
 
 
     }

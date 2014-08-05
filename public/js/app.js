@@ -852,13 +852,13 @@ var portal;
             this.resource = $resource;
         }
         // returns the resource handler
-        ConfigService.prototype.getConfig = function () {
+        ConfigService.prototype.Config = function () {
             return this.resource(this.url + 'config?', { fmt: '@fmt' }, { getConfig: this.configAction });
         };
 
         // returns promise for resource handler
         ConfigService.prototype.loadConfig = function () {
-            return this.getConfig().get({ fmt: 'json' }).$promise;
+            return this.Config().get({ fmt: 'json' }).$promise;
         };
 
         ConfigService.prototype.getDatabase = function (id) {
@@ -899,23 +899,23 @@ var portal;
             this.selectables['spase://IMPEX/Repository/LATMOS'] = ['SimulationRun', 'NumericalOutput'];
             this.selectables['spase://IMPEX/Repository/SINP'] = ['SimulationModel', 'NumericalOutput'];
         }
-        RegistryService.prototype.getRepository = function () {
+        RegistryService.prototype.Repository = function () {
             return this.resource(this.url + 'registry/repository?', { id: '@id', fmt: '@fmt' }, { getRepository: this.registryAction });
         };
 
-        RegistryService.prototype.getSimulationModel = function () {
+        RegistryService.prototype.SimulationModel = function () {
             return this.resource(this.url + 'registry/simulationmodel?', { id: '@id', fmt: '@fmt' }, { getSimulationModel: this.registryAction });
         };
 
-        RegistryService.prototype.getSimulationRun = function () {
+        RegistryService.prototype.SimulationRun = function () {
             return this.resource(this.url + 'registry/simulationrun?', { id: '@id', fmt: '@fmt' }, { getSimulationRun: this.registryAction });
         };
 
-        RegistryService.prototype.getNumericalOutput = function () {
+        RegistryService.prototype.NumericalOutput = function () {
             return this.resource(this.url + 'registry/numericaloutput?', { id: '@id', fmt: '@fmt' }, { getNumericalOutput: this.registryAction });
         };
 
-        RegistryService.prototype.getGranule = function () {
+        RegistryService.prototype.Granule = function () {
             return this.resource(this.url + 'registry/granule?', { id: '@id', fmt: '@fmt' }, { getGranule: this.registryAction });
         };
         RegistryService.$inject = ['$resource'];
@@ -943,7 +943,7 @@ var portal;
             this.resource = $resource;
         }
         // generic method for requesting
-        MethodsService.prototype.getMethodsAPI = function () {
+        MethodsService.prototype.MethodsAPI = function () {
             return this.resource(this.url + this.url + 'api-docs/methods', { getMethods: this.methodsAction });
         };
 
@@ -984,10 +984,14 @@ var portal;
             this.url = '/';
             this.user = null;
             this.localStorage = null;
-            // creates an action descriptor
-            this.userAction = {
+            // creates an action descriptor for list
+            this.userListAction = {
                 method: 'GET',
                 isArray: true
+            };
+            // creates an action descriptor for delete
+            this.userDeleteAction = {
+                method: 'DELETE'
             };
             this.localStorage = $localStorage;
 
@@ -1002,14 +1006,23 @@ var portal;
             return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1) + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
         };
 
-        // returns the resource handler
-        UserService.prototype.listUserData = function () {
-            return this.resource(this.url + 'userdata', {}, { listUserData: this.userAction });
+        // returns the resource handler for userdata
+        UserService.prototype.UserData = function () {
+            return this.resource(this.url + 'userdata/:name', { name: '@name' }, {
+                listUserData: this.userListAction,
+                deleteUserData: this.userDeleteAction
+            });
         };
 
-        // returns promise for resource handler
+        // returns promise for load resources
         UserService.prototype.loadUserData = function () {
-            return this.listUserData().query().$promise;
+            return this.UserData().query().$promise;
+        };
+
+        // calls delete on a specific userdata file
+        // @TODO what do we return in error case?
+        UserService.prototype.deleteUserData = function (name) {
+            return this.UserData().delete({}, { 'name': name });
         };
         UserService.$inject = ['$localStorage', '$resource'];
         return UserService;
@@ -1148,7 +1161,7 @@ var portal;
 
             var cacheId = "repo-" + id;
             if (!(cacheId in this.registryService.cachedElements)) {
-                this.registryPromise = this.registryService.getRepository().get({ fmt: 'json', id: id }).$promise;
+                this.registryPromise = this.registryService.Repository().get({ fmt: 'json', id: id }).$promise;
 
                 this.registryPromise.then(function (spase) {
                     _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
@@ -1170,7 +1183,7 @@ var portal;
 
             var cacheId = "model-" + id;
             if (!(cacheId in this.registryService.cachedElements)) {
-                this.registryPromise = this.registryService.getSimulationModel().get({ fmt: 'json', id: id }).$promise;
+                this.registryPromise = this.registryService.SimulationModel().get({ fmt: 'json', id: id }).$promise;
 
                 this.registryPromise.then(function (spase) {
                     _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
@@ -1192,7 +1205,7 @@ var portal;
 
             var cacheId = "run-" + id;
             if (!(cacheId in this.registryService.cachedElements)) {
-                this.registryPromise = this.registryService.getSimulationRun().get({ fmt: 'json', id: id }).$promise;
+                this.registryPromise = this.registryService.SimulationRun().get({ fmt: 'json', id: id }).$promise;
 
                 this.registryPromise.then(function (spase) {
                     _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
@@ -1217,7 +1230,7 @@ var portal;
 
             var cacheId = "output-" + id;
             if (!(cacheId in this.registryService.cachedElements)) {
-                this.registryPromise = this.registryService.getNumericalOutput().get({ fmt: 'json', id: id }).$promise;
+                this.registryPromise = this.registryService.NumericalOutput().get({ fmt: 'json', id: id }).$promise;
 
                 this.registryPromise.then(function (spase) {
                     _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
@@ -1242,7 +1255,7 @@ var portal;
 
             var cacheId = "granule-" + id;
             if (!(cacheId in this.registryService.cachedElements)) {
-                this.registryPromise = this.registryService.getGranule().get({ fmt: 'json', id: id }).$promise;
+                this.registryPromise = this.registryService.Granule().get({ fmt: 'json', id: id }).$promise;
 
                 this.registryPromise.then(function (spase) {
                     _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
@@ -1337,7 +1350,7 @@ else
             var _this = this;
             this.initialising = true;
             this.status = '';
-            this.methodsService.getMethodsAPI().get(function (data, status) {
+            this.methodsService.MethodsAPI().get(function (data, status) {
                 return _this.handleAPIData(data, status);
             }, function (error) {
                 return _this.handleAPIError(error);
