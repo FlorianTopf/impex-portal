@@ -65,10 +65,9 @@ module portal {
             this.upload[i] = this.uploader.upload({
                 url: '/userdata', 
                 method: 'POST', 
-                file: this.selectedFiles[i], 
+                file: this.selectedFiles[i],  
                 fileFormDataName: 'votable'
-            })
-                    
+            }) 
             this.upload[i].success((response) => {
                 this.timeout(() => {
                     var votable = <IUserData>response

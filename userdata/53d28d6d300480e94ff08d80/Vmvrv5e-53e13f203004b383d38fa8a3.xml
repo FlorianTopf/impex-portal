@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<VOTABLE version="1.2" xmlns="http://www.ivoa.net/xml/VOTable/v1.2">
-<RESOURCE name="LatHySData">
-<TABLE name="Data">
-<DESCRIPTION/>
-<FIELD name="Time" ID="col1" ucd="time.epoch" xtype="dateTime" utype="" datatype="char" arraysize="*"/>
-<FIELD name="X" ID="X" ucd="pos.cartesian.x" utype="stc:AstroCoords.Position3D.Value3.C1" datatype="float"/>
-<FIELD name="Y" ID="Y" ucd="pos.cartesian.y" utype="stc:AstroCoords.Position3D.Value3.C2" datatype="float"/>
-<FIELD name="Z" ID="Z" ucd="pos.cartesian.z" utype="stc:AstroCoords.Position3D.Value3.C3" datatype="float"/>
-<FIELD name="Btot" ID="col5" ucd="phys.magField" utype="" datatype="float" unit="nT"/>
-<FIELD name="Bx" ID="col6" ucd="phys.magField" utype="" datatype="float" unit="nT"/>
+<VOTABLE version='1.2' xmlns='http://www.ivoa.net/xml/VOTable/v1.2'>
+<RESOURCE name='LatHySData'>
+<TABLE name='Data'>
+<DESCRIPTION />
+<FIELD name="Time" ID="col1" ucd="time.epoch"  xtype="dateTime"  utype="" datatype="char" arraysize="*" />
+<FIELD name="X" ID="X" ucd="pos.cartesian.x"  unit="Rm" utype="stc:AstroCoords.Position3D.Value3.C1" datatype="float"/>
+<FIELD name="Y" ID="Y" ucd="pos.cartesian.y"  unit="Rm" utype="stc:AstroCoords.Position3D.Value3.C2" datatype="float"/>
+<FIELD name="Z" ID="Z" ucd="pos.cartesian.z"  unit="Rm" utype="stc:AstroCoords.Position3D.Value3.C3" datatype="float"/>
+<FIELD name="Btot" ID="col5" ucd="phys.magField" utype="" datatype="float"  unit="nT" />
+<FIELD name="Bx" ID="col6" ucd="phys.magField" utype="" datatype="float"  unit="nT" />
 <DATA>
 <TABLEDATA>
 <TR>

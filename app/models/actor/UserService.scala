@@ -17,7 +17,7 @@ import java.io.FileNotFoundException
 
 
 case class AddXMLData(xml: Node)
-case class AddFileData(file: TemporaryFile)
+case class AddFileData(file: TemporaryFile, name: String)
 case class DeleteUserData(name: String)
 case class UserData(id: String, name: String)
 case object GetUserData
@@ -36,10 +36,8 @@ class UserService(val userId: ObjectId) extends Actor {
        // fetch all existing files
        val exFiles = fileDir.listFiles.filter(_.getName.endsWith(".xml"))
        files++=exFiles map { f => 
-         UserData(f.getName().replace(".xml", "").replace("votable-", ""), f.getName())
+         UserData(f.getName().split("-").last.replace(".xml", ""), f.getName())
        }
-       //files++=exFiles.map(f => f.getName())
-       //println(files)
      }
      else {
        fileDir.mkdir()
@@ -56,14 +54,13 @@ class UserService(val userId: ObjectId) extends Actor {
     	// here we add the fileName
     	val userdata = UserData(dataId.toString, fileName)
     	files++=Seq(userdata)
-    	//files++=Seq(fileName)
     	// here we save the content
     	scala.xml.XML.save("userdata/"+userId+"/"+fileName, xml, "UTF-8")
     	sender ! userdata
     }
-    case AddFileData(file) => {
+    case AddFileData(file, name) => {
         val dataId = new ObjectId()
-    	val fileName = "votable-"+dataId+".xml"
+    	val fileName = name.replace(".xml", "")+"-"+dataId+".xml"
     	file.moveTo(new File("userdata/"+userId+"/"+fileName))
     	// here we add the fileName
     	val userdata = UserData(dataId.toString, fileName)
@@ -128,9 +125,9 @@ object UserService {
     (actorRef ? AddXMLData(xml)).mapTo[UserData]   
   }
   
-  def addFileUserData(userId: String, file: TemporaryFile): Future[UserData] = {
+  def addFileUserData(userId: String, file: TemporaryFile, name: String): Future[UserData] = {
     val actorRef: ActorRef = checkIfExists(userId)
-    (actorRef ? AddFileData(file)).mapTo[UserData]
+    (actorRef ? AddFileData(file, name)).mapTo[UserData]
   }
   
   def deleteUserData(userId: String, name: String) = {

@@ -12,8 +12,7 @@
 				ng-repeat="sel in userdirvm.user.selections | filter:{ repositoryId:userdirvm.repositoryId }"
 			    ng-class="{ active: !userdirvm.isCollapsed[sel.id] }"
 				ng-click="userdirvm.toggleSelectionDetails(sel.id)">
-					Tree Selection {{ sel.id }}<br/>
-					{{ sel.type }}
+				{{ sel.type }}<br/>{{ sel.repositoryId }}
 			</button>
 		</div>
 		</tab>
@@ -22,9 +21,7 @@
 			<button type="button" class="btn btn-success btn-sm" 
 				ng-repeat="vot in userdirvm.user.voTables"
 			    ng-class="{ active: !userdirvm.isCollapsed[vot.id] }"
-				ng-click="userdirvm.toggleDetails(vot.id)">
-					VOTable<br/>{{ vot.id }}
-			</button>
+				ng-click="userdirvm.toggleDetails(vot.id)">{{ vot.name }}</button>
 		</div>
 		</tab>
 		<tab heading="Service Results" 
@@ -35,8 +32,7 @@
 				ng-repeat="res in userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId }"
 			    ng-class="{ active: !userdirvm.isCollapsed[res.id] }"
 				ng-click="userdirvm.toggleDetails(res.id)">
-					Service Result {{ res.id }}<br/>
-					{{ res.method.replace('/methods', '') }}
+				{{ res.method.split('/').reverse()[0] }}<br/>{{ res.repositoryId }}
 			</button>
 		</div>
 		</tab>

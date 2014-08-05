@@ -1550,7 +1550,6 @@ var portal;
                 file: this.selectedFiles[i],
                 fileFormDataName: 'votable'
             });
-
             this.upload[i].success(function (response) {
                 _this.timeout(function () {
                     var votable = response;

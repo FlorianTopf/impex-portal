@@ -68,8 +68,9 @@ object Application extends BaseController {
   def addFileUserData = PortalAction.async(parse.multipartFormData) { implicit request =>
     request.body.file("votable").map(_.ref) match {
       case Some(votable) => {
-        UserService.addFileUserData(request.sessionId, votable) map { data =>
-          val json = Json.obj("id" -> JsString(data.id), 
+        val name = request.body.file("votable").map(_.filename).get
+        UserService.addFileUserData(request.sessionId, votable, name) map { data =>
+          val json = Json.obj("id" -> JsString(data.id), "name" -> JsString(name),
               "url" -> JsString("http://"+request.host+"/userdata/"+data.name))
           Ok(json).withSession("id" -> request.sessionId)
         }   
@@ -78,7 +79,7 @@ object Application extends BaseController {
     }
   }
   
-  // alternative route (not used atm)
+  // alternative route (not used atm => no name available!)
   def addXMLUserData = PortalAction.async { implicit request =>
     request.body.asXml.map(_.asInstanceOf[Node]) match {
       case Some(votable) => { 
@@ -98,6 +99,7 @@ object Application extends BaseController {
     future map { files => 
       val json = Json.toJson(files map { data => 
         Json.obj("id" -> JsString(data.id), 
+            "name" -> JsString(data.name.replace("-"+data.id, "")),
         "url" -> JsString("http://"+request.host+"/userdata/"+data.name))
       })
       Ok(json).withSession("id" -> request.sessionId)
