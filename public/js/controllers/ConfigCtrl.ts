@@ -38,7 +38,7 @@ module portal {
             // loading stored votables from server
             if(userData.length > 0)
                 this.userService.user.voTables = userData
-            console.log(JSON.stringify(this.userService.user.voTables))
+            //console.log(JSON.stringify(this.userService.user.voTables))
             
             // as soon as we create a new user we have a localStorage connection
             // initialising the stored results from localStorage

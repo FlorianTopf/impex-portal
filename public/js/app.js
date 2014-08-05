@@ -1037,7 +1037,6 @@ var portal;
 
             if (userData.length > 0)
                 this.userService.user.voTables = userData;
-            console.log(JSON.stringify(this.userService.user.voTables));
 
             if (this.userService.localStorage.results != null)
                 this.userService.user.results = this.userService.localStorage.results;
@@ -1496,6 +1495,7 @@ var portal;
     // @TODO introduce error/offline handling later
     var UserDataCtrl = (function () {
         function UserDataCtrl($scope, $location, $timeout, $window, userService, $state, $modalInstance, $upload) {
+            this.upload = [];
             this.initialising = false;
             this.showError = false;
             this.selectedFiles = [];
@@ -1513,33 +1513,45 @@ var portal;
         // see: https://github.com/danialfarid/angular-file-upload/blob/master/demo/war/js/upload.js
         // @TODO improve this routine (return types + error handling)
         UserDataCtrl.prototype.onFileSelect = function ($files) {
-            var _this = this;
             this.selectedFiles = $files;
-            this.showError = false;
-            for (var i = 0; i < this.selectedFiles.length; i++) {
-                this.progress[i] = 0;
-                this.uploader.upload({
-                    url: '/userdata',
-                    method: 'POST',
-                    file: this.selectedFiles[i],
-                    fileFormDataName: 'votable'
-                }).success(function (response) {
-                    _this.timeout(function () {
-                        // adding the info of the posted votable to userservice
-                        _this.userService.user.voTables.push(response);
-                        console.log(JSON.stringify(_this.userService.user.voTables));
-                    });
-                }).error(function (response) {
-                    if (response.status > 0) {
-                        _this.status = response.status + ': ' + response.data;
-                        _this.showError = true;
+            this.progress = [];
+            if (this.upload && this.upload.length > 0) {
+                for (var i = 0; i < this.upload.length; i++) {
+                    if (this.upload[i] != null) {
+                        this.upload[i].abort();
                     }
-                    // @TODO progress doesn't really work
-                }).progress(function (evt) {
-                    console.log("progress " + Math.min(100, 100.0 * evt.loaded / evt.total));
-                    _this.progress[i] = Math.min(100, 100.0 * evt.loaded / evt.total);
-                });
+                }
             }
+            this.showError = false;
+            for (var i = 0; i < $files.length; i++) {
+                this.handleUpload(i);
+            }
+        };
+
+        UserDataCtrl.prototype.handleUpload = function (i) {
+            var _this = this;
+            this.progress[i] = 0;
+            this.upload[i] = this.uploader.upload({
+                url: '/userdata',
+                method: 'POST',
+                file: this.selectedFiles[i],
+                fileFormDataName: 'votable'
+            });
+
+            this.upload[i].then(function (response) {
+                _this.timeout(function () {
+                    // adding the info of the posted votable to userservice
+                    _this.userService.user.voTables.push(response);
+                    //console.log(JSON.stringify(this.userService.user.voTables))
+                });
+            }, function (response) {
+                if (response.status > 0) {
+                    _this.status = response.status + ': ' + response.data;
+                    _this.showError = true;
+                }
+            }, function (evt) {
+                _this.progress[i] = Math.min(100, 100.0 * evt.loaded / evt.total);
+            });
         };
 
         // methods for modal

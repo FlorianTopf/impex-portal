@@ -17,6 +17,7 @@ module portal {
         private state: ng.ui.IStateService
         private modalInstance: any
         private uploader: any
+        private upload: Array<any> = []
         
         public initialising: boolean = false
         public status: string
@@ -45,33 +46,43 @@ module portal {
         // @TODO improve this routine (return types + error handling)
         public onFileSelect($files) {
             this.selectedFiles = $files
-            this.showError = false
-            for (var i= 0; i < this.selectedFiles.length; i++) {
-                this.progress[i] = 0
-                this.uploader.upload({
-                    url: '/userdata', 
-                    method: 'POST', 
-                    file: this.selectedFiles[i], 
-                    fileFormDataName: 'votable'
-                }).success((response) => {
-                    this.timeout(() => {
-                        // adding the info of the posted votable to userservice
-                        this.userService.user.voTables.push(<IUserData>response)
-                        console.log(JSON.stringify(this.userService.user.voTables))
-                    })
-                }).error((response) => {
-                    if (response.status > 0) { 
-                        this.status = response.status + ': ' + response.data
-                        this.showError = true
+            this.progress = []
+            if (this.upload && this.upload.length > 0) {
+                for (var i=0; i < this.upload.length; i++) {
+                    if (this.upload[i] != null) {
+                        this.upload[i].abort()
                     }
-                // @TODO progress doesn't really work
-                }).progress((evt) => {
-                    console.log("progress "+Math.min(100, 100.0 * evt.loaded / evt.total))
-                    this.progress[i] = Math.min(100, 100.0 * evt.loaded / evt.total)
-                })
+                }
             }
-            
-            
+            this.showError = false
+            for (var i=0; i < $files.length; i++) {
+                this.handleUpload(i)
+            }
+        }
+        
+        public handleUpload(i: number) {
+            this.progress[i] = 0
+            this.upload[i] = this.uploader.upload({
+                url: '/userdata', 
+                method: 'POST', 
+                file: this.selectedFiles[i], 
+                fileFormDataName: 'votable'
+            })
+                    
+            this.upload[i].then((response) => {
+                this.timeout(() => {
+                    // adding the info of the posted votable to userservice
+                    this.userService.user.voTables.push(<IUserData>response)
+                    //console.log(JSON.stringify(this.userService.user.voTables))
+                })
+            }, (response) => {
+                if (response.status > 0) { 
+                    this.status = response.status + ': ' + response.data
+                    this.showError = true
+                }
+            }, (evt) => {
+                this.progress[i] = Math.min(100, 100.0 * evt.loaded / evt.total)
+            })
         }
         
         // methods for modal
