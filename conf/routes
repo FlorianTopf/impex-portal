@@ -76,7 +76,7 @@ POST	/userdata					controllers.Application.addUserData
 #POST	/userdata					controllers.Application.addXMLUserData
 GET		/userdata				    controllers.Application.listUserdata
 GET		/userdata/:fileName			controllers.Application.getUserdata(fileName: String)
-#DELETE	/userdata/:fileName			controllers.Application.deleteUserData(fileName: String)
+DELETE	/userdata/:fileName			controllers.Application.deleteUserData(fileName: String)
 
 # general testing routes
 GET		/test						controllers.Application.test

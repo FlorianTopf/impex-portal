@@ -17,6 +17,7 @@ import org.apache.commons.io.FileUtils
 
 case class AddXMLData(xml: Node)
 case class AddFileData(file: TemporaryFile)
+case class DeleteFileData(name: String)
 case class UserData(id: String, name: String)
 case object GetUserData
 case object StopUserService
@@ -68,6 +69,14 @@ class UserService(val userId: ObjectId) extends Actor {
     	files++=Seq(userdata)
     	sender ! userdata
     }
+    // @TODO catch errors here (on delete())
+    case DeleteFileData(fileName) => {
+        println(fileName)
+        val delFile = new File("userdata/"+userId+"/"+fileName)
+        println(delFile.delete())
+        // filter out element, which is to be removed
+    	files=files.filter(data => data.name != fileName)
+    }
     case StopUserService => { 
       context.stop(self)
       // delete all files connected to the actor
@@ -117,8 +126,14 @@ object UserService {
   
   def addFileUserData(userId: String, file: TemporaryFile): Future[UserData] = {
     val actorRef: ActorRef = checkIfExists(userId)
-    (actorRef? AddFileData(file)).mapTo[UserData]
+    (actorRef ? AddFileData(file)).mapTo[UserData]
   }
     
+  // @TODO maybe we should return something
+  def deleteFileUserData(userId: String, name: String) = {
+    val actorRef: ActorRef = checkIfExists(userId)
+    (actorRef ? DeleteFileData(name))
+  }
+  
   
 }

@@ -106,13 +106,18 @@ object Application extends BaseController {
   
   // route for getting one file
   def getUserdata(fileName: String) = PortalAction { implicit request => 
-    // catch error here! 
+    // @TODO atch errors here! 
     val file = new File("userdata/"+request.sessionId+"/"+fileName)
     val xml = scala.xml.XML.loadFile(file)
     Ok(xml).withSession("id" -> request.sessionId)
   }
   
-  // @TODO route for removing one file
-  def deleteUserData(fileName: String) = ???
+  // route for removing one file
+  def deleteUserData(fileName: String) = PortalAction { implicit request => 
+    // @TODO catch errors here!
+    UserService.deleteFileUserData(request.sessionId, fileName)
+    Ok("File deleted").withSession("id" -> request.sessionId)
+  
+  }
   
 }
