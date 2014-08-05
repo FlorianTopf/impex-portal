@@ -32,6 +32,11 @@ module portal {
 
             this.configService.config = config
             
+            // only for simulations atm 
+            this.configService.config.databases
+                .filter((e) => e.type == 'simulation')
+                .map((e) => { this.configService.aliveMap[e.name] = false; this.configService.isAlive(e.name); })
+            
             // user info comes from the server in the future (add in resolver too) 
             this.userService.user = new User(this.userService.createId())
             

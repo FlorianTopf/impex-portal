@@ -841,16 +841,34 @@ var portal;
     'use strict';
 
     var ConfigService = (function () {
-        function ConfigService($resource) {
+        function ConfigService($resource, $http) {
             this.url = '/';
             this.config = null;
+            this.aliveMap = {};
             // creates an action descriptor
             this.configAction = {
                 method: 'GET',
                 isArray: false
             };
             this.resource = $resource;
+            this.http = $http;
         }
+        // checks if a database and its methods are alive
+        ConfigService.prototype.isAlive = function (dbName) {
+            var _this = this;
+            if ((dbName.indexOf('FMI-HYBRID') != -1) || (dbName.indexOf('FMI-GUMICS') != -1))
+                var callName = 'FMI';
+else
+                var callName = dbName;
+
+            this.http.get(this.url + 'methods/' + callName + "/isAlive", { timeout: 10000 }).success(function (data, status) {
+                _this.aliveMap[dbName] = true;
+                console.log("Hello " + dbName);
+            }).error(function (data, status) {
+                _this.aliveMap[dbName] = false;
+            });
+        };
+
         // returns the resource handler
         ConfigService.prototype.Config = function () {
             return this.resource(this.url + 'config?', { fmt: '@fmt' }, { getConfig: this.configAction });
@@ -866,7 +884,7 @@ var portal;
                 return e.id == id;
             })[0];
         };
-        ConfigService.$inject = ['$resource'];
+        ConfigService.$inject = ['$resource', '$http'];
         return ConfigService;
     })();
     portal.ConfigService = ConfigService;
@@ -930,7 +948,7 @@ var portal;
 
     var MethodsService = (function () {
         function MethodsService($resource) {
-            this.url = '';
+            this.url = '/';
             this.methods = null;
             this.loading = false;
             this.status = '';
@@ -942,9 +960,9 @@ var portal;
             };
             this.resource = $resource;
         }
-        // generic method for requesting
+        // generic method for requesting API
         MethodsService.prototype.MethodsAPI = function () {
-            return this.resource(this.url + this.url + 'api-docs/methods', { getMethods: this.methodsAction });
+            return this.resource(this.url + 'api-docs/methods', { getMethods: this.methodsAction });
         };
 
         MethodsService.prototype.getMethods = function (db) {
@@ -1036,6 +1054,7 @@ var portal;
 
     var ConfigCtrl = (function () {
         function ConfigCtrl($scope, $timeout, configService, userService, $state, config, userData) {
+            var _this = this;
             this.scope = $scope;
             this.scope.vm = this;
             this.timeout = $timeout;
@@ -1044,6 +1063,14 @@ var portal;
             this.state = $state;
 
             this.configService.config = config;
+
+            // only for simulations atm
+            this.configService.config.databases.filter(function (e) {
+                return e.type == 'simulation';
+            }).map(function (e) {
+                _this.configService.aliveMap[e.name] = false;
+                _this.configService.isAlive(e.name);
+            });
 
             // user info comes from the server in the future (add in resolver too)
             this.userService.user = new portal.User(this.userService.createId());

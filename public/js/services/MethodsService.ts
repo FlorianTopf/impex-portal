@@ -17,11 +17,11 @@ module portal {
         static $inject: Array<string> = ['$resource']
         
         private resource: ng.resource.IResourceService
-        private url: string = ''
+        private url: string = '/'
         public methods: ISwagger = null    
         public loading: boolean = false
         public status: string = ''
-        public showError: boolean = false  
+        public showError: boolean = false 
         
         // action descriptor for registry actions
         private methodsAction: ng.resource.IActionDescriptor = {
@@ -33,9 +33,9 @@ module portal {
             this.resource = $resource
         }
         
-        // generic method for requesting 
+        // generic method for requesting API
         public MethodsAPI(): IMethodsAPIResource {
-            return <IMethodsAPIResource> this.resource(this.url+this.url+'api-docs/methods', 
+            return <IMethodsAPIResource> this.resource(this.url+'api-docs/methods', 
                 { getMethods: this.methodsAction })
         }
         
