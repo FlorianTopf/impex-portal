@@ -71,9 +71,11 @@ module portal {
                     
             this.upload[i].then((response) => {
                 this.timeout(() => {
+                    var votable = <IUserData>response
                     // adding the info of the posted votable to userservice
-                    this.userService.user.voTables.push(<IUserData>response)
+                    this.userService.user.voTables.push(votable)
                     //console.log(JSON.stringify(this.userService.user.voTables))
+                    this.scope.$broadcast('update-votables', votable.id)
                 })
             }, (response) => {
                 if (response.status > 0) { 

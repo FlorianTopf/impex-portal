@@ -37,7 +37,7 @@ class UserService(val userId: ObjectId) extends Actor {
          UserData(f.getName().replace(".xml", "").replace("votable-", ""), f.getName())
        }
        //files++=exFiles.map(f => f.getName())
-       println(files)
+       //println(files)
      }
      else {
        fileDir.mkdir()

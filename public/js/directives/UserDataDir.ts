@@ -96,18 +96,34 @@ module portal {
             })
             
             this.myScope.$on('update-selections', (e, id: string) => {
-                // reset expanded selection
-                this.currentSelection = []
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
                 for(var rId in this.isCollapsed) {
                     if(rId != id)
                         this.isCollapsed[rId] = true
                 }
+                // reset expanded selection
+                this.currentSelection = []
                 this.currentSelection.push(this.user.selections.filter((e) => e.id == id)[0])
                 // set selections tab active
-                this.tabsActive=this.tabsActive.map((t) => t = false)
+                this.tabsActive = this.tabsActive.map((t) => t = false)
                 this.tabsActive[0] = true
+            })
+            
+            // @TODO finalise this!
+            this.myScope.$on('update-votables', (e, id: string) => {
+                this.isCollapsed[id] = false
+                // closing all other collapsibles
+                for(var rId in this.isCollapsed) {
+                    if(rId != id)
+                        this.isCollapsed[rId] = true
+                }
+                // reset expanded selection
+                this.currentSelection = []
+                // set votable tab active
+                this.tabsActive = this.tabsActive.map((t) => t = false)
+                this.tabsActive[1] = true
+            
             })
             
             this.myScope.$on('update-results', (e, id: string) => {
@@ -119,9 +135,9 @@ module portal {
                 }
                 // reset expanded selection
                 this.currentSelection = []
-                // set selections tab active
-                this.tabsActive=this.tabsActive.map((t) => t = false)
-                this.tabsActive[1] = true
+                // set result tab active
+                this.tabsActive = this.tabsActive.map((t) => t = false)
+                this.tabsActive[2] = true
             })
             
             // watch event when all content is loading into the dir
@@ -135,6 +151,48 @@ module portal {
                 this.applyableElements = []
                 this.isApplyable = false
             })
+        }
+         
+        public toggleSelectionDetails(id: string) {
+            // reset expanded selection
+            this.currentSelection = []
+            if(this.isCollapsed[id]) { // if it is closed 
+                this.isCollapsed[id] = false
+                // closing all other collapsibles
+                for(var rId in this.isCollapsed) {
+                    if(rId != id)
+                        this.isCollapsed[rId] = true
+                }
+                
+                var selection = this.user.selections.filter((e) => e.id == id)[0]
+                if(this.applyableElements.indexOf(selection.type) != -1) {
+                    this.isApplyable = true
+                    //console.log("isApplyable")  
+                }
+                this.currentSelection.push(selection)
+                
+            } else {
+                this.isCollapsed[id] = true
+                // set isApplyable to false
+                this.isApplyable = false
+            }
+        }
+        
+        public toggleVOTableDetails(id: string) {
+            // reset expanded selection
+            this.currentSelection = []
+            // reset expanded selection
+            this.currentSelection = []
+            if(this.isCollapsed[id]) { // if it is closed
+                this.isCollapsed[id] = false
+                // closing all other collapsibles
+                for(var rId in this.isCollapsed) {
+                    if(rId != id)
+                        this.isCollapsed[rId] = true
+                }
+            } else {
+                this.isCollapsed[id] = true
+            }
         }
         
         public toggleResultDetails(id: string) {
@@ -151,43 +209,7 @@ module portal {
                 this.isCollapsed[id] = true
             }
         }
-        
-        public toggleSelectionDetails(id: string) {
-            // reset expanded selection
-            this.currentSelection = []
-            if(this.isCollapsed[id]) { // if it is closed 
-                this.isCollapsed[id] = false
-                // closing all other collapsibles
-                for(var rId in this.isCollapsed) {
-                    if(rId != id)
-                        this.isCollapsed[rId] = true
-                }
-                
-                var selection = this.user.selections.filter((e) => e.id == id)[0]
-                if(this.applyableElements.indexOf(selection.type) != -1) {
-                    this.isApplyable = true
-                    console.log("isApplyable")  
-                }
-                this.currentSelection.push(selection)
-                
-            } else {
-                this.isCollapsed[id] = true
-                // set isApplyable to false
-                this.isApplyable = false
-            }
-        }
-        
-        public deleteResult(id: string) {
-            // update local selection
-            this.user.results = this.user.results.filter((e) => e.id != id)
-            // update global service/localStorage
-            this.userService.user.results = 
-                this.userService.user.results.filter((e) => e.id != id)
-            this.userService.localStorage.results = this.userService.user.results
-            // delete collapsed info
-            delete this.isCollapsed[id]
-        }
-        
+          
         public deleteSelection(id: string) {
             // update local selections
             this.user.selections = this.user.selections.filter((e) => e.id != id)
@@ -201,7 +223,18 @@ module portal {
             delete this.isCollapsed[id]
         }
  		
-  		
+        public deleteResult(id: string) {
+            // update local selection
+            this.user.results = this.user.results.filter((e) => e.id != id)
+            // update global service/localStorage
+            this.userService.user.results = 
+                this.userService.user.results.filter((e) => e.id != id)
+            this.userService.localStorage.results = this.userService.user.results
+            // delete collapsed info
+            delete this.isCollapsed[id]
+        }
+        
+        
     }
 
 }

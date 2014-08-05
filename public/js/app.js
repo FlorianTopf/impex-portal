@@ -1540,9 +1540,13 @@ var portal;
 
             this.upload[i].then(function (response) {
                 _this.timeout(function () {
+                    var votable = response;
+
                     // adding the info of the posted votable to userservice
-                    _this.userService.user.voTables.push(response);
+                    _this.userService.user.voTables.push(votable);
+
                     //console.log(JSON.stringify(this.userService.user.voTables))
+                    _this.scope.$broadcast('update-votables', votable.id);
                 });
             }, function (response) {
                 if (response.status > 0) {
@@ -1865,14 +1869,15 @@ var portal;
             });
 
             this.myScope.$on('update-selections', function (e, id) {
-                // reset expanded selection
-                _this.currentSelection = [];
                 _this.isCollapsed[id] = false;
 
                 for (var rId in _this.isCollapsed) {
                     if (rId != id)
                         _this.isCollapsed[rId] = true;
                 }
+
+                // reset expanded selection
+                _this.currentSelection = [];
                 _this.currentSelection.push(_this.user.selections.filter(function (e) {
                     return e.id == id;
                 })[0]);
@@ -1882,6 +1887,25 @@ var portal;
                     return t = false;
                 });
                 _this.tabsActive[0] = true;
+            });
+
+            // @TODO finalise this!
+            this.myScope.$on('update-votables', function (e, id) {
+                _this.isCollapsed[id] = false;
+
+                for (var rId in _this.isCollapsed) {
+                    if (rId != id)
+                        _this.isCollapsed[rId] = true;
+                }
+
+                // reset expanded selection
+                _this.currentSelection = [];
+
+                // set votable tab active
+                _this.tabsActive = _this.tabsActive.map(function (t) {
+                    return t = false;
+                });
+                _this.tabsActive[1] = true;
             });
 
             this.myScope.$on('update-results', function (e, id) {
@@ -1895,11 +1919,11 @@ var portal;
                 // reset expanded selection
                 _this.currentSelection = [];
 
-                // set selections tab active
+                // set result tab active
                 _this.tabsActive = _this.tabsActive.map(function (t) {
                     return t = false;
                 });
-                _this.tabsActive[1] = true;
+                _this.tabsActive[2] = true;
             });
 
             // watch event when all content is loading into the dir
@@ -1914,21 +1938,6 @@ var portal;
                 _this.applyableElements = [];
                 _this.isApplyable = false;
             });
-        };
-
-        UserDataDir.prototype.toggleResultDetails = function (id) {
-            // reset expanded selection
-            this.currentSelection = [];
-            if (this.isCollapsed[id]) {
-                this.isCollapsed[id] = false;
-
-                for (var rId in this.isCollapsed) {
-                    if (rId != id)
-                        this.isCollapsed[rId] = true;
-                }
-            } else {
-                this.isCollapsed[id] = true;
-            }
         };
 
         UserDataDir.prototype.toggleSelectionDetails = function (id) {
@@ -1947,7 +1956,7 @@ var portal;
                 })[0];
                 if (this.applyableElements.indexOf(selection.type) != -1) {
                     this.isApplyable = true;
-                    console.log("isApplyable");
+                    //console.log("isApplyable")
                 }
                 this.currentSelection.push(selection);
             } else {
@@ -1958,20 +1967,37 @@ var portal;
             }
         };
 
-        UserDataDir.prototype.deleteResult = function (id) {
-            // update local selection
-            this.user.results = this.user.results.filter(function (e) {
-                return e.id != id;
-            });
+        UserDataDir.prototype.toggleVOTableDetails = function (id) {
+            // reset expanded selection
+            this.currentSelection = [];
 
-            // update global service/localStorage
-            this.userService.user.results = this.userService.user.results.filter(function (e) {
-                return e.id != id;
-            });
-            this.userService.localStorage.results = this.userService.user.results;
+            // reset expanded selection
+            this.currentSelection = [];
+            if (this.isCollapsed[id]) {
+                this.isCollapsed[id] = false;
 
-            // delete collapsed info
-            delete this.isCollapsed[id];
+                for (var rId in this.isCollapsed) {
+                    if (rId != id)
+                        this.isCollapsed[rId] = true;
+                }
+            } else {
+                this.isCollapsed[id] = true;
+            }
+        };
+
+        UserDataDir.prototype.toggleResultDetails = function (id) {
+            // reset expanded selection
+            this.currentSelection = [];
+            if (this.isCollapsed[id]) {
+                this.isCollapsed[id] = false;
+
+                for (var rId in this.isCollapsed) {
+                    if (rId != id)
+                        this.isCollapsed[rId] = true;
+                }
+            } else {
+                this.isCollapsed[id] = true;
+            }
         };
 
         UserDataDir.prototype.deleteSelection = function (id) {
@@ -1988,6 +2014,22 @@ var portal;
 
             // safely clear currentSelection
             this.currentSelection = [];
+
+            // delete collapsed info
+            delete this.isCollapsed[id];
+        };
+
+        UserDataDir.prototype.deleteResult = function (id) {
+            // update local selection
+            this.user.results = this.user.results.filter(function (e) {
+                return e.id != id;
+            });
+
+            // update global service/localStorage
+            this.userService.user.results = this.userService.user.results.filter(function (e) {
+                return e.id != id;
+            });
+            this.userService.localStorage.results = this.userService.user.results;
 
             // delete collapsed info
             delete this.isCollapsed[id];

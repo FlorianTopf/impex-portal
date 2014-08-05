@@ -20,7 +20,9 @@
 		<tab heading="VOTables" ng-hide="userdirvm.user.voTables | isEmpty" active="userdirvm.tabsActive[1]">
 		<div class="btn-group-vertical" style="max-height: 450px; overflow-y: auto; width: 90%; margin-top: 20px;">
 			<button type="button" class="btn btn-success btn-sm" 
-				ng-repeat="vot in userdirvm.user.voTables">
+				ng-repeat="vot in userdirvm.user.voTables"
+			    ng-class="{ active: !userdirvm.isCollapsed[vot.id] }"
+				ng-click="userdirvm.toggleVOTableDetails(vot.id)">
 					VOTable<br/>{{ vot.id }}
 			</button>
 		</div>
@@ -41,16 +43,15 @@
 		</tabset>
 	</div>
 	<div class="col-sm-8">
-		<div ng-repeat="res in userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId }" 
-			ng-hide="userdirvm.isCollapsed[res.id]">
+		<div ng-repeat="vot in userdirvm.user.voTables" ng-hide="userdirvm.isCollapsed[vot.id]">
 			<div class="well well-sm" style="max-height: 450px; overflow-y: auto;">
 				<button type="button" class="btn btn-danger btn-sm" 
-					style="float: right;" ng-click="userdirvm.deleteResult(res.id)">
+					style="float: right;" ng-disabled="true">
 					Delete
 				</button>
-				<h4>Service Result {{ res.id }}: {{ res.method.replace('/methods', '') }}</h4>
+				<h4>VOTable {{ vot.id }}</h4>
 				<p style="word-wrap: break-word;">
-					<selection-dir selection="res"></selection-dir>
+					<selection-dir selection="vot"></selection-dir>
 				</p>
 			</div>
 		</div>
@@ -65,6 +66,19 @@
 				<h4>Tree Selection {{ sel.id }}: {{ sel.type }}</h4>
 				<p style="word-wrap: break-word;">
 					<selection-dir selection="sel.elem"></selection-dir>
+				</p>
+			</div>
+		</div>
+		<div ng-repeat="res in userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId }" 
+			ng-hide="userdirvm.isCollapsed[res.id]">
+			<div class="well well-sm" style="max-height: 450px; overflow-y: auto;">
+				<button type="button" class="btn btn-danger btn-sm" 
+					style="float: right;" ng-click="userdirvm.deleteResult(res.id)">
+					Delete
+				</button>
+				<h4>Service Result {{ res.id }}: {{ res.method.replace('/methods', '') }}</h4>
+				<p style="word-wrap: break-word;">
+					<selection-dir selection="res"></selection-dir>
 				</p>
 			</div>
 		</div>

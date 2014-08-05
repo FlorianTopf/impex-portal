@@ -130,6 +130,18 @@ button.dropdown-toggle {
 	display: inline-block;
 	width: 100px;	
 	border: 3px groove #CCC;
+	margin-bottom: 0;
+}
+
+.fileinfo {
+	vertical-align: top;
+	line-height: 20px;
+}
+
+.progress div {
+	font-size: smaller;
+	background: orange;
+	width: 0;
 }
 
 

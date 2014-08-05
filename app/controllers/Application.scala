@@ -112,4 +112,7 @@ object Application extends BaseController {
     Ok(xml).withSession("id" -> request.sessionId)
   }
   
+  // @TODO route for removing one file
+  def deleteUserData(fileName: String) = ???
+  
 }
