@@ -24,6 +24,11 @@ import soapenvelope11._
 object LATMOSMethods extends MethodsController {
   val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
   
+  def isAlive() = PortalAction {
+    val future = latmos.service.isAlive() 
+    future.fold((fault) => Ok(JsBoolean(false)), (alive) => Ok(JsBoolean(alive)) )
+  }
+  
   @GET
   @ApiOperation(
       value = "getDataPointValue at LATMOS", 

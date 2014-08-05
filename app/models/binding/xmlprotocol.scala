@@ -1238,8 +1238,9 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
           case Right((header, body)) =>
             Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
+      // @FIXME emptyAlive => should be emptyElement 
       def isAlive(): Either[scalaxb.Soap11Fault[Any], Boolean] = 
-        soapClient.requestResponse(scalaxb.toXML(models.binding.EmptyElement(), Some("http://impex.latmos.ipsl.fr"), "emptyElement", defaultScope),
+        soapClient.requestResponse(scalaxb.toXML(models.binding.EmptyElement(), Some("http://impex.latmos.ipsl.fr"), "emptyAlive", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("Alive"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>

@@ -23,6 +23,11 @@ import java.text.ParseException
 object SINPMethods extends MethodsController {
   val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
   
+  def isAlive() = PortalAction {
+    val future = sinp.service.isAlive() 
+    future.fold((fault) => Ok(JsBoolean(false)), (alive) => Ok(JsBoolean(alive)) )
+  }
+  
   @GET
   @ApiOperation(
       value = "getDataPointValue at SINP", 
