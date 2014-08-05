@@ -198,11 +198,12 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
            result must beRight // result must be successful
+           
         }
         
 
         "respond to getDataPointSpectraSpacecraft" in {
-           
+          
            val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
            
            val extraParams = ExtraParams_getDataPointSpectraLATMOS(
@@ -229,11 +230,21 @@ object LATMOSMethodsSpecs extends org.specs2.mutable.Specification with Mockito 
            
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
            result must beRight // result must be successful
+           
         }
         
         
-        // @TODO isAlive is missing
-        
+        "respond to isAlive" in {
+          
+           val latmos = new Methods_LATMOSSoapBindings with Soap11Clients with DispatchHttpClients {}
+          
+           val result = latmos.service.isAlive()
+	  	   
+	  	   result.fold(f => println(f), b => b must beTrue)
+	  	   result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], Boolean]]
+	  	   result must beRight
+	  	   
+	  	}
         
   }
   
