@@ -67,14 +67,12 @@ module portal {
                     this.isCollapsed[e.id] = true
                 })
             }
-            
             // collapsing all votables on init
             if(this.user.voTables) {
                 this.user.voTables.map((e) => {
                     this.isCollapsed[e.id] = true
                 })
             }
-            
             // collapsing all results on init
             if(this.user.results) {
                this.user.results.map((e) => {
@@ -89,12 +87,13 @@ module portal {
                if(this.currentSelection.length == 1) {
                     this.applyableElements.forEach((e) => {
                         console.log("Element "+e)
-                        if(this.currentSelection[0].type === e)
+                        if(this.currentSelection[0].type == e)
                             this.isApplyable = true  
                     })
                } 
             })
             
+            // comes from RegistryCtrl
             this.myScope.$on('update-selections', (e, id: string) => {
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
@@ -110,7 +109,7 @@ module portal {
                 this.tabsActive[0] = true
             })
             
-            // @TODO finalise this!
+            // comes from UserDataCtrl
             this.myScope.$on('update-votables', (e, id: string) => {
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
@@ -126,6 +125,7 @@ module portal {
             
             })
             
+            // comes from MethodsCtrl
             this.myScope.$on('update-results', (e, id: string) => {
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
@@ -178,24 +178,7 @@ module portal {
             }
         }
         
-        public toggleVOTableDetails(id: string) {
-            // reset expanded selection
-            this.currentSelection = []
-            // reset expanded selection
-            this.currentSelection = []
-            if(this.isCollapsed[id]) { // if it is closed
-                this.isCollapsed[id] = false
-                // closing all other collapsibles
-                for(var rId in this.isCollapsed) {
-                    if(rId != id)
-                        this.isCollapsed[rId] = true
-                }
-            } else {
-                this.isCollapsed[id] = true
-            }
-        }
-        
-        public toggleResultDetails(id: string) {
+        public toggleDetails(id: string) {
             // reset expanded selection
             this.currentSelection = []
             if(this.isCollapsed[id]) { // if it is closed
@@ -221,6 +204,18 @@ module portal {
             this.currentSelection = []
             // delete collapsed info
             delete this.isCollapsed[id]
+        }
+        
+        public deleteVOTable(vot: IUserData) {
+            // update local votables
+            this.user.voTables = this.user.voTables.filter((e) => e.id != vot.id)
+            // update global service
+            this.userService.user.voTables = 
+                this.userService.user.voTables.filter((e) => e.id != vot.id)
+            // delete file on server
+            this.userService.deleteUserData(vot.url.split('/').reverse()[0])
+            // delete collapsed info
+            delete this.isCollapsed[vot.id]
         }
  		
         public deleteResult(id: string) {

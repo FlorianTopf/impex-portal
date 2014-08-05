@@ -63,6 +63,7 @@ object Application extends BaseController {
     Ok(views.html.uploadTest()).withSession("id" -> request.sessionId) 
   }
   
+  // @TODO refactor all responses for userdata actions
   // route for upload forms
   def addFileUserData = PortalAction.async(parse.multipartFormData) { implicit request =>
     request.body.file("votable").map(_.ref) match {

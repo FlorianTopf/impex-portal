@@ -96,7 +96,6 @@ module portal {
             
             this.methodsService.loading = false
             this.methodsService.status = 'success'
-            
             // @TODO we change id creation later
             var id = this.userService.createId()
             
@@ -157,9 +156,9 @@ module portal {
             })
             
             // check if there is an id field and broadcast applyable elements
-            if(this.currentMethod.operations[0].parameters.filter((e) => e.name === 'id').length != 0) {
+            if(this.currentMethod.operations[0].parameters.filter((e) => e.name == 'id').length != 0) {
                 // there is only one id param per method 
-                var param = this.currentMethod.operations[0].parameters.filter((e) => e.name === 'id')[0]
+                var param = this.currentMethod.operations[0].parameters.filter((e) => e.name == 'id')[0]
                 this.scope.$broadcast('set-applyable-elements', param.description)
             } else {
                 // if there is no id, broadcast empty string
@@ -168,7 +167,7 @@ module portal {
         }
         
         public isActive(path: string): boolean {
-            return this.dropdownStatus.active === this.trimPath(path)
+            return this.dropdownStatus.active == this.trimPath(path)
         }
         
         public getActive(): string {

@@ -42,11 +42,12 @@ module portal {
             this.uploader = $upload
         }
         
+        // @TODO add drag over later
         // see: https://github.com/danialfarid/angular-file-upload/blob/master/demo/war/js/upload.js
-        // @TODO improve this routine (return types + error handling)
         public onFileSelect($files) {
             this.selectedFiles = $files
             this.progress = []
+            this.showError = false
             if (this.upload && this.upload.length > 0) {
                 for (var i=0; i < this.upload.length; i++) {
                     if (this.upload[i] != null) {
@@ -54,7 +55,6 @@ module portal {
                     }
                 }
             }
-            this.showError = false
             for (var i=0; i < $files.length; i++) {
                 this.handleUpload(i)
             }
@@ -69,7 +69,7 @@ module portal {
                 fileFormDataName: 'votable'
             })
                     
-            this.upload[i].then((response) => {
+            this.upload[i].success((response) => {
                 this.timeout(() => {
                     var votable = <IUserData>response
                     // adding the info of the posted votable to userservice
@@ -77,12 +77,12 @@ module portal {
                     //console.log(JSON.stringify(this.userService.user.voTables))
                     this.scope.$broadcast('update-votables', votable.id)
                 })
-            }, (response) => {
+            }).error((response) => {
                 if (response.status > 0) { 
                     this.status = response.status + ': ' + response.data
                     this.showError = true
                 }
-            }, (evt) => {
+            }).progress((evt) => {
                 this.progress[i] = Math.min(100, 100.0 * evt.loaded / evt.total)
             })
         }

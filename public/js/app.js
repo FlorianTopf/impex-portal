@@ -1442,11 +1442,11 @@ else {
             });
 
             if (this.currentMethod.operations[0].parameters.filter(function (e) {
-                return e.name === 'id';
+                return e.name == 'id';
             }).length != 0) {
                 // there is only one id param per method
                 var param = this.currentMethod.operations[0].parameters.filter(function (e) {
-                    return e.name === 'id';
+                    return e.name == 'id';
                 })[0];
                 this.scope.$broadcast('set-applyable-elements', param.description);
             } else {
@@ -1456,7 +1456,7 @@ else {
         };
 
         MethodsCtrl.prototype.isActive = function (path) {
-            return this.dropdownStatus.active === this.trimPath(path);
+            return this.dropdownStatus.active == this.trimPath(path);
         };
 
         MethodsCtrl.prototype.getActive = function () {
@@ -1523,11 +1523,12 @@ var portal;
             this.modalInstance = $modalInstance;
             this.uploader = $upload;
         }
+        // @TODO add drag over later
         // see: https://github.com/danialfarid/angular-file-upload/blob/master/demo/war/js/upload.js
-        // @TODO improve this routine (return types + error handling)
         UserDataCtrl.prototype.onFileSelect = function ($files) {
             this.selectedFiles = $files;
             this.progress = [];
+            this.showError = false;
             if (this.upload && this.upload.length > 0) {
                 for (var i = 0; i < this.upload.length; i++) {
                     if (this.upload[i] != null) {
@@ -1535,7 +1536,6 @@ var portal;
                     }
                 }
             }
-            this.showError = false;
             for (var i = 0; i < $files.length; i++) {
                 this.handleUpload(i);
             }
@@ -1551,7 +1551,7 @@ var portal;
                 fileFormDataName: 'votable'
             });
 
-            this.upload[i].then(function (response) {
+            this.upload[i].success(function (response) {
                 _this.timeout(function () {
                     var votable = response;
 
@@ -1561,12 +1561,12 @@ var portal;
                     //console.log(JSON.stringify(this.userService.user.voTables))
                     _this.scope.$broadcast('update-votables', votable.id);
                 });
-            }, function (response) {
+            }).error(function (response) {
                 if (response.status > 0) {
                     _this.status = response.status + ': ' + response.data;
                     _this.showError = true;
                 }
-            }, function (evt) {
+            }).progress(function (evt) {
                 _this.progress[i] = Math.min(100, 100.0 * evt.loaded / evt.total);
             });
         };
@@ -1875,12 +1875,13 @@ var portal;
                 if (_this.currentSelection.length == 1) {
                     _this.applyableElements.forEach(function (e) {
                         console.log("Element " + e);
-                        if (_this.currentSelection[0].type === e)
+                        if (_this.currentSelection[0].type == e)
                             _this.isApplyable = true;
                     });
                 }
             });
 
+            // comes from RegistryCtrl
             this.myScope.$on('update-selections', function (e, id) {
                 _this.isCollapsed[id] = false;
 
@@ -1902,7 +1903,7 @@ var portal;
                 _this.tabsActive[0] = true;
             });
 
-            // @TODO finalise this!
+            // comes from UserDataCtrl
             this.myScope.$on('update-votables', function (e, id) {
                 _this.isCollapsed[id] = false;
 
@@ -1921,6 +1922,7 @@ var portal;
                 _this.tabsActive[1] = true;
             });
 
+            // comes from MethodsCtrl
             this.myScope.$on('update-results', function (e, id) {
                 _this.isCollapsed[id] = false;
 
@@ -1980,25 +1982,7 @@ var portal;
             }
         };
 
-        UserDataDir.prototype.toggleVOTableDetails = function (id) {
-            // reset expanded selection
-            this.currentSelection = [];
-
-            // reset expanded selection
-            this.currentSelection = [];
-            if (this.isCollapsed[id]) {
-                this.isCollapsed[id] = false;
-
-                for (var rId in this.isCollapsed) {
-                    if (rId != id)
-                        this.isCollapsed[rId] = true;
-                }
-            } else {
-                this.isCollapsed[id] = true;
-            }
-        };
-
-        UserDataDir.prototype.toggleResultDetails = function (id) {
+        UserDataDir.prototype.toggleDetails = function (id) {
             // reset expanded selection
             this.currentSelection = [];
             if (this.isCollapsed[id]) {
@@ -2030,6 +2014,24 @@ var portal;
 
             // delete collapsed info
             delete this.isCollapsed[id];
+        };
+
+        UserDataDir.prototype.deleteVOTable = function (vot) {
+            // update local votables
+            this.user.voTables = this.user.voTables.filter(function (e) {
+                return e.id != vot.id;
+            });
+
+            // update global service
+            this.userService.user.voTables = this.userService.user.voTables.filter(function (e) {
+                return e.id != vot.id;
+            });
+
+            // delete file on server
+            this.userService.deleteUserData(vot.url.split('/').reverse()[0]);
+
+            // delete collapsed info
+            delete this.isCollapsed[vot.id];
         };
 
         UserDataDir.prototype.deleteResult = function (id) {
