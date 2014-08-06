@@ -14,6 +14,7 @@ import java.net.URI
 import play.api.libs.json._
 import java.text.ParseException
 import soapenvelope11._
+import scala.language.postfixOps
 
 
 @Api(
@@ -354,17 +355,23 @@ object LATMOSMethods extends MethodsController {
         TimeProvider.getISODate(startTime), // start time
         TimeProvider.getISODate(stopTime) // stop time
     )
-           
-    // @TODO save votable file on disk and provide link to it
-    // first "use case" for session
-           
+                
     result.fold(
         fault => BadRequest(Json.toJson(
             ServiceResponse(
                 EServiceResponse.BAD_REQUEST, 
                 fault.original.asInstanceOf[Fault].faultstring, request.req))), 
         votable => { 
-          Ok(Json.toJson(ServiceResponseJson(EServiceResponse.OK, Json.toJson(votable), request.req))) 
+          val tables = votable.RESOURCE flatMap {r => r.resourcesequence1 map { s => s.resourceoption2.as[models.binding.Table] }}
+          // there is always only one table (and fields)
+          val fields = tables.head.tableoption.map(_.as[models.binding.Field])
+          // there is alwaays only one table (and data)
+          val data = tables.head.DATA.map(_.dataoption.as[models.binding.TableData]).get
+          val values = data.TR map { t => t.TD map { t => t.value }}
+          val result = values map {  v => (fields zip v).map{ case (f, v) => (f.name -> JsString(v)) }}
+          
+          //Ok(Json.toJson(ServiceResponseJson(EServiceResponse.OK, Json.toJson(votable), request.req))) 
+           Ok(Json.toJson(ServiceResponseJson(EServiceResponse.OK, Json.toJson(result.map(_.toMap)) , request.req))) 
           //Ok(scalaxb.toXML[VOTABLE](votable, "VOTABLE", scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")))
         }
           
