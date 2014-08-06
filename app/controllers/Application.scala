@@ -70,9 +70,10 @@ object Application extends BaseController {
     request.body.file("votable").map(_.ref) match {
       case Some(votable) => {
         val name = request.body.file("votable").map(_.filename).get
+        val host = Play.application().configuration().getString("swagger.api.basepath")
         UserService.addFileUserData(request.sessionId, votable, name) map { data =>
           val json = Json.obj("id" -> JsString(data.id), "name" -> JsString(name),
-              "url" -> JsString("http://"+request.host+"/userdata/"+data.name))
+              "url" -> JsString(host+"/userdata/"+data.name))
           Ok(json).withSession("id" -> request.sessionId)
         }   
       }
@@ -84,9 +85,10 @@ object Application extends BaseController {
   def addXMLUserData = PortalAction.async { implicit request =>
     request.body.asXml.map(_.asInstanceOf[Node]) match {
       case Some(votable) => { 
+        val host = Play.application().configuration().getString("swagger.api.basepath")
         UserService.addXMLUserData(request.sessionId, votable) map { data => 
           val json = Json.obj("id" -> JsString(data.id), 
-              "url" -> JsString("http://"+request.host+"/userdata/"+data.name))
+              "url" -> JsString(host+"/userdata/"+data.name))
           Ok(json).withSession("id" -> request.sessionId)
         }
       }
