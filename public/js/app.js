@@ -1053,11 +1053,11 @@ var portal;
     'use strict';
 
     var ConfigCtrl = (function () {
-        function ConfigCtrl($scope, $timeout, configService, userService, $state, config, userData) {
+        function ConfigCtrl($scope, $interval, configService, userService, $state, config, userData) {
             var _this = this;
             this.scope = $scope;
             this.scope.vm = this;
-            this.timeout = $timeout;
+            this.interval = $interval;
             this.configService = configService;
             this.userService = userService;
             this.state = $state;
@@ -1071,6 +1071,17 @@ var portal;
                 _this.configService.aliveMap[e.name] = false;
                 _this.configService.isAlive(e.name);
             });
+
+            // @TODO this routine must be changed (if we use filters in parallel)
+            //set interval to check if methods are still alive => every 10 minutes (600k ms)
+            this.interval(function () {
+                return _this.configService.config.databases.filter(function (e) {
+                    return e.type == 'simulation';
+                }).map(function (e) {
+                    //this.configService.aliveMap[e.name] = false
+                    _this.configService.isAlive(e.name);
+                });
+            }, 600000);
 
             // user info comes from the server in the future (add in resolver too)
             this.userService.user = new portal.User(this.userService.createId());
@@ -1086,7 +1097,7 @@ var portal;
         }
         ConfigCtrl.$inject = [
             '$scope',
-            '$timeout',
+            '$interval',
             'configService',
             'userService',
             '$state',
@@ -1864,7 +1875,7 @@ var portal;
             // active tabs (first by default)
             this.tabsActive = [];
             this.userService = userService;
-            this.stateService = $state;
+            this.state = $state;
             this.templateUrl = '/public/partials/templates/userdataDir.html';
             this.restrict = 'E';
             this.link = function ($scope, element, attributes) {

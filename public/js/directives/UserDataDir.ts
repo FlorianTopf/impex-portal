@@ -39,13 +39,13 @@ module portal {
         public tabsActive: Array<boolean> = []
 
         private userService: portal.UserService
-        private stateService: ng.ui.IStateService
+        private state: ng.ui.IStateService
         private user: User
         private myScope: ng.IScope
 
         constructor(userService: portal.UserService, $state: ng.ui.IStateService) {
             this.userService = userService
-            this.stateService = $state
+            this.state = $state
             this.templateUrl = '/public/partials/templates/userdataDir.html'
             this.restrict = 'E'
             this.link = ($scope: portal.IUserDataDirScope, element: JQuery, attributes: ng.IAttributes) => 

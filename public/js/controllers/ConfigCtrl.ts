@@ -9,7 +9,7 @@ module portal {
 
     export class ConfigCtrl {        
         private scope: portal.IConfigScope
-        private timeout: ng.ITimeoutService
+        private interval: ng.IIntervalService
         private configService: portal.ConfigService
         private userService: portal.UserService
         private state: ng.ui.IStateService
@@ -18,14 +18,14 @@ module portal {
         //public status: string
         //public showError: boolean = false 
 
-        static $inject: Array<string> = ['$scope', '$timeout', 'configService', 'userService', '$state', 
+        static $inject: Array<string> = ['$scope', '$interval', 'configService', 'userService', '$state', 
             'config', 'userData']
 
-        constructor($scope: IConfigScope, $timeout: ng.ITimeoutService, configService: portal.ConfigService, 
+        constructor($scope: IConfigScope, $interval: ng.IIntervalService, configService: portal.ConfigService, 
             userService: portal.UserService, $state: ng.ui.IStateService, config: IConfig, userData: Array<IUserData>) {  
             this.scope = $scope
             this.scope.vm = this 
-            this.timeout = $timeout
+            this.interval = $interval
             this.configService = configService  
             this.userService = userService
             this.state = $state   
@@ -38,6 +38,14 @@ module portal {
                 .map((e) => { 
                     this.configService.aliveMap[e.name] = false 
                     this.configService.isAlive(e.name) })
+            
+            // @TODO this routine must be changed (if we use filters in parallel)
+            //set interval to check if methods are still alive => every 10 minutes (600k ms)
+            this.interval(() => this.configService.config.databases
+                .filter((e) => e.type == 'simulation')
+                .map((e) => { 
+                    //this.configService.aliveMap[e.name] = false 
+                    this.configService.isAlive(e.name) }), 600000)
             
             // user info comes from the server in the future (add in resolver too) 
             this.userService.user = new User(this.userService.createId())
