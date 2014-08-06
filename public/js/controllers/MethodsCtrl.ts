@@ -164,6 +164,14 @@ module portal {
                 // if there is no id, broadcast empty string
                 this.scope.$broadcast('set-applyable-elements', '')
             }
+            
+            // check if there is an url field and broadcast indication
+            if(this.currentMethod.operations[0].parameters.filter((e) => e.name == 'votable_url').length != 0) {
+                this.scope.$broadcast('set-applyable-votable', true)
+            } else {
+                // if there is no url field return false
+                this.scope.$broadcast('set-applyable-votable', false)
+            }
         }
         
         public isActive(path: string): boolean {
@@ -195,6 +203,12 @@ module portal {
         public applySelection(resourceId: string) {
             console.log("applySelection "+resourceId)
             this.request['id'] = resourceId
+        }
+        
+        // method for applying a votable url to the current method
+        public applyVOTable(url: string) {
+            console.log("applyVOTable "+url)
+            this.request['votable_url'] = url
         }
 
     }

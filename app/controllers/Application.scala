@@ -18,6 +18,7 @@ import org.bson.types.ObjectId
 import java.io.File
 import scala.concurrent._
 import java.io.FileNotFoundException
+import play.Play
 
 
 object Application extends BaseController {
@@ -98,9 +99,10 @@ object Application extends BaseController {
     val future = UserService.getUserData(request.sessionId)
     future map { files => 
       val json = Json.toJson(files map { data => 
+        val host = Play.application().configuration().getString("swagger.api.basepath")
         Json.obj("id" -> JsString(data.id), 
             "name" -> JsString(data.name.replace("-"+data.id, "")),
-        "url" -> JsString("http://"+request.host+"/userdata/"+data.name))
+        "url" -> JsString(host+"/userdata/"+data.name))
       })
       Ok(json).withSession("id" -> request.sessionId)
     }   

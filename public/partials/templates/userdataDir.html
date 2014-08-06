@@ -41,11 +41,11 @@
 	<div class="col-sm-8">
 		<div ng-repeat="sel in userdirvm.currentSelection" ng-hide="userdirvm.isCollapsed[sel.id]">
 			<div class="well well-sm" style="max-height: 450px; overflow-y: auto;">
-				<div style="float: right">
+				<div style="float: right;">
 					<button type="button" class="btn btn-danger btn-sm" 
 						style="margin-right: 5px;" ng-click="userdirvm.deleteSelection(sel.id)">Delete</button>
 					<button type="button" class="btn btn-primary btn-sm"
-						ng-if="userdirvm.isApplyable" 
+						ng-if="userdirvm.isSelApplyable" 
 						ng-click="methvm.applySelection(sel.elem.resourceId)">Apply</button>
 				</div>
 				<h4>Tree Selection {{ sel.id }}: {{ sel.type }}</h4>
@@ -56,8 +56,13 @@
 		</div>
 		<div ng-repeat="vot in userdirvm.user.voTables" ng-hide="userdirvm.isCollapsed[vot.id]">
 			<div class="well well-sm" style="max-height: 450px; overflow-y: auto;">
-				<button type="button" class="btn btn-danger btn-sm" 
-					style="float: right;" ng-click="userdirvm.deleteVOTable(vot)">Delete</button>
+				<div style="float: right;">
+					<button type="button" class="btn btn-danger btn-sm" 
+						style="margin-right: 5px;" ng-click="userdirvm.deleteVOTable(vot)">Delete</button>
+					<button type="button" class="btn btn-primary btn-sm"
+						ng-if="userdirvm.isVOTApplyable" 
+						ng-click="methvm.applyVOTable(vot.url)">Apply</button>
+				</div>
 				<h4>VOTable {{ vot.id }}</h4>
 				<p style="word-wrap: break-word;">
 					<selection-dir selection="vot"></selection-dir>

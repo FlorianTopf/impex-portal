@@ -354,7 +354,6 @@ object FMIMethods extends MethodsController {
       json => {
         val voTable = json.as[VOTableURL]
         val result = fmi.service.getVOTableURL(voTable.Table_name, voTable.Description, voTable.Fields)
-           
         result.fold(
             fault => BadRequest(Json.toJson(
               VOTableURLResponse(

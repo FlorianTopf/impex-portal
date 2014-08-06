@@ -32,7 +32,9 @@ module portal {
         public currentSelection: Array<Selection> = []
         // currently applyable elements (according to current method)
         public applyableElements: Array<string> = []
-        public isApplyable: boolean = false
+        public isSelApplyable: boolean = false
+        public isVOTApplyable: boolean = false
+        
         // active tabs (first by default)
         public tabsActive: Array<boolean> = []
 
@@ -83,15 +85,18 @@ module portal {
             // comes from MethodsCtrl
             this.myScope.$on('set-applyable-elements', (e, elements: string) => {
                this.applyableElements = elements.split(',')
-               this.isApplyable = false
+               this.isSelApplyable = false
                if(this.currentSelection.length == 1) {
                     this.applyableElements.forEach((e) => {
                         console.log("Element "+e)
                         if(this.currentSelection[0].type == e)
-                            this.isApplyable = true  
+                            this.isSelApplyable = true  
                     })
                } 
             })
+            
+            // comes from MethodsCtrl
+            this.myScope.$on('set-applyable-votable', (e, b: boolean) => this.isVOTApplyable = b)
             
             // comes from RegistryCtrl
             this.myScope.$on('update-selections', (e, id: string) => {
@@ -149,7 +154,8 @@ module portal {
                 this.currentSelection = []
                 // reset also applyables
                 this.applyableElements = []
-                this.isApplyable = false
+                this.isSelApplyable = false
+                this.isVOTApplyable = false
             })
         }
          
@@ -166,7 +172,7 @@ module portal {
                 
                 var selection = this.user.selections.filter((e) => e.id == id)[0]
                 if(this.applyableElements.indexOf(selection.type) != -1) {
-                    this.isApplyable = true
+                    this.isSelApplyable = true
                     //console.log("isApplyable")  
                 }
                 this.currentSelection.push(selection)
@@ -174,7 +180,7 @@ module portal {
             } else {
                 this.isCollapsed[id] = true
                 // set isApplyable to false
-                this.isApplyable = false
+                this.isSelApplyable = false
             }
         }
         

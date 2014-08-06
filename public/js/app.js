@@ -1480,6 +1480,15 @@ else {
                 // if there is no id, broadcast empty string
                 this.scope.$broadcast('set-applyable-elements', '');
             }
+
+            if (this.currentMethod.operations[0].parameters.filter(function (e) {
+                return e.name == 'votable_url';
+            }).length != 0) {
+                this.scope.$broadcast('set-applyable-votable', true);
+            } else {
+                // if there is no url field return false
+                this.scope.$broadcast('set-applyable-votable', false);
+            }
         };
 
         MethodsCtrl.prototype.isActive = function (path) {
@@ -1510,6 +1519,12 @@ else {
         MethodsCtrl.prototype.applySelection = function (resourceId) {
             console.log("applySelection " + resourceId);
             this.request['id'] = resourceId;
+        };
+
+        // method for applying a votable url to the current method
+        MethodsCtrl.prototype.applyVOTable = function (url) {
+            console.log("applyVOTable " + url);
+            this.request['votable_url'] = url;
         };
         MethodsCtrl.$inject = [
             '$scope',
@@ -1844,7 +1859,8 @@ var portal;
             this.currentSelection = [];
             // currently applyable elements (according to current method)
             this.applyableElements = [];
-            this.isApplyable = false;
+            this.isSelApplyable = false;
+            this.isVOTApplyable = false;
             // active tabs (first by default)
             this.tabsActive = [];
             this.userService = userService;
@@ -1897,14 +1913,19 @@ var portal;
             // comes from MethodsCtrl
             this.myScope.$on('set-applyable-elements', function (e, elements) {
                 _this.applyableElements = elements.split(',');
-                _this.isApplyable = false;
+                _this.isSelApplyable = false;
                 if (_this.currentSelection.length == 1) {
                     _this.applyableElements.forEach(function (e) {
                         console.log("Element " + e);
                         if (_this.currentSelection[0].type == e)
-                            _this.isApplyable = true;
+                            _this.isSelApplyable = true;
                     });
                 }
+            });
+
+            // comes from MethodsCtrl
+            this.myScope.$on('set-applyable-votable', function (e, b) {
+                return _this.isVOTApplyable = b;
             });
 
             // comes from RegistryCtrl
@@ -1977,7 +1998,8 @@ var portal;
 
                 // reset also applyables
                 _this.applyableElements = [];
-                _this.isApplyable = false;
+                _this.isSelApplyable = false;
+                _this.isVOTApplyable = false;
             });
         };
 
@@ -1996,7 +2018,7 @@ var portal;
                     return e.id == id;
                 })[0];
                 if (this.applyableElements.indexOf(selection.type) != -1) {
-                    this.isApplyable = true;
+                    this.isSelApplyable = true;
                     //console.log("isApplyable")
                 }
                 this.currentSelection.push(selection);
@@ -2004,7 +2026,7 @@ var portal;
                 this.isCollapsed[id] = true;
 
                 // set isApplyable to false
-                this.isApplyable = false;
+                this.isSelApplyable = false;
             }
         };
 
