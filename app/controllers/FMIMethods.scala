@@ -25,9 +25,10 @@ import models.binding.VOTableURL._
 object FMIMethods extends MethodsController {
   val fmi = new Methods_FMISoapBindings with Soap11Clients with DispatchHttpClients {}
   
+  // just testing isAlive
   def isAlive() = PortalAction {
     val future = fmi.service.isAlive() 
-    future.fold((fault) => Ok(JsBoolean(false)), (alive) => Ok(JsBoolean(alive)) )
+    future.fold((fault) => Ok(JsBoolean(false)), (alive) => Ok(JsBoolean(alive)))
   }
   
   @GET

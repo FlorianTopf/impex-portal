@@ -862,8 +862,8 @@ else
                 var callName = dbName;
 
             this.http.get(this.url + 'methods/' + callName + "/isAlive", { timeout: 10000 }).success(function (data, status) {
-                _this.aliveMap[dbName] = true;
-                console.log("Hello " + dbName);
+                _this.aliveMap[dbName] = data;
+                console.log("Hello " + dbName + " " + _this.aliveMap[dbName]);
             }).error(function (data, status) {
                 _this.aliveMap[dbName] = false;
             });
