@@ -34,7 +34,8 @@ module portal {
         public applyableElements: Array<string> = []
         public isSelApplyable: boolean = false
         public isVOTApplyable: boolean = false
-        
+        // for SINP models/outputs
+        public applyableModel: string = null
         // active tabs (first by default)
         public tabsActive: Array<boolean> = []
 
@@ -58,6 +59,8 @@ module portal {
             this.myScope = $scope
             this.user = this.userService.user
             this.tabsActive = [true, false, false] // selections, votables, results
+            // for SINP models/outputs
+            this.applyableModel = null
             
             attributes.$observe('db', (id?: string)  => { 
                 this.repositoryId = id
@@ -88,8 +91,8 @@ module portal {
                this.isSelApplyable = false
                if(this.currentSelection.length == 1) {
                     this.applyableElements.forEach((e) => {
-                        console.log("Element "+e)
-                        if(this.currentSelection[0].type == e)
+                        console.log("Element "+e.trim())
+                        if(this.currentSelection[0].type == e.trim())
                             this.isSelApplyable = true  
                     })
                } 
@@ -97,6 +100,21 @@ module portal {
             
             // comes from MethodsCtrl
             this.myScope.$on('set-applyable-votable', (e, b: boolean) => this.isVOTApplyable = b)
+            
+            // comes from MethodsCtrl => needed for SINP models/output
+            this.myScope.$on('set-applyable-models', (e, m: string) => { 
+                console.log(m)
+                this.applyableModel = m 
+                if(this.currentSelection.length == 1) {
+                    var elem = this.currentSelection[0]
+                    var output = this.applyableModel.replace('SimulationModel', 'NumericalOutput')
+                    var index = elem.elem.resourceId.indexOf(output.replace('OnFly', ''))
+                    if(this.applyableModel == elem.elem.resourceId || index != -1)
+                        this.isSelApplyable = true
+                    else
+                        this.isSelApplyable = false
+                }      
+            })
             
             // comes from RegistryCtrl
             this.myScope.$on('update-selections', (e, id: string) => {
@@ -170,10 +188,21 @@ module portal {
                         this.isCollapsed[rId] = true
                 }
                 
+                // get selection
                 var selection = this.user.selections.filter((e) => e.id == id)[0]
                 if(this.applyableElements.indexOf(selection.type) != -1) {
                     this.isSelApplyable = true
                     //console.log("isApplyable")  
+                    // here we check SINP models/outputs
+                    //console.log(this.applyableModel+" "+selection.elem.resourceId)
+                    if(this.applyableModel) {
+                        var output = this.applyableModel.replace('SimulationModel', 'NumericalOutput')
+                        var index = selection.elem.resourceId.indexOf(output.replace('OnFly', ''))
+                        if(this.applyableModel == selection.elem.resourceId || index != -1)
+                            this.isSelApplyable = true
+                        else
+                            this.isSelApplyable = false
+                    }  
                 }
                 this.currentSelection.push(selection)
                 

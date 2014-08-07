@@ -6,6 +6,11 @@ module portal {
     export interface IMethodsScope extends ng.IScope {
         methvm: MethodsCtrl;
     }
+    
+    // special applyables for SINP models/outputs
+    export interface IApplyableModels {
+        [id: string]: Array<string>
+    }
 
     // @TODO introduce error/offline handling later
     export class MethodsCtrl {
@@ -27,6 +32,8 @@ module portal {
         public showError: boolean = false  
         public currentMethod: Api
         public request: Object = {}
+        // special applyables for SINP models/outputs
+        public applyableModels: IApplyableModels = {}
         
         static $inject: Array<string> = ['$scope', '$location', '$timeout', '$window',
             'configService', 'methodsService', 'userService', '$state', '$modalInstance', 'id']
@@ -52,6 +59,13 @@ module portal {
                 this.methods = this.methodsService.getMethods(this.database)
             else
                 this.loadMethodsAPI()
+                
+            // fill manual applyables for SINP
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = 
+            ['getDataPointValueSINP', 'calculateDataPointValue', 'calculateDataPointValueSpacecraft', 'calculateDataPointValueFixedTime', 
+                'calculateFieldline', 'calculateCube', 'calculateFieldline', 'getSurfaceSINP']
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Mercury/OnFly'] = ['calculateDataPointValueNercury', 'calculateCubeMercury']
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Saturn/OnFly'] = ['calculateDataPointValueSaturn', 'calculateCubeSaturn']
 
         }
         
@@ -145,7 +159,7 @@ module portal {
             active: 'Choose Method'
         }
         
-        // @TODO move this to directive later
+        // set a method active and forward info to directives
         public setActive(method: Api) {
             this.dropdownStatus.active = this.trimPath(method.path)
             this.currentMethod = method
@@ -172,6 +186,17 @@ module portal {
                 // if there is no url field return false
                 this.scope.$broadcast('set-applyable-votable', false)
             }
+            
+            // if there is a SINP method chosen, we must forward info about applyable models
+            if(this.currentMethod.path.indexOf('SINP') != -1) {
+               console.log(this.currentMethod.operations[0].nickname)
+               for(var key in this.applyableModels) {
+                    var methods = this.applyableModels[key]
+                    var index = methods.indexOf(this.currentMethod.operations[0].nickname)
+                    if(index != -1) this.scope.$broadcast('set-applyable-models', key) 
+               }
+            }
+            
         }
         
         public isActive(path: string): boolean {

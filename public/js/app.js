@@ -1356,6 +1356,8 @@ var portal;
             this.status = '';
             this.showError = false;
             this.request = {};
+            // special applyables for SINP models/outputs
+            this.applyableModels = {};
             // helpers for methods modal
             this.dropdownStatus = {
                 isopen: false,
@@ -1378,6 +1380,20 @@ var portal;
                 this.methods = this.methodsService.getMethods(this.database);
 else
                 this.loadMethodsAPI();
+
+            // fill manual applyables for SINP
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = [
+                'getDataPointValueSINP',
+                'calculateDataPointValue',
+                'calculateDataPointValueSpacecraft',
+                'calculateDataPointValueFixedTime',
+                'calculateFieldline',
+                'calculateCube',
+                'calculateFieldline',
+                'getSurfaceSINP'
+            ];
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Mercury/OnFly'] = ['calculateDataPointValueNercury', 'calculateCubeMercury'];
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Saturn/OnFly'] = ['calculateDataPointValueSaturn', 'calculateCubeSaturn'];
         }
         MethodsCtrl.prototype.retry = function () {
             this.showError = false;
@@ -1468,7 +1484,7 @@ else {
             });
         };
 
-        // @TODO move this to directive later
+        // set a method active and forward info to directives
         MethodsCtrl.prototype.setActive = function (method) {
             var _this = this;
             this.dropdownStatus.active = this.trimPath(method.path);
@@ -1499,6 +1515,16 @@ else {
             } else {
                 // if there is no url field return false
                 this.scope.$broadcast('set-applyable-votable', false);
+            }
+
+            if (this.currentMethod.path.indexOf('SINP') != -1) {
+                console.log(this.currentMethod.operations[0].nickname);
+                for (var key in this.applyableModels) {
+                    var methods = this.applyableModels[key];
+                    var index = methods.indexOf(this.currentMethod.operations[0].nickname);
+                    if (index != -1)
+                        this.scope.$broadcast('set-applyable-models', key);
+                }
             }
         };
 
@@ -1815,15 +1841,19 @@ var portal;
         };
 
         RegistryDir.prototype.isSelectable = function (type) {
-            return this.selectables.indexOf(type) != -1;
+            if (this.activeItems['SimulationModel'] && type == 'SimulationModel') {
+                if (this.activeItems['SimulationModel'].resourceId.indexOf('Static') != -1)
+                    return false;
+else
+                    return true;
+            } else
+                return this.selectables.indexOf(type) != -1;
         };
 
-        // @FIXME we should allow multiple selections here!
         RegistryDir.prototype.setActive = function (type, element) {
             this.activeItems[type] = element;
         };
 
-        // @FIXME we should allow multiple selections here!
         RegistryDir.prototype.isActive = function (type, element) {
             return this.activeItems[type] === element;
         };
@@ -1840,7 +1870,6 @@ else
             return name.split("_").join(" ").trim();
         };
 
-        // @FIXME we should allow multiple selections here!
         RegistryDir.prototype.saveSelection = function (type) {
             // @TODO we change id creation later
             var id = this.userService.createId();
@@ -1872,6 +1901,8 @@ var portal;
             this.applyableElements = [];
             this.isSelApplyable = false;
             this.isVOTApplyable = false;
+            // for SINP models/outputs
+            this.applyableModel = null;
             // active tabs (first by default)
             this.tabsActive = [];
             this.userService = userService;
@@ -1898,6 +1929,9 @@ var portal;
             this.myScope = $scope;
             this.user = this.userService.user;
             this.tabsActive = [true, false, false];
+
+            // for SINP models/outputs
+            this.applyableModel = null;
 
             attributes.$observe('db', function (id) {
                 _this.repositoryId = id;
@@ -1927,8 +1961,8 @@ var portal;
                 _this.isSelApplyable = false;
                 if (_this.currentSelection.length == 1) {
                     _this.applyableElements.forEach(function (e) {
-                        console.log("Element " + e);
-                        if (_this.currentSelection[0].type == e)
+                        console.log("Element " + e.trim());
+                        if (_this.currentSelection[0].type == e.trim())
                             _this.isSelApplyable = true;
                     });
                 }
@@ -1937,6 +1971,21 @@ var portal;
             // comes from MethodsCtrl
             this.myScope.$on('set-applyable-votable', function (e, b) {
                 return _this.isVOTApplyable = b;
+            });
+
+            // comes from MethodsCtrl => needed for SINP models/output
+            this.myScope.$on('set-applyable-models', function (e, m) {
+                console.log(m);
+                _this.applyableModel = m;
+                if (_this.currentSelection.length == 1) {
+                    var elem = _this.currentSelection[0];
+                    var output = _this.applyableModel.replace('SimulationModel', 'NumericalOutput');
+                    var index = elem.elem.resourceId.indexOf(output.replace('OnFly', ''));
+                    if (_this.applyableModel == elem.elem.resourceId || index != -1)
+                        _this.isSelApplyable = true;
+else
+                        _this.isSelApplyable = false;
+                }
             });
 
             // comes from RegistryCtrl
@@ -2025,12 +2074,21 @@ var portal;
                         this.isCollapsed[rId] = true;
                 }
 
+                // get selection
                 var selection = this.user.selections.filter(function (e) {
                     return e.id == id;
                 })[0];
                 if (this.applyableElements.indexOf(selection.type) != -1) {
                     this.isSelApplyable = true;
-                    //console.log("isApplyable")
+
+                    if (this.applyableModel) {
+                        var output = this.applyableModel.replace('SimulationModel', 'NumericalOutput');
+                        var index = selection.elem.resourceId.indexOf(output.replace('OnFly', ''));
+                        if (this.applyableModel == selection.elem.resourceId || index != -1)
+                            this.isSelApplyable = true;
+else
+                            this.isSelApplyable = false;
+                    }
                 }
                 this.currentSelection.push(selection);
             } else {

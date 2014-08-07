@@ -144,15 +144,20 @@ module portal {
         }
         
         public isSelectable(type: string): boolean {
-            return this.selectables.indexOf(type) != -1
+            // hack for static models => not selectable
+            if(this.activeItems['SimulationModel'] && type == 'SimulationModel') {
+                if(this.activeItems['SimulationModel'].resourceId.indexOf('Static') != -1)
+                    return false
+                else
+                    return true
+            } else
+                return this.selectables.indexOf(type) != -1
         }
         
-        // @FIXME we should allow multiple selections here!
         public setActive(type: string, element: SpaseElem) {
             this.activeItems[type] = element
         }
         
-        // @FIXME we should allow multiple selections here!
         public isActive(type: string, element: SpaseElem): boolean {
             return this.activeItems[type] === element
         }
@@ -168,7 +173,6 @@ module portal {
             return name.split("_").join(" ").trim()
         }
         
-        // @FIXME we should allow multiple selections here!
         public saveSelection(type: string) {
             // @TODO we change id creation later
             var id = this.userService.createId()

@@ -113,7 +113,7 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         //value = "resource id", 
-        value = "SimulationModel",
+        value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/SINP/Earth/OnFly",
         required = true, 
         dataType = "string", 
@@ -243,7 +243,7 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         //value = "resource id", 
-        value = "SimulationModel",
+        value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Earth/OnFly",
         required = true, 
         dataType = "string", 
@@ -303,7 +303,7 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         //value = "resource id", 
-        value = "SimulationModel",
+        value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Earth/OnFly",
         required = true, 
         dataType = "string", 
@@ -398,7 +398,7 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         //value = "resource id", 
-        value = "SimulationModel",
+        value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Earth/OnFly",
         required = true, 
         dataType = "string", 
@@ -486,7 +486,7 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         //value = "resource id", 
-        value = "SimulationModel",
+        value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/SINP/Earth/OnFly",
         required = true, 
         dataType = "string", 
@@ -623,7 +623,7 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         //value = "resource id", 
-        value = "SimulationModel",
+        value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Mercury/OnFly",
         required = true, 
         dataType = "string", 
@@ -736,7 +736,7 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         //value = "resource id", 
-        value = "SimulationModel",
+        value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Mercury/OnFly",
         required = true, 
         dataType = "string", 
@@ -862,7 +862,7 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         //value = "resource id", 
-        value = "SimulationModel",
+        value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Saturn/OnFly",
         required = true, 
         dataType = "string", 
@@ -1015,7 +1015,7 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "id", 
         //value = "resource id", 
-        value = "SimulationModel",
+        value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Saturn/OnFly",
         required = true, 
         dataType = "string", 
