@@ -12,11 +12,9 @@ module portal {
         [id: string]: Array<string>
     }
 
-    // @TODO introduce error/offline handling later
+    // @TODO improve error/offline handling later
     export class MethodsCtrl {
         private scope: portal.IMethodsScope
-        private location: ng.ILocationService
-        private timeout: ng.ITimeoutService
         private window: ng.IWindowService
         private configService: portal.ConfigService
         private methodsService: portal.MethodsService
@@ -24,35 +22,32 @@ module portal {
         private state: ng.ui.IStateService
         private modalInstance: any
         private methodsPromise: ng.IPromise<any>
+        // special applyables for SINP models/outputs
+        private applyableModels: IApplyableModels
+        private database: Database
         
-        public database: Database = null
-        public methods: Array<Api>
+        public methods: Array<Api> = []
         public initialising: boolean = false
         public status: string = ''
         public showError: boolean = false  
-        public currentMethod: Api
+        public currentMethod: Api = null
         public request: Object = {}
-        // special applyables for SINP models/outputs
-        public applyableModels: IApplyableModels = {}
         
-        static $inject: Array<string> = ['$scope', '$location', '$timeout', '$window',
-            'configService', 'methodsService', 'userService', '$state', '$modalInstance', 'id']
+        static $inject: Array<string> = ['$scope', '$window', 'configService', 'methodsService', 
+            'userService', '$state', '$modalInstance', 'id']
 
-        constructor($scope: IMethodsScope, $location: ng.ILocationService, $timeout: ng.ITimeoutService, 
-            $window: ng.IWindowService, configService: portal.ConfigService, 
+        constructor($scope: IMethodsScope, $window: ng.IWindowService, configService: portal.ConfigService, 
             methodsService: portal.MethodsService, userService: portal.UserService,
             $state: ng.ui.IStateService, $modalInstance: any, id: string) {   
             this.scope = $scope
-            $scope.methvm = this
-            this.location = $location
-            this.timeout = $timeout   
+            $scope.methvm = this   
             this.window = $window
             this.configService = configService
             this.methodsService = methodsService
             this.userService = userService
             this.state = $state
             this.modalInstance = $modalInstance
-            
+            this.applyableModels = {}
             this.database = this.configService.getDatabase(id)
             
             if(this.methodsService.methods)
@@ -106,28 +101,20 @@ module portal {
         
         // handling and saving the WS result
         private handleServiceData(data: IResponse, status?: any) {
-            console.log('success: '+JSON.stringify(data.message))
-            
+            //console.log('success: '+JSON.stringify(data.message))
             this.methodsService.loading = false
             this.methodsService.status = 'success'
-            // @TODO we change id creation later
+            // @TODO change id creation later
             var id = this.userService.createId()
-            
-            // @TODO we must take care of custom results (e.g. getMostRelevantRun and getFileUrl)
-            if(data.message.hasOwnProperty('VOTABLE')) {
-                //console.log(JSON.stringify(data.message.VOTABLE.RESOURCE[0].FIELD)) 
-            }
             
             this.userService.user.results.push(new Result(this.database.id, id, this.currentMethod.path, data))
             //refresh localStorage
             this.userService.localStorage.results = this.userService.user.results
-            
             this.scope.$broadcast('update-results', id)
         }
         
         private handleServiceError(error: any) {
-            console.log('failure: '+error.status)
-
+            //console.log('failure: '+error.status)
             this.methodsService.loading = false
             this.methodsService.showError = true
             if(error.status == 404)
@@ -140,8 +127,7 @@ module portal {
         
         // method for submission
         public submitMethod() {
-            console.log('submitted '+this.currentMethod.path+' '+this.request['id'])
-            
+            //console.log('submitted '+this.currentMethod.path+' '+this.request['id'])
             this.methodsService.loading = true
             this.methodsService.status = ''
             this.methodsService.showError = false
@@ -151,7 +137,6 @@ module portal {
                 (error: any) => this.handleServiceError(error)
             )
         }
-        
         
         // helpers for methods modal
         public dropdownStatus = {
@@ -189,7 +174,7 @@ module portal {
             
             // if there is a SINP method chosen, we must forward info about applyable models
             if(this.currentMethod.path.indexOf('SINP') != -1) {
-               console.log(this.currentMethod.operations[0].nickname)
+               //console.log(this.currentMethod.operations[0].nickname)
                for(var key in this.applyableModels) {
                     var methods = this.applyableModels[key]
                     var index = methods.indexOf(this.currentMethod.operations[0].nickname)
@@ -212,7 +197,6 @@ module portal {
             return splitPath[0]
         }
         
-        
         // methods for modal
         public saveMethods() {
             this.modalInstance.close()
@@ -226,15 +210,16 @@ module portal {
     
         // method for applying a selection to the current method
         public applySelection(resourceId: string) {
-            console.log("applySelection "+resourceId)
+            //console.log("applySelection "+resourceId)
             this.request['id'] = resourceId
         }
         
         // method for applying a votable url to the current method
         public applyVOTable(url: string) {
-            console.log("applyVOTable "+url)
+            //console.log("applyVOTable "+url)
             this.request['votable_url'] = url
         }
 
+        
     }
 }

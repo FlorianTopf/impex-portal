@@ -196,7 +196,6 @@ object SINPMethods extends MethodsController {
         Some(1.0) // z
     ) */
           
-    // @TODO add extra parameters as GET
     val extraParams = ExtraParams_calculateDataPointValueFixedTime(
         validateOptDouble(swD),//Some(4.0), // sw density
         validateOptDouble(swV),//Some(400.0), // sw velocity 
@@ -1104,7 +1103,6 @@ object SINPMethods extends MethodsController {
         Some(0.0) // z
     )*/
 	 
-	// @TODO add extra parameters as GET
 	val extraParams = ExtraParams_calculateDataPointValueSaturn(
         validateFiletype(filetype), // output filetype
 	  	validateOptDouble(bdc),//Some(3.0), // bdc

@@ -40,7 +40,7 @@ module portal {
                     this.configService.isAlive(e.name) })
             
             // @TODO this routine must be changed (if we use filters in parallel)
-            //set interval to check if methods are still alive => every 10 minutes (600k ms)
+            // set interval to check if methods are still alive => every 10 minutes (600k ms)
             this.interval(() => this.configService.config.databases
                 .filter((e) => e.type == 'simulation')
                 .map((e) => { 
@@ -53,10 +53,6 @@ module portal {
             // loading stored votables from server
             if(userData.length > 0)
                 this.userService.user.voTables = userData
-            //console.log(JSON.stringify(this.userService.user.voTables))
-            
-            //var name = "votable-53dfe33c3004d0ef2d6f570e.xml"
-            //this.userService.UserData().delete({}, {'name': name})
             
             // as soon as we create a new user we have a localStorage connection
             // initialising the stored results from localStorage

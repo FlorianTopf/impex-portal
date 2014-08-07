@@ -248,8 +248,7 @@ object Registry extends BaseController {
         name = "id", 
         value = "database id stored in the config, output id or granule id from a tree", 
         // provide default value for swagger-ui stability
-        // @TODO change id after renaming
-        defaultValue = "impex://LATMOS",
+        defaultValue = "spase://IMPEX/Repository/LATMOS",
         required = false, 
         dataType = "string", 
         paramType = "query")))
@@ -270,7 +269,7 @@ object Registry extends BaseController {
     }
   }
   
-  // @TODO really return in json and recursive
+  // @TODO really return recursive
   def observatory(fmt: String = "xml", r: String = "false") = PortalAction.async { implicit request => 
     val future = RegistryService.getObservatory(request.req.get("id"), false)
     future map { _ match {
@@ -281,7 +280,7 @@ object Registry extends BaseController {
     }  
   }
   
-  // @TODO really return in json and recursive
+  // @TODO really return recursive
   def instrument(fmt: String = "xml", r: String = "false") = PortalAction.async { implicit request => 
     val future = RegistryService.getInstrument(request.req.get("id"), false)
     future map { _ match {
@@ -292,7 +291,7 @@ object Registry extends BaseController {
     }  
   }
   
-  // @TODO really return in json and recursive
+  // @TODO really return recursive
   def numericaldata(fmt: String = "xml", r: String = "false") = PortalAction.async { implicit request => 
     val future = RegistryService.getNumericalData(request.req.get("id"), false)
     future map { _ match {

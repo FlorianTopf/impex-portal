@@ -731,7 +731,7 @@ object Spase {
   
   
   // writer for granule
-  // @TODO only regions and timespans are avaialable, maybe more in the future?
+  // @TODO only regions and timespans are used at the moment
   implicit val granuleWrites: Writes[Granule] = new Writes[Granule] {
     def writes(g: Granule): JsValue = {
       val params = g.granuleoption.key match {

@@ -7,12 +7,10 @@ module portal {
         datavm: UserDataCtrl;
     }
 
-    // @TODO introduce error/offline handling later
+    // @TODO improve error/offline handling later
     export class UserDataCtrl {
         private scope: portal.IUserDataScope
-        private location: ng.ILocationService
         private timeout: ng.ITimeoutService
-        private window: ng.IWindowService
         private userService: portal.UserService 
         private state: ng.ui.IStateService
         private modalInstance: any
@@ -25,17 +23,14 @@ module portal {
         public selectedFiles: Array<any> = []  
         public progress: Array<number> = []
         
-        static $inject: Array<string> = ['$scope', '$location', '$timeout', '$window',
-            'userService', '$state', '$modalInstance', '$upload']
+        static $inject: Array<string> = ['$scope', '$timeout', 'userService', '$state', 
+            '$modalInstance', '$upload']
 
-        constructor($scope: IUserDataScope, $location: ng.ILocationService, $timeout: ng.ITimeoutService, 
-            $window: ng.IWindowService, userService: portal.UserService,
+        constructor($scope: IUserDataScope, $timeout: ng.ITimeoutService, userService: portal.UserService,
             $state: ng.ui.IStateService, $modalInstance: any, $upload: any) {   
             this.scope = $scope
             $scope.datavm = this
-            this.location = $location
             this.timeout = $timeout   
-            this.window = $window
             this.userService = userService
             this.state = $state
             this.modalInstance = $modalInstance
@@ -71,9 +66,8 @@ module portal {
             this.upload[i].success((response) => {
                 this.timeout(() => {
                     var votable = <IUserData>response
-                    // adding the info of the posted votable to userservice
+                    // adding the info of the posted votable to userService
                     this.userService.user.voTables.push(votable)
-                    //console.log(JSON.stringify(this.userService.user.voTables))
                     this.scope.$broadcast('update-votables', votable.id)
                 })
             }).error((response) => {
@@ -96,8 +90,6 @@ module portal {
  
         }
         
-        
-    
 
     }
 }

@@ -68,7 +68,6 @@ extends Actor with DataProvider {
     records.flatten
   }
 
-
   // @TODO we must ensure that there is only one repository per tree
   protected def getRepository(id: Option[String]): Spase = {
     val records = getNativeTreeObjects flatMap { _.dataCenter map { dataCenter => 
@@ -141,9 +140,8 @@ extends Actor with DataProvider {
     val records = getTreeObjects("mission").map(_.as[Mission])
     val missions: Seq[(String, Seq[InstrumentType])] = records map { record => 
       val missionId = createId(EObservatory)+"/"+record.id.toString.replaceAll(" ", "_")
-      // @FIXME 
-      // observatory/instrument is not included
-      // simulationmodel/instrument is not included
+      // @FIXME observatory/instrument is not included
+      // @FIXME simulationmodel/instrument is not included
       if(record.missionoption.exists(_.key.get == "group")) {
         val groups = record.missionoption.filter(_.key.get == "group").map(_.as[GroupType])
         (missionId, record.missionoption.filter(_.key.get == "instrument").map(_.as[InstrumentType])++ 
@@ -188,10 +186,9 @@ extends Actor with DataProvider {
         case Some(t) => regions++Seq(t.split(" "))
         case None => regions++Seq()  
       }
-      // @FIXME  
-      // group/instrument missing (can be kicked out if restricted=1)
-      // observatory/instrument is not included
-      // simulationmodel/instrument is not included
+      // @FIXME group/instrument missing (can be kicked out if restricted=1)
+      // @FIXME observatory/instrument is not included
+      // @FIXME simulationmodel/instrument is not included
       (missionId, regions, record.missionoption.filter(_.key.get == "instrument").map(_.as[InstrumentType]))
     }
     // @TODO here we need to filter the numerical data for requested id

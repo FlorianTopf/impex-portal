@@ -43,7 +43,7 @@ module portal {
             public type: string,
             public paramType: string,
             public allowMultiple: boolean
-            // @FIXME does not work (enum is a TS keyword)
+            // @FIXME does not work (enum is a TypeScript keyword)
             //public enum?: Array<string>
             ){}
     }

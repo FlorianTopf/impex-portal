@@ -863,7 +863,7 @@ else
 
             this.http.get(this.url + 'methods/' + callName + "/isAlive", { timeout: 10000 }).success(function (data, status) {
                 _this.aliveMap[dbName] = data;
-                console.log("Hello " + dbName + " " + _this.aliveMap[dbName]);
+                //console.log("Hello "+dbName+" "+this.aliveMap[dbName])
             }).error(function (data, status) {
                 _this.aliveMap[dbName] = false;
             });
@@ -900,10 +900,6 @@ var portal;
             // action descriptor for registry actions
             this.registryAction = {
                 method: 'GET',
-                /* params: {
-                id: '@id',
-                fmt: '@fmt'
-                },*/
                 isArray: false
             };
             // cache for the elements (identified by request id)
@@ -1073,7 +1069,7 @@ var portal;
             });
 
             // @TODO this routine must be changed (if we use filters in parallel)
-            //set interval to check if methods are still alive => every 10 minutes (600k ms)
+            // set interval to check if methods are still alive => every 10 minutes (600k ms)
             this.interval(function () {
                 return _this.configService.config.databases.filter(function (e) {
                     return e.type == 'simulation';
@@ -1114,20 +1110,13 @@ var portal;
     'use strict';
 
     var PortalCtrl = (function () {
-        function PortalCtrl($scope, $location, $timeout, $interval, $window, configService, registryService, userService, $state, $modal) {
+        function PortalCtrl($scope, $timeout, configService, $state, $modal) {
             var _this = this;
             this.ready = false;
-            this.showError = false;
             this.scope = $scope;
             this.scope.vm = this;
-            this.location = $location;
             this.timeout = $timeout;
-            this.interval = $interval;
-            this.window = $window;
             this.configService = configService;
-            this.config = this.configService.config;
-            this.registryService = registryService;
-            this.userService = userService;
             this.state = $state;
             this.modal = $modal;
 
@@ -1135,18 +1124,7 @@ var portal;
                 _this.ready = true;
             });
         }
-        PortalCtrl.$inject = [
-            '$scope',
-            '$location',
-            '$timeout',
-            '$interval',
-            '$window',
-            'configService',
-            'registryService',
-            'userService',
-            '$state',
-            '$modal'
-        ];
+        PortalCtrl.$inject = ['$scope', '$timeout', 'configService', '$state', '$modal'];
         return PortalCtrl;
     })();
     portal.PortalCtrl = PortalCtrl;
@@ -1156,30 +1134,25 @@ var portal;
 (function (portal) {
     'use strict';
 
-    // @TODO introduce error/offline handling later
+    // @TODO improve error/offline handling later
     var RegistryCtrl = (function () {
-        function RegistryCtrl($scope, $location, $timeout, $window, configService, registryService, userService, $state, $modalInstance, id) {
+        function RegistryCtrl($scope, $timeout, configService, registryService, $state, $modalInstance, id) {
             var _this = this;
             this.isFirstOpen = true;
-            this.database = null;
             this.initialising = false;
             this.loading = false;
             this.transFinished = true;
             this.scope = $scope;
             $scope.regvm = this;
-            this.location = $location;
             this.timeout = $timeout;
-            this.window = $window;
             this.configService = configService;
             this.registryService = registryService;
-            this.userService = userService;
             this.state = $state;
             this.modalInstance = $modalInstance;
-
             this.database = this.configService.getDatabase(id);
 
             // watches changes of variable
-            //(is changed each time modal is opened)
+            // (is changed each time modal is opened)
             this.scope.$watch('this.database', function () {
                 _this.getRepository(_this.database.id);
                 if (_this.isFirstOpen)
@@ -1329,12 +1302,9 @@ var portal;
         };
         RegistryCtrl.$inject = [
             '$scope',
-            '$location',
             '$timeout',
-            '$window',
             'configService',
             'registryService',
-            'userService',
             '$state',
             '$modalInstance',
             'id'
@@ -1348,16 +1318,15 @@ var portal;
 (function (portal) {
     'use strict';
 
-    // @TODO introduce error/offline handling later
+    // @TODO improve error/offline handling later
     var MethodsCtrl = (function () {
-        function MethodsCtrl($scope, $location, $timeout, $window, configService, methodsService, userService, $state, $modalInstance, id) {
-            this.database = null;
+        function MethodsCtrl($scope, $window, configService, methodsService, userService, $state, $modalInstance, id) {
+            this.methods = [];
             this.initialising = false;
             this.status = '';
             this.showError = false;
+            this.currentMethod = null;
             this.request = {};
-            // special applyables for SINP models/outputs
-            this.applyableModels = {};
             // helpers for methods modal
             this.dropdownStatus = {
                 isopen: false,
@@ -1365,15 +1334,13 @@ var portal;
             };
             this.scope = $scope;
             $scope.methvm = this;
-            this.location = $location;
-            this.timeout = $timeout;
             this.window = $window;
             this.configService = configService;
             this.methodsService = methodsService;
             this.userService = userService;
             this.state = $state;
             this.modalInstance = $modalInstance;
-
+            this.applyableModels = {};
             this.database = this.configService.getDatabase(id);
 
             if (this.methodsService.methods)
@@ -1435,29 +1402,22 @@ else
 
         // handling and saving the WS result
         MethodsCtrl.prototype.handleServiceData = function (data, status) {
-            console.log('success: ' + JSON.stringify(data.message));
-
+            //console.log('success: '+JSON.stringify(data.message))
             this.methodsService.loading = false;
             this.methodsService.status = 'success';
 
-            // @TODO we change id creation later
+            // @TODO change id creation later
             var id = this.userService.createId();
-
-            if (data.message.hasOwnProperty('VOTABLE')) {
-                //console.log(JSON.stringify(data.message.VOTABLE.RESOURCE[0].FIELD))
-            }
 
             this.userService.user.results.push(new portal.Result(this.database.id, id, this.currentMethod.path, data));
 
             //refresh localStorage
             this.userService.localStorage.results = this.userService.user.results;
-
             this.scope.$broadcast('update-results', id);
         };
 
         MethodsCtrl.prototype.handleServiceError = function (error) {
-            console.log('failure: ' + error.status);
-
+            //console.log('failure: '+error.status)
             this.methodsService.loading = false;
             this.methodsService.showError = true;
             if (error.status == 404)
@@ -1471,8 +1431,7 @@ else {
         // method for submission
         MethodsCtrl.prototype.submitMethod = function () {
             var _this = this;
-            console.log('submitted ' + this.currentMethod.path + ' ' + this.request['id']);
-
+            //console.log('submitted '+this.currentMethod.path+' '+this.request['id'])
             this.methodsService.loading = true;
             this.methodsService.status = '';
             this.methodsService.showError = false;
@@ -1518,7 +1477,6 @@ else {
             }
 
             if (this.currentMethod.path.indexOf('SINP') != -1) {
-                console.log(this.currentMethod.operations[0].nickname);
                 for (var key in this.applyableModels) {
                     var methods = this.applyableModels[key];
                     var index = methods.indexOf(this.currentMethod.operations[0].nickname);
@@ -1554,19 +1512,17 @@ else {
 
         // method for applying a selection to the current method
         MethodsCtrl.prototype.applySelection = function (resourceId) {
-            console.log("applySelection " + resourceId);
+            //console.log("applySelection "+resourceId)
             this.request['id'] = resourceId;
         };
 
         // method for applying a votable url to the current method
         MethodsCtrl.prototype.applyVOTable = function (url) {
-            console.log("applyVOTable " + url);
+            //console.log("applyVOTable "+url)
             this.request['votable_url'] = url;
         };
         MethodsCtrl.$inject = [
             '$scope',
-            '$location',
-            '$timeout',
             '$window',
             'configService',
             'methodsService',
@@ -1584,9 +1540,9 @@ var portal;
 (function (portal) {
     'use strict';
 
-    // @TODO introduce error/offline handling later
+    // @TODO improve error/offline handling later
     var UserDataCtrl = (function () {
-        function UserDataCtrl($scope, $location, $timeout, $window, userService, $state, $modalInstance, $upload) {
+        function UserDataCtrl($scope, $timeout, userService, $state, $modalInstance, $upload) {
             this.upload = [];
             this.initialising = false;
             this.showError = false;
@@ -1594,9 +1550,7 @@ var portal;
             this.progress = [];
             this.scope = $scope;
             $scope.datavm = this;
-            this.location = $location;
             this.timeout = $timeout;
-            this.window = $window;
             this.userService = userService;
             this.state = $state;
             this.modalInstance = $modalInstance;
@@ -1633,10 +1587,8 @@ var portal;
                 _this.timeout(function () {
                     var votable = response;
 
-                    // adding the info of the posted votable to userservice
+                    // adding the info of the posted votable to userService
                     _this.userService.user.voTables.push(votable);
-
-                    //console.log(JSON.stringify(this.userService.user.voTables))
                     _this.scope.$broadcast('update-votables', votable.id);
                 });
             }).error(function (response) {
@@ -1659,9 +1611,7 @@ var portal;
         };
         UserDataCtrl.$inject = [
             '$scope',
-            '$location',
             '$timeout',
-            '$window',
             'userService',
             '$state',
             '$modalInstance',
@@ -1763,7 +1713,7 @@ var portal;
             });
 
             this.myScope.$on('clear-registry', function (e) {
-                console.log("clearing registry");
+                //console.log("clearing registry")
                 _this.activeItems = {};
                 _this.showError = false;
                 _this.repositories = [];
@@ -1841,7 +1791,7 @@ var portal;
         };
 
         RegistryDir.prototype.isSelectable = function (type) {
-            if (this.activeItems['SimulationModel'] && type == 'SimulationModel') {
+            if (this.activeItems[type] && type == 'SimulationModel' && this.repositoryId.indexOf('SINP') != -1) {
                 if (this.activeItems['SimulationModel'].resourceId.indexOf('Static') != -1)
                     return false;
 else
@@ -1871,14 +1821,12 @@ else
         };
 
         RegistryDir.prototype.saveSelection = function (type) {
-            // @TODO we change id creation later
+            // @TODO change id creation later
             var id = this.userService.createId();
-
             this.userService.user.selections.push(new portal.Selection(this.repositoryId, id, type, this.activeItems[type]));
 
             // refresh localStorage
             this.userService.localStorage.selections = this.userService.user.selections;
-
             this.myScope.$broadcast('update-selections', id);
         };
         return RegistryDir;

@@ -7,47 +7,38 @@ module portal {
         regvm: RegistryCtrl
     }
 
-    // @TODO introduce error/offline handling later
+    // @TODO improve error/offline handling later
     export class RegistryCtrl {
         private scope: portal.IRegistryScope
-        private location: ng.ILocationService
         private timeout: ng.ITimeoutService
-        private window: ng.IWindowService
         private configService: portal.ConfigService
         private registryService: portal.RegistryService
-        private userService: portal.UserService
         private state: ng.ui.IStateService
         private modalInstance: any
         private registryPromise: ng.IPromise<ISpase>
+        private database: Database
         
         public isFirstOpen: boolean = true
-        public database: Database = null
         public initialising: boolean = false
         public loading: boolean = false
         public transFinished: boolean = true
         
-        static $inject: Array<string> = ['$scope', '$location', '$timeout', '$window',
-            'configService', 'registryService', 'userService', '$state', '$modalInstance', 'id']
+        static $inject: Array<string> = ['$scope', '$timeout', 
+            'configService', 'registryService', '$state', '$modalInstance', 'id']
 
-        constructor($scope: IRegistryScope, $location: ng.ILocationService, $timeout: ng.ITimeoutService, 
-            $window: ng.IWindowService, configService: portal.ConfigService, 
-            registryService: portal.RegistryService, userService: portal.UserService, 
-            $state: ng.ui.IStateService, $modalInstance: any, id: string) {   
+        constructor($scope: IRegistryScope, $timeout: ng.ITimeoutService, configService: portal.ConfigService, 
+            registryService: portal.RegistryService, $state: ng.ui.IStateService, $modalInstance: any, id: string) {   
             this.scope = $scope
             $scope.regvm = this
-            this.location = $location
             this.timeout = $timeout  
-            this.window = $window 
             this.configService = configService
             this.registryService = registryService
-            this.userService = userService
             this.state = $state
             this.modalInstance = $modalInstance
-            
             this.database = this.configService.getDatabase(id)
             
-              // watches changes of variable 
-            //(is changed each time modal is opened)
+            // watches changes of variable 
+            // (is changed each time modal is opened)
             this.scope.$watch('this.database', 
                 () => {        
                     this.getRepository(this.database.id) 

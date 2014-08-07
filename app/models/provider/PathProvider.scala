@@ -1,6 +1,6 @@
 package models.provider
 
-//@TODO add FileNotFoundException handling here (if directory doesn't exist)
+
 object PathProvider {
   def getPath(folder: String, dbname: String, path: String): String = {
     var name = path.split("/").last	

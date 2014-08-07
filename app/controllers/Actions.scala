@@ -50,7 +50,7 @@ object PortalAction extends ActionBuilder[PortalRequest] {
 // cache wrapper
 case class CACHE[A](action: Action[A]) extends Action[A] {
   def apply(request: Request[A]): Future[SimpleResult] = {
-    println("caching: "+request.uri)
+    //println("caching: "+request.uri)
     // applying response cache (with uri identifier)
     Cached(request => request.uri, 3600)(action)
     action(request)

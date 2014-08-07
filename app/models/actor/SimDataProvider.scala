@@ -36,13 +36,12 @@ extends Actor with DataProvider {
     Spase(Number2u462u462, spase, "en")
   }
   
-  // @TODO integrate the element types of dataprovider
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]] = {
     getTreeObjects.ResourceEntity.filter(_.key.get == element.toString)
   }
   
   protected def getRepository(id: Option[String]): Spase = {
-    println("RepositoryID="+id)
+    //println("RepositoryID="+id)
     val records = getTreeObjects("Repository") map {
 	  repo => scalaxb.fromXML[Repository](repo.as[NodeSeq])
     }
@@ -80,7 +79,7 @@ extends Actor with DataProvider {
       case None => records
     }
     if(r == true) {
-      println("ModelID="+runs.head.Model.ModelID)
+      //println("ModelID="+runs.head.Model.ModelID)
       val rRecords = getSimulationModel(Some(runs.head.Model.ModelID), true).ResourceEntity++
       		runs.map(r => DataRecord(None, Some("SimulationRun"), r))
       Spase(Number2u462u462, rRecords, "en")	  
@@ -99,7 +98,7 @@ extends Actor with DataProvider {
       case None => records
     }
     if(r == true) {
-      println("InputResourceID="+records.head.InputResourceID.head)
+      //println("InputResourceID="+records.head.InputResourceID.head)
       val rRecords = getSimulationRun(Some(records.head.InputResourceID.head), true).ResourceEntity++
             outputs.map(r => DataRecord(None, Some("NumericalOutput"), r))
       Spase(Number2u462u462, rRecords, "en")
@@ -118,7 +117,7 @@ extends Actor with DataProvider {
       case None => records
     }
     if(r == true) {
-      println("ParentID="+records.head.ParentID)
+      //println("ParentID="+records.head.ParentID)
       val rRecords = getNumericalOutput(Some(records.head.ParentID), true).ResourceEntity++
             granules.map(r => DataRecord(None, Some("Granule"), r))
       Spase(Number2u462u462, rRecords, "en")

@@ -53,29 +53,29 @@ trait DataProvider {
       val fileName: String = PathProvider.getPath(folder, id, URL.toString)
       
       // @TODO we do not download in DEVELOPMENT
-//      val fileDir = new File(folder+"/"+id)
-//      if(!fileDir.exists) fileDir.mkdir()
-//      val file = new File(fileName)
-//      if(!file.exists) file.createNewFile()
-//      
-//      // sometimes there is no file (e.g. at AMDA)
-//      // this must be recreated by calling getObsDataTree
-//      val promise = WS.url(URL.toString).get()
-//      
-//      try {
-//        val result = Await.result(promise, 1.minute).xml
-//        scala.xml.XML.save(fileName, result, "UTF-8")
-//        result
-//      } catch {
-//        case e: TimeoutException => {
-//          println("timeout: fallback on local file at "+getMetaData.name)
+      val fileDir = new File(folder+"/"+id)
+      if(!fileDir.exists) fileDir.mkdir()
+      val file = new File(fileName)
+      if(!file.exists) file.createNewFile()
+      
+      // sometimes there is no file (e.g. at AMDA)
+      // this must be recreated by calling getObsDataTree
+      val promise = WS.url(URL.toString).get()
+      
+      try {
+        val result = Await.result(promise, 1.minute).xml
+        scala.xml.XML.save(fileName, result, "UTF-8")
+        result
+      } catch {
+        case e: TimeoutException => {
+          println("timeout: fallback on local file at "+getMetaData.name)
           scala.xml.XML.load(fileName)
-//        }
-//        case _: Throwable => {
-//          println("file not found: excluding file at "+getMetaData.name)
-//          scala.xml.XML.load(fileName)
-//        }
-//      }
+        }
+        case _: Throwable => {
+          println("file not found: excluding file at "+getMetaData.name)
+          scala.xml.XML.load(fileName)
+        }
+      }
     }
   }
   

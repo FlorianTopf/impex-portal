@@ -31,10 +31,6 @@ module portal {
         // action descriptor for registry actions
         private registryAction: ng.resource.IActionDescriptor = {
             method: 'GET',
-            /* params: {
-                id: '@id',
-                fmt: '@fmt'
-            },*/
             isArray: false
         }
           
@@ -83,5 +79,6 @@ module portal {
                 { getGranule: this.registryAction })
         }
 
+        
     }
 }

@@ -74,7 +74,7 @@ module portal {
             })
             
             this.myScope.$on('clear-registry', (e) => {
-                console.log("clearing registry")
+                //console.log("clearing registry")
                 this.activeItems = {}
                 this.showError = false
                 this.repositories = []
@@ -144,8 +144,10 @@ module portal {
         }
         
         public isSelectable(type: string): boolean {
-            // hack for static models => not selectable
-            if(this.activeItems['SimulationModel'] && type == 'SimulationModel') {
+            // hack for static SINP models => not selectable
+            if(this.activeItems[type] && 
+                type == 'SimulationModel' && 
+                this.repositoryId.indexOf('SINP') != -1) {
                 if(this.activeItems['SimulationModel'].resourceId.indexOf('Static') != -1)
                     return false
                 else
@@ -174,14 +176,12 @@ module portal {
         }
         
         public saveSelection(type: string) {
-            // @TODO we change id creation later
+            // @TODO change id creation later
             var id = this.userService.createId()
-            
             this.userService.user.selections.push(
                 new Selection(this.repositoryId, id, type, this.activeItems[type]))
             // refresh localStorage
             this.userService.localStorage.selections = this.userService.user.selections
-            
             this.myScope.$broadcast('update-selections', id)
         }
 

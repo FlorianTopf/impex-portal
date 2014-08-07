@@ -160,6 +160,6 @@ object SimDataProviderSpecs extends Specification with Mockito {
             }
         }
         
-        //@TODO test interface for updating
+        //@TODO test interface for updating trees
     }
 }

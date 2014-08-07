@@ -22,7 +22,7 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
   
   "FMI Methods binding" should {
     
-        "respond to getDataPointValue" in {
+        /*"respond to getDataPointValue" in {
            
            val fmi = new Methods_FMISoapBindings with Soap11Clients with DispatchHttpClients {}
            
@@ -122,7 +122,7 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
            result must beRight // result must be successful
           
-        }
+        }*/
         
         
         "respond to getVOTableURL" in {
@@ -134,21 +134,21 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            val random = SecureRandom.getInstance("SHA1PRNG", "SUN")
            random.nextBytes(Array[Byte](20))
            val times = for (i <- (0 to count).toList) yield { TimeProvider.getISONow }
-           val x: List[Double] = for (i <- (0 to count).toList) yield (radius*cos(2*Pi*i/count))
-           val y: List[Double] = for (i <- (0 to count).toList) yield (radius*sin(2*Pi*i/count))
-           val z: List[Double] = for (i <- (0 to count).toList) yield (radius*tan(2*Pi*i/count))
-           val accl: List[Int] = for (i <- (0 to count).toList) yield (random.nextInt(count))
+           //val x: List[Double] = for (i <- (0 to count).toList) yield (radius*cos(2*Pi*i/count))
+           //val y: List[Double] = for (i <- (0 to count).toList) yield (radius*sin(2*Pi*i/count))
+           //val z: List[Double] = for (i <- (0 to count).toList) yield (radius*tan(2*Pi*i/count))
+           //val accl: List[Int] = for (i <- (0 to count).toList) yield (random.nextInt(count))
            val fields = Seq(
-               VOTable_field(times.map(_.toString), "Time"),
-               VOTable_field(x.map(_.toString), "X"),
-               VOTable_field(y.map(_.toString), "Y"),
-               VOTable_field(z.map(_.toString), "Z"),
-               VOTable_field(accl.map(_.toString), "Accl", None,
-            		   Some("m/s^2"),
-            		   Some(DoubleType) ,
-            		   None,
-            		   Some("phys.acceleration")
-               )
+               VOTable_field(times.map(_.toString), "Time")//,
+               //VOTable_field(x.map(_.toString), "X"),
+               //VOTable_field(y.map(_.toString), "Y"),
+               //VOTable_field(z.map(_.toString), "Z"),
+               //VOTable_field(accl.map(_.toString), "Accl", None,
+               // 	   Some("m/s^2"),
+               //	   Some(DoubleType) ,
+               //	   None,
+               //	   Some("phys.acceleration")
+               //)
            )
            
            val result = fmi.service.getVOTableURL(Some("My test run"), Some("VOTable format demo"), fields)
@@ -166,7 +166,7 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
         }
         
         
-        "respond to getMostRelevantRun" in {
+        /*"respond to getMostRelevantRun" in {
           
            val fmi = new Methods_FMISoapBindings with Soap11Clients with DispatchHttpClients {}
            
@@ -355,7 +355,7 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	   result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], Boolean]]
 	  	   result must beRight
 	  	   
-	  	}
+	  	}*/
         
 	  	
   }

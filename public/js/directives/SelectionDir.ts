@@ -28,9 +28,8 @@ module portal {
             this.scope = {
                 selection: '='
             }
-            
         }
-        
+  
     }
     
 

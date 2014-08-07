@@ -36,7 +36,6 @@ class RegistryService(val databases: Seq[Database]) extends Actor {
 
   private def register(props: Props, id: String) = {
     val provider: ActorRef = context.actorOf(props, id)
-    // @TODO initial delay will be switched later
     Akka.system.scheduler.schedule(30.minutes, 24.hours, provider, UpdateData)
   }
   
@@ -87,13 +86,13 @@ object RegistryService {
     .replace(EObservatory.toString, ERepository.toString)
     .replace(EInstrument.toString, ERepository.toString)
     .replace(ENumericalData.toString, ERepository.toString)
-    println("Computed search Id="+msgId)
+    //println("Computed search Id="+msgId)
     msgId.contains(dbId.toString)
   }
   
   private def getElement(msg: GetElement): Future[Either[Spase, RequestError]] = {
     implicit val timeout = Timeout(1.minute)
-    println("ResourceID="+msg.id)
+    //println("ResourceID="+msg.id)
     for {
       databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
       provider <- msg.id match {

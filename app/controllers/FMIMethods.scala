@@ -628,9 +628,6 @@ object FMIMethods extends MethodsController {
     // optional parameters
     val runCount = request.req.get("run_count")
     // sw parameters
-  	// note: these are also mandatory but we send an empty list
-  	// if the user enters no SW parameters => 
-  	// @TODO service returns malformed JSON then
     val swDensityParam = validateSWParams("sw_density", request.req)
     val swTempParam = validateSWParams("sw_temp", request.req)
     val swUtotParam = validateSWParams("sw_utot", request.req)
@@ -1087,7 +1084,7 @@ object FMIMethods extends MethodsController {
     val extraParams = ExtraParams_getDataPointSpectraFMI(
         validateInterpolation(interpolation), // interpolation method
         validateFiletype(filetype), // output filetype
-        validateOptStringSeq(energyChannel) // energy channel (@TODO TO BE TESTED)
+        validateOptStringSeq(energyChannel) // energy channel
     )
            
     val result = fmi.service.getDataPointSpectraSpacecraft(
