@@ -16,6 +16,7 @@ module portal {
     export class MethodsCtrl {
         private scope: portal.IMethodsScope
         private window: ng.IWindowService
+        private timeout: ng.ITimeoutService
         private configService: portal.ConfigService
         private methodsService: portal.MethodsService
         private userService: portal.UserService 
@@ -33,14 +34,15 @@ module portal {
         public currentMethod: Api = null
         public request: Object = {}
         
-        static $inject: Array<string> = ['$scope', '$window', 'configService', 'methodsService', 
+        static $inject: Array<string> = ['$scope', '$timeout', '$window', 'configService', 'methodsService', 
             'userService', '$state', '$modalInstance', 'id']
 
-        constructor($scope: IMethodsScope, $window: ng.IWindowService, configService: portal.ConfigService, 
+        constructor($scope: IMethodsScope, $timeout: ng.ITimeoutService, $window: ng.IWindowService, configService: portal.ConfigService, 
             methodsService: portal.MethodsService, userService: portal.UserService,
             $state: ng.ui.IStateService, $modalInstance: any, id: string) {   
             this.scope = $scope
             $scope.methvm = this   
+            this.timeout = $timeout
             this.window = $window
             this.configService = configService
             this.methodsService = methodsService
@@ -50,10 +52,17 @@ module portal {
             this.applyableModels = {}
             this.database = this.configService.getDatabase(id)
             
-            if(this.methodsService.methods)
+            if(this.methodsService.methods) {
                 this.methods = this.methodsService.getMethods(this.database)
-            else
+                // check sessionStorage if there is a saved state
+                if(this.database.id in this.userService.sessionStorage.methods) {
+                    // we must do it with timeout (since we send broadcasts and dir is not fully loaded)
+                    this.timeout(() => this.setActive(this.methods.filter(
+                        (m) => m.path == this.userService.sessionStorage.methods[this.database.id].path)[0]))
+                 }
+            } else {
                 this.loadMethodsAPI()
+            }
                 
             // fill manual applyables for SINP
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = 
@@ -62,11 +71,6 @@ module portal {
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Mercury/OnFly'] = ['calculateDataPointValueNercury', 'calculateCubeMercury']
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Saturn/OnFly'] = ['calculateDataPointValueSaturn', 'calculateCubeSaturn']
 
-        }
-        
-        public retry() {
-            this.showError = false
-            this.loadMethodsAPI()
         }
         
         private loadMethodsAPI() {
@@ -84,6 +88,11 @@ module portal {
             // we always get the right thing
             this.methodsService.methods = data
             this.methods = this.methodsService.getMethods(this.database)
+            // check sessionStorage if there is a saved state
+            if(this.database.id in this.userService.sessionStorage.methods) {
+               this.setActive(this.methods.filter(
+                   (m) => m.path == this.userService.sessionStorage.methods[this.database.id].path)[0])
+            } 
         } 
         
         private handleAPIError(error: any) {
@@ -108,7 +117,7 @@ module portal {
             var id = this.userService.createId()
             
             this.userService.user.results.push(new Result(this.database.id, id, this.currentMethod.path, data))
-            //refresh localStorage
+            // refresh localStorage
             this.userService.localStorage.results = this.userService.user.results
             this.scope.$broadcast('update-results', id)
         }
@@ -138,6 +147,11 @@ module portal {
             )
         }
         
+        public retry() {
+            this.showError = false
+            this.loadMethodsAPI()
+        }
+        
         // helpers for methods modal
         public dropdownStatus = {
             isopen: false,
@@ -153,6 +167,18 @@ module portal {
             this.currentMethod.operations[0].parameters.forEach((p) => {
                 this.request[p.name] = p.defaultValue     
             })
+            
+            // refresh session storage
+            if(this.database.id in this.userService.sessionStorage.methods) {
+                if(this.userService.sessionStorage.methods[this.database.id].path == this.currentMethod.path)
+                    this.request = this.userService.sessionStorage.methods[this.database.id].params
+                else
+                    this.userService.sessionStorage.methods[this.database.id] = 
+                        new MethodState(method.path, this.request) 
+            } else {
+                this.userService.sessionStorage.methods[this.database.id] = 
+                    new MethodState(method.path, this.request)
+            }
             
             // check if there is an id field and broadcast applyable elements
             if(this.currentMethod.operations[0].parameters.filter((e) => e.name == 'id').length != 0) {
@@ -196,18 +222,7 @@ module portal {
             var splitPath = path.split('/').reverse()
             return splitPath[0]
         }
-        
-        // methods for modal
-        public saveMethods() {
-            this.modalInstance.close()
-            this.methodsService.showError = false
-        }
-        
-        public cancelMethods() {
-            this.modalInstance.dismiss()
-            this.methodsService.showError = false
-        }
-    
+       
         // method for applying a selection to the current method
         public applySelection(resourceId: string) {
             //console.log("applySelection "+resourceId)
@@ -219,7 +234,23 @@ module portal {
             //console.log("applyVOTable "+url)
             this.request['votable_url'] = url
         }
+        
+        public updateRequest(paramName: string) {
+            //console.log("Update "+this.request[paramName])
+            this.userService.sessionStorage.methods[this.database.id]
+                .params[paramName] = this.request[paramName]
+        }
 
+        // methods for modal
+        public saveMethods() {
+            this.modalInstance.close()
+            this.methodsService.showError = false
+        }
+        
+        public cancelMethods() {
+            this.modalInstance.dismiss()
+            this.methodsService.showError = false
+        }
         
     }
 }

@@ -35,7 +35,7 @@ module portal {
             // only for simulations atm 
             this.configService.config.databases
                 .filter((e) => e.type == 'simulation')
-                .map((e) => { 
+                .forEach((e) => { 
                     this.configService.aliveMap[e.name] = false 
                     this.configService.isAlive(e.name) })
             
@@ -43,7 +43,7 @@ module portal {
             // set interval to check if methods are still alive => every 10 minutes (600k ms)
             this.interval(() => this.configService.config.databases
                 .filter((e) => e.type == 'simulation')
-                .map((e) => { 
+                .forEach((e) => { 
                     //this.configService.aliveMap[e.name] = false 
                     this.configService.isAlive(e.name) }), 600000)
             

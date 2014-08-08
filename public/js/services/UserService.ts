@@ -16,12 +16,13 @@ module portal {
     }
     
     export class UserService {
-        static $inject: Array<string> = ['$localStorage', '$resource']
+        static $inject: Array<string> = ['$localStorage', '$sessionStorage', '$resource']
 
         private resource: ng.resource.IResourceService
         private url: string = '/'
     	public user: User = null
         public localStorage: any = null
+        public sessionStorage: any = null
 
          // creates an action descriptor for list
         private userListAction: ng.resource.IActionDescriptor = {
@@ -31,17 +32,24 @@ module portal {
         
          // creates an action descriptor for delete
         private userDeleteAction: ng.resource.IActionDescriptor = {
-            method: 'DELETE',
+            method: 'DELETE'
         }
         
-    	constructor($localStorage, $resource) {
+    	constructor($localStorage, $sessionStorage, $resource) {
             this.localStorage = $localStorage
+            this.sessionStorage = $sessionStorage
             // initialise needed keys (doesn't overwrite existing ones)
             this.localStorage.$default({
                 results: null,
                 selections: null
-             })
-           this.resource = $resource
+            })
+            // saves current method state
+            this.sessionStorage.$default({
+                methods: {}/*,
+                elements: {}*/
+            })
+            
+            this.resource = $resource
         }
         
         public createId(): string {

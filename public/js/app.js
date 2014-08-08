@@ -3,6 +3,21 @@ var portal;
 (function (portal) {
     'use strict';
 
+    // used for the sessionStorage
+    // currently saved method state
+    var MethodState = (function () {
+        function MethodState(path, params) {
+            this.path = path;
+            this.params = params;
+        }
+        return MethodState;
+    })();
+    portal.MethodState = MethodState;
+
+    // currently saved registry state
+    //export class RegistryState {
+    //    constructor(public activeItems: IActiveMap) {}
+    //}
     var App = (function () {
         function App() {
             this.name = 'app';
@@ -994,10 +1009,11 @@ var portal;
     'use strict';
 
     var UserService = (function () {
-        function UserService($localStorage, $resource) {
+        function UserService($localStorage, $sessionStorage, $resource) {
             this.url = '/';
             this.user = null;
             this.localStorage = null;
+            this.sessionStorage = null;
             // creates an action descriptor for list
             this.userListAction = {
                 method: 'GET',
@@ -1008,12 +1024,19 @@ var portal;
                 method: 'DELETE'
             };
             this.localStorage = $localStorage;
+            this.sessionStorage = $sessionStorage;
 
             // initialise needed keys (doesn't overwrite existing ones)
             this.localStorage.$default({
                 results: null,
                 selections: null
             });
+
+            // saves current method state
+            this.sessionStorage.$default({
+                methods: {}
+            });
+
             this.resource = $resource;
         }
         UserService.prototype.createId = function () {
@@ -1038,7 +1061,7 @@ var portal;
         UserService.prototype.deleteUserData = function (name) {
             return this.UserData().delete({}, { 'name': name });
         };
-        UserService.$inject = ['$localStorage', '$resource'];
+        UserService.$inject = ['$localStorage', '$sessionStorage', '$resource'];
         return UserService;
     })();
     portal.UserService = UserService;
@@ -1063,7 +1086,7 @@ var portal;
             // only for simulations atm
             this.configService.config.databases.filter(function (e) {
                 return e.type == 'simulation';
-            }).map(function (e) {
+            }).forEach(function (e) {
                 _this.configService.aliveMap[e.name] = false;
                 _this.configService.isAlive(e.name);
             });
@@ -1073,7 +1096,7 @@ var portal;
             this.interval(function () {
                 return _this.configService.config.databases.filter(function (e) {
                     return e.type == 'simulation';
-                }).map(function (e) {
+                }).forEach(function (e) {
                     //this.configService.aliveMap[e.name] = false
                     _this.configService.isAlive(e.name);
                 });
@@ -1191,8 +1214,8 @@ var portal;
             var _this = this;
             this.scope.$broadcast('clear-simulation-models');
             this.loading = true;
-
             var cacheId = "model-" + id;
+
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.SimulationModel().get({ fmt: 'json', id: id }).$promise;
 
@@ -1209,14 +1232,14 @@ var portal;
             }
         };
 
-        RegistryCtrl.prototype.getSimulationRun = function (id, element, $event) {
+        RegistryCtrl.prototype.getSimulationRun = function (element) {
             var _this = this;
             this.scope.$broadcast('clear-simulation-runs', element);
             this.loading = true;
+            var cacheId = "run-" + element.resourceId;
 
-            var cacheId = "run-" + id;
             if (!(cacheId in this.registryService.cachedElements)) {
-                this.registryPromise = this.registryService.SimulationRun().get({ fmt: 'json', id: id }).$promise;
+                this.registryPromise = this.registryService.SimulationRun().get({ fmt: 'json', id: element.resourceId }).$promise;
 
                 this.registryPromise.then(function (spase) {
                     _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
@@ -1234,14 +1257,14 @@ var portal;
             }
         };
 
-        RegistryCtrl.prototype.getNumericalOutput = function (id, element, $event) {
+        RegistryCtrl.prototype.getNumericalOutput = function (element) {
             var _this = this;
             this.scope.$broadcast('clear-numerical-outputs', element);
             this.loading = true;
+            var cacheId = "output-" + element.resourceId;
 
-            var cacheId = "output-" + id;
             if (!(cacheId in this.registryService.cachedElements)) {
-                this.registryPromise = this.registryService.NumericalOutput().get({ fmt: 'json', id: id }).$promise;
+                this.registryPromise = this.registryService.NumericalOutput().get({ fmt: 'json', id: element.resourceId }).$promise;
 
                 this.registryPromise.then(function (spase) {
                     _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
@@ -1259,14 +1282,14 @@ var portal;
             }
         };
 
-        RegistryCtrl.prototype.getGranule = function (id, element, $event) {
+        RegistryCtrl.prototype.getGranule = function (element) {
             var _this = this;
             this.scope.$broadcast('clear-granules', element);
             this.loading = true;
+            var cacheId = "granule-" + element.resourceId;
 
-            var cacheId = "granule-" + id;
             if (!(cacheId in this.registryService.cachedElements)) {
-                this.registryPromise = this.registryService.Granule().get({ fmt: 'json', id: id }).$promise;
+                this.registryPromise = this.registryService.Granule().get({ fmt: 'json', id: element.resourceId }).$promise;
 
                 this.registryPromise.then(function (spase) {
                     _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
@@ -1320,7 +1343,8 @@ var portal;
 
     // @TODO improve error/offline handling later
     var MethodsCtrl = (function () {
-        function MethodsCtrl($scope, $window, configService, methodsService, userService, $state, $modalInstance, id) {
+        function MethodsCtrl($scope, $timeout, $window, configService, methodsService, userService, $state, $modalInstance, id) {
+            var _this = this;
             this.methods = [];
             this.initialising = false;
             this.status = '';
@@ -1334,6 +1358,7 @@ var portal;
             };
             this.scope = $scope;
             $scope.methvm = this;
+            this.timeout = $timeout;
             this.window = $window;
             this.configService = configService;
             this.methodsService = methodsService;
@@ -1343,10 +1368,20 @@ var portal;
             this.applyableModels = {};
             this.database = this.configService.getDatabase(id);
 
-            if (this.methodsService.methods)
+            if (this.methodsService.methods) {
                 this.methods = this.methodsService.getMethods(this.database);
-else
+
+                if (this.database.id in this.userService.sessionStorage.methods) {
+                    // we must do it with timeout (since we send broadcasts and dir is not fully loaded)
+                    this.timeout(function () {
+                        return _this.setActive(_this.methods.filter(function (m) {
+                            return m.path == _this.userService.sessionStorage.methods[_this.database.id].path;
+                        })[0]);
+                    });
+                }
+            } else {
                 this.loadMethodsAPI();
+            }
 
             // fill manual applyables for SINP
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = [
@@ -1362,11 +1397,6 @@ else
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Mercury/OnFly'] = ['calculateDataPointValueNercury', 'calculateCubeMercury'];
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Saturn/OnFly'] = ['calculateDataPointValueSaturn', 'calculateCubeSaturn'];
         }
-        MethodsCtrl.prototype.retry = function () {
-            this.showError = false;
-            this.loadMethodsAPI();
-        };
-
         MethodsCtrl.prototype.loadMethodsAPI = function () {
             var _this = this;
             this.initialising = true;
@@ -1379,12 +1409,19 @@ else
         };
 
         MethodsCtrl.prototype.handleAPIData = function (data, status) {
+            var _this = this;
             this.initialising = false;
             this.status = 'success';
 
             // we always get the right thing
             this.methodsService.methods = data;
             this.methods = this.methodsService.getMethods(this.database);
+
+            if (this.database.id in this.userService.sessionStorage.methods) {
+                this.setActive(this.methods.filter(function (m) {
+                    return m.path == _this.userService.sessionStorage.methods[_this.database.id].path;
+                })[0]);
+            }
         };
 
         MethodsCtrl.prototype.handleAPIError = function (error) {
@@ -1411,7 +1448,7 @@ else
 
             this.userService.user.results.push(new portal.Result(this.database.id, id, this.currentMethod.path, data));
 
-            //refresh localStorage
+            // refresh localStorage
             this.userService.localStorage.results = this.userService.user.results;
             this.scope.$broadcast('update-results', id);
         };
@@ -1443,6 +1480,11 @@ else {
             });
         };
 
+        MethodsCtrl.prototype.retry = function () {
+            this.showError = false;
+            this.loadMethodsAPI();
+        };
+
         // set a method active and forward info to directives
         MethodsCtrl.prototype.setActive = function (method) {
             var _this = this;
@@ -1453,6 +1495,15 @@ else {
             this.currentMethod.operations[0].parameters.forEach(function (p) {
                 _this.request[p.name] = p.defaultValue;
             });
+
+            if (this.database.id in this.userService.sessionStorage.methods) {
+                if (this.userService.sessionStorage.methods[this.database.id].path == this.currentMethod.path)
+                    this.request = this.userService.sessionStorage.methods[this.database.id].params;
+else
+                    this.userService.sessionStorage.methods[this.database.id] = new portal.MethodState(method.path, this.request);
+            } else {
+                this.userService.sessionStorage.methods[this.database.id] = new portal.MethodState(method.path, this.request);
+            }
 
             if (this.currentMethod.operations[0].parameters.filter(function (e) {
                 return e.name == 'id';
@@ -1499,17 +1550,6 @@ else {
             return splitPath[0];
         };
 
-        // methods for modal
-        MethodsCtrl.prototype.saveMethods = function () {
-            this.modalInstance.close();
-            this.methodsService.showError = false;
-        };
-
-        MethodsCtrl.prototype.cancelMethods = function () {
-            this.modalInstance.dismiss();
-            this.methodsService.showError = false;
-        };
-
         // method for applying a selection to the current method
         MethodsCtrl.prototype.applySelection = function (resourceId) {
             //console.log("applySelection "+resourceId)
@@ -1521,8 +1561,25 @@ else {
             //console.log("applyVOTable "+url)
             this.request['votable_url'] = url;
         };
+
+        MethodsCtrl.prototype.updateRequest = function (paramName) {
+            //console.log("Update "+this.request[paramName])
+            this.userService.sessionStorage.methods[this.database.id].params[paramName] = this.request[paramName];
+        };
+
+        // methods for modal
+        MethodsCtrl.prototype.saveMethods = function () {
+            this.modalInstance.close();
+            this.methodsService.showError = false;
+        };
+
+        MethodsCtrl.prototype.cancelMethods = function () {
+            this.modalInstance.dismiss();
+            this.methodsService.showError = false;
+        };
         MethodsCtrl.$inject = [
             '$scope',
+            '$timeout',
             '$window',
             'configService',
             'methodsService',
@@ -1734,9 +1791,9 @@ var portal;
 
             this.myScope.$on('clear-simulation-runs', function (e, element) {
                 _this.setActive('SimulationModel', element);
-                _this.activeItems['SimulationRun'] = null;
-                _this.activeItems['NumericalOutput'] = null;
-                _this.activeItems['Granule'] = null;
+                _this.setInactive('SimulationRun');
+                _this.setInactive('NumericalOutput');
+                _this.setInactive('Granule');
                 _this.showError = false;
                 _this.simulationRuns = [];
                 _this.numericalOutputs = [];
@@ -1745,8 +1802,8 @@ var portal;
 
             this.myScope.$on('clear-numerical-outputs', function (e, element) {
                 _this.setActive('SimulationRun', element);
-                _this.activeItems['NumericalOutput'] = null;
-                _this.activeItems['Granule'] = null;
+                _this.setInactive('NumericalOutput');
+                _this.setInactive('Granule');
                 _this.showError = false;
                 _this.numericalOutputs = [];
                 _this.granules = [];
@@ -1754,7 +1811,7 @@ var portal;
 
             this.myScope.$on('clear-granules', function (e, element) {
                 _this.setActive('NumericalOutput', element);
-                _this.activeItems['Granule'] = null;
+                _this.setInactive('Granule');
                 _this.showError = false;
                 _this.granules = [];
             });
@@ -1802,6 +1859,12 @@ else
 
         RegistryDir.prototype.setActive = function (type, element) {
             this.activeItems[type] = element;
+            //this.userService.sessionStorage.elements[this.repositoryId] = this.activeItems
+        };
+
+        RegistryDir.prototype.setInactive = function (type) {
+            this.activeItems[type] = null;
+            //this.userService.sessionStorage.elements[this.repositoryId] = this.activeItems
         };
 
         RegistryDir.prototype.isActive = function (type, element) {
@@ -1886,31 +1949,33 @@ var portal;
             });
 
             if (this.user.selections) {
-                this.user.selections.map(function (e) {
+                this.user.selections.forEach(function (e) {
                     _this.isCollapsed[e.id] = true;
                 });
             }
 
             if (this.user.voTables) {
-                this.user.voTables.map(function (e) {
+                this.user.voTables.forEach(function (e) {
                     _this.isCollapsed[e.id] = true;
                 });
             }
 
             if (this.user.results) {
-                this.user.results.map(function (e) {
+                this.user.results.forEach(function (e) {
                     _this.isCollapsed[e.id] = true;
                 });
             }
 
             // comes from MethodsCtrl
             this.myScope.$on('set-applyable-elements', function (e, elements) {
-                _this.applyableElements = elements.split(',');
+                //console.log('set-applyable-elements')
+                _this.applyableElements = elements.split(',').map(function (e) {
+                    return e.trim();
+                });
                 _this.isSelApplyable = false;
                 if (_this.currentSelection.length == 1) {
                     _this.applyableElements.forEach(function (e) {
-                        console.log("Element " + e.trim());
-                        if (_this.currentSelection[0].type == e.trim())
+                        if (_this.currentSelection[0].type == e)
                             _this.isSelApplyable = true;
                     });
                 }
@@ -1918,12 +1983,14 @@ var portal;
 
             // comes from MethodsCtrl
             this.myScope.$on('set-applyable-votable', function (e, b) {
-                return _this.isVOTApplyable = b;
+                //console.log('set-applyable-votable')
+                _this.isVOTApplyable = b;
             });
 
             // comes from MethodsCtrl => needed for SINP models/output
             this.myScope.$on('set-applyable-models', function (e, m) {
-                console.log(m);
+                //console.log(m)
+                //console.log('set-applyable-models')
                 _this.applyableModel = m;
                 if (_this.currentSelection.length == 1) {
                     var elem = _this.currentSelection[0];
@@ -1996,7 +2063,7 @@ else
                 _this.tabsActive[2] = true;
             });
 
-            // watch event when all content is loading into the dir
+            // watch event when all content is loaded into the dir
             this.myScope.$watch('$includeContentLoaded', function (e) {
                 for (var id in _this.isCollapsed)
                     _this.isCollapsed[id] = true;
@@ -2026,6 +2093,7 @@ else
                 var selection = this.user.selections.filter(function (e) {
                     return e.id == id;
                 })[0];
+
                 if (this.applyableElements.indexOf(selection.type) != -1) {
                     this.isSelApplyable = true;
 

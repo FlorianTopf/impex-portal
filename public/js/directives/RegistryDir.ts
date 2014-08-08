@@ -95,9 +95,9 @@ module portal {
             
             this.myScope.$on('clear-simulation-runs', (e, element: SpaseElem) => {
                 this.setActive('SimulationModel', element)
-                this.activeItems['SimulationRun'] = null
-                this.activeItems['NumericalOutput'] = null
-                this.activeItems['Granule'] = null
+                this.setInactive('SimulationRun')
+                this.setInactive('NumericalOutput')
+                this.setInactive('Granule')
                 this.showError = false
                 this.simulationRuns = []
                 this.numericalOutputs = []
@@ -106,8 +106,8 @@ module portal {
             
             this.myScope.$on('clear-numerical-outputs', (e, element: SpaseElem) => {
                 this.setActive('SimulationRun', element)
-                this.activeItems['NumericalOutput'] = null
-                this.activeItems['Granule'] = null
+                this.setInactive('NumericalOutput')
+                this.setInactive('Granule')
                 this.showError = false
                 this.numericalOutputs = []
                 this.granules = []
@@ -115,7 +115,7 @@ module portal {
             
             this.myScope.$on('clear-granules', (e, element: SpaseElem) => {
                 this.setActive('NumericalOutput', element)
-                this.activeItems['Granule'] = null
+                this.setInactive('Granule')
                 this.showError = false
                 this.granules = []
             })
@@ -126,7 +126,6 @@ module portal {
             
             this.myScope.$on('update-simulation-models', (e, id: string) => {
                 this.simulationModels = this.registryService.cachedElements[id].map((r) => <SimulationModel>r)
-
             })
             
             this.myScope.$on('update-simulation-runs', (e, id: string) => {
@@ -158,12 +157,18 @@ module portal {
         
         public setActive(type: string, element: SpaseElem) {
             this.activeItems[type] = element
+            //this.userService.sessionStorage.elements[this.repositoryId] = this.activeItems
+        }
+        
+        public setInactive(type: string) {
+            this.activeItems[type] = null
+            //this.userService.sessionStorage.elements[this.repositoryId] = this.activeItems
         }
         
         public isActive(type: string, element: SpaseElem): boolean {
             return this.activeItems[type] === element
         }
-        
+       
         public trim(name: string, length: number = 25): string {
             if(name.length>length)
                  return name.slice(0, length).trim()+"..."

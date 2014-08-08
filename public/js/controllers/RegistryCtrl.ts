@@ -23,11 +23,12 @@ module portal {
         public loading: boolean = false
         public transFinished: boolean = true
         
-        static $inject: Array<string> = ['$scope', '$timeout', 
-            'configService', 'registryService', '$state', '$modalInstance', 'id']
+        static $inject: Array<string> = ['$scope', '$timeout', 'configService', 'registryService', 
+            '$state', '$modalInstance', 'id']
 
         constructor($scope: IRegistryScope, $timeout: ng.ITimeoutService, configService: portal.ConfigService, 
-            registryService: portal.RegistryService, $state: ng.ui.IStateService, $modalInstance: any, id: string) {   
+            registryService: portal.RegistryService, $state: ng.ui.IStateService, 
+            $modalInstance: any, id: string) {   
             this.scope = $scope
             $scope.regvm = this
             this.timeout = $timeout  
@@ -73,8 +74,8 @@ module portal {
         public getSimulationModel(id: string) {
             this.scope.$broadcast('clear-simulation-models')
             this.loading = true
-            
             var cacheId = "model-"+id
+            
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.SimulationModel().get(
                     { fmt: 'json', id: id }).$promise
@@ -90,14 +91,14 @@ module portal {
             }
         }
         
-        public getSimulationRun(id: string, element: SpaseElem, $event: Event) {
+        public getSimulationRun(element: SpaseElem) {
             this.scope.$broadcast('clear-simulation-runs', element)
             this.loading = true
+            var cacheId = "run-"+element.resourceId
             
-            var cacheId = "run-"+id
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.SimulationRun().get(
-                    { fmt: 'json', id: id }).$promise
+                    { fmt: 'json', id: element.resourceId }).$promise
                 
                 this.registryPromise.then(
                 (spase) => {
@@ -115,14 +116,14 @@ module portal {
             }
         }
         
-        public getNumericalOutput(id: string, element: SpaseElem, $event: Event) {
+        public getNumericalOutput(element: SpaseElem) {
             this.scope.$broadcast('clear-numerical-outputs', element)
             this.loading = true
+            var cacheId = "output-"+element.resourceId
             
-            var cacheId = "output-"+id
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.NumericalOutput().get(
-                    { fmt: 'json', id: id }).$promise
+                    { fmt: 'json', id: element.resourceId }).$promise
                 
                 this.registryPromise.then(
                 (spase) => {
@@ -140,14 +141,14 @@ module portal {
             }      
         }
         
-        public getGranule(id: string, element: SpaseElem, $event: Event) {
+        public getGranule(element: SpaseElem) {
             this.scope.$broadcast('clear-granules', element)
             this.loading = true
+            var cacheId = "granule-"+element.resourceId
             
-            var cacheId = "granule-"+id
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.Granule().get(
-                    { fmt: 'json', id: id }).$promise
+                    { fmt: 'json', id: element.resourceId }).$promise
                 
                 this.registryPromise.then(
                 (spase) => {

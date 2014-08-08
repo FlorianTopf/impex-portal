@@ -68,42 +68,47 @@ module portal {
             
             // collapsing all selections on init
             if(this.user.selections) {
-                this.user.selections.map((e) => {
+                this.user.selections.forEach((e) => {
                     this.isCollapsed[e.id] = true
                 })
             }
             // collapsing all votables on init
             if(this.user.voTables) {
-                this.user.voTables.map((e) => {
+                this.user.voTables.forEach((e) => {
                     this.isCollapsed[e.id] = true
                 })
             }
             // collapsing all results on init
             if(this.user.results) {
-               this.user.results.map((e) => {
+               this.user.results.forEach((e) => {
                     this.isCollapsed[e.id] = true
                })
             }
             
             // comes from MethodsCtrl
             this.myScope.$on('set-applyable-elements', (e, elements: string) => {
-               this.applyableElements = elements.split(',')
+               //console.log('set-applyable-elements')
+               this.applyableElements = elements.split(',').map((e) => e.trim())
                this.isSelApplyable = false
                if(this.currentSelection.length == 1) {
                     this.applyableElements.forEach((e) => {
-                        console.log("Element "+e.trim())
-                        if(this.currentSelection[0].type == e.trim())
+                        //console.log("Element "+e)
+                        if(this.currentSelection[0].type == e)
                             this.isSelApplyable = true  
                     })
-               } 
+               }
             })
             
             // comes from MethodsCtrl
-            this.myScope.$on('set-applyable-votable', (e, b: boolean) => this.isVOTApplyable = b)
+            this.myScope.$on('set-applyable-votable', (e, b: boolean) => { 
+                //console.log('set-applyable-votable')
+                this.isVOTApplyable = b
+            })
             
             // comes from MethodsCtrl => needed for SINP models/output
             this.myScope.$on('set-applyable-models', (e, m: string) => { 
-                console.log(m)
+                //console.log(m)
+                //console.log('set-applyable-models')
                 this.applyableModel = m 
                 if(this.currentSelection.length == 1) {
                     var elem = this.currentSelection[0]
@@ -163,8 +168,9 @@ module portal {
                 this.tabsActive[2] = true
             })
             
-            // watch event when all content is loading into the dir
-            this.myScope.$watch('$includeContentLoaded', (e) => {                      
+            // watch event when all content is loaded into the dir
+            this.myScope.$watch('$includeContentLoaded', (e) => {          
+                //console.log("UserDataDir loaded")            
                 // collapse all on enter
                 for(var id in this.isCollapsed)
                    this.isCollapsed[id] = true
@@ -190,6 +196,7 @@ module portal {
                 
                 // get selection
                 var selection = this.user.selections.filter((e) => e.id == id)[0]
+                //console.log(this.applyableElements)
                 if(this.applyableElements.indexOf(selection.type) != -1) {
                     this.isSelApplyable = true
                     //console.log("isApplyable")  

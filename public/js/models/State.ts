@@ -2,6 +2,19 @@
 
 module portal {
     'use strict';
+    
+    // used for the sessionStorage
+    // currently saved method state
+    export class MethodState {
+        constructor(
+            public path: string,
+            public params: Object) {}
+    }
+    
+    // currently saved registry state
+    //export class RegistryState {
+    //    constructor(public activeItems: IActiveMap) {}
+    //}
  
     export class App implements ng.ui.IState {
         public name: string = 'app'

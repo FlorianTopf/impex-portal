@@ -28,7 +28,7 @@
   		<div class="btn-group-vertical btn-group-overflow" ng-hide="regdirvm.simulationModels | isEmpty">
 			<button type="button" class="btn btn-default btn-sm" 
 				ng-repeat="element in regdirvm.simulationModels" 
-				ng-click="regvm.getSimulationRun(element.resourceId, element, $event)" 
+				ng-click="regvm.getSimulationRun(element)" 
 				ng-class="{ active: regdirvm.isActive('SimulationModel', element) }"
 				tooltip-html-unsafe="{{ element.resourceHeader.resourceName }}
 					<br>{{ element.resourceHeader.releaseDate }}">
@@ -38,7 +38,7 @@
 		<div class="btn-group-vertical btn-group-overflow" ng-hide="regdirvm.simulationRuns | isEmpty">		
 			<button type="button" class="btn btn-default btn-sm margin-ten" 
 				ng-repeat="element in regdirvm.simulationRuns" 
-				ng-click="regvm.getNumericalOutput(element.resourceId, element, $event)" 
+				ng-click="regvm.getNumericalOutput(element)" 
 				ng-class="{ active: regdirvm.isActive('SimulationRun', element) }"
 				tooltip-html-unsafe="{{ element.resourceHeader.resourceName }}<br/>
 					{{ element.resourceHeader.releaseDate }}">
@@ -48,7 +48,7 @@
 		<div class="btn-group-vertical btn-group-overflow" ng-hide="regdirvm.numericalOutputs | isEmpty">	
 			<button type="button" class="btn btn-default btn-sm margin-ten" 
 				ng-repeat="element in regdirvm.numericalOutputs" 
-				ng-click="regvm.getGranule(element.resourceId, element, $event)" 
+				ng-click="regvm.getGranule(element)" 
 				ng-class="{ active: regdirvm.isActive('NumericalOutput', element) }"
 				tooltip-html-unsafe="{{ element.resourceHeader.resourceName }}<br>
 					{{ element.resourceHeader.releaseDate }}">

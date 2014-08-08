@@ -41,11 +41,12 @@
 						    <!-- normal inputs -->
 							<input ng-show="parameter['enum'] | isEmpty" 
 								type="text" class="form-control input-sm" 
-								ng-required="parameter.required" ng-model="methvm.request[parameter.name]">
+								ng-required="parameter.required" ng-model="methvm.request[parameter.name]"
+								ng-change="methvm.updateRequest(parameter.name)">
 						    <!-- enum inputs -->
 					    	<select class="form-control input-sm" ng-hide="parameter['enum'] | isEmpty"
-					    		ng-options="opt for opt in parameter['enum']" ng-model="methvm.request[parameter.name]" 
-					    		ng-required="parameter.required">
+					    		ng-options="opt for opt in parameter['enum']" ng-required="parameter.required"
+					    		ng-change="methvm.updateRequest(parameter.name)" ng-model="methvm.request[parameter.name]">
 					    	</select>
 						</div>
 						<label class="col-sm-1 control-label">

@@ -20,7 +20,7 @@ module portal {
             public type: string,
             public elem: SpaseElem) {}
     }    
-    
+        
     export class User {
         
         public id: string
