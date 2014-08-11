@@ -13,10 +13,6 @@ module portal {
         private configService: portal.ConfigService
         private userService: portal.UserService
         private state: ng.ui.IStateService
-        
-        //public ready: boolean = false
-        //public status: string
-        //public showError: boolean = false 
 
         static $inject: Array<string> = ['$scope', '$interval', 'configService', 'userService', '$state', 
             'config', 'userData']
@@ -29,7 +25,6 @@ module portal {
             this.configService = configService  
             this.userService = userService
             this.state = $state   
-
             this.configService.config = config
             
             // only for simulations atm 
@@ -44,17 +39,15 @@ module portal {
             this.interval(() => this.configService.config.databases
                 .filter((e) => e.type == 'simulation')
                 .forEach((e) => { 
-                    //this.configService.aliveMap[e.name] = false 
                     this.configService.isAlive(e.name) }), 600000)
             
-            // user info comes from the server in the future (add in resolver too) 
+            // @TODO user info comes from the server in the future (add in resolver too) 
             this.userService.user = new User(this.userService.createId())
             
             // loading stored votables from server
             if(userData.length > 0)
                 this.userService.user.voTables = userData
             
-            // as soon as we create a new user we have a localStorage connection
             // initialising the stored results from localStorage
             if(this.userService.localStorage.results != null)
                 this.userService.user.results = this.userService.localStorage.results

@@ -7,7 +7,6 @@ module portal {
         datavm: UserDataCtrl;
     }
 
-    // @TODO improve error/offline handling later
     export class UserDataCtrl {
         private scope: portal.IUserDataScope
         private timeout: ng.ITimeoutService
@@ -87,7 +86,6 @@ module portal {
         
         public cancelData() {
             this.modalInstance.dismiss()
- 
         }
         
 

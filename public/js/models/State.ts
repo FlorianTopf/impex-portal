@@ -11,18 +11,11 @@ module portal {
             public params: Object) {}
     }
     
-    // currently saved registry state
-    //export class RegistryState {
-    //    constructor(public activeItems: IActiveMap) {}
-    //}
- 
     export class App implements ng.ui.IState {
         public name: string = 'app'
         public abstract: boolean = true
-        //public url: string = ''
         public controller: any = ConfigCtrl
         public template: string = '<ui-view/>'
-        //public templateUrl: string =  '/public/partials/config.html'
         public resolve: Object = {
             config: ['configService', (ConfigService) => {
                 return ConfigService.loadConfig()

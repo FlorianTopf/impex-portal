@@ -7,7 +7,6 @@ module portal {
         regvm: RegistryCtrl
     }
 
-    // @TODO improve error/offline handling later
     export class RegistryCtrl {
         private scope: portal.IRegistryScope
         private timeout: ng.ITimeoutService
@@ -21,7 +20,7 @@ module portal {
         public isFirstOpen: boolean = true
         public initialising: boolean = false
         public loading: boolean = false
-        public transFinished: boolean = true
+        //public transFinished: boolean = true
         
         static $inject: Array<string> = ['$scope', '$timeout', 'configService', 'registryService', 
             '$state', '$modalInstance', 'id']
@@ -50,9 +49,6 @@ module portal {
         
         public getRepository(id: string) {
             this.initialising = true
-            this.transFinished = false
-            // aligned with standard transition time of accordion
-            this.timeout(() => { this.transFinished = true }, 200)
             
             var cacheId = "repo-"+id
             if(!(cacheId in this.registryService.cachedElements)) {  

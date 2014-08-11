@@ -12,7 +12,6 @@ module portal {
         [id: string]: Array<string>
     }
 
-    // @TODO improve error/offline handling later
     export class MethodsCtrl {
         private scope: portal.IMethodsScope
         private window: ng.IWindowService
@@ -115,7 +114,6 @@ module portal {
             this.methodsService.status = 'success'
             // @TODO change id creation later
             var id = this.userService.createId()
-            
             this.userService.user.results.push(new Result(this.database.id, id, this.currentMethod.path, data))
             // refresh localStorage
             this.userService.localStorage.results = this.userService.user.results
@@ -140,7 +138,6 @@ module portal {
             this.methodsService.loading = true
             this.methodsService.status = ''
             this.methodsService.showError = false
-            
             this.methodsService.requestMethod(this.currentMethod.path, this.request).get(
                 (data: IResponse, status: any) => this.handleServiceData(data, status),
                 (error: any) => this.handleServiceError(error)

@@ -17,8 +17,6 @@ module portal {
         private modal: any
 
         public ready: boolean = false
-        //public status: string
-        //public showError: boolean = false  
       
         static $inject: Array<string> = ['$scope', '$timeout', 'configService', '$state', '$modal']
 

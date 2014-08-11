@@ -14,18 +14,12 @@ var portal;
     })();
     portal.MethodState = MethodState;
 
-    // currently saved registry state
-    //export class RegistryState {
-    //    constructor(public activeItems: IActiveMap) {}
-    //}
     var App = (function () {
         function App() {
             this.name = 'app';
             this.abstract = true;
-            //public url: string = ''
             this.controller = portal.ConfigCtrl;
             this.template = '<ui-view/>';
-            //public templateUrl: string =  '/public/partials/config.html'
             this.resolve = {
                 config: [
                     'configService',
@@ -1093,7 +1087,6 @@ var portal;
             this.configService = configService;
             this.userService = userService;
             this.state = $state;
-
             this.configService.config = config;
 
             // only for simulations atm
@@ -1110,12 +1103,11 @@ var portal;
                 return _this.configService.config.databases.filter(function (e) {
                     return e.type == 'simulation';
                 }).forEach(function (e) {
-                    //this.configService.aliveMap[e.name] = false
                     _this.configService.isAlive(e.name);
                 });
             }, 600000);
 
-            // user info comes from the server in the future (add in resolver too)
+            // @TODO user info comes from the server in the future (add in resolver too)
             this.userService.user = new portal.User(this.userService.createId());
 
             if (userData.length > 0)
@@ -1170,14 +1162,12 @@ var portal;
 (function (portal) {
     'use strict';
 
-    // @TODO improve error/offline handling later
     var RegistryCtrl = (function () {
         function RegistryCtrl($scope, $timeout, configService, registryService, $state, $modalInstance, id) {
             var _this = this;
             this.isFirstOpen = true;
             this.initialising = false;
             this.loading = false;
-            this.transFinished = true;
             this.scope = $scope;
             $scope.regvm = this;
             this.timeout = $timeout;
@@ -1198,12 +1188,6 @@ var portal;
         RegistryCtrl.prototype.getRepository = function (id) {
             var _this = this;
             this.initialising = true;
-            this.transFinished = false;
-
-            // aligned with standard transition time of accordion
-            this.timeout(function () {
-                _this.transFinished = true;
-            }, 200);
 
             var cacheId = "repo-" + id;
             if (!(cacheId in this.registryService.cachedElements)) {
@@ -1349,7 +1333,6 @@ var portal;
 (function (portal) {
     'use strict';
 
-    // @TODO improve error/offline handling later
     var MethodsCtrl = (function () {
         function MethodsCtrl($scope, $timeout, $window, configService, methodsService, userService, $state, $modalInstance, id) {
             var _this = this;
@@ -1453,7 +1436,6 @@ else
 
             // @TODO change id creation later
             var id = this.userService.createId();
-
             this.userService.user.results.push(new portal.Result(this.database.id, id, this.currentMethod.path, data));
 
             // refresh localStorage
@@ -1480,7 +1462,6 @@ else {
             this.methodsService.loading = true;
             this.methodsService.status = '';
             this.methodsService.showError = false;
-
             this.methodsService.requestMethod(this.currentMethod.path, this.request).get(function (data, status) {
                 return _this.handleServiceData(data, status);
             }, function (error) {
@@ -1605,7 +1586,6 @@ var portal;
 (function (portal) {
     'use strict';
 
-    // @TODO improve error/offline handling later
     var UserDataCtrl = (function () {
         function UserDataCtrl($scope, $timeout, userService, $state, $modalInstance, $upload) {
             this.upload = [];
