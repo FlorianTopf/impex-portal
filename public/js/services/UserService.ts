@@ -45,8 +45,7 @@ module portal {
             })
             // saves current method state
             this.sessionStorage.$default({
-                methods: {}/*,
-                elements: {}*/
+                methods: {}
             })
             
             this.resource = $resource
@@ -75,7 +74,6 @@ module portal {
         }
         
         // calls delete on a specific userdata file
-        // @TODO what do we return in error case?
         public deleteUserData(name: string): IUserData {
             return this.UserData().delete({}, { 'name': name })
         }

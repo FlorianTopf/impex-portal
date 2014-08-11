@@ -16,10 +16,11 @@ module portal {
 
         public injection(): any[] {
             return [
+                'registryService',
                 'userService',
                 '$state',
-                (userService: portal.UserService, $state: ng.ui.IStateService) => 
-                    { return new UserDataDir(userService, $state); }
+                (registryService: portal.RegistryService, userService: portal.UserService, $state: ng.ui.IStateService) => 
+                    { return new UserDataDir(registryService, userService, $state); }
             ]
         }
 
@@ -38,13 +39,16 @@ module portal {
         public applyableModel: string = null
         // active tabs (first by default)
         public tabsActive: Array<boolean> = []
+        public selectables: Array<string> = []
 
+        private registryService: portal.RegistryService
         private userService: portal.UserService
         private state: ng.ui.IStateService
         private user: User
         private myScope: ng.IScope
 
-        constructor(userService: portal.UserService, $state: ng.ui.IStateService) {
+        constructor(registryService: portal.RegistryService, userService: portal.UserService, $state: ng.ui.IStateService) {
+            this.registryService = registryService
             this.userService = userService
             this.state = $state
             this.templateUrl = '/public/partials/templates/userdataDir.html'
@@ -58,32 +62,45 @@ module portal {
             $scope.userdirvm = this
             this.myScope = $scope
             this.user = this.userService.user
-            this.tabsActive = [true, false, false] // selections, votables, results
-            // for SINP models/outputs
-            this.applyableModel = null
             
             attributes.$observe('db', (id?: string)  => { 
+                this.selectables = this.registryService.selectables[id]
                 this.repositoryId = id
             })
             
-            // collapsing all selections on init
-            if(this.user.selections) {
-                this.user.selections.forEach((e) => {
-                    this.isCollapsed[e.id] = true
-                })
-            }
-            // collapsing all votables on init
-            if(this.user.voTables) {
-                this.user.voTables.forEach((e) => {
-                    this.isCollapsed[e.id] = true
-                })
-            }
-            // collapsing all results on init
-            if(this.user.results) {
-               this.user.results.forEach((e) => {
-                    this.isCollapsed[e.id] = true
-               })
-            }
+            // watch event when all content is loaded into the dir
+            this.myScope.$watch('$includeContentLoaded', (e) => {          
+                //console.log("UserDataDir loaded")     
+                // collapsing all selections on init
+                if(this.user.selections) {
+                    this.user.selections.forEach((e) => {
+                        this.isCollapsed[e.id] = true
+                    })
+                }
+                // collapsing all votables on init
+                if(this.user.voTables) {
+                    this.user.voTables.forEach((e) => {
+                        this.isCollapsed[e.id] = true
+                    })
+                }
+                // collapsing all results on init
+                if(this.user.results) {
+                    this.user.results.forEach((e) => {
+                        this.isCollapsed[e.id] = true
+                    })
+                }
+                // reset expanded selections  
+                this.currentSelection = []
+                // reset visible registry item
+                this.user.focusSelection = []
+                // reset applyables
+                this.applyableElements = []
+                this.applyableModel = null   
+                // init tabs
+                this.tabsActive = [true, false, false] // selections, votables, results
+                this.isSelApplyable = false
+                this.isVOTApplyable = false
+            })
             
             // comes from MethodsCtrl
             this.myScope.$on('set-applyable-elements', (e, elements: string) => {
@@ -121,32 +138,18 @@ module portal {
                 }      
             })
             
-            // comes from RegistryCtrl
-            this.myScope.$on('update-selections', (e, id: string) => {
-                this.isCollapsed[id] = false
-                // closing all other collapsibles
-                for(var rId in this.isCollapsed) {
-                    if(rId != id)
-                        this.isCollapsed[rId] = true
-                }
-                // reset expanded selection
-                this.currentSelection = []
-                this.currentSelection.push(this.user.selections.filter((e) => e.id == id)[0])
-                // set selections tab active
-                this.tabsActive = this.tabsActive.map((t) => t = false)
-                this.tabsActive[0] = true
-            })
-            
             // comes from UserDataCtrl
             this.myScope.$on('update-votables', (e, id: string) => {
+                // reset expanded selection
+                this.currentSelection = []
+                // reset visible registry item
+                this.user.focusSelection = []
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
                 for(var rId in this.isCollapsed) {
                     if(rId != id)
                         this.isCollapsed[rId] = true
                 }
-                // reset expanded selection
-                this.currentSelection = []
                 // set votable tab active
                 this.tabsActive = this.tabsActive.map((t) => t = false)
                 this.tabsActive[1] = true
@@ -155,37 +158,39 @@ module portal {
             
             // comes from MethodsCtrl
             this.myScope.$on('update-results', (e, id: string) => {
+                // reset expanded selection
+                this.currentSelection = []
+                // reset visible registry item
+                this.user.focusSelection = []
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
                 for(var rId in this.isCollapsed) {
                     if(rId != id)
                         this.isCollapsed[rId] = true
                 }
-                // reset expanded selection
-                this.currentSelection = []
                 // set result tab active
                 this.tabsActive = this.tabsActive.map((t) => t = false)
                 this.tabsActive[2] = true
             })
             
-            // watch event when all content is loaded into the dir
-            this.myScope.$watch('$includeContentLoaded', (e) => {          
-                //console.log("UserDataDir loaded")            
-                // collapse all on enter
-                for(var id in this.isCollapsed)
-                   this.isCollapsed[id] = true
-                // reset expanded selections  
-                this.currentSelection = []
-                // reset also applyables
-                this.applyableElements = []
-                this.isSelApplyable = false
-                this.isVOTApplyable = false
-            })
+        }
+        
+        public isSelectable(type: string): boolean {
+            // hack for static SINP models => not selectable
+            if(type == 'SimulationModel' && 
+                this.repositoryId.indexOf('SINP') != -1) {
+                // there is always only one
+                if(this.user.focusSelection[0].elem.resourceId.indexOf('Static') != -1)
+                    return false
+                else
+                    return true
+            } else
+                return this.selectables.indexOf(type) != -1
         }
          
         public toggleSelectionDetails(id: string) {
-            // reset expanded selection
-            this.currentSelection = []
+            // reset visible registry item
+            this.user.focusSelection = []
             if(this.isCollapsed[id]) { // if it is closed 
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
@@ -211,7 +216,7 @@ module portal {
                             this.isSelApplyable = false
                     }  
                 }
-                this.currentSelection.push(selection)
+                this.currentSelection = [selection]
                 
             } else {
                 this.isCollapsed[id] = true
@@ -223,6 +228,8 @@ module portal {
         public toggleDetails(id: string) {
             // reset expanded selection
             this.currentSelection = []
+            // reset visible registry item
+            this.user.focusSelection = null
             if(this.isCollapsed[id]) { // if it is closed
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
@@ -269,6 +276,31 @@ module portal {
             this.userService.localStorage.results = this.userService.user.results
             // delete collapsed info
             delete this.isCollapsed[id]
+        }
+        
+        public saveSelection(type: string, elem: SpaseElem) {
+            // @TODO change id creation later
+            var id = this.userService.createId()
+            this.userService.user.selections.push(
+                new Selection(this.repositoryId, id, type, elem))
+            // refresh localStorage
+            this.userService.localStorage.selections = this.userService.user.selections
+            //this.myScope.$broadcast('update-selections', id)
+                
+            // reset expanded selection
+            this.currentSelection = []
+            // reset visible registry item
+            this.user.focusSelection = []
+            this.isCollapsed[id] = false
+            // closing all other collapsibles
+            for(var rId in this.isCollapsed) {
+                if(rId != id)
+                    this.isCollapsed[rId] = true
+            }
+            this.currentSelection.push(this.user.selections.filter((e) => e.id == id)[0])
+            // set selections tab active
+            this.tabsActive = this.tabsActive.map((t) => t = false)
+            this.tabsActive[0] = true
         }
         
         

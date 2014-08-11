@@ -39,7 +39,6 @@ module portal {
         public numericalOutputs: Array<NumericalOutput> = []
         public granules: Array<Granule> = []
         public activeItems: IActiveMap = {}
-        public selectables: Array<string> = []
         
         private myScope: IRegistryDirScope
         private registryService: portal.RegistryService
@@ -59,7 +58,6 @@ module portal {
             $scope.regdirvm = this
             
             attributes.$observe('db', (id?: string)  => { 
-                this.selectables = this.registryService.selectables[id]
                 this.repositoryId = id
             })
 
@@ -68,20 +66,11 @@ module portal {
                 this.status = msg
             })
             
-            this.myScope.$on('clear-registry-error', (e) => {
-                this.showError = false
-                this.status = ''
-            })
-            
-            this.myScope.$on('clear-registry', (e) => {
-                //console.log("clearing registry")
+            this.myScope.$watch('$includeContentLoaded', (e) => {
+                //console.log("RegistryDir loaded")   
                 this.activeItems = {}
                 this.showError = false
-                this.repositories = []
-                this.simulationModels = []
-                this.simulationRuns = []
-                this.numericalOutputs = []
-                this.granules = []
+                this.status = ''
             })
             
             this.myScope.$on('clear-simulation-models', (e) => {
@@ -142,27 +131,13 @@ module portal {
             
         }
         
-        public isSelectable(type: string): boolean {
-            // hack for static SINP models => not selectable
-            if(this.activeItems[type] && 
-                type == 'SimulationModel' && 
-                this.repositoryId.indexOf('SINP') != -1) {
-                if(this.activeItems['SimulationModel'].resourceId.indexOf('Static') != -1)
-                    return false
-                else
-                    return true
-            } else
-                return this.selectables.indexOf(type) != -1
-        }
-        
         public setActive(type: string, element: SpaseElem) {
             this.activeItems[type] = element
-            //this.userService.sessionStorage.elements[this.repositoryId] = this.activeItems
+            this.userService.user.setFocus(type, element)
         }
         
         public setInactive(type: string) {
             this.activeItems[type] = null
-            //this.userService.sessionStorage.elements[this.repositoryId] = this.activeItems
         }
         
         public isActive(type: string, element: SpaseElem): boolean {
@@ -179,17 +154,6 @@ module portal {
         public format(name: string): string {
             return name.split("_").join(" ").trim()
         }
-        
-        public saveSelection(type: string) {
-            // @TODO change id creation later
-            var id = this.userService.createId()
-            this.userService.user.selections.push(
-                new Selection(this.repositoryId, id, type, this.activeItems[type]))
-            // refresh localStorage
-            this.userService.localStorage.selections = this.userService.user.selections
-            this.myScope.$broadcast('update-selections', id)
-        }
-
         
     }
 

@@ -39,6 +39,20 @@
 		</tabset>
 	</div>
 	<div class="col-sm-8">
+		<div ng-repeat="sel in userdirvm.user.focusSelection">
+			<div class="well well-sm" style="max-height: 450px; overflow-y: auto;">
+				<div style="float: right;">
+					<button type="button" class="btn btn-success btn-sm" 
+						style="margin-right: 5px;"
+						ng-disabled="!userdirvm.isSelectable(sel.type)" 
+						ng-click="userdirvm.saveSelection(sel.type, sel.elem)">Select</button>
+				</div>
+				<h4>Tree Details: {{ sel.type }}</h4>
+				<p style="word-wrap: break-word;">
+					<selection-dir selection="sel.elem"></selection-dir>
+				</p>
+			</div>
+		</div>
 		<div ng-repeat="sel in userdirvm.currentSelection" ng-hide="userdirvm.isCollapsed[sel.id]">
 			<div class="well well-sm" style="max-height: 450px; overflow-y: auto;">
 				<div style="float: right;">

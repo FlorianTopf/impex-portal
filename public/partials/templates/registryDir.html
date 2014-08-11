@@ -65,35 +65,7 @@
 			</button> 
 		</div>
 		<div class="btn-group-vertical" style="vertical-align: top;">
-			<button type="button" class="btn btn-primary btn-sm"
-				ng-show="regdirvm.isSelectable('SimulationModel') && 
-				!(regdirvm.activeItems['SimulationModel'] | isEmpty)"
-				ng-disabled="regvm.loading"
-				ng-click="regdirvm.saveSelection('SimulationModel')">
-				Select Simulation Model
-			</button>
-			<button type="button" class="btn btn-primary btn-sm"
-				ng-show="regdirvm.isSelectable('SimulationRun') && 
-				!(regdirvm.activeItems['SimulationRun'] | isEmpty)"
-				ng-disabled="regvm.loading"
-				ng-click="regdirvm.saveSelection('SimulationRun')">
-				Select Simulation Run
-			</button>
-			<button type="button" class="btn btn-primary btn-sm"
-				ng-show="regdirvm.isSelectable('NumericalOutput') && 
-				!(regdirvm.activeItems['NumericalOutput'] | isEmpty)"
-				ng-disabled="regvm.loading"
-				ng-click="regdirvm.saveSelection('NumericalOutput')">
-				Select Numerical Output
-			</button>
-			<button type="button" class="btn btn-primary btn-sm"
-				ng-show="!(regdirvm.activeItems['Granule'] | isEmpty)"
-				ng-disabled="regvm.loading"
-				ng-click="regdirvm.saveSelection('Granule')">
-				Select Granule
-			</button>
-			<!-- div class="error" style="margin-top: 15px; margin-left: 15px;" ng-if="regdirvm.showError">{{ regdirvm.status }}</div-->
-			<div style="margin-top: 15px; margin-left: 15px;" ng-if="regvm.loading" >
+			<div style="margin-left: 15px;" ng-if="regvm.loading" >
 				<img src="/public/img/layout/loading.gif" class="loadingImg-sm" alt="loading..." />
 			</div>
 		</div>

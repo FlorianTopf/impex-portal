@@ -49,7 +49,6 @@ module portal {
         }
         
         public getRepository(id: string) {
-            this.scope.$broadcast('clear-registry')
             this.initialising = true
             this.transFinished = false
             // aligned with standard transition time of accordion
@@ -71,6 +70,7 @@ module portal {
             }
         }
         
+        // takes repository id
         public getSimulationModel(id: string) {
             this.scope.$broadcast('clear-simulation-models')
             this.loading = true
@@ -91,6 +91,7 @@ module portal {
             }
         }
         
+        // takes simulation model
         public getSimulationRun(element: SpaseElem) {
             this.scope.$broadcast('clear-simulation-runs', element)
             this.loading = true
@@ -116,6 +117,7 @@ module portal {
             }
         }
         
+        // takes simulation run
         public getNumericalOutput(element: SpaseElem) {
             this.scope.$broadcast('clear-numerical-outputs', element)
             this.loading = true
@@ -141,6 +143,7 @@ module portal {
             }      
         }
         
+        // takes numerical output
         public getGranule(element: SpaseElem) {
             this.scope.$broadcast('clear-granules', element)
             this.loading = true
@@ -169,16 +172,10 @@ module portal {
         // methods for modal
         public saveRegistry() {
             this.modalInstance.close()
-            this.scope.$broadcast('clear-registry-error')
-            // @TODO just for the moment
-            this.scope.$broadcast('clear-registry')
         }
         
         public cancelRegistry() {
             this.modalInstance.dismiss()
-            this.scope.$broadcast('clear-registry-error')
-            // @TODO just for the moment
-            this.scope.$broadcast('clear-registry')
         }
         
     
