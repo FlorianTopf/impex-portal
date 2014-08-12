@@ -833,27 +833,14 @@ var portal;
     })();
     portal.Selection = Selection;
 
-    // focused selection of the registry
-    var FocusSelection = (function () {
-        function FocusSelection(type, elem) {
-            this.type = type;
-            this.elem = elem;
-        }
-        return FocusSelection;
-    })();
-    portal.FocusSelection = FocusSelection;
-
     var User = (function () {
         function User(id) {
             this.id = id;
             this.results = [];
             this.selections = [];
             this.voTables = [];
-            this.focusSelection = [];
+            this.activeSelection = [];
         }
-        User.prototype.setFocus = function (type, elem) {
-            this.focusSelection = [new FocusSelection(type, elem)];
-        };
         return User;
     })();
     portal.User = User;
@@ -1434,7 +1421,7 @@ else
             this.methodsService.loading = false;
             this.methodsService.status = 'success';
 
-            // @TODO change id creation later
+            // new result id
             var id = this.userService.createId();
             this.userService.user.results.push(new portal.Result(this.database.id, id, this.currentMethod.path, data));
 
@@ -1826,7 +1813,11 @@ var portal;
 
         RegistryDir.prototype.setActive = function (type, element) {
             this.activeItems[type] = element;
-            this.userService.user.setFocus(type, element);
+
+            // new selection id
+            var id = this.userService.createId();
+            this.userService.user.activeSelection = [new portal.Selection(this.repositoryId, id, type, element)];
+            this.myScope.$broadcast('update-selections', id);
         };
 
         RegistryDir.prototype.setInactive = function (type) {
@@ -1862,8 +1853,6 @@ var portal;
             var _this = this;
             this.repositoryId = null;
             this.isCollapsed = {};
-            // current resource selection which is fully displayed
-            this.currentSelection = [];
             // currently applyable elements (according to current method)
             this.applyableElements = [];
             this.isSelApplyable = false;
@@ -1925,10 +1914,7 @@ var portal;
                 }
 
                 // reset expanded selections
-                _this.currentSelection = [];
-
-                // reset visible registry item
-                _this.user.focusSelection = [];
+                _this.user.activeSelection = [];
 
                 // reset applyables
                 _this.applyableElements = [];
@@ -1947,9 +1933,9 @@ var portal;
                     return e.trim();
                 });
                 _this.isSelApplyable = false;
-                if (_this.currentSelection.length == 1) {
+                if (_this.user.activeSelection.length == 1) {
                     _this.applyableElements.forEach(function (e) {
-                        if (_this.currentSelection[0].type == e)
+                        if (_this.user.activeSelection[0].type == e)
                             _this.isSelApplyable = true;
                     });
                 }
@@ -1966,24 +1952,37 @@ var portal;
                 //console.log(m)
                 //console.log('set-applyable-models')
                 _this.applyableModel = m;
-                if (_this.currentSelection.length == 1) {
-                    var elem = _this.currentSelection[0];
+                if (_this.user.activeSelection.length == 1) {
+                    var element = _this.user.activeSelection[0];
                     var output = _this.applyableModel.replace('SimulationModel', 'NumericalOutput');
-                    var index = elem.elem.resourceId.indexOf(output.replace('OnFly', ''));
-                    if (_this.applyableModel == elem.elem.resourceId || index != -1)
+                    var index = element.elem.resourceId.indexOf(output.replace('OnFly', ''));
+                    if (_this.applyableModel == element.elem.resourceId || index != -1)
                         _this.isSelApplyable = true;
 else
                         _this.isSelApplyable = false;
                 }
             });
 
+            // comes from RegistryDir
+            this.myScope.$on('update-selections', function (e, id) {
+                _this.isCollapsed[id] = false;
+
+                for (var rId in _this.isCollapsed) {
+                    if (rId != id)
+                        _this.isCollapsed[rId] = true;
+                }
+
+                // set selections tab active
+                _this.tabsActive = _this.tabsActive.map(function (t) {
+                    return t = false;
+                });
+                _this.tabsActive[0] = true;
+            });
+
             // comes from UserDataCtrl
             this.myScope.$on('update-votables', function (e, id) {
                 // reset expanded selection
-                _this.currentSelection = [];
-
-                // reset visible registry item
-                _this.user.focusSelection = [];
+                _this.user.activeSelection = [];
                 _this.isCollapsed[id] = false;
 
                 for (var rId in _this.isCollapsed) {
@@ -2001,10 +2000,7 @@ else
             // comes from MethodsCtrl
             this.myScope.$on('update-results', function (e, id) {
                 // reset expanded selection
-                _this.currentSelection = [];
-
-                // reset visible registry item
-                _this.user.focusSelection = [];
+                _this.user.activeSelection = [];
                 _this.isCollapsed[id] = false;
 
                 for (var rId in _this.isCollapsed) {
@@ -2022,7 +2018,7 @@ else
 
         UserDataDir.prototype.isSelectable = function (type) {
             if (type == 'SimulationModel' && this.repositoryId.indexOf('SINP') != -1) {
-                if (this.user.focusSelection[0].elem.resourceId.indexOf('Static') != -1)
+                if (this.user.activeSelection[0].elem.resourceId.indexOf('Static') != -1)
                     return false;
 else
                     return true;
@@ -2030,9 +2026,42 @@ else
                 return this.selectables.indexOf(type) != -1;
         };
 
+        UserDataDir.prototype.isSelSaved = function (id) {
+            if (this.user.selections.filter(function (s) {
+                return s.id == id;
+            }).length == 1)
+                return true;
+else
+                return false;
+        };
+
+        UserDataDir.prototype.saveSelection = function (type, elem) {
+            // get active selection
+            var selection = this.user.activeSelection.filter(function (e) {
+                return e.elem === elem;
+            })[0];
+            this.isCollapsed[selection.id] = false;
+
+            for (var rId in this.isCollapsed) {
+                if (rId != selection.id)
+                    this.isCollapsed[rId] = true;
+            }
+
+            this.userService.user.selections.push(selection);
+
+            // refresh localStorage
+            this.userService.localStorage.selections = this.userService.user.selections;
+
+            // set selections tab active
+            this.tabsActive = this.tabsActive.map(function (t) {
+                return t = false;
+            });
+            this.tabsActive[0] = true;
+        };
+
         UserDataDir.prototype.toggleSelectionDetails = function (id) {
-            // reset visible registry item
-            this.user.focusSelection = [];
+            // reset expanded selection
+            this.user.activeSelection = [];
             if (this.isCollapsed[id]) {
                 this.isCollapsed[id] = false;
 
@@ -2058,7 +2087,7 @@ else
                             this.isSelApplyable = false;
                     }
                 }
-                this.currentSelection = [selection];
+                this.user.activeSelection = [selection];
             } else {
                 this.isCollapsed[id] = true;
 
@@ -2069,10 +2098,7 @@ else
 
         UserDataDir.prototype.toggleDetails = function (id) {
             // reset expanded selection
-            this.currentSelection = [];
-
-            // reset visible registry item
-            this.user.focusSelection = null;
+            this.user.activeSelection = [];
             if (this.isCollapsed[id]) {
                 this.isCollapsed[id] = false;
 
@@ -2098,7 +2124,7 @@ else
             this.userService.localStorage.selections = this.userService.user.selections;
 
             // safely clear currentSelection
-            this.currentSelection = [];
+            this.user.activeSelection = [];
 
             // delete collapsed info
             delete this.isCollapsed[id];
@@ -2136,37 +2162,6 @@ else
 
             // delete collapsed info
             delete this.isCollapsed[id];
-        };
-
-        UserDataDir.prototype.saveSelection = function (type, elem) {
-            // @TODO change id creation later
-            var id = this.userService.createId();
-            this.userService.user.selections.push(new portal.Selection(this.repositoryId, id, type, elem));
-
-            // refresh localStorage
-            this.userService.localStorage.selections = this.userService.user.selections;
-
-            //this.myScope.$broadcast('update-selections', id)
-            // reset expanded selection
-            this.currentSelection = [];
-
-            // reset visible registry item
-            this.user.focusSelection = [];
-            this.isCollapsed[id] = false;
-
-            for (var rId in this.isCollapsed) {
-                if (rId != id)
-                    this.isCollapsed[rId] = true;
-            }
-            this.currentSelection.push(this.user.selections.filter(function (e) {
-                return e.id == id;
-            })[0]);
-
-            // set selections tab active
-            this.tabsActive = this.tabsActive.map(function (t) {
-                return t = false;
-            });
-            this.tabsActive[0] = true;
         };
         return UserDataDir;
     })();

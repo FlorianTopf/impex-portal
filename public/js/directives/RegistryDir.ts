@@ -133,7 +133,10 @@ module portal {
         
         public setActive(type: string, element: SpaseElem) {
             this.activeItems[type] = element
-            this.userService.user.setFocus(type, element)
+            // new selection id
+            var id = this.userService.createId()
+            this.userService.user.activeSelection = [new Selection(this.repositoryId, id, type, element)]
+            this.myScope.$broadcast('update-selections', id)
         }
         
         public setInactive(type: string) {

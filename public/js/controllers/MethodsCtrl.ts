@@ -112,7 +112,7 @@ module portal {
             //console.log('success: '+JSON.stringify(data.message))
             this.methodsService.loading = false
             this.methodsService.status = 'success'
-            // @TODO change id creation later
+            // new result id
             var id = this.userService.createId()
             this.userService.user.results.push(new Result(this.database.id, id, this.currentMethod.path, data))
             // refresh localStorage

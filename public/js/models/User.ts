@@ -20,32 +20,22 @@ module portal {
             public type: string,
             public elem: SpaseElem) {}
     }    
-    
-     // focused selection of the registry
-    export class FocusSelection {
-        constructor(
-            public type: string,
-            public elem: SpaseElem) {}
-    }
         
     export class User {
         public id: string
         public results: Array<Result>
         public selections: Array<Selection>
         public voTables: Array<IUserData>
-        public focusSelection: Array<FocusSelection>
+        public activeSelection: Array<Selection>
         
         constructor(id: string){
             this.id = id
             this.results = []
             this.selections = []
             this.voTables = []
-            this.focusSelection = []
+            this.activeSelection = []
         }
         
-       public setFocus(type: string, elem: SpaseElem) {
-            this.focusSelection = [new FocusSelection(type, elem)]
-        }
         
     }
 }

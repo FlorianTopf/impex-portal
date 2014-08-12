@@ -29,8 +29,6 @@ module portal {
         public restrict: string
         public repositoryId: string = null
         public isCollapsed: ICollapsedMap = {}
-        // current resource selection which is fully displayed
-        public currentSelection: Array<Selection> = []
         // currently applyable elements (according to current method)
         public applyableElements: Array<string> = []
         public isSelApplyable: boolean = false
@@ -90,9 +88,7 @@ module portal {
                     })
                 }
                 // reset expanded selections  
-                this.currentSelection = []
-                // reset visible registry item
-                this.user.focusSelection = []
+                this.user.activeSelection = []
                 // reset applyables
                 this.applyableElements = []
                 this.applyableModel = null   
@@ -107,10 +103,10 @@ module portal {
                //console.log('set-applyable-elements')
                this.applyableElements = elements.split(',').map((e) => e.trim())
                this.isSelApplyable = false
-               if(this.currentSelection.length == 1) {
+               if(this.user.activeSelection.length == 1) {
                     this.applyableElements.forEach((e) => {
                         //console.log("Element "+e)
-                        if(this.currentSelection[0].type == e)
+                        if(this.user.activeSelection[0].type == e)
                             this.isSelApplyable = true  
                     })
                }
@@ -127,23 +123,35 @@ module portal {
                 //console.log(m)
                 //console.log('set-applyable-models')
                 this.applyableModel = m 
-                if(this.currentSelection.length == 1) {
-                    var elem = this.currentSelection[0]
+                if(this.user.activeSelection.length == 1) {
+                    var element = this.user.activeSelection[0]
                     var output = this.applyableModel.replace('SimulationModel', 'NumericalOutput')
-                    var index = elem.elem.resourceId.indexOf(output.replace('OnFly', ''))
-                    if(this.applyableModel == elem.elem.resourceId || index != -1)
+                    var index = element.elem.resourceId.indexOf(output.replace('OnFly', ''))
+                    if(this.applyableModel == element.elem.resourceId || index != -1)
                         this.isSelApplyable = true
                     else
                         this.isSelApplyable = false
                 }      
             })
             
+            // comes from RegistryDir
+            this.myScope.$on('update-selections', (e, id: string) => {
+                this.isCollapsed[id] = false
+                // closing all other collapsibles
+                for(var rId in this.isCollapsed) {
+                    if(rId != id)
+                        this.isCollapsed[rId] = true
+                }
+                // set selections tab active
+                this.tabsActive = this.tabsActive.map((t) => t = false)
+                this.tabsActive[0] = true
+            })
+            
+            
             // comes from UserDataCtrl
             this.myScope.$on('update-votables', (e, id: string) => {
                 // reset expanded selection
-                this.currentSelection = []
-                // reset visible registry item
-                this.user.focusSelection = []
+                this.user.activeSelection = []
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
                 for(var rId in this.isCollapsed) {
@@ -159,9 +167,7 @@ module portal {
             // comes from MethodsCtrl
             this.myScope.$on('update-results', (e, id: string) => {
                 // reset expanded selection
-                this.currentSelection = []
-                // reset visible registry item
-                this.user.focusSelection = []
+                this.user.activeSelection = []
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
                 for(var rId in this.isCollapsed) {
@@ -180,17 +186,43 @@ module portal {
             if(type == 'SimulationModel' && 
                 this.repositoryId.indexOf('SINP') != -1) {
                 // there is always only one
-                if(this.user.focusSelection[0].elem.resourceId.indexOf('Static') != -1)
+                if(this.user.activeSelection[0].elem.resourceId.indexOf('Static') != -1)
                     return false
                 else
                     return true
             } else
                 return this.selectables.indexOf(type) != -1
         }
+        
+        public isSelSaved(id: string): boolean {
+            if(this.user.selections.filter((s) => s.id == id).length == 1)
+                return true
+            else
+                return false
+        }
+        
+        public saveSelection(type: string, elem: SpaseElem) { 
+            // get active selection
+            var selection = this.user.activeSelection.filter((e) => e.elem === elem)[0]
+            this.isCollapsed[selection.id] = false
+            // closing all other collapsibles
+            for(var rId in this.isCollapsed) {
+                if(rId != selection.id)
+                    this.isCollapsed[rId] = true
+            }
+            
+            this.userService.user.selections.push(selection)
+            // refresh localStorage
+            this.userService.localStorage.selections = this.userService.user.selections
+
+            // set selections tab active
+            this.tabsActive = this.tabsActive.map((t) => t = false)
+            this.tabsActive[0] = true
+        }
          
         public toggleSelectionDetails(id: string) {
-            // reset visible registry item
-            this.user.focusSelection = []
+            // reset expanded selection
+            this.user.activeSelection = []
             if(this.isCollapsed[id]) { // if it is closed 
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
@@ -216,7 +248,7 @@ module portal {
                             this.isSelApplyable = false
                     }  
                 }
-                this.currentSelection = [selection]
+                this.user.activeSelection = [selection]
                 
             } else {
                 this.isCollapsed[id] = true
@@ -227,9 +259,7 @@ module portal {
         
         public toggleDetails(id: string) {
             // reset expanded selection
-            this.currentSelection = []
-            // reset visible registry item
-            this.user.focusSelection = null
+            this.user.activeSelection = []
             if(this.isCollapsed[id]) { // if it is closed
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
@@ -250,7 +280,7 @@ module portal {
                 this.userService.user.selections.filter((e) => e.id != id)
             this.userService.localStorage.selections = this.userService.user.selections 
             // safely clear currentSelection
-            this.currentSelection = []
+            this.user.activeSelection = []
             // delete collapsed info
             delete this.isCollapsed[id]
         }
@@ -276,31 +306,6 @@ module portal {
             this.userService.localStorage.results = this.userService.user.results
             // delete collapsed info
             delete this.isCollapsed[id]
-        }
-        
-        public saveSelection(type: string, elem: SpaseElem) {
-            // @TODO change id creation later
-            var id = this.userService.createId()
-            this.userService.user.selections.push(
-                new Selection(this.repositoryId, id, type, elem))
-            // refresh localStorage
-            this.userService.localStorage.selections = this.userService.user.selections
-            //this.myScope.$broadcast('update-selections', id)
-                
-            // reset expanded selection
-            this.currentSelection = []
-            // reset visible registry item
-            this.user.focusSelection = []
-            this.isCollapsed[id] = false
-            // closing all other collapsibles
-            for(var rId in this.isCollapsed) {
-                if(rId != id)
-                    this.isCollapsed[rId] = true
-            }
-            this.currentSelection.push(this.user.selections.filter((e) => e.id == id)[0])
-            // set selections tab active
-            this.tabsActive = this.tabsActive.map((t) => t = false)
-            this.tabsActive[0] = true
         }
         
         
