@@ -29,32 +29,115 @@
 	</div>
 	<div class="row">
 		<div class="col-sm-12">
-			<!-- maybe use a directive with attributes here => currentMethod -->
+			<!-- @TODO use a directive with attributes here => currentMethod -->
 			<div ng-repeat="operation in methvm.currentMethod.operations" 
 				style="max-height: 500px; overflow-y: auto; overflow-x: hidden;">
 				<p><strong>{{ operation.summary }}:</strong>&nbsp;&nbsp;{{ operation.notes }}</p>
-					<!-- if paramType == 'query' -->
-					<div class="form-group" ng-repeat="parameter in operation.parameters" 
-						ng-show="parameter.paramType == 'query'" >	
-						<label class="col-sm-3 control-label">{{ parameter.description }}</label>
-						<div class="col-sm-7">
-						    <!-- normal inputs -->
-							<input ng-show="parameter['enum'] | isEmpty" 
-								type="text" class="form-control input-sm" 
-								ng-required="parameter.required" ng-model="methvm.request[parameter.name]"
-								ng-change="methvm.updateRequest(parameter.name)">
-						    <!-- enum inputs -->
-					    	<select class="form-control input-sm" ng-hide="parameter['enum'] | isEmpty"
-					    		ng-options="opt for opt in parameter['enum']" ng-required="parameter.required"
-					    		ng-change="methvm.updateRequest(parameter.name)" ng-model="methvm.request[parameter.name]">
-					    	</select>
-						</div>
-						<label class="col-sm-1 control-label">
-							<div class="text-left" ng-if="parameter.required">required</div>
-							<div class="text-left" ng-if="!parameter.required">optional</div>
-						</label>
+				<!-- if paramType == 'query' -->
+				<div ng-if="parameter.paramType == 'query'" class="row form-group" 
+					ng-repeat="parameter in operation.parameters">	
+					<label class="col-sm-3 control-label">{{ parameter.description }}</label>
+					<div class="col-sm-7">
+					    <!-- normal inputs -->
+						<input ng-show="parameter['enum'] | isEmpty" 
+							type="text" class="form-control input-sm" 
+							ng-required="parameter.required" ng-model="methvm.request[parameter.name]"
+							ng-change="methvm.updateRequest(parameter.name)">
+						<!-- enum inputs -->
+					    <select class="form-control input-sm" ng-hide="parameter['enum'] | isEmpty"
+					    	ng-options="opt for opt in parameter['enum']" ng-required="parameter.required"
+					   		ng-change="methvm.updateRequest(parameter.name)" ng-model="methvm.request[parameter.name]">
+					   	</select>
 					</div>
-					<!-- @TODO here we add a directive if paramType == 'body' (getVOTableUrl) -->
+					<label class="col-sm-1 control-label">
+						<div class="text-left" ng-if="parameter.required">required</div>
+						<div class="text-left" ng-if="!parameter.required">optional</div>
+					</label>
+				</div>
+				<!-- @TODO here we add a directive if paramType == 'body' (only getVOTableUrl atm) -->
+				<div ng-if="parameter.paramType == 'body'" ng-repeat="parameter in operation.parameters" >
+					<div class="row form-group">	
+						<label class="col-sm-3 control-label">Table Name</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control input-sm" 
+								ng-required="true" 
+								ng-model="methvm.request['Table_name']"
+								ng-change="methvm.updateRequest('Table_name')">
+						</div>
+						<label class="col-sm-1 control-label">required</label>
+					</div>
+					<div class="row form-group">
+						<label class="col-sm-3 control-label">Description</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control input-sm" 
+								ng-required="true" 
+								ng-model="methvm.request['Description']"
+								ng-change="methvm.updateRequest('Description')">
+						</div>
+						<label class="col-sm-1 control-label">required</label>
+					</div>
+					<div class="row form-group">
+						<label class="col-sm-3 control-label">Columns</label>
+						<div class="col-sm-7">
+							<input type="text" class="form-control input-sm" style="width: 20%; display: inline-block;"
+								ng-change="methvm.refreshVotableHeader()"
+								ng-model="methvm.votableColumns" 
+								ng-disabled="methvm.votableColumns">
+							<button type="button" class="btn btn-success btn-sm" 
+								ng-click="methvm.addVotableRow()"
+								ng-disabled="!methvm.votableColumns">Add Row</button>
+							<button type="button" class="btn btn-success btn-sm" 
+								ng-click="methvm.addVotableColumn()"
+								ng-disabled="!methvm.votableColumns">Add Column</button>
+						 	<button type="button" class="btn btn-danger btn-sm" 
+								ng-click="methvm.resetVotable()"
+								ng-disabled="!methvm.votableColumns">Reset Table</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-sm-10 col-sm-offset-1">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th class="text-center" ng-repeat="meta in methvm.votableMetadata track by $index">
+											<select class="form-control input-sm"
+												ng-options="key.name for key in meta" ng-model="methvm.selected[$index]">
+					    						<option value="">-- edit metadata --</option>
+					   						</select>
+					   						<input type="text" class="form-control input-sm" style="margin-top: 5px;"
+					   							ng-change="methvm.updateVotableHeader($index)"
+					   							ng-model="methvm.selected[$index].value" 
+					   							ng-disabled="methvm.selected[$index] == null">
+										</th>
+										<th style="width: 100px;">&nbsp;</th>
+									</tr>
+								</thead>
+								<tbody>  
+									<tr ng-repeat="(rowKey, row) in methvm.votableRows track by rowKey">
+										<td class="text-center" ng-repeat="(colKey, col) in row track by colKey">
+											<input type="text" class="form-control input-sm"
+												value="{{ col }}" ng-model="methvm.votableRows[rowKey][colKey]">
+										</td>
+										<td class="text-center">
+											<button type="button" class="btn btn-danger btn-sm" 
+												ng-click="methvm.deleteVotableRow($index)"
+												ng-disabled="!methvm.votableColumns">Delete Row</button>
+										</td>
+									</tr>
+								</tbody>
+								<tfoot ng-if="methvm.votableRows.length > 0">
+									<tr>
+										<td class="text-center" ng-repeat="col in methvm.votableRows[0] track by $index">
+											<button type="button" class="btn btn-danger btn-sm" 
+												ng-click="methvm.deleteVotableColumn($index)">Delete Column</button>
+										</td>
+										<td>&nbsp;</td>
+									</tr>
+								</tfoot>
+							</table>
+						</div>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

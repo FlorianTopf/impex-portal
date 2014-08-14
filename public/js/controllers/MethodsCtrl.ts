@@ -11,6 +11,12 @@ module portal {
     export interface IApplyableModels {
         [id: string]: Array<string>
     }
+    
+    // for getVOTableURL form
+    export interface IMetadata {
+        name: string
+        value: string
+    }
 
     export class MethodsCtrl {
         private scope: portal.IMethodsScope
@@ -32,6 +38,12 @@ module portal {
         public showError: boolean = false  
         public currentMethod: Api = null
         public request: Object = {}
+        // needed for VOTableURL => move to directive later
+        public votableRows: Array<Array<string>> = []
+        public votableColumns: number = null
+        public votableMetadata: Array<Array<IMetadata>> = []
+        public selected: Array<IMetadata> = []
+        
         
         static $inject: Array<string> = ['$scope', '$timeout', '$window', 'configService', 'methodsService', 
             'userService', '$state', '$modalInstance', 'id']
@@ -50,7 +62,7 @@ module portal {
             this.modalInstance = $modalInstance
             this.applyableModels = {}
             this.database = this.configService.getDatabase(id)
-            
+
             if(this.methodsService.methods) {
                 this.methods = this.methodsService.getMethods(this.database)
                 // check sessionStorage if there is a saved state
@@ -138,10 +150,19 @@ module portal {
             this.methodsService.loading = true
             this.methodsService.status = ''
             this.methodsService.showError = false
-            this.methodsService.requestMethod(this.currentMethod.path, this.request).get(
-                (data: IResponse, status: any) => this.handleServiceData(data, status),
-                (error: any) => this.handleServiceError(error)
-            )
+            
+            var httpMethod = this.currentMethod.operations[0].method
+            
+            if(httpMethod == 'GET') {
+                this.methodsService.requestMethod(this.currentMethod.path, this.request).get(
+                    (data: IResponse, status: any) => this.handleServiceData(data, status),
+                    (error: any) => this.handleServiceError(error))
+                // only getVOTableURL atm
+            } else if(httpMethod == 'POST') {
+                this.methodsService.requestMethod(this.currentMethod.path).save(this.request, 
+                    (data: IResponse, status: any) => this.handleServiceData(data, status),
+                    (error: any) => this.handleServiceError(error))
+            }                  
         }
         
         public retry() {
@@ -160,6 +181,8 @@ module portal {
             this.dropdownStatus.active = this.trimPath(method.path)
             this.currentMethod = method
             
+            // reset the request object
+            this.request = {}
             // there is only one operation per method
             this.currentMethod.operations[0].parameters.forEach((p) => {
                 this.request[p.name] = p.defaultValue     
@@ -236,6 +259,98 @@ module portal {
             //console.log("Update "+this.request[paramName])
             this.userService.sessionStorage.methods[this.database.id]
                 .params[paramName] = this.request[paramName]
+        }
+        
+        // used for getVOTableURL form
+        public refreshVotableHeader() {
+            for(var i = 0; i < this.votableColumns; i++) {
+                this.votableMetadata[i] = [
+                    {name:'name', value:''}, 
+                    {name:'ID', value: ''},
+                    {name:'unit', value:''}, 
+                    {name:'datatype', value:''}, 
+                    {name:'ucd', value:''}]
+                this.selected[i] = null
+             }
+            this.addVotableRow() // just add an empty row
+        }
+        
+        // used for getVOTableURL form
+        public updateVotableHeader(index: number) {
+            this.votableMetadata[index] = this.votableMetadata[index].map((m) => {
+                if(m.name == this.selected[index].name)
+                    return this.selected[index]
+                else
+                    return m
+            })
+            this.updateVOtableRequest()
+        }
+        
+        // used for getVOTableURL form
+        public addVotableRow() {
+            var arr = []
+            for(var i = 0; i < this.votableColumns; i++) {
+               arr[i] = "Field-"+(this.votableRows.length+1)+"-"+(i+1)
+            }
+            this.votableRows.push(arr)
+            this.updateVOtableRequest()
+        }
+        
+        // used for getVOTableURL form
+        public deleteVotableRow(index: number) {
+            this.votableRows.splice(index, 1)
+            if(this.votableRows.length == 0)
+                this.addVotableRow() // just add an empty row
+            else 
+                this.updateVOtableRequest()
+        }
+        
+        // used for getVOTableURL form
+        public addVotableColumn() {
+            this.votableColumns++
+            this.votableRows.forEach((r) => r.push("Field-"+this.votableColumns))
+            this.votableMetadata.push([
+                {name:'name', value:''}, 
+                {name:'ID', value:''},
+                {name:'unit', value:''}, 
+                {name:'datatype', value:''}, 
+                {name:'ucd', value:''}])
+            this.selected.push(null)
+            this.updateVOtableRequest()
+        }
+        
+        // used for getVOTableURL form
+        public deleteVotableColumn(index: number) {
+            this.votableColumns--
+            if(this.votableColumns == 0) 
+                this.resetVotable()  
+            else {    
+                this.votableRows.forEach((r) => r.splice(index, 1))
+                this.votableMetadata.splice(index, 1)
+                this.selected.splice(index, 1)
+            }
+            this.updateVOtableRequest()
+        }
+        
+        // used for getVOTableURL form
+        public resetVotable() {
+            this.votableColumns = null
+            this.votableRows = []    
+            this.votableMetadata = []
+            this.selected = []
+            this.updateVOtableRequest()
+        }
+        
+        // used for getVOTableURL form
+        public updateVOtableRequest() {
+           // filling the fields
+           this.request['Fields'] = this.votableMetadata.map((col, key) => {
+                var data: Array<string> = this.votableRows.map((r) => { return r[key] })  
+                var result: Object = {}
+                result['data'] = data
+                col.forEach((i) => { if(i.value != '') result[i.name] = i.value })
+                return result
+           })
         }
 
         // methods for modal

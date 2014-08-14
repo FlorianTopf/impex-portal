@@ -959,10 +959,14 @@ var portal;
             this.loading = false;
             this.status = '';
             this.showError = false;
-            // action descriptor for registry actions
+            // action descriptor for GET methods actions
             this.methodsAction = {
                 method: 'GET',
                 isArray: false
+            };
+            // action descriptor for POST methods actions
+            this.postMethodAction = {
+                method: 'POST'
             };
             this.resource = $resource;
         }
@@ -989,9 +993,9 @@ else
             }
         };
 
-        // generic method for requesting standard services (GET + params)
+        // generic method for requesting standard services (GET + params / POST)
         MethodsService.prototype.requestMethod = function (path, params) {
-            return this.resource(path, params, { requestMethod: this.methodsAction });
+            return this.resource(path, params, { requestMethod: this.methodsAction, postMethod: this.postMethodAction });
         };
         MethodsService.$inject = ['$resource'];
         return MethodsService;
@@ -1329,6 +1333,11 @@ var portal;
             this.showError = false;
             this.currentMethod = null;
             this.request = {};
+            // needed for VOTableURL => move to directive later
+            this.votableRows = [];
+            this.votableColumns = null;
+            this.votableMetadata = [];
+            this.selected = [];
             // helpers for methods modal
             this.dropdownStatus = {
                 isopen: false,
@@ -1449,11 +1458,23 @@ else {
             this.methodsService.loading = true;
             this.methodsService.status = '';
             this.methodsService.showError = false;
-            this.methodsService.requestMethod(this.currentMethod.path, this.request).get(function (data, status) {
-                return _this.handleServiceData(data, status);
-            }, function (error) {
-                return _this.handleServiceError(error);
-            });
+
+            var httpMethod = this.currentMethod.operations[0].method;
+
+            if (httpMethod == 'GET') {
+                this.methodsService.requestMethod(this.currentMethod.path, this.request).get(function (data, status) {
+                    return _this.handleServiceData(data, status);
+                }, function (error) {
+                    return _this.handleServiceError(error);
+                });
+                // only getVOTableURL atm
+            } else if (httpMethod == 'POST') {
+                this.methodsService.requestMethod(this.currentMethod.path).save(this.request, function (data, status) {
+                    return _this.handleServiceData(data, status);
+                }, function (error) {
+                    return _this.handleServiceError(error);
+                });
+            }
         };
 
         MethodsCtrl.prototype.retry = function () {
@@ -1466,6 +1487,9 @@ else {
             var _this = this;
             this.dropdownStatus.active = this.trimPath(method.path);
             this.currentMethod = method;
+
+            // reset the request object
+            this.request = {};
 
             // there is only one operation per method
             this.currentMethod.operations[0].parameters.forEach(function (p) {
@@ -1541,6 +1565,112 @@ else
         MethodsCtrl.prototype.updateRequest = function (paramName) {
             //console.log("Update "+this.request[paramName])
             this.userService.sessionStorage.methods[this.database.id].params[paramName] = this.request[paramName];
+        };
+
+        // used for getVOTableURL form
+        MethodsCtrl.prototype.refreshVotableHeader = function () {
+            for (var i = 0; i < this.votableColumns; i++) {
+                this.votableMetadata[i] = [
+                    { name: 'name', value: '' },
+                    { name: 'ID', value: '' },
+                    { name: 'unit', value: '' },
+                    { name: 'datatype', value: '' },
+                    { name: 'ucd', value: '' }
+                ];
+                this.selected[i] = null;
+            }
+            this.addVotableRow();
+        };
+
+        // used for getVOTableURL form
+        MethodsCtrl.prototype.updateVotableHeader = function (index) {
+            var _this = this;
+            this.votableMetadata[index] = this.votableMetadata[index].map(function (m) {
+                if (m.name == _this.selected[index].name)
+                    return _this.selected[index];
+else
+                    return m;
+            });
+            this.updateVOtableRequest();
+        };
+
+        // used for getVOTableURL form
+        MethodsCtrl.prototype.addVotableRow = function () {
+            var arr = [];
+            for (var i = 0; i < this.votableColumns; i++) {
+                arr[i] = "Field-" + (this.votableRows.length + 1) + "-" + (i + 1);
+            }
+            this.votableRows.push(arr);
+            this.updateVOtableRequest();
+        };
+
+        // used for getVOTableURL form
+        MethodsCtrl.prototype.deleteVotableRow = function (index) {
+            this.votableRows.splice(index, 1);
+            if (this.votableRows.length == 0)
+                this.addVotableRow();
+else
+                this.updateVOtableRequest();
+        };
+
+        // used for getVOTableURL form
+        MethodsCtrl.prototype.addVotableColumn = function () {
+            var _this = this;
+            this.votableColumns++;
+            this.votableRows.forEach(function (r) {
+                return r.push("Field-" + _this.votableColumns);
+            });
+            this.votableMetadata.push([
+                { name: 'name', value: '' },
+                { name: 'ID', value: '' },
+                { name: 'unit', value: '' },
+                { name: 'datatype', value: '' },
+                { name: 'ucd', value: '' }
+            ]);
+            this.selected.push(null);
+            this.updateVOtableRequest();
+        };
+
+        // used for getVOTableURL form
+        MethodsCtrl.prototype.deleteVotableColumn = function (index) {
+            this.votableColumns--;
+            if (this.votableColumns == 0)
+                this.resetVotable();
+else {
+                this.votableRows.forEach(function (r) {
+                    return r.splice(index, 1);
+                });
+                this.votableMetadata.splice(index, 1);
+                this.selected.splice(index, 1);
+            }
+            this.updateVOtableRequest();
+        };
+
+        // used for getVOTableURL form
+        MethodsCtrl.prototype.resetVotable = function () {
+            this.votableColumns = null;
+            this.votableRows = [];
+            this.votableMetadata = [];
+            this.selected = [];
+            this.updateVOtableRequest();
+        };
+
+        // used for getVOTableURL form
+        MethodsCtrl.prototype.updateVOtableRequest = function () {
+            var _this = this;
+            // filling the fields
+            this.request['Fields'] = this.votableMetadata.map(function (col, key) {
+                var data = _this.votableRows.map(function (r) {
+                    return r[key];
+                });
+                var result = {};
+                result['data'] = data;
+                col.forEach(function (i) {
+                    if (i.value != '')
+                        result[i.name] = i.value;
+                });
+                return result;
+            });
         };
 
         // methods for modal

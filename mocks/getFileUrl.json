@@ -1,0 +1,109 @@
+{"VOTABLE": {
+    "DESCRIPTION": null,
+    "INFO": [],
+    "ID": null,
+    "version": "1.2",
+    "RESOURCE": [{
+        "DESCRIPTION": null,
+        "INFO": [],
+        "name": "LatHySGranules",
+        "ID": null,
+        "utype": null,
+        "type": "results",
+        "TABLE": [{
+            "DESCRIPTION": null,
+            "INFO": [],
+            "LINK": [],
+            "ID": null,
+            "name": "FileURLs",
+            "ucd": null,
+            "utype": null,
+            "FIELD": [
+                {
+                    "DESCRIPTION": null,
+                    "VALUES": null,
+                    "LINK": [],
+                    "ID": "ResourceID",
+                    "unit": null,
+                    "datatype": "char",
+                    "xtype": null,
+                    "name": "ResourceID",
+                    "ucd": "meta.id",
+                    "utype": null,
+                    "arraysize": "*",
+                    "type": null
+                },
+                {
+                    "DESCRIPTION": null,
+                    "VALUES": null,
+                    "LINK": [],
+                    "ID": "StartTime",
+                    "unit": null,
+                    "datatype": "char",
+                    "xtype": "dateTime",
+                    "name": "StartTime",
+                    "ucd": "time.epoch;time.start",
+                    "utype": null,
+                    "arraysize": "*",
+                    "type": null
+                },
+                {
+                    "DESCRIPTION": null,
+                    "VALUES": null,
+                    "LINK": [],
+                    "ID": "StopTime",
+                    "unit": null,
+                    "datatype": "char",
+                    "xtype": "dateTime",
+                    "name": "StopTime",
+                    "ucd": "time.epoch;time.stop",
+                    "utype": null,
+                    "arraysize": "*",
+                    "type": null
+                },
+                {
+                    "DESCRIPTION": null,
+                    "VALUES": null,
+                    "LINK": [],
+                    "ID": "URL",
+                    "unit": null,
+                    "datatype": "char",
+                    "xtype": null,
+                    "name": "URL",
+                    "ucd": "meta.ref.url",
+                    "utype": null,
+                    "arraysize": "*",
+                    "type": null
+                },
+                {
+                    "DESCRIPTION": null,
+                    "VALUES": null,
+                    "LINK": [],
+                    "ID": "ParentID",
+                    "unit": null,
+                    "datatype": "char",
+                    "xtype": null,
+                    "name": "ParentID",
+                    "ucd": "meta.id.parent",
+                    "utype": null,
+                    "arraysize": "*",
+                    "type": null
+                }
+            ],
+            "PARAM": [],
+            "DATA": {
+                "INFO": [],
+                "TABLEDATA": [{"TR": {
+                    "ID": null,
+                    "TD": [
+                        {"value": "spase://IMPEX/Granule/LATMOS/Hybrid/Mars_14_01_13/Mag/MEX/0.0/Mag_14_01_13_MEX_ephem_2007_07_0.0"},
+                        {"value": "2007-07-01T00:00:49.000"},
+                        {"value": "2007-07-31T23:57:08.000"},
+                        {"value": "http://impex.latmos.ipsl.fr/Hybrid/Mars_14_01_13/Mag_14_01_13_MEX_ephem_2007_07_0.0.xml"},
+                        {"value": "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_14_01_13/Mag/MEX/0.0"}
+                    ]
+                }}]
+            }
+        }]
+    }]
+}}

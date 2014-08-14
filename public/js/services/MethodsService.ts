@@ -11,6 +11,7 @@ module portal {
     // describes the actions for service methods
     export interface IMethodsResource extends ng.resource.IResourceClass<IResponse> {
         requestMethod(): IResponse
+        postMethod(): IResponse
     }
     
     export class MethodsService {
@@ -23,10 +24,15 @@ module portal {
         public status: string = ''
         public showError: boolean = false 
         
-        // action descriptor for registry actions
+        // action descriptor for GET methods actions
         private methodsAction: ng.resource.IActionDescriptor = {
             method: 'GET',
             isArray: false
+        }
+        
+        // action descriptor for POST methods actions
+        private postMethodAction: ng.resource.IActionDescriptor = {
+            method: 'POST'
         }
           
         constructor($resource: ng.resource.IResourceService) {
@@ -59,10 +65,10 @@ module portal {
             }
         }
         
-        // generic method for requesting standard services (GET + params)
-        public requestMethod(path: string, params: Object): IMethodsResource {
+        // generic method for requesting standard services (GET + params / POST)
+        public requestMethod(path: string, params?: Object): IMethodsResource {
             return <IMethodsResource> this.resource(path, params,
-                { requestMethod: this.methodsAction })
+                { requestMethod: this.methodsAction, postMethod: this.postMethodAction })
         }   
 
 
