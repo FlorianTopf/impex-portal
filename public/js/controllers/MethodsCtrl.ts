@@ -263,16 +263,18 @@ module portal {
         
         // used for getVOTableURL form
         public refreshVotableHeader() {
-            for(var i = 0; i < this.votableColumns; i++) {
-                this.votableMetadata[i] = [
-                    {name:'name', value:''}, 
-                    {name:'ID', value: ''},
-                    {name:'unit', value:''}, 
-                    {name:'datatype', value:''}, 
-                    {name:'ucd', value:''}]
-                this.selected[i] = null
-             }
-            this.addVotableRow() // just add an empty row
+            if(angular.isNumber(this.votableColumns)) {
+                for(var i = 0; i < this.votableColumns; i++) {
+                    this.votableMetadata[i] = [
+                        {name:'name', value:''}, 
+                        {name:'ID', value: ''},
+                        {name:'unit', value:''}, 
+                        {name:'datatype', value:''}, 
+                        {name:'ucd', value:''}]
+                    this.selected[i] = null
+                }
+                this.addVotableRow() // just add an empty row
+            }
         }
         
         // used for getVOTableURL form
