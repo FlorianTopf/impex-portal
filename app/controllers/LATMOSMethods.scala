@@ -587,7 +587,7 @@ object LATMOSMethods extends MethodsController {
         value = "Stop Time",
         defaultValue = "2010-01-01T19:00:00",
         required = true,
-        dataType = "datetime",
+        dataType = "dateTime",
         paramType = "query"),
     new ApiImplicitParam(
         name = "sampling",
