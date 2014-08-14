@@ -1569,17 +1569,19 @@ else
 
         // used for getVOTableURL form
         MethodsCtrl.prototype.refreshVotableHeader = function () {
-            for (var i = 0; i < this.votableColumns; i++) {
-                this.votableMetadata[i] = [
-                    { name: 'name', value: '' },
-                    { name: 'ID', value: '' },
-                    { name: 'unit', value: '' },
-                    { name: 'datatype', value: '' },
-                    { name: 'ucd', value: '' }
-                ];
-                this.selected[i] = null;
+            if (angular.isNumber(this.votableColumns)) {
+                for (var i = 0; i < this.votableColumns; i++) {
+                    this.votableMetadata[i] = [
+                        { name: 'name', value: '' },
+                        { name: 'ID', value: '' },
+                        { name: 'unit', value: '' },
+                        { name: 'datatype', value: '' },
+                        { name: 'ucd', value: '' }
+                    ];
+                    this.selected[i] = null;
+                }
+                this.addVotableRow();
             }
-            this.addVotableRow();
         };
 
         // used for getVOTableURL form
