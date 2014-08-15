@@ -7,7 +7,7 @@
 	</div>	
 	<h4>Upload VOTable files</h4>
 	<input type="file" ng-file-select="datavm.onFileSelect($files)" accept="text/xml" multiple onclick="this.value=null">
-	<div class="error" ng-show="datavm.showError">{{ datavm.status }}</div>
+	<p class="bg-danger text-danger" ng-show="datavm.showError">{{ datavm.status }}</p>
 	<div ng-show="datavm.selectedFiles != null" style="margin-top: 5px;">
 		<div class="sel-file" ng-repeat="f in datavm.selectedFiles">
 			<span class="progress" ng-show="datavm.progress[$index] >= 0">					

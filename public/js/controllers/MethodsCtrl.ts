@@ -18,6 +18,8 @@ module portal {
         value: string
     }
 
+    // @TODO this Controller needs major refactoring
+    // move stuff to directives 
     export class MethodsCtrl {
         private scope: portal.IMethodsScope
         private window: ng.IWindowService
@@ -187,14 +189,32 @@ module portal {
             this.currentMethod.operations[0].parameters.forEach((p) => {
                 this.request[p.name] = p.defaultValue     
             })
-            
             // refresh session storage
             if(this.database.id in this.userService.sessionStorage.methods) {
-                if(this.userService.sessionStorage.methods[this.database.id].path == this.currentMethod.path)
+                if(this.userService.sessionStorage.methods[this.database.id].path == this.currentMethod.path) {
                     this.request = this.userService.sessionStorage.methods[this.database.id].params
-                else
+                    // just updating the votableColumns if fields are present in the request
+                    if('Fields' in this.request) {
+                        this.votableColumns = this.request['Fields'].length
+                        var rows = this.request['Fields'][0].data.length
+                        for(var j=0; j<rows; j++)
+                            this.votableRows[j] = []
+                        for(var i=0; i<this.votableColumns; i++) {
+                            this.votableMetadata[i] = [
+                                {name:'name', value: this.request['Fields'][i].name}, 
+                                {name:'ID', value: this.request['Fields'][i].ID},
+                                {name:'unit', value: this.request['Fields'][i].unit}, 
+                                {name:'datatype', value: this.request['Fields'][i].datatype}, 
+                                {name:'ucd', value:  this.request['Fields'][i].ucd}]
+                            this.selected[i] = this.votableMetadata[i][0]
+                            for(var j=0; j<rows; j++)
+                                this.votableRows[j].push(this.request['Fields'][i].data[j])
+                        } 
+                    }
+                } else {
                     this.userService.sessionStorage.methods[this.database.id] = 
                         new MethodState(method.path, this.request) 
+                }
             } else {
                 this.userService.sessionStorage.methods[this.database.id] = 
                     new MethodState(method.path, this.request)
@@ -241,6 +261,21 @@ module portal {
         public trimPath(path: string): string {
             var splitPath = path.split('/').reverse()
             return splitPath[0]
+        }
+        
+        public resetRequest() {
+            // reset the request object
+            this.request = {}
+            // there is only one operation per method
+            this.currentMethod.operations[0].parameters.forEach((p) => {
+                this.request[p.name] = p.defaultValue     
+            })
+            // savely reset VOTableURL form
+            this.votableColumns = null
+            this.votableRows = []    
+            this.votableMetadata = []
+            this.selected = []
+            this.userService.sessionStorage.methods[this.database.id].params = this.request
         }
        
         // method for applying a selection to the current method

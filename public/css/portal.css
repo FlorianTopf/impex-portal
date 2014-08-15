@@ -33,8 +33,8 @@ body {
 	width: 33px;
 }
 
-.error {
-	color: red;
+.bg-danger {
+	padding: 15px;
 }
 
 .margin-ten {
