@@ -1,49 +1,84 @@
 'use strict'
 
 describe('ConfigCtrl', function() {
-	var scope, cService, uService, state, cfg;
+	var path= '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/'
+	
+	var scope, interval, cService, uService, state, cfg, uData, $httpBackend;
 	
 	beforeEach(angular.mock.module('portal'));
 	
-	
-	// @TODO what about $state?
-	// @TODO use httpbackend for simulation config 
-	beforeEach(angular.mock.inject(function($rootScope, configService, userService, $controller, $state) {
+	beforeEach(angular.mock.inject(function($rootScope, $interval, configService, 
+			userService, $state, $controller, _$httpBackend_) {
 
 		scope = $rootScope.$new();
+		interval = $interval
 		cService = configService;
 		uService = userService;
-		state = $state
-		cfg = {
-				"databases":[
-		            {"id":"spase://IMPEX/Repository/FMI/HYB","type":"simulation","name":"FMI-HYBRID","description":"FMI Hybrid web archive","dns":["impex-fp7.fmi.fi"],"methods":["/ws/Methods_FMI.wsdl"],"tree":["/ws/Tree_FMI_HYB.xml"],"protocol":["http"],"info":"http://hwa.fmi.fi/beta/login.php"},
-		            {"id":"spase://IMPEX/Repository/FMI/GUMICS","type":"simulation","name":"FMI-GUMICS","description":"FMI MHD web archive","dns":["impex-fp7.fmi.fi"],"methods":["/ws/Methods_FMI.wsdl"],"tree":["/ws/Tree_FMI_GUMICS.xml"],"protocol":["http"],"info":"http://hwa.fmi.fi/beta/login.php"},
-		            {"id":"spase://IMPEX/Repository/LATMOS","type":"simulation","name":"LATMOS","description":"LATMOS Hybrid simulations","dns":["impex.latmos.ipsl.fr"],"methods":["/Methods_LATMOS.wsdl"],"tree":["/tree.xml"],"protocol":["http"],"info":"http://impex.latmos.ipsl.fr/LatHyS.htm"},
-		            {"id":"spase://IMPEX/Repository/SINP","type":"simulation","name":"SINP","description":"SINP Paraboloid Model simulations","dns":["smdc.sinp.msu.ru"],"methods":["/impex/SINP_methods.wsdl"],"tree":["/impex/SINP_tree.xml"],"protocol":["http"],"info":"http://smdc.sinp.msu.ru/index.py?nav=model-para"},
-		            {"id":"spase://IMPEX/Repository/AMDA","type":"observation","name":"AMDA","description":"AMDA observational database","dns":["cdpp1.cesr.fr"],"methods":["/AMDA/php/AMDA_METHODS_WSDL.php?wsdl"],"tree":["/AMDA/data/WSRESULT/getObsDataTree_LocalParams.xml"],"protocol":["http"],"info":"http://clweb.cesr.fr/webservice.html"},
-		            {"id":"spase://IMPEX/Repository/CLWEB","type":"observation","name":"CLWeb","description":"CLWeb observational databases","dns":["clweb.cesr.fr"],"methods":["/Methods_CLWEB.wsdl"],"tree":["/clweb_tree.xml"],"protocol":["http"],"info":"http://clweb.cesr.fr/webservice.html"}],
-		        "tools":[
-		            {"name":"AMDA","description":"Multi-mission data analysis tool for space plasma physics","url":"http://amda.cdpp.eu","info":"http://amda.cdpp.eu/help.html"},
-		            {"name":"CLWeb","description":"Multi-mission space plasma data plotting tool","url":"http://clweb.cesr.fr","info":"http://clweb.cesr.fr/clweb_poster.pdf"},
-		            {"name":"3DView","description":"3D multi-mission visualisation tool","url":"http://3dview.cdpp.eu","info":"http://3dview.cdpp.eu/other/cdpp3dview_tutorial.pdf"}]};
+		state = $state;
+		$httpBackend = _$httpBackend_
+		
+		jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock/';
+		cfg = getJSONFixture('config.json');
+		uData = getJSONFixture('userData.json');
+		
+		$httpBackend.when('GET', '/methods/FMI/isAlive').respond(true);
+		$httpBackend.when('GET', '/methods/LATMOS/isAlive').respond(true);
+		$httpBackend.when('GET', '/methods/SINP/isAlive').respond(true);
+		$httpBackend.when('GET', '/config?&fmt=json').respond(cfg);
+		$httpBackend.when('GET', '/userdata').respond(uData);
+		// just serve an empty result here 
+		$httpBackend.when('GET', '/public/partials/portalMap.html').respond('');
 	
-		$controller('configCtrl', {$scope: scope, configService: cService, userService: uService, $state: state, config: cfg});
+		$controller('configCtrl', {$scope: scope, $interval: interval, configService: cService, 
+			userService: uService, $state: state, config: cfg, userData: uData});
 	}));
 	
 	it('should inject services', function(){
-		expect(scope.vm.configService).toBeDefined()
-		expect(scope.vm.userService).toBeDefined()
+		expect(scope.vm.interval).toBeDefined();
+		expect(scope.vm.configService).toBeDefined();
+		expect(scope.vm.userService).toBeDefined();
+		expect(scope.vm.state).toBeDefined();
 	});
 	
 	it('should resolve config', function(){
-		expect(scope.vm.configService.config).toBeDefined()
+		$httpBackend.flush();
+		expect(scope.vm.configService.config).toBeDefined();
+		expect(scope.vm.configService.config).toEqual(cfg);
 	});
 	
-	it('should resolve user', function(){
-		expect(scope.vm.userService.user).toBeDefined()
+	it('should resolve session userdata', function(){
+		$httpBackend.flush();
+		expect(scope.vm.userService.user.voTables).toBeDefined();
+		expect(scope.vm.userService.user.voTables).toEqual(uData);
 	});
 	
+	it('should initialise localStorage', function(){
+		expect(scope.vm.userService.localStorage).toBeDefined();
+		expect(scope.vm.userService.localStorage.results).toBeDefined();
+		expect(scope.vm.userService.localStorage.selections).toBeDefined();
+	})
 	
+	it('should create temporary user', function(){
+		expect(scope.vm.userService.user).toBeDefined();
+		expect(scope.vm.userService.user.id).toBeDefined();
+		expect(scope.vm.userService.user.results).toBeDefined();
+		expect(scope.vm.userService.user.selections).toBeDefined();
+	});
+	
+	it('should initialise isAlive map', function(){
+		$httpBackend.flush();
+		scope.vm.interval.flush();
+		expect(scope.vm.configService.aliveMap).toBeDefined()
+		for(var i = 0; i < cfg.databases.length; i++) {
+			// only simulations are used atm
+			if(cfg.databases[i].type == 'simulation')
+				expect(scope.vm.configService.aliveMap[cfg.databases[i].name]).toBeTruthy()
+			else
+				expect(scope.vm.configService.aliveMap[cfg.databases[i].name]).toBeUndefined()
+		}
+	});
+	
+
 });
 
 

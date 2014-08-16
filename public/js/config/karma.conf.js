@@ -21,7 +21,9 @@ module.exports = function(config) {
       '../libs/angular-mocks.js',
       '../libs/*.js',
       '../app.js',
-      '../test/*.specs.js'
+      '../test/*.specs.js',
+      '../config/jasmine-jquery.js',
+      {pattern: '../test/mock/*.json', watched: true, served: true, included: false},
     ],
 
 

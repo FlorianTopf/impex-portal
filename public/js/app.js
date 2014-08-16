@@ -1129,7 +1129,7 @@ var portal;
     'use strict';
 
     var PortalCtrl = (function () {
-        function PortalCtrl($scope, $timeout, configService, $state, $modal, growl) {
+        function PortalCtrl($scope, $timeout, configService, $state, growl) {
             var _this = this;
             this.ready = false;
             this.scope = $scope;
@@ -1137,7 +1137,6 @@ var portal;
             this.timeout = $timeout;
             this.configService = configService;
             this.state = $state;
-            this.modal = $modal;
             this.growl = growl;
 
             this.timeout(function () {
@@ -1145,7 +1144,7 @@ var portal;
                 _this.growl.warning('Configuration loaded, waiting for isAlive...');
             });
         }
-        PortalCtrl.$inject = ['$scope', '$timeout', 'configService', '$state', '$modal', 'growl'];
+        PortalCtrl.$inject = ['$scope', '$timeout', 'configService', '$state', 'growl'];
         return PortalCtrl;
     })();
     portal.PortalCtrl = PortalCtrl;
