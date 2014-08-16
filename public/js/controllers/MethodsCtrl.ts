@@ -29,6 +29,7 @@ module portal {
         private userService: portal.UserService 
         private state: ng.ui.IStateService
         private modalInstance: any
+        private growl: any
         private methodsPromise: ng.IPromise<any>
         // special applyables for SINP models/outputs
         private applyableModels: IApplyableModels
@@ -48,11 +49,11 @@ module portal {
         
         
         static $inject: Array<string> = ['$scope', '$timeout', '$window', 'configService', 'methodsService', 
-            'userService', '$state', '$modalInstance', 'id']
+            'userService', '$state', '$modalInstance', 'growl', 'id']
 
         constructor($scope: IMethodsScope, $timeout: ng.ITimeoutService, $window: ng.IWindowService, configService: portal.ConfigService, 
             methodsService: portal.MethodsService, userService: portal.UserService,
-            $state: ng.ui.IStateService, $modalInstance: any, id: string) {   
+            $state: ng.ui.IStateService, $modalInstance: any, growl: any, id: string) {   
             this.scope = $scope
             $scope.methvm = this   
             this.timeout = $timeout
@@ -62,6 +63,7 @@ module portal {
             this.userService = userService
             this.state = $state
             this.modalInstance = $modalInstance
+            this.growl = growl
             this.applyableModels = {}
             this.database = this.configService.getDatabase(id)
 
@@ -97,7 +99,7 @@ module portal {
         
         private handleAPIData(data: ISwagger, status?: any) {
             this.initialising = false
-            this.status = 'success'
+            //this.status = 'success'
             // we always get the right thing
             this.methodsService.methods = data
             this.methods = this.methodsService.getMethods(this.database)
@@ -138,12 +140,13 @@ module portal {
             //console.log('failure: '+error.status)
             this.methodsService.loading = false
             this.methodsService.showError = true
-            if(error.status == 404)
+            if(error.status == 404) {
                 this.methodsService.status = error.status+' resource not found'
-            else {
+            } else {
                 var response = <IResponse>error.data
                 this.methodsService.status = response.message
             }
+            this.growl.error(this.methodsService.status)
         }
         
         // method for submission
@@ -390,16 +393,12 @@ module portal {
            })
         }
 
-        // methods for modal
+        // method for modal
         public saveMethods() {
             this.modalInstance.close()
             this.methodsService.showError = false
         }
-        
-        public cancelMethods() {
-            this.modalInstance.dismiss()
-            this.methodsService.showError = false
-        }
+
         
     }
 }

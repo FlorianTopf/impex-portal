@@ -19,8 +19,10 @@ module portal {
                 'registryService',
                 'userService',
                 '$state',
-                (registryService: portal.RegistryService, userService: portal.UserService, $state: ng.ui.IStateService) => 
-                    { return new UserDataDir(registryService, userService, $state); }
+                'growl',
+                (registryService: portal.RegistryService, userService: portal.UserService,
+                $state: ng.ui.IStateService, growl: any) => 
+                    { return new UserDataDir(registryService, userService, $state, growl); }
             ]
         }
 
@@ -44,11 +46,14 @@ module portal {
         private state: ng.ui.IStateService
         private user: User
         private myScope: ng.IScope
+        private growl: any
 
-        constructor(registryService: portal.RegistryService, userService: portal.UserService, $state: ng.ui.IStateService) {
+        constructor(registryService: portal.RegistryService, userService: portal.UserService, 
+            $state: ng.ui.IStateService, growl: any) {
             this.registryService = registryService
             this.userService = userService
             this.state = $state
+            this.growl = growl
             this.templateUrl = '/public/partials/templates/userdataDir.html'
             this.restrict = 'E'
             this.link = ($scope: portal.IUserDataDirScope, element: JQuery, attributes: ng.IAttributes) => 
@@ -161,6 +166,7 @@ module portal {
                 // set votable tab active
                 this.tabsActive = this.tabsActive.map((t) => t = false)
                 this.tabsActive[1] = true
+                this.growl.success('Added VOTable to user data')
             
             })
             
@@ -177,6 +183,7 @@ module portal {
                 // set result tab active
                 this.tabsActive = this.tabsActive.map((t) => t = false)
                 this.tabsActive[2] = true
+                this.growl.success('Added service result to user data')
             })
             
         }
@@ -190,6 +197,8 @@ module portal {
                     return false
                 else
                     return true
+            } else if(type == 'Granule') {
+                return true
             } else
                 return this.selectables.indexOf(type) != -1
         }
@@ -218,6 +227,7 @@ module portal {
             // set selections tab active
             this.tabsActive = this.tabsActive.map((t) => t = false)
             this.tabsActive[0] = true
+            this.growl.success('Saved selection to user data.')
         }
          
         public toggleSelectionDetails(id: string) {
@@ -283,6 +293,7 @@ module portal {
             this.user.activeSelection = []
             // delete collapsed info
             delete this.isCollapsed[id]
+            this.growl.info('Deleted selection from user data')
         }
         
         public deleteVOTable(vot: IUserData) {
@@ -295,6 +306,7 @@ module portal {
             this.userService.deleteUserData(vot.url.split('/').reverse()[0])
             // delete collapsed info
             delete this.isCollapsed[vot.id]
+            this.growl.info('Deleted VOTable from user data')
         }
  		
         public deleteResult(id: string) {
@@ -306,6 +318,7 @@ module portal {
             this.userService.localStorage.results = this.userService.user.results
             // delete collapsed info
             delete this.isCollapsed[id]
+            this.growl.info('Deleted result from user data')
         }
         
         

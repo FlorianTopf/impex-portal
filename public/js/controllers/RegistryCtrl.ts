@@ -20,7 +20,6 @@ module portal {
         public isFirstOpen: boolean = true
         public initialising: boolean = false
         public loading: boolean = false
-        //public transFinished: boolean = true
         
         static $inject: Array<string> = ['$scope', '$timeout', 'configService', 'registryService', 
             '$state', '$modalInstance', 'id']
@@ -165,15 +164,11 @@ module portal {
             }  
         }
         
-        // methods for modal
+        // method for modal
         public saveRegistry() {
             this.modalInstance.close()
         }
-        
-        public cancelRegistry() {
-            this.modalInstance.dismiss()
-        }
-        
+
     
     }
 }

@@ -1,4 +1,8 @@
 <div class="modal-header">
+	<button type="button" class="close" ng-click="datavm.saveData()">
+		<span aria-hidden="true">&times;</span>
+		<span class="sr-only">Close</span>
+	</button>
 	<h3 class="modal-title">My Data</h3>
 </div>
 <div class="modal-body">
@@ -7,7 +11,6 @@
 	</div>	
 	<h4>Upload VOTable files</h4>
 	<input type="file" ng-file-select="datavm.onFileSelect($files)" accept="text/xml" multiple onclick="this.value=null">
-	<p class="bg-danger text-danger" ng-show="datavm.showError">{{ datavm.status }}</p>
 	<div ng-show="datavm.selectedFiles != null" style="margin-top: 5px;">
 		<div class="sel-file" ng-repeat="f in datavm.selectedFiles">
 			<span class="progress" ng-show="datavm.progress[$index] >= 0">					
@@ -17,8 +20,4 @@
 		</div>
 	</div>
 	<user-data-dir></user-data-dir>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="datavm.saveData()">Close</button>
-	<!-- button type="button" class="btn btn-warning" ng-click="datavm.cancelData()">Cancel</button-->
 </div>

@@ -30,8 +30,8 @@
 				ng-repeat="element in regdirvm.simulationModels" 
 				ng-click="regvm.getSimulationRun(element)" 
 				ng-class="{ active: regdirvm.isActive('SimulationModel', element) }"
-				tooltip-html-unsafe="{{ element.resourceHeader.resourceName }}
-					<br>{{ element.resourceHeader.releaseDate }}">
+				tooltip-html-unsafe="{{ element.resourceHeader.resourceName }}<br/>
+					{{ element.resourceHeader.releaseDate }}">
 					{{ regdirvm.trim(element.resourceHeader.resourceName) }}
 			</button>
 		</div> 
@@ -50,7 +50,7 @@
 				ng-repeat="element in regdirvm.numericalOutputs" 
 				ng-click="regvm.getGranule(element)" 
 				ng-class="{ active: regdirvm.isActive('NumericalOutput', element) }"
-				tooltip-html-unsafe="{{ element.resourceHeader.resourceName }}<br>
+				tooltip-html-unsafe="{{ element.resourceHeader.resourceName }}<br/>
 					{{ element.resourceHeader.releaseDate }}">
 					{{ regdirvm.trim(element.resourceHeader.resourceName) }}				
 			</button>
@@ -60,7 +60,7 @@
 				ng-repeat="element in regdirvm.granules"
 				ng-class="{ active: regdirvm.isActive('Granule', element) }"
 				ng-click="regdirvm.setActive('Granule', element)"
-				tooltip-html-unsafe="{{ element.releaseDate }}<br>{{ element.resourceId }}">
+				tooltip-html-unsafe="{{ element.releaseDate }}<br/>{{ element.resourceId }}">
 					{{ regdirvm.trim(element.resourceId) }}
 			</button> 
 		</div>
@@ -68,6 +68,7 @@
 			<div style="margin-left: 15px;" ng-if="regvm.loading" >
 				<img src="/public/img/layout/loading.gif" class="loadingImg-sm" alt="loading..." />
 			</div>
+			<!-- div class="error" style="margin-top: 15px; margin-left: 15px;" ng-if="regdirvm.showError">{{ regdirvm.status }}</div-->
 		</div>
 	</accordion-group>
 </accordion>

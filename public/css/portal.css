@@ -37,6 +37,10 @@ body {
 	padding: 15px;
 }
 
+.error {
+	color: red;
+}
+
 .margin-ten {
 	margin-right: 10px;
 }
@@ -142,6 +146,17 @@ button.dropdown-toggle {
 	font-size: smaller;
 	background: orange;
 	width: 0;
+}
+
+.modal.fade .modal-dialog, .modal.in .modal-dialog {
+	-webkit-transform: translate(0, 0);
+  	-ms-transform: translate(0, 0);
+  	transform: translate(0, 0);
+  	transition: opacity .15s linear;
+}
+
+.modal-header .close {
+	font-size: 30px;
 }
 
 

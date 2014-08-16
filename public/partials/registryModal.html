@@ -1,4 +1,8 @@
 <div class="modal-header">
+	<button type="button" class="close" ng-click="regvm.saveRegistry()">
+		<span aria-hidden="true">&times;</span>
+		<span class="sr-only">Close</span>
+	</button>
 	<h3 class="modal-title">{{ regvm.database.name }} Simulations</h3>
 </div>
 <div class="modal-body">
@@ -7,8 +11,4 @@
 	</div>	
 	<registry-dir db="{{ regvm.database.id }}"></registry-dir>
 	<user-data-dir db="{{ regvm.database.id }}"></user-data-dir>
-</div>
-<div class="modal-footer">
-	<button type="button" class="btn btn-primary" ng-click="regvm.saveRegistry()">Close</button>
-	<!-- button type="button" class="btn btn-warning" ng-click="regvm.cancelRegistry()">Cancel</button-->
 </div>

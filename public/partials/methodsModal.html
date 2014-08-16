@@ -1,8 +1,12 @@
-<form class="form-horizontal" role="form" ng-submit="methvm.submitMethod()">
 <div class="modal-header">
+	<button type="button" class="close" ng-click="methvm.saveMethods()">
+		<span aria-hidden="true">&times;</span>
+		<span class="sr-only">Close</span>
+	</button>
 	<h3 class="modal-title">{{ methvm.database.name }} Data Access</h3>
 </div>
 <div class="modal-body">
+<form class="form-horizontal" role="form" ng-submit="methvm.submitMethod()">
 	<div class="btn-group" dropdown is-open="methvm.dropdownStatus.isopen">
 		<button type="button" class="btn btn-primary dropdown-toggle">
         	{{ methvm.dropdownStatus.active }} <span class="caret"></span>
@@ -17,6 +21,11 @@
       	</ul>
 		<button type="button" class="btn btn-danger" style="margin-left: 5px;"
 		 ng-click="methvm.resetRequest()">Reset Form</button>
+		 	<button type="submit" class="btn btn-primary" style="margin-left: 5px;"
+		ng-show="methvm.dropdownStatus.active != 'Choose Method'">Request Data</button>
+	</div>
+	<div ng-show="methvm.methodsService.loading" style="display: inline-block;">
+		<img src="/public/img/throbber.gif" alt="loading..."/>
 	</div>
     <div class="row text-center">
 		<div ng-show="methvm.showError" class="col-sm-12">
@@ -169,21 +178,5 @@
 		</div>
 	</div>
 	<user-data-dir db="{{ methvm.database.id }}"></user-data-dir>
-	<div class="row">
-	<div class="col-sm-12">
-		<div class="btn-group-vertical">
-			<div ng-show="methvm.methodsService.loading">
-				<img src="/public/img/throbber.gif" alt="loading..."/>
-			</div>
-			<p class="bg-danger text-danger" ng-show="methvm.methodsService.showError">{{ methvm.methodsService.status }}</div>
-		</div>
-	</div>
-</div>
-</div>
-<div class="modal-footer">
-	<button type="submit" class="btn btn-primary" 
-		ng-show="methvm.dropdownStatus.active != 'Choose Method'">Request Data</button>
-	<button type="button" class="btn btn-primary" ng-click="methvm.saveMethods()">Close</button>
-	<!-- button type="button" class="btn btn-warning" ng-click="methvm.cancelMethods()">Cancel</button-->
-</div>
 </form>
+</div>

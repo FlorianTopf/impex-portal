@@ -1129,7 +1129,7 @@ var portal;
     'use strict';
 
     var PortalCtrl = (function () {
-        function PortalCtrl($scope, $timeout, configService, $state, $modal) {
+        function PortalCtrl($scope, $timeout, configService, $state, $modal, growl) {
             var _this = this;
             this.ready = false;
             this.scope = $scope;
@@ -1138,12 +1138,14 @@ var portal;
             this.configService = configService;
             this.state = $state;
             this.modal = $modal;
+            this.growl = growl;
 
             this.timeout(function () {
                 _this.ready = true;
+                _this.growl.warning('Configuration loaded, waiting for isAlive...');
             });
         }
-        PortalCtrl.$inject = ['$scope', '$timeout', 'configService', '$state', '$modal'];
+        PortalCtrl.$inject = ['$scope', '$timeout', 'configService', '$state', '$modal', 'growl'];
         return PortalCtrl;
     })();
     portal.PortalCtrl = PortalCtrl;
@@ -1298,13 +1300,9 @@ var portal;
             }
         };
 
-        // methods for modal
+        // method for modal
         RegistryCtrl.prototype.saveRegistry = function () {
             this.modalInstance.close();
-        };
-
-        RegistryCtrl.prototype.cancelRegistry = function () {
-            this.modalInstance.dismiss();
         };
         RegistryCtrl.$inject = [
             '$scope',
@@ -1327,7 +1325,7 @@ var portal;
     // @TODO this Controller needs major refactoring
     // move stuff to directives
     var MethodsCtrl = (function () {
-        function MethodsCtrl($scope, $timeout, $window, configService, methodsService, userService, $state, $modalInstance, id) {
+        function MethodsCtrl($scope, $timeout, $window, configService, methodsService, userService, $state, $modalInstance, growl, id) {
             var _this = this;
             this.methods = [];
             this.initialising = false;
@@ -1354,6 +1352,7 @@ var portal;
             this.userService = userService;
             this.state = $state;
             this.modalInstance = $modalInstance;
+            this.growl = growl;
             this.applyableModels = {};
             this.database = this.configService.getDatabase(id);
 
@@ -1400,8 +1399,8 @@ var portal;
         MethodsCtrl.prototype.handleAPIData = function (data, status) {
             var _this = this;
             this.initialising = false;
-            this.status = 'success';
 
+            //this.status = 'success'
             // we always get the right thing
             this.methodsService.methods = data;
             this.methods = this.methodsService.getMethods(this.database);
@@ -1445,12 +1444,13 @@ else
             //console.log('failure: '+error.status)
             this.methodsService.loading = false;
             this.methodsService.showError = true;
-            if (error.status == 404)
+            if (error.status == 404) {
                 this.methodsService.status = error.status + ' resource not found';
-else {
+            } else {
                 var response = error.data;
                 this.methodsService.status = response.message;
             }
+            this.growl.error(this.methodsService.status);
         };
 
         // method for submission
@@ -1715,14 +1715,9 @@ else {
             });
         };
 
-        // methods for modal
+        // method for modal
         MethodsCtrl.prototype.saveMethods = function () {
             this.modalInstance.close();
-            this.methodsService.showError = false;
-        };
-
-        MethodsCtrl.prototype.cancelMethods = function () {
-            this.modalInstance.dismiss();
             this.methodsService.showError = false;
         };
         MethodsCtrl.$inject = [
@@ -1734,6 +1729,7 @@ else {
             'userService',
             '$state',
             '$modalInstance',
+            'growl',
             'id'
         ];
         return MethodsCtrl;
@@ -1746,10 +1742,9 @@ var portal;
     'use strict';
 
     var UserDataCtrl = (function () {
-        function UserDataCtrl($scope, $timeout, userService, $state, $modalInstance, $upload) {
+        function UserDataCtrl($scope, $timeout, userService, $state, $modalInstance, $upload, growl) {
             this.upload = [];
             this.initialising = false;
-            this.showError = false;
             this.selectedFiles = [];
             this.progress = [];
             this.scope = $scope;
@@ -1759,13 +1754,13 @@ var portal;
             this.state = $state;
             this.modalInstance = $modalInstance;
             this.uploader = $upload;
+            this.growl = growl;
         }
         // @TODO add drag over later
         // see: https://github.com/danialfarid/angular-file-upload/blob/master/demo/war/js/upload.js
         UserDataCtrl.prototype.onFileSelect = function ($files) {
             this.selectedFiles = $files;
             this.progress = [];
-            this.showError = false;
             if (this.upload && this.upload.length > 0) {
                 for (var i = 0; i < this.upload.length; i++) {
                     if (this.upload[i] != null) {
@@ -1797,21 +1792,16 @@ var portal;
                 });
             }).error(function (response) {
                 if (response.status > 0) {
-                    _this.status = response.status + ': ' + response.data;
-                    _this.showError = true;
+                    _this.growl.error(response.status + ': ' + response.data);
                 }
             }).progress(function (evt) {
                 _this.progress[i] = Math.min(100, 100.0 * evt.loaded / evt.total);
             });
         };
 
-        // methods for modal
+        // method for modal
         UserDataCtrl.prototype.saveData = function () {
             this.modalInstance.close();
-        };
-
-        UserDataCtrl.prototype.cancelData = function () {
-            this.modalInstance.dismiss();
         };
         UserDataCtrl.$inject = [
             '$scope',
@@ -1819,7 +1809,8 @@ var portal;
             'userService',
             '$state',
             '$modalInstance',
-            '$upload'
+            '$upload',
+            'growl'
         ];
         return UserDataCtrl;
     })();
@@ -2021,7 +2012,7 @@ var portal;
     'use strict';
 
     var UserDataDir = (function () {
-        function UserDataDir(registryService, userService, $state) {
+        function UserDataDir(registryService, userService, $state, growl) {
             var _this = this;
             this.repositoryId = null;
             this.isCollapsed = {};
@@ -2037,6 +2028,7 @@ var portal;
             this.registryService = registryService;
             this.userService = userService;
             this.state = $state;
+            this.growl = growl;
             this.templateUrl = '/public/partials/templates/userdataDir.html';
             this.restrict = 'E';
             this.link = function ($scope, element, attributes) {
@@ -2048,8 +2040,9 @@ var portal;
                 'registryService',
                 'userService',
                 '$state',
-                function (registryService, userService, $state) {
-                    return new UserDataDir(registryService, userService, $state);
+                'growl',
+                function (registryService, userService, $state, growl) {
+                    return new UserDataDir(registryService, userService, $state, growl);
                 }
             ];
         };
@@ -2167,6 +2160,7 @@ else
                     return t = false;
                 });
                 _this.tabsActive[1] = true;
+                _this.growl.success('Added VOTable to user data');
             });
 
             // comes from MethodsCtrl
@@ -2185,6 +2179,7 @@ else
                     return t = false;
                 });
                 _this.tabsActive[2] = true;
+                _this.growl.success('Added service result to user data');
             });
         };
 
@@ -2194,6 +2189,8 @@ else
                     return false;
 else
                     return true;
+            } else if (type == 'Granule') {
+                return true;
             } else
                 return this.selectables.indexOf(type) != -1;
         };
@@ -2229,6 +2226,7 @@ else
                 return t = false;
             });
             this.tabsActive[0] = true;
+            this.growl.success('Saved selection to user data.');
         };
 
         UserDataDir.prototype.toggleSelectionDetails = function (id) {
@@ -2300,6 +2298,7 @@ else
 
             // delete collapsed info
             delete this.isCollapsed[id];
+            this.growl.info('Deleted selection from user data');
         };
 
         UserDataDir.prototype.deleteVOTable = function (vot) {
@@ -2318,6 +2317,7 @@ else
 
             // delete collapsed info
             delete this.isCollapsed[vot.id];
+            this.growl.info('Deleted VOTable from user data');
         };
 
         UserDataDir.prototype.deleteResult = function (id) {
@@ -2334,6 +2334,7 @@ else
 
             // delete collapsed info
             delete this.isCollapsed[id];
+            this.growl.info('Deleted result from user data');
         };
         return UserDataDir;
     })();
@@ -2441,7 +2442,7 @@ var portal;
 (function (portal) {
     'use strict';
 
-    var impexPortal = angular.module('portal', ['ui.bootstrap', 'ui.router', 'ngResource', 'ngStorage', 'angularFileUpload']);
+    var impexPortal = angular.module('portal', ['ui.bootstrap', 'ui.router', 'ngResource', 'ngStorage', 'angularFileUpload', 'angular-growl']);
 
     impexPortal.service('configService', portal.ConfigService);
     impexPortal.service('registryService', portal.RegistryService);
@@ -2482,6 +2483,14 @@ var portal;
                 'popupDelay': '0',
                 'appendToBody': 'true'
             });
+        }
+    ]);
+
+    // global growl config
+    impexPortal.config([
+        'growlProvider',
+        function (growlProvider) {
+            growlProvider.globalTimeToLive(4000);
         }
     ]);
 

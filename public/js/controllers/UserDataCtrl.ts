@@ -15,18 +15,17 @@ module portal {
         private modalInstance: any
         private uploader: any
         private upload: Array<any> = []
+        private growl: any
         
         public initialising: boolean = false
-        public status: string
-        public showError: boolean = false
         public selectedFiles: Array<any> = []  
         public progress: Array<number> = []
         
         static $inject: Array<string> = ['$scope', '$timeout', 'userService', '$state', 
-            '$modalInstance', '$upload']
+            '$modalInstance', '$upload', 'growl']
 
         constructor($scope: IUserDataScope, $timeout: ng.ITimeoutService, userService: portal.UserService,
-            $state: ng.ui.IStateService, $modalInstance: any, $upload: any) {   
+            $state: ng.ui.IStateService, $modalInstance: any, $upload: any, growl: any) {   
             this.scope = $scope
             $scope.datavm = this
             this.timeout = $timeout   
@@ -34,6 +33,7 @@ module portal {
             this.state = $state
             this.modalInstance = $modalInstance
             this.uploader = $upload
+            this.growl = growl
         }
         
         // @TODO add drag over later
@@ -41,7 +41,6 @@ module portal {
         public onFileSelect($files) {
             this.selectedFiles = $files
             this.progress = []
-            this.showError = false
             if (this.upload && this.upload.length > 0) {
                 for (var i=0; i < this.upload.length; i++) {
                     if (this.upload[i] != null) {
@@ -71,21 +70,16 @@ module portal {
                 })
             }).error((response) => {
                 if (response.status > 0) { 
-                    this.status = response.status + ': ' + response.data
-                    this.showError = true
+                    this.growl.error(response.status + ': ' + response.data)
                 }
             }).progress((evt) => {
                 this.progress[i] = Math.min(100, 100.0 * evt.loaded / evt.total)
             })
         }
         
-        // methods for modal
+        // method for modal
         public saveData() {
             this.modalInstance.close()
-        }
-        
-        public cancelData() {
-            this.modalInstance.dismiss()
         }
         
 

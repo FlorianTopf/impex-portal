@@ -4,7 +4,7 @@ module portal {
     'use strict';
 
     var impexPortal: ng.IModule = angular.module('portal', 
-        ['ui.bootstrap', 'ui.router', 'ngResource', 'ngStorage', 'angularFileUpload'])
+        ['ui.bootstrap', 'ui.router', 'ngResource', 'ngStorage', 'angularFileUpload', 'angular-growl'])
     
  
     impexPortal.service('configService', ConfigService)
@@ -48,6 +48,11 @@ module portal {
                 'animation': 'false',
                 'popupDelay': '0',
                 'appendToBody': 'true'})
+    }])
+    
+    // global growl config
+    impexPortal.config(['growlProvider', function(growlProvider) {
+        growlProvider.globalTimeToLive(4000);
     }])
     
      // custom filter for checking if an array is empty
