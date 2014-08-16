@@ -99,7 +99,7 @@ module portal {
         
         private handleAPIData(data: ISwagger, status?: any) {
             this.initialising = false
-            //this.status = 'success'
+            this.status = 'success'
             // we always get the right thing
             this.methodsService.methods = data
             this.methods = this.methodsService.getMethods(this.database)
