@@ -1,0 +1,1 @@
+{"id":"spase://IMPEX/Repository/FMI/HYB", "type":"simulation","name":"FMI-HYBRID", "description":"FMI Hybrid web archive", "dns":["impex-fp7.fmi.fi"], "methods":["/ws/Methods_FMI.wsdl"], "tree":["/ws/Tree_FMI_HYB.xml"], "protocol":["http"], "info":"http://hwa.fmi.fi/beta/login.php"}

@@ -8,22 +8,23 @@ describe('PortalCtrl', function() {
 	beforeEach(angular.mock.module('portal'));
 	
 	beforeEach(angular.mock.inject(function($rootScope, $timeout, configService, 
-			$controller, $state, growl, _$httpBackend_) {
+			$state, growl, $controller, _$httpBackend_) {
 
 		scope = $rootScope.$new();
-		timeout = $timeout
+		timeout = $timeout;
 		cService = configService;
-		state = $state
-		growlService = growl
-		$httpBackend = _$httpBackend_
+		state = $state;
+		growlService = growl;
+		$httpBackend = _$httpBackend_;
 		
-		jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock/';
+        jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock';
 		$httpBackend.when('GET', '/config?&fmt=json').respond(getJSONFixture('config.json'));
 		$httpBackend.when('GET', '/userdata').respond(getJSONFixture('userData.json'));
 		// just serve an empty result here 
 		$httpBackend.when('GET', '/public/partials/portalMap.html').respond('');
 		
-		$controller('portalCtrl', {$scope: scope, $timeout: timeout, $state: state, growl: growlService});
+		$controller('portalCtrl', {$scope: scope, $timeout: timeout, configService: cService, 
+			$state: state, growl: growlService});
 	}));
 	
 	it('should inject services', function(){
@@ -35,7 +36,7 @@ describe('PortalCtrl', function() {
 
 	it('should init ready value', function(){
 		$httpBackend.flush();
-		scope.vm.timeout.flush()
+		scope.vm.timeout.flush();
 		expect(scope.vm.ready).toBeTruthy();
 	});
 	

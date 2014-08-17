@@ -17,10 +17,9 @@ describe('ConfigCtrl', function() {
 		state = $state;
 		$httpBackend = _$httpBackend_
 		
-		jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock/';
+        jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock';
 		cfg = getJSONFixture('config.json');
 		uData = getJSONFixture('userData.json');
-		
 		$httpBackend.when('GET', '/methods/FMI/isAlive').respond(true);
 		$httpBackend.when('GET', '/methods/LATMOS/isAlive').respond(true);
 		$httpBackend.when('GET', '/methods/SINP/isAlive').respond(true);
