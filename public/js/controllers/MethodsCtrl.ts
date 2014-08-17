@@ -394,8 +394,11 @@ module portal {
         }
 
         // method for modal
-        public saveMethods() {
-            this.modalInstance.close()
+        public saveMethods(save: boolean) {
+            if(save)
+                this.modalInstance.close()
+            else
+                this.modalInstance.dismiss()
             this.methodsService.showError = false
         }
 

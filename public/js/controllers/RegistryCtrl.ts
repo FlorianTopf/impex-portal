@@ -165,8 +165,11 @@ module portal {
         }
         
         // method for modal
-        public saveRegistry() {
-            this.modalInstance.close()
+        public saveRegistry(save: boolean) {
+            if(save)
+                this.modalInstance.close()
+            else
+                this.modalInstance.dismiss()
         }
 
     

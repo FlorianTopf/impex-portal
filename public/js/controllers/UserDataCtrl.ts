@@ -78,8 +78,11 @@ module portal {
         }
         
         // method for modal
-        public saveData() {
-            this.modalInstance.close()
+        public saveData(save: boolean) {
+            if(save)
+                this.modalInstance.close()
+            else
+                this.modalInstance.dismiss()
         }
         
 

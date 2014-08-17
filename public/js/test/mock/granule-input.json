@@ -1,0 +1,121 @@
+{
+    "version": "2.2.2",
+    "resources": [{"numericalOutput": {
+            "resourceId": "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Merc_02_10_13/Hes/3D",
+            "resourceHeader": {
+                "resourceName": "SolarWind_He+/3D",
+                "releaseDate": "2013-12-19T00:00:00.000",
+                "description": "",
+                "contact": [{
+                    "personId": "LATMOS",
+                    "role": ["DataProducer"]
+                }],
+                "informationurl": []
+            },
+            "accessInformation": [{
+                "repositoryId": "spase://IMPEX/Repository/LATMOS",
+                "availability": null,
+                "accessUrl": [{
+                    "url": "http://impex.latmos.ipsl.fr/Hybrid",
+                    "productKey": []
+                }],
+                "format": "NetCDF",
+                "encoding": null,
+                "dataExtent": null
+            }],
+            "measurementType": ["IonComposition"],
+            "spatialDescription": {
+                "dimension": "3",
+                "coordinateSystem": {
+                    "coordinateRepresentation": "Cartesian",
+                    "coordinateSystem": "MSO"
+                },
+                "coordinatesLabel": null,
+                "units": "km"
+            },
+            "simulatedRegion": ["Mercury"],
+            "inputResourceId": ["spase://IMPEX/SimulationRun/LATMOS/Hybrid/Merc_02_10_13"],
+            "parameter": [
+                {
+                    "name": "n_i",
+                    "set": [],
+                    "parameterKey": "Density",
+                    "description": null,
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "cm^-3",
+                    "unitsConversion": " 1.e6 > m^-3 ",
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "particle": {
+                        "populationId": "SolarWind_He+",
+                        "particleType": ["Ion"],
+                        "particleQuantitiy": "NumberDensity",
+                        "chemicalFormula": "He",
+                        "atomicNumber": [2],
+                        "populationMassNumber": [4],
+                        "populationChargeState": [2]
+                    }
+                },
+                {
+                    "name": "U_i",
+                    "set": [],
+                    "parameterKey": "Ux Uy Uz",
+                    "description": null,
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "km.s^-1",
+                    "unitsConversion": " 1.e3 > m.s^-1 ",
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "particle": {
+                        "populationId": "SolarWind_He+",
+                        "particleType": ["Ion"],
+                        "particleQuantitiy": "Velocity",
+                        "chemicalFormula": "He",
+                        "atomicNumber": [2],
+                        "populationMassNumber": [4],
+                        "populationChargeState": [2]
+                    }
+                },
+                {
+                    "name": "T_i",
+                    "set": [],
+                    "parameterKey": "Temperature",
+                    "description": null,
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "eV",
+                    "unitsConversion": null,
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "particle": {
+                        "populationId": "SolarWind_He+",
+                        "particleType": ["Ion"],
+                        "particleQuantitiy": "Temperature",
+                        "chemicalFormula": "He",
+                        "atomicNumber": [2],
+                        "populationMassNumber": [4],
+                        "populationChargeState": [2]
+                    }
+                }
+            ]
+        }}
+     ],
+    "lang": "en"
+}

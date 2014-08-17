@@ -1,0 +1,16 @@
+{
+    "version": "2.2.2",
+    "resources": [{"granule": {
+            "resourceId": "spase://IMPEX/Granule/LATMOS/Hybrid/Merc_02_10_13/Hes/3D/Hesw_02_10_13_t00150",
+            "releaseDate": "2013-12-19T00:00:00.000",
+            "parentId": "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Merc_02_10_13/Hes/3D",
+            "regionBegin": "   -6172.5   -15431.3   -12345.1 ",
+            "regionEnd": "    6254.8    15513.6    12427.4 ",
+            "source": [{
+                "sourceType": "Data",
+                "url": "http://impex.latmos.ipsl.fr/Hybrid/Merc_02_10_13/Hesw_02_10_13_t00150.nc"
+            }]
+        }}
+    ],
+    "lang": "en"
+}

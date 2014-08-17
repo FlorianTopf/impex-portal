@@ -1300,8 +1300,11 @@ var portal;
         };
 
         // method for modal
-        RegistryCtrl.prototype.saveRegistry = function () {
-            this.modalInstance.close();
+        RegistryCtrl.prototype.saveRegistry = function (save) {
+            if (save)
+                this.modalInstance.close();
+else
+                this.modalInstance.dismiss();
         };
         RegistryCtrl.$inject = [
             '$scope',
@@ -1715,8 +1718,11 @@ else {
         };
 
         // method for modal
-        MethodsCtrl.prototype.saveMethods = function () {
-            this.modalInstance.close();
+        MethodsCtrl.prototype.saveMethods = function (save) {
+            if (save)
+                this.modalInstance.close();
+else
+                this.modalInstance.dismiss();
             this.methodsService.showError = false;
         };
         MethodsCtrl.$inject = [
@@ -1799,8 +1805,11 @@ var portal;
         };
 
         // method for modal
-        UserDataCtrl.prototype.saveData = function () {
-            this.modalInstance.close();
+        UserDataCtrl.prototype.saveData = function (save) {
+            if (save)
+                this.modalInstance.close();
+else
+                this.modalInstance.dismiss();
         };
         UserDataCtrl.$inject = [
             '$scope',
