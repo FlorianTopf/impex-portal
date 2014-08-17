@@ -1,1 +1,424 @@
-{"version":"2.2.2","resources":[{"numericalOutput":{"resourceId":"spase://IMPEX/NumericalOutput/FMI/HYB/venus/venus_nominal_lowres_cx_20121120/H+_ave_hybstate","resourceHeader":{"resourceName":"FMI_HYB_venus_venus_nominal_lowres_cx_20121120/H+_ave_hybstate","releaseDate":"2013-01-22T09:06:21","description":"H+ computed physical quantities","contact":[{"personId":"FMI","role":["DataProducer"]}],"informationurl":[]},"accessInformation":[{"repositoryId":"spase://IMPEX/Repository/FMI/HYB","availability":"Offline","accessUrl":[{"url":"","productKey":["/hwa/hcfiles/venus/venus_nominal_lowres_cx_20121120/H+_ave_hybstate_00400000.hc"]}],"format":"Binary","encoding":"None","dataExtent":{"quantity":4751165.0}}],"measurementType":["IonComposition"],"spatialDescription":{"dimension":"3","coordinateSystem":{"coordinateRepresentation":"Cartesian","coordinateSystem":"VSO"},"coordinatesLabel":null,"units":"m"},"simulatedRegion":["Venus"],"inputResourceId":["spase://IMPEX/SimulationRun/FMI/HYB/venus/venus_nominal_lowres_cx_20121120"],"parameter":[{"name":"H+ number density","set":[],"parameterKey":"Density","description":"H+ number density","caveats":null,"cadence":null,"units":"m^-3","unitsConversion":null,"coordinateSystem":null,"renderingHints":[],"structure":null,"validMin":null,"validMax":null,"fillValue":null,"property":[],"particle":{"populationId":"H+","particleType":["Proton"],"particleQuantitiy":"NumberDensity","chemicalFormula":"H","atomicNumber":[1.0],"populationMassNumber":[1.00728],"populationChargeState":[1.0]}},{"name":"H+ velocity","set":[],"parameterKey":"Ux,Uy,Uz","description":"H+ velocity","caveats":null,"cadence":null,"units":"m/s","unitsConversion":null,"coordinateSystem":null,"renderingHints":[],"structure":null,"validMin":null,"validMax":null,"fillValue":null,"property":[],"particle":{"populationId":"H+","particleType":["Proton"],"particleQuantitiy":"Velocity","chemicalFormula":"H","atomicNumber":[1.0],"populationMassNumber":[1.00728],"populationChargeState":[1.0]}},{"name":"H+ total velocity","set":[],"parameterKey":"Utot","description":"H+ total velocity","caveats":null,"cadence":null,"units":"m/s","unitsConversion":null,"coordinateSystem":null,"renderingHints":[],"structure":null,"validMin":null,"validMax":null,"fillValue":null,"property":[],"particle":{"populationId":"H+","particleType":["Proton"],"particleQuantitiy":"Velocity","chemicalFormula":"H","atomicNumber":[1.0],"populationMassNumber":[1.00728],"populationChargeState":[1.0]}},{"name":"H+ thermal pressure","set":[],"parameterKey":"Pressure","description":"H+ thermal pressure","caveats":null,"cadence":null,"units":"Pa","unitsConversion":null,"coordinateSystem":null,"renderingHints":[],"structure":null,"validMin":null,"validMax":null,"fillValue":null,"property":[],"particle":{"populationId":"H+","particleType":["Proton"],"particleQuantitiy":"Pressure","chemicalFormula":"H","atomicNumber":[1.0],"populationMassNumber":[1.00728],"populationChargeState":[1.0]}},{"name":"H+ temperature","set":[],"parameterKey":"Temperature","description":"H+ temperature","caveats":null,"cadence":null,"units":"K","unitsConversion":null,"coordinateSystem":null,"renderingHints":[],"structure":null,"validMin":null,"validMax":null,"fillValue":null,"property":[],"particle":{"populationId":"H+","particleType":["Proton"],"particleQuantitiy":"Temperature","chemicalFormula":"H","atomicNumber":[1.0],"populationMassNumber":[1.00728],"populationChargeState":[1.0]}}]}},{"numericalOutput":{"resourceId":"spase://IMPEX/NumericalOutput/FMI/HYB/venus/venus_nominal_lowres_cx_20121120/O+_ave_hybstate","resourceHeader":{"resourceName":"FMI_HYB_venus_venus_nominal_lowres_cx_20121120/O+_ave_hybstate","releaseDate":"2013-01-22T09:06:21","description":"O+ computed physical quantities","contact":[{"personId":"FMI","role":["DataProducer"]}],"informationurl":[]},"accessInformation":[{"repositoryId":"spase://IMPEX/Repository/FMI/HYB","availability":"Offline","accessUrl":[{"url":"","productKey":["/hwa/hcfiles/venus/venus_nominal_lowres_cx_20121120/O+_ave_hybstate_00400000.hc"]}],"format":"Binary","encoding":"None","dataExtent":{"quantity":4751215.0}}],"measurementType":["IonComposition"],"spatialDescription":{"dimension":"3","coordinateSystem":{"coordinateRepresentation":"Cartesian","coordinateSystem":"VSO"},"coordinatesLabel":null,"units":"m"},"simulatedRegion":["Venus"],"inputResourceId":["spase://IMPEX/SimulationRun/FMI/HYB/venus/venus_nominal_lowres_cx_20121120"],"parameter":[{"name":"O+ number density","set":[],"parameterKey":"Density","description":"O+ number density","caveats":null,"cadence":null,"units":"m^-3","unitsConversion":null,"coordinateSystem":null,"renderingHints":[],"structure":null,"validMin":null,"validMax":null,"fillValue":null,"property":[],"particle":{"populationId":"O+","particleType":["Ion"],"particleQuantitiy":"NumberDensity","chemicalFormula":"O","atomicNumber":[8.0],"populationMassNumber":[15.9994],"populationChargeState":[1.0]}},{"name":"O+ velocity","set":[],"parameterKey":"Ux,Uy,Uz","description":"O+ velocity","caveats":null,"cadence":null,"units":"m/s","unitsConversion":null,"coordinateSystem":null,"renderingHints":[],"structure":null,"validMin":null,"validMax":null,"fillValue":null,"property":[],"particle":{"populationId":"O+","particleType":["Ion"],"particleQuantitiy":"Velocity","chemicalFormula":"O","atomicNumber":[8.0],"populationMassNumber":[15.9994],"populationChargeState":[1.0]}},{"name":"O+ total velocity","set":[],"parameterKey":"Utot","description":"O+ total velocity","caveats":null,"cadence":null,"units":"m/s","unitsConversion":null,"coordinateSystem":null,"renderingHints":[],"structure":null,"validMin":null,"validMax":null,"fillValue":null,"property":[],"particle":{"populationId":"O+","particleType":["Ion"],"particleQuantitiy":"Velocity","chemicalFormula":"O","atomicNumber":[8.0],"populationMassNumber":[15.9994],"populationChargeState":[1.0]}},{"name":"O+ thermal pressure","set":[],"parameterKey":"Pressure","description":"O+ thermal pressure","caveats":null,"cadence":null,"units":"Pa","unitsConversion":null,"coordinateSystem":null,"renderingHints":[],"structure":null,"validMin":null,"validMax":null,"fillValue":null,"property":[],"particle":{"populationId":"O+","particleType":["Ion"],"particleQuantitiy":"Pressure","chemicalFormula":"O","atomicNumber":[8.0],"populationMassNumber":[15.9994],"populationChargeState":[1.0]}},{"name":"O+ temperature","set":[],"parameterKey":"Temperature","description":"O+ temperature","caveats":null,"cadence":null,"units":"K","unitsConversion":null,"coordinateSystem":null,"renderingHints":[],"structure":null,"validMin":null,"validMax":null,"fillValue":null,"property":[],"particle":{"populationId":"O+","particleType":["Ion"],"particleQuantitiy":"Temperature","chemicalFormula":"O","atomicNumber":[8.0],"populationMassNumber":[15.9994],"populationChargeState":[1.0]}}]}},{"numericalOutput":{"resourceId":"spase://IMPEX/NumericalOutput/FMI/HYB/venus/venus_nominal_lowres_cx_20121120/Mag","resourceHeader":{"resourceName":"FMI_HYB_venus_venus_nominal_lowres_cx_20121120/Mag","releaseDate":"2013-01-22T09:06:21","description":"Magnetic field vector","contact":[{"personId":"FMI","role":["DataProducer"]}],"informationurl":[]},"accessInformation":[{"repositoryId":"spase://IMPEX/Repository/FMI/HYB","availability":"Offline","accessUrl":[{"url":"","productKey":["/hwa/hcfiles/venus/venus_nominal_lowres_cx_20121120/O+_ave_hybstate_00400000.hc"]}],"format":"Binary","encoding":"None","dataExtent":{"quantity":4751215.0}}],"measurementType":["MagneticField"],"spatialDescription":{"dimension":"3","coordinateSystem":{"coordinateRepresentation":"Cartesian","coordinateSystem":"VSO"},"coordinatesLabel":null,"units":"m"},"simulatedRegion":["Venus"],"inputResourceId":["spase://IMPEX/SimulationRun/FMI/HYB/venus/venus_nominal_lowres_cx_20121120"],"parameter":[{"name":"TotalMagnetic field","set":[],"parameterKey":"Btot","description":"TotalMagnetic field","caveats":null,"cadence":null,"units":"T","unitsConversion":null,"coordinateSystem":null,"renderingHints":[],"structure":null,"validMin":null,"validMax":null,"fillValue":null,"property":[],"field":{"fieldQuantity":"Magnetic","frequencyRange":null,"qualifier":["Total"]}},{"name":"Magnetic field components","set":[],"parameterKey":"Bx,By,Bz","description":"Magnetic field components","caveats":null,"cadence":null,"units":"T","unitsConversion":null,"coordinateSystem":null,"renderingHints":[],"structure":null,"validMin":null,"validMax":null,"fillValue":null,"property":[],"field":{"fieldQuantity":"Magnetic","frequencyRange":null,"qualifier":["Vector"]}}]}}],"lang":"en"}
+{
+    "version": "2.2.2",
+    "resources": [
+        {"numericalOutput": {
+            "resourceId": "spase://IMPEX/NumericalOutput/FMI/HYB/venus/venus_nominal_lowres_cx_20121120/H+_ave_hybstate",
+            "resourceHeader": {
+                "resourceName": "FMI_HYB_venus_venus_nominal_lowres_cx_20121120/H+_ave_hybstate",
+                "releaseDate": "2013-01-22T09:06:21",
+                "description": "H+ computed physical quantities",
+                "contact": [{
+                    "personId": "FMI",
+                    "role": ["DataProducer"]
+                }],
+                "informationurl": []
+            },
+            "accessInformation": [{
+                "repositoryId": "spase://IMPEX/Repository/FMI/HYB",
+                "availability": "Offline",
+                "accessUrl": [{
+                    "url": "",
+                    "productKey": ["/hwa/hcfiles/venus/venus_nominal_lowres_cx_20121120/H+_ave_hybstate_00400000.hc"]
+                }],
+                "format": "Binary",
+                "encoding": "None",
+                "dataExtent": {"quantity": 4751165}
+            }],
+            "measurementType": ["IonComposition"],
+            "spatialDescription": {
+                "dimension": "3",
+                "coordinateSystem": {
+                    "coordinateRepresentation": "Cartesian",
+                    "coordinateSystem": "VSO"
+                },
+                "coordinatesLabel": null,
+                "units": "m"
+            },
+            "simulatedRegion": ["Venus"],
+            "inputResourceId": ["spase://IMPEX/SimulationRun/FMI/HYB/venus/venus_nominal_lowres_cx_20121120"],
+            "parameter": [
+                {
+                    "name": "H+ number density",
+                    "set": [],
+                    "parameterKey": "Density",
+                    "description": "H+ number density",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "m^-3",
+                    "unitsConversion": null,
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "particle": {
+                        "populationId": "H+",
+                        "particleType": ["Proton"],
+                        "particleQuantitiy": "NumberDensity",
+                        "chemicalFormula": "H",
+                        "atomicNumber": [1],
+                        "populationMassNumber": [1.00728],
+                        "populationChargeState": [1]
+                    }
+                },
+                {
+                    "name": "H+ velocity",
+                    "set": [],
+                    "parameterKey": "Ux,Uy,Uz",
+                    "description": "H+ velocity",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "m/s",
+                    "unitsConversion": null,
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "particle": {
+                        "populationId": "H+",
+                        "particleType": ["Proton"],
+                        "particleQuantitiy": "Velocity",
+                        "chemicalFormula": "H",
+                        "atomicNumber": [1],
+                        "populationMassNumber": [1.00728],
+                        "populationChargeState": [1]
+                    }
+                },
+                {
+                    "name": "H+ total velocity",
+                    "set": [],
+                    "parameterKey": "Utot",
+                    "description": "H+ total velocity",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "m/s",
+                    "unitsConversion": null,
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "particle": {
+                        "populationId": "H+",
+                        "particleType": ["Proton"],
+                        "particleQuantitiy": "Velocity",
+                        "chemicalFormula": "H",
+                        "atomicNumber": [1],
+                        "populationMassNumber": [1.00728],
+                        "populationChargeState": [1]
+                    }
+                },
+                {
+                    "name": "H+ thermal pressure",
+                    "set": [],
+                    "parameterKey": "Pressure",
+                    "description": "H+ thermal pressure",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "Pa",
+                    "unitsConversion": null,
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "particle": {
+                        "populationId": "H+",
+                        "particleType": ["Proton"],
+                        "particleQuantitiy": "Pressure",
+                        "chemicalFormula": "H",
+                        "atomicNumber": [1],
+                        "populationMassNumber": [1.00728],
+                        "populationChargeState": [1]
+                    }
+                },
+                {
+                    "name": "H+ temperature",
+                    "set": [],
+                    "parameterKey": "Temperature",
+                    "description": "H+ temperature",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "K",
+                    "unitsConversion": null,
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "particle": {
+                        "populationId": "H+",
+                        "particleType": ["Proton"],
+                        "particleQuantitiy": "Temperature",
+                        "chemicalFormula": "H",
+                        "atomicNumber": [1],
+                        "populationMassNumber": [1.00728],
+                        "populationChargeState": [1]
+                    }
+                }
+            ]
+        }},
+        {"numericalOutput": {
+            "resourceId": "spase://IMPEX/NumericalOutput/FMI/HYB/venus/venus_nominal_lowres_cx_20121120/O+_ave_hybstate",
+            "resourceHeader": {
+                "resourceName": "FMI_HYB_venus_venus_nominal_lowres_cx_20121120/O+_ave_hybstate",
+                "releaseDate": "2013-01-22T09:06:21",
+                "description": "O+ computed physical quantities",
+                "contact": [{
+                    "personId": "FMI",
+                    "role": ["DataProducer"]
+                }],
+                "informationurl": []
+            },
+            "accessInformation": [{
+                "repositoryId": "spase://IMPEX/Repository/FMI/HYB",
+                "availability": "Offline",
+                "accessUrl": [{
+                    "url": "",
+                    "productKey": ["/hwa/hcfiles/venus/venus_nominal_lowres_cx_20121120/O+_ave_hybstate_00400000.hc"]
+                }],
+                "format": "Binary",
+                "encoding": "None",
+                "dataExtent": {"quantity": 4751215}
+            }],
+            "measurementType": ["IonComposition"],
+            "spatialDescription": {
+                "dimension": "3",
+                "coordinateSystem": {
+                    "coordinateRepresentation": "Cartesian",
+                    "coordinateSystem": "VSO"
+                },
+                "coordinatesLabel": null,
+                "units": "m"
+            },
+            "simulatedRegion": ["Venus"],
+            "inputResourceId": ["spase://IMPEX/SimulationRun/FMI/HYB/venus/venus_nominal_lowres_cx_20121120"],
+            "parameter": [
+                {
+                    "name": "O+ number density",
+                    "set": [],
+                    "parameterKey": "Density",
+                    "description": "O+ number density",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "m^-3",
+                    "unitsConversion": null,
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "particle": {
+                        "populationId": "O+",
+                        "particleType": ["Ion"],
+                        "particleQuantitiy": "NumberDensity",
+                        "chemicalFormula": "O",
+                        "atomicNumber": [8],
+                        "populationMassNumber": [15.9994],
+                        "populationChargeState": [1]
+                    }
+                },
+                {
+                    "name": "O+ velocity",
+                    "set": [],
+                    "parameterKey": "Ux,Uy,Uz",
+                    "description": "O+ velocity",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "m/s",
+                    "unitsConversion": null,
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "particle": {
+                        "populationId": "O+",
+                        "particleType": ["Ion"],
+                        "particleQuantitiy": "Velocity",
+                        "chemicalFormula": "O",
+                        "atomicNumber": [8],
+                        "populationMassNumber": [15.9994],
+                        "populationChargeState": [1]
+                    }
+                },
+                {
+                    "name": "O+ total velocity",
+                    "set": [],
+                    "parameterKey": "Utot",
+                    "description": "O+ total velocity",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "m/s",
+                    "unitsConversion": null,
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "particle": {
+                        "populationId": "O+",
+                        "particleType": ["Ion"],
+                        "particleQuantitiy": "Velocity",
+                        "chemicalFormula": "O",
+                        "atomicNumber": [8],
+                        "populationMassNumber": [15.9994],
+                        "populationChargeState": [1]
+                    }
+                },
+                {
+                    "name": "O+ thermal pressure",
+                    "set": [],
+                    "parameterKey": "Pressure",
+                    "description": "O+ thermal pressure",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "Pa",
+                    "unitsConversion": null,
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "particle": {
+                        "populationId": "O+",
+                        "particleType": ["Ion"],
+                        "particleQuantitiy": "Pressure",
+                        "chemicalFormula": "O",
+                        "atomicNumber": [8],
+                        "populationMassNumber": [15.9994],
+                        "populationChargeState": [1]
+                    }
+                },
+                {
+                    "name": "O+ temperature",
+                    "set": [],
+                    "parameterKey": "Temperature",
+                    "description": "O+ temperature",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "K",
+                    "unitsConversion": null,
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "particle": {
+                        "populationId": "O+",
+                        "particleType": ["Ion"],
+                        "particleQuantitiy": "Temperature",
+                        "chemicalFormula": "O",
+                        "atomicNumber": [8],
+                        "populationMassNumber": [15.9994],
+                        "populationChargeState": [1]
+                    }
+                }
+            ]
+        }},
+        {"numericalOutput": {
+            "resourceId": "spase://IMPEX/NumericalOutput/FMI/HYB/venus/venus_nominal_lowres_cx_20121120/Mag",
+            "resourceHeader": {
+                "resourceName": "FMI_HYB_venus_venus_nominal_lowres_cx_20121120/Mag",
+                "releaseDate": "2013-01-22T09:06:21",
+                "description": "Magnetic field vector",
+                "contact": [{
+                    "personId": "FMI",
+                    "role": ["DataProducer"]
+                }],
+                "informationurl": []
+            },
+            "accessInformation": [{
+                "repositoryId": "spase://IMPEX/Repository/FMI/HYB",
+                "availability": "Offline",
+                "accessUrl": [{
+                    "url": "",
+                    "productKey": ["/hwa/hcfiles/venus/venus_nominal_lowres_cx_20121120/O+_ave_hybstate_00400000.hc"]
+                }],
+                "format": "Binary",
+                "encoding": "None",
+                "dataExtent": {"quantity": 4751215}
+            }],
+            "measurementType": ["MagneticField"],
+            "spatialDescription": {
+                "dimension": "3",
+                "coordinateSystem": {
+                    "coordinateRepresentation": "Cartesian",
+                    "coordinateSystem": "VSO"
+                },
+                "coordinatesLabel": null,
+                "units": "m"
+            },
+            "simulatedRegion": ["Venus"],
+            "inputResourceId": ["spase://IMPEX/SimulationRun/FMI/HYB/venus/venus_nominal_lowres_cx_20121120"],
+            "parameter": [
+                {
+                    "name": "TotalMagnetic field",
+                    "set": [],
+                    "parameterKey": "Btot",
+                    "description": "TotalMagnetic field",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "T",
+                    "unitsConversion": null,
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "field": {
+                        "fieldQuantity": "Magnetic",
+                        "frequencyRange": null,
+                        "qualifier": ["Total"]
+                    }
+                },
+                {
+                    "name": "Magnetic field components",
+                    "set": [],
+                    "parameterKey": "Bx,By,Bz",
+                    "description": "Magnetic field components",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "T",
+                    "unitsConversion": null,
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "field": {
+                        "fieldQuantity": "Magnetic",
+                        "frequencyRange": null,
+                        "qualifier": ["Vector"]
+                    }
+                }
+            ]
+        }}
+    ],
+    "lang": "en"
+}

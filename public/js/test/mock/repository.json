@@ -1,1 +1,21 @@
-{"version":"2.2.2","resources":[{"repository":{"resourceId":"spase://IMPEX/Repository/FMI/HYB","resourceHeader":{"resourceName":"FMI_HYB_Repository","releaseDate":"2012-01-01T00:00:00","description":"FMI hybrid simulation database","contact":[{"personId":"FMI","role":["DataProducer"]}],"informationurl":[]},"accessUrl":{"url":"http://hwa.fmi.fi","productKey":[]}}}],"lang":"en"}
+{
+    "version": "2.2.2",
+    "resources": [{"repository": {
+        "resourceId": "spase://IMPEX/Repository/FMI/HYB",
+        "resourceHeader": {
+            "resourceName": "FMI_HYB_Repository",
+            "releaseDate": "2012-01-01T00:00:00",
+            "description": "FMI hybrid simulation database",
+            "contact": [{
+                "personId": "FMI",
+                "role": ["DataProducer"]
+            }],
+            "informationurl": []
+        },
+        "accessUrl": {
+            "url": "http://hwa.fmi.fi",
+            "productKey": []
+        }
+    }}],
+    "lang": "en"
+}

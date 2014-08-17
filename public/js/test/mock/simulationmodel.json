@@ -1,1 +1,23 @@
-{"version":"2.2.2","resources":[{"simulationModel":{"resourceId":"spase://IMPEX/SimulationModel/FMI/HYB","resourceHeader":{"resourceName":"FMI_HYB_SimulationModel","releaseDate":"2012-01-01T00:00:00.000","description":"\n\t\t\tHYB is a hybrid and kinetic plasma simulation platform for planetary plasma interactions developed at the FMI. The platform is developed for the interactions between unmagnetized or weakly magnetized Solar System bodies and the plasma flow such as the solar wind. In the hybrid approch ions are treated self-consistently as particles moving in the electric and magnetic fields and electrons are modeled as a charge neutralizing fluid. In the full kinetic model both ions and electrons are treated as particles. The HYB platform has been used to study the solar wind interactions of several objects such as Mercury, Venus, Moon, Mars, Ceres, Pluto and comets. Further, the platform has been used to study the interaction of Titan with Saturn's magnetospheric plasma and magnetic field. Kinetic modelling within HYB has been applied to the lunar plasma and dust environment.\n\t\t","contact":[{"personId":"FMI","role":["DataProducer"]}],"informationurl":["http://hwa.fmi.fi"]},"versions":{"modelVersion":[{"versionId":"1.0","releaseDate":"2012-01-01T00:00:00.000","description":"First public release"}]},"simulationType":"Hybrid"}}],"lang":"en"}
+{
+    "version": "2.2.2",
+    "resources": [{"simulationModel": {
+        "resourceId": "spase://IMPEX/SimulationModel/FMI/HYB",
+        "resourceHeader": {
+            "resourceName": "FMI_HYB_SimulationModel",
+            "releaseDate": "2012-01-01T00:00:00.000",
+            "description": "\n\t\t\tHYB is a hybrid and kinetic plasma simulation platform for planetary plasma interactions developed at the FMI. The platform is developed for the interactions between unmagnetized or weakly magnetized Solar System bodies and the plasma flow such as the solar wind. In the hybrid approch ions are treated self-consistently as particles moving in the electric and magnetic fields and electrons are modeled as a charge neutralizing fluid. In the full kinetic model both ions and electrons are treated as particles. The HYB platform has been used to study the solar wind interactions of several objects such as Mercury, Venus, Moon, Mars, Ceres, Pluto and comets. Further, the platform has been used to study the interaction of Titan with Saturn's magnetospheric plasma and magnetic field. Kinetic modelling within HYB has been applied to the lunar plasma and dust environment.\n\t\t",
+            "contact": [{
+                "personId": "FMI",
+                "role": ["DataProducer"]
+            }],
+            "informationurl": ["http://hwa.fmi.fi"]
+        },
+        "versions": {"modelVersion": [{
+            "versionId": "1.0",
+            "releaseDate": "2012-01-01T00:00:00.000",
+            "description": "First public release"
+        }]},
+        "simulationType": "Hybrid"
+    }}],
+    "lang": "en"
+}
