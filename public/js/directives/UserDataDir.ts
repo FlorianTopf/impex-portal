@@ -199,6 +199,9 @@ module portal {
                     return true
             } else if(type == 'Granule') {
                 return true
+            } else if(this.state.current.name == 'app.portal.userdata') {
+                // there is nothing to select in my data modal
+                return false
             } else
                 return this.selectables.indexOf(type) != -1
         }

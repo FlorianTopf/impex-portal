@@ -122,6 +122,7 @@ button.dropdown-toggle {
 
 .nav-tabs > li > a {
 	font-size: 12px;
+	padding: 10px 10px;
 }
 
 .sel-file {
@@ -205,9 +206,9 @@ button.dropdown-toggle {
 		top: 125px;
 	}
 	
-	/* TODO this must be responsive */
+	/* @TODO this must be responsive */
   	.modal-lg {
-    	width: 1050px;
+    	width: 1000px;
   	}
 }
 
