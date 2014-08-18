@@ -48,7 +48,7 @@ module portal {
         
         public getRepository(id: string) {
             this.initialising = true
-            
+
             var cacheId = "repo-"+id
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.Repository().get(
@@ -75,7 +75,7 @@ module portal {
                 this.registryPromise = this.registryService.SimulationModel().get(
                     { fmt: 'json', id: id }).$promise
                 
-                this.registryPromise.then((spase) => {
+                this.registryPromise.then((spase: ISpase) => {
                     this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.simulationModel)
                     this.scope.$broadcast('update-simulation-models', cacheId)
                     this.loading = false
@@ -97,12 +97,12 @@ module portal {
                     { fmt: 'json', id: element.resourceId }).$promise
                 
                 this.registryPromise.then(
-                (spase) => {
+                (spase: ISpase) => {
                     this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.simulationRun)
                     this.loading = false
                     this.scope.$broadcast('update-simulation-runs', cacheId)
                 }, 
-                (err) => { 
+                (err: any) => { 
                     this.scope.$broadcast('registry-error', 'no simulation run found')
                     this.loading = false 
                 })
@@ -123,12 +123,12 @@ module portal {
                     { fmt: 'json', id: element.resourceId }).$promise
                 
                 this.registryPromise.then(
-                (spase) => {
+                (spase: ISpase) => {
                     this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.numericalOutput)
                     this.loading = false
                     this.scope.$broadcast('update-numerical-outputs', cacheId)
                 }, 
-                (err) => { 
+                (err: any) => { 
                     this.scope.$broadcast('registry-error', 'no numerical output found') 
                     this.loading = false 
                 })
@@ -149,12 +149,12 @@ module portal {
                     { fmt: 'json', id: element.resourceId }).$promise
                 
                 this.registryPromise.then(
-                (spase) => {
+                (spase: ISpase) => {
                     this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.granule)
                     this.loading = false
                     this.scope.$broadcast('update-granules', cacheId)
                 }, 
-                (err) => { 
+                (err: any) => { 
                     this.scope.$broadcast('registry-error', 'no granule found') 
                     this.loading = false 
                 })

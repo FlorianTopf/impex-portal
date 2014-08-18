@@ -71,7 +71,22 @@
 				tooltip="Show methods of {{ database.name }}"
 				ng-disabled="vm.configService.aliveMap[database.name] == false || 
 					vm.configService.aliveMap[database.name] | isEmpty">
-				<span style="float: left;">{{ database.name }}</span><br/>
+				<span style="float: left;">{{ database.name }}</span>
+				<span style="float: right;" 
+					ng-show="vm.methodsService.loading[database.id]"
+					class="glyphicon glyphicon-cog glyphicon-rotate">
+				</span>
+				<span style="float: right;" 
+					ng-show="!vm.methodsService.loading[database.id] && 
+					vm.methodsService.showSuccess[database.id]"
+					class="glyphicon glyphicon-ok-sign glyphicon-static">
+				</span>
+				<span style="float: right;" 
+					ng-show="!vm.methodsService.loading[database.id] && 
+					vm.methodsService.showError[database.id]"
+					class="glyphicon glyphicon-ban-circle glyphicon-static">
+				</span>
+				<br/>
 				<img src="public/img/layout/service.png"/><br/>
 				<span style="float: right;">Data Access</span>
 			</button>

@@ -53,6 +53,7 @@ module portal {
     // global growl config
     impexPortal.config(['growlProvider', function(growlProvider) {
         growlProvider.globalTimeToLive(4000);
+        growlProvider.onlyUniqueMessages(false);
     }])
     
      // custom filter for checking if an array is empty

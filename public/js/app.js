@@ -953,9 +953,13 @@ var portal;
     'use strict';
 
     var MethodsService = (function () {
-        function MethodsService($resource, growl) {
+        function MethodsService($rootScope, $resource, growl) {
             this.url = '/';
             this.methods = null;
+            this.loading = {};
+            this.status = '';
+            this.showError = {};
+            this.showSuccess = {};
             // action descriptor for GET methods actions
             this.methodsAction = {
                 method: 'GET',
@@ -967,17 +971,34 @@ var portal;
             };
             this.resource = $resource;
             this.growl = growl;
+            this.scope = $rootScope;
         }
-        MethodsService.prototype.notify = function (status) {
-            if (status == 'success')
-                this.growl.success('Added service result to user data');
-else
-                this.growl.error(status);
-        };
-
         // generic method for requesting API
         MethodsService.prototype.MethodsAPI = function () {
-            return this.resource(this.url + 'api-docs/methods', { getMethods: this.methodsAction });
+            return this.resource(this.url + 'api-docs/methods', {}, { getMethods: this.methodsAction });
+        };
+
+        MethodsService.prototype.notify = function (status, id) {
+            if (status == 'loading') {
+                this.loading[id] = true;
+                this.showError[id] = false;
+                this.showSuccess[id] = false;
+                this.scope.$broadcast('service-loading', id);
+            } else if (status == 'success') {
+                this.loading[id] = false;
+                this.showSuccess[id] = true;
+                this.scope.$broadcast('service-success', id);
+                this.growl.success(this.status);
+            } else if (status == 'error') {
+                this.loading[id] = false;
+                this.showError[id] = true;
+                this.scope.$broadcast('service-error', id);
+                this.growl.error(this.status);
+            }
+        };
+
+        MethodsService.prototype.getMethodsAPI = function () {
+            return this.MethodsAPI().get().$promise;
         };
 
         MethodsService.prototype.getMethods = function (db) {
@@ -1000,9 +1021,9 @@ else
 
         // generic method for requesting standard services (GET + params / POST)
         MethodsService.prototype.requestMethod = function (path, params) {
-            return this.resource(path, params, { requestMethod: this.methodsAction, postMethod: this.postMethodAction });
+            return this.resource(path, params, { getMethod: this.methodsAction, postMethod: this.postMethodAction });
         };
-        MethodsService.$inject = ['$resource', 'growl'];
+        MethodsService.$inject = ['$rootScope', '$resource', 'growl'];
         return MethodsService;
     })();
     portal.MethodsService = MethodsService;
@@ -1134,13 +1155,14 @@ var portal;
     'use strict';
 
     var PortalCtrl = (function () {
-        function PortalCtrl($scope, $timeout, configService, $state, growl) {
+        function PortalCtrl($scope, $timeout, configService, methodsService, $state, growl) {
             var _this = this;
             this.ready = false;
             this.scope = $scope;
             this.scope.vm = this;
             this.timeout = $timeout;
             this.configService = configService;
+            this.methodsService = methodsService;
             this.state = $state;
             this.growl = growl;
 
@@ -1148,8 +1170,20 @@ var portal;
                 _this.ready = true;
                 _this.growl.warning('Configuration loaded, waiting for isAlive...');
             });
+
+            this.scope.$on('service-loading', function (e, id) {
+                console.log('loading at ' + id);
+            });
+
+            this.scope.$on('service-success', function (e, id) {
+                console.log('success at ' + id);
+            });
+
+            this.scope.$on('service-error', function (e, id) {
+                console.log('error at ' + id);
+            });
         }
-        PortalCtrl.$inject = ['$scope', '$timeout', 'configService', '$state', 'growl'];
+        PortalCtrl.$inject = ['$scope', '$timeout', 'configService', 'methodsService', '$state', 'growl'];
         return PortalCtrl;
     })();
     portal.PortalCtrl = PortalCtrl;
@@ -1336,11 +1370,8 @@ var portal;
             var _this = this;
             this.methods = [];
             this.initialising = false;
-            this.loading = false;
             this.status = '';
             this.showError = false;
-            this.serviceStatus = '';
-            this.showServiceError = false;
             this.currentMethod = null;
             this.request = {};
             // needed for VOTableURL => move to directive later
@@ -1380,7 +1411,7 @@ var portal;
                 this.loadMethodsAPI();
             }
 
-            // fill manual applyables for SINP
+            // fill manual applyables for SINP (no API info available)
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = [
                 'getDataPointValueSINP',
                 'calculateDataPointValue',
@@ -1398,14 +1429,15 @@ var portal;
             var _this = this;
             this.initialising = true;
             this.status = '';
-            this.methodsService.MethodsAPI().get(function (data, status) {
-                return _this.handleAPIData(data, status);
+            this.showError = false;
+            this.methodsService.getMethodsAPI().then(function (data) {
+                return _this.handleAPIData(data);
             }, function (error) {
                 return _this.handleAPIError(error);
             });
         };
 
-        MethodsCtrl.prototype.handleAPIData = function (data, status) {
+        MethodsCtrl.prototype.handleAPIData = function (data) {
             var _this = this;
             this.initialising = false;
             this.status = 'success';
@@ -1435,11 +1467,8 @@ else
         };
 
         // handling and saving the WS result
-        MethodsCtrl.prototype.handleServiceData = function (data, status) {
+        MethodsCtrl.prototype.handleServiceData = function (data) {
             //console.log('success: '+JSON.stringify(data.message))
-            this.loading = false;
-            this.serviceStatus = 'success';
-
             // new result id
             var id = this.userService.createId();
             this.userService.user.results.push(new portal.Result(this.database.id, id, this.currentMethod.path, data));
@@ -1447,54 +1476,53 @@ else
             // refresh localStorage
             this.userService.localStorage.results = this.userService.user.results;
             this.scope.$broadcast('update-results', id);
+            this.methodsService.status = 'Added service result to user data';
 
-            // notification
-            this.methodsService.notify('success');
+            // system notification
+            this.methodsService.notify('success', this.database.id);
         };
 
         MethodsCtrl.prototype.handleServiceError = function (error) {
-            //console.log('failure: '+error.status)
-            this.loading = false;
-            this.showServiceError = true;
             if (error.status == 404) {
-                this.serviceStatus = error.status + ' resource not found';
+                this.methodsService.status = error.status + ' resource not found';
+            } else if (error.status == 500) {
+                this.methodsService.status = error.status + ' internal server error';
             } else {
                 var response = error.data;
-                this.serviceStatus = response.message;
+                this.methodsService.status = response.message;
             }
 
-            // notification
-            this.methodsService.notify(this.serviceStatus);
+            // system notification
+            this.methodsService.notify('error', this.database.id);
         };
 
         // method for submission
         MethodsCtrl.prototype.submitMethod = function () {
             var _this = this;
             //console.log('submitted '+this.currentMethod.path+' '+this.request['id'])
-            this.loading = true;
-            this.serviceStatus = '';
-            this.showServiceError = false;
-
+            // system notification
+            this.methodsService.notify('loading', this.database.id);
             var httpMethod = this.currentMethod.operations[0].method;
-
             if (httpMethod == 'GET') {
-                this.methodsService.requestMethod(this.currentMethod.path, this.request).get(function (data, status) {
-                    return _this.handleServiceData(data, status);
+                this.methodsPromise = this.methodsService.requestMethod(this.currentMethod.path, this.request).get().$promise;
+                this.methodsPromise.then(function (data) {
+                    return _this.handleServiceData(data);
                 }, function (error) {
                     return _this.handleServiceError(error);
                 });
                 // only getVOTableURL atm
             } else if (httpMethod == 'POST') {
-                this.methodsService.requestMethod(this.currentMethod.path).save(this.request, function (data, status) {
-                    return _this.handleServiceData(data, status);
+                this.methodsPromise = this.methodsService.requestMethod(this.currentMethod.path).save(this.request).$promise;
+                this.methodsPromise.then(function (data) {
+                    return _this.handleServiceData(data);
                 }, function (error) {
                     return _this.handleServiceError(error);
                 });
             }
         };
 
+        // retry if alert is cancelled
         MethodsCtrl.prototype.retry = function () {
-            this.showServiceError = false;
             this.loadMethodsAPI();
         };
 
@@ -1623,7 +1651,6 @@ else
         MethodsCtrl.prototype.updateRequestDate = function (paramName) {
             var iso = new Date(this.request[paramName]);
             this.request[paramName] = iso.toISOString();
-
             this.userService.sessionStorage.methods[this.database.id].params[paramName] = this.request[paramName];
         };
 
@@ -1741,7 +1768,6 @@ else {
                 this.modalInstance.close();
 else
                 this.modalInstance.dismiss();
-            this.showServiceError = false;
             this.showError = false;
         };
         MethodsCtrl.$inject = [
@@ -2527,6 +2553,7 @@ var portal;
         'growlProvider',
         function (growlProvider) {
             growlProvider.globalTimeToLive(4000);
+            growlProvider.onlyUniqueMessages(false);
         }
     ]);
 

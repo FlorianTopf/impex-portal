@@ -36,11 +36,8 @@ module portal {
         
         public methods: Array<Api> = []
         public initialising: boolean = false
-        public loading: boolean = false
         public status: string = ''
         public showError: boolean = false
-        public serviceStatus: string = ''
-        public showServiceError: boolean = false  
         public currentMethod: Api = null
         public request: Object = {}
         // needed for VOTableURL => move to directive later
@@ -53,9 +50,9 @@ module portal {
         static $inject: Array<string> = ['$scope', '$timeout', '$window', 'configService', 'methodsService', 
             'userService', '$state', '$modalInstance', 'id']
 
-        constructor($scope: IMethodsScope, $timeout: ng.ITimeoutService, $window: ng.IWindowService, configService: portal.ConfigService, 
-            methodsService: portal.MethodsService, userService: portal.UserService,
-            $state: ng.ui.IStateService, $modalInstance: any, id: string) {   
+        constructor($scope: IMethodsScope, $timeout: ng.ITimeoutService, $window: ng.IWindowService, 
+            configService: portal.ConfigService, methodsService: portal.MethodsService, userService: portal.UserService,
+            $state: ng.ui.IStateService, $modalInstance: any, id: string) {  
             this.scope = $scope
             $scope.methvm = this   
             this.timeout = $timeout
@@ -80,7 +77,7 @@ module portal {
                 this.loadMethodsAPI()
             }
                 
-            // fill manual applyables for SINP
+            // fill manual applyables for SINP (no API info available)
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = 
             ['getDataPointValueSINP', 'calculateDataPointValue', 'calculateDataPointValueSpacecraft', 'calculateDataPointValueFixedTime', 
                 'calculateFieldline', 'calculateCube', 'calculateFieldline', 'getSurfaceSINP']
@@ -92,13 +89,14 @@ module portal {
         private loadMethodsAPI() {
             this.initialising = true
             this.status = ''
-            this.methodsService.MethodsAPI().get(
-                (data: ISwagger, status: any) => this.handleAPIData(data, status),
+            this.showError = false
+            this.methodsService.getMethodsAPI().then(
+                (data: ISwagger) => this.handleAPIData(data),
                 (error: any) => this.handleAPIError(error)
             )
         }
         
-        private handleAPIData(data: ISwagger, status?: any) {
+        private handleAPIData(data: ISwagger) {
             this.initialising = false
             this.status = 'success'
             // we always get the right thing
@@ -122,60 +120,60 @@ module portal {
                 else
                     this.status = error.data+' '+error.status
             }
-        }  
+        } 
         
         // handling and saving the WS result
-        private handleServiceData(data: IResponse, status?: any) {
+        private handleServiceData(data: IResponse) {
             //console.log('success: '+JSON.stringify(data.message))
-            this.loading = false
-            this.serviceStatus = 'success'
             // new result id
             var id = this.userService.createId()
             this.userService.user.results.push(new Result(this.database.id, id, this.currentMethod.path, data))
             // refresh localStorage
             this.userService.localStorage.results = this.userService.user.results
             this.scope.$broadcast('update-results', id)
-            // notification
-            this.methodsService.notify('success')
+            this.methodsService.status = 'Added service result to user data'
+            // system notification
+            this.methodsService.notify('success', this.database.id)
         }
         
         private handleServiceError(error: any) {
             //console.log('failure: '+error.status)
-            this.loading = false
-            this.showServiceError = true
             if(error.status == 404) {
-                this.serviceStatus = error.status+' resource not found'
+                this.methodsService.status = error.status+' resource not found'
+            } else if(error.status == 500) {
+                this.methodsService.status = error.status+' internal server error'   
             } else {
                 var response = <IResponse>error.data
-                this.serviceStatus = response.message
+                this.methodsService.status = response.message
             }
-            // notification
-            this.methodsService.notify(this.serviceStatus)
+            // system notification
+            this.methodsService.notify('error', this.database.id)
         }
         
         // method for submission
         public submitMethod() {
             //console.log('submitted '+this.currentMethod.path+' '+this.request['id'])
-            this.loading = true
-            this.serviceStatus = ''
-            this.showServiceError = false
-            
+            // system notification
+            this.methodsService.notify('loading', this.database.id)
             var httpMethod = this.currentMethod.operations[0].method
-            
             if(httpMethod == 'GET') {
-                this.methodsService.requestMethod(this.currentMethod.path, this.request).get(
-                    (data: IResponse, status: any) => this.handleServiceData(data, status),
+                this.methodsPromise = 
+                    this.methodsService.requestMethod(this.currentMethod.path, this.request).get().$promise   
+               this.methodsPromise.then(
+                    (data: IResponse) => this.handleServiceData(data),
                     (error: any) => this.handleServiceError(error))
                 // only getVOTableURL atm
             } else if(httpMethod == 'POST') {
-                this.methodsService.requestMethod(this.currentMethod.path).save(this.request, 
-                    (data: IResponse, status: any) => this.handleServiceData(data, status),
+                this.methodsPromise = 
+                    this.methodsService.requestMethod(this.currentMethod.path).save(this.request).$promise 
+                this.methodsPromise.then(
+                    (data: IResponse) => this.handleServiceData(data),
                     (error: any) => this.handleServiceError(error))
             }                  
         }
         
+        // retry if alert is cancelled
         public retry() {
-            this.showServiceError = false
             this.loadMethodsAPI()
         }
         
@@ -305,7 +303,6 @@ module portal {
         public updateRequestDate(paramName: string) {
             var iso = new Date(this.request[paramName])
             this.request[paramName] = iso.toISOString()
-            
             this.userService.sessionStorage.methods[this.database.id]
                 .params[paramName] = this.request[paramName]
         }
@@ -410,7 +407,6 @@ module portal {
                 this.modalInstance.close()
             else
                 this.modalInstance.dismiss()
-            this.showServiceError = false
             this.showError = false
         }
 

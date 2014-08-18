@@ -10,21 +10,22 @@ module portal {
     export class PortalCtrl {
         private scope: portal.IPortalScope
         private timeout: ng.ITimeoutService
-        private configService: portal.ConfigService
         private state: ng.ui.IStateService
         private growl: any
         
         public ready: boolean = false
-        
+        public configService: portal.ConfigService
+        public methodsService: portal.MethodsService
       
-        static $inject: Array<string> = ['$scope', '$timeout', 'configService', '$state', 'growl']
+        static $inject: Array<string> = ['$scope', '$timeout', 'configService', 'methodsService', '$state', 'growl']
 
         constructor($scope: IPortalScope, $timeout: ng.ITimeoutService, configService: portal.ConfigService, 
-            $state: ng.ui.IStateService, growl: any) { 
+            methodsService: portal.MethodsService, $state: ng.ui.IStateService, growl: any) { 
             this.scope = $scope
             this.scope.vm = this
             this.timeout = $timeout
             this.configService = configService
+            this.methodsService = methodsService
             this.state = $state
             this.growl = growl
             
@@ -32,7 +33,18 @@ module portal {
                   this.ready = true 
                   this.growl.warning('Configuration loaded, waiting for isAlive...')
             })
-          
+            
+            this.scope.$on('service-loading', (e, id: string) => { 
+                console.log('loading at '+id)
+            })
+            
+            this.scope.$on('service-success', (e, id: string) => {
+                console.log('success at '+id)
+            })
+            
+            this.scope.$on('service-error', (e, id: string) => { 
+                console.log('error at '+id)
+            })
         }
 
 

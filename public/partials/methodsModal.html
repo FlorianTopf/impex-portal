@@ -20,18 +20,18 @@
         	</li>
       	</ul>
 		<button type="button" class="btn btn-danger" style="margin-left: 5px;"
-		 ng-click="methvm.resetRequest()">Reset Form</button>
-		 	<button type="submit" class="btn btn-primary" style="margin-left: 5px;"
-		ng-show="methvm.dropdownStatus.active != 'Choose Method'">Request Data</button>
+		 	ng-click="methvm.resetRequest()">Reset Form</button>
+		<button type="submit" class="btn btn-primary" style="margin-left: 5px;"
+			ng-show="methvm.dropdownStatus.active != 'Choose Method'">Request Data</button>
 	</div>
-	<div ng-show="methvm.loading" style="display: inline-block;">
+	<div ng-show="methvm.methodsService.loading[methvm.database.id]" style="display: inline-block;">
 		<img src="/public/img/throbber.gif" alt="loading..."/>
 	</div>
     <div class="row text-center">
 		<div ng-show="methvm.showError" class="col-sm-12">
 			<p>an error occurred while retrieving data: {{ methvm.status }} </p>
 			<p>please try again:</p>
-			<button ng-click="methvm.retry()" class="btn"><h4>retry</h4></button>
+			<button type="button" ng-click="methvm.retry()" class="btn btn-default"><h4>retry</h4></button>
 		</div>
 		<div ng-show="!methvm.showError" class="col-sm-12">&nbsp;</div>
 		<div ng-show="methvm.initialising" class="col-sm-12">
