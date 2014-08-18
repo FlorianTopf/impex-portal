@@ -166,8 +166,6 @@ module portal {
                 // set votable tab active
                 this.tabsActive = this.tabsActive.map((t) => t = false)
                 this.tabsActive[1] = true
-                this.growl.success('Added VOTable to user data')
-            
             })
             
             // comes from MethodsCtrl
@@ -183,7 +181,6 @@ module portal {
                 // set result tab active
                 this.tabsActive = this.tabsActive.map((t) => t = false)
                 this.tabsActive[2] = true
-                this.growl.success('Added service result to user data')
             })
             
         }

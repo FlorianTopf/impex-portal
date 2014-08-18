@@ -13,13 +13,14 @@ module portal {
         private configService: portal.ConfigService
         private state: ng.ui.IStateService
         private growl: any
-
+        
         public ready: boolean = false
+        
       
-        static $inject: Array<string> = ['$scope', '$timeout', 'configService', '$state', 'growl']
+        static $inject: Array<string> = ['$scope', '$timeout', 'configService', 'methodsService', '$state', 'growl']
 
         constructor($scope: IPortalScope, $timeout: ng.ITimeoutService, configService: portal.ConfigService, 
-            $state: ng.ui.IStateService,  growl: any) { 
+            $state: ng.ui.IStateService, growl: any) { 
             this.scope = $scope
             this.scope.vm = this
             this.timeout = $timeout
@@ -32,7 +33,6 @@ module portal {
                   this.growl.warning('Configuration loaded, waiting for isAlive...')
             })
           
-            
         }
 
 

@@ -29,7 +29,6 @@ module portal {
         private userService: portal.UserService 
         private state: ng.ui.IStateService
         private modalInstance: any
-        private growl: any
         private methodsPromise: ng.IPromise<any>
         // special applyables for SINP models/outputs
         private applyableModels: IApplyableModels
@@ -37,6 +36,7 @@ module portal {
         
         public methods: Array<Api> = []
         public initialising: boolean = false
+        public loading: boolean = false
         public status: string = ''
         public showError: boolean = false  
         public currentMethod: Api = null
@@ -49,11 +49,11 @@ module portal {
         
         
         static $inject: Array<string> = ['$scope', '$timeout', '$window', 'configService', 'methodsService', 
-            'userService', '$state', '$modalInstance', 'growl', 'id']
+            'userService', '$state', '$modalInstance', 'id']
 
         constructor($scope: IMethodsScope, $timeout: ng.ITimeoutService, $window: ng.IWindowService, configService: portal.ConfigService, 
             methodsService: portal.MethodsService, userService: portal.UserService,
-            $state: ng.ui.IStateService, $modalInstance: any, growl: any, id: string) {   
+            $state: ng.ui.IStateService, $modalInstance: any, id: string) {   
             this.scope = $scope
             $scope.methvm = this   
             this.timeout = $timeout
@@ -63,7 +63,6 @@ module portal {
             this.userService = userService
             this.state = $state
             this.modalInstance = $modalInstance
-            this.growl = growl
             this.applyableModels = {}
             this.database = this.configService.getDatabase(id)
 
@@ -126,35 +125,38 @@ module portal {
         // handling and saving the WS result
         private handleServiceData(data: IResponse, status?: any) {
             //console.log('success: '+JSON.stringify(data.message))
-            this.methodsService.loading = false
-            this.methodsService.status = 'success'
+            this.loading = false
+            this.status = 'success'
             // new result id
             var id = this.userService.createId()
             this.userService.user.results.push(new Result(this.database.id, id, this.currentMethod.path, data))
             // refresh localStorage
             this.userService.localStorage.results = this.userService.user.results
             this.scope.$broadcast('update-results', id)
+            // notification
+            this.methodsService.notify('success')
         }
         
         private handleServiceError(error: any) {
             //console.log('failure: '+error.status)
-            this.methodsService.loading = false
-            this.methodsService.showError = true
+            this.loading = false
+            this.showError = true
             if(error.status == 404) {
-                this.methodsService.status = error.status+' resource not found'
+                this.status = error.status+' resource not found'
             } else {
                 var response = <IResponse>error.data
-                this.methodsService.status = response.message
+                this.status = response.message
             }
-            this.growl.error(this.methodsService.status)
+            // notification
+            this.methodsService.notify(this.status)
         }
         
         // method for submission
         public submitMethod() {
             //console.log('submitted '+this.currentMethod.path+' '+this.request['id'])
-            this.methodsService.loading = true
-            this.methodsService.status = ''
-            this.methodsService.showError = false
+            this.loading = true
+            this.status = ''
+            this.showError = false
             
             var httpMethod = this.currentMethod.operations[0].method
             
@@ -399,7 +401,7 @@ module portal {
                 this.modalInstance.close()
             else
                 this.modalInstance.dismiss()
-            this.methodsService.showError = false
+            this.showError = false
         }
 
         

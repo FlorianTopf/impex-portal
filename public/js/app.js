@@ -953,12 +953,9 @@ var portal;
     'use strict';
 
     var MethodsService = (function () {
-        function MethodsService($resource) {
+        function MethodsService($resource, growl) {
             this.url = '/';
             this.methods = null;
-            this.loading = false;
-            this.status = '';
-            this.showError = false;
             // action descriptor for GET methods actions
             this.methodsAction = {
                 method: 'GET',
@@ -969,7 +966,15 @@ var portal;
                 method: 'POST'
             };
             this.resource = $resource;
+            this.growl = growl;
         }
+        MethodsService.prototype.notify = function (status) {
+            if (status = 'success')
+                this.growl.success('Added service result to user data');
+else
+                this.growl.error(status);
+        };
+
         // generic method for requesting API
         MethodsService.prototype.MethodsAPI = function () {
             return this.resource(this.url + 'api-docs/methods', { getMethods: this.methodsAction });
@@ -997,7 +1002,7 @@ else
         MethodsService.prototype.requestMethod = function (path, params) {
             return this.resource(path, params, { requestMethod: this.methodsAction, postMethod: this.postMethodAction });
         };
-        MethodsService.$inject = ['$resource'];
+        MethodsService.$inject = ['$resource', 'growl'];
         return MethodsService;
     })();
     portal.MethodsService = MethodsService;
@@ -1144,7 +1149,7 @@ var portal;
                 _this.growl.warning('Configuration loaded, waiting for isAlive...');
             });
         }
-        PortalCtrl.$inject = ['$scope', '$timeout', 'configService', '$state', 'growl'];
+        PortalCtrl.$inject = ['$scope', '$timeout', 'configService', 'methodsService', '$state', 'growl'];
         return PortalCtrl;
     })();
     portal.PortalCtrl = PortalCtrl;
@@ -1327,10 +1332,11 @@ var portal;
     // @TODO this Controller needs major refactoring
     // move stuff to directives
     var MethodsCtrl = (function () {
-        function MethodsCtrl($scope, $timeout, $window, configService, methodsService, userService, $state, $modalInstance, growl, id) {
+        function MethodsCtrl($scope, $timeout, $window, configService, methodsService, userService, $state, $modalInstance, id) {
             var _this = this;
             this.methods = [];
             this.initialising = false;
+            this.loading = false;
             this.status = '';
             this.showError = false;
             this.currentMethod = null;
@@ -1354,7 +1360,6 @@ var portal;
             this.userService = userService;
             this.state = $state;
             this.modalInstance = $modalInstance;
-            this.growl = growl;
             this.applyableModels = {};
             this.database = this.configService.getDatabase(id);
 
@@ -1430,8 +1435,8 @@ else
         // handling and saving the WS result
         MethodsCtrl.prototype.handleServiceData = function (data, status) {
             //console.log('success: '+JSON.stringify(data.message))
-            this.methodsService.loading = false;
-            this.methodsService.status = 'success';
+            this.loading = false;
+            this.status = 'success';
 
             // new result id
             var id = this.userService.createId();
@@ -1440,28 +1445,33 @@ else
             // refresh localStorage
             this.userService.localStorage.results = this.userService.user.results;
             this.scope.$broadcast('update-results', id);
+
+            // notification
+            this.methodsService.notify('success');
         };
 
         MethodsCtrl.prototype.handleServiceError = function (error) {
             //console.log('failure: '+error.status)
-            this.methodsService.loading = false;
-            this.methodsService.showError = true;
+            this.loading = false;
+            this.showError = true;
             if (error.status == 404) {
-                this.methodsService.status = error.status + ' resource not found';
+                this.status = error.status + ' resource not found';
             } else {
                 var response = error.data;
-                this.methodsService.status = response.message;
+                this.status = response.message;
             }
-            this.growl.error(this.methodsService.status);
+
+            // notification
+            this.methodsService.notify(this.status);
         };
 
         // method for submission
         MethodsCtrl.prototype.submitMethod = function () {
             var _this = this;
             //console.log('submitted '+this.currentMethod.path+' '+this.request['id'])
-            this.methodsService.loading = true;
-            this.methodsService.status = '';
-            this.methodsService.showError = false;
+            this.loading = true;
+            this.status = '';
+            this.showError = false;
 
             var httpMethod = this.currentMethod.operations[0].method;
 
@@ -1723,7 +1733,7 @@ else {
                 this.modalInstance.close();
 else
                 this.modalInstance.dismiss();
-            this.methodsService.showError = false;
+            this.showError = false;
         };
         MethodsCtrl.$inject = [
             '$scope',
@@ -1734,7 +1744,6 @@ else
             'userService',
             '$state',
             '$modalInstance',
-            'growl',
             'id'
         ];
         return MethodsCtrl;
@@ -1794,6 +1803,7 @@ var portal;
                     // adding the info of the posted votable to userService
                     _this.userService.user.voTables.push(votable);
                     _this.scope.$broadcast('update-votables', votable.id);
+                    _this.growl.success('Added VOTable to user data');
                 });
             }).error(function (response) {
                 if (response.status > 0) {
@@ -2168,7 +2178,6 @@ else
                     return t = false;
                 });
                 _this.tabsActive[1] = true;
-                _this.growl.success('Added VOTable to user data');
             });
 
             // comes from MethodsCtrl
@@ -2187,7 +2196,6 @@ else
                     return t = false;
                 });
                 _this.tabsActive[2] = true;
-                _this.growl.success('Added service result to user data');
             });
         };
 

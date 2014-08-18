@@ -15,14 +15,12 @@ module portal {
     }
     
     export class MethodsService {
-        static $inject: Array<string> = ['$resource']
+        static $inject: Array<string> = ['$resource', 'growl']
         
         private resource: ng.resource.IResourceService
         private url: string = '/'
+        private growl: any
         public methods: ISwagger = null    
-        public loading: boolean = false
-        public status: string = ''
-        public showError: boolean = false 
         
         // action descriptor for GET methods actions
         private methodsAction: ng.resource.IActionDescriptor = {
@@ -35,8 +33,16 @@ module portal {
             method: 'POST'
         }
           
-        constructor($resource: ng.resource.IResourceService) {
+        constructor($resource: ng.resource.IResourceService, growl: any) {
             this.resource = $resource
+            this.growl = growl
+        }
+        
+        public notify(status: string){
+            if(status = 'success')
+                this.growl.success('Added service result to user data')
+             else
+                 this.growl.error(status)
         }
         
         // generic method for requesting API
