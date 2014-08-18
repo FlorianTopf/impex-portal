@@ -38,7 +38,9 @@ module portal {
         public initialising: boolean = false
         public loading: boolean = false
         public status: string = ''
-        public showError: boolean = false  
+        public showError: boolean = false
+        public serviceStatus: string = ''
+        public showServiceError: boolean = false  
         public currentMethod: Api = null
         public request: Object = {}
         // needed for VOTableURL => move to directive later
@@ -126,7 +128,7 @@ module portal {
         private handleServiceData(data: IResponse, status?: any) {
             //console.log('success: '+JSON.stringify(data.message))
             this.loading = false
-            this.status = 'success'
+            this.serviceStatus = 'success'
             // new result id
             var id = this.userService.createId()
             this.userService.user.results.push(new Result(this.database.id, id, this.currentMethod.path, data))
@@ -140,23 +142,23 @@ module portal {
         private handleServiceError(error: any) {
             //console.log('failure: '+error.status)
             this.loading = false
-            this.showError = true
+            this.showServiceError = true
             if(error.status == 404) {
-                this.status = error.status+' resource not found'
+                this.serviceStatus = error.status+' resource not found'
             } else {
                 var response = <IResponse>error.data
-                this.status = response.message
+                this.serviceStatus = response.message
             }
             // notification
-            this.methodsService.notify(this.status)
+            this.methodsService.notify(this.serviceStatus)
         }
         
         // method for submission
         public submitMethod() {
             //console.log('submitted '+this.currentMethod.path+' '+this.request['id'])
             this.loading = true
-            this.status = ''
-            this.showError = false
+            this.serviceStatus = ''
+            this.showServiceError = false
             
             var httpMethod = this.currentMethod.operations[0].method
             
@@ -173,7 +175,7 @@ module portal {
         }
         
         public retry() {
-            this.showError = false
+            this.showServiceError = false
             this.loadMethodsAPI()
         }
         
@@ -295,8 +297,15 @@ module portal {
             this.request['votable_url'] = url
         }
         
-        public updateRequest(paramName: string) {
-            //console.log("Update "+this.request[paramName])
+        public updateRequest(paramName: string) {            
+            this.userService.sessionStorage.methods[this.database.id]
+                .params[paramName] = this.request[paramName]
+        }
+        
+        public updateRequestDate(paramName: string) {
+            var iso = new Date(this.request[paramName])
+            this.request[paramName] = iso.toISOString()
+            
             this.userService.sessionStorage.methods[this.database.id]
                 .params[paramName] = this.request[paramName]
         }
@@ -401,6 +410,7 @@ module portal {
                 this.modalInstance.close()
             else
                 this.modalInstance.dismiss()
+            this.showServiceError = false
             this.showError = false
         }
 

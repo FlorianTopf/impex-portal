@@ -39,7 +39,7 @@ module portal {
         }
         
         public notify(status: string){
-            if(status = 'success')
+            if(status == 'success')
                 this.growl.success('Added service result to user data')
              else
                  this.growl.error(status)

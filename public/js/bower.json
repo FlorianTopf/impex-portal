@@ -11,7 +11,8 @@
     "angular-ui-bootstrap": "0.11.0",
     "ngstorage": "~0.3.0",
     "angular-ui-router": "~0.2.10",
-    "danialfarid-angular-file-upload": "~1.6.5"
+    "danialfarid-angular-file-upload": "~1.6.5",
+    "angular-bootstrap-datetimepicker": "0.2.4"
   },
   "homepage": "https://github.com/FlorianTopf/impex-portal",
   "authors": [

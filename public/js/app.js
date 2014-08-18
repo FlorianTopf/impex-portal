@@ -969,7 +969,7 @@ var portal;
             this.growl = growl;
         }
         MethodsService.prototype.notify = function (status) {
-            if (status = 'success')
+            if (status == 'success')
                 this.growl.success('Added service result to user data');
 else
                 this.growl.error(status);
@@ -1149,7 +1149,7 @@ var portal;
                 _this.growl.warning('Configuration loaded, waiting for isAlive...');
             });
         }
-        PortalCtrl.$inject = ['$scope', '$timeout', 'configService', 'methodsService', '$state', 'growl'];
+        PortalCtrl.$inject = ['$scope', '$timeout', 'configService', '$state', 'growl'];
         return PortalCtrl;
     })();
     portal.PortalCtrl = PortalCtrl;
@@ -1339,6 +1339,8 @@ var portal;
             this.loading = false;
             this.status = '';
             this.showError = false;
+            this.serviceStatus = '';
+            this.showServiceError = false;
             this.currentMethod = null;
             this.request = {};
             // needed for VOTableURL => move to directive later
@@ -1436,7 +1438,7 @@ else
         MethodsCtrl.prototype.handleServiceData = function (data, status) {
             //console.log('success: '+JSON.stringify(data.message))
             this.loading = false;
-            this.status = 'success';
+            this.serviceStatus = 'success';
 
             // new result id
             var id = this.userService.createId();
@@ -1453,16 +1455,16 @@ else
         MethodsCtrl.prototype.handleServiceError = function (error) {
             //console.log('failure: '+error.status)
             this.loading = false;
-            this.showError = true;
+            this.showServiceError = true;
             if (error.status == 404) {
-                this.status = error.status + ' resource not found';
+                this.serviceStatus = error.status + ' resource not found';
             } else {
                 var response = error.data;
-                this.status = response.message;
+                this.serviceStatus = response.message;
             }
 
             // notification
-            this.methodsService.notify(this.status);
+            this.methodsService.notify(this.serviceStatus);
         };
 
         // method for submission
@@ -1470,8 +1472,8 @@ else
             var _this = this;
             //console.log('submitted '+this.currentMethod.path+' '+this.request['id'])
             this.loading = true;
-            this.status = '';
-            this.showError = false;
+            this.serviceStatus = '';
+            this.showServiceError = false;
 
             var httpMethod = this.currentMethod.operations[0].method;
 
@@ -1492,7 +1494,7 @@ else
         };
 
         MethodsCtrl.prototype.retry = function () {
-            this.showError = false;
+            this.showServiceError = false;
             this.loadMethodsAPI();
         };
 
@@ -1615,7 +1617,13 @@ else
         };
 
         MethodsCtrl.prototype.updateRequest = function (paramName) {
-            //console.log("Update "+this.request[paramName])
+            this.userService.sessionStorage.methods[this.database.id].params[paramName] = this.request[paramName];
+        };
+
+        MethodsCtrl.prototype.updateRequestDate = function (paramName) {
+            var iso = new Date(this.request[paramName]);
+            this.request[paramName] = iso.toISOString();
+
             this.userService.sessionStorage.methods[this.database.id].params[paramName] = this.request[paramName];
         };
 
@@ -1733,6 +1741,7 @@ else {
                 this.modalInstance.close();
 else
                 this.modalInstance.dismiss();
+            this.showServiceError = false;
             this.showError = false;
         };
         MethodsCtrl.$inject = [
@@ -2461,7 +2470,15 @@ var portal;
 (function (portal) {
     'use strict';
 
-    var impexPortal = angular.module('portal', ['ui.bootstrap', 'ui.router', 'ngResource', 'ngStorage', 'angularFileUpload', 'angular-growl']);
+    var impexPortal = angular.module('portal', [
+        'ui.bootstrap',
+        'ui.bootstrap.datetimepicker',
+        'ui.router',
+        'ngResource',
+        'ngStorage',
+        'angularFileUpload',
+        'angular-growl'
+    ]);
 
     impexPortal.service('configService', portal.ConfigService);
     impexPortal.service('registryService', portal.RegistryService);

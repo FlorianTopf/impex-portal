@@ -40,7 +40,7 @@
 	</div>
 	<div class="row">
 		<div class="col-sm-12">
-			<div ng-repeat="operation in methvm.currentMethod.operations" 
+			<div ng-repeat="operation in methvm.currentMethod.operations track by $index" 
 				style="max-height: 500px; overflow-y: auto; overflow-x: hidden;">
 				<p><strong>{{ operation.summary }}:</strong>&nbsp;&nbsp;{{ operation.notes }}</p>
 				<!-- @TODO here we add a directive if paramType == 'query' later -->
@@ -55,11 +55,24 @@
 							tooltip="Requires {{parameter.type}}"
 							ng-change="methvm.updateRequest(parameter.name)">
 						<!-- dateTime inputs -->
-						<input type="text" class="form-control input-sm" style="width: 50%;"
-							ng-if="parameter.type == 'dateTime'" 
-							ng-required="parameter.required" ng-model="methvm.request[parameter.name]"
-							tooltip="Requires ISO-8601 {{parameter.type}}"
-							ng-change="methvm.updateRequest(parameter.name)">
+						<div class="dropdown" ng-if="parameter.type == 'dateTime'">
+  							<a class="dropdown-toggle" id="dropdown-datetime-{{$index}}" role="button" data-toggle="dropdown" data-target="#" href="#">
+    							<div class="input-group" style="width: 50%;">
+    								<input type="text" class="form-control input-sm" 
+    									ng-required="parameter.required"
+    									data-ng-model="methvm.request[parameter.name]" 
+    									tooltip="Requires ISO-8601 {{parameter.type}}">
+    								<span class="input-group-addon">
+    									<i class="glyphicon glyphicon-calendar"></i>
+    								</span>
+    							</div>
+  							</a>
+  							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+    							<datetimepicker data-ng-model="methvm.request[parameter.name]" 
+    							data-on-set-time="methvm.updateRequestDate(parameter.name)"
+    							data-datetimepicker-config="{ dropdownSelector: '#dropdown-datetime-{{$index}}' }"/>
+  							</ul>
+						</div>
 						<!-- duration inputs -->
 						<input type="text" class="form-control input-sm" style="width: 30%;"
 							ng-if="parameter.type == 'duration'" 

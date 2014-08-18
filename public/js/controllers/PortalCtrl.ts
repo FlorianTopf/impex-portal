@@ -17,7 +17,7 @@ module portal {
         public ready: boolean = false
         
       
-        static $inject: Array<string> = ['$scope', '$timeout', 'configService', 'methodsService', '$state', 'growl']
+        static $inject: Array<string> = ['$scope', '$timeout', 'configService', '$state', 'growl']
 
         constructor($scope: IPortalScope, $timeout: ng.ITimeoutService, configService: portal.ConfigService, 
             $state: ng.ui.IStateService, growl: any) { 
