@@ -25,11 +25,11 @@
       <xs:element type="FloatSequence" name="PlaneNormalVector"/>
       <xs:element type="xs:double" name="Resolution"/>
       <xs:element type="xs:double" name="StepSize"/>
-	  <xs:element type="xs:string" name="Spacecraft_name"/>
+	    <xs:element type="xs:string" name="Spacecraft_name"/>
       <xs:element type="cube_size_array" name="cube_size_array"/>
       <xs:element type="Interpolation" name="InterpolationMethod"/>
       <xs:element type="ListOfDouble" name="ListOfDouble"/>
-	  <!-- COPIED FROM THE SimDM -->
+	    <!-- COPIED FROM THE SimDM -->
       <xs:simpleType name="FloatSequence">
         <xs:list itemType="xs:float"/>
       </xs:simpleType>
@@ -61,13 +61,6 @@
         </xs:annotation>
         <xs:list itemType="xs:string"/>
       </xs:simpleType>
-      <!-- MYSTERIOUSLY NOT WORKING WITH TAVERNA -->
-      <!--xs:simpleType name="Variable">
-        <xs:annotation>
-          <xs:documentation>List of individual parameters from the selected NumericalOutput and Simulation Run, separated by a comma. By default: SimulatedRegion from Simulation Run; TemporalDescription and all parameters within the NumericalOutput</xs:documentation>
-        </xs:annotation>
-        <xs:list itemType="xs:string"/>
-      </xs:simpleType-->
 
       <xs:complexType name="ListOfDouble">
         <xs:annotation>
@@ -631,35 +624,37 @@
           </xs:element>
         </xs:sequence>
       </xs:complexType>
+	  
+	  
+      <xs:element type="Surface" name="getSurface"/>
+      <xs:complexType name="Surface">
+        <xs:sequence>
+          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>ResourceID of the NumericalOutput describing the 3D cube in which the interpolation is performed</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element ref="Variable" maxOccurs="1" minOccurs="0"/>
+		  <xs:element ref="PlaneNormalVector" maxOccurs="1" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>3D components of a normalized vector normal to the requested plane</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+		  <xs:element ref="PlanePoint" maxOccurs="1" minOccurs="1">
+            <xs:annotation>
+              <xs:documentation>A 3D coordinate indicating the position of one point in the plane requested. Coordinate of the point must be expressed in the Spase/SimulationRun/SimulationDomain/CoordinateSystem and with Space Coordinate label names</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+          <xs:element maxOccurs="1" minOccurs="0" type="extraParams_getSurface" name="extraParams">
+            <xs:annotation>
+              <xs:documentation>Resolution,OutputFiletype</xs:documentation>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+	  
+
     </xs:schema>
-    
-    
-    <xs:element type="Surface" name="getSurface"/>
-    <xs:complexType name="Surface">
-      <xs:sequence>
-        <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
-          <xs:annotation>
-            <xs:documentation>ResourceID of the NumericalOutput describing the 3D cube in which the interpolation is performed</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="Variable" maxOccurs="1" minOccurs="0"/>
-        <xs:element ref="PlaneNormalVector" maxOccurs="1" minOccurs="1">
-          <xs:annotation>
-            <xs:documentation>3D components of a normalized vector normal to the requested plane</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element ref="PlanePoint" maxOccurs="1" minOccurs="1">
-          <xs:annotation>
-            <xs:documentation>A 3D coordinate indicating the position of one point in the plane requested. Coordinate of the point must be expressed in the Spase/SimulationRun/SimulationDomain/CoordinateSystem and with Space Coordinate label names</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-        <xs:element maxOccurs="1" minOccurs="0" type="extraParams_getSurface" name="extraParams">
-          <xs:annotation>
-            <xs:documentation>Resolution,OutputFiletype</xs:documentation>
-          </xs:annotation>
-        </xs:element>
-      </xs:sequence>
-    </xs:complexType>
   </wsdl:types>
   
   

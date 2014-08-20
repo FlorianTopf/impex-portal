@@ -42,16 +42,6 @@
 			<xs:simpleType name="FloatSequence">
 				<xs:list itemType="xs:float"/>
 			</xs:simpleType>
-			<!-- MYSTERIOUSLY NOT WORKING WITH TAVERNA -->
-			<!--xs:simpleType name="Variable">
-				<xs:annotation>
-					<xs:documentation>List of individual parameters from the selected
-						NumericalOutput separated by a comma. Identified by the ParameterKey. By
-						default: all parameters within the NumericalOutput are
-						returned</xs:documentation>
-				</xs:annotation>
-				<xs:list itemType="xs:string"/>
-			</xs:simpleType-->
 			<xs:simpleType name="Population">
 				<xs:annotation>
 					<xs:documentation>List of population species from the selected NumericalOutput
@@ -68,17 +58,6 @@
 				</xs:annotation>
 				<xs:list itemType="xs:string"/>
 			</xs:simpleType>
-
-			<!-- NOT WORKING ATM -->
-			<!--xs:simpleType name="OutputFormat">
-				<xs:annotation>
-					<xs:documentation> two format supported </xs:documentation>
-				</xs:annotation>
-				<xs:restriction base="xs:string">
-					<xs:enumeration value="netCDF"/>
-					<xs:enumeration value="VOTable"/>
-				</xs:restriction>
-			</xs:simpleType-->
 
 
 

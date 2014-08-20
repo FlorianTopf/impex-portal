@@ -37,7 +37,7 @@
 		<xs:element type="xs:anyURI" name="ResourceID"/>
 		<xs:element type="xs:string" name="Variable"/>
 		
-		<xs:element default="netCDF" type="OutputFormat" name="OutputFileType"/>
+		<xs:element default="netCDF" type="xs:string" name="OutputFileType"/>
 		<xs:element default="Linear" type="enumInterpolation" name="InterpolationMethod"/>
 		<xs:element type="xs:anyURI" name="url_XYZ">
 			<xs:annotation>
@@ -72,13 +72,6 @@
 			</xs:restriction>
 		</xs:simpleType>
 
-		<!-- MYSTERIOUSLY NOT WORKING WITH TAVERNA -->
-		<!--xs:simpleType name="Variable">
-			<xs:annotation>
-				<xs:documentation>List of individual parameters from the selected NumericalOutput separated by a comma. Identified by the ParameterKey. By default: all parameters within the NumericalOutput are returned</xs:documentation>
-			</xs:annotation>
-			<xs:list itemType="xs:string"/>
-		</xs:simpleType-->
 		
 		<xs:simpleType name="Population">
 			<xs:annotation>
@@ -395,7 +388,7 @@
 		<xs:complexType name="VOTable_field">
 			<xs:sequence>
 				
-				<xs:element maxOccurs="1" minOccurs="1" type="listOfValues" name="data"/>
+				<xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="data"/>
 				
 				
 				<xs:element maxOccurs="1" minOccurs="1" type="xs:token" name="name"/>
@@ -410,9 +403,6 @@
 			</xs:sequence>
 		</xs:complexType>
 		
-		<xs:simpleType name="listOfValues">
-			<xs:list itemType="xs:string"/>
-		</xs:simpleType>
 	</xs:schema>
 
 </wsdl:types>
