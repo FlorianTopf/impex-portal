@@ -41,6 +41,9 @@ module portal {
                 .forEach((e) => { 
                     this.configService.isAlive(e.name) }), 600000)
             
+            // read all regions at startup (@TODO set an interval for refresh?)
+            this.configService.getRegions()
+            
             // @TODO user info comes from the server in the future (add in resolver too) 
             this.userService.user = new User(this.userService.createId())
             
@@ -54,6 +57,9 @@ module portal {
                 
             if(this.userService.localStorage.selections != null)
                 this.userService.user.selections = this.userService.localStorage.selections
+                
+            
+
             
               
         }

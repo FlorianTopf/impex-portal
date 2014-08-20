@@ -52,12 +52,55 @@ object Application extends BaseController {
         "url" -> JsString("http://"+request.host+"/userdata/"+data.name))
       })
       Ok(json).withSession("id" -> request.sessionId)
-    }    
+    }
     
     //Ok(Json.toJson(obj2)).withSession("id" -> request.sessionId)
     //Ok(json)
   }
   
+  // testing filters
+  def getRegions() = PortalAction.async { implicit request => 
+    val future = RegistryService.getNumericalOutput(None, false)
+    future.map { _ match {
+        case Left(spase) => { 
+          val regions = spase.ResourceEntity.flatMap{ r => 
+            val run = r.as[NumericalOutput]
+            run.SimulatedRegion
+          }
+          // @TODO should we only return those 
+          // with/without appendices (e.g. .Magnetosphere)
+          // maybe introduce empty error case
+          Ok(Json.toJson(regions.distinct))
+        }
+        case Right(error) => BadRequest(Json.toJson(error))
+      }
+    } 
+  }
+  
+  // testing filters
+  def filterRegion(regionName: String) = PortalAction.async { implicit request =>
+    val future = RegistryService.getNumericalOutput(None, false)
+    future.map { _ match {
+        case Left(spase) => { 
+          val regions = spase.ResourceEntity.flatMap{ r => 
+            val run = r.as[NumericalOutput]
+            // matches e.g. Earth => Earth, Earth.Magnetosphere or
+            // Earth.Magnetosphere => Earth, Earth.Magnetosphere
+            val region = regionName.replace(".Magnetosphere", "")
+            if(run.AccessInformation.length > 0 && 
+                run.SimulatedRegion.filter(p => p.contains(region)).length > 0) {
+              Some(run.AccessInformation.head.RepositoryID)
+            } else
+              None
+          }
+          // maybe introduce empty error case
+          Ok(Json.toJson(regions.distinct))
+        }
+        case Right(error) => BadRequest(Json.toJson(error))
+      }
+    }
+    
+  }
 
   // test form for uploader
   def uploadTest = PortalAction { implicit request => 

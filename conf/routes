@@ -81,7 +81,12 @@ GET		/userdata				    controllers.Application.listUserdata
 GET		/userdata/:fileName			controllers.Application.getUserdata(fileName: String)
 DELETE	/userdata/:fileName			controllers.Application.deleteUserData(fileName: String)
 
+# filter routes
+GET		/filter/region				controllers.Application.getRegions
+GET		/filter/region/:regionName	controllers.Application.filterRegion(regionName: String)
+
 # general testing routes
 GET		/test						controllers.Application.test
 GET		/uploader					controllers.Application.uploadTest
+
 

@@ -21,12 +21,18 @@ module portal {
         private url: string = '/'
         public config: IConfig = null
         public aliveMap: IAliveMap = {}
+        public filterRegions: Array<string> = []
         
         // creates an action descriptor
         private configAction: ng.resource.IActionDescriptor = {
             method: 'GET',
             isArray: false
         }  
+        
+        constructor($resource: ng.resource.IResourceService, $http: ng.IHttpService) {
+            this.resource = $resource
+            this.http = $http
+        }
         
         // checks if a database and its methods are alive
         public isAlive(dbName: string) {
@@ -44,11 +50,6 @@ module portal {
                .error((data: any, status: any) => { this.aliveMap[dbName] = false })           
         }
         
-        constructor($resource: ng.resource.IResourceService, $http: ng.IHttpService) {
-            this.resource = $resource
-            this.http = $http
-        }
-        
         // returns the resource handler 
         public Config(): IConfigResource {
             return <IConfigResource> this.resource(this.url+'config?', 
@@ -63,6 +64,17 @@ module portal {
         
         public getDatabase(id: string): Database {
             return this.config.databases.filter((e) => e.id == id)[0]
+        }
+        
+        // Filter routines
+        public getRegions() {
+            this.http.get(this.url+'filter/region', { timeout: 10000})
+                .success((data: Array<string>, status: any) => this.filterRegions = data)
+                .error((data: any, status: any) => this.filterRegions = [])
+        }
+        
+        public filterRegion(name: String): ng.IHttpPromise<Array<string>> {
+            return this.http.get(this.url+'filter/region/'+name, { timeout: 10000})
         }
         
 

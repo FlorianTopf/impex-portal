@@ -60,6 +60,7 @@ module portal {
                 this.showError[id] = false
                 this.showSuccess[id] = false
                 this.scope.$broadcast('service-loading', id)
+                this.growl.info(this.status)
             } else if(status == 'success') {
                 this.loading[id] = false
                 this.showSuccess[id] = true

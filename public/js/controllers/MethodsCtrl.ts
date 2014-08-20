@@ -77,7 +77,7 @@ module portal {
                 this.loadMethodsAPI()
             }
                 
-            // fill manual applyables for SINP (no API info available)
+            // fill manual applyables for SINP (no API info available) => @TODO move to MethodsService
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = 
             ['getDataPointValueSINP', 'calculateDataPointValue', 'calculateDataPointValueSpacecraft', 'calculateDataPointValueFixedTime', 
                 'calculateFieldline', 'calculateCube', 'calculateFieldline', 'getSurfaceSINP']
@@ -153,6 +153,7 @@ module portal {
         // method for submission
         public submitMethod() {
             //console.log('submitted '+this.currentMethod.path+' '+this.request['id'])
+            this.methodsService.status = 'Loading data from service'
             // system notification
             this.methodsService.notify('loading', this.database.id)
             var httpMethod = this.currentMethod.operations[0].method
