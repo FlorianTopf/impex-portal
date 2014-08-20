@@ -855,6 +855,7 @@ var portal;
             this.url = '/';
             this.config = null;
             this.aliveMap = {};
+            this.filterRegions = [];
             // creates an action descriptor
             this.configAction = {
                 method: 'GET',
@@ -893,6 +894,20 @@ else
             return this.config.databases.filter(function (e) {
                 return e.id == id;
             })[0];
+        };
+
+        // Filter routines
+        ConfigService.prototype.getRegions = function () {
+            var _this = this;
+            this.http.get(this.url + 'filter/region', { timeout: 10000 }).success(function (data, status) {
+                return _this.filterRegions = data;
+            }).error(function (data, status) {
+                return _this.filterRegions = [];
+            });
+        };
+
+        ConfigService.prototype.filterRegion = function (name) {
+            return this.http.get(this.url + 'filter/region/' + name, { timeout: 10000 });
         };
         ConfigService.$inject = ['$resource', '$http'];
         return ConfigService;
@@ -984,6 +999,7 @@ var portal;
                 this.showError[id] = false;
                 this.showSuccess[id] = false;
                 this.scope.$broadcast('service-loading', id);
+                this.growl.info(this.status);
             } else if (status == 'success') {
                 this.loading[id] = false;
                 this.showSuccess[id] = true;
@@ -1123,6 +1139,9 @@ var portal;
                     _this.configService.isAlive(e.name);
                 });
             }, 600000);
+
+            // read all regions at startup (@TODO set an interval for refresh?)
+            this.configService.getRegions();
 
             // @TODO user info comes from the server in the future (add in resolver too)
             this.userService.user = new portal.User(this.userService.createId());
@@ -1411,7 +1430,7 @@ var portal;
                 this.loadMethodsAPI();
             }
 
-            // fill manual applyables for SINP (no API info available)
+            // fill manual applyables for SINP (no API info available) => @TODO move to MethodsService
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = [
                 'getDataPointValueSINP',
                 'calculateDataPointValue',
@@ -1500,6 +1519,8 @@ else
         MethodsCtrl.prototype.submitMethod = function () {
             var _this = this;
             //console.log('submitted '+this.currentMethod.path+' '+this.request['id'])
+            this.methodsService.status = 'Loading data from service';
+
             // system notification
             this.methodsService.notify('loading', this.database.id);
             var httpMethod = this.currentMethod.operations[0].method;
