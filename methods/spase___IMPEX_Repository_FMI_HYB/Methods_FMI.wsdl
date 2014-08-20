@@ -315,6 +315,7 @@
 
 		<xs:element type="idm:enumRegion" name="Object"/>
 		<xs:element default="1" type="xs:positiveInteger" name="RunCount"/>
+		<xs:element type="xs:string" name="json_string"/>
 
 		<xs:element type="MostRelevantRun" name="getMostRelevantRun"/>
 		<xs:complexType name="MostRelevantRun">
@@ -405,6 +406,17 @@
 		<xs:simpleType name="listOfValues">
 			<xs:list itemType="xs:string"/>
 		</xs:simpleType>
+		
+		
+		
+		<xs:element name="emptyElement"> 
+			<xs:complexType>
+				<xs:sequence/>
+			</xs:complexType> 
+		</xs:element>
+		<xs:element type="xs:anyURI" name="anyURI"/>
+		<xs:element type="xs:boolean" name="boolean"/>
+
 	</xs:schema>
 
 </wsdl:types>
@@ -417,7 +429,7 @@
 
 
 <wsdl:message name="Generic_Response">
-	<wsdl:part type="xs:anyURI" name="parameters"/>
+	<wsdl:part element="anyURI" name="parameters"/>
 </wsdl:message>
 
 
@@ -461,7 +473,7 @@
 </wsdl:message>
 
 <wsdl:message name="MostRelevantRun_Response">
-	<wsdl:part type="xs:string" name="parameters"/>
+	<wsdl:part element="json_string" name="parameters"/>
 </wsdl:message>
 
 
@@ -470,8 +482,12 @@
 </wsdl:message>
 
 
+<wsdl:message name="isAlive_Request">
+	<wsdl:part element="emptyElement" name="parameters"/>
+</wsdl:message>
+
 <wsdl:message name="isAlive_Response">
-	<wsdl:part type="xs:boolean" name="parameters"/>
+	<wsdl:part element="boolean" name="parameters"/>
 </wsdl:message>
 
 
@@ -518,6 +534,7 @@
 		<wsdl:output message="Generic_Response"/>
 	</wsdl:operation>
 	<wsdl:operation name="isAlive">
+		<wsdl:input message="isAlive_Request"/>
 		<wsdl:output message="isAlive_Response"/>
 	</wsdl:operation>
 </wsdl:portType>
@@ -577,6 +594,7 @@
 	</wsdl:operation>
  	<wsdl:operation name="isAlive">
 		<soap:operation soapAction="Alive"/>
+		<wsdl:input><soap:body use="literal"/></wsdl:input>
 		<wsdl:output><soap:body use="literal"/></wsdl:output>
 	</wsdl:operation>
 </wsdl:binding>

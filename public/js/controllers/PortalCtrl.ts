@@ -36,6 +36,7 @@ module portal {
             
             //console.log(this.configService.filterRegions)
             
+            
             this.scope.$on('service-loading', (e, id: string) => { 
                 console.log('loading at '+id)
             })

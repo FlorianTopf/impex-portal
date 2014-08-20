@@ -321,7 +321,18 @@
 					<xs:enumeration value="Backward"/>
 				</xs:restriction>
 			</xs:simpleType>
-		</xs:schema>
+			
+			
+			
+			<xs:element name="emptyAlive">
+				<xs:complexType>
+					<xs:sequence/>
+				</xs:complexType>
+			</xs:element>
+			
+			<xs:element type="xs:boolean" name="alive"/>
+			
+		</xs:schema>	
 	</wsdl:types>
 
 
@@ -369,6 +380,14 @@
 	<wsdl:message name="FieldLine_Request">
 		<wsdl:part element="getFieldLine" name="parameters"/>
 	</wsdl:message>
+	
+	<wsdl:message name="isAlive">
+	     <wsdl:part element="emptyAlive" name="parameters"/> 
+	</wsdl:message>
+	
+	<wsdl:message name="isAliveResponse">
+		<wsdl:part element="alive" name="parameters"/> 
+	</wsdl:message>
 
 	
 
@@ -414,6 +433,11 @@
 		<wsdl:operation name="getFieldLine">
 			<wsdl:input message="FieldLine_Request"> </wsdl:input>
 			<wsdl:output message="Generic_Response"> </wsdl:output>
+		</wsdl:operation>
+		
+		<wsdl:operation name="isAlive">
+			<wsdl:input message="isAlive"> </wsdl:input>
+			<wsdl:output message="isAliveResponse"> </wsdl:output>
 		</wsdl:operation>
 	</wsdl:portType>
 
@@ -514,6 +538,16 @@
 				<soap:body use="literal"/>
 			</wsdl:output>
 		</wsdl:operation>
+		
+		<wsdl:operation name="isAlive">
+			<soap:operation style="document" soapAction=""/>
+			<wsdl:input>
+				<soap:body use="literal"/>
+			</wsdl:input>
+			<wsdl:output>
+				<soap:body use="literal"/>
+			</wsdl:output>
+		</wsdl:operation>		
 	</wsdl:binding>	
 
 
