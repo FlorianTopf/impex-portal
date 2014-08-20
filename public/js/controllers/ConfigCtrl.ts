@@ -15,10 +15,11 @@ module portal {
         private state: ng.ui.IStateService
 
         static $inject: Array<string> = ['$scope', '$interval', 'configService', 'userService', '$state', 
-            'config', 'userData']
+            'config', 'userData', 'regions']
 
         constructor($scope: IConfigScope, $interval: ng.IIntervalService, configService: portal.ConfigService, 
-            userService: portal.UserService, $state: ng.ui.IStateService, config: IConfig, userData: Array<IUserData>) {  
+            userService: portal.UserService, $state: ng.ui.IStateService, 
+            config: IConfig, userData: Array<IUserData>, regions: ng.IHttpPromiseCallbackArg<Array<string>>) {  
             this.scope = $scope
             this.scope.vm = this 
             this.interval = $interval
@@ -26,6 +27,8 @@ module portal {
             this.userService = userService
             this.state = $state   
             this.configService.config = config
+            // read all regions at startup (@TODO set an interval for refresh?)
+            this.configService.filterRegions = regions.data
             
             // only for simulations atm 
             this.configService.config.databases
@@ -41,9 +44,6 @@ module portal {
                 .forEach((e) => { 
                     this.configService.isAlive(e.name) }), 600000)
             
-            // read all regions at startup (@TODO set an interval for refresh?)
-            this.configService.getRegions()
-            
             // @TODO user info comes from the server in the future (add in resolver too) 
             this.userService.user = new User(this.userService.createId())
             
@@ -58,9 +58,6 @@ module portal {
             if(this.userService.localStorage.selections != null)
                 this.userService.user.selections = this.userService.localStorage.selections
                 
-            
-
-            
               
         }
       

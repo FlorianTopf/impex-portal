@@ -22,6 +22,9 @@ module portal {
             }],
             userData: ['userService', (UserService) => {
                 return UserService.loadUserData()
+            }], 
+            regions: ['configService', (ConfigService) => {
+                return ConfigService.loadRegions()
             }]
         }
         

@@ -34,6 +34,8 @@ module portal {
                   this.growl.warning('Configuration loaded, waiting for isAlive...')
             })
             
+            //console.log(this.configService.filterRegions)
+            
             this.scope.$on('service-loading', (e, id: string) => { 
                 console.log('loading at '+id)
             })

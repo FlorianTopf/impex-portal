@@ -32,6 +32,12 @@ var portal;
                     function (UserService) {
                         return UserService.loadUserData();
                     }
+                ],
+                regions: [
+                    'configService',
+                    function (ConfigService) {
+                        return ConfigService.loadRegions();
+                    }
                 ]
             };
         }
@@ -855,6 +861,7 @@ var portal;
             this.url = '/';
             this.config = null;
             this.aliveMap = {};
+            this.filterRegions = [];
             // creates an action descriptor
             this.configAction = {
                 method: 'GET',
@@ -893,6 +900,15 @@ else
             return this.config.databases.filter(function (e) {
                 return e.id == id;
             })[0];
+        };
+
+        // Filter routines
+        ConfigService.prototype.loadRegions = function () {
+            return this.http.get(this.url + 'filter/region', { timeout: 10000 });
+        };
+
+        ConfigService.prototype.filterRegion = function (name) {
+            return this.http.get(this.url + 'filter/region/' + name, { timeout: 10000 });
         };
         ConfigService.$inject = ['$resource', '$http'];
         return ConfigService;
@@ -956,6 +972,8 @@ var portal;
         function MethodsService($rootScope, $resource, growl) {
             this.url = '/';
             this.methods = null;
+            // special applyables for SINP models/outputs
+            this.applyableModels = {};
             this.loading = {};
             this.status = '';
             this.showError = {};
@@ -972,6 +990,20 @@ var portal;
             this.resource = $resource;
             this.growl = growl;
             this.scope = $rootScope;
+
+            // fill manual applyables for SINP (no API info available)
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = [
+                'getDataPointValueSINP',
+                'calculateDataPointValue',
+                'calculateDataPointValueSpacecraft',
+                'calculateDataPointValueFixedTime',
+                'calculateFieldline',
+                'calculateCube',
+                'calculateFieldline',
+                'getSurfaceSINP'
+            ];
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Mercury/OnFly'] = ['calculateDataPointValueNercury', 'calculateCubeMercury'];
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Saturn/OnFly'] = ['calculateDataPointValueSaturn', 'calculateCubeSaturn'];
         }
         // generic method for requesting API
         MethodsService.prototype.MethodsAPI = function () {
@@ -984,6 +1016,7 @@ var portal;
                 this.showError[id] = false;
                 this.showSuccess[id] = false;
                 this.scope.$broadcast('service-loading', id);
+                this.growl.info(this.status);
             } else if (status == 'success') {
                 this.loading[id] = false;
                 this.showSuccess[id] = true;
@@ -1096,7 +1129,7 @@ var portal;
     'use strict';
 
     var ConfigCtrl = (function () {
-        function ConfigCtrl($scope, $interval, configService, userService, $state, config, userData) {
+        function ConfigCtrl($scope, $interval, configService, userService, $state, config, userData, regions) {
             var _this = this;
             this.scope = $scope;
             this.scope.vm = this;
@@ -1105,6 +1138,9 @@ var portal;
             this.userService = userService;
             this.state = $state;
             this.configService.config = config;
+
+            // read all regions at startup (@TODO set an interval for refresh?)
+            this.configService.filterRegions = regions.data;
 
             // only for simulations atm
             this.configService.config.databases.filter(function (e) {
@@ -1143,7 +1179,8 @@ var portal;
             'userService',
             '$state',
             'config',
-            'userData'
+            'userData',
+            'regions'
         ];
         return ConfigCtrl;
     })();
@@ -1171,6 +1208,7 @@ var portal;
                 _this.growl.warning('Configuration loaded, waiting for isAlive...');
             });
 
+            //console.log(this.configService.filterRegions)
             this.scope.$on('service-loading', function (e, id) {
                 console.log('loading at ' + id);
             });
@@ -1393,7 +1431,6 @@ var portal;
             this.userService = userService;
             this.state = $state;
             this.modalInstance = $modalInstance;
-            this.applyableModels = {};
             this.database = this.configService.getDatabase(id);
 
             if (this.methodsService.methods) {
@@ -1410,20 +1447,6 @@ var portal;
             } else {
                 this.loadMethodsAPI();
             }
-
-            // fill manual applyables for SINP (no API info available)
-            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = [
-                'getDataPointValueSINP',
-                'calculateDataPointValue',
-                'calculateDataPointValueSpacecraft',
-                'calculateDataPointValueFixedTime',
-                'calculateFieldline',
-                'calculateCube',
-                'calculateFieldline',
-                'getSurfaceSINP'
-            ];
-            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Mercury/OnFly'] = ['calculateDataPointValueNercury', 'calculateCubeMercury'];
-            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Saturn/OnFly'] = ['calculateDataPointValueSaturn', 'calculateCubeSaturn'];
         }
         MethodsCtrl.prototype.loadMethodsAPI = function () {
             var _this = this;
@@ -1500,6 +1523,8 @@ else
         MethodsCtrl.prototype.submitMethod = function () {
             var _this = this;
             //console.log('submitted '+this.currentMethod.path+' '+this.request['id'])
+            this.methodsService.status = 'Loading data from service';
+
             // system notification
             this.methodsService.notify('loading', this.database.id);
             var httpMethod = this.currentMethod.operations[0].method;
@@ -1592,8 +1617,8 @@ else
             }
 
             if (this.currentMethod.path.indexOf('SINP') != -1) {
-                for (var key in this.applyableModels) {
-                    var methods = this.applyableModels[key];
+                for (var key in this.methodsService.applyableModels) {
+                    var methods = this.methodsService.applyableModels[key];
                     var index = methods.indexOf(this.currentMethod.operations[0].nickname);
                     if (index != -1)
                         this.scope.$broadcast('set-applyable-models', key);

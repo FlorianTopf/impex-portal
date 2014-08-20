@@ -8,6 +8,11 @@ module portal {
         getMethods(): ISwagger
     }
     
+    // special applyables for SINP models/outputs
+    export interface IApplyableModels {
+        [id: string]: Array<string>
+    }
+    
     // describes the actions for service methods
     export interface IMethods extends ng.resource.IResourceClass<IResponse> {
         getMethod(): IResponse
@@ -26,6 +31,8 @@ module portal {
         private url: string = '/'
         private growl: any
         public methods: ISwagger = null    
+        // special applyables for SINP models/outputs
+        public applyableModels: IApplyableModels = {}
         public loading: ILoaderMap = {}
         public status: string = ''
         public showError: ILoaderMap = {} 
@@ -52,6 +59,13 @@ module portal {
             this.resource = $resource
             this.growl = growl
             this.scope = $rootScope
+            
+            // fill manual applyables for SINP (no API info available)
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = 
+            ['getDataPointValueSINP', 'calculateDataPointValue', 'calculateDataPointValueSpacecraft', 'calculateDataPointValueFixedTime', 
+                'calculateFieldline', 'calculateCube', 'calculateFieldline', 'getSurfaceSINP']
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Mercury/OnFly'] = ['calculateDataPointValueNercury', 'calculateCubeMercury']
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Saturn/OnFly'] = ['calculateDataPointValueSaturn', 'calculateCubeSaturn']
         }
         
         public notify(status: string, id: string){

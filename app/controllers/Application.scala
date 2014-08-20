@@ -67,10 +67,9 @@ object Application extends BaseController {
             val run = r.as[NumericalOutput]
             run.SimulatedRegion
           }
-          // @TODO should we only return those 
-          // with/without appendices (e.g. .Magnetosphere)
+          // we return the base without appendices
           // maybe introduce empty error case
-          Ok(Json.toJson(regions.distinct))
+          Ok(Json.toJson(regions.map(_.replace(".Magnetosphere", "")).distinct))
         }
         case Right(error) => BadRequest(Json.toJson(error))
       }
@@ -84,11 +83,9 @@ object Application extends BaseController {
         case Left(spase) => { 
           val regions = spase.ResourceEntity.flatMap{ r => 
             val run = r.as[NumericalOutput]
-            // matches e.g. Earth => Earth, Earth.Magnetosphere or
-            // Earth.Magnetosphere => Earth, Earth.Magnetosphere
-            val region = regionName.replace(".Magnetosphere", "")
+            // matches e.g. Earth => Earth, Earth.Magnetosphere
             if(run.AccessInformation.length > 0 && 
-                run.SimulatedRegion.filter(p => p.contains(region)).length > 0) {
+                run.SimulatedRegion.filter(p => p.contains(regionName)).length > 0) {
               Some(run.AccessInformation.head.RepositoryID)
             } else
               None

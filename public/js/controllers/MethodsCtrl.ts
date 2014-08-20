@@ -7,11 +7,6 @@ module portal {
         methvm: MethodsCtrl;
     }
     
-    // special applyables for SINP models/outputs
-    export interface IApplyableModels {
-        [id: string]: Array<string>
-    }
-    
     // for getVOTableURL form
     export interface IMetadata {
         name: string
@@ -30,8 +25,6 @@ module portal {
         private state: ng.ui.IStateService
         private modalInstance: any
         private methodsPromise: ng.IPromise<any>
-        // special applyables for SINP models/outputs
-        private applyableModels: IApplyableModels
         private database: Database
         
         public methods: Array<Api> = []
@@ -62,7 +55,6 @@ module portal {
             this.userService = userService
             this.state = $state
             this.modalInstance = $modalInstance
-            this.applyableModels = {}
             this.database = this.configService.getDatabase(id)
 
             if(this.methodsService.methods) {
@@ -76,14 +68,6 @@ module portal {
             } else {
                 this.loadMethodsAPI()
             }
-                
-            // fill manual applyables for SINP (no API info available) => @TODO move to MethodsService
-            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = 
-            ['getDataPointValueSINP', 'calculateDataPointValue', 'calculateDataPointValueSpacecraft', 'calculateDataPointValueFixedTime', 
-                'calculateFieldline', 'calculateCube', 'calculateFieldline', 'getSurfaceSINP']
-            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Mercury/OnFly'] = ['calculateDataPointValueNercury', 'calculateCubeMercury']
-            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Saturn/OnFly'] = ['calculateDataPointValueSaturn', 'calculateCubeSaturn']
-
         }
         
         private loadMethodsAPI() {
@@ -247,8 +231,8 @@ module portal {
             // if there is a SINP method chosen, we must forward info about applyable models
             if(this.currentMethod.path.indexOf('SINP') != -1) {
                //console.log(this.currentMethod.operations[0].nickname)
-               for(var key in this.applyableModels) {
-                    var methods = this.applyableModels[key]
+               for(var key in this.methodsService.applyableModels) {
+                    var methods = this.methodsService.applyableModels[key]
                     var index = methods.indexOf(this.currentMethod.operations[0].nickname)
                     if(index != -1) this.scope.$broadcast('set-applyable-models', key) 
                }

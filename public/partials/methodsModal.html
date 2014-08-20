@@ -79,8 +79,8 @@
 							ng-required="parameter.required" ng-model="methvm.request[parameter.name]"
 							tooltip="Requires ISO-8601 {{parameter.type}}"
 							ng-change="methvm.updateRequest(parameter.name)">
-						<!-- number inputs -->
-						<input type="number" class="form-control input-sm" style="width: 30%;"
+						<!-- number inputs type="number" creates problems -->
+						<input type="text" class="form-control input-sm" style="width: 30%;"
 							ng-if="(parameter.type == 'double') || (parameter.type == 'integer') 
 								|| (parameter.type == 'number')" 
 							ng-required="parameter.required" ng-model="methvm.request[parameter.name]"

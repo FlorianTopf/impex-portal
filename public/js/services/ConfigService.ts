@@ -67,10 +67,8 @@ module portal {
         }
         
         // Filter routines
-        public getRegions() {
-            this.http.get(this.url+'filter/region', { timeout: 10000})
-                .success((data: Array<string>, status: any) => this.filterRegions = data)
-                .error((data: any, status: any) => this.filterRegions = [])
+        public loadRegions(): ng.IHttpPromise<Array<string>> {
+            return this.http.get(this.url+'filter/region', { timeout: 10000})
         }
         
         public filterRegion(name: String): ng.IHttpPromise<Array<string>> {
