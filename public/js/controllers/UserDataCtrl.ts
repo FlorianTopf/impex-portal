@@ -36,6 +36,8 @@ module portal {
             this.growl = growl
         }
         
+        // @TODO add uploader for CSV files
+        
         // @TODO add drag over later
         // see: https://github.com/danialfarid/angular-file-upload/blob/master/demo/war/js/upload.js
         public onFileSelect($files) {

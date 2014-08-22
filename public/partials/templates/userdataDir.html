@@ -8,9 +8,9 @@
 			ng-hide="userdirvm.user.selections | filter:{ repositoryId:userdirvm.repositoryId } | isEmpty" 
 			active="userdirvm.tabsActive[0]">
 		<div class="btn-group-vertical" style="max-height: 450px; overflow-y: auto; width: 90%; margin-top: 20px;">
-			<button type="button" class="btn btn-success btn-sm" 
+			<button type="button" class="btn btn-sm btn-success" 
 				ng-repeat="sel in userdirvm.user.selections | filter:{ repositoryId:userdirvm.repositoryId }"
-			    ng-class="{ active: !userdirvm.isCollapsed[sel.id] }"
+			    ng-class="{ active: !userdirvm.isCollapsed[sel.id]}"
 				ng-click="userdirvm.toggleSelectionDetails(sel.id)">
 				{{ sel.type }}<br/>{{ sel.repositoryId }}
 			</button>
@@ -56,6 +56,8 @@
 				</div>
 				<h4>Tree Selection {{ sel.id }}: {{ sel.type }}</h4>
 				<p style="word-wrap: break-word;">
+					<a target="_blank" ng-href="/registry/{{sel.type.toLowerCase()}}?id={{sel.elem.resourceId|encodeUri}}">Download XML</a><br/>
+					<a target="_blank" ng-href="/registry/{{sel.type.toLowerCase()}}?id={{sel.elem.resourceId|encodeUri}}&r=true">Download recursive XML</a>
 					<selection-dir selection="sel.elem"></selection-dir>
 				</p>
 			</div>

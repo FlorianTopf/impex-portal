@@ -32,6 +32,7 @@ module portal {
         public repositoryId: string = null
         public isCollapsed: ICollapsedMap = {}
         // currently applyable elements (according to current method)
+        // @TODO rework this => selection map (remove isSelApplyable)
         public applyableElements: Array<string> = []
         public isSelApplyable: boolean = false
         public isVOTApplyable: boolean = false
@@ -78,6 +79,7 @@ module portal {
                 if(this.user.selections) {
                     this.user.selections.forEach((e) => {
                         this.isCollapsed[e.id] = true
+                        // add applyables boolean = true for all
                     })
                 }
                 // collapsing all votables on init

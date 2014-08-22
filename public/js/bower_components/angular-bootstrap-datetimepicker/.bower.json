@@ -35,6 +35,6 @@
     "commit": "06c1e7b37b9a6a7ec6c743650af0c06c1f1346ac"
   },
   "_source": "git://github.com/dalelotts/angular-bootstrap-datetimepicker.git",
-  "_target": "*",
+  "_target": "0.2.4",
   "_originalSource": "angular-bootstrap-datetimepicker"
 }

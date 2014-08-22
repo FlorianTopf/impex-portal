@@ -4,7 +4,7 @@ module portal {
     'use strict';
 
     var impexPortal: ng.IModule = angular.module('portal', ['ui.bootstrap', 'ui.bootstrap.datetimepicker', 'ui.router', 
-        'ngResource', 'ngStorage', 'angularFileUpload', 'angular-growl'])
+        'ngResource', 'ngStorage', 'angularFileUpload', 'angular-growl', 'rt.encodeuri'])
     
  
     impexPortal.service('configService', ConfigService)
@@ -87,8 +87,9 @@ module portal {
         // @TODO when we use resolver, we must check errors on promises here!
         $rootScope.$on('$stateChangeError',  (event, toState, toParams, fromState, fromParams, error) => {
                //console.log("Error "+JSON.stringify(error))
-                if($window.confirm('connection timed out. retry?'))
-                    $state.transitionTo(toState, toParams)
+            
+               //if($window.confirm('connection timed out. retry?'))
+               //     $state.transitionTo(toState, toParams)
         })  
     }])
     

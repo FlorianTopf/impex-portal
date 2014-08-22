@@ -87,6 +87,7 @@ module portal {
         }
         
         private beautify(str: string): string {
+            var str = str.replace("ID", "Id").replace("URL", "Url")
             if(str.indexOf("_") != -1) {
                 var split = str.split("_")
                 str = split[0]+split[1].charAt(0).toUpperCase()+split[1].slice(1)

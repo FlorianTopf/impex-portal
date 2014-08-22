@@ -23,6 +23,7 @@ module portal {
             userData: ['userService', (UserService) => {
                 return UserService.loadUserData()
             }], 
+            // @FIXME fires timeout alert when navigating away
             regions: ['configService', (ConfigService) => {
                 return ConfigService.loadRegions()
             }]

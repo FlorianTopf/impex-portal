@@ -33,6 +33,7 @@ var portal;
                         return UserService.loadUserData();
                     }
                 ],
+                // @FIXME fires timeout alert when navigating away
                 regions: [
                     'configService',
                     function (ConfigService) {
@@ -1830,6 +1831,7 @@ var portal;
             this.uploader = $upload;
             this.growl = growl;
         }
+        // @TODO add uploader for CSV files
         // @TODO add drag over later
         // see: https://github.com/danialfarid/angular-file-upload/blob/master/demo/war/js/upload.js
         UserDataCtrl.prototype.onFileSelect = function ($files) {
@@ -2095,6 +2097,7 @@ var portal;
             this.repositoryId = null;
             this.isCollapsed = {};
             // currently applyable elements (according to current method)
+            // @TODO rework this => selection map (remove isSelApplyable)
             this.applyableElements = [];
             this.isSelApplyable = false;
             this.isVOTApplyable = false;
@@ -2141,6 +2144,7 @@ var portal;
                 if (_this.user.selections) {
                     _this.user.selections.forEach(function (e) {
                         _this.isCollapsed[e.id] = true;
+                        // add applyables boolean = true for all
                     });
                 }
 
@@ -2494,6 +2498,7 @@ else if (angular.isObject(m)) {
         };
 
         MemberDir.prototype.beautify = function (str) {
+            var str = str.replace("ID", "Id").replace("URL", "Url");
             if (str.indexOf("_") != -1) {
                 var split = str.split("_");
                 str = split[0] + split[1].charAt(0).toUpperCase() + split[1].slice(1);
@@ -2528,7 +2533,8 @@ var portal;
         'ngResource',
         'ngStorage',
         'angularFileUpload',
-        'angular-growl'
+        'angular-growl',
+        'rt.encodeuri'
     ]);
 
     impexPortal.service('configService', portal.ConfigService);
@@ -2619,8 +2625,9 @@ var portal;
 
             // @TODO when we use resolver, we must check errors on promises here!
             $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
-                if ($window.confirm('connection timed out. retry?'))
-                    $state.transitionTo(toState, toParams);
+                //console.log("Error "+JSON.stringify(error))
+                //if($window.confirm('connection timed out. retry?'))
+                //     $state.transitionTo(toState, toParams)
             });
         }
     ]);
