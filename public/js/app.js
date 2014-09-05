@@ -1402,8 +1402,6 @@ var portal;
 (function (portal) {
     'use strict';
 
-    // @TODO this Controller needs major refactoring
-    // move stuff to directives
     var MethodsCtrl = (function () {
         function MethodsCtrl($scope, $timeout, $window, configService, methodsService, userService, $state, $modalInstance, id) {
             var _this = this;
@@ -1411,13 +1409,6 @@ var portal;
             this.initialising = false;
             this.status = '';
             this.showError = false;
-            this.currentMethod = null;
-            this.request = {};
-            // needed for VOTableURL => move to directive later
-            this.votableRows = [];
-            this.votableColumns = null;
-            this.votableMetadata = [];
-            this.selected = [];
             // helpers for methods modal
             this.dropdownStatus = {
                 isopen: false,
@@ -1438,12 +1429,9 @@ var portal;
                 this.methods = this.methodsService.getMethods(this.database);
 
                 if (this.database.id in this.userService.sessionStorage.methods) {
-                    // we must do it with timeout (since we send broadcasts and dir is not fully loaded)
-                    this.timeout(function () {
-                        return _this.setActive(_this.methods.filter(function (m) {
-                            return m.path == _this.userService.sessionStorage.methods[_this.database.id].path;
-                        })[0]);
-                    });
+                    this.setActive(this.methods.filter(function (m) {
+                        return m.path == _this.userService.sessionStorage.methods[_this.database.id].path;
+                    })[0]);
                 }
             } else {
                 this.loadMethodsAPI();
@@ -1491,11 +1479,11 @@ else
         };
 
         // handling and saving the WS result
-        MethodsCtrl.prototype.handleServiceData = function (data) {
+        MethodsCtrl.prototype.handleServiceData = function (data, path) {
             //console.log('success: '+JSON.stringify(data.message))
             // new result id
             var id = this.userService.createId();
-            this.userService.user.results.push(new portal.Result(this.database.id, id, this.currentMethod.path, data));
+            this.userService.user.results.push(new portal.Result(this.database.id, id, path, data));
 
             // refresh localStorage
             this.userService.localStorage.results = this.userService.user.results;
@@ -1528,19 +1516,25 @@ else
 
             // system notification
             this.methodsService.notify('loading', this.database.id);
-            var httpMethod = this.currentMethod.operations[0].method;
+
+            var currentMethod = this.methods.filter(function (m) {
+                return m.path == _this.userService.sessionStorage.methods[_this.database.id].path;
+            })[0];
+            var currentRequest = this.userService.sessionStorage.methods[this.database.id].params;
+
+            var httpMethod = currentMethod.operations[0].method;
             if (httpMethod == 'GET') {
-                this.methodsPromise = this.methodsService.requestMethod(this.currentMethod.path, this.request).get().$promise;
+                this.methodsPromise = this.methodsService.requestMethod(currentMethod.path, currentRequest).get().$promise;
                 this.methodsPromise.then(function (data) {
-                    return _this.handleServiceData(data);
+                    return _this.handleServiceData(data, currentMethod.path);
                 }, function (error) {
                     return _this.handleServiceError(error);
                 });
                 // only getVOTableURL atm
             } else if (httpMethod == 'POST') {
-                this.methodsPromise = this.methodsService.requestMethod(this.currentMethod.path).save(this.request).$promise;
+                this.methodsPromise = this.methodsService.requestMethod(currentMethod.path).save(currentRequest).$promise;
                 this.methodsPromise.then(function (data) {
-                    return _this.handleServiceData(data);
+                    return _this.handleServiceData(data, currentMethod.path);
                 }, function (error) {
                     return _this.handleServiceError(error);
                 });
@@ -1555,76 +1549,13 @@ else
         // set a method active and forward info to directives
         MethodsCtrl.prototype.setActive = function (method) {
             var _this = this;
+            console.log('set-active');
             this.dropdownStatus.active = this.trimPath(method.path);
-            this.currentMethod = method;
 
-            // reset the request object
-            this.request = {};
-
-            // there is only one operation per method
-            this.currentMethod.operations[0].parameters.forEach(function (p) {
-                _this.request[p.name] = p.defaultValue;
+            // here we need a delay (maybe we shift this somewhere else)
+            this.timeout(function () {
+                return _this.scope.$broadcast('set-method-active', method);
             });
-
-            if (this.database.id in this.userService.sessionStorage.methods) {
-                if (this.userService.sessionStorage.methods[this.database.id].path == this.currentMethod.path) {
-                    this.request = this.userService.sessionStorage.methods[this.database.id].params;
-
-                    if ('Fields' in this.request) {
-                        this.votableColumns = this.request['Fields'].length;
-                        var rows = this.request['Fields'][0].data.length;
-                        for (var j = 0; j < rows; j++)
-                            this.votableRows[j] = [];
-                        for (var i = 0; i < this.votableColumns; i++) {
-                            this.votableMetadata[i] = [
-                                { name: 'name', value: this.request['Fields'][i].name },
-                                { name: 'ID', value: this.request['Fields'][i].ID },
-                                { name: 'unit', value: this.request['Fields'][i].unit },
-                                { name: 'datatype', value: this.request['Fields'][i].datatype },
-                                { name: 'ucd', value: this.request['Fields'][i].ucd }
-                            ];
-                            this.selected[i] = this.votableMetadata[i][0];
-                            for (var j = 0; j < rows; j++)
-                                this.votableRows[j].push(this.request['Fields'][i].data[j]);
-                        }
-                    }
-                } else {
-                    this.userService.sessionStorage.methods[this.database.id] = new portal.MethodState(method.path, this.request);
-                }
-            } else {
-                this.userService.sessionStorage.methods[this.database.id] = new portal.MethodState(method.path, this.request);
-            }
-
-            if (this.currentMethod.operations[0].parameters.filter(function (e) {
-                return e.name == 'id';
-            }).length != 0) {
-                // there is only one id param per method
-                var param = this.currentMethod.operations[0].parameters.filter(function (e) {
-                    return e.name == 'id';
-                })[0];
-                this.scope.$broadcast('set-applyable-elements', param.description);
-            } else {
-                // if there is no id, broadcast empty string
-                this.scope.$broadcast('set-applyable-elements', '');
-            }
-
-            if (this.currentMethod.operations[0].parameters.filter(function (e) {
-                return e.name == 'votable_url';
-            }).length != 0) {
-                this.scope.$broadcast('set-applyable-votable', true);
-            } else {
-                // if there is no url field return false
-                this.scope.$broadcast('set-applyable-votable', false);
-            }
-
-            if (this.currentMethod.path.indexOf('SINP') != -1) {
-                for (var key in this.methodsService.applyableModels) {
-                    var methods = this.methodsService.applyableModels[key];
-                    var index = methods.indexOf(this.currentMethod.operations[0].nickname);
-                    if (index != -1)
-                        this.scope.$broadcast('set-applyable-models', key);
-                }
-            }
         };
 
         MethodsCtrl.prototype.isActive = function (path) {
@@ -1638,154 +1569,6 @@ else
         MethodsCtrl.prototype.trimPath = function (path) {
             var splitPath = path.split('/').reverse();
             return splitPath[0];
-        };
-
-        MethodsCtrl.prototype.resetRequest = function () {
-            var _this = this;
-            // reset the request object
-            this.request = {};
-
-            // there is only one operation per method
-            this.currentMethod.operations[0].parameters.forEach(function (p) {
-                _this.request[p.name] = p.defaultValue;
-            });
-
-            // savely reset VOTableURL form
-            this.votableColumns = null;
-            this.votableRows = [];
-            this.votableMetadata = [];
-            this.selected = [];
-            this.userService.sessionStorage.methods[this.database.id].params = this.request;
-        };
-
-        // method for applying a selection to the current method
-        MethodsCtrl.prototype.applySelection = function (resourceId) {
-            //console.log("applySelection "+resourceId)
-            this.request['id'] = resourceId;
-        };
-
-        // method for applying a votable url to the current method
-        MethodsCtrl.prototype.applyVOTable = function (url) {
-            //console.log("applyVOTable "+url)
-            this.request['votable_url'] = url;
-        };
-
-        MethodsCtrl.prototype.updateRequest = function (paramName) {
-            this.userService.sessionStorage.methods[this.database.id].params[paramName] = this.request[paramName];
-        };
-
-        MethodsCtrl.prototype.updateRequestDate = function (paramName) {
-            var iso = new Date(this.request[paramName]);
-            this.request[paramName] = iso.toISOString();
-            this.userService.sessionStorage.methods[this.database.id].params[paramName] = this.request[paramName];
-        };
-
-        // used for getVOTableURL form
-        MethodsCtrl.prototype.refreshVotableHeader = function () {
-            if (angular.isNumber(this.votableColumns)) {
-                for (var i = 0; i < this.votableColumns; i++) {
-                    this.votableMetadata[i] = [
-                        { name: 'name', value: '' },
-                        { name: 'ID', value: '' },
-                        { name: 'unit', value: '' },
-                        { name: 'datatype', value: '' },
-                        { name: 'ucd', value: '' }
-                    ];
-                    this.selected[i] = null;
-                }
-                this.addVotableRow();
-            }
-        };
-
-        // used for getVOTableURL form
-        MethodsCtrl.prototype.updateVotableHeader = function (index) {
-            var _this = this;
-            this.votableMetadata[index] = this.votableMetadata[index].map(function (m) {
-                if (m.name == _this.selected[index].name)
-                    return _this.selected[index];
-else
-                    return m;
-            });
-            this.updateVOtableRequest();
-        };
-
-        // used for getVOTableURL form
-        MethodsCtrl.prototype.addVotableRow = function () {
-            var arr = [];
-            for (var i = 0; i < this.votableColumns; i++) {
-                arr[i] = "Field-" + (this.votableRows.length + 1) + "-" + (i + 1);
-            }
-            this.votableRows.push(arr);
-            this.updateVOtableRequest();
-        };
-
-        // used for getVOTableURL form
-        MethodsCtrl.prototype.deleteVotableRow = function (index) {
-            this.votableRows.splice(index, 1);
-            if (this.votableRows.length == 0)
-                this.addVotableRow();
-else
-                this.updateVOtableRequest();
-        };
-
-        // used for getVOTableURL form
-        MethodsCtrl.prototype.addVotableColumn = function () {
-            var _this = this;
-            this.votableColumns++;
-            this.votableRows.forEach(function (r) {
-                return r.push("Field-" + _this.votableColumns);
-            });
-            this.votableMetadata.push([
-                { name: 'name', value: '' },
-                { name: 'ID', value: '' },
-                { name: 'unit', value: '' },
-                { name: 'datatype', value: '' },
-                { name: 'ucd', value: '' }
-            ]);
-            this.selected.push(null);
-            this.updateVOtableRequest();
-        };
-
-        // used for getVOTableURL form
-        MethodsCtrl.prototype.deleteVotableColumn = function (index) {
-            this.votableColumns--;
-            if (this.votableColumns == 0)
-                this.resetVotable();
-else {
-                this.votableRows.forEach(function (r) {
-                    return r.splice(index, 1);
-                });
-                this.votableMetadata.splice(index, 1);
-                this.selected.splice(index, 1);
-            }
-            this.updateVOtableRequest();
-        };
-
-        // used for getVOTableURL form
-        MethodsCtrl.prototype.resetVotable = function () {
-            this.votableColumns = null;
-            this.votableRows = [];
-            this.votableMetadata = [];
-            this.selected = [];
-            this.updateVOtableRequest();
-        };
-
-        // used for getVOTableURL form
-        MethodsCtrl.prototype.updateVOtableRequest = function () {
-            var _this = this;
-            // filling the fields
-            this.request['Fields'] = this.votableMetadata.map(function (col, key) {
-                var data = _this.votableRows.map(function (r) {
-                    return r[key];
-                });
-                var result = {};
-                result['data'] = data;
-                col.forEach(function (i) {
-                    if (i.value != '')
-                        result[i.name] = i.value;
-                });
-                return result;
-            });
         };
 
         // method for modal
@@ -2521,6 +2304,287 @@ else if (angular.isObject(m)) {
     })();
     portal.MemberDir = MemberDir;
 })(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
+    var MethodsDir = (function () {
+        function MethodsDir(methodsService, userService) {
+            var _this = this;
+            this.repositoryId = null;
+            this.method = null;
+            this.request = {};
+            this.votableRows = [];
+            this.votableColumns = null;
+            this.votableMetadata = [];
+            this.selected = [];
+            this.methodsService = methodsService;
+            this.userService = userService;
+            this.templateUrl = '/public/partials/templates/methodsDir.html';
+            this.restrict = 'E';
+            this.link = function ($scope, element, attributes) {
+                return _this.linkFn($scope, element, attributes);
+            };
+        }
+        MethodsDir.prototype.injection = function () {
+            return [
+                'methodsService',
+                'userService',
+                function (methodsService, userService) {
+                    return new MethodsDir(methodsService, userService);
+                }
+            ];
+        };
+
+        MethodsDir.prototype.linkFn = function ($scope, element, attributes) {
+            var _this = this;
+            this.myScope = $scope;
+            $scope.methdirvm = this;
+
+            attributes.$observe('db', function (id) {
+                _this.repositoryId = id;
+            });
+
+            this.myScope.$on('set-method-active', function (e, method) {
+                //console.log('set-method-active')
+                _this.setMethod(method);
+            });
+
+            this.myScope.$watch('$includeContentLoaded', function (e) {
+                if (!(_this.repositoryId in _this.userService.sessionStorage.methods)) {
+                    _this.method = null;
+                    _this.request = {};
+                }
+            });
+        };
+
+        MethodsDir.prototype.setMethod = function (method) {
+            var _this = this;
+            this.method = method;
+
+            // reset the request object
+            this.request = {};
+
+            // there is only one operation per method
+            this.method.operations[0].parameters.forEach(function (p) {
+                _this.request[p.name] = p.defaultValue;
+            });
+
+            if (this.repositoryId in this.userService.sessionStorage.methods) {
+                if (this.userService.sessionStorage.methods[this.repositoryId].path == this.method.path) {
+                    this.request = this.userService.sessionStorage.methods[this.repositoryId].params;
+
+                    if ('Fields' in this.request) {
+                        this.votableColumns = this.request['Fields'].length;
+                        var rows = this.request['Fields'][0].data.length;
+                        for (var j = 0; j < rows; j++)
+                            this.votableRows[j] = [];
+                        for (var i = 0; i < this.votableColumns; i++) {
+                            this.votableMetadata[i] = [
+                                { name: 'name', value: this.request['Fields'][i].name },
+                                { name: 'ID', value: this.request['Fields'][i].ID },
+                                { name: 'unit', value: this.request['Fields'][i].unit },
+                                { name: 'datatype', value: this.request['Fields'][i].datatype },
+                                { name: 'ucd', value: this.request['Fields'][i].ucd }
+                            ];
+                            this.selected[i] = this.votableMetadata[i][0];
+                            for (var j = 0; j < rows; j++)
+                                this.votableRows[j].push(this.request['Fields'][i].data[j]);
+                        }
+                    }
+                } else {
+                    this.userService.sessionStorage.methods[this.repositoryId] = new portal.MethodState(method.path, this.request);
+                }
+            } else {
+                this.userService.sessionStorage.methods[this.repositoryId] = new portal.MethodState(method.path, this.request);
+            }
+
+            if (this.method.operations[0].parameters.filter(function (e) {
+                return e.name == 'id';
+            }).length != 0) {
+                // there is only one id param per method
+                var param = this.method.operations[0].parameters.filter(function (e) {
+                    return e.name == 'id';
+                })[0];
+                this.myScope.$broadcast('set-applyable-elements', param.description);
+            } else {
+                // if there is no id, broadcast empty string
+                this.myScope.$broadcast('set-applyable-elements', '');
+            }
+
+            if (this.method.operations[0].parameters.filter(function (e) {
+                return e.name == 'votable_url';
+            }).length != 0) {
+                this.myScope.$broadcast('set-applyable-votable', true);
+            } else {
+                // if there is no url field return false
+                this.myScope.$broadcast('set-applyable-votable', false);
+            }
+
+            if (this.method.path.indexOf('SINP') != -1) {
+                for (var key in this.methodsService.applyableModels) {
+                    var methods = this.methodsService.applyableModels[key];
+                    var index = methods.indexOf(this.method.operations[0].nickname);
+                    if (index != -1)
+                        this.myScope.$broadcast('set-applyable-models', key);
+                }
+            }
+        };
+
+        MethodsDir.prototype.resetRequest = function () {
+            var _this = this;
+            // reset the request object
+            this.request = {};
+
+            // there is only one operation per method
+            this.method.operations[0].parameters.forEach(function (p) {
+                _this.request[p.name] = p.defaultValue;
+            });
+
+            // savely reset VOTableURL form
+            this.votableColumns = null;
+            this.votableRows = [];
+            this.votableMetadata = [];
+            this.selected = [];
+            this.userService.sessionStorage.methods[this.repositoryId].params = this.request;
+        };
+
+        // method for applying a selection to the current method
+        MethodsDir.prototype.applySelection = function (resourceId) {
+            //console.log("applySelection "+resourceId)
+            this.request['id'] = resourceId;
+        };
+
+        // method for applying a votable url to the current method
+        MethodsDir.prototype.applyVOTable = function (url) {
+            //console.log("applyVOTable "+url)
+            this.request['votable_url'] = url;
+        };
+
+        MethodsDir.prototype.updateRequest = function (paramName) {
+            this.userService.sessionStorage.methods[this.repositoryId].params[paramName] = this.request[paramName];
+        };
+
+        MethodsDir.prototype.updateRequestDate = function (paramName) {
+            if (paramName in this.request) {
+                var iso = new Date(this.request[paramName]);
+                this.request[paramName] = iso.toISOString();
+                this.userService.sessionStorage.methods[this.repositoryId].params[paramName] = this.request[paramName];
+            }
+        };
+
+        // used for getVOTableURL form
+        MethodsDir.prototype.refreshVotableHeader = function () {
+            if (angular.isNumber(this.votableColumns)) {
+                for (var i = 0; i < this.votableColumns; i++) {
+                    this.votableMetadata[i] = [
+                        { name: 'name', value: '' },
+                        { name: 'ID', value: '' },
+                        { name: 'unit', value: '' },
+                        { name: 'datatype', value: '' },
+                        { name: 'ucd', value: '' }
+                    ];
+                    this.selected[i] = null;
+                }
+                this.addVotableRow();
+            }
+        };
+
+        // used for getVOTableURL form
+        MethodsDir.prototype.updateVotableHeader = function (index) {
+            var _this = this;
+            this.votableMetadata[index] = this.votableMetadata[index].map(function (m) {
+                if (m.name == _this.selected[index].name)
+                    return _this.selected[index];
+else
+                    return m;
+            });
+            this.updateVOtableRequest();
+        };
+
+        // used for getVOTableURL form
+        MethodsDir.prototype.addVotableRow = function () {
+            var arr = [];
+            for (var i = 0; i < this.votableColumns; i++) {
+                arr[i] = "Field-" + (this.votableRows.length + 1) + "-" + (i + 1);
+            }
+            this.votableRows.push(arr);
+            this.updateVOtableRequest();
+        };
+
+        // used for getVOTableURL form
+        MethodsDir.prototype.deleteVotableRow = function (index) {
+            this.votableRows.splice(index, 1);
+            if (this.votableRows.length == 0)
+                this.addVotableRow();
+else
+                this.updateVOtableRequest();
+        };
+
+        // used for getVOTableURL form
+        MethodsDir.prototype.addVotableColumn = function () {
+            var _this = this;
+            this.votableColumns++;
+            this.votableRows.forEach(function (r) {
+                return r.push("Field-" + _this.votableColumns);
+            });
+            this.votableMetadata.push([
+                { name: 'name', value: '' },
+                { name: 'ID', value: '' },
+                { name: 'unit', value: '' },
+                { name: 'datatype', value: '' },
+                { name: 'ucd', value: '' }
+            ]);
+            this.selected.push(null);
+            this.updateVOtableRequest();
+        };
+
+        // used for getVOTableURL form
+        MethodsDir.prototype.deleteVotableColumn = function (index) {
+            this.votableColumns--;
+            if (this.votableColumns == 0)
+                this.resetVotable();
+else {
+                this.votableRows.forEach(function (r) {
+                    return r.splice(index, 1);
+                });
+                this.votableMetadata.splice(index, 1);
+                this.selected.splice(index, 1);
+            }
+            this.updateVOtableRequest();
+        };
+
+        // used for getVOTableURL form
+        MethodsDir.prototype.resetVotable = function () {
+            this.votableColumns = null;
+            this.votableRows = [];
+            this.votableMetadata = [];
+            this.selected = [];
+            this.updateVOtableRequest();
+        };
+
+        // used for getVOTableURL form
+        MethodsDir.prototype.updateVOtableRequest = function () {
+            var _this = this;
+            // filling the fields
+            this.request['Fields'] = this.votableMetadata.map(function (col, key) {
+                var data = _this.votableRows.map(function (r) {
+                    return r[key];
+                });
+                var result = {};
+                result['data'] = data;
+                col.forEach(function (i) {
+                    if (i.value != '')
+                        result[i.name] = i.value;
+                });
+                return result;
+            });
+        };
+        return MethodsDir;
+    })();
+    portal.MethodsDir = MethodsDir;
+})(portal || (portal = {}));
 /// <reference path='_all.ts' />
 var portal;
 (function (portal) {
@@ -2555,6 +2619,7 @@ var portal;
 
     // is in SelectionDir.ts
     impexPortal.directive('memberDir', portal.MemberDir.prototype.injection());
+    impexPortal.directive('methodsDir', portal.MethodsDir.prototype.injection());
 
     impexPortal.config([
         '$stateProvider',

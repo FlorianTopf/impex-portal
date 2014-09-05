@@ -6,15 +6,7 @@ module portal {
     export interface IMethodsScope extends ng.IScope {
         methvm: MethodsCtrl;
     }
-    
-    // for getVOTableURL form
-    export interface IMetadata {
-        name: string
-        value: string
-    }
 
-    // @TODO this Controller needs major refactoring
-    // move stuff to directives 
     export class MethodsCtrl {
         private scope: portal.IMethodsScope
         private window: ng.IWindowService
@@ -31,14 +23,6 @@ module portal {
         public initialising: boolean = false
         public status: string = ''
         public showError: boolean = false
-        public currentMethod: Api = null
-        public request: Object = {}
-        // needed for VOTableURL => move to directive later
-        public votableRows: Array<Array<string>> = []
-        public votableColumns: number = null
-        public votableMetadata: Array<Array<IMetadata>> = []
-        public selected: Array<IMetadata> = []
-        
         
         static $inject: Array<string> = ['$scope', '$timeout', '$window', 'configService', 'methodsService', 
             'userService', '$state', '$modalInstance', 'id']
@@ -61,9 +45,8 @@ module portal {
                 this.methods = this.methodsService.getMethods(this.database)
                 // check sessionStorage if there is a saved state
                 if(this.database.id in this.userService.sessionStorage.methods) {
-                    // we must do it with timeout (since we send broadcasts and dir is not fully loaded)
-                    this.timeout(() => this.setActive(this.methods.filter(
-                        (m) => m.path == this.userService.sessionStorage.methods[this.database.id].path)[0]))
+                    this.setActive(this.methods.filter(
+                        (m) => m.path == this.userService.sessionStorage.methods[this.database.id].path)[0])
                  }
             } else {
                 this.loadMethodsAPI()
@@ -107,11 +90,11 @@ module portal {
         } 
         
         // handling and saving the WS result
-        private handleServiceData(data: IResponse) {
+        private handleServiceData(data: IResponse, path: string) {
             //console.log('success: '+JSON.stringify(data.message))
             // new result id
             var id = this.userService.createId()
-            this.userService.user.results.push(new Result(this.database.id, id, this.currentMethod.path, data))
+            this.userService.user.results.push(new Result(this.database.id, id, path, data))
             // refresh localStorage
             this.userService.localStorage.results = this.userService.user.results
             this.scope.$broadcast('update-results', id)
@@ -140,19 +123,24 @@ module portal {
             this.methodsService.status = 'Loading data from service'
             // system notification
             this.methodsService.notify('loading', this.database.id)
-            var httpMethod = this.currentMethod.operations[0].method
+
+            var currentMethod = this.methods.filter(
+                   (m) => m.path == this.userService.sessionStorage.methods[this.database.id].path)[0]
+            var currentRequest = this.userService.sessionStorage.methods[this.database.id].params
+            
+            var httpMethod = currentMethod.operations[0].method
             if(httpMethod == 'GET') {
                 this.methodsPromise = 
-                    this.methodsService.requestMethod(this.currentMethod.path, this.request).get().$promise   
+                    this.methodsService.requestMethod(currentMethod.path, currentRequest).get().$promise   
                this.methodsPromise.then(
-                    (data: IResponse) => this.handleServiceData(data),
+                    (data: IResponse) => this.handleServiceData(data, currentMethod.path),
                     (error: any) => this.handleServiceError(error))
                 // only getVOTableURL atm
             } else if(httpMethod == 'POST') {
                 this.methodsPromise = 
-                    this.methodsService.requestMethod(this.currentMethod.path).save(this.request).$promise 
+                    this.methodsService.requestMethod(currentMethod.path).save(currentRequest).$promise 
                 this.methodsPromise.then(
-                    (data: IResponse) => this.handleServiceData(data),
+                    (data: IResponse) => this.handleServiceData(data, currentMethod.path),
                     (error: any) => this.handleServiceError(error))
             }                  
         }
@@ -170,74 +158,10 @@ module portal {
         
         // set a method active and forward info to directives
         public setActive(method: Api) {
+            console.log('set-active')
             this.dropdownStatus.active = this.trimPath(method.path)
-            this.currentMethod = method
-            
-            // reset the request object
-            this.request = {}
-            // there is only one operation per method
-            this.currentMethod.operations[0].parameters.forEach((p) => {
-                this.request[p.name] = p.defaultValue     
-            })
-            // refresh session storage
-            if(this.database.id in this.userService.sessionStorage.methods) {
-                if(this.userService.sessionStorage.methods[this.database.id].path == this.currentMethod.path) {
-                    this.request = this.userService.sessionStorage.methods[this.database.id].params
-                    // just updating the votableColumns if fields are present in the request
-                    if('Fields' in this.request) {
-                        this.votableColumns = this.request['Fields'].length
-                        var rows = this.request['Fields'][0].data.length
-                        for(var j=0; j<rows; j++)
-                            this.votableRows[j] = []
-                        for(var i=0; i<this.votableColumns; i++) {
-                            this.votableMetadata[i] = [
-                                {name:'name', value: this.request['Fields'][i].name}, 
-                                {name:'ID', value: this.request['Fields'][i].ID},
-                                {name:'unit', value: this.request['Fields'][i].unit}, 
-                                {name:'datatype', value: this.request['Fields'][i].datatype}, 
-                                {name:'ucd', value:  this.request['Fields'][i].ucd}]
-                            this.selected[i] = this.votableMetadata[i][0]
-                            for(var j=0; j<rows; j++)
-                                this.votableRows[j].push(this.request['Fields'][i].data[j])
-                        } 
-                    }
-                } else {
-                    this.userService.sessionStorage.methods[this.database.id] = 
-                        new MethodState(method.path, this.request) 
-                }
-            } else {
-                this.userService.sessionStorage.methods[this.database.id] = 
-                    new MethodState(method.path, this.request)
-            }
-            
-            // check if there is an id field and broadcast applyable elements
-            if(this.currentMethod.operations[0].parameters.filter((e) => e.name == 'id').length != 0) {
-                // there is only one id param per method 
-                var param = this.currentMethod.operations[0].parameters.filter((e) => e.name == 'id')[0]
-                this.scope.$broadcast('set-applyable-elements', param.description)
-            } else {
-                // if there is no id, broadcast empty string
-                this.scope.$broadcast('set-applyable-elements', '')
-            }
-            
-            // check if there is an url field and broadcast indication
-            if(this.currentMethod.operations[0].parameters.filter((e) => e.name == 'votable_url').length != 0) {
-                this.scope.$broadcast('set-applyable-votable', true)
-            } else {
-                // if there is no url field return false
-                this.scope.$broadcast('set-applyable-votable', false)
-            }
-            
-            // if there is a SINP method chosen, we must forward info about applyable models
-            if(this.currentMethod.path.indexOf('SINP') != -1) {
-               //console.log(this.currentMethod.operations[0].nickname)
-               for(var key in this.methodsService.applyableModels) {
-                    var methods = this.methodsService.applyableModels[key]
-                    var index = methods.indexOf(this.currentMethod.operations[0].nickname)
-                    if(index != -1) this.scope.$broadcast('set-applyable-models', key) 
-               }
-            }
-            
+            // here we need a delay (maybe we shift this somewhere else)
+            this.timeout(() => this.scope.$broadcast('set-method-active', method))
         }
         
         public isActive(path: string): boolean {
@@ -253,139 +177,6 @@ module portal {
             return splitPath[0]
         }
         
-        public resetRequest() {
-            // reset the request object
-            this.request = {}
-            // there is only one operation per method
-            this.currentMethod.operations[0].parameters.forEach((p) => {
-                this.request[p.name] = p.defaultValue     
-            })
-            // savely reset VOTableURL form
-            this.votableColumns = null
-            this.votableRows = []    
-            this.votableMetadata = []
-            this.selected = []
-            this.userService.sessionStorage.methods[this.database.id].params = this.request
-        }
-       
-        // method for applying a selection to the current method
-        public applySelection(resourceId: string) {
-            //console.log("applySelection "+resourceId)
-            this.request['id'] = resourceId
-        }
-        
-        // method for applying a votable url to the current method
-        public applyVOTable(url: string) {
-            //console.log("applyVOTable "+url)
-            this.request['votable_url'] = url
-        }
-        
-        public updateRequest(paramName: string) {            
-            this.userService.sessionStorage.methods[this.database.id]
-                .params[paramName] = this.request[paramName]
-        }
-        
-        public updateRequestDate(paramName: string) {
-            var iso = new Date(this.request[paramName])
-            this.request[paramName] = iso.toISOString()
-            this.userService.sessionStorage.methods[this.database.id]
-                .params[paramName] = this.request[paramName]
-        }
-        
-        // used for getVOTableURL form
-        public refreshVotableHeader() {
-            if(angular.isNumber(this.votableColumns)) {
-                for(var i = 0; i < this.votableColumns; i++) {
-                    this.votableMetadata[i] = [
-                        {name:'name', value:''}, 
-                        {name:'ID', value: ''},
-                        {name:'unit', value:''}, 
-                        {name:'datatype', value:''}, 
-                        {name:'ucd', value:''}]
-                    this.selected[i] = null
-                }
-                this.addVotableRow() // just add an empty row
-            }
-        }
-        
-        // used for getVOTableURL form
-        public updateVotableHeader(index: number) {
-            this.votableMetadata[index] = this.votableMetadata[index].map((m) => {
-                if(m.name == this.selected[index].name)
-                    return this.selected[index]
-                else
-                    return m
-            })
-            this.updateVOtableRequest()
-        }
-        
-        // used for getVOTableURL form
-        public addVotableRow() {
-            var arr = []
-            for(var i = 0; i < this.votableColumns; i++) {
-               arr[i] = "Field-"+(this.votableRows.length+1)+"-"+(i+1)
-            }
-            this.votableRows.push(arr)
-            this.updateVOtableRequest()
-        }
-        
-        // used for getVOTableURL form
-        public deleteVotableRow(index: number) {
-            this.votableRows.splice(index, 1)
-            if(this.votableRows.length == 0)
-                this.addVotableRow() // just add an empty row
-            else 
-                this.updateVOtableRequest()
-        }
-        
-        // used for getVOTableURL form
-        public addVotableColumn() {
-            this.votableColumns++
-            this.votableRows.forEach((r) => r.push("Field-"+this.votableColumns))
-            this.votableMetadata.push([
-                {name:'name', value:''}, 
-                {name:'ID', value:''},
-                {name:'unit', value:''}, 
-                {name:'datatype', value:''}, 
-                {name:'ucd', value:''}])
-            this.selected.push(null)
-            this.updateVOtableRequest()
-        }
-        
-        // used for getVOTableURL form
-        public deleteVotableColumn(index: number) {
-            this.votableColumns--
-            if(this.votableColumns == 0) 
-                this.resetVotable()  
-            else {    
-                this.votableRows.forEach((r) => r.splice(index, 1))
-                this.votableMetadata.splice(index, 1)
-                this.selected.splice(index, 1)
-            }
-            this.updateVOtableRequest()
-        }
-        
-        // used for getVOTableURL form
-        public resetVotable() {
-            this.votableColumns = null
-            this.votableRows = []    
-            this.votableMetadata = []
-            this.selected = []
-            this.updateVOtableRequest()
-        }
-        
-        // used for getVOTableURL form
-        public updateVOtableRequest() {
-           // filling the fields
-           this.request['Fields'] = this.votableMetadata.map((col, key) => {
-                var data: Array<string> = this.votableRows.map((r) => { return r[key] })  
-                var result: Object = {}
-                result['data'] = data
-                col.forEach((i) => { if(i.value != '') result[i.name] = i.value })
-                return result
-           })
-        }
-
         // method for modal
         public saveMethods(save: boolean) {
             if(save)
