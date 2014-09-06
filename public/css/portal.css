@@ -73,6 +73,7 @@ body {
 
 .tooltip-inner { 
 	max-width: 800px;
+	text-align: left;
 }
 
 .elem-metadata {
@@ -118,6 +119,10 @@ body {
 button.dropdown-toggle {
 	text-align: left;
 	width: 300px;
+}
+
+button.glyphicon-info-sign:focus {
+	outline: 0;	
 }
 
 .nav-tabs > li > a {

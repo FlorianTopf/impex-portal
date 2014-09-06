@@ -3,6 +3,52 @@
 </div>
 <div growl></div>
 <div class="row" ng-show="vm.ready">
+	<div class="col-sm-1 text-center">
+		<button type="button" class="btn btn-default" 
+			ng-click="vm.notImplemented()">FILTER</button>
+	</div>
+	<div class="col-sm-5">
+		<h2 style="display: inline;"><small>1. USE FILTERS ON RESOURCES</small></h2>
+		<button class="glyphicon glyphicon-info-sign" 
+			tooltip-html-unsafe="{{ vm.filterTooltip }}"  
+			tooltip-trigger="focus" 
+			tooltip-placement="right" 
+			style="font-size: 25px; margin-left: 5px; border: none; background: none;"></button>
+	</div>
+	<div class="col-sm-4">&nbsp;</div>
+	<div class="col-sm-2 text-center">
+		<button type="button" class="btn btn-default"
+			ng-click="vm.notImplemented()">INIT SAMP</button>
+	</div>
+</div>
+<div class="row" ng-show="vm.ready">
+	<div class="col-sm-1 text-center">
+		<span class="glyphicon glyphicon-arrow-down" style="font-size: 20px;"></span>
+	</div>
+	<div class="col-sm-9">&nbsp;</div>
+	<div class="col-sm-2 text-center">
+		<span class="glyphicon glyphicon-arrow-down" style="font-size: 20px;"></span>
+	</div>
+</div>
+<div class="row" ng-show="vm.ready">
+	<div class="col-sm-6">
+		<h2 style="margin-top: 10px; display: inline-block;">Databases <small>2. SELECT A RESOURCE</small></h2>
+		<button class="glyphicon glyphicon-info-sign" 
+			tooltip-html-unsafe="{{ vm.databasesTooltip }}"  
+			tooltip-trigger="focus" 
+			tooltip-placement="right" 
+			style="font-size: 25px; margin-left: 5px; border: none; background: none;"></button>
+	</div>
+	<div class="col-sm-6 text-right">
+		<h2 style="margin-top: 10px; display: inline-block;">Tools <small>4. VISUALISE A RESOURCE</small></h2>
+		<button class="glyphicon glyphicon-info-sign" 
+			tooltip-html-unsafe="{{ vm.toolsTooltip }}"  
+			tooltip-trigger="focus" 
+			tooltip-placement="left" 
+			style="font-size: 25px; margin-left: 5px; border: none; background: none;"></button>
+	</div>
+</div>
+<div class="row" ng-show="vm.ready">
 	<div class="col-sm-2">&nbsp;</div>
 	<div class="col-sm-2 text-center" 
 		ng-repeat="database in vm.configService.config.databases" 
@@ -31,19 +77,23 @@
 		</a>
 	</div>
 </div>
-<div class="row" ng-show="vm.ready">
-	<div class="col-sm-12">&nbsp;</div>
+<div class="row" ng-show="vm.ready" style="height: 30px;">
+	<div class="col-sm-12">
+		<button class="glyphicon glyphicon-info-sign" 
+			tooltip-html-unsafe="{{ vm.myDataTooltip }}"  
+			tooltip-trigger="focus" 
+			tooltip-placement="right"
+			style="font-size: 25px; margin-left: 5px; border: none; background: none;"></button>
+	</div>
 </div>
 <div class="row" ng-show="vm.ready">
 	<div class="col-sm-2 text-center">
-		<div ng-show="vm.ready">
-			<button type="button" class="btn btn-warning btn-map"
-				ui-sref="app.portal.userdata()" 
-				tooltip="Show saved Userdata">
-				<img src="public/img/layout/userdata.png"/><br/>
-				<span style="float:right; margin-top: 15px;">My Data</span>
-			</button>
-		</div>
+		<button type="button" class="btn btn-warning btn-map"
+			ui-sref="app.portal.userdata()" 
+			tooltip="Show saved Userdata">
+			<img src="public/img/layout/userdata.png"/><br/>
+			<span style="float:right; margin-top: 15px;">My Data</span>
+		</button>
 	</div>
 	<div class="col-sm-2 col-sm-offset-8 text-center">
 		<a class="btn btn-danger btn-map"
@@ -57,7 +107,7 @@
 		</a>
 	</div>
 </div>
-<div class="row" ng-show="vm.ready">
+<div class="row" ng-show="vm.ready" style="height: 30px;">
 	<div class="col-sm-12">&nbsp;</div>
 </div>
 <div class="row" ng-show="vm.ready">
@@ -102,5 +152,15 @@
 				{{ vm.configService.config.tools[2].name }}
 			</span>
 		</a>
+	</div>
+</div>
+<div class="row" ng-show="vm.ready">
+	<div class="col-sm-6">
+		<h2 style="margin-top: 10px; display: inline-block;">Services <small>3. ACCESS A RESOURCE</small></h2>
+		<button class="glyphicon glyphicon-info-sign" 
+			tooltip-html-unsafe="{{ vm.servicesTooltip }}"  
+			tooltip-trigger="focus" 
+			tooltip-placement="right" 
+			style="font-size: 25px; margin-left: 5px; border: none; background: none;"></button>
 	</div>
 </div>

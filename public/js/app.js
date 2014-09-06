@@ -1143,7 +1143,7 @@ var portal;
             // read all regions at startup (@TODO set an interval for refresh?)
             this.configService.filterRegions = regions.data;
 
-            // only for simulations atm
+            // map only for simulation databases atm
             this.configService.config.databases.filter(function (e) {
                 return e.type == 'simulation';
             }).forEach(function (e) {
@@ -1193,11 +1193,17 @@ var portal;
     'use strict';
 
     var PortalCtrl = (function () {
-        function PortalCtrl($scope, $timeout, configService, methodsService, $state, growl) {
+        function PortalCtrl($scope, $window, $timeout, configService, methodsService, $state, growl) {
             var _this = this;
             this.ready = false;
+            this.databasesTooltip = "Within the different IMPEx-databases, you can browse the trees of all<br/>" + "service providers for getting an overview of all available data and its metadata.<br/>" + "Suitable tree elements can be selected and will then be stored automatically in<br/>" + "the &ldquo;My Data&rdquo; dialog for their further usage in the &ldquo;Data Access&rdquo; area.<br/>" + "Please be aware that only the selections of the respective database will be<br/>" + "visible in the Databases and Data Access dialogs of the IMPEx Portal.";
+            this.servicesTooltip = "Within this area you can browse through the methods of all IMPEx service providers.<br/>" + "Selections, which were chosen in &ldquo;Databases&rdquo; and stored in &ldquo;My Data&rdquo;, as well as<br/>" + "uploaded VOTables will be visible in the dialog, and can then easily be applied as far<br/>" + "as they are applicable for the respective methods.<br/>" + "Obtained results can be saved for further usage.<br/>" + "Please be aware that only the selections and results of the respective database will be<br/>" + "visible in the Databases and Data Access dialogs of the IMPEx Portal.";
+            this.toolsTooltip = "The Tools area of the IMPEx Portal provides links to all tools for data analysis,<br/>" + "which are connected to the IMPEx services.<br/>" + "Via connecting to a SAMP Hub you can send selected service results to<br/>" + "the respective tools for further analysis.<br/>" + "A quick overview guide on all of these tools, as well as on the simulation<br/>" + "databases can be found in the Tool Docs.<br/>";
+            this.myDataTooltip = "&ldquo;My Data&rdquo; is the reservoir for all stored services and results,<br/>" + "which can easily be managed in this area.<br/>" + "Moreover customized VOTables can be uploaded via<br/>" + "&ldquo;My Data&rdquo; for further usage in the IMPEx Portal.<br/>" + "Please be aware that VOTable files are saved for only 24 hours.<br/>" + "Results and selections on the other hand are stored on the<br/>" + "client-side and will be available with no elapse time.";
+            this.filterTooltip = "This function can be used to filter IMPEx databases and services via<br/>" + "customized criteria.<br/>" + "Those who do not fit the criteria will be deactivated.";
             this.scope = $scope;
             this.scope.vm = this;
+            this.window = $window;
             this.timeout = $timeout;
             this.configService = configService;
             this.methodsService = methodsService;
@@ -1222,7 +1228,18 @@ var portal;
                 console.log('error at ' + id);
             });
         }
-        PortalCtrl.$inject = ['$scope', '$timeout', 'configService', 'methodsService', '$state', 'growl'];
+        PortalCtrl.prototype.notImplemented = function () {
+            this.window.alert("This functionality is not yet implemented.");
+        };
+        PortalCtrl.$inject = [
+            '$scope',
+            '$window',
+            '$timeout',
+            'configService',
+            'methodsService',
+            '$state',
+            'growl'
+        ];
         return PortalCtrl;
     })();
     portal.PortalCtrl = PortalCtrl;
@@ -1238,6 +1255,7 @@ var portal;
             this.isFirstOpen = true;
             this.initialising = false;
             this.loading = false;
+            this.registryTooltip = "Select suitable elements of the tree of the respective repository.<br/>" + "They will then be stored at &ldquo;My Data&rdquo; for further usage in the Data Access dialogs.<br/>" + "Via mouse over the element further information can be obtained.";
             this.scope = $scope;
             $scope.regvm = this;
             this.timeout = $timeout;
@@ -1409,6 +1427,7 @@ var portal;
             this.initialising = false;
             this.status = '';
             this.showError = false;
+            this.methodsTooltip = "Select one of the stored elements, including uploaded VOTables,<br/>" + "to be applied to the available methods of the IMPEx services.<br/>" + "Please be aware that only those selections, which are applicable for the<br/>" + "respective methods can be applied.";
             // helpers for methods modal
             this.dropdownStatus = {
                 isopen: false,
@@ -1549,7 +1568,7 @@ else
         // set a method active and forward info to directives
         MethodsCtrl.prototype.setActive = function (method) {
             var _this = this;
-            console.log('set-active');
+            //console.log('set-active')
             this.dropdownStatus.active = this.trimPath(method.path);
 
             // here we need a delay (maybe we shift this somewhere else)
@@ -1880,7 +1899,6 @@ var portal;
             this.repositoryId = null;
             this.isCollapsed = {};
             // currently applyable elements (according to current method)
-            // @TODO rework this => selection map (remove isSelApplyable)
             this.applyableElements = [];
             this.isSelApplyable = false;
             this.isVOTApplyable = false;
@@ -2347,7 +2365,6 @@ var portal;
             });
 
             this.myScope.$on('set-method-active', function (e, method) {
-                //console.log('set-method-active')
                 _this.setMethod(method);
             });
 

@@ -31,7 +31,7 @@
 				ng-click="regvm.getSimulationRun(element)" 
 				ng-class="{ active: regdirvm.isActive('SimulationModel', element) }"
 				tooltip-html-unsafe="{{ element.resourceHeader.resourceName }}<br/>
-					{{ element.resourceHeader.releaseDate }}">
+					Release date: {{ element.resourceHeader.releaseDate }}">
 					{{ regdirvm.trim(element.resourceHeader.resourceName) }}
 			</button>
 		</div> 
@@ -41,7 +41,7 @@
 				ng-click="regvm.getNumericalOutput(element)" 
 				ng-class="{ active: regdirvm.isActive('SimulationRun', element) }"
 				tooltip-html-unsafe="{{ element.resourceHeader.resourceName }}<br/>
-					{{ element.resourceHeader.releaseDate }}">
+					Release date: {{ element.resourceHeader.releaseDate }}">
 					{{ regdirvm.trim(element.resourceHeader.resourceName) }}
 			</button>
 		</div>
@@ -51,7 +51,7 @@
 				ng-click="regvm.getGranule(element)" 
 				ng-class="{ active: regdirvm.isActive('NumericalOutput', element) }"
 				tooltip-html-unsafe="{{ element.resourceHeader.resourceName }}<br/>
-					{{ element.resourceHeader.releaseDate }}">
+					Release date: {{ element.resourceHeader.releaseDate }}">
 					{{ regdirvm.trim(element.resourceHeader.resourceName) }}				
 			</button>
 		</div>
@@ -60,7 +60,8 @@
 				ng-repeat="element in regdirvm.granules"
 				ng-class="{ active: regdirvm.isActive('Granule', element) }"
 				ng-click="regdirvm.setActive('Granule', element)"
-				tooltip-html-unsafe="{{ element.releaseDate }}<br/>{{ element.resourceId }}">
+				tooltip-html-unsafe="{{ element.resourceId }}<br/>
+					Release date: {{ element.releaseDate }}">
 					{{ regdirvm.trim(element.resourceId) }}
 			</button> 
 		</div>

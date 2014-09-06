@@ -32,7 +32,6 @@ module portal {
         public repositoryId: string = null
         public isCollapsed: ICollapsedMap = {}
         // currently applyable elements (according to current method)
-        // @TODO rework this => selection map (remove isSelApplyable)
         public applyableElements: Array<string> = []
         public isSelApplyable: boolean = false
         public isVOTApplyable: boolean = false

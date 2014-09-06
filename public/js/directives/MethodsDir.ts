@@ -58,7 +58,6 @@ module portal {
             })
             
             this.myScope.$on('set-method-active', (e, method: Api) => {
-                //console.log('set-method-active')
                 this.setMethod(method)
             })
             

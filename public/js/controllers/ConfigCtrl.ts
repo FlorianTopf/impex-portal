@@ -30,7 +30,7 @@ module portal {
             // read all regions at startup (@TODO set an interval for refresh?)
             this.configService.filterRegions = regions.data
             
-            // only for simulations atm 
+            // map only for simulation databases atm 
             this.configService.config.databases
                 .filter((e) => e.type == 'simulation')
                 .forEach((e) => { 

@@ -23,6 +23,10 @@ module portal {
         public initialising: boolean = false
         public status: string = ''
         public showError: boolean = false
+        public methodsTooltip: string = "Select one of the stored elements, including uploaded VOTables,<br/>"+
+            "to be applied to the available methods of the IMPEx services.<br/>"+
+            "Please be aware that only those selections, which are applicable for the<br/>"+
+            "respective methods can be applied."
         
         static $inject: Array<string> = ['$scope', '$timeout', '$window', 'configService', 'methodsService', 
             'userService', '$state', '$modalInstance', 'id']
@@ -158,7 +162,7 @@ module portal {
         
         // set a method active and forward info to directives
         public setActive(method: Api) {
-            console.log('set-active')
+            //console.log('set-active')
             this.dropdownStatus.active = this.trimPath(method.path)
             // here we need a delay (maybe we shift this somewhere else)
             this.timeout(() => this.scope.$broadcast('set-method-active', method))

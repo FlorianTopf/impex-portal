@@ -3,7 +3,12 @@
 		<span aria-hidden="true">&times;</span>
 		<span class="sr-only">Close</span>
 	</button>
-	<h3 class="modal-title">{{ regvm.database.name }} Simulations</h3>
+	<h3 class="modal-title" style="display: inline-block;">{{ regvm.database.name }} Simulations</h3>
+	<button class="glyphicon glyphicon-info-sign" 
+			tooltip-html-unsafe="{{ regvm.registryTooltip }}"  
+			tooltip-trigger="focus" 
+			tooltip-placement="right"
+			style="font-size: 25px; margin-right: 5px; border: none; background: none;"></button>
 </div>
 <div class="modal-body">
 	<div ng-show="regvm.initialising" class="text-left">

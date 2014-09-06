@@ -20,6 +20,9 @@ module portal {
         public isFirstOpen: boolean = true
         public initialising: boolean = false
         public loading: boolean = false
+        public registryTooltip: string = "Select suitable elements of the tree of the respective repository.<br/>"+
+            "They will then be stored at &ldquo;My Data&rdquo; for further usage in the Data Access dialogs.<br/>"+
+            "Via mouse over the element further information can be obtained."
         
         static $inject: Array<string> = ['$scope', '$timeout', 'configService', 'registryService', 
             '$state', '$modalInstance', 'id']
