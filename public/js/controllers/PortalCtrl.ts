@@ -8,7 +8,7 @@ module portal {
     }
     
     // active buttons map
-    export interface IFilterActiveMap {
+    export interface ISelectedFilterMap {
         [region: string]: boolean 
     }
     
@@ -22,6 +22,7 @@ module portal {
         public ready: boolean = false
         public configService: portal.ConfigService
         public methodsService: portal.MethodsService
+        public registryService: portal.RegistryService
         public databasesTooltip: string = "Within the different IMPEx-databases, you can browse the trees of all<br/>"+
             "service providers for getting an overview of all available data and its metadata.<br/>"+
             "Suitable tree elements can be selected and will then be stored automatically in<br/>"+
@@ -53,20 +54,20 @@ module portal {
             "Those who do not fit the criteria will be deactivated."
         public isFilterCollapsed: boolean = true
         public isFilterLoading: boolean = false
-        public isFilterSet: boolean = false
-        public selectedFilter: IFilterActiveMap = {}
+        public selectedFilter: ISelectedFilterMap = {}
       
         static $inject: Array<string> = ['$scope', '$window', '$timeout', 'configService', 
-            'methodsService', '$state', 'growl']
+            'methodsService', 'registryService', '$state', 'growl']
 
         constructor($scope: IPortalScope, $window: ng.IWindowService, $timeout: ng.ITimeoutService, configService: portal.ConfigService, 
-            methodsService: portal.MethodsService, $state: ng.ui.IStateService, growl: any) { 
+            methodsService: portal.MethodsService, registryService: portal.RegistryService, $state: ng.ui.IStateService, growl: any) { 
             this.scope = $scope
             this.scope.vm = this
             this.window = $window
             this.timeout = $timeout
             this.configService = configService
             this.methodsService = methodsService
+            this.registryService = registryService
             this.state = $state
             this.growl = growl
             
@@ -75,8 +76,9 @@ module portal {
                   this.growl.warning('Configuration loaded, waiting for isAlive...')
             })
             
-            //console.log(this.configService.filterRegions)
-            
+            this.configService.filterRegions.forEach((r) => {
+                this.registryService.selectedFilter[r] = false
+            })
             
             this.scope.$on('service-loading', (e, id: string) => { 
                 console.log('loading at '+id)
@@ -97,26 +99,31 @@ module portal {
         
         public selectFilter(region: string) {
             if(region in this.selectedFilter) {
-                this.selectedFilter[region] = !this.selectedFilter
-                if(this.selectedFilter[region] == false)
-                    delete this.selectedFilter[region]
-            } else
-                this.selectedFilter[region] = true        
+                delete this.selectedFilter[region]
+                this.registryService.selectedFilter[region] = false
+            } else {
+                this.selectedFilter[region] = true    
+                this.registryService.selectedFilter[region] = true
+            }
         }
         
         public resetFilter() {
             this.selectedFilter = {}
+            this.registryService.selectedFilter = {}
+            this.registryService.isFilterSet = false
             for(var id in this.configService.filterMap) {
                 this.configService.filterMap[id] = true
             }
-            this.isFilterSet = false
+            for(var region in this.registryService.selectedFilter) {
+                this.registryService.selectedFilter[region] = false
+            }
             //console.log(JSON.stringify(this.configService.filterMap))
         }
         
         public requestFilter() {
             this.isFilterCollapsed = true
             this.isFilterLoading = true
-            this.isFilterSet = false
+            this.registryService.isFilterSet = false
             var counter = 0
             var tempMap: IFilterMap = {}
             for(var region in this.selectedFilter) {
@@ -129,20 +136,20 @@ module portal {
                         if(counter == 0) {
                             // refreshing the real filterMap
                             for(var id in this.configService.filterMap) {
-                                if(tempMap.hasOwnProperty(id))
+                                if(id in tempMap)
                                     this.configService.filterMap[id] = true
                                 else
                                     this.configService.filterMap[id] = false
                             }
                             this.isFilterLoading = false
-                            this.isFilterSet = true
-                            console.log(JSON.stringify(this.configService.filterMap))
+                            this.registryService.isFilterSet = true
+                            //console.log(JSON.stringify(this.configService.filterMap))
                         }
                     })
                     // @TODO what to do in an error case?
                     .error((data: any, status: any) => {
                         this.isFilterLoading = false
-                        this.isFilterSet = false
+                        this.registryService.isFilterSet = false
                     })
             }
         }

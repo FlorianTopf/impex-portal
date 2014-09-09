@@ -925,6 +925,8 @@ var portal;
     var RegistryService = (function () {
         function RegistryService($resource) {
             this.url = '/';
+            this.isFilterSet = false;
+            this.selectedFilter = {};
             // action descriptor for registry actions
             this.registryAction = {
                 method: 'GET',
@@ -1198,7 +1200,7 @@ var portal;
     'use strict';
 
     var PortalCtrl = (function () {
-        function PortalCtrl($scope, $window, $timeout, configService, methodsService, $state, growl) {
+        function PortalCtrl($scope, $window, $timeout, configService, methodsService, registryService, $state, growl) {
             var _this = this;
             this.ready = false;
             this.databasesTooltip = "Within the different IMPEx-databases, you can browse the trees of all<br/>" + "service providers for getting an overview of all available data and its metadata.<br/>" + "Suitable tree elements can be selected and will then be stored automatically in<br/>" + "the &ldquo;My Data&rdquo; dialog for their further usage in the &ldquo;Data Access&rdquo; area.<br/>" + "Please be aware that only the selections of the respective database will be<br/>" + "visible in the Databases and Data Access dialogs of the IMPEx Portal.";
@@ -1208,7 +1210,6 @@ var portal;
             this.filterTooltip = "This function can be used to filter IMPEx databases and services via<br/>" + "customized criteria.<br/>" + "Those who do not fit the criteria will be deactivated.";
             this.isFilterCollapsed = true;
             this.isFilterLoading = false;
-            this.isFilterSet = false;
             this.selectedFilter = {};
             this.scope = $scope;
             this.scope.vm = this;
@@ -1216,6 +1217,7 @@ var portal;
             this.timeout = $timeout;
             this.configService = configService;
             this.methodsService = methodsService;
+            this.registryService = registryService;
             this.state = $state;
             this.growl = growl;
 
@@ -1224,7 +1226,10 @@ var portal;
                 _this.growl.warning('Configuration loaded, waiting for isAlive...');
             });
 
-            //console.log(this.configService.filterRegions)
+            this.configService.filterRegions.forEach(function (r) {
+                _this.registryService.selectedFilter[r] = false;
+            });
+
             this.scope.$on('service-loading', function (e, id) {
                 console.log('loading at ' + id);
             });
@@ -1243,19 +1248,24 @@ var portal;
 
         PortalCtrl.prototype.selectFilter = function (region) {
             if (region in this.selectedFilter) {
-                this.selectedFilter[region] = !this.selectedFilter;
-                if (this.selectedFilter[region] == false)
-                    delete this.selectedFilter[region];
-            } else
+                delete this.selectedFilter[region];
+                this.registryService.selectedFilter[region] = false;
+            } else {
                 this.selectedFilter[region] = true;
+                this.registryService.selectedFilter[region] = true;
+            }
         };
 
         PortalCtrl.prototype.resetFilter = function () {
             this.selectedFilter = {};
+            this.registryService.selectedFilter = {};
+            this.registryService.isFilterSet = false;
             for (var id in this.configService.filterMap) {
                 this.configService.filterMap[id] = true;
             }
-            this.isFilterSet = false;
+            for (var region in this.registryService.selectedFilter) {
+                this.registryService.selectedFilter[region] = false;
+            }
             //console.log(JSON.stringify(this.configService.filterMap))
         };
 
@@ -1263,7 +1273,7 @@ var portal;
             var _this = this;
             this.isFilterCollapsed = true;
             this.isFilterLoading = true;
-            this.isFilterSet = false;
+            this.registryService.isFilterSet = false;
             var counter = 0;
             var tempMap = {};
             for (var region in this.selectedFilter) {
@@ -1276,18 +1286,18 @@ var portal;
                     });
                     if (counter == 0) {
                         for (var id in _this.configService.filterMap) {
-                            if (tempMap.hasOwnProperty(id))
+                            if (id in tempMap)
                                 _this.configService.filterMap[id] = true;
 else
                                 _this.configService.filterMap[id] = false;
                         }
                         _this.isFilterLoading = false;
-                        _this.isFilterSet = true;
-                        console.log(JSON.stringify(_this.configService.filterMap));
+                        _this.registryService.isFilterSet = true;
+                        //console.log(JSON.stringify(this.configService.filterMap))
                     }
                 }).error(function (data, status) {
                     _this.isFilterLoading = false;
-                    _this.isFilterSet = false;
+                    _this.registryService.isFilterSet = false;
                 });
             }
         };
@@ -1297,6 +1307,7 @@ else
             '$timeout',
             'configService',
             'methodsService',
+            'registryService',
             '$state',
             'growl'
         ];
@@ -1905,6 +1916,20 @@ var portal;
             this.myScope.$on('update-simulation-runs', function (e, id) {
                 _this.simulationRuns = _this.registryService.cachedElements[id].map(function (r) {
                     return r;
+                });
+
+                // filtering the runs (when filter is active)
+                _this.simulationRuns = _this.simulationRuns.filter(function (e) {
+                    var matches = e.simulatedRegion.filter(function (r) {
+                        if (_this.registryService.selectedFilter[r] == true)
+                            return true;
+else if (_this.registryService.isFilterSet == false)
+                            return true;
+else
+                            return false;
+                    });
+                    if (matches.length > 0)
+                        return true;
                 });
             });
 

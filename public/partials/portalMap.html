@@ -5,8 +5,8 @@
 <div class="row" ng-show="vm.ready">
 	<div class="col-sm-1 text-center">
 		<button type="button" class="btn" 
-			ng-class="{ 'btn-default': !vm.isFilterSet || vm.isFilterLoading, 
-					    'btn-success': vm.isFilterSet && !vm.isFilterLoading }"
+			ng-class="{ 'btn-default': !vm.registryService.isFilterSet|| vm.isFilterLoading, 
+					    'btn-success': vm.registryService.isFilterSet && !vm.isFilterLoading }"
 			ng-click="vm.isFilterCollapsed = !vm.isFilterCollapsed">FILTER</button>
 	</div>
 	<div class="col-sm-5">
@@ -21,7 +21,7 @@
 		</span>
 		<button type="button" class="btn btn-danger" style="vertical-align: top;"
 			ng-click="vm.resetFilter()" 
-			ng-hide="!vm.isFilterSet || vm.isFilterLoading">RESET</button>
+			ng-hide="!vm.registryService.isFilterSet || vm.isFilterLoading">RESET</button>
 	</div>
 	<div class="col-sm-4">&nbsp;</div>
 	<div class="col-sm-2 text-center">

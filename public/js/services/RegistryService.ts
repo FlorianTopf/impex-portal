@@ -27,6 +27,8 @@ module portal {
         
         private resource: ng.resource.IResourceService
         private url: string = '/'
+        public isFilterSet: boolean = false
+        public selectedFilter: ISelectedFilterMap = {}
         
         // action descriptor for registry actions
         private registryAction: ng.resource.IActionDescriptor = {

@@ -119,6 +119,19 @@ module portal {
             
             this.myScope.$on('update-simulation-runs', (e, id: string) => {
                 this.simulationRuns = this.registryService.cachedElements[id].map((r) => <SimulationRun>r)
+                // filtering the runs (when filter is active)
+                this.simulationRuns = this.simulationRuns.filter((e) => {
+                    var matches = e.simulatedRegion.filter((r) => { 
+                        if(this.registryService.selectedFilter[r] == true)
+                            return true
+                        else if(this.registryService.isFilterSet == false)
+                            return true
+                        else
+                            return false
+                    })
+                    if(matches.length > 0)
+                        return true
+                })
             })
             
             this.myScope.$on('update-numerical-outputs', (e, id: string) => {
