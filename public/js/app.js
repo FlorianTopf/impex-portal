@@ -1148,7 +1148,11 @@ var portal;
             this.configService.config.databases.filter(function (e) {
                 return e.type == 'simulation';
             }).forEach(function (e) {
+                // initialise portal map disablers
                 _this.configService.aliveMap[e.id] = false;
+                _this.configService.filterMap[e.id] = true;
+
+                // calling isAlive
                 _this.configService.isAlive(e);
             });
 
@@ -1204,6 +1208,7 @@ var portal;
             this.filterTooltip = "This function can be used to filter IMPEx databases and services via<br/>" + "customized criteria.<br/>" + "Those who do not fit the criteria will be deactivated.";
             this.isFilterCollapsed = true;
             this.isFilterLoading = false;
+            this.isFilterSet = false;
             this.selectedFilter = {};
             this.scope = $scope;
             this.scope.vm = this;
@@ -1247,30 +1252,42 @@ var portal;
 
         PortalCtrl.prototype.resetFilter = function () {
             this.selectedFilter = {};
-            this.configService.filterMap = {};
-            console.log(JSON.stringify(this.configService.filterMap));
+            for (var id in this.configService.filterMap) {
+                this.configService.filterMap[id] = true;
+            }
+            this.isFilterSet = false;
+            //console.log(JSON.stringify(this.configService.filterMap))
         };
 
         PortalCtrl.prototype.requestFilter = function () {
             var _this = this;
             this.isFilterCollapsed = true;
             this.isFilterLoading = true;
+            this.isFilterSet = false;
             var counter = 0;
+            var tempMap = {};
             for (var region in this.selectedFilter) {
                 counter++;
                 this.configService.filterRegion(region).success(function (data, status) {
                     //console.log(data)
                     counter--;
                     data.forEach(function (e) {
-                        _this.configService.filterMap[e] = true;
+                        tempMap[e] = true;
                     });
                     if (counter == 0) {
-                        console.log("finish");
+                        for (var id in _this.configService.filterMap) {
+                            if (tempMap.hasOwnProperty(id))
+                                _this.configService.filterMap[id] = true;
+else
+                                _this.configService.filterMap[id] = false;
+                        }
                         _this.isFilterLoading = false;
+                        _this.isFilterSet = true;
                         console.log(JSON.stringify(_this.configService.filterMap));
                     }
                 }).error(function (data, status) {
                     _this.isFilterLoading = false;
+                    _this.isFilterSet = false;
                 });
             }
         };

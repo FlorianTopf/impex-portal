@@ -34,7 +34,10 @@ module portal {
             this.configService.config.databases
                 .filter((e) => e.type == 'simulation')
                 .forEach((e) => { 
+                    // initialise portal map disablers
                     this.configService.aliveMap[e.id] = false 
+                    this.configService.filterMap[e.id] = true
+                    // calling isAlive
                     this.configService.isAlive(e) })
             
             // @TODO this routine must be changed (if we use filters in parallel)

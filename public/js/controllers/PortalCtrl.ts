@@ -53,6 +53,7 @@ module portal {
             "Those who do not fit the criteria will be deactivated."
         public isFilterCollapsed: boolean = true
         public isFilterLoading: boolean = false
+        public isFilterSet: boolean = false
         public selectedFilter: IFilterActiveMap = {}
       
         static $inject: Array<string> = ['$scope', '$window', '$timeout', 'configService', 
@@ -105,32 +106,43 @@ module portal {
         
         public resetFilter() {
             this.selectedFilter = {}
-            this.configService.filterMap = {}
-            console.log(JSON.stringify(this.configService.filterMap))
+            for(var id in this.configService.filterMap) {
+                this.configService.filterMap[id] = true
+            }
+            this.isFilterSet = false
+            //console.log(JSON.stringify(this.configService.filterMap))
         }
         
         public requestFilter() {
             this.isFilterCollapsed = true
             this.isFilterLoading = true
+            this.isFilterSet = false
             var counter = 0
+            var tempMap: IFilterMap = {}
             for(var region in this.selectedFilter) {
                 counter++
                 this.configService.filterRegion(region)
                     .success((data: Array<string>, status: any) => { 
                         //console.log(data)
-                        counter--
-                        data.forEach((e) => {
-                            this.configService.filterMap[e] = true
-                        })
+                        counter--            
+                        data.forEach((e) => { tempMap[e] = true })
                         if(counter == 0) {
-                            console.log("finish")
+                            // refreshing the real filterMap
+                            for(var id in this.configService.filterMap) {
+                                if(tempMap.hasOwnProperty(id))
+                                    this.configService.filterMap[id] = true
+                                else
+                                    this.configService.filterMap[id] = false
+                            }
                             this.isFilterLoading = false
+                            this.isFilterSet = true
                             console.log(JSON.stringify(this.configService.filterMap))
                         }
                     })
                     // @TODO what to do in an error case?
                     .error((data: any, status: any) => {
                         this.isFilterLoading = false
+                        this.isFilterSet = false
                     })
             }
         }
