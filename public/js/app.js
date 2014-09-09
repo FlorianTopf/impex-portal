@@ -863,6 +863,7 @@ var portal;
             this.config = null;
             this.aliveMap = {};
             this.filterRegions = [];
+            this.filterMap = {};
             // creates an action descriptor
             this.configAction = {
                 method: 'GET',
@@ -872,18 +873,18 @@ var portal;
             this.http = $http;
         }
         // checks if a database and its methods are alive
-        ConfigService.prototype.isAlive = function (dbName) {
+        ConfigService.prototype.isAlive = function (db) {
             var _this = this;
-            if ((dbName.indexOf('FMI-HYBRID') != -1) || (dbName.indexOf('FMI-GUMICS') != -1))
+            if ((db.name.indexOf('FMI-HYBRID') != -1) || (db.name.indexOf('FMI-GUMICS') != -1))
                 var callName = 'FMI';
 else
-                var callName = dbName;
+                var callName = db.name;
 
             this.http.get(this.url + 'methods/' + callName + "/isAlive", { timeout: 10000 }).success(function (data, status) {
-                _this.aliveMap[dbName] = data;
-                //console.log("Hello "+dbName+" "+this.aliveMap[dbName])
+                _this.aliveMap[db.id] = data;
+                //console.log("Hello "+db.name+" "+this.aliveMap[db.id])
             }).error(function (data, status) {
-                _this.aliveMap[dbName] = false;
+                _this.aliveMap[db.id] = false;
             });
         };
 
@@ -1147,8 +1148,8 @@ var portal;
             this.configService.config.databases.filter(function (e) {
                 return e.type == 'simulation';
             }).forEach(function (e) {
-                _this.configService.aliveMap[e.name] = false;
-                _this.configService.isAlive(e.name);
+                _this.configService.aliveMap[e.id] = false;
+                _this.configService.isAlive(e);
             });
 
             // @TODO this routine must be changed (if we use filters in parallel)
@@ -1157,7 +1158,7 @@ var portal;
                 return _this.configService.config.databases.filter(function (e) {
                     return e.type == 'simulation';
                 }).forEach(function (e) {
-                    _this.configService.isAlive(e.name);
+                    _this.configService.isAlive(e);
                 });
             }, 600000);
 
@@ -1201,6 +1202,9 @@ var portal;
             this.toolsTooltip = "The Tools area of the IMPEx Portal provides links to all tools for data analysis,<br/>" + "which are connected to the IMPEx services.<br/>" + "Via connecting to a SAMP Hub you can send selected service results to<br/>" + "the respective tools for further analysis.<br/>" + "A quick overview guide on all of these tools, as well as on the simulation<br/>" + "databases can be found in the Tool Docs.<br/>";
             this.myDataTooltip = "&ldquo;My Data&rdquo; is the reservoir for all stored services and results,<br/>" + "which can easily be managed in this area.<br/>" + "Moreover customized VOTables can be uploaded via<br/>" + "&ldquo;My Data&rdquo; for further usage in the IMPEx Portal.<br/>" + "Please be aware that VOTable files are saved for only 24 hours.<br/>" + "Results and selections on the other hand are stored on the<br/>" + "client-side and will be available with no elapse time.";
             this.filterTooltip = "This function can be used to filter IMPEx databases and services via<br/>" + "customized criteria.<br/>" + "Those who do not fit the criteria will be deactivated.";
+            this.isFilterCollapsed = true;
+            this.isFilterLoading = false;
+            this.selectedFilter = {};
             this.scope = $scope;
             this.scope.vm = this;
             this.window = $window;
@@ -1230,6 +1234,45 @@ var portal;
         }
         PortalCtrl.prototype.notImplemented = function () {
             this.window.alert("This functionality is not yet implemented.");
+        };
+
+        PortalCtrl.prototype.selectFilter = function (region) {
+            if (region in this.selectedFilter) {
+                this.selectedFilter[region] = !this.selectedFilter;
+                if (this.selectedFilter[region] == false)
+                    delete this.selectedFilter[region];
+            } else
+                this.selectedFilter[region] = true;
+        };
+
+        PortalCtrl.prototype.resetFilter = function () {
+            this.selectedFilter = {};
+            this.configService.filterMap = {};
+            console.log(JSON.stringify(this.configService.filterMap));
+        };
+
+        PortalCtrl.prototype.requestFilter = function () {
+            var _this = this;
+            this.isFilterCollapsed = true;
+            this.isFilterLoading = true;
+            var counter = 0;
+            for (var region in this.selectedFilter) {
+                counter++;
+                this.configService.filterRegion(region).success(function (data, status) {
+                    //console.log(data)
+                    counter--;
+                    data.forEach(function (e) {
+                        _this.configService.filterMap[e] = true;
+                    });
+                    if (counter == 0) {
+                        console.log("finish");
+                        _this.isFilterLoading = false;
+                        console.log(JSON.stringify(_this.configService.filterMap));
+                    }
+                }).error(function (data, status) {
+                    _this.isFilterLoading = false;
+                });
+            }
         };
         PortalCtrl.$inject = [
             '$scope',
@@ -1558,6 +1601,11 @@ else
                     return _this.handleServiceError(error);
                 });
             }
+        };
+
+        // notifies dir to reset the request
+        MethodsCtrl.prototype.resetMethod = function () {
+            this.scope.$broadcast('reset-method-request');
         };
 
         // retry if alert is cancelled
@@ -2065,7 +2113,7 @@ else
         };
 
         UserDataDir.prototype.isSelectable = function (type) {
-            if (type == 'SimulationModel' && this.repositoryId.indexOf('SINP') != -1) {
+            if (type == 'SimulationModel' && this.repositoryId.indexOf('SINP') != -1 && this.user.activeSelection.length == 1) {
                 if (this.user.activeSelection[0].elem.resourceId.indexOf('Static') != -1)
                     return false;
 else
@@ -2366,6 +2414,10 @@ var portal;
 
             this.myScope.$on('set-method-active', function (e, method) {
                 _this.setMethod(method);
+            });
+
+            this.myScope.$on('reset-method-request', function (e) {
+                _this.resetRequest();
             });
 
             this.myScope.$watch('$includeContentLoaded', function (e) {

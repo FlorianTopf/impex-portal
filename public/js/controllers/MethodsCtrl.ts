@@ -149,6 +149,11 @@ module portal {
             }                  
         }
         
+        // notifies dir to reset the request
+        public resetMethod() {
+            this.scope.$broadcast('reset-method-request')
+        }
+        
         // retry if alert is cancelled
         public retry() {
             this.loadMethodsAPI()

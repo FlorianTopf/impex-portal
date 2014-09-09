@@ -61,6 +61,10 @@ module portal {
                 this.setMethod(method)
             })
             
+            this.myScope.$on('reset-method-request', (e) => {
+                this.resetRequest()  
+            })
+            
             this.myScope.$watch('$includeContentLoaded', (e) => {
                 //console.log("MethodsDir loaded")
                 if(!(this.repositoryId in this.userService.sessionStorage.methods)) {

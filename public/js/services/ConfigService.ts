@@ -12,6 +12,11 @@ module portal {
     export interface IAliveMap {
         [id: string]: Boolean
     }
+    
+    // filter map
+    export interface IFilterMap {
+        [id: string]: Boolean
+    }
 
     export class ConfigService {
         static $inject: Array<string> = ['$resource', '$http']
@@ -22,6 +27,7 @@ module portal {
         public config: IConfig = null
         public aliveMap: IAliveMap = {}
         public filterRegions: Array<string> = []
+        public filterMap: IFilterMap = {}
         
         // creates an action descriptor
         private configAction: ng.resource.IActionDescriptor = {
@@ -35,19 +41,21 @@ module portal {
         }
         
         // checks if a database and its methods are alive
-        public isAlive(dbName: string) {
+        public isAlive(db: Database) {
            // little hack for FMI (it's the same method)
-           if((dbName.indexOf('FMI-HYBRID') != -1) || (dbName.indexOf('FMI-GUMICS') != -1))
+           if((db.name.indexOf('FMI-HYBRID') != -1) || (db.name.indexOf('FMI-GUMICS') != -1))
              var callName = 'FMI'
            else
-             var callName = dbName
+             var callName = db.name
                
            this.http.get(this.url+'methods/'+callName+"/isAlive", { timeout: 10000})
                .success((data: boolean, status: any) => { 
-                    this.aliveMap[dbName] = data
-                    //console.log("Hello "+dbName+" "+this.aliveMap[dbName]) 
-                })
-               .error((data: any, status: any) => { this.aliveMap[dbName] = false })           
+                   this.aliveMap[db.id] = data
+                   //console.log("Hello "+db.name+" "+this.aliveMap[db.id]) 
+               })
+               .error((data: any, status: any) => { 
+                   this.aliveMap[db.id] = false 
+               })           
         }
         
         // returns the resource handler 

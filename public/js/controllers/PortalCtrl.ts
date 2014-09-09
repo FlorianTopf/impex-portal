@@ -6,7 +6,12 @@ module portal {
     export interface IPortalScope extends ng.IScope {
         vm: PortalCtrl
     }
-
+    
+    // active buttons map
+    export interface IFilterActiveMap {
+        [region: string]: boolean 
+    }
+    
     export class PortalCtrl {
         private scope: portal.IPortalScope
         private window: ng.IWindowService
@@ -46,6 +51,9 @@ module portal {
         public filterTooltip: string = "This function can be used to filter IMPEx databases and services via<br/>"+
             "customized criteria.<br/>"+
             "Those who do not fit the criteria will be deactivated."
+        public isFilterCollapsed: boolean = true
+        public isFilterLoading: boolean = false
+        public selectedFilter: IFilterActiveMap = {}
       
         static $inject: Array<string> = ['$scope', '$window', '$timeout', 'configService', 
             'methodsService', '$state', 'growl']
@@ -85,7 +93,48 @@ module portal {
         public notImplemented() {
             this.window.alert("This functionality is not yet implemented.")
         }
-
+        
+        public selectFilter(region: string) {
+            if(region in this.selectedFilter) {
+                this.selectedFilter[region] = !this.selectedFilter
+                if(this.selectedFilter[region] == false)
+                    delete this.selectedFilter[region]
+            } else
+                this.selectedFilter[region] = true        
+        }
+        
+        public resetFilter() {
+            this.selectedFilter = {}
+            this.configService.filterMap = {}
+            console.log(JSON.stringify(this.configService.filterMap))
+        }
+        
+        public requestFilter() {
+            this.isFilterCollapsed = true
+            this.isFilterLoading = true
+            var counter = 0
+            for(var region in this.selectedFilter) {
+                counter++
+                this.configService.filterRegion(region)
+                    .success((data: Array<string>, status: any) => { 
+                        //console.log(data)
+                        counter--
+                        data.forEach((e) => {
+                            this.configService.filterMap[e] = true
+                        })
+                        if(counter == 0) {
+                            console.log("finish")
+                            this.isFilterLoading = false
+                            console.log(JSON.stringify(this.configService.filterMap))
+                        }
+                    })
+                    // @TODO what to do in an error case?
+                    .error((data: any, status: any) => {
+                        this.isFilterLoading = false
+                    })
+            }
+        }
+        
 
     }
 }

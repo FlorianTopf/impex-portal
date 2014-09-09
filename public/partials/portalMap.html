@@ -4,8 +4,10 @@
 <div growl></div>
 <div class="row" ng-show="vm.ready">
 	<div class="col-sm-1 text-center">
-		<button type="button" class="btn btn-default" 
-			ng-click="vm.notImplemented()">FILTER</button>
+		<button type="button" class="btn" 
+			ng-class="{ 'btn-default': (vm.configService.filterMap | isEmpty) || vm.isFilterLoading, 
+					    'btn-success': !(vm.configService.filterMap | isEmpty) && !vm.isFilterLoading }"
+			ng-click="vm.isFilterCollapsed = !vm.isFilterCollapsed">FILTER</button>
 	</div>
 	<div class="col-sm-5">
 		<h2 style="display: inline;"><small>1. USE FILTERS ON RESOURCES</small></h2>
@@ -14,6 +16,12 @@
 			tooltip-trigger="focus" 
 			tooltip-placement="right" 
 			style="font-size: 25px; margin-left: 5px; border: none; background: none;"></button>
+		<span ng-show="vm.isFilterLoading"
+			class="glyphicon glyphicon-cog glyphicon-rotate">
+		</span>
+		<button type="button" class="btn btn-danger" style="vertical-align: top;"
+			ng-click="vm.resetFilter()" 
+			ng-hide="(vm.configService.filterMap | isEmpty) || vm.isFilterLoading">RESET</button>
 	</div>
 	<div class="col-sm-4">&nbsp;</div>
 	<div class="col-sm-2 text-center">
@@ -28,6 +36,33 @@
 	<div class="col-sm-9">&nbsp;</div>
 	<div class="col-sm-2 text-center">
 		<span class="glyphicon glyphicon-arrow-down" style="font-size: 20px;"></span>
+	</div>
+</div>
+<div class="row" ng-show="vm.ready">
+	<div class="col-sm-6" collapse="vm.isFilterCollapsed">
+		<div class="well well-lg" style="margin-top: 5px; margin-bottom: 5px;">
+			<div class="btn-group-vertical ">
+				<button type="button" class="btn btn-default btn-sm" style="width: 120px; vertical-align: top;"
+					ng-repeat="region in vm.configService.filterRegions"
+					ng-click="vm.selectFilter(region)"
+					ng-class="{ active: vm.selectedFilter[region] }">
+					{{ region }}
+				</button>
+			</div>
+			<div class="btn-group-vertical" style="margin-left: 10%; width: 120px; vertical-align: top;">
+				<button type="button" class="btn btn-success btn-sm" 
+					ng-repeat="(region, active) in vm.selectedFilter">
+					{{ region }}
+				</button>
+			</div>
+			<div class="btn-group-vertical" ng-hide="vm.selectedFilter | isEmpty"
+				style="margin-left: 10%; width: 120px; vertical-align: top;">
+				<button type="button" class="btn btn-primary btn-sm"
+					ng-click="vm.requestFilter()">OK</button>
+				<button type="button" class="btn btn-danger btn-sm"
+					ng-click="vm.resetFilter()">RESET</button>
+			</div>
+		</div>
 	</div>
 </div>
 <div class="row" ng-show="vm.ready">
@@ -57,8 +92,8 @@
 			<button type="button" class="btn btn-primary btn-map" 
 				ui-sref="app.portal.registry({id:database.id})" 
 				tooltip="Show registry of {{ database.name }}"
-				ng-disabled="vm.configService.aliveMap[database.name] == false || 
-					vm.configService.aliveMap[database.name] | isEmpty">
+				ng-disabled="vm.configService.aliveMap[database.id] == false || 
+					vm.configService.aliveMap[database.id] | isEmpty">
 				<span style="float: left;">{{ database.name }}</span><br/>
 				<img src="public/img/layout/database.png"/><br/>
 				<span style="float: right;">Simulations</span>
@@ -119,8 +154,8 @@
 			<button type="button" class="btn btn-success btn-map"
 				ui-sref="app.portal.methods({id:database.id})" 
 				tooltip="Show methods of {{ database.name }}"
-				ng-disabled="vm.configService.aliveMap[database.name] == false || 
-					vm.configService.aliveMap[database.name] | isEmpty">
+				ng-disabled="vm.configService.aliveMap[database.id] == false || 
+					vm.configService.aliveMap[database.id] | isEmpty">
 				<span style="float: left;">{{ database.name }}</span>
 				<span style="float: right;" 
 					ng-show="vm.methodsService.loading[database.id]"

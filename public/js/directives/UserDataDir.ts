@@ -188,9 +188,9 @@ module portal {
         
         public isSelectable(type: string): boolean {
             // hack for static SINP models => not selectable
-            if(type == 'SimulationModel' && 
-                this.repositoryId.indexOf('SINP') != -1) {
-                // there is always only one
+            if(type == 'SimulationModel' && this.repositoryId.indexOf('SINP') != -1 && 
+                this.user.activeSelection.length == 1) {
+                // there is always only one => otherwise ERROR
                 if(this.user.activeSelection[0].elem.resourceId.indexOf('Static') != -1)
                     return false
                 else
