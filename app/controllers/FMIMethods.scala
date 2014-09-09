@@ -106,10 +106,10 @@ object FMIMethods extends MethodsController {
   	  case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "mandatory parameter missing", request.req)))
-      // @FIXME this is because there are errors not encoded as SOAP-FAULT
-      case e: RuntimeException => 
-        NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error", request.req)))
+      // this is because there are errors not encoded as SOAP-FAULT
+      //case e: RuntimeException => 
+      //  NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
+      //          "unknown external web service error", request.req)))
   	}
   }
   
@@ -221,10 +221,10 @@ object FMIMethods extends MethodsController {
       case e @ (_:ParseException | _:IllegalArgumentException) => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "time parameter not in ISO 8601 format", request.req)))
-      // @FIXME this is because there are errors not encoded as SOAP-FAULT
-      case e: RuntimeException =>
-        NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error", request.req)))
+      // this is because there are errors not encoded as SOAP-FAULT
+      //case e: RuntimeException =>
+      //  NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
+      //          "unknown external web service error", request.req)))
     }
   }
   
@@ -321,10 +321,10 @@ object FMIMethods extends MethodsController {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "mandatory parameter missing", request.req)))
-      // @FIXME this is because there are errors not encoded as SOAP-FAULT
-      case e: RuntimeException =>
-        NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error", request.req)))
+      // this is because there are errors not encoded as SOAP-FAULT
+      //case e: RuntimeException =>
+      //  NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
+      //          "unknown external web service error", request.req)))
     }
   }
   
@@ -676,10 +676,10 @@ object FMIMethods extends MethodsController {
       case e @ (_:NumberFormatException) => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "illegal number provided", request.req)))
-      // @FIXME this is because there are errors not encoded as SOAP-FAULT
-      case e: RuntimeException =>
-        NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error", request.req)))
+      // this is because there are errors not encoded as SOAP-FAULT
+      //case e: RuntimeException =>
+      //  NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
+      //          "unknown external web service error", request.req)))
     }
   }
   
@@ -791,10 +791,10 @@ object FMIMethods extends MethodsController {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "mandatory parameter missing", request.req)))
-      // @FIXME this is because there are errors not encoded as SOAP-FAULT
-      case e: RuntimeException =>
-        NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error", request.req)))
+      // this is because there are errors not encoded as SOAP-FAULT
+      //case e: RuntimeException =>
+      //  NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
+      //          "unknown external web service error", request.req)))
     }
   }
   
@@ -907,10 +907,10 @@ object FMIMethods extends MethodsController {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "mandatory parameter missing", request.req)))
-      // @FIXME this is because there are errors not encoded as SOAP-FAULT
-      case e: RuntimeException =>
-        NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error", request.req)))
+      // this is because there are errors not encoded as SOAP-FAULT
+      //case e: RuntimeException =>
+      //  NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
+      //          "unknown external web service error", request.req)))
     }
   }
   
@@ -990,10 +990,10 @@ object FMIMethods extends MethodsController {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "mandatory parameter missing", request.req)))
-      // @FIXME this is because there are errors not encoded as SOAP-FAULT
-      case e: RuntimeException =>
-        NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error", request.req)))
+      // this is because there are errors not encoded as SOAP-FAULT
+      //case e: RuntimeException =>
+      //  NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
+      //          "unknown external web service error", request.req)))
     }
   }
   
@@ -1108,10 +1108,10 @@ object FMIMethods extends MethodsController {
       case e: MatchError => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "unkown spacecraft name", request.req)))
-      // @FIXME this is because there are errors not encoded as SOAP-FAULT
-      case e: RuntimeException =>
-        NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error", request.req)))
+      // this is because there are errors not encoded as SOAP-FAULT
+      //case e: RuntimeException =>
+      //  NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
+      //          "unknown external web service error", request.req)))
     }
   }
   

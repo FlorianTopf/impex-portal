@@ -40,7 +40,7 @@ trait Soap11Clients { this: HttpClients =>
       try {
         val response = scala.xml.XML.loadString(s)
         // DEBUG => prints SOAP response
-        println(response)
+        //println(response)
         scalaxb.fromXML[Envelope](response)
       }
       catch {
