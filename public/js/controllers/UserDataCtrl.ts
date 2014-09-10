@@ -67,7 +67,7 @@ module portal {
                 this.timeout(() => {
                     var votable = <IUserData>response
                     // adding the info of the posted votable to userService
-                    this.userService.user.voTables.push(votable)
+                    this.userService.user.voTables = [votable].concat(this.userService.user.voTables)
                     this.scope.$broadcast('update-votables', votable.id)
                     this.growl.success('Added VOTable to user data')
                 })

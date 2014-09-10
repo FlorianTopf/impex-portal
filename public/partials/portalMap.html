@@ -65,7 +65,7 @@
 		<button class="glyphicon glyphicon-info-sign" 
 			tooltip-html-unsafe="{{ vm.databasesTooltip }}"  
 			tooltip-trigger="focus" 
-			tooltip-placement="right" 
+			tooltip-placement="bottom" 
 			style="font-size: 25px; margin-left: 5px; border: none; background: none;"></button>
 	</div>
 	<div class="col-sm-6 text-right">
@@ -88,9 +88,9 @@
 				tooltip="Show registry of {{ database.name }}"
 				ng-disabled="(vm.configService.aliveMap[database.id] == false) || 
 					(vm.configService.filterMap[database.id] == false)">
-				<span style="float: left;">{{ database.name }}</span><br/>
+				<span class="pull-left">{{ database.name }}</span><br/>
 				<img src="public/img/layout/database.png"/><br/>
-				<span style="float: right;">Simulations</span>
+				<span class="pull-right">Simulations</span>
 			</button>
     	</div>
 	</div>
@@ -100,7 +100,7 @@
 			tooltip="Open {{ vm.configService.config.tools[0].name }} tool">
 			<br/>
 			<img src="public/img/layout/tool.png"/><br/>
-			<span style="float:right; margin-top: 7px;">
+			<span class="pull-right" style="margin-top: 7px;">
 				{{ vm.configService.config.tools[0].name }}
 			</span>
 		</a>
@@ -119,18 +119,24 @@
 	<div class="col-sm-2 text-center">
 		<button type="button" class="btn btn-warning btn-map"
 			ui-sref="app.portal.userdata()" 
-			tooltip="Show saved Userdata">
+			tooltip="Show saved Userdata"
+			tooltip-placement="right">
+			<span ng-show="vm.methodsService.unreadResults > 0" class="badge pull-left" style="font-size: 14px;">
+				{{ vm.methodsService.unreadResults }}
+			</span>
+			<br/>
 			<img src="public/img/layout/userdata.png"/><br/>
-			<span style="float:right; margin-top: 15px;">My Data</span>
+			<span class="pull-right">My Data</span>
 		</button>
 	</div>
 	<div class="col-sm-2 col-sm-offset-8 text-center">
 		<a class="btn btn-danger btn-map"
 			ng-href="{{ vm.configService.config.tools[1].url }}" target="_blank"
-			tooltip="Open {{ vm.configService.config.tools[1].name }} tool">
+			tooltip="Open {{ vm.configService.config.tools[1].name }} tool"
+			tooltip-placement="left">
 			<br/>
 			<img src="public/img/layout/tool.png"/><br/>
-			<span style="float:right; margin-top: 7px;">
+			<span class="pull-right" style="margin-top: 7px;">
 				{{ vm.configService.config.tools[1].name }}
 			</span>
 		</a>
@@ -148,36 +154,35 @@
 			<button type="button" class="btn btn-success btn-map"
 				ui-sref="app.portal.methods({id:database.id})" 
 				tooltip="Show methods of {{ database.name }}"
+				tooltip-placement="top"
 				ng-disabled="(vm.configService.aliveMap[database.id] == false) || 
 					(vm.configService.filterMap[database.id] == false)">
-				<span style="float: left;">{{ database.name }}</span>
-				<span style="float: right;" 
-					ng-show="vm.methodsService.loading[database.id]"
-					class="glyphicon glyphicon-cog glyphicon-rotate">
+				<span class="pull-left">{{ database.name }}</span>
+				<span ng-show="vm.methodsService.loading[database.id]"
+					class="pull-right glyphicon glyphicon-cog glyphicon-rotate">
 				</span>
-				<span style="float: right;" 
-					ng-show="!vm.methodsService.loading[database.id] && 
+				<span ng-show="!vm.methodsService.loading[database.id] && 
 					vm.methodsService.showSuccess[database.id]"
-					class="glyphicon glyphicon-ok-sign glyphicon-static">
+					class="pull-right glyphicon glyphicon-ok-sign glyphicon-static">
 				</span>
-				<span style="float: right;" 
-					ng-show="!vm.methodsService.loading[database.id] && 
+				<span ng-show="!vm.methodsService.loading[database.id] && 
 					vm.methodsService.showError[database.id]"
-					class="glyphicon glyphicon-ban-circle glyphicon-static">
+					class="pull-right glyphicon glyphicon-ban-circle glyphicon-static">
 				</span>
 				<br/>
 				<img src="public/img/layout/service.png"/><br/>
-				<span style="float: right;">Data Access</span>
+				<span class="pull-right">Data Access</span>
 			</button>
     	</div>
 	</div>
 	<div class="col-sm-2 text-center">
 		<a class="btn btn-danger btn-map" 
 			ng-href="{{ vm.configService.config.tools[2].url }}" target="_blank"
-			tooltip="Open {{ vm.configService.config.tools[2].name }} tool">
+			tooltip="Open {{ vm.configService.config.tools[2].name }} tool"
+			tooltip-placement="top">
 			<br/>
 			<img src="public/img/layout/tool.png"/><br/>
-			<span style="float:right; margin-top: 7px;">
+			<span class="pull-right" style="margin-top: 7px;">
 				{{ vm.configService.config.tools[2].name }}
 			</span>
 		</a>
@@ -189,7 +194,7 @@
 		<button class="glyphicon glyphicon-info-sign" 
 			tooltip-html-unsafe="{{ vm.servicesTooltip }}"  
 			tooltip-trigger="focus" 
-			tooltip-placement="right" 
+			tooltip-placement="top" 
 			style="font-size: 25px; margin-left: 5px; border: none; background: none;"></button>
 	</div>
 </div>

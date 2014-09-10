@@ -65,6 +65,14 @@ module portal {
                 this.resetRequest()  
             })
             
+            this.myScope.$on('apply-selection', (e, id: string) => {
+                this.applySelection(id) 
+            })
+            
+            this.myScope.$on('apply-votable', (e, url: string) => {
+                this.applyVOTable(url)
+            })
+            
             this.myScope.$watch('$includeContentLoaded', (e) => {
                 //console.log("MethodsDir loaded")
                 if(!(this.repositoryId in this.userService.sessionStorage.methods)) {
@@ -143,7 +151,19 @@ module portal {
             
         }
         
-        public resetRequest() {
+        // method for applying a selection to the current method
+        private applySelection(resourceId: string) {
+            //console.log("applySelection "+resourceId)
+            this.request['id'] = resourceId
+        }
+        
+        // method for applying a votable url to the current method
+        private applyVOTable(url: string) {
+            //console.log("applyVOTable "+url)
+            this.request['votable_url'] = url
+        }
+        
+        private resetRequest() {
             // reset the request object
             this.request = {}
             // there is only one operation per method
@@ -156,18 +176,6 @@ module portal {
             this.votableMetadata = []
             this.selected = []
             this.userService.sessionStorage.methods[this.repositoryId].params = this.request
-        }
-       
-        // method for applying a selection to the current method
-        public applySelection(resourceId: string) {
-            //console.log("applySelection "+resourceId)
-            this.request['id'] = resourceId
-        }
-        
-        // method for applying a votable url to the current method
-        public applyVOTable(url: string) {
-            //console.log("applyVOTable "+url)
-            this.request['votable_url'] = url
         }
         
         public updateRequest(paramName: string) {            

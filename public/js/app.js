@@ -982,6 +982,7 @@ var portal;
             this.status = '';
             this.showError = {};
             this.showSuccess = {};
+            this.unreadResults = 0;
             // action descriptor for GET methods actions
             this.methodsAction = {
                 method: 'GET',
@@ -1573,12 +1574,13 @@ else
             //console.log('success: '+JSON.stringify(data.message))
             // new result id
             var id = this.userService.createId();
-            this.userService.user.results.push(new portal.Result(this.database.id, id, path, data));
+            this.userService.user.results = [new portal.Result(this.database.id, id, path, data)].concat(this.userService.user.results);
 
             // refresh localStorage
             this.userService.localStorage.results = this.userService.user.results;
             this.scope.$broadcast('update-results', id);
             this.methodsService.status = 'Added service result to user data';
+            this.methodsService.unreadResults++;
 
             // system notification
             this.methodsService.notify('success', this.database.id);
@@ -1741,7 +1743,7 @@ var portal;
                     var votable = response;
 
                     // adding the info of the posted votable to userService
-                    _this.userService.user.voTables.push(votable);
+                    _this.userService.user.voTables = [votable].concat(_this.userService.user.voTables);
                     _this.scope.$broadcast('update-votables', votable.id);
                     _this.growl.success('Added VOTable to user data');
                 });
@@ -1984,20 +1986,22 @@ var portal;
     'use strict';
 
     var UserDataDir = (function () {
-        function UserDataDir(registryService, userService, $state, growl) {
+        function UserDataDir(registryService, methodsService, userService, $state, growl) {
             var _this = this;
             this.repositoryId = null;
             this.isCollapsed = {};
-            // currently applyable elements (according to current method)
+            this.selectables = [];
+            // currently applyable elements (actual method)
             this.applyableElements = [];
-            this.isSelApplyable = false;
-            this.isVOTApplyable = false;
             // for SINP models/outputs
             this.applyableModel = null;
+            this.isSelApplyable = false;
+            this.isVOTApplyable = false;
             // active tabs (first by default)
             this.tabsActive = [];
-            this.selectables = [];
+            this.isResRead = {};
             this.registryService = registryService;
+            this.methodsService = methodsService;
             this.userService = userService;
             this.state = $state;
             this.growl = growl;
@@ -2010,11 +2014,12 @@ var portal;
         UserDataDir.prototype.injection = function () {
             return [
                 'registryService',
+                'methodsService',
                 'userService',
                 '$state',
                 'growl',
-                function (registryService, userService, $state, growl) {
-                    return new UserDataDir(registryService, userService, $state, growl);
+                function (registryService, methodsService, userService, $state, growl) {
+                    return new UserDataDir(registryService, methodsService, userService, $state, growl);
                 }
             ];
         };
@@ -2031,11 +2036,11 @@ var portal;
             });
 
             // watch event when all content is loaded into the dir
+            // @FIXME this slows down loading
             this.myScope.$watch('$includeContentLoaded', function (e) {
                 if (_this.user.selections) {
                     _this.user.selections.forEach(function (e) {
                         _this.isCollapsed[e.id] = true;
-                        // add applyables boolean = true for all
                     });
                 }
 
@@ -2048,7 +2053,27 @@ var portal;
                 if (_this.user.results) {
                     _this.user.results.forEach(function (e) {
                         _this.isCollapsed[e.id] = true;
+                        _this.isResRead[e.id] = true;
                     });
+                }
+
+                if (_this.methodsService.showSuccess[_this.repositoryId]) {
+                    // the first is always the latest result
+                    _this.isCollapsed[_this.user.results[0].id] = false;
+                    _this.tabsActive = [false, false, true];
+                    _this.methodsService.showSuccess[_this.repositoryId] = false;
+                    // if there are results not yet read (all in userdata state)
+                } else if (_this.methodsService.unreadResults > 0 && _this.state.current.name == 'app.portal.userdata') {
+                    _this.tabsActive = [false, false, true];
+                    _this.isCollapsed[_this.user.results[0].id] = false;
+                    for (var i = 0; i < _this.methodsService.unreadResults; i++) {
+                        _this.isResRead[_this.user.results[i].id] = false;
+                    }
+                } else {
+                    // init tabs
+                    _this.tabsActive = [true, false, false];
+                    _this.methodsService.showSuccess[_this.repositoryId] = false;
+                    _this.methodsService.showError[_this.repositoryId] = false;
                 }
 
                 // reset expanded selections
@@ -2057,9 +2082,6 @@ var portal;
                 // reset applyables
                 _this.applyableElements = [];
                 _this.applyableModel = null;
-
-                // init tabs
-                _this.tabsActive = [true, false, false];
                 _this.isSelApplyable = false;
                 _this.isVOTApplyable = false;
             });
@@ -2086,9 +2108,10 @@ var portal;
             });
 
             // comes from MethodsCtrl => needed for SINP models/output
+            // @FIXME maybe not valid for all use cases
             this.myScope.$on('set-applyable-models', function (e, m) {
-                //console.log(m)
-                //console.log('set-applyable-models')
+                console.log(m);
+                console.log('set-applyable-models');
                 _this.applyableModel = m;
                 if (_this.user.activeSelection.length == 1) {
                     var element = _this.user.activeSelection[0];
@@ -2155,18 +2178,21 @@ else
         };
 
         UserDataDir.prototype.isSelectable = function (type) {
-            if (type == 'SimulationModel' && this.repositoryId.indexOf('SINP') != -1 && this.user.activeSelection.length == 1) {
-                if (this.user.activeSelection[0].elem.resourceId.indexOf('Static') != -1)
+            if (angular.isDefined(this.selectables)) {
+                if (this.state.current.name == 'app.portal.userdata') {
                     return false;
+                    // hack for SINP models
+                } else if (type == 'SimulationModel' && this.repositoryId.indexOf('SINP') != -1 && this.user.activeSelection.length == 1) {
+                    if (this.user.activeSelection[0].elem.resourceId.indexOf('Static') != -1)
+                        return false;
 else
+                        return true;
+                } else if (type == 'Granule') {
                     return true;
-            } else if (type == 'Granule') {
-                return true;
-            } else if (this.state.current.name == 'app.portal.userdata') {
-                // there is nothing to select in my data modal
-                return false;
-            } else
-                return this.selectables.indexOf(type) != -1;
+                } else {
+                    return this.selectables.indexOf(type) != -1;
+                }
+            }
         };
 
         UserDataDir.prototype.isSelSaved = function (id) {
@@ -2178,19 +2204,14 @@ else
                 return false;
         };
 
-        UserDataDir.prototype.saveSelection = function (type, elem) {
-            // get active selection
-            var selection = this.user.activeSelection.filter(function (e) {
-                return e.elem === elem;
-            })[0];
-            this.isCollapsed[selection.id] = false;
+        UserDataDir.prototype.saveSelection = function (id) {
+            this.isCollapsed[id] = false;
 
             for (var rId in this.isCollapsed) {
-                if (rId != selection.id)
+                if (rId != id)
                     this.isCollapsed[rId] = true;
             }
-
-            this.userService.user.selections.push(selection);
+            this.userService.user.selections = this.user.activeSelection.concat(this.userService.user.selections);
 
             // refresh localStorage
             this.userService.localStorage.selections = this.userService.user.selections;
@@ -2200,12 +2221,10 @@ else
                 return t = false;
             });
             this.tabsActive[0] = true;
-            this.growl.success('Saved selection to user data.');
+            this.growl.success('Saved selection to user data');
         };
 
         UserDataDir.prototype.toggleSelectionDetails = function (id) {
-            // reset expanded selection
-            this.user.activeSelection = [];
             if (this.isCollapsed[id]) {
                 this.isCollapsed[id] = false;
 
@@ -2218,7 +2237,6 @@ else
                 var selection = this.user.selections.filter(function (e) {
                     return e.id == id;
                 })[0];
-
                 if (this.applyableElements.indexOf(selection.type) != -1) {
                     this.isSelApplyable = true;
 
@@ -2233,6 +2251,8 @@ else
                 }
                 this.user.activeSelection = [selection];
             } else {
+                // reset expanded selection
+                this.user.activeSelection = [];
                 this.isCollapsed[id] = true;
 
                 // set isApplyable to false
@@ -2253,14 +2273,20 @@ else
             } else {
                 this.isCollapsed[id] = true;
             }
+
+            if (id in this.isResRead) {
+                if (!this.isResRead[this.user.results[0].id]) {
+                    this.isResRead[this.user.results[0].id] = true;
+                    this.methodsService.unreadResults--;
+                }
+                if (!this.isResRead[id]) {
+                    this.isResRead[id] = true;
+                    this.methodsService.unreadResults--;
+                }
+            }
         };
 
         UserDataDir.prototype.deleteSelection = function (id) {
-            // update local selections
-            this.user.selections = this.user.selections.filter(function (e) {
-                return e.id != id;
-            });
-
             // update global service/localStorage
             this.userService.user.selections = this.userService.user.selections.filter(function (e) {
                 return e.id != id;
@@ -2276,11 +2302,6 @@ else
         };
 
         UserDataDir.prototype.deleteVOTable = function (vot) {
-            // update local votables
-            this.user.voTables = this.user.voTables.filter(function (e) {
-                return e.id != vot.id;
-            });
-
             // update global service
             this.userService.user.voTables = this.userService.user.voTables.filter(function (e) {
                 return e.id != vot.id;
@@ -2295,11 +2316,6 @@ else
         };
 
         UserDataDir.prototype.deleteResult = function (id) {
-            // update local selection
-            this.user.results = this.user.results.filter(function (e) {
-                return e.id != id;
-            });
-
             // update global service/localStorage
             this.userService.user.results = this.userService.user.results.filter(function (e) {
                 return e.id != id;
@@ -2309,6 +2325,16 @@ else
             // delete collapsed info
             delete this.isCollapsed[id];
             this.growl.info('Deleted result from user data');
+        };
+
+        // method for applying a selection to the current method
+        UserDataDir.prototype.applySelection = function (resourceId) {
+            this.myScope.$broadcast('apply-selection', resourceId);
+        };
+
+        // method for applying a votable url to the current method
+        UserDataDir.prototype.applyVOTable = function (url) {
+            this.myScope.$broadcast('apply-votable', url);
         };
         return UserDataDir;
     })();
@@ -2462,6 +2488,14 @@ var portal;
                 _this.resetRequest();
             });
 
+            this.myScope.$on('apply-selection', function (e, id) {
+                _this.applySelection(id);
+            });
+
+            this.myScope.$on('apply-votable', function (e, url) {
+                _this.applyVOTable(url);
+            });
+
             this.myScope.$watch('$includeContentLoaded', function (e) {
                 if (!(_this.repositoryId in _this.userService.sessionStorage.methods)) {
                     _this.method = null;
@@ -2543,6 +2577,18 @@ var portal;
             }
         };
 
+        // method for applying a selection to the current method
+        MethodsDir.prototype.applySelection = function (resourceId) {
+            //console.log("applySelection "+resourceId)
+            this.request['id'] = resourceId;
+        };
+
+        // method for applying a votable url to the current method
+        MethodsDir.prototype.applyVOTable = function (url) {
+            //console.log("applyVOTable "+url)
+            this.request['votable_url'] = url;
+        };
+
         MethodsDir.prototype.resetRequest = function () {
             var _this = this;
             // reset the request object
@@ -2559,18 +2605,6 @@ var portal;
             this.votableMetadata = [];
             this.selected = [];
             this.userService.sessionStorage.methods[this.repositoryId].params = this.request;
-        };
-
-        // method for applying a selection to the current method
-        MethodsDir.prototype.applySelection = function (resourceId) {
-            //console.log("applySelection "+resourceId)
-            this.request['id'] = resourceId;
-        };
-
-        // method for applying a votable url to the current method
-        MethodsDir.prototype.applyVOTable = function (url) {
-            //console.log("applyVOTable "+url)
-            this.request['votable_url'] = url;
         };
 
         MethodsDir.prototype.updateRequest = function (paramName) {

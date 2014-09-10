@@ -98,11 +98,13 @@ module portal {
             //console.log('success: '+JSON.stringify(data.message))
             // new result id
             var id = this.userService.createId()
-            this.userService.user.results.push(new Result(this.database.id, id, path, data))
+            this.userService.user.results = 
+                [new Result(this.database.id, id, path, data)].concat(this.userService.user.results)
             // refresh localStorage
             this.userService.localStorage.results = this.userService.user.results
             this.scope.$broadcast('update-results', id)
             this.methodsService.status = 'Added service result to user data'
+            this.methodsService.unreadResults++
             // system notification
             this.methodsService.notify('success', this.database.id)
         }

@@ -17,12 +17,13 @@ module portal {
         public injection(): any[] {
             return [
                 'registryService',
+                'methodsService',
                 'userService',
                 '$state',
                 'growl',
-                (registryService: portal.RegistryService, userService: portal.UserService,
-                $state: ng.ui.IStateService, growl: any) => 
-                    { return new UserDataDir(registryService, userService, $state, growl); }
+                (registryService: portal.RegistryService, methodsService: portal.MethodsService,
+                userService: portal.UserService, $state: ng.ui.IStateService, growl: any) => 
+                    { return new UserDataDir(registryService, methodsService, userService, $state, growl); }
             ]
         }
 
@@ -31,26 +32,29 @@ module portal {
         public restrict: string
         public repositoryId: string = null
         public isCollapsed: ICollapsedMap = {}
-        // currently applyable elements (according to current method)
+        public selectables: Array<string> = []
+        // currently applyable elements (actual method)
         public applyableElements: Array<string> = []
-        public isSelApplyable: boolean = false
-        public isVOTApplyable: boolean = false
         // for SINP models/outputs
         public applyableModel: string = null
+        public isSelApplyable: boolean = false
+        public isVOTApplyable: boolean = false
         // active tabs (first by default)
         public tabsActive: Array<boolean> = []
-        public selectables: Array<string> = []
+        public isResRead: ICollapsedMap = {}
 
         private registryService: portal.RegistryService
+        private methodsService: portal.MethodsService
         private userService: portal.UserService
         private state: ng.ui.IStateService
         private user: User
         private myScope: ng.IScope
         private growl: any
 
-        constructor(registryService: portal.RegistryService, userService: portal.UserService, 
-            $state: ng.ui.IStateService, growl: any) {
+        constructor(registryService: portal.RegistryService, methodsService: portal.MethodsService,
+            userService: portal.UserService, $state: ng.ui.IStateService, growl: any) {
             this.registryService = registryService
+            this.methodsService = methodsService
             this.userService = userService
             this.state = $state
             this.growl = growl
@@ -72,34 +76,49 @@ module portal {
             })
             
             // watch event when all content is loaded into the dir
+            // @FIXME this slows down loading
             this.myScope.$watch('$includeContentLoaded', (e) => {          
                 //console.log("UserDataDir loaded")     
                 // collapsing all selections on init
                 if(this.user.selections) {
-                    this.user.selections.forEach((e) => {
-                        this.isCollapsed[e.id] = true
-                        // add applyables boolean = true for all
-                    })
+                    this.user.selections.forEach((e) => { this.isCollapsed[e.id] = true })
                 }
                 // collapsing all votables on init
                 if(this.user.voTables) {
-                    this.user.voTables.forEach((e) => {
-                        this.isCollapsed[e.id] = true
+                    this.user.voTables.forEach((e) => { this.isCollapsed[e.id] = true })
+                }
+                // collapsing all results on init / all are read by default
+                if(this.user.results) {
+                    this.user.results.forEach((e) => { 
+                        this.isCollapsed[e.id] = true 
+                        this.isResRead[e.id] = true
                     })
                 }
-                // collapsing all results on init
-                if(this.user.results) {
-                    this.user.results.forEach((e) => {
-                        this.isCollapsed[e.id] = true
-                    })
+                // if there is a successful result not yet read (per repository)
+                if(this.methodsService.showSuccess[this.repositoryId]) {
+                    // the first is always the latest result
+                    this.isCollapsed[this.user.results[0].id] = false
+                    this.tabsActive = [false, false, true] // selections, votables, results
+                    this.methodsService.showSuccess[this.repositoryId] = false
+                // if there are results not yet read (all in userdata state)
+                } else if(this.methodsService.unreadResults > 0 && 
+                    this.state.current.name == 'app.portal.userdata'){
+                    this.tabsActive = [false, false, true] // selections, votables, results
+                    this.isCollapsed[this.user.results[0].id] = false
+                    for(var i = 0; i < this.methodsService.unreadResults; i++){
+                        this.isResRead[this.user.results[i].id] = false
+                    }
+                } else {
+                    // init tabs
+                    this.tabsActive = [true, false, false] // selections, votables, results
+                    this.methodsService.showSuccess[this.repositoryId] = false
+                    this.methodsService.showError[this.repositoryId] = false
                 }
                 // reset expanded selections  
                 this.user.activeSelection = []
                 // reset applyables
                 this.applyableElements = []
                 this.applyableModel = null   
-                // init tabs
-                this.tabsActive = [true, false, false] // selections, votables, results
                 this.isSelApplyable = false
                 this.isVOTApplyable = false
             })
@@ -125,9 +144,10 @@ module portal {
             })
             
             // comes from MethodsCtrl => needed for SINP models/output
+            // @FIXME maybe not valid for all use cases
             this.myScope.$on('set-applyable-models', (e, m: string) => { 
-                //console.log(m)
-                //console.log('set-applyable-models')
+                console.log(m)
+                console.log('set-applyable-models')
                 this.applyableModel = m 
                 if(this.user.activeSelection.length == 1) {
                     var element = this.user.activeSelection[0]
@@ -145,8 +165,7 @@ module portal {
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
                 for(var rId in this.isCollapsed) {
-                    if(rId != id)
-                        this.isCollapsed[rId] = true
+                    if(rId != id) this.isCollapsed[rId] = true
                 }
                 // set selections tab active
                 this.tabsActive = this.tabsActive.map((t) => t = false)
@@ -161,8 +180,7 @@ module portal {
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
                 for(var rId in this.isCollapsed) {
-                    if(rId != id)
-                        this.isCollapsed[rId] = true
+                    if(rId != id) this.isCollapsed[rId] = true
                 }
                 // set votable tab active
                 this.tabsActive = this.tabsActive.map((t) => t = false)
@@ -176,8 +194,7 @@ module portal {
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
                 for(var rId in this.isCollapsed) {
-                    if(rId != id)
-                        this.isCollapsed[rId] = true
+                    if(rId != id) this.isCollapsed[rId] = true
                 }
                 // set result tab active
                 this.tabsActive = this.tabsActive.map((t) => t = false)
@@ -187,21 +204,24 @@ module portal {
         }
         
         public isSelectable(type: string): boolean {
-            // hack for static SINP models => not selectable
-            if(type == 'SimulationModel' && this.repositoryId.indexOf('SINP') != -1 && 
-                this.user.activeSelection.length == 1) {
-                // there is always only one => otherwise ERROR
-                if(this.user.activeSelection[0].elem.resourceId.indexOf('Static') != -1)
-                    return false
-                else
-                    return true
-            } else if(type == 'Granule') {
-                return true
-            } else if(this.state.current.name == 'app.portal.userdata') {
+            if(angular.isDefined(this.selectables)) {
                 // there is nothing to select in my data modal
-                return false
-            } else
-                return this.selectables.indexOf(type) != -1
+                if(this.state.current.name == 'app.portal.userdata') {
+                    return false
+                // hack for SINP models
+                } else if(type == 'SimulationModel' && 
+                    this.repositoryId.indexOf('SINP') != -1 && 
+                    this.user.activeSelection.length == 1) {
+                    if(this.user.activeSelection[0].elem.resourceId.indexOf('Static') != -1)
+                        return false
+                    else
+                        return true
+                } else if(type == 'Granule') {
+                    return true
+                } else {
+                    return this.selectables.indexOf(type) != -1
+                } 
+           }
         }
         
         public isSelSaved(id: string): boolean {
@@ -211,45 +231,33 @@ module portal {
                 return false
         }
         
-        public saveSelection(type: string, elem: SpaseElem) { 
-            // get active selection
-            var selection = this.user.activeSelection.filter((e) => e.elem === elem)[0]
-            this.isCollapsed[selection.id] = false
+        public saveSelection(id: string) { 
+            this.isCollapsed[id] = false
             // closing all other collapsibles
             for(var rId in this.isCollapsed) {
-                if(rId != selection.id)
-                    this.isCollapsed[rId] = true
+                if(rId != id) this.isCollapsed[rId] = true
             }
-            
-            this.userService.user.selections.push(selection)
+            this.userService.user.selections = this.user.activeSelection.concat(this.userService.user.selections)
             // refresh localStorage
             this.userService.localStorage.selections = this.userService.user.selections
-
             // set selections tab active
             this.tabsActive = this.tabsActive.map((t) => t = false)
             this.tabsActive[0] = true
-            this.growl.success('Saved selection to user data.')
+            this.growl.success('Saved selection to user data')
         }
          
         public toggleSelectionDetails(id: string) {
-            // reset expanded selection
-            this.user.activeSelection = []
             if(this.isCollapsed[id]) { // if it is closed 
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
                 for(var rId in this.isCollapsed) {
-                    if(rId != id)
-                        this.isCollapsed[rId] = true
+                    if(rId != id) this.isCollapsed[rId] = true
                 }
-                
                 // get selection
                 var selection = this.user.selections.filter((e) => e.id == id)[0]
-                //console.log(this.applyableElements)
                 if(this.applyableElements.indexOf(selection.type) != -1) {
-                    this.isSelApplyable = true
-                    //console.log("isApplyable")  
+                    this.isSelApplyable = true  
                     // here we check SINP models/outputs
-                    //console.log(this.applyableModel+" "+selection.elem.resourceId)
                     if(this.applyableModel) {
                         var output = this.applyableModel.replace('SimulationModel', 'NumericalOutput')
                         var index = selection.elem.resourceId.indexOf(output.replace('OnFly', ''))
@@ -259,12 +267,13 @@ module portal {
                             this.isSelApplyable = false
                     }  
                 }
-                this.user.activeSelection = [selection]
-                
+                this.user.activeSelection = [selection] 
             } else {
+                // reset expanded selection
+                this.user.activeSelection = []
                 this.isCollapsed[id] = true
                 // set isApplyable to false
-                this.isSelApplyable = false
+                this.isSelApplyable = false 
             }
         }
         
@@ -275,17 +284,25 @@ module portal {
                 this.isCollapsed[id] = false
                 // closing all other collapsibles
                 for(var rId in this.isCollapsed) {
-                    if(rId != id)
-                        this.isCollapsed[rId] = true
+                    if(rId != id) this.isCollapsed[rId] = true
                 }
             } else {
                 this.isCollapsed[id] = true
             }
+            // check if the details need to be marked read
+            if(id in this.isResRead){
+                if(!this.isResRead[this.user.results[0].id]){
+                    this.isResRead[this.user.results[0].id] = true
+                    this.methodsService.unreadResults--
+                }
+                if(!this.isResRead[id]){
+                    this.isResRead[id] = true
+                    this.methodsService.unreadResults--
+                }
+            }
         }
           
         public deleteSelection(id: string) {
-            // update local selections
-            this.user.selections = this.user.selections.filter((e) => e.id != id)
             // update global service/localStorage
             this.userService.user.selections = 
                 this.userService.user.selections.filter((e) => e.id != id)
@@ -298,8 +315,6 @@ module portal {
         }
         
         public deleteVOTable(vot: IUserData) {
-            // update local votables
-            this.user.voTables = this.user.voTables.filter((e) => e.id != vot.id)
             // update global service
             this.userService.user.voTables = 
                 this.userService.user.voTables.filter((e) => e.id != vot.id)
@@ -311,8 +326,6 @@ module portal {
         }
  		
         public deleteResult(id: string) {
-            // update local selection
-            this.user.results = this.user.results.filter((e) => e.id != id)
             // update global service/localStorage
             this.userService.user.results = 
                 this.userService.user.results.filter((e) => e.id != id)
@@ -320,6 +333,16 @@ module portal {
             // delete collapsed info
             delete this.isCollapsed[id]
             this.growl.info('Deleted result from user data')
+        }
+        
+        // method for applying a selection to the current method
+        public applySelection(resourceId: string) {
+            this.myScope.$broadcast('apply-selection', resourceId)
+        }
+        
+        // method for applying a votable url to the current method
+        public applyVOTable(url: string) {
+            this.myScope.$broadcast('apply-votable', url)
         }
         
         

@@ -37,6 +37,7 @@ module portal {
         public status: string = ''
         public showError: ILoaderMap = {} 
         public showSuccess: ILoaderMap = {}
+        public unreadResults: number = 0
         
         // action descriptor for GET methods actions
         private methodsAction: ng.resource.IActionDescriptor = {
@@ -68,7 +69,7 @@ module portal {
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Saturn/OnFly'] = ['calculateDataPointValueSaturn', 'calculateCubeSaturn']
         }
         
-        public notify(status: string, id: string){
+        public notify(status: string, id: string) {
             if(status == 'loading') {
                 this.loading[id] = true
                 this.showError[id] = false
