@@ -86,8 +86,8 @@
 			<button type="button" class="btn btn-primary btn-map" 
 				ui-sref="app.portal.registry({id:database.id})" 
 				tooltip="Show registry of {{ database.name }}"
-				ng-disabled="vm.configService.aliveMap[database.id] == false || 
-					vm.configService.filterMap[database.id] == false">
+				ng-disabled="(vm.configService.aliveMap[database.id] == false) || 
+					(vm.configService.filterMap[database.id] == false)">
 				<span style="float: left;">{{ database.name }}</span><br/>
 				<img src="public/img/layout/database.png"/><br/>
 				<span style="float: right;">Simulations</span>
@@ -148,8 +148,8 @@
 			<button type="button" class="btn btn-success btn-map"
 				ui-sref="app.portal.methods({id:database.id})" 
 				tooltip="Show methods of {{ database.name }}"
-				ng-disabled="vm.configService.aliveMap[database.id] == false || 
-					vm.configService.filterMap[database.id] == false">
+				ng-disabled="(vm.configService.aliveMap[database.id] == false) || 
+					(vm.configService.filterMap[database.id] == false)">
 				<span style="float: left;">{{ database.name }}</span>
 				<span style="float: right;" 
 					ng-show="vm.methodsService.loading[database.id]"

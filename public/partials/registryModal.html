@@ -14,6 +14,11 @@
 	<div ng-show="regvm.initialising" class="text-left">
 		<img src="/public/img/layout/loading.gif" class="loadingImg-sm" alt="loading..." />
 	</div>	
+	<p ng-show="!regvm.initialising && regvm.registryService.isFilterSet">Active Filter: 
+		<span class="label label-success" style="font-size: 90%"
+	   		ng-repeat="(region, flag) in regvm.registryService.selectedFilter" 
+	   		ng-if="flag == true">{{ region }}</span>
+	 </p>
 	<registry-dir db="{{ regvm.database.id }}"></registry-dir>
 	<user-data-dir db="{{ regvm.database.id }}"></user-data-dir>
 </div>
