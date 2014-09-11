@@ -7,16 +7,6 @@ module portal {
     export interface IConfigResource extends ng.resource.IResourceClass<IConfig> {
         getConfig(): IConfig
     }
-    
-    // isAlive map
-    export interface IAliveMap {
-        [id: string]: Boolean
-    }
-    
-    // filter map
-    export interface IFilterMap {
-        [id: string]: Boolean
-    }
 
     export class ConfigService {
         static $inject: Array<string> = ['$resource', '$http']
@@ -25,9 +15,9 @@ module portal {
         private http: ng.IHttpService
         private url: string = '/'
         public config: IConfig = null
-        public aliveMap: IAliveMap = {}
+        public aliveMap: IBooleanMap = {}
         public filterRegions: Array<string> = []
-        public filterMap: IFilterMap = {}
+        public filterMap: IBooleanMap = {}
         
         // creates an action descriptor
         private configAction: ng.resource.IActionDescriptor = {
@@ -39,8 +29,24 @@ module portal {
             this.resource = $resource
             this.http = $http
         }
+
+        // returns the resource handler 
+        public Config(): IConfigResource {
+            return <IConfigResource> this.resource(this.url+'config?', 
+                { fmt: '@fmt' }, 
+                { getConfig: this.configAction })
+        } 
         
-        // checks if a database and its methods are alive
+        // returns promise for resource handler
+        public loadConfig(): ng.IPromise<IConfig> {
+            return this.Config().get({fmt: 'json' }).$promise
+        }
+        
+        public getDatabase(id: string): Database {
+            return this.config.databases.filter((e) => e.id == id)[0]
+        }
+        
+        // isAlive routine
         public isAlive(db: Database) {
            // little hack for FMI (it's the same method)
            if((db.name.indexOf('FMI-HYBRID') != -1) || (db.name.indexOf('FMI-GUMICS') != -1))
@@ -56,22 +62,6 @@ module portal {
                .error((data: any, status: any) => { 
                    this.aliveMap[db.id] = false 
                })           
-        }
-        
-        // returns the resource handler 
-        public Config(): IConfigResource {
-            return <IConfigResource> this.resource(this.url+'config?', 
-                { fmt: '@fmt' }, 
-                { getConfig: this.configAction })
-        } 
-        
-        // returns promise for resource handler
-        public loadConfig(): ng.IPromise<IConfig> {
-            return this.Config().get({fmt: 'json' }).$promise
-        }
-        
-        public getDatabase(id: string): Database {
-            return this.config.databases.filter((e) => e.id == id)[0]
         }
         
         // Filter routines

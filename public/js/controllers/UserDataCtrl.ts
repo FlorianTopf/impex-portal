@@ -69,7 +69,7 @@ module portal {
                     // adding the info of the posted votable to userService
                     this.userService.user.voTables = [votable].concat(this.userService.user.voTables)
                     this.scope.$broadcast('update-votables', votable.id)
-                    this.growl.success('Added VOTable to user data')
+                    this.growl.success('Added votable to user data')
                 })
             }).error((response) => {
                 if (response.status > 0) { 

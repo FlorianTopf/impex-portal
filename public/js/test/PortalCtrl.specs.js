@@ -1,5 +1,6 @@
 'use strict'
 
+// @TODO add specs for new functionalities
 describe('PortalCtrl', function() {
 	var path= '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/'
 		

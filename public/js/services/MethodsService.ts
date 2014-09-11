@@ -8,19 +8,10 @@ module portal {
         getMethods(): ISwagger
     }
     
-    // special applyables for SINP models/outputs
-    export interface IApplyableModels {
-        [id: string]: Array<string>
-    }
-    
     // describes the actions for service methods
     export interface IMethods extends ng.resource.IResourceClass<IResponse> {
         getMethod(): IResponse
         postMethod(): IResponse
-    }
-    
-    export interface ILoaderMap {
-        [resourceId: string]: boolean
     }
     
     export class MethodsService {
@@ -32,11 +23,11 @@ module portal {
         private growl: any
         public methods: ISwagger = null    
         // special applyables for SINP models/outputs
-        public applyableModels: IApplyableModels = {}
-        public loading: ILoaderMap = {}
+        public applyableModels: IArrayMap = {}
         public status: string = ''
-        public showError: ILoaderMap = {} 
-        public showSuccess: ILoaderMap = {}
+        public loading: IBooleanMap = {}
+        public showError: IBooleanMap = {} 
+        public showSuccess: IBooleanMap = {}
         public unreadResults: number = 0
         
         // action descriptor for GET methods actions

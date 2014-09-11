@@ -7,11 +7,6 @@ module portal {
        regdirvm: RegistryDir
     }
     
-    // active buttons map
-    export interface IActiveMap {
-        [resourceType: string]: SpaseElem 
-    }
-
     export class RegistryDir implements ng.IDirective {
 
         public injection(): any[] {
@@ -38,7 +33,7 @@ module portal {
         public simulationRuns: Array<SimulationRun> = []
         public numericalOutputs: Array<NumericalOutput> = []
         public granules: Array<Granule> = []
-        public activeItems: IActiveMap = {}
+        public activeItems: IElementMap = {}
         
         private myScope: IRegistryDirScope
         private registryService: portal.RegistryService

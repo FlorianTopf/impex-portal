@@ -43,10 +43,6 @@ body {
 	color: red;
 }
 
-.margin-ten {
-	margin-right: 10px;
-}
-
 .btn-group-overflow {
 	vertical-align: top; 
 	max-height: 300px;
@@ -172,6 +168,30 @@ button.glyphicon-info-sign:focus {
    -webkit-animation-duration: 2s;
    -webkit-animation-iteration-count: infinite;
    -webkit-animation-timing-function: linear;
+   -moz-animation-name: rotateThis;
+   -moz-animation-duration: 2s;
+   -moz-animation-iteration-count: infinite;
+   -moz-animation-timing-function: linear;
+   -animation-name: rotateThis;
+   -animation-duration: 2s;
+   -animation-iteration-count: infinite;
+   -animation-timing-function: linear;
+}
+
+/** keyframes for rotating symbols */
+@keyframes rotateThis {
+	from { transform: rotate( 0deg ); }
+	to { transform: rotate( 360deg ); }
+}
+
+@-webkit-keyframes rotateThis {
+	from { -webkit-transform: rotate( 0deg ); }
+	to { -webkit-transform: rotate( 360deg ); }
+}
+
+@-moz-keyframes rotateThis {
+	from { -moz-transform: rotate( 0deg ); }
+	to { -moz-transform: rotate( 360deg ); }
 }
 
 .glyphicon-static {
@@ -275,6 +295,10 @@ button.glyphicon-info-sign:focus {
 	margin-top: 5px;
 }
 
+.margin-r-10 {
+	margin-right: 10px;
+}
+
 .resource-id-label {
 	padding-top: 0;
 }
@@ -283,12 +307,6 @@ button.glyphicon-info-sign:focus {
 	word-wrap: break-word;
 }
 
-
-/** keyframes for rotating symbols */
-@-webkit-keyframes "rotateThis" {
-	from { -webkit-transform: rotate( 0deg ); }
-	to { -webkit-transform: rotate( 360deg ); }
-}
 
 /** for all (max-width 480px) */
 @media (max-width: 480px) {

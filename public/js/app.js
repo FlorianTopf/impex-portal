@@ -856,6 +856,11 @@ var portal;
 var portal;
 (function (portal) {
     'use strict';
+})(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
 
     var ConfigService = (function () {
         function ConfigService($resource, $http) {
@@ -872,22 +877,6 @@ var portal;
             this.resource = $resource;
             this.http = $http;
         }
-        // checks if a database and its methods are alive
-        ConfigService.prototype.isAlive = function (db) {
-            var _this = this;
-            if ((db.name.indexOf('FMI-HYBRID') != -1) || (db.name.indexOf('FMI-GUMICS') != -1))
-                var callName = 'FMI';
-else
-                var callName = db.name;
-
-            this.http.get(this.url + 'methods/' + callName + "/isAlive", { timeout: 10000 }).success(function (data, status) {
-                _this.aliveMap[db.id] = data;
-                //console.log("Hello "+db.name+" "+this.aliveMap[db.id])
-            }).error(function (data, status) {
-                _this.aliveMap[db.id] = false;
-            });
-        };
-
         // returns the resource handler
         ConfigService.prototype.Config = function () {
             return this.resource(this.url + 'config?', { fmt: '@fmt' }, { getConfig: this.configAction });
@@ -902,6 +891,22 @@ else
             return this.config.databases.filter(function (e) {
                 return e.id == id;
             })[0];
+        };
+
+        // isAlive routine
+        ConfigService.prototype.isAlive = function (db) {
+            var _this = this;
+            if ((db.name.indexOf('FMI-HYBRID') != -1) || (db.name.indexOf('FMI-GUMICS') != -1))
+                var callName = 'FMI';
+else
+                var callName = db.name;
+
+            this.http.get(this.url + 'methods/' + callName + "/isAlive", { timeout: 10000 }).success(function (data, status) {
+                _this.aliveMap[db.id] = data;
+                //console.log("Hello "+db.name+" "+this.aliveMap[db.id])
+            }).error(function (data, status) {
+                _this.aliveMap[db.id] = false;
+            });
         };
 
         // Filter routines
@@ -927,17 +932,16 @@ var portal;
             this.url = '/';
             this.isFilterSet = false;
             this.selectedFilter = {};
+            // cache for the elements (identified by request id)
+            this.cachedElements = {};
+            // defines which elements are selectables in the registry
+            this.selectables = {};
             // action descriptor for registry actions
             this.registryAction = {
                 method: 'GET',
                 isArray: false
             };
-            // cache for the elements (identified by request id)
-            this.cachedElements = {};
-            // defines which elements are selectables in the registry
-            this.selectables = {};
             this.resource = $resource;
-
             this.selectables['spase://IMPEX/Repository/FMI/HYB'] = ['NumericalOutput'];
             this.selectables['spase://IMPEX/Repository/FMI/GUMICS'] = ['NumericalOutput'];
             this.selectables['spase://IMPEX/Repository/LATMOS'] = ['SimulationRun', 'NumericalOutput'];
@@ -978,8 +982,8 @@ var portal;
             this.methods = null;
             // special applyables for SINP models/outputs
             this.applyableModels = {};
-            this.loading = {};
             this.status = '';
+            this.loading = {};
             this.showError = {};
             this.showSuccess = {};
             this.unreadResults = 0;
@@ -1348,11 +1352,9 @@ var portal;
         RegistryCtrl.prototype.getRepository = function (id) {
             var _this = this;
             this.initialising = true;
-
             var cacheId = "repo-" + id;
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.Repository().get({ fmt: 'json', id: id }).$promise;
-
                 this.registryPromise.then(function (spase) {
                     _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
                         return r.repository;
@@ -1372,10 +1374,8 @@ var portal;
             this.scope.$broadcast('clear-simulation-models');
             this.loading = true;
             var cacheId = "model-" + id;
-
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.SimulationModel().get({ fmt: 'json', id: id }).$promise;
-
                 this.registryPromise.then(function (spase) {
                     _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
                         return r.simulationModel;
@@ -1395,10 +1395,8 @@ var portal;
             this.scope.$broadcast('clear-simulation-runs', element);
             this.loading = true;
             var cacheId = "run-" + element.resourceId;
-
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.SimulationRun().get({ fmt: 'json', id: element.resourceId }).$promise;
-
                 this.registryPromise.then(function (spase) {
                     _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
                         return r.simulationRun;
@@ -1421,10 +1419,8 @@ var portal;
             this.scope.$broadcast('clear-numerical-outputs', element);
             this.loading = true;
             var cacheId = "output-" + element.resourceId;
-
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.NumericalOutput().get({ fmt: 'json', id: element.resourceId }).$promise;
-
                 this.registryPromise.then(function (spase) {
                     _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
                         return r.numericalOutput;
@@ -1447,10 +1443,8 @@ var portal;
             this.scope.$broadcast('clear-granules', element);
             this.loading = true;
             var cacheId = "granule-" + element.resourceId;
-
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.Granule().get({ fmt: 'json', id: element.resourceId }).$promise;
-
                 this.registryPromise.then(function (spase) {
                     _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
                         return r.granule;
@@ -1745,7 +1739,7 @@ var portal;
                     // adding the info of the posted votable to userService
                     _this.userService.user.voTables = [votable].concat(_this.userService.user.voTables);
                     _this.scope.$broadcast('update-votables', votable.id);
-                    _this.growl.success('Added VOTable to user data');
+                    _this.growl.success('Added votable to user data');
                 });
             }).error(function (response) {
                 if (response.status > 0) {
@@ -1986,7 +1980,7 @@ var portal;
     'use strict';
 
     var UserDataDir = (function () {
-        function UserDataDir(registryService, methodsService, userService, $state, growl) {
+        function UserDataDir(registryService, methodsService, userService, $window, $state, growl) {
             var _this = this;
             this.repositoryId = null;
             this.isCollapsed = {};
@@ -1995,7 +1989,9 @@ var portal;
             this.applyableElements = [];
             // for SINP models/outputs
             this.applyableModel = null;
+            // flag if selection is applyable
             this.isSelApplyable = false;
+            // flag if votable is applyable
             this.isVOTApplyable = false;
             // active tabs (first by default)
             this.tabsActive = [];
@@ -2003,6 +1999,7 @@ var portal;
             this.registryService = registryService;
             this.methodsService = methodsService;
             this.userService = userService;
+            this.window = $window;
             this.state = $state;
             this.growl = growl;
             this.templateUrl = '/public/partials/templates/userdataDir.html';
@@ -2016,10 +2013,11 @@ var portal;
                 'registryService',
                 'methodsService',
                 'userService',
+                '$window',
                 '$state',
                 'growl',
-                function (registryService, methodsService, userService, $state, growl) {
-                    return new UserDataDir(registryService, methodsService, userService, $state, growl);
+                function (registryService, methodsService, userService, $window, $state, growl) {
+                    return new UserDataDir(registryService, methodsService, userService, $window, $state, growl);
                 }
             ];
         };
@@ -2036,7 +2034,6 @@ var portal;
             });
 
             // watch event when all content is loaded into the dir
-            // @FIXME this slows down loading
             this.myScope.$watch('$includeContentLoaded', function (e) {
                 if (_this.user.selections) {
                     _this.user.selections.forEach(function (e) {
@@ -2057,23 +2054,33 @@ var portal;
                     });
                 }
 
-                if (_this.methodsService.showSuccess[_this.repositoryId]) {
-                    // the first is always the latest result
-                    _this.isCollapsed[_this.user.results[0].id] = false;
+                if (_this.methodsService.showSuccess[_this.repositoryId] && _this.state.current.name == 'app.portal.methods') {
                     _this.tabsActive = [false, false, true];
+
+                    // takes the latest from a specific repo
+                    var latest = _this.user.results.filter(function (r) {
+                        return r.repositoryId == _this.repositoryId;
+                    })[0];
+
+                    // the first is always the latest result
+                    _this.isCollapsed[latest.id] = false;
+                    _this.isResRead[latest.id] = true;
                     _this.methodsService.showSuccess[_this.repositoryId] = false;
+                    _this.methodsService.unreadResults--;
+                } else if (_this.methodsService.showError[_this.repositoryId] && _this.state.current.name == 'app.portal.methods') {
+                    _this.methodsService.showError[_this.repositoryId] = false;
                     // if there are results not yet read (all in userdata state)
                 } else if (_this.methodsService.unreadResults > 0 && _this.state.current.name == 'app.portal.userdata') {
                     _this.tabsActive = [false, false, true];
                     _this.isCollapsed[_this.user.results[0].id] = false;
-                    for (var i = 0; i < _this.methodsService.unreadResults; i++) {
+                    _this.isResRead[_this.user.results[0].id] = true;
+                    for (var i = 1; i < _this.methodsService.unreadResults; i++) {
                         _this.isResRead[_this.user.results[i].id] = false;
                     }
+                    _this.methodsService.unreadResults--;
                 } else {
                     // init tabs
                     _this.tabsActive = [true, false, false];
-                    _this.methodsService.showSuccess[_this.repositoryId] = false;
-                    _this.methodsService.showError[_this.repositoryId] = false;
                 }
 
                 // reset expanded selections
@@ -2110,8 +2117,8 @@ var portal;
             // comes from MethodsCtrl => needed for SINP models/output
             // @FIXME maybe not valid for all use cases
             this.myScope.$on('set-applyable-models', function (e, m) {
-                console.log(m);
-                console.log('set-applyable-models');
+                //console.log(m)
+                //console.log('set-applyable-models')
                 _this.applyableModel = m;
                 if (_this.user.activeSelection.length == 1) {
                     var element = _this.user.activeSelection[0];
@@ -2126,55 +2133,41 @@ else
 
             // comes from RegistryDir
             this.myScope.$on('update-selections', function (e, id) {
-                _this.isCollapsed[id] = false;
-
-                for (var rId in _this.isCollapsed) {
-                    if (rId != id)
-                        _this.isCollapsed[rId] = true;
-                }
+                _this.setCollapsedMap(id);
 
                 // set selections tab active
-                _this.tabsActive = _this.tabsActive.map(function (t) {
-                    return t = false;
-                });
-                _this.tabsActive[0] = true;
+                _this.tabsActive = [true, false, false];
             });
 
             // comes from UserDataCtrl
             this.myScope.$on('update-votables', function (e, id) {
                 // reset expanded selection
                 _this.user.activeSelection = [];
-                _this.isCollapsed[id] = false;
-
-                for (var rId in _this.isCollapsed) {
-                    if (rId != id)
-                        _this.isCollapsed[rId] = true;
-                }
+                _this.setCollapsedMap(id);
 
                 // set votable tab active
-                _this.tabsActive = _this.tabsActive.map(function (t) {
-                    return t = false;
-                });
-                _this.tabsActive[1] = true;
+                _this.tabsActive = [false, true, false];
             });
 
             // comes from MethodsCtrl
             this.myScope.$on('update-results', function (e, id) {
                 // reset expanded selection
                 _this.user.activeSelection = [];
-                _this.isCollapsed[id] = false;
-
-                for (var rId in _this.isCollapsed) {
-                    if (rId != id)
-                        _this.isCollapsed[rId] = true;
-                }
+                _this.isResRead[id] = true;
+                _this.setCollapsedMap(id);
 
                 // set result tab active
-                _this.tabsActive = _this.tabsActive.map(function (t) {
-                    return t = false;
-                });
-                _this.tabsActive[2] = true;
+                _this.tabsActive = [false, false, true];
             });
+        };
+
+        UserDataDir.prototype.setCollapsedMap = function (id) {
+            this.isCollapsed[id] = false;
+
+            for (var rId in this.isCollapsed) {
+                if (rId != id)
+                    this.isCollapsed[rId] = true;
+            }
         };
 
         UserDataDir.prototype.isSelectable = function (type) {
@@ -2205,33 +2198,20 @@ else
         };
 
         UserDataDir.prototype.saveSelection = function (id) {
-            this.isCollapsed[id] = false;
-
-            for (var rId in this.isCollapsed) {
-                if (rId != id)
-                    this.isCollapsed[rId] = true;
-            }
-            this.userService.user.selections = this.user.activeSelection.concat(this.userService.user.selections);
+            this.setCollapsedMap(id);
+            this.user.selections = this.user.activeSelection.concat(this.user.selections);
 
             // refresh localStorage
-            this.userService.localStorage.selections = this.userService.user.selections;
+            this.userService.localStorage.selections = this.user.selections;
 
             // set selections tab active
-            this.tabsActive = this.tabsActive.map(function (t) {
-                return t = false;
-            });
-            this.tabsActive[0] = true;
+            this.tabsActive = [true, false, false];
             this.growl.success('Saved selection to user data');
         };
 
         UserDataDir.prototype.toggleSelectionDetails = function (id) {
             if (this.isCollapsed[id]) {
-                this.isCollapsed[id] = false;
-
-                for (var rId in this.isCollapsed) {
-                    if (rId != id)
-                        this.isCollapsed[rId] = true;
-                }
+                this.setCollapsedMap(id);
 
                 // get selection
                 var selection = this.user.selections.filter(function (e) {
@@ -2264,12 +2244,7 @@ else
             // reset expanded selection
             this.user.activeSelection = [];
             if (this.isCollapsed[id]) {
-                this.isCollapsed[id] = false;
-
-                for (var rId in this.isCollapsed) {
-                    if (rId != id)
-                        this.isCollapsed[rId] = true;
-                }
+                this.setCollapsedMap(id);
             } else {
                 this.isCollapsed[id] = true;
             }
@@ -2288,10 +2263,10 @@ else
 
         UserDataDir.prototype.deleteSelection = function (id) {
             // update global service/localStorage
-            this.userService.user.selections = this.userService.user.selections.filter(function (e) {
+            this.user.selections = this.user.selections.filter(function (e) {
                 return e.id != id;
             });
-            this.userService.localStorage.selections = this.userService.user.selections;
+            this.userService.localStorage.selections = this.user.selections;
 
             // safely clear currentSelection
             this.user.activeSelection = [];
@@ -2303,7 +2278,7 @@ else
 
         UserDataDir.prototype.deleteVOTable = function (vot) {
             // update global service
-            this.userService.user.voTables = this.userService.user.voTables.filter(function (e) {
+            this.user.voTables = this.user.voTables.filter(function (e) {
                 return e.id != vot.id;
             });
 
@@ -2312,15 +2287,15 @@ else
 
             // delete collapsed info
             delete this.isCollapsed[vot.id];
-            this.growl.info('Deleted VOTable from user data');
+            this.growl.info('Deleted votable from user data');
         };
 
         UserDataDir.prototype.deleteResult = function (id) {
             // update global service/localStorage
-            this.userService.user.results = this.userService.user.results.filter(function (e) {
+            this.user.results = this.user.results.filter(function (e) {
                 return e.id != id;
             });
-            this.userService.localStorage.results = this.userService.user.results;
+            this.userService.localStorage.results = this.user.results;
 
             // delete collapsed info
             delete this.isCollapsed[id];
@@ -2335,6 +2310,41 @@ else
         // method for applying a votable url to the current method
         UserDataDir.prototype.applyVOTable = function (url) {
             this.myScope.$broadcast('apply-votable', url);
+        };
+
+        UserDataDir.prototype.clearData = function (type) {
+            var _this = this;
+            if (this.window.confirm('Do you want to delete all ' + type + '?')) {
+                if (type == 'selections') {
+                    if (this.state.current.name == 'app.portal.userdata') {
+                        this.user.selections = [];
+                        this.userService.localStorage.selections = null;
+                    } else {
+                        this.user.selections = this.user.selections.filter(function (s) {
+                            return s.repositoryId != _this.repositoryId;
+                        });
+                        this.userService.localStorage.selections = this.user.selections;
+                    }
+                } else if (type = 'votables') {
+                    this.user.voTables.forEach(function (vot) {
+                        _this.userService.deleteUserData(vot.url.split('/').reverse()[0]);
+                        delete _this.isCollapsed[vot.id];
+                    });
+                    this.user.voTables = [];
+                    this.tabsActive = [true, false, false];
+                } else if (type == 'results') {
+                    if (this.state.current.name == 'app.portal.userdata') {
+                        this.user.results = [];
+                        this.userService.localStorage.results = null;
+                    } else {
+                        this.user.results = this.user.results.filter(function (s) {
+                            return s.repositoryId != _this.repositoryId;
+                        });
+                        this.userService.localStorage.results = this.user.results;
+                    }
+                }
+                this.growl.info('Deleted all ' + type + ' from user data');
+            }
         };
         return UserDataDir;
     })();
@@ -2639,7 +2649,7 @@ var portal;
         // used for getVOTableURL form
         MethodsDir.prototype.updateVotableHeader = function (index) {
             var _this = this;
-            this.votableMetadata[index] = this.votableMetadata[index].map(function (m) {
+            this.votableMetadata[index].map(function (m) {
                 if (m.name == _this.selected[index].name)
                     return _this.selected[index];
 else

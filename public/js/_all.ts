@@ -6,6 +6,7 @@
 /// <reference path='models/Swagger.ts' />
 /// <reference path='models/Response.ts' />
 /// <reference path='models/User.ts' />
+/// <reference path='models/Map.ts' />
 
 /// <reference path='services/ConfigService.ts' />
 /// <reference path='services/RegistryService.ts' />

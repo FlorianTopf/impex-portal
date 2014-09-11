@@ -51,12 +51,10 @@ module portal {
         
         public getRepository(id: string) {
             this.initialising = true
-
             var cacheId = "repo-"+id
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.Repository().get(
                     { fmt: 'json' , id: id }).$promise
-                
                 this.registryPromise.then((spase) => {
                     this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.repository)            
                     this.scope.$broadcast('update-repositories', cacheId)
@@ -73,11 +71,9 @@ module portal {
             this.scope.$broadcast('clear-simulation-models')
             this.loading = true
             var cacheId = "model-"+id
-            
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.SimulationModel().get(
                     { fmt: 'json', id: id }).$promise
-                
                 this.registryPromise.then((spase: ISpase) => {
                     this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.simulationModel)
                     this.scope.$broadcast('update-simulation-models', cacheId)
@@ -94,11 +90,9 @@ module portal {
             this.scope.$broadcast('clear-simulation-runs', element)
             this.loading = true
             var cacheId = "run-"+element.resourceId
-            
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.SimulationRun().get(
                     { fmt: 'json', id: element.resourceId }).$promise
-                
                 this.registryPromise.then(
                 (spase: ISpase) => {
                     this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.simulationRun)
@@ -120,11 +114,9 @@ module portal {
             this.scope.$broadcast('clear-numerical-outputs', element)
             this.loading = true
             var cacheId = "output-"+element.resourceId
-            
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.NumericalOutput().get(
                     { fmt: 'json', id: element.resourceId }).$promise
-                
                 this.registryPromise.then(
                 (spase: ISpase) => {
                     this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.numericalOutput)
@@ -146,11 +138,9 @@ module portal {
             this.scope.$broadcast('clear-granules', element)
             this.loading = true
             var cacheId = "granule-"+element.resourceId
-            
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.Granule().get(
                     { fmt: 'json', id: element.resourceId }).$promise
-                
                 this.registryPromise.then(
                 (spase: ISpase) => {
                     this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.granule)

@@ -36,7 +36,7 @@
 			</button>
 		</div> 
 		<div class="btn-group-vertical btn-group-overflow" ng-hide="regdirvm.simulationRuns | isEmpty">		
-			<button type="button" class="btn btn-default btn-sm margin-ten" 
+			<button type="button" class="btn btn-default btn-sm margin-r-10" 
 				ng-repeat="element in regdirvm.simulationRuns" 
 				ng-click="regvm.getNumericalOutput(element)" 
 				ng-class="{ active: regdirvm.isActive('SimulationRun', element) }"
@@ -46,7 +46,7 @@
 			</button>
 		</div>
 		<div class="btn-group-vertical btn-group-overflow" ng-hide="regdirvm.numericalOutputs | isEmpty">	
-			<button type="button" class="btn btn-default btn-sm margin-ten" 
+			<button type="button" class="btn btn-default btn-sm margin-r-10" 
 				ng-repeat="element in regdirvm.numericalOutputs" 
 				ng-click="regvm.getGranule(element)" 
 				ng-class="{ active: regdirvm.isActive('NumericalOutput', element) }"
@@ -56,7 +56,7 @@
 			</button>
 		</div>
 		<div class="btn-group-vertical btn-group-overflow" ng-hide="regdirvm.granules | isEmpty">		
-			<button type="button" class="btn btn-default btn-sm margin-ten" 
+			<button type="button" class="btn btn-default btn-sm margin-r-10" 
 				ng-repeat="element in regdirvm.granules"
 				ng-class="{ active: regdirvm.isActive('Granule', element) }"
 				ng-click="regdirvm.setActive('Granule', element)"

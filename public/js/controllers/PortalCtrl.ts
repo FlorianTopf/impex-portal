@@ -7,11 +7,6 @@ module portal {
         vm: PortalCtrl
     }
     
-    // active buttons map
-    export interface ISelectedFilterMap {
-        [region: string]: boolean 
-    }
-    
     export class PortalCtrl {
         private scope: portal.IPortalScope
         private window: ng.IWindowService
@@ -54,7 +49,7 @@ module portal {
             "Those who do not fit the criteria will be deactivated."
         public isFilterCollapsed: boolean = true
         public isFilterLoading: boolean = false
-        public selectedFilter: ISelectedFilterMap = {}
+        public selectedFilter: IBooleanMap = {}
       
         static $inject: Array<string> = ['$scope', '$window', '$timeout', 'configService', 
             'methodsService', 'registryService', '$state', 'growl']
@@ -125,7 +120,7 @@ module portal {
             this.isFilterLoading = true
             this.registryService.isFilterSet = false
             var counter = 0
-            var tempMap: IFilterMap = {}
+            var tempMap: IBooleanMap = {}
             for(var region in this.selectedFilter) {
                 counter++
                 this.configService.filterRegion(region)

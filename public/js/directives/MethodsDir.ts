@@ -210,7 +210,7 @@ module portal {
         
         // used for getVOTableURL form
         public updateVotableHeader(index: number) {
-            this.votableMetadata[index] = this.votableMetadata[index].map((m) => {
+            this.votableMetadata[index].map((m) => {
                 if(m.name == this.selected[index].name)
                     return this.selected[index]
                 else

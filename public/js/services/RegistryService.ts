@@ -12,23 +12,17 @@ module portal {
         getGranule(): ISpase
     }
     
-    // simple resource map
-    export interface IElementMap {
-        [id: string]: Array<SpaseElem>
-    }
-    
-    // for selectables
-    export interface ISelectable {
-        [id: string]: Array<string>
-    }
-    
     export class RegistryService {
         static $inject: Array<string> = ['$resource']
         
         private resource: ng.resource.IResourceService
         private url: string = '/'
         public isFilterSet: boolean = false
-        public selectedFilter: ISelectedFilterMap = {}
+        public selectedFilter: IBooleanMap = {}
+        // cache for the elements (identified by request id)
+        public cachedElements: IElementArrayMap = {}
+        // defines which elements are selectables in the registry
+        public selectables: IArrayMap = {}
         
         // action descriptor for registry actions
         private registryAction: ng.resource.IActionDescriptor = {
@@ -38,18 +32,11 @@ module portal {
           
         constructor($resource: ng.resource.IResourceService) {
             this.resource = $resource
-            
             this.selectables['spase://IMPEX/Repository/FMI/HYB'] = [ 'NumericalOutput'  ]
             this.selectables['spase://IMPEX/Repository/FMI/GUMICS'] = [ 'NumericalOutput' ]
             this.selectables['spase://IMPEX/Repository/LATMOS'] = [ 'SimulationRun', 'NumericalOutput' ]
             this.selectables['spase://IMPEX/Repository/SINP'] = [ 'SimulationModel', 'NumericalOutput' ]
         }
-        
-        // cache for the elements (identified by request id)
-        public cachedElements: IElementMap = {}
-        
-        // defines which elements are selectables in the registry
-        public selectables: ISelectable = {}
         
         public Repository(): IRegistryResource {
             return <IRegistryResource> this.resource(this.url+'registry/repository?', 
