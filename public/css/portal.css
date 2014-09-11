@@ -23,10 +23,12 @@ body {
 	background: #ccffff;
 	
 }
+
 .loadingImg {
 	margin: auto;
 	position: relative;
 }
+
 .loadingImg-sm {
 	margin: auto;
 	position: relative;
@@ -64,7 +66,6 @@ body {
 
 /* hack for angular-ui bootstrap */
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; cursor: hand; }
-
 
 .tooltip { 
 	z-index: 9999; 
@@ -143,7 +144,7 @@ button.glyphicon-info-sign:focus {
 	margin-bottom: 0;
 }
 
-.fileinfo {
+.file-info {
 	vertical-align: top;
 	line-height: 20px;
 }
@@ -177,13 +178,116 @@ button.glyphicon-info-sign:focus {
 	font-size: 20px;
 }
 
+.info-button {
+	font-size: 25px; 
+	margin-left: 5px; 
+	border: none; 
+	background: none;
+}
+
+.arrow-sign {
+	font-size: 20px;
+}
+
+.filter-box {
+	margin-top: 5px;
+	margin-bottom: 5px;
+}
+
+.btn-group-filter {
+	width: 120px;
+	vertical-align: top;
+}
+
+.btn-margin-left {
+	margin-left: 10%;
+}
+
+.vertical-top {
+	vertical-align: top:
+}
+
+.map-heading {
+	margin-top: 10px; 
+	display: inline-block;
+}
+
+.inline-heading {
+	display: inline-block;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.map-badge {
+	font-size: 14px;
+}
+
+.tool-heading {
+	margin-top: 7px;
+}
+
+.map-spacer {
+	height: 30px;
+}
+
+.overflow-500 {
+	max-height: 500px; 
+	overflow-y: auto; 
+	overflow-x: hidden;
+}
+
+.overflow-450 {
+	max-height: 450px; 
+	overflow-y: auto; 
+	overflow-x: hidden;
+}
+
+.overflow-400 {
+	max-height: 400px; 
+	overflow-y: auto; 
+	overflow-x: hidden;
+	width: 90%; 
+	margin-top: 15px;
+}
+
+.width-50 {
+	width: 50%;
+}
+
+.width-30 {
+	width: 30%;
+}
+
+.width-20 {
+	width: 20%;
+	display: inline-block;
+}
+
+.margin-r-5 {
+	margin-right: 5px;
+}
+
+.margin-l-5 {
+	margin-left: 5px;
+}
+
+.margin-t-5 {
+	margin-top: 5px;
+}
+
+.resource-id-label {
+	padding-top: 0;
+}
+
+.word-wrap {
+	word-wrap: break-word;
+}
+
+
+/** keyframes for rotating symbols */
 @-webkit-keyframes "rotateThis" {
- from { 
-        -webkit-transform: rotate( 0deg );  
-    }
- to  { 
-        -webkit-transform: rotate( 360deg ); 
-    }
+	from { -webkit-transform: rotate( 0deg ); }
+	to { -webkit-transform: rotate( 360deg ); }
 }
 
 /** for all (max-width 480px) */

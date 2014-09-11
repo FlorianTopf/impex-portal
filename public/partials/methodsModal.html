@@ -4,11 +4,10 @@
 		<span class="sr-only">Close</span>
 	</button>
 	<h3 class="modal-title" style="display: inline-block;">{{ methvm.database.name }} Data Access</h3>
-	<button class="glyphicon glyphicon-info-sign" 
+	<button class="glyphicon glyphicon-info-sign info-button" 
 			tooltip-html-unsafe="{{ methvm.methodsTooltip }}"  
 			tooltip-trigger="focus" 
-			tooltip-placement="right"
-			style="font-size: 25px; margin-right: 5px; border: none; background: none;"></button>
+			tooltip-placement="right"></button>
 </div>
 <div class="modal-body">
 <form class="form-horizontal" role="form" ng-submit="methvm.submitMethod()">
@@ -24,9 +23,9 @@
         		</span>
         	</li>
       	</ul>
-		<button type="button" class="btn btn-danger" style="margin-left: 5px;"
+		<button type="button" class="btn btn-danger margin-l-5"
 		 	ng-click="methvm.resetMethod()">Reset Form</button>
-		<button type="submit" class="btn btn-primary" style="margin-left: 5px;"
+		<button type="submit" class="btn btn-primary margin-l-5"
 			ng-show="methvm.dropdownStatus.active != 'Choose Method'">Request Data</button>
 	</div>
 	<div ng-show="methvm.methodsService.loading[methvm.database.id]" style="display: inline-block;">

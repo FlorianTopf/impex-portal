@@ -1,7 +1,6 @@
 <div class="row">
 	<div class="col-sm-12">
-		<div ng-repeat="operation in methdirvm.method.operations track by $index" 
-			style="max-height: 500px; overflow-y: auto; overflow-x: hidden;">
+		<div class="overflow-500" ng-repeat="operation in methdirvm.method.operations track by $index">
 			<p><strong>{{ operation.summary }}:</strong>&nbsp;&nbsp;{{ operation.notes }}</p>
 			<!-- @TODO here we add a directive if paramType == 'query' later -->
 			<div ng-if="parameter.paramType == 'query'" class="row form-group" 
@@ -9,7 +8,7 @@
 				<label class="col-sm-3 control-label" ng-if="parameter.name != 'id'">
 					{{ parameter.description }}
 				</label>
-				<label class="col-sm-3 control-label" ng-if="parameter.name == 'id'" style="padding-top: 0;">
+				<label class="col-sm-3 control-label resource-id-label" ng-if="parameter.name == 'id'">
 					Resource Id <br/><small>{{ parameter.description }}</small>
 				</label>
 				<div class="col-sm-7">
@@ -21,9 +20,9 @@
 						ng-change="methdirvm.updateRequest(parameter.name)">
 					<!-- dateTime inputs -->
 					<div class="dropdown" ng-if="parameter.type == 'dateTime'">
- 							<a class="dropdown-toggle" id="dropdown-datetime-{{$index}}" 
- 								role="button" data-toggle="dropdown" data-target="#" href="#">
-   							<div class="input-group" style="width: 50%;">
+						<a class="dropdown-toggle" id="dropdown-datetime-{{$index}}" 
+ 							role="button" data-toggle="dropdown" data-target="#" href="#">
+   							<div class="input-group width-50">
    								<input type="text" class="form-control input-sm" 
    									ng-required="parameter.required"
    									data-ng-model="methdirvm.request[parameter.name]" 
@@ -32,34 +31,34 @@
    									<i class="glyphicon glyphicon-calendar"></i>
    								</span>
    							</div>
- 							</a>
- 							<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+ 						</a>
+ 						<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
    							<datetimepicker data-ng-model="methdirvm.request[parameter.name]" 
    							data-on-set-time="methdirvm.updateRequestDate(parameter.name)"
    							data-datetimepicker-config="{ dropdownSelector: '#dropdown-datetime-{{$index}}' }"/>
- 							</ul>
+ 						</ul>
 					</div>
 					<!-- duration inputs -->
-					<input type="text" class="form-control input-sm" style="width: 30%;"
+					<input type="text" class="form-control input-sm width-30"
 						ng-if="parameter.type == 'duration'" 
 						ng-required="parameter.required" ng-model="methdirvm.request[parameter.name]"
 						tooltip="Requires ISO-8601 {{parameter.type}}"
 						ng-change="methdirvm.updateRequest(parameter.name)">
 					<!-- number inputs type="number" creates problems -->
-					<input type="text" class="form-control input-sm" style="width: 30%;"
+					<input type="text" class="form-control input-sm width-30"
 						ng-if="(parameter.type == 'double') || (parameter.type == 'integer') 
 							|| (parameter.type == 'number')" 
 						ng-required="parameter.required" ng-model="methdirvm.request[parameter.name]"
 						tooltip="Requires {{parameter.type}}"
 						ng-change="methdirvm.updateRequest(parameter.name)">
 					<!-- enum inputs -->
-				    <select class="form-control input-sm" style="width: 50%;"
+				    <select class="form-control input-sm width-50"
 				    	ng-if="!(parameter['enum'] | isEmpty)"
 				    	ng-options="opt for opt in parameter['enum']" ng-required="parameter.required"
 				   		ng-change="methdirvm.updateRequest(parameter.name)" ng-model="methdirvm.request[parameter.name]">
 				   	</select>
 				   	<!-- list inputs -->
-					<input type="text" class="form-control input-sm" style="width: 50%;"
+					<input type="text" class="form-control input-sm width-50"
 						ng-if="(parameter.type.indexOf('list') != -1)" 
 						ng-required="parameter.required" ng-model="methdirvm.request[parameter.name]"
 						tooltip="Requires comma-separated {{parameter.type}}"
@@ -95,7 +94,7 @@
 				<div class="row form-group">
 					<label class="col-sm-3 control-label">Columns</label>
 					<div class="col-sm-7">
-						<input type="number" class="form-control input-sm" min="1" style="width: 20%; display: inline-block;"
+						<input type="number" class="form-control input-sm width-20" min="1"
 							ng-change="methdirvm.refreshVotableHeader()"
 							ng-model="methdirvm.votableColumns" 
 							ng-disabled="methdirvm.votableColumns > 0">
@@ -111,44 +110,38 @@
 				</div>
 				<div class="row">
 					<div class="col-sm-10 col-sm-offset-1" style="overflow-x: auto;">
-						<table class="table table-striped" ">
-							<thead>
-								<tr>
-									<th class="text-center" ng-repeat="meta in methdirvm.votableMetadata track by $index">
-										<select class="form-control input-sm"
-											ng-options="key.name for key in meta" ng-model="methdirvm.selected[$index]">
-				    						<option value="">-- edit metadata --</option>
-				   						</select>
-				   						<input type="text" class="form-control input-sm" style="margin-top: 5px;" 
-				   							ng-change="methdirvm.updateVotableHeader($index)"
-				   							ng-model="methdirvm.selected[$index].value" 
-				   							ng-disabled="methdirvm.selected[$index] == null">
-									</th>
-									<th style="width: 100px;">&nbsp;</th>
-								</tr>
-							</thead>
-							<tbody>  
-								<tr ng-repeat="(rowKey, row) in methdirvm.votableRows track by rowKey">
-									<td class="text-center" ng-repeat="(colKey, col) in row track by colKey">
-										<input type="text" class="form-control input-sm"
-											value="{{ col }}" ng-model="methdirvm.votableRows[rowKey][colKey]">
-									</td>
-									<td class="text-center">
-										<button type="button" class="btn btn-danger btn-sm" 
-											ng-click="methdirvm.deleteVotableRow($index)"
-											ng-disabled="!methdirvm.votableColumns">Delete Row</button>
-									</td>
-								</tr>
-							</tbody>
-							<tfoot ng-if="methdirvm.votableRows.length > 0">
-								<tr>
-									<td class="text-center" ng-repeat="col in methdirvm.votableRows[0] track by $index">
-										<button type="button" class="btn btn-danger btn-sm" 
-											ng-click="methdirvm.deleteVotableColumn($index)">Delete Column</button>
-									</td>
-									<td>&nbsp;</td>
-								</tr>
-							</tfoot>
+						<table class="table table-striped">
+							<thead><tr>
+								<th class="text-center" ng-repeat="meta in methdirvm.votableMetadata track by $index">
+									<select class="form-control input-sm"
+										ng-options="key.name for key in meta" ng-model="methdirvm.selected[$index]">
+				    					<option value="">-- edit metadata --</option>
+				   					</select>
+				   					<input type="text" class="form-control input-sm margin-t-5" 
+				   						ng-change="methdirvm.updateVotableHeader($index)"
+				   						ng-model="methdirvm.selected[$index].value" 
+				   						ng-disabled="methdirvm.selected[$index] == null">
+								</th>
+								<th style="width: 100px;">&nbsp;</th>
+							</tr></thead>
+							<tbody><tr ng-repeat="(rowKey, row) in methdirvm.votableRows track by rowKey">
+								<td class="text-center" ng-repeat="(colKey, col) in row track by colKey">
+									<input type="text" class="form-control input-sm"
+										value="{{ col }}" ng-model="methdirvm.votableRows[rowKey][colKey]">
+								</td>
+								<td class="text-center">
+									<button type="button" class="btn btn-danger btn-sm" 
+										ng-click="methdirvm.deleteVotableRow($index)"
+										ng-disabled="!methdirvm.votableColumns">Delete Row</button>
+								</td>
+							</tr></tbody>
+							<tfoot ng-if="methdirvm.votableRows.length > 0"><tr>
+								<td class="text-center" ng-repeat="col in methdirvm.votableRows[0] track by $index">
+									<button type="button" class="btn btn-danger btn-sm" 
+										ng-click="methdirvm.deleteVotableColumn($index)">Delete Column</button>
+								</td>
+								<td>&nbsp;</td>
+							</tr></tfoot>
 						</table>
 					</div>
 				</div>

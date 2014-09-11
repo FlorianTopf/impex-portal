@@ -10,16 +10,15 @@
 			ng-click="vm.isFilterCollapsed = !vm.isFilterCollapsed">FILTER</button>
 	</div>
 	<div class="col-sm-5">
-		<h2 style="display: inline;"><small>1. USE FILTERS ON RESOURCES</small></h2>
-		<button class="glyphicon glyphicon-info-sign" 
+		<h2 class="inline-heading"><small>1. USE FILTERS ON RESOURCES</small></h2>
+		<button class="glyphicon glyphicon-info-sign info-button" 
 			tooltip-html-unsafe="{{ vm.filterTooltip }}"  
 			tooltip-trigger="focus" 
-			tooltip-placement="right" 
-			style="font-size: 25px; margin-left: 5px; border: none; background: none;"></button>
+			tooltip-placement="right"></button>
 		<span ng-show="vm.isFilterLoading"
 			class="glyphicon glyphicon-cog glyphicon-rotate">
 		</span>
-		<button type="button" class="btn btn-danger" style="vertical-align: top;"
+		<button type="button" class="btn btn-danger vertical-top"
 			ng-click="vm.resetFilter()" 
 			ng-hide="!vm.registryService.isFilterSet || vm.isFilterLoading">RESET</button>
 	</div>
@@ -31,26 +30,26 @@
 </div>
 <div class="row" ng-show="vm.ready">
 	<div class="col-sm-1 text-center">
-		<span class="glyphicon glyphicon-arrow-down" style="font-size: 20px;"></span>
+		<span class="glyphicon glyphicon-arrow-down arrow-sign"></span>
 	</div>
 	<div class="col-sm-9">&nbsp;</div>
 	<div class="col-sm-2 text-center">
-		<span class="glyphicon glyphicon-arrow-down" style="font-size: 20px;"></span>
+		<span class="glyphicon glyphicon-arrow-down arrow-sign"></span>
 	</div>
 </div>
 <div class="row" ng-show="vm.ready">
 	<div class="col-sm-4" collapse="vm.isFilterCollapsed">
-		<div class="well well-lg" style="margin-top: 5px; margin-bottom: 5px;">
-			<div class="btn-group-vertical ">
-				<button type="button" class="btn btn-default btn-sm" style="width: 120px; vertical-align: top;"
+		<div class="well well-lg filter-box">
+			<div class="btn-group-vertical btn-group-filter">
+				<button type="button" class="btn btn-default btn-sm"
 					ng-repeat="region in vm.configService.filterRegions"
 					ng-click="vm.selectFilter(region)"
 					ng-class="{ active: vm.selectedFilter[region], 'btn-success': vm.selectedFilter[region] }">
 					{{ region }}
 				</button>
 			</div>
-			<div class="btn-group-vertical" ng-hide="vm.selectedFilter | isEmpty"
-				style="margin-left: 10%; width: 120px; vertical-align: top;">
+			<div class="btn-group-vertical btn-group-filter btn-margin-left" 
+				ng-hide="vm.selectedFilter | isEmpty">
 				<button type="button" class="btn btn-primary btn-sm"
 					ng-click="vm.requestFilter()">OK</button>
 				<button type="button" class="btn btn-danger btn-sm"
@@ -61,20 +60,18 @@
 </div>
 <div class="row" ng-show="vm.ready">
 	<div class="col-sm-6">
-		<h2 style="margin-top: 10px; display: inline-block;">Databases <small>2. SELECT A RESOURCE</small></h2>
-		<button class="glyphicon glyphicon-info-sign" 
+		<h2 class="map-heading">Databases <small>2. SELECT A RESOURCE</small></h2>
+		<button class="glyphicon glyphicon-info-sign info-button" 
 			tooltip-html-unsafe="{{ vm.databasesTooltip }}"  
 			tooltip-trigger="focus" 
-			tooltip-placement="bottom" 
-			style="font-size: 25px; margin-left: 5px; border: none; background: none;"></button>
+			tooltip-placement="bottom"></button>
 	</div>
 	<div class="col-sm-6 text-right">
-		<h2 style="margin-top: 10px; display: inline-block;">Tools <small>4. VISUALISE A RESOURCE</small></h2>
-		<button class="glyphicon glyphicon-info-sign" 
+		<h2 class="map-heading">Tools <small>4. VISUALISE A RESOURCE</small></h2>
+		<button class="glyphicon glyphicon-info-sign info-button" 
 			tooltip-html-unsafe="{{ vm.toolsTooltip }}"  
 			tooltip-trigger="focus" 
-			tooltip-placement="left" 
-			style="font-size: 25px; margin-left: 5px; border: none; background: none;"></button>
+			tooltip-placement="left"></button>
 	</div>
 </div>
 <div class="row" ng-show="vm.ready">
@@ -100,19 +97,18 @@
 			tooltip="Open {{ vm.configService.config.tools[0].name }} tool">
 			<br/>
 			<img src="public/img/layout/tool.png"/><br/>
-			<span class="pull-right" style="margin-top: 7px;">
+			<span class="pull-right tool-heading">
 				{{ vm.configService.config.tools[0].name }}
 			</span>
 		</a>
 	</div>
 </div>
-<div class="row" ng-show="vm.ready" style="height: 30px;">
+<div class="row map-spacer" ng-show="vm.ready">
 	<div class="col-sm-12">
-		<button class="glyphicon glyphicon-info-sign" 
+		<button class="glyphicon glyphicon-info-sign info-button" 
 			tooltip-html-unsafe="{{ vm.myDataTooltip }}"  
 			tooltip-trigger="focus" 
-			tooltip-placement="right"
-			style="font-size: 25px; margin-left: 5px; border: none; background: none;"></button>
+			tooltip-placement="right"></button>
 	</div>
 </div>
 <div class="row" ng-show="vm.ready">
@@ -121,7 +117,7 @@
 			ui-sref="app.portal.userdata()" 
 			tooltip="Show saved Userdata"
 			tooltip-placement="right">
-			<span ng-show="vm.methodsService.unreadResults > 0" class="badge pull-left" style="font-size: 14px;">
+			<span ng-show="vm.methodsService.unreadResults > 0" class="badge pull-left map-badge">
 				{{ vm.methodsService.unreadResults }}
 			</span>
 			<br/>
@@ -136,13 +132,13 @@
 			tooltip-placement="left">
 			<br/>
 			<img src="public/img/layout/tool.png"/><br/>
-			<span class="pull-right" style="margin-top: 7px;">
+			<span class="pull-right tool-heading">
 				{{ vm.configService.config.tools[1].name }}
 			</span>
 		</a>
 	</div>
 </div>
-<div class="row" ng-show="vm.ready" style="height: 30px;">
+<div class="row map-spacer" ng-show="vm.ready">
 	<div class="col-sm-12">&nbsp;</div>
 </div>
 <div class="row" ng-show="vm.ready">
@@ -182,7 +178,7 @@
 			tooltip-placement="top">
 			<br/>
 			<img src="public/img/layout/tool.png"/><br/>
-			<span class="pull-right" style="margin-top: 7px;">
+			<span class="pull-right tool-heading">
 				{{ vm.configService.config.tools[2].name }}
 			</span>
 		</a>
@@ -190,11 +186,10 @@
 </div>
 <div class="row" ng-show="vm.ready">
 	<div class="col-sm-6">
-		<h2 style="margin-top: 10px; display: inline-block;">Services <small>3. ACCESS A RESOURCE</small></h2>
-		<button class="glyphicon glyphicon-info-sign" 
+		<h2 class="map-heading">Services <small>3. ACCESS A RESOURCE</small></h2>
+		<button class="glyphicon glyphicon-info-sign info-button" 
 			tooltip-html-unsafe="{{ vm.servicesTooltip }}"  
 			tooltip-trigger="focus" 
-			tooltip-placement="top" 
-			style="font-size: 25px; margin-left: 5px; border: none; background: none;"></button>
+			tooltip-placement="top"></button>
 	</div>
 </div>
