@@ -20,9 +20,9 @@ module portal {
         public isFirstOpen: boolean = true
         public initialising: boolean = false
         public loading: boolean = false
-        public registryTooltip: string = "Select suitable elements of the tree of the respective repository.<br/>"+
-            "They will then be stored at &ldquo;My Data&rdquo; for further usage in the Data Access dialogs.<br/>"+
-            "Via mouse over the element further information can be obtained."
+        public registryTooltip: string = 'Select suitable elements of the tree of the respective repository.<br/>'+
+            'They will then be stored at &ldquo;My Data&rdquo; for further usage in the Data Access dialogs.<br/>'+
+            'Via mouse over the element further information can be obtained.'
         
         static $inject: Array<string> = ['$scope', '$timeout', 'configService', 'registryService', 
             '$state', '$modalInstance', 'id']
@@ -51,7 +51,7 @@ module portal {
         
         public getRepository(id: string) {
             this.initialising = true
-            var cacheId = "repo-"+id
+            var cacheId = 'repo-'+id
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.Repository().get(
                     { fmt: 'json' , id: id }).$promise
@@ -70,7 +70,7 @@ module portal {
         public getSimulationModel(id: string) {
             this.scope.$broadcast('clear-simulation-models')
             this.loading = true
-            var cacheId = "model-"+id
+            var cacheId = 'model-'+id
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.SimulationModel().get(
                     { fmt: 'json', id: id }).$promise
@@ -89,7 +89,7 @@ module portal {
         public getSimulationRun(element: SpaseElem) {
             this.scope.$broadcast('clear-simulation-runs', element)
             this.loading = true
-            var cacheId = "run-"+element.resourceId
+            var cacheId = 'run-'+element.resourceId
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.SimulationRun().get(
                     { fmt: 'json', id: element.resourceId }).$promise
@@ -113,7 +113,7 @@ module portal {
         public getNumericalOutput(element: SpaseElem) {
             this.scope.$broadcast('clear-numerical-outputs', element)
             this.loading = true
-            var cacheId = "output-"+element.resourceId
+            var cacheId = 'output-'+element.resourceId
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.NumericalOutput().get(
                     { fmt: 'json', id: element.resourceId }).$promise
@@ -137,7 +137,7 @@ module portal {
         public getGranule(element: SpaseElem) {
             this.scope.$broadcast('clear-granules', element)
             this.loading = true
-            var cacheId = "granule-"+element.resourceId
+            var cacheId = 'granule-'+element.resourceId
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.Granule().get(
                     { fmt: 'json', id: element.resourceId }).$promise

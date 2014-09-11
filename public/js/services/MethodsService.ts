@@ -87,9 +87,9 @@ module portal {
         public getMethods(db: Database): Array<Api> {
             // we only fetch the needed apis
             // for FMI we need a special selector
-            if(db.name.indexOf("FMI") != -1) {
+            if(db.name.indexOf('FMI') != -1) {
                 return this.methods.apis.filter((e) => { 
-                    if(e.path.indexOf("FMI") != -1)
+                    if(e.path.indexOf('FMI') != -1)
                         return true
                     else 
                         return false

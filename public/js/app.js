@@ -901,9 +901,9 @@ var portal;
 else
                 var callName = db.name;
 
-            this.http.get(this.url + 'methods/' + callName + "/isAlive", { timeout: 10000 }).success(function (data, status) {
+            this.http.get(this.url + 'methods/' + callName + '/isAlive', { timeout: 10000 }).success(function (data, status) {
                 _this.aliveMap[db.id] = data;
-                //console.log("Hello "+db.name+" "+this.aliveMap[db.id])
+                //console.log('Hello '+db.name+' '+this.aliveMap[db.id])
             }).error(function (data, status) {
                 _this.aliveMap[db.id] = false;
             });
@@ -1044,9 +1044,9 @@ var portal;
         };
 
         MethodsService.prototype.getMethods = function (db) {
-            if (db.name.indexOf("FMI") != -1) {
+            if (db.name.indexOf('FMI') != -1) {
                 return this.methods.apis.filter(function (e) {
-                    if (e.path.indexOf("FMI") != -1)
+                    if (e.path.indexOf('FMI') != -1)
                         return true;
 else
                         return false;
@@ -1208,11 +1208,11 @@ var portal;
         function PortalCtrl($scope, $window, $timeout, configService, methodsService, registryService, $state, growl) {
             var _this = this;
             this.ready = false;
-            this.databasesTooltip = "Within the different IMPEx-databases, you can browse the trees of all<br/>" + "service providers for getting an overview of all available data and its metadata.<br/>" + "Suitable tree elements can be selected and will then be stored automatically in<br/>" + "the &ldquo;My Data&rdquo; dialog for their further usage in the &ldquo;Data Access&rdquo; area.<br/>" + "Please be aware that only the selections of the respective database will be<br/>" + "visible in the Databases and Data Access dialogs of the IMPEx Portal.";
-            this.servicesTooltip = "Within this area you can browse through the methods of all IMPEx service providers.<br/>" + "Selections, which were chosen in &ldquo;Databases&rdquo; and stored in &ldquo;My Data&rdquo;, as well as<br/>" + "uploaded VOTables will be visible in the dialog, and can then easily be applied as far<br/>" + "as they are applicable for the respective methods.<br/>" + "Obtained results can be saved for further usage.<br/>" + "Please be aware that only the selections and results of the respective database will be<br/>" + "visible in the Databases and Data Access dialogs of the IMPEx Portal.";
-            this.toolsTooltip = "The Tools area of the IMPEx Portal provides links to all tools for data analysis,<br/>" + "which are connected to the IMPEx services.<br/>" + "Via connecting to a SAMP Hub you can send selected service results to<br/>" + "the respective tools for further analysis.<br/>" + "A quick overview guide on all of these tools, as well as on the simulation<br/>" + "databases can be found in the Tool Docs.<br/>";
-            this.myDataTooltip = "&ldquo;My Data&rdquo; is the reservoir for all stored services and results,<br/>" + "which can easily be managed in this area.<br/>" + "Moreover customized VOTables can be uploaded via<br/>" + "&ldquo;My Data&rdquo; for further usage in the IMPEx Portal.<br/>" + "Please be aware that VOTable files are saved for only 24 hours.<br/>" + "Results and selections on the other hand are stored on the<br/>" + "client-side and will be available with no elapse time.";
-            this.filterTooltip = "This function can be used to filter IMPEx databases and services via<br/>" + "customized criteria.<br/>" + "Those who do not fit the criteria will be deactivated.";
+            this.databasesTooltip = 'Within the different IMPEx-databases, you can browse the trees of all<br/>' + 'service providers for getting an overview of all available data and its metadata.<br/>' + 'Suitable tree elements can be selected and will then be stored automatically in<br/>' + 'the &ldquo;My Data&rdquo; dialog for their further usage in the &ldquo;Data Access&rdquo; area.<br/>' + 'Please be aware that only the selections of the respective database will be<br/>' + 'visible in the Databases and Data Access dialogs of the IMPEx Portal.';
+            this.servicesTooltip = 'Within this area you can browse through the methods of all IMPEx service providers.<br/>' + 'Selections, which were chosen in &ldquo;Databases&rdquo; and stored in &ldquo;My Data&rdquo;, as well as<br/>' + 'uploaded VOTables will be visible in the dialog, and can then easily be applied as far<br/>' + 'as they are applicable for the respective methods.<br/>' + 'Obtained results can be saved for further usage.<br/>' + 'Please be aware that only the selections and results of the respective database will be<br/>' + 'visible in the Databases and Data Access dialogs of the IMPEx Portal.';
+            this.toolsTooltip = 'The Tools area of the IMPEx Portal provides links to all tools for data analysis,<br/>' + 'which are connected to the IMPEx services.<br/>' + 'Via connecting to a SAMP Hub you can send selected service results to<br/>' + 'the respective tools for further analysis.<br/>' + 'A quick overview guide on all of these tools, as well as on the simulation<br/>' + 'databases can be found in the Tool Docs.<br/>';
+            this.myDataTooltip = '&ldquo;My Data&rdquo; is the reservoir for all stored services and results,<br/>' + 'which can easily be managed in this area.<br/>' + 'Moreover customized VOTables can be uploaded via<br/>' + '&ldquo;My Data&rdquo; for further usage in the IMPEx Portal.<br/>' + 'Please be aware that VOTable files are saved for only 24 hours.<br/>' + 'Results and selections on the other hand are stored on the<br/>' + 'client-side and will be available with no elapse time.';
+            this.filterTooltip = 'This function can be used to filter IMPEx databases and services via<br/>' + 'customized criteria.<br/>' + 'Those who do not fit the criteria will be deactivated.';
             this.isFilterCollapsed = true;
             this.isFilterLoading = false;
             this.selectedFilter = {};
@@ -1248,7 +1248,7 @@ var portal;
             });
         }
         PortalCtrl.prototype.notImplemented = function () {
-            this.window.alert("This functionality is not yet implemented.");
+            this.window.alert('This functionality is not yet implemented.');
         };
 
         PortalCtrl.prototype.selectFilter = function (region) {
@@ -1331,7 +1331,7 @@ var portal;
             this.isFirstOpen = true;
             this.initialising = false;
             this.loading = false;
-            this.registryTooltip = "Select suitable elements of the tree of the respective repository.<br/>" + "They will then be stored at &ldquo;My Data&rdquo; for further usage in the Data Access dialogs.<br/>" + "Via mouse over the element further information can be obtained.";
+            this.registryTooltip = 'Select suitable elements of the tree of the respective repository.<br/>' + 'They will then be stored at &ldquo;My Data&rdquo; for further usage in the Data Access dialogs.<br/>' + 'Via mouse over the element further information can be obtained.';
             this.scope = $scope;
             $scope.regvm = this;
             this.timeout = $timeout;
@@ -1352,7 +1352,7 @@ var portal;
         RegistryCtrl.prototype.getRepository = function (id) {
             var _this = this;
             this.initialising = true;
-            var cacheId = "repo-" + id;
+            var cacheId = 'repo-' + id;
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.Repository().get({ fmt: 'json', id: id }).$promise;
                 this.registryPromise.then(function (spase) {
@@ -1373,7 +1373,7 @@ var portal;
             var _this = this;
             this.scope.$broadcast('clear-simulation-models');
             this.loading = true;
-            var cacheId = "model-" + id;
+            var cacheId = 'model-' + id;
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.SimulationModel().get({ fmt: 'json', id: id }).$promise;
                 this.registryPromise.then(function (spase) {
@@ -1394,7 +1394,7 @@ var portal;
             var _this = this;
             this.scope.$broadcast('clear-simulation-runs', element);
             this.loading = true;
-            var cacheId = "run-" + element.resourceId;
+            var cacheId = 'run-' + element.resourceId;
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.SimulationRun().get({ fmt: 'json', id: element.resourceId }).$promise;
                 this.registryPromise.then(function (spase) {
@@ -1418,7 +1418,7 @@ var portal;
             var _this = this;
             this.scope.$broadcast('clear-numerical-outputs', element);
             this.loading = true;
-            var cacheId = "output-" + element.resourceId;
+            var cacheId = 'output-' + element.resourceId;
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.NumericalOutput().get({ fmt: 'json', id: element.resourceId }).$promise;
                 this.registryPromise.then(function (spase) {
@@ -1442,7 +1442,7 @@ var portal;
             var _this = this;
             this.scope.$broadcast('clear-granules', element);
             this.loading = true;
-            var cacheId = "granule-" + element.resourceId;
+            var cacheId = 'granule-' + element.resourceId;
             if (!(cacheId in this.registryService.cachedElements)) {
                 this.registryPromise = this.registryService.Granule().get({ fmt: 'json', id: element.resourceId }).$promise;
                 this.registryPromise.then(function (spase) {
@@ -1493,7 +1493,7 @@ var portal;
             this.initialising = false;
             this.status = '';
             this.showError = false;
-            this.methodsTooltip = "Select one of the stored elements, including uploaded VOTables,<br/>" + "to be applied to the available methods of the IMPEx services.<br/>" + "Please be aware that only those selections, which are applicable for the<br/>" + "respective methods can be applied.";
+            this.methodsTooltip = 'Select one of the stored elements, including uploaded VOTables,<br/>' + 'to be applied to the available methods of the IMPEx services.<br/>' + 'Please be aware that only those selections, which are applicable for the<br/>' + 'respective methods can be applied.';
             // helpers for methods modal
             this.dropdownStatus = {
                 isopen: false,
@@ -1855,7 +1855,7 @@ var portal;
             });
 
             this.myScope.$watch('$includeContentLoaded', function (e) {
-                //console.log("RegistryDir loaded")
+                //console.log('RegistryDir loaded')
                 _this.activeItems = {};
                 _this.showError = false;
                 _this.status = '';
@@ -1962,13 +1962,13 @@ else
         RegistryDir.prototype.trim = function (name, length) {
             if (typeof length === "undefined") { length = 25; }
             if (name.length > length)
-                return name.slice(0, length).trim() + "...";
+                return name.slice(0, length).trim() + '...';
 else
                 return name.trim();
         };
 
         RegistryDir.prototype.format = function (name) {
-            return name.split("_").join(" ").trim();
+            return name.split('_').join(' ').trim();
         };
         return RegistryDir;
     })();
@@ -2358,7 +2358,7 @@ var portal;
     // @TODO implement loading visualisation
     var SelectionDir = (function () {
         function SelectionDir() {
-            this.template = "<ul>" + "<member-dir ng-repeat='(key, elem) in selection' name='key' member='elem' " + "ng-if='!(elem | isEmpty)'></member-dir>" + "</ul>";
+            this.template = '<ul>' + "<member-dir ng-repeat='(key, elem) in selection' name='key' member='elem' " + "ng-if='!(elem | isEmpty)'></member-dir>" + '</ul>';
             this.restrict = 'E';
             this.replace = true;
             this.scope = {
@@ -2402,7 +2402,7 @@ var portal;
 
         MemberDir.prototype.linkFn = function ($scope, element, attributes) {
             var _this = this;
-            element.append("<strong>" + this.beautify($scope.name) + "</strong> : ");
+            element.append('<strong>' + this.beautify($scope.name) + '</strong> : ');
             if (angular.isArray($scope.member)) {
                 angular.forEach($scope.member, function (m, i) {
                     if (angular.isString(m) || angular.isNumber(m))
@@ -2418,22 +2418,22 @@ else if (angular.isObject(m)) {
                 element.append("<br/><selection-dir selection='member'></selection-dir>");
                 this.compileService(element.contents())($scope);
             } else if (this.validateUrl($scope.member)) {
-                element.append("<a href='" + $scope.member + "' target='_blank'>" + $scope.member + "</a><br/>");
+                element.append("<a href='" + $scope.member + "' target='_blank'>" + $scope.member + '</a><br/>');
             } else {
-                element.append($scope.member + "<br/>");
+                element.append($scope.member + '<br/>');
             }
         };
 
         MemberDir.prototype.beautify = function (str) {
-            var str = str.replace("ID", "Id").replace("URL", "Url");
-            if (str.indexOf("_") != -1) {
-                var split = str.split("_");
+            var str = str.replace('ID', 'Id').replace('URL', 'Url');
+            if (str.indexOf('_') != -1) {
+                var split = str.split('_');
                 str = split[0] + split[1].charAt(0).toUpperCase() + split[1].slice(1);
             }
             var array = str.match(/([A-Z]?[^A-Z]*)/g).slice(0, -1);
             var first = array[0].charAt(0).toUpperCase() + array[0].slice(1);
             array.shift();
-            return (first + " " + array.join(" ")).trim();
+            return (first + ' ' + array.join(' ')).trim();
         };
 
         MemberDir.prototype.validateUrl = function (str) {
@@ -2589,13 +2589,13 @@ var portal;
 
         // method for applying a selection to the current method
         MethodsDir.prototype.applySelection = function (resourceId) {
-            //console.log("applySelection "+resourceId)
+            //console.log('applySelection '+resourceId)
             this.request['id'] = resourceId;
         };
 
         // method for applying a votable url to the current method
         MethodsDir.prototype.applyVOTable = function (url) {
-            //console.log("applyVOTable "+url)
+            //console.log('applyVOTable '+url)
             this.request['votable_url'] = url;
         };
 
@@ -2662,7 +2662,7 @@ else
         MethodsDir.prototype.addVotableRow = function () {
             var arr = [];
             for (var i = 0; i < this.votableColumns; i++) {
-                arr[i] = "Field-" + (this.votableRows.length + 1) + "-" + (i + 1);
+                arr[i] = 'Field-' + (this.votableRows.length + 1) + '-' + (i + 1);
             }
             this.votableRows.push(arr);
             this.updateVOtableRequest();
@@ -2682,7 +2682,7 @@ else
             var _this = this;
             this.votableColumns++;
             this.votableRows.forEach(function (r) {
-                return r.push("Field-" + _this.votableColumns);
+                return r.push('Field-' + _this.votableColumns);
             });
             this.votableMetadata.push([
                 { name: 'name', value: '' },

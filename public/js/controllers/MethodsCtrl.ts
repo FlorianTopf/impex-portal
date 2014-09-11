@@ -23,10 +23,10 @@ module portal {
         public initialising: boolean = false
         public status: string = ''
         public showError: boolean = false
-        public methodsTooltip: string = "Select one of the stored elements, including uploaded VOTables,<br/>"+
-            "to be applied to the available methods of the IMPEx services.<br/>"+
-            "Please be aware that only those selections, which are applicable for the<br/>"+
-            "respective methods can be applied."
+        public methodsTooltip: string = 'Select one of the stored elements, including uploaded VOTables,<br/>'+
+            'to be applied to the available methods of the IMPEx services.<br/>'+
+            'Please be aware that only those selections, which are applicable for the<br/>'+
+            'respective methods can be applied.'
         
         static $inject: Array<string> = ['$scope', '$timeout', '$window', 'configService', 'methodsService', 
             'userService', '$state', '$modalInstance', 'id']

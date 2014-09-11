@@ -74,7 +74,7 @@ module portal {
             })
             
             this.myScope.$watch('$includeContentLoaded', (e) => {
-                //console.log("MethodsDir loaded")
+                //console.log('MethodsDir loaded')
                 if(!(this.repositoryId in this.userService.sessionStorage.methods)) {
                     this.method = null
                     this.request = {}
@@ -153,13 +153,13 @@ module portal {
         
         // method for applying a selection to the current method
         private applySelection(resourceId: string) {
-            //console.log("applySelection "+resourceId)
+            //console.log('applySelection '+resourceId)
             this.request['id'] = resourceId
         }
         
         // method for applying a votable url to the current method
         private applyVOTable(url: string) {
-            //console.log("applyVOTable "+url)
+            //console.log('applyVOTable '+url)
             this.request['votable_url'] = url
         }
         
@@ -223,7 +223,7 @@ module portal {
         public addVotableRow() {
             var arr = []
             for(var i = 0; i < this.votableColumns; i++) {
-               arr[i] = "Field-"+(this.votableRows.length+1)+"-"+(i+1)
+               arr[i] = 'Field-'+(this.votableRows.length+1)+'-'+(i+1)
             }
             this.votableRows.push(arr)
             this.updateVOtableRequest()
@@ -241,7 +241,7 @@ module portal {
         // used for getVOTableURL form
         public addVotableColumn() {
             this.votableColumns++
-            this.votableRows.forEach((r) => r.push("Field-"+this.votableColumns))
+            this.votableRows.forEach((r) => r.push('Field-'+this.votableColumns))
             this.votableMetadata.push([
                 {name:'name', value:''}, 
                 {name:'ID', value:''},

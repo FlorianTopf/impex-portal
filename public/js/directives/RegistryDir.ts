@@ -62,7 +62,7 @@ module portal {
             })
             
             this.myScope.$watch('$includeContentLoaded', (e) => {
-                //console.log("RegistryDir loaded")   
+                //console.log('RegistryDir loaded')   
                 this.activeItems = {}
                 this.showError = false
                 this.status = ''
@@ -157,13 +157,13 @@ module portal {
        
         public trim(name: string, length: number = 25): string {
             if(name.length>length)
-                 return name.slice(0, length).trim()+"..."
+                 return name.slice(0, length).trim()+'...'
             else
                  return name.trim()
         }
         
         public format(name: string): string {
-            return name.split("_").join(" ").trim()
+            return name.split('_').join(' ').trim()
         }
         
     }

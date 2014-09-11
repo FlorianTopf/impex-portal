@@ -77,7 +77,7 @@ module portal {
             
             // watch event when all content is loaded into the dir
             this.myScope.$watch('$includeContentLoaded', (e) => {          
-                //console.log("UserDataDir loaded")     
+                //console.log('UserDataDir loaded')     
                 // collapsing all selections on init
                 if(this.user.selections) {
                     this.user.selections.forEach((e) => { this.isCollapsed[e.id] = true })
@@ -137,7 +137,7 @@ module portal {
                this.isSelApplyable = false
                if(this.user.activeSelection.length == 1) {
                     this.applyableElements.forEach((e) => {
-                        //console.log("Element "+e)
+                        //console.log('Element '+e)
                         if(this.user.activeSelection[0].type == e)
                             this.isSelApplyable = true  
                     })
