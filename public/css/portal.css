@@ -1,3 +1,4 @@
+/** GENERAL/MAP */
 html, body {
 	height: 100%;
 	width: 100%;
@@ -13,142 +14,41 @@ body {
 	margin-bottom: 5%;
 }
 
-.loading {
-	position: absolute;
-	z-index: 9999;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background: #ccffff;
-	
-}
-
-.loadingImg {
-	margin: auto;
-	position: relative;
-}
-
-.loadingImg-sm {
-	margin: auto;
-	position: relative;
-	width: 33px;
-}
-
-.bg-danger {
-	padding: 15px;
-}
-
-.error {
-	color: red;
-}
-
-.btn-group-overflow {
-	vertical-align: top; 
-	max-height: 300px;
-	overflow-y: auto; 
-	width: 200px;
-}
-
-.btn-map {
-	width: 95%;
-	height: 150px;
-}
-
 .container {
-	min-width: 468px;
+	min-width: 768px;
 	margin-top: 2%;
 }
 
-/* hack for angular-ui bootstrap */
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; cursor: hand; }
-
-.tooltip { 
-	z-index: 9999; 
-	max-width: 800px;
-}
-
-.tooltip-inner { 
-	max-width: 800px;
-	text-align: left;
-}
-
-.elem-metadata {
-	display: block;
-	margin-bottom: 10px;
-}
-
-.elem-header {
-	display: block;
-}
-
-.elem-caption {
+.map-heading {
+	margin-top: 10px; 
 	display: inline-block;
-	padding-bottom: 5px;
-	font-weight: bold;
-	text-align: left;
-	width: 200px;
 }
 
-.dropdown-menu > li > span {
-	display: block;
-	padding: 3px 20px;
-	clear: both;
-	font-weight: normal;
-	line-height: 1.5em;
-	white-space: nowrap;
-	cursor: pointer;
-	cursor: hand;
+.filter-box {
+	margin-top: 5px;
+	margin-bottom: 5px;
 }
 
-.dropdown-menu > li > span:hover, 
-.dropdown-menu > li > span:focus,
-.dropdown-menu > li > span.active {
-	color: #262626;
-	text-decoration: none;
-	background-color: #f5f5f5;
+.inline-heading {
+	display: inline-block;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.map-badge {
+	font-size: 14px;
+}
+
+.tool-heading {
+	margin-top: 7px;
+}
+
+.map-spacer {
+	height: 30px;
 }
 
 .modal-body {
 	min-height: 400px;
-}
-
-button.dropdown-toggle {
-	text-align: left;
-	width: 300px;
-}
-
-button.glyphicon-info-sign:focus {
-	outline: 0;	
-}
-
-.nav-tabs > li > a {
-	font-size: 12px;
-	padding: 10px 10px;
-}
-
-.sel-file {
-	padding: 1px 5px;
-	font-size: smaller;
-	color: grey;
-}
-
-.progress {
-	display: inline-block;
-	width: 100px;	
-	border: 3px groove #CCC;
-	margin-bottom: 0;
-}
-
-.file-info {
-	vertical-align: top;
-	line-height: 20px;
-}
-
-.progress div {
-	font-size: smaller;
-	background: orange;
-	width: 0;
 }
 
 .modal.fade .modal-dialog, .modal.in .modal-dialog {
@@ -162,6 +62,8 @@ button.glyphicon-info-sign:focus {
 	font-size: 30px;
 }
 
+
+/** GLYPHS */
 .glyphicon-rotate {
 	font-size: 20px;
    -webkit-animation-name: rotateThis;
@@ -198,20 +100,54 @@ button.glyphicon-info-sign:focus {
 	font-size: 20px;
 }
 
-.info-button {
-	font-size: 25px; 
-	margin-left: 5px; 
-	border: none; 
-	background: none;
-}
-
 .arrow-sign {
 	font-size: 20px;
 }
 
-.filter-box {
-	margin-top: 5px;
-	margin-bottom: 5px;
+/* hack for angular-ui bootstrap */
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; cursor: hand; }
+
+
+/** LOADERS/STATUS */
+.loading {
+	position: absolute;
+	z-index: 9999;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #ccffff;
+	
+}
+
+.loadingImg {
+	margin: auto;
+	position: relative;
+}
+
+.loadingImg-sm {
+	margin: auto;
+	position: relative;
+	width: 33px;
+}
+
+/* .bg-danger {
+	padding: 15px;
+}*/
+
+.error {
+	color: red;
+	margin-top: 15px;
+	marhin-left: 15px;
+}
+
+
+/** BUTTONS/BUTTONGROUPS */
+.btn-group-overflow {
+	vertical-align: top; 
+	max-height: 300px;
+	overflow-y: auto; 
+	width: 200px;
 }
 
 .btn-group-filter {
@@ -223,31 +159,118 @@ button.glyphicon-info-sign:focus {
 	margin-left: 10%;
 }
 
-.vertical-top {
-	vertical-align: top:
+button.btn-map {
+	width: 95%;
+	height: 150px;
 }
 
-.map-heading {
-	margin-top: 10px; 
-	display: inline-block;
+
+/** TOOLTIPS */
+.tooltip { 
+	z-index: 9999; 
+	max-width: 800px;
 }
 
-.inline-heading {
+.tooltip-inner { 
+	max-width: 800px;
+	text-align: left;
+}
+
+button.info-button {
+	font-size: 25px; 
+	margin-left: 5px; 
+	border: none; 
+	background: none;
+}
+
+button.info-button:focus {
+	outline: 0;	
+}
+
+
+/** REGISTRY ELEMENTS */
+.elem-metadata {
+	display: block;
+	margin-bottom: 10px;
+}
+
+.elem-header {
+	display: block;
+}
+
+.elem-caption {
 	display: inline-block;
-	margin-top: 0;
+	padding-bottom: 5px;
+	font-weight: bold;
+	text-align: left;
+	width: 200px;
+}
+
+
+/** METHODS ELEMENTS */
+.resource-id-label {
+	padding-top: 0;
+}
+
+.dropdown-menu > li > span {
+	display: block;
+	padding: 3px 20px;
+	clear: both;
+	font-weight: normal;
+	line-height: 1.5em;
+	white-space: nowrap;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.dropdown-menu > li > span:hover, 
+.dropdown-menu > li > span:focus,
+.dropdown-menu > li > span.active {
+	color: #262626;
+	text-decoration: none;
+	background-color: #f5f5f5;
+}
+
+button.dropdown-toggle {
+	text-align: left;
+	width: 300px;
+}
+
+
+/** USERDATA ELEMENTS */
+.nav-tabs > li > a {
+	font-size: 12px;
+	padding: 10px 10px;
+}
+
+.sel-file {
+	padding: 1px 5px;
+	font-size: smaller;
+	color: grey;
+}
+
+.progress {
+	display: inline-block;
+	width: 100px;	
+	border: 3px groove #CCC;
 	margin-bottom: 0;
 }
 
-.map-badge {
-	font-size: 14px;
+.progress div {
+	font-size: smaller;
+	background: orange;
+	width: 0;
 }
 
-.tool-heading {
-	margin-top: 7px;
+.file-info {
+	vertical-align: top;
+	line-height: 20px;
 }
 
-.map-spacer {
-	height: 30px;
+
+/** AUXILIARY */
+.vertical-top {
+	vertical-align: top:
 }
 
 .overflow-500 {
@@ -297,10 +320,6 @@ button.glyphicon-info-sign:focus {
 
 .margin-r-10 {
 	margin-right: 10px;
-}
-
-.resource-id-label {
-	padding-top: 0;
 }
 
 .word-wrap {
