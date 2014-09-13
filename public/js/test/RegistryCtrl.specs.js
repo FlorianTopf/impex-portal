@@ -26,7 +26,7 @@ describe('RegistryCtrl', function() {
 	    };
 		$httpBackend = _$httpBackend_;
 		// spying on broadcast events
-        spyOn(scope, "$broadcast");
+        spyOn(scope, '$broadcast');
 		
         jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock';
 		repoId = 'spase://IMPEX/Repository/FMI/HYB';
@@ -42,6 +42,7 @@ describe('RegistryCtrl', function() {
 
 		$httpBackend.when('GET', '/config?&fmt=json').respond(getJSONFixture('config.json'));
 		$httpBackend.when('GET', '/userdata').respond(getJSONFixture('userData.json'));
+		$httpBackend.when('GET', '/filter/region').respond(getJSONFixture('regions.json'));
 		// just serve an empty result here 
 		$httpBackend.when('GET', '/public/partials/portalMap.html').respond('');
 		

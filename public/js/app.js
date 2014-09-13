@@ -33,7 +33,6 @@ var portal;
                         return UserService.loadUserData();
                     }
                 ],
-                // @FIXME fires timeout alert when navigating away
                 regions: [
                     'configService',
                     function (ConfigService) {
@@ -1215,7 +1214,6 @@ var portal;
             this.filterTooltip = 'This function can be used to filter IMPEx databases and services via<br/>' + 'customized criteria.<br/>' + 'Those who do not fit the criteria will be deactivated.';
             this.isFilterCollapsed = true;
             this.isFilterLoading = false;
-            this.selectedFilter = {};
             this.scope = $scope;
             this.scope.vm = this;
             this.window = $window;
@@ -1252,24 +1250,16 @@ var portal;
         };
 
         PortalCtrl.prototype.selectFilter = function (region) {
-            if (region in this.selectedFilter) {
-                delete this.selectedFilter[region];
-                this.registryService.selectedFilter[region] = false;
-            } else {
-                this.selectedFilter[region] = true;
-                this.registryService.selectedFilter[region] = true;
-            }
+            this.registryService.selectedFilter[region] = !this.registryService.selectedFilter[region];
         };
 
         PortalCtrl.prototype.resetFilter = function () {
-            this.selectedFilter = {};
-            this.registryService.selectedFilter = {};
+            for (var region in this.registryService.selectedFilter) {
+                this.registryService.selectedFilter[region] = false;
+            }
             this.registryService.isFilterSet = false;
             for (var id in this.configService.filterMap) {
                 this.configService.filterMap[id] = true;
-            }
-            for (var region in this.registryService.selectedFilter) {
-                this.registryService.selectedFilter[region] = false;
             }
             //console.log(JSON.stringify(this.configService.filterMap))
         };
@@ -1281,29 +1271,32 @@ var portal;
             this.registryService.isFilterSet = false;
             var counter = 0;
             var tempMap = {};
-            for (var region in this.selectedFilter) {
-                counter++;
-                this.configService.filterRegion(region).success(function (data, status) {
-                    //console.log(data)
-                    counter--;
-                    data.forEach(function (e) {
-                        tempMap[e] = true;
-                    });
-                    if (counter == 0) {
-                        for (var id in _this.configService.filterMap) {
-                            if (id in tempMap)
-                                _this.configService.filterMap[id] = true;
+
+            for (var region in this.registryService.selectedFilter) {
+                if (this.registryService.selectedFilter[region]) {
+                    counter++;
+                    this.configService.filterRegion(region).success(function (data, status) {
+                        //console.log(data)
+                        counter--;
+                        data.forEach(function (e) {
+                            tempMap[e] = true;
+                        });
+                        if (counter == 0) {
+                            for (var id in _this.configService.filterMap) {
+                                if (id in tempMap)
+                                    _this.configService.filterMap[id] = true;
 else
-                                _this.configService.filterMap[id] = false;
+                                    _this.configService.filterMap[id] = false;
+                            }
+                            _this.isFilterLoading = false;
+                            _this.registryService.isFilterSet = true;
+                            //console.log(JSON.stringify(this.configService.filterMap))
                         }
+                    }).error(function (data, status) {
                         _this.isFilterLoading = false;
-                        _this.registryService.isFilterSet = true;
-                        //console.log(JSON.stringify(this.configService.filterMap))
-                    }
-                }).error(function (data, status) {
-                    _this.isFilterLoading = false;
-                    _this.registryService.isFilterSet = false;
-                });
+                        _this.registryService.isFilterSet = false;
+                    });
+                }
             }
         };
         PortalCtrl.$inject = [

@@ -49,7 +49,6 @@ module portal {
             'Those who do not fit the criteria will be deactivated.'
         public isFilterCollapsed: boolean = true
         public isFilterLoading: boolean = false
-        public selectedFilter: IBooleanMap = {}
       
         static $inject: Array<string> = ['$scope', '$window', '$timeout', 'configService', 
             'methodsService', 'registryService', '$state', 'growl']
@@ -93,24 +92,17 @@ module portal {
         }
         
         public selectFilter(region: string) {
-            if(region in this.selectedFilter) {
-                delete this.selectedFilter[region]
-                this.registryService.selectedFilter[region] = false
-            } else {
-                this.selectedFilter[region] = true    
-                this.registryService.selectedFilter[region] = true
-            }
+            this.registryService.selectedFilter[region] = 
+                !this.registryService.selectedFilter[region]
         }
         
         public resetFilter() {
-            this.selectedFilter = {}
-            this.registryService.selectedFilter = {}
+            for(var region in this.registryService.selectedFilter) {
+                this.registryService.selectedFilter[region] = false
+            }
             this.registryService.isFilterSet = false
             for(var id in this.configService.filterMap) {
                 this.configService.filterMap[id] = true
-            }
-            for(var region in this.registryService.selectedFilter) {
-                this.registryService.selectedFilter[region] = false
             }
             //console.log(JSON.stringify(this.configService.filterMap))
         }
@@ -121,9 +113,11 @@ module portal {
             this.registryService.isFilterSet = false
             var counter = 0
             var tempMap: IBooleanMap = {}
-            for(var region in this.selectedFilter) {
-                counter++
-                this.configService.filterRegion(region)
+            //for(var region in this.selectedFilter) {
+            for(var region in this.registryService.selectedFilter) {
+                if(this.registryService.selectedFilter[region]) {
+                    counter++
+                    this.configService.filterRegion(region)
                     .success((data: Array<string>, status: any) => { 
                         //console.log(data)
                         counter--            
@@ -146,6 +140,7 @@ module portal {
                         this.isFilterLoading = false
                         this.registryService.isFilterSet = false
                     })
+                }
             }
         }
         

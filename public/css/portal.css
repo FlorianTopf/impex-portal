@@ -20,19 +20,35 @@ body {
 }
 
 .map-heading {
+	font-size: 25px;
 	margin-top: 10px; 
 	display: inline-block;
+}
+
+.inline-heading {
+	font-size: 25px;
+	display: inline-block;
+	margin-top: 0;
+	margin-bottom: 0;
+}
+
+.btn-margin-left {
+	margin-left: 10%;
+}
+
+.btn-map {
+	width: 95%;
+	height: 125px;
+}
+
+.btn-map img {
+	width: 60px;
+	height: 60px;
 }
 
 .filter-box {
 	margin-top: 5px;
 	margin-bottom: 5px;
-}
-
-.inline-heading {
-	display: inline-block;
-	margin-top: 0;
-	margin-bottom: 0;
 }
 
 .map-badge {
@@ -107,6 +123,12 @@ body {
 /* hack for angular-ui bootstrap */
 .nav, .pagination, .carousel, .panel-title a { cursor: pointer; cursor: hand; }
 
+.error {
+	color: red;
+	margin-top: 15px;
+	marhin-left: 15px;
+}
+
 
 /** LOADERS/STATUS */
 .loading {
@@ -131,39 +153,6 @@ body {
 	width: 33px;
 }
 
-/* .bg-danger {
-	padding: 15px;
-}*/
-
-.error {
-	color: red;
-	margin-top: 15px;
-	marhin-left: 15px;
-}
-
-
-/** BUTTONS/BUTTONGROUPS */
-.btn-group-overflow {
-	vertical-align: top; 
-	max-height: 300px;
-	overflow-y: auto; 
-	width: 200px;
-}
-
-.btn-group-filter {
-	width: 120px;
-	vertical-align: top;
-}
-
-.btn-margin-left {
-	margin-left: 10%;
-}
-
-button.btn-map {
-	width: 95%;
-	height: 150px;
-}
-
 
 /** TOOLTIPS */
 .tooltip { 
@@ -177,8 +166,8 @@ button.btn-map {
 }
 
 button.info-button {
-	font-size: 25px; 
-	margin-left: 5px; 
+	font-size: 22px; 
+	margin-left: 3px; 
 	border: none; 
 	background: none;
 }
@@ -189,6 +178,18 @@ button.info-button:focus {
 
 
 /** REGISTRY ELEMENTS */
+.btn-group-overflow {
+	vertical-align: top; 
+	max-height: 300px;
+	overflow-y: auto; 
+	width: 200px;
+}
+
+.btn-group-filter {
+	width: 120px;
+	vertical-align: top;
+}
+
 .elem-metadata {
 	display: block;
 	margin-bottom: 10px;
@@ -270,7 +271,7 @@ button.dropdown-toggle {
 
 /** AUXILIARY */
 .vertical-top {
-	vertical-align: top:
+	vertical-align: top;
 }
 
 .overflow-500 {
@@ -372,11 +373,28 @@ button.dropdown-toggle {
 		top: 125px;
 	}
 	
+	.btn-map {
+		height: 125px;
+	}
+	
+	.btn-map img {
+		width: 60px;
+		height: 60px;
+	}
+	
+	.map-heading, .inline-heading {
+		font-size: 25px;
+	}
+	
+	button.info-button {
+		font-size: 22px;
+		margin-left: 3px;
+	}
+	
 	/* @TODO this must be responsive */
   	.modal-lg {
-    	width: 1000px;
+    	width: 992px;
   	}
-}
 
 }
 
@@ -386,6 +404,24 @@ button.dropdown-toggle {
   	.container {
 		max-width: 1178px;
   	}
+  	
+	.btn-map {
+		height: 150px;
+	}
+	
+	.btn-map img {
+		width: 80px;
+		height: 80px;
+	}
+	
+	.map-heading, .inline-heading {
+		font-size: 30px;
+	}
+	
+	button.info-button {
+		font-size: 25px;
+		margin-left: 5px;
+	}
 
 	.loadingImg { 
 		width: 150px;

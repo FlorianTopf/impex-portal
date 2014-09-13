@@ -14,7 +14,7 @@
 		<img src="/public/img/layout/loading.gif" class="loadingImg-sm" alt="loading..." />
 	</div>	
 	<p ng-show="!regvm.initialising && regvm.registryService.isFilterSet">Active Filter: 
-		<span class="label label-success" style="font-size: 90%"
+		<span class="label label-success" style="font-size: 90%; margin-right: 5px;"
 	   		ng-repeat="(region, flag) in regvm.registryService.selectedFilter" 
 	   		ng-if="flag == true">{{ region }}</span>
 	 </p>

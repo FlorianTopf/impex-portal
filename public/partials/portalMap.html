@@ -44,12 +44,13 @@
 				<button type="button" class="btn btn-default btn-sm"
 					ng-repeat="region in vm.configService.filterRegions"
 					ng-click="vm.selectFilter(region)"
-					ng-class="{ active: vm.selectedFilter[region], 'btn-success': vm.selectedFilter[region] }">
+					ng-class="{ active: vm.registryService.selectedFilter[region], 
+						'btn-success': vm.registryService.selectedFilter[region] }">
 					{{ region }}
 				</button>
 			</div>
 			<div class="btn-group-vertical btn-group-filter btn-margin-left" 
-				ng-hide="vm.selectedFilter | isEmpty">
+				ng-hide="vm.registryService.selectedFilter | isEmpty">
 				<button type="button" class="btn btn-primary btn-sm"
 					ng-click="vm.requestFilter()">OK</button>
 				<button type="button" class="btn btn-danger btn-sm"
