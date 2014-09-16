@@ -11,6 +11,7 @@ module portal {
     impexPortal.service('registryService', RegistryService)
     impexPortal.service('methodsService', MethodsService)
     impexPortal.service('userService', UserService)
+    impexPortal.service('sampService', SampService)
 
     impexPortal.controller('configCtrl', ConfigCtrl)
     impexPortal.controller('portalCtrl', PortalCtrl)
@@ -53,7 +54,7 @@ module portal {
     
     // global growl config
     impexPortal.config(['growlProvider', function(growlProvider) {
-        growlProvider.globalTimeToLive(4000);
+        growlProvider.globalTimeToLive(5000);
         growlProvider.onlyUniqueMessages(false);
     }])
     

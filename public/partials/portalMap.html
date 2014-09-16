@@ -25,7 +25,9 @@
 	<div class="col-sm-4">&nbsp;</div>
 	<div class="col-sm-2 text-center">
 		<button type="button" class="btn btn-default"
-			ng-click="vm.notImplemented()">INIT SAMP</button>
+			ng-class="{ 'btn-default': !vm.window.isSampRegistered, 
+					    'btn-success': vm.window.isSampRegistered }"
+			ng-click="vm.isSampCollapsed = !vm.isSampCollapsed">INIT SAMP</button>
 	</div>
 </div>
 <div class="row" ng-show="vm.ready">
@@ -50,12 +52,31 @@
 				</button>
 			</div>
 			<div class="btn-group-vertical btn-group-filter btn-margin-left" 
-				ng-hide="vm.registryService.selectedFilter | isEmpty">
+				ng-hide="!vm.isFilterSelected">
 				<button type="button" class="btn btn-primary btn-sm"
 					ng-click="vm.requestFilter()">OK</button>
 				<button type="button" class="btn btn-danger btn-sm"
 					ng-click="vm.resetFilter()">RESET</button>
 			</div>
+		</div>
+	</div>
+	<div class="col-sm-4 col-sm-offset-8" 
+		ng-class="{ 'col-sm-offset-8': vm.isFilterCollapsed,
+			'col-sm-offset-4': !vm.isFilterCollapsed }"
+		collapse="vm.isSampCollapsed">
+		<div class="well well-lg filter-box">
+			<div class="btn-group">
+				<button type="button" class="btn btn-primary btn-sm"
+					ng-click="vm.registerSamp()" ng-disabled="vm.window.isSampRegistered">Register</button>
+				<button type="button" class="btn btn-danger btn-sm"
+					ng-click="vm.unregisterSamp()" ng-disabled="!vm.window.isSampRegistered">Unregister</button>
+				<button type="button" class="btn btn-success btn-sm"
+					ng-click="vm.sendToSamp()" ng-disabled="!vm.window.isSampRegistered">Send Test Table</button>
+			</div>
+			<a class="btn btn-primary btn-sm" ng-disabled="vm.window.isSampRegistered" style="margin-top: 5px;"
+				href="http://astrojs.github.io/sampjs/hub/webhub.jnlp" target="_blank">
+				Start SAMP Hub
+			</a>
 		</div>
 	</div>
 </div>

@@ -6,6 +6,9 @@ module portal {
     export interface IUserDataDirScope extends ng.IScope {
        userdirvm: UserDataDir
     }
+    
+    // needed for external SAMP lib
+    declare var samp: any
 
     export class UserDataDir implements ng.IDirective {
 
@@ -14,12 +17,15 @@ module portal {
                 'registryService',
                 'methodsService',
                 'userService',
+                'sampService',
                 '$window',
                 '$state',
                 'growl',
                 (registryService: portal.RegistryService, methodsService: portal.MethodsService,
-                userService: portal.UserService, $window: ng.IWindowService, $state: ng.ui.IStateService, growl: any) => 
-                    { return new UserDataDir(registryService, methodsService, userService, $window, $state, growl); }
+                userService: portal.UserService, sampService: portal.SampService, $window: ng.IWindowService, 
+                    $state: ng.ui.IStateService, growl: any) => 
+                    { return new UserDataDir(registryService, methodsService, userService, 
+                        sampService, $window, $state, growl); }
             ]
         }
 
@@ -44,6 +50,7 @@ module portal {
         private registryService: portal.RegistryService
         private methodsService: portal.MethodsService
         private userService: portal.UserService
+        private sampService: portal.SampService
         private window: ng.IWindowService
         private state: ng.ui.IStateService
         private user: User
@@ -51,10 +58,12 @@ module portal {
         private growl: any
 
         constructor(registryService: portal.RegistryService, methodsService: portal.MethodsService,
-            userService: portal.UserService, $window: ng.IWindowService, $state: ng.ui.IStateService, growl: any) {
+            userService: portal.UserService, sampService: portal.SampService, $window: ng.IWindowService, 
+            $state: ng.ui.IStateService, growl: any) {
             this.registryService = registryService
             this.methodsService = methodsService
             this.userService = userService
+            this.sampService = sampService
             this.window = $window
             this.state = $state
             this.growl = growl
@@ -132,6 +141,7 @@ module portal {
             
             // comes from MethodsCtrl
             this.myScope.$on('set-applyable-elements', (e, elements: string) => {
+               //console.log(elements)
                //console.log('set-applyable-elements')
                this.applyableElements = elements.split(',').map((e) => e.trim())
                this.isSelApplyable = false
@@ -150,17 +160,21 @@ module portal {
                 this.isVOTApplyable = b
             })
             
-            // comes from MethodsCtrl => needed for SINP models/output
-            // @FIXME maybe not valid for all use cases
+            // comes from MethodsCtrl => hack for SINP models/output
             this.myScope.$on('set-applyable-models', (e, m: string) => { 
                 //console.log(m)
                 //console.log('set-applyable-models')
                 this.applyableModel = m 
                 if(this.user.activeSelection.length == 1) {
                     var element = this.user.activeSelection[0]
+                    // we just check the onfly numerical output elements too
                     var output = this.applyableModel.replace('SimulationModel', 'NumericalOutput')
-                    var index = element.elem.resourceId.indexOf(output.replace('OnFly', ''))
+                    //var index = element.elem.resourceId.indexOf(output.replace('OnFly', ''))
+                    var index = element.elem.resourceId.indexOf(output)
                     if(this.applyableModel == element.elem.resourceId || index != -1)
+                        this.isSelApplyable = true
+                    else if(this.applyableModel == 'static' && 
+                        element.elem.resourceId.indexOf('OnFly') == -1)
                         this.isSelApplyable = true
                     else
                         this.isSelApplyable = false
@@ -249,11 +263,15 @@ module portal {
                 var selection = this.user.selections.filter((e) => e.id == id)[0]
                 if(this.applyableElements.indexOf(selection.type) != -1) {
                     this.isSelApplyable = true  
-                    // here we check SINP models/outputs
+                    // hack for SINP models/outputs
                     if(this.applyableModel) {
                         var output = this.applyableModel.replace('SimulationModel', 'NumericalOutput')
-                        var index = selection.elem.resourceId.indexOf(output.replace('OnFly', ''))
+                        //var index = selection.elem.resourceId.indexOf(output.replace('OnFly', ''))
+                        var index = selection.elem.resourceId.indexOf(output)
                         if(this.applyableModel == selection.elem.resourceId || index != -1)
+                            this.isSelApplyable = true
+                        else if(this.applyableModel == 'static' && 
+                            selection.elem.resourceId.indexOf('OnFly') == -1)
                             this.isSelApplyable = true
                         else
                             this.isSelApplyable = false
@@ -336,6 +354,8 @@ module portal {
         public clearData(type: string) {
             if(this.window.confirm('Do you want to delete all '+type+'?')) {
                 if(type == 'selections') {
+                    // reset expanded selection
+                    this.user.activeSelection = []
                     // delete all
                     if(this.state.current.name == 'app.portal.userdata') {
                         this.user.selections = []
@@ -344,7 +364,7 @@ module portal {
                         this.user.selections = this.user.selections.filter((s) => s.repositoryId != this.repositoryId)
                         this.userService.localStorage.selections = this.user.selections
                     }
-                } else if(type = 'votables') {
+                } else if(type == 'votables') {
                     this.user.voTables.forEach((vot) => {
                         this.userService.deleteUserData(vot.url.split('/').reverse()[0])
                         delete this.isCollapsed[vot.id]
@@ -363,6 +383,24 @@ module portal {
                 }
                 this.growl.info('Deleted all '+type+' from user data')
              }
+        }
+        
+        // just for testing basic sending
+        public sendToSamp(tableUrl: string) {
+            console.log('sending '+tableUrl)
+            
+            // broadcasts a table given a hub connection
+            var send = (connection) => {
+                var msg = new samp.Message("table.load.votable", { "url": tableUrl })
+                connection.notifyAll([msg])
+            }
+            
+            // in any error case call this
+            var error = (e) => {
+                console.log("Error "+e)
+            }
+            
+            this.sampService.connector.runWithConnection(send, error)
         }
         
         

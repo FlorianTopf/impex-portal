@@ -12,6 +12,7 @@
 /// <reference path='services/RegistryService.ts' />
 /// <reference path='services/MethodsService.ts' />
 /// <reference path='services/UserService.ts' />
+/// <reference path='services/SampService.ts' />
 
 /// <reference path='controllers/ConfigCtrl.ts' />
 /// <reference path='controllers/PortalCtrl.ts' />

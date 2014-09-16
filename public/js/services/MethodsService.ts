@@ -54,7 +54,7 @@ module portal {
             
             // fill manual applyables for SINP (no API info available)
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = 
-            ['getDataPointValueSINP', 'calculateDataPointValue', 'calculateDataPointValueSpacecraft', 'calculateDataPointValueFixedTime', 
+            ['calculateDataPointValue', 'calculateDataPointValueSpacecraft', 'calculateDataPointValueFixedTime', 
                 'calculateFieldline', 'calculateCube', 'calculateFieldline', 'getSurfaceSINP']
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Mercury/OnFly'] = ['calculateDataPointValueNercury', 'calculateCubeMercury']
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Saturn/OnFly'] = ['calculateDataPointValueSaturn', 'calculateCubeSaturn']

@@ -1001,7 +1001,6 @@ var portal;
 
             // fill manual applyables for SINP (no API info available)
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = [
-                'getDataPointValueSINP',
                 'calculateDataPointValue',
                 'calculateDataPointValueSpacecraft',
                 'calculateDataPointValueFixedTime',
@@ -1136,6 +1135,52 @@ var portal;
 (function (portal) {
     'use strict';
 
+    var SampService = (function () {
+        function SampService($window) {
+            var _this = this;
+            this.clientTracker = null;
+            this.connector = null;
+            this.callHandler = null;
+            this.window = $window;
+            this.clientTracker = new samp.ClientTracker();
+            this.callHandler = this.clientTracker.callHandler;
+
+            // generic call handler
+            this.callHandler['samp.app.ping'] = function (senderId, message, isCall) {
+                console.log('Ping ' + senderId + ' ' + JSON.stringify(message));
+            };
+            this.callHandler['samp.hub.disconnect'] = function (senderId, message) {
+                console.log('Disconnect ' + senderId + ' ' + JSON.stringify(message));
+                _this.window.isSampRegistered = false;
+            };
+            this.callHandler['samp.hub.event.shutdown'] = function (senderId, message) {
+                console.log('Shutdown ' + senderId + ' ' + JSON.stringify(message));
+                _this.window.isSampRegistered = false;
+            };
+
+            var baseUrl = this.window.location.href.toString().replace(new RegExp('[^/]*$'), '').replace('#/', '');
+            var meta = {
+                'samp.name': 'IMPExPortal',
+                'samp.description': 'Simple VOTable distributor',
+                'samp.icon.url': baseUrl + 'public/img/clientIcon.gif',
+                'author.mail': 'florian.topf@gmail.com',
+                'author.name': 'Florian Topf'
+            };
+            var subs = this.clientTracker.calculateSubscriptions();
+
+            // init connection
+            this.connector = new samp.Connector("IMPExPortal", meta, this.clientTracker, subs);
+        }
+        SampService.$inject = ['$window'];
+        return SampService;
+    })();
+    portal.SampService = SampService;
+})(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
     var ConfigCtrl = (function () {
         function ConfigCtrl($scope, $interval, configService, userService, $state, config, userData, regions) {
             var _this = this;
@@ -1204,7 +1249,7 @@ var portal;
     'use strict';
 
     var PortalCtrl = (function () {
-        function PortalCtrl($scope, $window, $timeout, configService, methodsService, registryService, $state, growl) {
+        function PortalCtrl($scope, $window, $timeout, configService, methodsService, registryService, sampService, $state, growl) {
             var _this = this;
             this.ready = false;
             this.databasesTooltip = 'Within the different IMPEx-databases, you can browse the trees of all<br/>' + 'service providers for getting an overview of all available data and its metadata.<br/>' + 'Suitable tree elements can be selected and will then be stored automatically in<br/>' + 'the &ldquo;My Data&rdquo; dialog for their further usage in the &ldquo;Data Access&rdquo; area.<br/>' + 'Please be aware that only the selections of the respective database will be<br/>' + 'visible in the Databases and Data Access dialogs of the IMPEx Portal.';
@@ -1214,6 +1259,8 @@ var portal;
             this.filterTooltip = 'This function can be used to filter IMPEx databases and services via<br/>' + 'customized criteria.<br/>' + 'Those who do not fit the criteria will be deactivated.';
             this.isFilterCollapsed = true;
             this.isFilterLoading = false;
+            this.isFilterSelected = false;
+            this.isSampCollapsed = true;
             this.scope = $scope;
             this.scope.vm = this;
             this.window = $window;
@@ -1221,6 +1268,7 @@ var portal;
             this.configService = configService;
             this.methodsService = methodsService;
             this.registryService = registryService;
+            this.sampService = sampService;
             this.state = $state;
             this.growl = growl;
 
@@ -1233,6 +1281,26 @@ var portal;
                 _this.registryService.selectedFilter[r] = false;
             });
 
+            // @TODO we must extend this to save all current clients
+            this.sampService.clientTracker.onchange = function (id, type, data) {
+                var ids = _this.sampService.clientTracker.connection ? _this.sampService.clientTracker.ids : [];
+                console.log("Hello " + JSON.stringify(ids));
+            };
+
+            // unregister from SAMP when navigating away
+            var onBeforeUnloadHandler = function (e) {
+                _this.sampService.connector.unregister();
+
+                // accessing the global var
+                _this.window.isSampRegistered = false;
+            };
+            if (this.window.addEventListener) {
+                this.window.addEventListener('beforeunload', onBeforeUnloadHandler);
+            } else {
+                this.window.onbeforeunload = onBeforeUnloadHandler;
+            }
+
+            // @TODO here we will activate the action path
             this.scope.$on('service-loading', function (e, id) {
                 console.log('loading at ' + id);
             });
@@ -1245,22 +1313,29 @@ var portal;
                 console.log('error at ' + id);
             });
         }
-        PortalCtrl.prototype.notImplemented = function () {
-            this.window.alert('This functionality is not yet implemented.');
-        };
-
+        //public notImplemented() {
+        //    this.window.alert('This functionality is not yet implemented.')
+        //}
         PortalCtrl.prototype.selectFilter = function (region) {
             this.registryService.selectedFilter[region] = !this.registryService.selectedFilter[region];
+            this.isFilterSelected = false;
+            for (var region in this.registryService.selectedFilter) {
+                if (this.registryService.selectedFilter[region]) {
+                    this.isFilterSelected = true;
+                    break;
+                }
+            }
         };
 
         PortalCtrl.prototype.resetFilter = function () {
             for (var region in this.registryService.selectedFilter) {
                 this.registryService.selectedFilter[region] = false;
             }
-            this.registryService.isFilterSet = false;
             for (var id in this.configService.filterMap) {
                 this.configService.filterMap[id] = true;
             }
+            this.registryService.isFilterSet = false;
+            this.isFilterSelected = false;
             //console.log(JSON.stringify(this.configService.filterMap))
         };
 
@@ -1271,7 +1346,6 @@ var portal;
             this.registryService.isFilterSet = false;
             var counter = 0;
             var tempMap = {};
-
             for (var region in this.registryService.selectedFilter) {
                 if (this.registryService.selectedFilter[region]) {
                     counter++;
@@ -1299,6 +1373,52 @@ else
                 }
             }
         };
+
+        // @FIXME not working optimal on register
+        // (delay because of isSampRegistered global var)
+        PortalCtrl.prototype.registerSamp = function () {
+            //this.sampConnector.register()
+            var send = function (connection) {
+                // check if this is working
+                connection.notifyAll([new samp.Message("samp.app.ping", {})]);
+
+                // accessing the global var
+                isSampRegistered = true;
+            };
+
+            var error = function (e) {
+                alert("Not Hub available. Please start an external Hub before.");
+
+                // accessing the global var
+                isSampRegistered = false;
+            };
+
+            this.sampService.connector.runWithConnection(send, error);
+        };
+
+        PortalCtrl.prototype.unregisterSamp = function () {
+            this.sampService.connector.unregister();
+            this.window.isSampRegistered = false;
+        };
+
+        // just for testing basic sending
+        PortalCtrl.prototype.sendToSamp = function () {
+            // URL of table to send.
+            var tableUrl = "http://impex-fp7.fmi.fi/ws/data/VOT_4kuZOr8ihD.vot";
+
+            // broadcasts a table given a hub connection
+            var send = function (connection) {
+                var msg = new samp.Message("table.load.votable", { "url": tableUrl });
+                connection.notifyAll([msg]);
+            };
+
+            // In any error case call this
+            var error = function (e) {
+                console.log("Error " + e);
+            };
+
+            this.sampService.connector.runWithConnection(send, error);
+        };
         PortalCtrl.$inject = [
             '$scope',
             '$window',
@@ -1306,6 +1426,7 @@ else
             'configService',
             'methodsService',
             'registryService',
+            'sampService',
             '$state',
             'growl'
         ];
@@ -1973,7 +2094,7 @@ var portal;
     'use strict';
 
     var UserDataDir = (function () {
-        function UserDataDir(registryService, methodsService, userService, $window, $state, growl) {
+        function UserDataDir(registryService, methodsService, userService, sampService, $window, $state, growl) {
             var _this = this;
             this.repositoryId = null;
             this.isCollapsed = {};
@@ -1992,6 +2113,7 @@ var portal;
             this.registryService = registryService;
             this.methodsService = methodsService;
             this.userService = userService;
+            this.sampService = sampService;
             this.window = $window;
             this.state = $state;
             this.growl = growl;
@@ -2006,11 +2128,12 @@ var portal;
                 'registryService',
                 'methodsService',
                 'userService',
+                'sampService',
                 '$window',
                 '$state',
                 'growl',
-                function (registryService, methodsService, userService, $window, $state, growl) {
-                    return new UserDataDir(registryService, methodsService, userService, $window, $state, growl);
+                function (registryService, methodsService, userService, sampService, $window, $state, growl) {
+                    return new UserDataDir(registryService, methodsService, userService, sampService, $window, $state, growl);
                 }
             ];
         };
@@ -2088,6 +2211,7 @@ var portal;
 
             // comes from MethodsCtrl
             this.myScope.$on('set-applyable-elements', function (e, elements) {
+                //console.log(elements)
                 //console.log('set-applyable-elements')
                 _this.applyableElements = elements.split(',').map(function (e) {
                     return e.trim();
@@ -2107,17 +2231,22 @@ var portal;
                 _this.isVOTApplyable = b;
             });
 
-            // comes from MethodsCtrl => needed for SINP models/output
-            // @FIXME maybe not valid for all use cases
+            // comes from MethodsCtrl => hack for SINP models/output
             this.myScope.$on('set-applyable-models', function (e, m) {
                 //console.log(m)
                 //console.log('set-applyable-models')
                 _this.applyableModel = m;
                 if (_this.user.activeSelection.length == 1) {
                     var element = _this.user.activeSelection[0];
+
+                    // we just check the onfly numerical output elements too
                     var output = _this.applyableModel.replace('SimulationModel', 'NumericalOutput');
-                    var index = element.elem.resourceId.indexOf(output.replace('OnFly', ''));
+
+                    //var index = element.elem.resourceId.indexOf(output.replace('OnFly', ''))
+                    var index = element.elem.resourceId.indexOf(output);
                     if (_this.applyableModel == element.elem.resourceId || index != -1)
+                        _this.isSelApplyable = true;
+else if (_this.applyableModel == 'static' && element.elem.resourceId.indexOf('OnFly') == -1)
                         _this.isSelApplyable = true;
 else
                         _this.isSelApplyable = false;
@@ -2215,8 +2344,12 @@ else
 
                     if (this.applyableModel) {
                         var output = this.applyableModel.replace('SimulationModel', 'NumericalOutput');
-                        var index = selection.elem.resourceId.indexOf(output.replace('OnFly', ''));
+
+                        //var index = selection.elem.resourceId.indexOf(output.replace('OnFly', ''))
+                        var index = selection.elem.resourceId.indexOf(output);
                         if (this.applyableModel == selection.elem.resourceId || index != -1)
+                            this.isSelApplyable = true;
+else if (this.applyableModel == 'static' && selection.elem.resourceId.indexOf('OnFly') == -1)
                             this.isSelApplyable = true;
 else
                             this.isSelApplyable = false;
@@ -2309,6 +2442,9 @@ else
             var _this = this;
             if (this.window.confirm('Do you want to delete all ' + type + '?')) {
                 if (type == 'selections') {
+                    // reset expanded selection
+                    this.user.activeSelection = [];
+
                     if (this.state.current.name == 'app.portal.userdata') {
                         this.user.selections = [];
                         this.userService.localStorage.selections = null;
@@ -2318,7 +2454,7 @@ else
                         });
                         this.userService.localStorage.selections = this.user.selections;
                     }
-                } else if (type = 'votables') {
+                } else if (type == 'votables') {
                     this.user.voTables.forEach(function (vot) {
                         _this.userService.deleteUserData(vot.url.split('/').reverse()[0]);
                         delete _this.isCollapsed[vot.id];
@@ -2338,6 +2474,24 @@ else
                 }
                 this.growl.info('Deleted all ' + type + ' from user data');
             }
+        };
+
+        // just for testing basic sending
+        UserDataDir.prototype.sendToSamp = function (tableUrl) {
+            console.log('sending ' + tableUrl);
+
+            // broadcasts a table given a hub connection
+            var send = function (connection) {
+                var msg = new samp.Message("table.load.votable", { "url": tableUrl });
+                connection.notifyAll([msg]);
+            };
+
+            // in any error case call this
+            var error = function (e) {
+                console.log("Error " + e);
+            };
+
+            this.sampService.connector.runWithConnection(send, error);
         };
         return UserDataDir;
     })();
@@ -2519,6 +2673,11 @@ var portal;
                 _this.request[p.name] = p.defaultValue;
             });
 
+            if (this.method.path.indexOf('getVOTableURL') != -1) {
+                this.request['Table_name'] = 'Table Name';
+                this.request['Description'] = 'Table Description';
+            }
+
             if (this.repositoryId in this.userService.sessionStorage.methods) {
                 if (this.userService.sessionStorage.methods[this.repositoryId].path == this.method.path) {
                     this.request = this.userService.sessionStorage.methods[this.repositoryId].params;
@@ -2577,6 +2736,9 @@ var portal;
                     if (index != -1)
                         this.myScope.$broadcast('set-applyable-models', key);
                 }
+
+                if (this.method.operations[0].nickname.indexOf('get') != -1)
+                    this.myScope.$broadcast('set-applyable-models', 'static');
             }
         };
 
@@ -2753,6 +2915,7 @@ var portal;
     impexPortal.service('registryService', portal.RegistryService);
     impexPortal.service('methodsService', portal.MethodsService);
     impexPortal.service('userService', portal.UserService);
+    impexPortal.service('sampService', portal.SampService);
 
     impexPortal.controller('configCtrl', portal.ConfigCtrl);
     impexPortal.controller('portalCtrl', portal.PortalCtrl);
@@ -2796,7 +2959,7 @@ var portal;
     impexPortal.config([
         'growlProvider',
         function (growlProvider) {
-            growlProvider.globalTimeToLive(4000);
+            growlProvider.globalTimeToLive(5000);
             growlProvider.onlyUniqueMessages(false);
         }
     ]);

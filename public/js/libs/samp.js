@@ -8,6 +8,9 @@
 // currently visible at http://astrojs.github.com/sampjs/
 // (gh-pages branch of github sources).
 
+/* hack for the portal */
+var isSampRegistered = false
+
 var samp = (function() {
 
     // Constants defining well-known location of SAMP Web Profile hub etc.

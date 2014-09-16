@@ -96,8 +96,13 @@
 		<div ng-repeat="res in userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId }" 
 			ng-hide="userdirvm.isCollapsed[res.id]">
 			<div class="well well-sm overflow-500">
-				<button type="button" class="pull-right btn btn-danger btn-sm" 
-					ng-click="userdirvm.deleteResult(res.id)">Delete</button>
+				<div class="pull-right">
+					<button type="button" class="btn btn-danger btn-sm margin-r-5" 
+						ng-click="userdirvm.deleteResult(res.id)">Delete</button>
+					<button type="button" class="btn btn-primary btn-sm"
+						ng-if="userdirvm.window.isSampRegistered" 
+						ng-click="userdirvm.sendToSamp(res.content.message)">Delegate</button>
+				</div>
 				<h4>Service Result {{ res.id }}: {{ res.method.replace('/methods', '') }}</h4>
 				<p class="word-wrap">
 					<selection-dir selection="res"></selection-dir>

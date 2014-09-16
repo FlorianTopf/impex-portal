@@ -6,10 +6,15 @@ module portal {
     export interface IPortalScope extends ng.IScope {
         vm: PortalCtrl
     }
+        
+    // needed for external SAMP lib
+    declare var samp: any
+    declare var isSampRegistered: boolean
     
     export class PortalCtrl {
         private scope: portal.IPortalScope
-        private window: ng.IWindowService
+        // we must use any here (to access global vars)
+        private window: any
         private timeout: ng.ITimeoutService
         private state: ng.ui.IStateService
         private growl: any
@@ -18,6 +23,7 @@ module portal {
         public configService: portal.ConfigService
         public methodsService: portal.MethodsService
         public registryService: portal.RegistryService
+        public sampService: portal.SampService
         public databasesTooltip: string = 'Within the different IMPEx-databases, you can browse the trees of all<br/>'+
             'service providers for getting an overview of all available data and its metadata.<br/>'+
             'Suitable tree elements can be selected and will then be stored automatically in<br/>'+
@@ -49,12 +55,15 @@ module portal {
             'Those who do not fit the criteria will be deactivated.'
         public isFilterCollapsed: boolean = true
         public isFilterLoading: boolean = false
+        public isFilterSelected: boolean = false
+        public isSampCollapsed: boolean = true
       
         static $inject: Array<string> = ['$scope', '$window', '$timeout', 'configService', 
-            'methodsService', 'registryService', '$state', 'growl']
+            'methodsService', 'registryService', 'sampService', '$state', 'growl']
 
-        constructor($scope: IPortalScope, $window: ng.IWindowService, $timeout: ng.ITimeoutService, configService: portal.ConfigService, 
-            methodsService: portal.MethodsService, registryService: portal.RegistryService, $state: ng.ui.IStateService, growl: any) { 
+        constructor($scope: IPortalScope, $window: any, $timeout: ng.ITimeoutService, configService: portal.ConfigService, 
+            methodsService: portal.MethodsService, registryService: portal.RegistryService, 
+            sampService: portal.SampService, $state: ng.ui.IStateService, growl: any) { 
             this.scope = $scope
             this.scope.vm = this
             this.window = $window
@@ -62,6 +71,7 @@ module portal {
             this.configService = configService
             this.methodsService = methodsService
             this.registryService = registryService
+            this.sampService = sampService
             this.state = $state
             this.growl = growl
             
@@ -74,6 +84,25 @@ module portal {
                 this.registryService.selectedFilter[r] = false
             })
             
+            // @TODO we must extend this to save all current clients
+            this.sampService.clientTracker.onchange = (id, type, data) => {
+                var ids = this.sampService.clientTracker.connection ? this.sampService.clientTracker.ids : []
+                console.log("Hello "+JSON.stringify(ids))
+            }
+            
+            // unregister from SAMP when navigating away
+            var onBeforeUnloadHandler = (e) => {
+                this.sampService.connector.unregister()
+                // accessing the global var
+                this.window.isSampRegistered = false 
+            }
+            if (this.window.addEventListener) {
+                this.window.addEventListener('beforeunload', onBeforeUnloadHandler)
+            } else {
+                this.window.onbeforeunload = onBeforeUnloadHandler
+            }
+            
+            // @TODO here we will activate the action path
             this.scope.$on('service-loading', (e, id: string) => { 
                 console.log('loading at '+id)
             })
@@ -85,25 +114,34 @@ module portal {
             this.scope.$on('service-error', (e, id: string) => { 
                 console.log('error at '+id)
             })
+            
         }
         
-        public notImplemented() {
-            this.window.alert('This functionality is not yet implemented.')
-        }
+        //public notImplemented() {
+        //    this.window.alert('This functionality is not yet implemented.')
+        //}
         
         public selectFilter(region: string) {
             this.registryService.selectedFilter[region] = 
                 !this.registryService.selectedFilter[region]
+            this.isFilterSelected = false
+            for(var region in this.registryService.selectedFilter) {
+                if(this.registryService.selectedFilter[region]){
+                    this.isFilterSelected = true
+                    break
+                }
+            } 
         }
         
         public resetFilter() {
             for(var region in this.registryService.selectedFilter) {
                 this.registryService.selectedFilter[region] = false
             }
-            this.registryService.isFilterSet = false
             for(var id in this.configService.filterMap) {
                 this.configService.filterMap[id] = true
             }
+            this.registryService.isFilterSet = false
+            this.isFilterSelected = false
             //console.log(JSON.stringify(this.configService.filterMap))
         }
         
@@ -113,7 +151,6 @@ module portal {
             this.registryService.isFilterSet = false
             var counter = 0
             var tempMap: IBooleanMap = {}
-            //for(var region in this.selectedFilter) {
             for(var region in this.registryService.selectedFilter) {
                 if(this.registryService.selectedFilter[region]) {
                     counter++
@@ -142,6 +179,50 @@ module portal {
                     })
                 }
             }
+        }
+        
+        // @FIXME not working optimal on register 
+        // (delay because of isSampRegistered global var)
+        public registerSamp() {
+            //this.sampConnector.register()
+            var send = (connection) => {
+                // check if this is working
+                connection.notifyAll([new samp.Message("samp.app.ping", {})])
+                // accessing the global var
+                isSampRegistered = true
+            }
+            
+            var error = (e) => {
+                alert("Not Hub available. Please start an external Hub before.")
+                // accessing the global var
+                isSampRegistered = false
+            }
+            
+            this.sampService.connector.runWithConnection(send, error)
+        }
+        
+        public unregisterSamp() {
+            this.sampService.connector.unregister()
+            this.window.isSampRegistered = false
+        }
+        
+        // just for testing basic sending
+        public sendToSamp() {
+            // URL of table to send.
+            var tableUrl = "http://impex-fp7.fmi.fi/ws/data/VOT_4kuZOr8ihD.vot"
+
+            // broadcasts a table given a hub connection
+            var send = (connection) => {
+                var msg = new samp.Message("table.load.votable", { "url": tableUrl })
+                connection.notifyAll([msg])
+            }
+            
+            // In any error case call this
+            var error = (e) => {
+                console.log("Error "+e)
+            }
+            
+            this.sampService.connector.runWithConnection(send, error)
         }
         
 
