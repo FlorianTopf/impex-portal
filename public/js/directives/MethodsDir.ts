@@ -90,6 +90,11 @@ module portal {
             this.method.operations[0].parameters.forEach((p) => {
                 this.request[p.name] = p.defaultValue     
             })
+            // set default values for these two parameters of getVOTableURL
+            if(this.method.path.indexOf('getVOTableURL') != -1) {
+                this.request['Table_name'] = 'Table Name'
+                this.request['Description'] = 'Table Description'
+            }
             // refresh session storage
             if(this.repositoryId in this.userService.sessionStorage.methods) {
                 if(this.userService.sessionStorage.methods[this.repositoryId].path == this.method.path) {
@@ -147,8 +152,10 @@ module portal {
                     var index = methods.indexOf(this.method.operations[0].nickname)
                     if(index != -1) this.myScope.$broadcast('set-applyable-models', key) 
                }
+               // hack for all get methods of SINP (only static elements apply)
+               if(this.method.operations[0].nickname.indexOf('get') != -1)
+                   this.myScope.$broadcast('set-applyable-models', 'static')
             }
-            
         }
         
         // method for applying a selection to the current method
