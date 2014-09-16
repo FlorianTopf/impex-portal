@@ -398,7 +398,7 @@ object FMIMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_density_value", 
-        value = "SW Density", 
+        value = "SW Density [1/m^3]", 
         defaultValue = "5e6",
         required = false, 
         dataType = "double", 
@@ -426,7 +426,7 @@ object FMIMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_temp_value", 
-        value = "SW Temperature Value", 
+        value = "SW Temperature [K]", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
@@ -454,7 +454,7 @@ object FMIMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_utot_value", 
-        value = "SW Total Velocity", 
+        value = "SW Total Velocity [m/s]", 
         defaultValue = "4.5e5",
         required = false, 
         dataType = "double", 
@@ -482,7 +482,7 @@ object FMIMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_bx_value", 
-        value = "SW Bx", 
+        value = "SW Bx [T]", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
@@ -510,7 +510,7 @@ object FMIMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_by_value", 
-        value = "SW By", 
+        value = "SW By [T]", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
@@ -538,7 +538,7 @@ object FMIMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_bz_value", 
-        value = "SW Bz", 
+        value = "SW Bz [T]", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
@@ -566,7 +566,7 @@ object FMIMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_btot_value", 
-        value = "SW Total B", 
+        value = "SW Total B [T]", 
         defaultValue = "",
         required = false, 
         dataType = "double", 
@@ -644,7 +644,7 @@ object FMIMethods extends MethodsController {
         swBxParam, // sw Bx
         swByParam, //  sw By
         swBzParam, // sw Bz
-        None, // solar F10.7 (@TODO to be added)
+        None, // solar F10.7 (@TODO to be added, SFU (Solar Flux Unit)
         swFunParam // sw function
     )
            
