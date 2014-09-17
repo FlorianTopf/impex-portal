@@ -85,7 +85,7 @@
 						ng-click="userdirvm.deleteVOTable(vot)">Delete</button>
 					<button type="button" class="btn btn-primary btn-sm margin-r-5"
 						ng-disabled="!userdirvm.window.isSampRegistered" 
-						ng-click="userdirvm.sendToSamp(res.content.message)">Delegate</button>
+						ng-click="userdirvm.sendToSamp(vot.url)">Delegate</button>
 					<button type="button" class="btn btn-primary btn-sm"
 						ng-if="userdirvm.isVOTApplyable" 
 						ng-click="userdirvm.applyVOTable(vot.url)">Apply</button>
