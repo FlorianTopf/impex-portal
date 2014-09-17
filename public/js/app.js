@@ -1138,9 +1138,9 @@ var portal;
     var SampService = (function () {
         function SampService($window) {
             var _this = this;
+            this.callHandler = null;
             this.clientTracker = null;
             this.connector = null;
-            this.callHandler = null;
             this.window = $window;
             this.clientTracker = new samp.ClientTracker();
             this.callHandler = this.clientTracker.callHandler;
@@ -2549,7 +2549,7 @@ var portal;
 
         MemberDir.prototype.linkFn = function ($scope, element, attributes) {
             var _this = this;
-            element.append('<strong>' + this.beautify($scope.name) + '</strong> : ');
+            element.append('<strong>' + this.beautify($scope.name) + '</strong>&nbsp;:&nbsp;');
             if (angular.isArray($scope.member)) {
                 angular.forEach($scope.member, function (m, i) {
                     if (angular.isString(m) || angular.isNumber(m))

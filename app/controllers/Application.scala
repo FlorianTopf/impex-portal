@@ -150,14 +150,25 @@ object Application extends BaseController {
     }   
   }
   
-  // route for getting one file
+  // route for getting one file => url is public (we need to send it to tools)
   def getUserdata(fileName: String) = PortalAction { implicit request => 
+    def getRecursiveListOfFiles(dir: File): Array[File] = {
+    	val these = dir.listFiles
+    	these ++ these.filter(_.isDirectory).flatMap(getRecursiveListOfFiles)
+    }
     try {
-      val file = new File("userdata/"+request.sessionId+"/"+fileName)
+    //val file = new File("userdata/"+request.sessionId+"/"+fileName)
+      val dir = new File("userdata/")
+      
+      val allFiles = getRecursiveListOfFiles(dir)
+      val file = allFiles.filter((f) => { f.getName() == fileName }).head
+      
       val xml = scala.xml.XML.loadFile(file)
       Ok(xml).withSession("id" -> request.sessionId)
+
     } catch {
-      case e: FileNotFoundException => BadRequest("File Not Found")
+      //case e: FileNotFoundException => BadRequest("File Not Found")
+      case e: NoSuchElementException => BadRequest("File Not Found")
     }
   }
   
