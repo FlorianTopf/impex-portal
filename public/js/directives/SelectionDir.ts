@@ -65,7 +65,7 @@ module portal {
         }
         
         linkFn($scope: any, element: JQuery, attributes: ng.IAttributes): any {   
-            element.append('<strong>'+this.beautify($scope.name)+'</strong> : ')
+            element.append('<strong>'+this.beautify($scope.name)+'</strong>&nbsp;:&nbsp;')
             if(angular.isArray($scope.member)) {
                 angular.forEach($scope.member, (m, i) => {
                     if(angular.isString(m) || angular.isNumber(m))

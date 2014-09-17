@@ -10,9 +10,9 @@ module portal {
         static $inject: Array<string> = ['$window']
         // we must use any here (to access global vars)
         private window: any
+        private callHandler: any = null
         public clientTracker: any = null
         public connector: any = null
-        public callHandler: any = null
         
         constructor($window: ng.IWindowService){
            this.window = $window
