@@ -57,6 +57,7 @@ module portal {
         public isFilterLoading: boolean = false
         public isFilterSelected: boolean = false
         public isSampCollapsed: boolean = true
+
       
         static $inject: Array<string> = ['$scope', '$window', '$timeout', 'configService', 
             'methodsService', 'registryService', 'sampService', '$state', 'growl']
@@ -86,8 +87,14 @@ module portal {
             
             // @TODO we must extend this to save all current clients
             this.sampService.clientTracker.onchange = (id, type, data) => {
+                this.sampService.clients = {}
                 var ids = this.sampService.clientTracker.connection ? this.sampService.clientTracker.ids : []
-                console.log("Hello "+JSON.stringify(ids))
+                for(var id in ids){
+                    this.sampService.clients[id] = {
+                        'metas': this.sampService.clientTracker.metas[id],
+                        'subs': this.sampService.clientTracker.subs[id]
+                    }
+                }
             }
             
             // unregister from SAMP when navigating away
@@ -95,6 +102,7 @@ module portal {
                 this.sampService.connector.unregister()
                 // accessing the global var
                 this.window.isSampRegistered = false 
+                this.sampService.clients = {}
             }
             if (this.window.addEventListener) {
                 this.window.addEventListener('beforeunload', onBeforeUnloadHandler)
@@ -204,6 +212,7 @@ module portal {
         public unregisterSamp() {
             this.sampService.connector.unregister()
             this.window.isSampRegistered = false
+            this.sampService.clients = {}
         }
         
         // just for testing basic sending

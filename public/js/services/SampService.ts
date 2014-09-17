@@ -13,6 +13,7 @@ module portal {
         private callHandler: any = null
         public clientTracker: any = null
         public connector: any = null
+        public clients: Object = {}
         
         constructor($window: ng.IWindowService){
            this.window = $window

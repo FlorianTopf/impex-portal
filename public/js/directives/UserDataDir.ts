@@ -385,7 +385,8 @@ module portal {
              }
         }
         
-        // just for testing basic sending
+        // @TODO we must test if the Url is still valid
+        // @TODO we must introduce parameter for target client
         public sendToSamp(tableUrl: string) {
             console.log('sending '+tableUrl)
             

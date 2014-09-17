@@ -1141,6 +1141,7 @@ var portal;
             this.callHandler = null;
             this.clientTracker = null;
             this.connector = null;
+            this.clients = {};
             this.window = $window;
             this.clientTracker = new samp.ClientTracker();
             this.callHandler = this.clientTracker.callHandler;
@@ -1283,8 +1284,14 @@ var portal;
 
             // @TODO we must extend this to save all current clients
             this.sampService.clientTracker.onchange = function (id, type, data) {
+                _this.sampService.clients = {};
                 var ids = _this.sampService.clientTracker.connection ? _this.sampService.clientTracker.ids : [];
-                console.log("Hello " + JSON.stringify(ids));
+                for (var id in ids) {
+                    _this.sampService.clients[id] = {
+                        'metas': _this.sampService.clientTracker.metas[id],
+                        'subs': _this.sampService.clientTracker.subs[id]
+                    };
+                }
             };
 
             // unregister from SAMP when navigating away
@@ -1293,6 +1300,7 @@ var portal;
 
                 // accessing the global var
                 _this.window.isSampRegistered = false;
+                _this.sampService.clients = {};
             };
             if (this.window.addEventListener) {
                 this.window.addEventListener('beforeunload', onBeforeUnloadHandler);
@@ -1399,6 +1407,7 @@ else
         PortalCtrl.prototype.unregisterSamp = function () {
             this.sampService.connector.unregister();
             this.window.isSampRegistered = false;
+            this.sampService.clients = {};
         };
 
         // just for testing basic sending
@@ -2476,7 +2485,8 @@ else
             }
         };
 
-        // just for testing basic sending
+        // @TODO we must test if the Url is still valid
+        // @TODO we must introduce parameter for target client
         UserDataDir.prototype.sendToSamp = function (tableUrl) {
             console.log('sending ' + tableUrl);
 
