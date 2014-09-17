@@ -3,6 +3,8 @@
 module portal {
     'use strict';
     
+    declare var moment: any
+    
     export interface IMethodsDirScope extends ng.IScope {
        methdirvm: MethodsDir
     }
@@ -192,8 +194,11 @@ module portal {
         
         public updateRequestDate(paramName: string) {
             if(paramName in this.request) {
+                console.log(this.request[paramName])
                 var iso = new Date(this.request[paramName])
-                this.request[paramName] = iso.toISOString()
+                //this.request[paramName] = iso.toISOString()
+                // puts timezone => not sure if this is working at every provider
+                this.request[paramName] = moment(iso).format()
                 this.userService.sessionStorage.methods[this.repositoryId]
                     .params[paramName] = this.request[paramName]
             }

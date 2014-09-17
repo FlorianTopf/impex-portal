@@ -14,6 +14,10 @@ body {
 	margin-bottom: 5%;
 }
 
+.brand-icon {
+	width: 160px;
+}
+
 .container {
 	min-width: 768px;
 	margin-top: 2%;

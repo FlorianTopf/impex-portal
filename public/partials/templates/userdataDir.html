@@ -60,12 +60,12 @@
 		<div ng-repeat="sel in userdirvm.user.activeSelection" ng-hide="userdirvm.isCollapsed[sel.id]">
 			<div class="well well-sm overflow-500">
 				<div class="pull-right">
-					<button type="button" class="btn btn-success btn-sm margin-r-5" 
-						ng-if="userdirvm.isSelectable(sel.type) == true && userdirvm.isSelSaved(sel.id) == false" 
-						ng-click="userdirvm.saveSelection(sel.id)">Select</button>
 					<button type="button" class="btn btn-danger btn-sm margin-r-5" 
 						ng-if="userdirvm.isSelSaved(sel.id) == true"
 						ng-click="userdirvm.deleteSelection(sel.id)">Delete</button>
+					<button type="button" class="btn btn-success btn-sm margin-r-5" 
+						ng-if="userdirvm.isSelectable(sel.type) == true && userdirvm.isSelSaved(sel.id) == false" 
+						ng-click="userdirvm.saveSelection(sel.id)">Select</button>
 					<button type="button" class="btn btn-primary btn-sm"
 						ng-if="userdirvm.isSelApplyable" 
 						ng-click="userdirvm.applySelection(sel.elem.resourceId)">Apply</button>
@@ -83,6 +83,9 @@
 				<div class="pull-right">
 					<button type="button" class="btn btn-danger btn-sm margin-r-5" 
 						ng-click="userdirvm.deleteVOTable(vot)">Delete</button>
+					<button type="button" class="btn btn-primary btn-sm margin-r-5"
+						ng-disabled="!userdirvm.window.isSampRegistered" 
+						ng-click="userdirvm.sendToSamp(res.content.message)">Delegate</button>
 					<button type="button" class="btn btn-primary btn-sm"
 						ng-if="userdirvm.isVOTApplyable" 
 						ng-click="userdirvm.applyVOTable(vot.url)">Apply</button>
@@ -100,7 +103,7 @@
 					<button type="button" class="btn btn-danger btn-sm margin-r-5" 
 						ng-click="userdirvm.deleteResult(res.id)">Delete</button>
 					<button type="button" class="btn btn-primary btn-sm"
-						ng-if="userdirvm.window.isSampRegistered" 
+						ng-disabled="!userdirvm.window.isSampRegistered" 
 						ng-click="userdirvm.sendToSamp(res.content.message)">Delegate</button>
 				</div>
 				<h4>Service Result {{ res.id }}: {{ res.method.replace('/methods', '') }}</h4>

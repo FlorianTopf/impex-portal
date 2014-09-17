@@ -1387,7 +1387,7 @@ else
             };
 
             var error = function (e) {
-                alert("Not Hub available. Please start an external Hub before.");
+                alert("No Hub available. Please start an external Hub before registering.");
 
                 // accessing the global var
                 isSampRegistered = false;
@@ -2778,8 +2778,12 @@ var portal;
 
         MethodsDir.prototype.updateRequestDate = function (paramName) {
             if (paramName in this.request) {
+                console.log(this.request[paramName]);
                 var iso = new Date(this.request[paramName]);
-                this.request[paramName] = iso.toISOString();
+
+                //this.request[paramName] = iso.toISOString()
+                // puts timezone => not sure if this is working at every provider
+                this.request[paramName] = moment(iso).format();
                 this.userService.sessionStorage.methods[this.repositoryId].params[paramName] = this.request[paramName];
             }
         };

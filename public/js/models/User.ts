@@ -3,6 +3,12 @@
 module portal {
     'use strict';
     
+    // describes an angular resource
+    export interface IUserData extends ng.resource.IResource<IUserData> {
+        id: string
+        url: string
+    }
+    
     // currently saved results 
     export class Result {
         constructor(

@@ -193,7 +193,7 @@ module portal {
             }
             
             var error = (e) => {
-                alert("Not Hub available. Please start an external Hub before.")
+                alert("No Hub available. Please start an external Hub before registering.")
                 // accessing the global var
                 isSampRegistered = false
             }
