@@ -927,7 +927,7 @@ var portal;
     'use strict';
 
     var RegistryService = (function () {
-        function RegistryService($resource) {
+        function RegistryService($rootScope, $resource) {
             this.url = '/';
             this.isFilterSet = false;
             this.selectedFilter = {};
@@ -941,11 +941,17 @@ var portal;
                 isArray: false
             };
             this.resource = $resource;
+            this.scope = $rootScope;
             this.selectables['spase://IMPEX/Repository/FMI/HYB'] = ['NumericalOutput'];
             this.selectables['spase://IMPEX/Repository/FMI/GUMICS'] = ['NumericalOutput'];
             this.selectables['spase://IMPEX/Repository/LATMOS'] = ['SimulationRun', 'NumericalOutput'];
             this.selectables['spase://IMPEX/Repository/SINP'] = ['SimulationModel', 'NumericalOutput'];
         }
+        RegistryService.prototype.notify = function (status, id) {
+            if (status == 'success')
+                this.scope.$broadcast('database-success', id);
+        };
+
         RegistryService.prototype.Repository = function () {
             return this.resource(this.url + 'registry/repository?', { id: '@id', fmt: '@fmt' }, { getRepository: this.registryAction });
         };
@@ -965,7 +971,7 @@ var portal;
         RegistryService.prototype.Granule = function () {
             return this.resource(this.url + 'registry/granule?', { id: '@id', fmt: '@fmt' }, { getGranule: this.registryAction });
         };
-        RegistryService.$inject = ['$resource'];
+        RegistryService.$inject = ['$rootScope', '$resource'];
         return RegistryService;
     })();
     portal.RegistryService = RegistryService;
@@ -1309,17 +1315,21 @@ var portal;
                 this.window.onbeforeunload = onBeforeUnloadHandler;
             }
 
-            // @TODO here we will activate the action path
+            // @TODO here we will activate the action paths
             this.scope.$on('service-loading', function (e, id) {
-                console.log('loading at ' + id);
+                console.log('service loading at ' + id);
             });
 
             this.scope.$on('service-success', function (e, id) {
-                console.log('success at ' + id);
+                console.log('service success at ' + id);
             });
 
             this.scope.$on('service-error', function (e, id) {
-                console.log('error at ' + id);
+                console.log('service error at ' + id);
+            });
+
+            this.scope.$on('database-success', function (e, id) {
+                console.log('database success at ' + id);
             });
         }
         //public notImplemented() {
@@ -2338,6 +2348,7 @@ else
             // set selections tab active
             this.tabsActive = [true, false, false];
             this.growl.success('Saved selection to user data');
+            this.registryService.notify('success', this.repositoryId);
         };
 
         UserDataDir.prototype.toggleSelectionDetails = function (id) {

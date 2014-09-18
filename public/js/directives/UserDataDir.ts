@@ -254,6 +254,7 @@ module portal {
             // set selections tab active
             this.tabsActive = [true, false, false] // selections, votables, results
             this.growl.success('Saved selection to user data')
+            this.registryService.notify('success', this.repositoryId)
         }
          
         public toggleSelectionDetails(id: string) {

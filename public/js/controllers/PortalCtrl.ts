@@ -111,17 +111,21 @@ module portal {
                 this.window.onbeforeunload = onBeforeUnloadHandler
             }
             
-            // @TODO here we will activate the action path
+            // @TODO here we will activate the action paths
             this.scope.$on('service-loading', (e, id: string) => { 
-                console.log('loading at '+id)
+                console.log('service loading at '+id)
             })
             
             this.scope.$on('service-success', (e, id: string) => {
-                console.log('success at '+id)
+                console.log('service success at '+id)
             })
             
             this.scope.$on('service-error', (e, id: string) => { 
-                console.log('error at '+id)
+                console.log('service error at '+id)
+            })
+            
+            this.scope.$on('database-success', (e, id: string) => {
+                console.log('database success at '+id)
             })
             
         }

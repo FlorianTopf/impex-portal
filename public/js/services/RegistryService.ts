@@ -13,9 +13,10 @@ module portal {
     }
     
     export class RegistryService {
-        static $inject: Array<string> = ['$resource']
+        static $inject: Array<string> = ['$rootScope', '$resource']
         
         private resource: ng.resource.IResourceService
+        private scope: ng.IRootScopeService
         private url: string = '/'
         public isFilterSet: boolean = false
         public selectedFilter: IBooleanMap = {}
@@ -30,12 +31,18 @@ module portal {
             isArray: false
         }
           
-        constructor($resource: ng.resource.IResourceService) {
+        constructor($rootScope: ng.IRootScopeService, $resource: ng.resource.IResourceService) {
             this.resource = $resource
+            this.scope = $rootScope
             this.selectables['spase://IMPEX/Repository/FMI/HYB'] = [ 'NumericalOutput'  ]
             this.selectables['spase://IMPEX/Repository/FMI/GUMICS'] = [ 'NumericalOutput' ]
             this.selectables['spase://IMPEX/Repository/LATMOS'] = [ 'SimulationRun', 'NumericalOutput' ]
             this.selectables['spase://IMPEX/Repository/SINP'] = [ 'SimulationModel', 'NumericalOutput' ]
+        }
+        
+        public notify(status: string, id: string) {
+             if(status == 'success')
+                this.scope.$broadcast('database-success', id)
         }
         
         public Repository(): IRegistryResource {
