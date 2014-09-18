@@ -386,21 +386,18 @@ module portal {
         }
         
         // @TODO we must test if the Url is still valid
-        // @TODO we must introduce parameter for target client
-        public sendToSamp(tableUrl: string) {
-            console.log('sending '+tableUrl)
-            
+        public sendToSamp(tableUrl: string, id: string) {
+            console.log('sending '+tableUrl+' '+id)
             // broadcasts a table given a hub connection
             var send = (connection) => {
                 var msg = new samp.Message("table.load.votable", { "url": tableUrl })
-                connection.notifyAll([msg])
+                //connection.notifyAll([msg])
+                connection.notify([id, msg])
             }
-            
             // in any error case call this
             var error = (e) => {
                 console.log("Error "+e)
             }
-            
             this.sampService.connector.runWithConnection(send, error)
         }
         

@@ -82,6 +82,10 @@ body {
 	font-size: 30px;
 }
 
+.btn.disabled, .btn[disabled] {
+	opacity: .45;
+}
+
 
 /** GLYPHS */
 .glyphicon-rotate {
@@ -280,6 +284,7 @@ button.dropdown-toggle {
 
 .overflow-500 {
 	max-height: 500px; 
+	min-height: 250px;
 	overflow-y: auto; 
 	overflow-x: hidden;
 }

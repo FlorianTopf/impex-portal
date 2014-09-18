@@ -72,8 +72,12 @@
 				</div>
 				<h4>Tree Selection {{ sel.id }}: {{ sel.type }}</h4>
 				<p class="word-wrap">
-					<a target="_blank" ng-href="/registry/{{sel.type.toLowerCase()}}?id={{sel.elem.resourceId|encodeUri}}">Download XML</a><br/>
-					<a target="_blank" ng-href="/registry/{{sel.type.toLowerCase()}}?id={{sel.elem.resourceId|encodeUri}}&r=true">Download recursive XML</a>
+					<a target="_blank" ng-href="/registry/{{sel.type.toLowerCase()}}?id={{sel.elem.resourceId|encodeUri}}">
+						Download XML
+					</a><br/>
+					<a target="_blank" ng-href="/registry/{{sel.type.toLowerCase()}}?id={{sel.elem.resourceId|encodeUri}}&r=true">
+						Download recursive XML
+					</a>
 					<selection-dir selection="sel.elem"></selection-dir>
 				</p>
 			</div>
@@ -83,13 +87,26 @@
 				<div class="pull-right">
 					<button type="button" class="btn btn-danger btn-sm margin-r-5" 
 						ng-click="userdirvm.deleteVOTable(vot)">Delete</button>
-					<button type="button" class="btn btn-primary btn-sm margin-r-5"
-						ng-disabled="!userdirvm.window.isSampRegistered" 
-						ng-click="userdirvm.sendToSamp(vot.url)">Delegate</button>
+					<div class="btn-group">
+  						<button style="width: 120px;" type="button" 
+  							ng-disabled="!userdirvm.window.isSampRegistered" 
+  							class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+    						Delegate to&nbsp;&nbsp;<span class="caret"></span>
+  						</button>
+  						<ul class="dropdown-menu" role="menu">
+    						<li ng-repeat="(id, client) in userdirvm.sampService.clients" 
+    							ng-if="client.subs.hasOwnProperty('table.load.votable')">
+    							<a href="" ng-click="userdirvm.sendToSamp(vot.url, id)">
+    								{{ client.metas['samp.name'] }}
+    							</a>
+    						</li>
+  						</ul>
+					</div>
 					<button type="button" class="btn btn-primary btn-sm"
 						ng-if="userdirvm.isVOTApplyable" 
 						ng-click="userdirvm.applyVOTable(vot.url)">Apply</button>
 				</div>
+
 				<h4>VOTable {{ vot.id }}</h4>
 				<p class="word-wrap">
 					<selection-dir selection="vot"></selection-dir>
@@ -102,9 +119,21 @@
 				<div class="pull-right">
 					<button type="button" class="btn btn-danger btn-sm margin-r-5" 
 						ng-click="userdirvm.deleteResult(res.id)">Delete</button>
-					<button type="button" class="btn btn-primary btn-sm"
-						ng-disabled="!userdirvm.window.isSampRegistered" 
-						ng-click="userdirvm.sendToSamp(res.content.message)">Delegate</button>
+					<div class="btn-group">
+  						<button style="width: 120px;" type="button" 
+  							ng-disabled="!userdirvm.window.isSampRegistered" 
+  							class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+    						Delegate to&nbsp;&nbsp;<span class="caret"></span>
+  						</button>
+  						<ul class="dropdown-menu" role="menu">
+    						<li ng-repeat="(id, client) in userdirvm.sampService.clients" 
+    							ng-if="client.subs.hasOwnProperty('table.load.votable')">
+    							<a href="" ng-click="userdirvm.sendToSamp(res.content.message, id)">
+    								{{ client.metas['samp.name'] }}
+    							</a>
+    						</li>
+  						</ul>
+					</div>
 				</div>
 				<h4>Service Result {{ res.id }}: {{ res.method.replace('/methods', '') }}</h4>
 				<p class="word-wrap">

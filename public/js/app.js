@@ -1282,7 +1282,7 @@ var portal;
                 _this.registryService.selectedFilter[r] = false;
             });
 
-            // @TODO we must extend this to save all current clients
+            // monitoring all current clients
             this.sampService.clientTracker.onchange = function (id, type, data) {
                 _this.sampService.clients = {};
                 var ids = _this.sampService.clientTracker.connection ? _this.sampService.clientTracker.ids : [];
@@ -1291,6 +1291,7 @@ var portal;
                         'metas': _this.sampService.clientTracker.metas[id],
                         'subs': _this.sampService.clientTracker.subs[id]
                     };
+                    //console.log(JSON.stringify(this.sampService.clients[id].subs))
                 }
             };
 
@@ -1385,6 +1386,8 @@ else
         // @FIXME not working optimal on register
         // (delay because of isSampRegistered global var)
         PortalCtrl.prototype.registerSamp = function () {
+            this.growl.warning('Contacting SAMP hub, please wait...');
+
             //this.sampConnector.register()
             var send = function (connection) {
                 // check if this is working
@@ -1393,14 +1396,12 @@ else
                 // accessing the global var
                 isSampRegistered = true;
             };
-
             var error = function (e) {
                 alert("No Hub available. Please start an external Hub before registering.");
 
                 // accessing the global var
                 isSampRegistered = false;
             };
-
             this.sampService.connector.runWithConnection(send, error);
         };
 
@@ -1425,7 +1426,6 @@ else
             var error = function (e) {
                 console.log("Error " + e);
             };
-
             this.sampService.connector.runWithConnection(send, error);
         };
         PortalCtrl.$inject = [
@@ -2486,21 +2486,21 @@ else
         };
 
         // @TODO we must test if the Url is still valid
-        // @TODO we must introduce parameter for target client
-        UserDataDir.prototype.sendToSamp = function (tableUrl) {
-            console.log('sending ' + tableUrl);
+        UserDataDir.prototype.sendToSamp = function (tableUrl, id) {
+            console.log('sending ' + tableUrl + ' ' + id);
 
             // broadcasts a table given a hub connection
             var send = function (connection) {
                 var msg = new samp.Message("table.load.votable", { "url": tableUrl });
-                connection.notifyAll([msg]);
+
+                //connection.notifyAll([msg])
+                connection.notify([id, msg]);
             };
 
             // in any error case call this
             var error = function (e) {
                 console.log("Error " + e);
             };
-
             this.sampService.connector.runWithConnection(send, error);
         };
         return UserDataDir;

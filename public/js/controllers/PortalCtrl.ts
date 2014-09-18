@@ -85,7 +85,7 @@ module portal {
                 this.registryService.selectedFilter[r] = false
             })
             
-            // @TODO we must extend this to save all current clients
+            // monitoring all current clients
             this.sampService.clientTracker.onchange = (id, type, data) => {
                 this.sampService.clients = {}
                 var ids = this.sampService.clientTracker.connection ? this.sampService.clientTracker.ids : []
@@ -94,6 +94,7 @@ module portal {
                         'metas': this.sampService.clientTracker.metas[id],
                         'subs': this.sampService.clientTracker.subs[id]
                     }
+                    //console.log(JSON.stringify(this.sampService.clients[id].subs))
                 }
             }
             
@@ -192,6 +193,7 @@ module portal {
         // @FIXME not working optimal on register 
         // (delay because of isSampRegistered global var)
         public registerSamp() {
+            this.growl.warning('Contacting SAMP hub, please wait...')
             //this.sampConnector.register()
             var send = (connection) => {
                 // check if this is working
@@ -199,14 +201,13 @@ module portal {
                 // accessing the global var
                 isSampRegistered = true
             }
-            
             var error = (e) => {
                 alert("No Hub available. Please start an external Hub before registering.")
                 // accessing the global var
                 isSampRegistered = false
             }
-            
             this.sampService.connector.runWithConnection(send, error)
+            
         }
         
         public unregisterSamp() {
@@ -219,18 +220,15 @@ module portal {
         public sendToSamp() {
             // URL of table to send.
             var tableUrl = "http://impex-fp7.fmi.fi/ws/data/VOT_4kuZOr8ihD.vot"
-
             // broadcasts a table given a hub connection
             var send = (connection) => {
                 var msg = new samp.Message("table.load.votable", { "url": tableUrl })
                 connection.notifyAll([msg])
             }
-            
             // In any error case call this
             var error = (e) => {
                 console.log("Error "+e)
             }
-            
             this.sampService.connector.runWithConnection(send, error)
         }
         
