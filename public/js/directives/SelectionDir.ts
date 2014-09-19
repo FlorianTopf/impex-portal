@@ -3,8 +3,10 @@
 module portal {
     'use strict';
     
-    // @TODO implement loading visualisation
+    //importing urlize function
+    declare var urlize: any
     
+    // @TODO implement loading visualisation
     export class SelectionDir implements ng.IDirective {
         
         public injection(): any[] {
@@ -79,10 +81,8 @@ module portal {
             } else if(angular.isObject($scope.member)) {
                 element.append("<br/><selection-dir selection='member'></selection-dir>")
                 this.compileService(element.contents())($scope)
-            } else if(this.validateUrl($scope.member)) {
-                element.append("<a href='"+$scope.member+"' target='_blank'>"+$scope.member+'</a><br/>')
             } else {
-                element.append($scope.member+'<br/>')
+                element.append(urlize($scope.member, { target: '_blank' })+'<br/>')
             }
         }
         
@@ -96,15 +96,6 @@ module portal {
             var first = array[0].charAt(0).toUpperCase()+array[0].slice(1)
             array.shift()
             return (first+' '+array.join(' ')).trim()
-        }
-        
-        private validateUrl(str: string): boolean {
-            var pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/
-            if(!pattern.test(str)) {
-                return false
-            } else {
-                return true
-            }
         }
         
     }

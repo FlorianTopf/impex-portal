@@ -60,15 +60,15 @@
 		<div ng-repeat="sel in userdirvm.user.activeSelection" ng-hide="userdirvm.isCollapsed[sel.id]">
 			<div class="well well-sm overflow-500">
 				<div class="pull-right">
-					<button type="button" class="btn btn-danger btn-sm margin-r-5" 
-						ng-if="userdirvm.isSelSaved(sel.id) == true"
-						ng-click="userdirvm.deleteSelection(sel.id)">Delete</button>
-					<button type="button" class="btn btn-success btn-sm margin-r-5" 
+					<button type="button" class="btn btn-success btn-sm" 
 						ng-if="userdirvm.isSelectable(sel.type) == true && userdirvm.isSelSaved(sel.id) == false" 
 						ng-click="userdirvm.saveSelection(sel.id)">Select</button>
 					<button type="button" class="btn btn-primary btn-sm"
 						ng-if="userdirvm.isSelApplyable" 
 						ng-click="userdirvm.applySelection(sel.elem.resourceId)">Apply</button>
+					<button type="button" class="btn btn-danger btn-sm" 
+						ng-if="userdirvm.isSelSaved(sel.id) == true"
+						ng-click="userdirvm.deleteSelection(sel.id)">Delete</button>
 				</div>
 				<h4>Tree Selection {{ sel.id }}: {{ sel.type }}</h4>
 				<p class="word-wrap">
@@ -85,8 +85,6 @@
 		<div ng-repeat="vot in userdirvm.user.voTables" ng-hide="userdirvm.isCollapsed[vot.id]">
 			<div class="well well-sm overflow-500">
 				<div class="pull-right">
-					<button type="button" class="btn btn-danger btn-sm margin-r-5" 
-						ng-click="userdirvm.deleteVOTable(vot)">Delete</button>
 					<div class="btn-group">
   						<button style="width: 120px;" type="button" 
   							ng-disabled="!userdirvm.window.isSampRegistered" 
@@ -96,17 +94,18 @@
   						<ul class="dropdown-menu" role="menu">
     						<li ng-repeat="(id, client) in userdirvm.sampService.clients" 
     							ng-if="client.subs.hasOwnProperty('table.load.votable')">
-    							<a href="" ng-click="userdirvm.sendToSamp(vot.url, id)">
+    							<span ng-click="userdirvm.sendToSamp(vot.url, id)">
     								{{ client.metas['samp.name'] }}
-    							</a>
+    							</span>
     						</li>
   						</ul>
 					</div>
 					<button type="button" class="btn btn-primary btn-sm"
 						ng-if="userdirvm.isVOTApplyable" 
 						ng-click="userdirvm.applyVOTable(vot.url)">Apply</button>
+					<button type="button" class="btn btn-danger btn-sm" 
+						ng-click="userdirvm.deleteVOTable(vot)">Delete</button>
 				</div>
-
 				<h4>VOTable {{ vot.id }}</h4>
 				<p class="word-wrap">
 					<selection-dir selection="vot"></selection-dir>
@@ -117,8 +116,6 @@
 			ng-hide="userdirvm.isCollapsed[res.id]">
 			<div class="well well-sm overflow-500">
 				<div class="pull-right">
-					<button type="button" class="btn btn-danger btn-sm margin-r-5" 
-						ng-click="userdirvm.deleteResult(res.id)">Delete</button>
 					<div class="btn-group">
   						<button style="width: 120px;" type="button" 
   							ng-disabled="!userdirvm.window.isSampRegistered" 
@@ -128,12 +125,14 @@
   						<ul class="dropdown-menu" role="menu">
     						<li ng-repeat="(id, client) in userdirvm.sampService.clients" 
     							ng-if="client.subs.hasOwnProperty('table.load.votable')">
-    							<a href="" ng-click="userdirvm.sendToSamp(res.content.message, id)">
+    							<span ng-click="userdirvm.sendToSamp(res.content.message, id)">
     								{{ client.metas['samp.name'] }}
-    							</a>
+    							</span>
     						</li>
   						</ul>
 					</div>
+					<button type="button" class="btn btn-danger btn-sm" 
+						ng-click="userdirvm.deleteResult(res.id)">Delete</button>
 				</div>
 				<h4>Service Result {{ res.id }}: {{ res.method.replace('/methods', '') }}</h4>
 				<p class="word-wrap">

@@ -15,7 +15,7 @@ module portal {
         public name: string = 'app'
         public abstract: boolean = true
         public controller: any = ConfigCtrl
-        public template: string = '<ui-view/>'
+        public template: string = '<div ui-view/>'
         public resolve: Object = {
             config: ['configService', (ConfigService) => {
                 return ConfigService.loadConfig()

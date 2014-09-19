@@ -386,7 +386,7 @@ module portal {
              }
         }
         
-        // @TODO we must test if the Url is still valid
+        // @TODO we must test if the Url is still valid (empty or not found)
         public sendToSamp(tableUrl: string, id: string) {
             console.log('sending '+tableUrl+' '+id)
             // broadcasts a table given a hub connection

@@ -78,8 +78,11 @@
 				Start SAMP Hub
 			</a>
 			<h5 ng-hide="vm.sampService.clients | isEmpty">Connected Clients:</h5>
-			<span class="label label-success margin-r-5" 
-				ng-repeat="client in vm.sampService.clients">{{ client.metas['samp.name'] }}</span>
+			<div ng-hide="vm.sampService.clients | isEmpty" style="overflow-x: scroll; overflow-y: hidden;">
+				<span class="label label-success margin-r-5" 
+					ng-repeat="client in vm.sampService.clients">{{ client.metas['samp.name'] }}
+				</span>
+			</div>
 		</div>
 	</div>
 </div>

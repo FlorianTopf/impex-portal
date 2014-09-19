@@ -79,6 +79,7 @@ object Spase {
       Json.obj(
           "resourceName" -> h.ResourceName, 
           "releaseDate" -> h.ReleaseDate, 
+          "acknowledgement" -> h.Acknowledgement,
           "description" -> h.Description, 
           "contact" -> h.Contact, 
           "informationurl" -> h.InformationURL)

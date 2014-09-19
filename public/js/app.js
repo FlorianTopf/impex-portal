@@ -19,7 +19,7 @@ var portal;
             this.name = 'app';
             this.abstract = true;
             this.controller = portal.ConfigCtrl;
-            this.template = '<ui-view/>';
+            this.template = '<div ui-view/>';
             this.resolve = {
                 config: [
                     'configService',
@@ -203,9 +203,10 @@ var portal;
     portal.Repository = Repository;
 
     var ResourceHeader = (function () {
-        function ResourceHeader(resourceName, releaseDate, description, contact, informationUrl) {
+        function ResourceHeader(resourceName, releaseDate, acknowledgement, description, contact, informationUrl) {
             this.resourceName = resourceName;
             this.releaseDate = releaseDate;
+            this.acknowledgement = acknowledgement;
             this.description = description;
             this.contact = contact;
             this.informationUrl = informationUrl;
@@ -2496,7 +2497,7 @@ else
             }
         };
 
-        // @TODO we must test if the Url is still valid
+        // @TODO we must test if the Url is still valid (empty or not found)
         UserDataDir.prototype.sendToSamp = function (tableUrl, id) {
             console.log('sending ' + tableUrl + ' ' + id);
 
@@ -2585,10 +2586,8 @@ else if (angular.isObject(m)) {
             } else if (angular.isObject($scope.member)) {
                 element.append("<br/><selection-dir selection='member'></selection-dir>");
                 this.compileService(element.contents())($scope);
-            } else if (this.validateUrl($scope.member)) {
-                element.append("<a href='" + $scope.member + "' target='_blank'>" + $scope.member + '</a><br/>');
             } else {
-                element.append($scope.member + '<br/>');
+                element.append(urlize($scope.member, { target: '_blank' }) + '<br/>');
             }
         };
 
@@ -2602,15 +2601,6 @@ else if (angular.isObject(m)) {
             var first = array[0].charAt(0).toUpperCase() + array[0].slice(1);
             array.shift();
             return (first + ' ' + array.join(' ')).trim();
-        };
-
-        MemberDir.prototype.validateUrl = function (str) {
-            var pattern = /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-\/]))?/;
-            if (!pattern.test(str)) {
-                return false;
-            } else {
-                return true;
-            }
         };
         return MemberDir;
     })();

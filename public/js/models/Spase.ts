@@ -39,6 +39,7 @@ module portal {
         constructor(
             public resourceName: string,
             public releaseDate: string,
+            public acknowledgement: string,
             public description: string,
             public contact: Array<Contact>,
             public informationUrl: Array<string>){}

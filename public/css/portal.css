@@ -55,6 +55,11 @@ body {
 	margin-bottom: 5px;
 }
 
+.filter-box p {
+	margin-bottom: 0;
+	word-wrap: normal;
+}
+
 .map-badge {
 	font-size: 14px;
 }
@@ -223,7 +228,7 @@ button.info-button:focus {
 
 .dropdown-menu > li > span {
 	display: block;
-	padding: 3px 20px;
+	padding: 3px 10px;
 	clear: both;
 	font-weight: normal;
 	line-height: 1.5em;
