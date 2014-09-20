@@ -63,13 +63,13 @@ module portal {
             canvas.height = this.height
             canvas.width = this.width
             
-            //this.activeDb = 'SINP'
+            this.activeDb = 'SINP'
             
             if(this.activeDb) {
             this.database = $("#"+this.activeDb+"-database").offset()
             this.elemH = $("#"+this.activeDb+"-database").outerHeight(true)
             this.elemW = $("#"+this.activeDb+"-database").outerWidth(true)
-            this.service = $("#"+this.activeDb+"#SINP-service").offset()
+            this.service = $("#"+this.activeDb+"-service").offset()
             this.myData = $('#MY-DATA').offset() 
             
             var ctx = canvas.getContext('2d')
