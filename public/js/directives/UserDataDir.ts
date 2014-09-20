@@ -46,6 +46,7 @@ module portal {
         // active tabs (first by default)
         public tabsActive: Array<boolean> = []
         public isResRead: IBooleanMap = {}
+        public isSampAble: boolean = false
 
         private registryService: portal.RegistryService
         private methodsService: portal.MethodsService
@@ -86,7 +87,15 @@ module portal {
             
             // watch event when all content is loaded into the dir
             this.myScope.$watch('$includeContentLoaded', (e) => {          
-                //console.log('UserDataDir loaded')     
+                //console.log('UserDataDir loaded')  
+                // check samp clients
+                if(this.sampService.clients) {
+                    for(var id in this.sampService.clients){
+                        var subs = this.sampService.clients[id].subs
+                        if(subs.hasOwnProperty('table.load.votable'))
+                            this.isSampAble = true
+                    }
+                }   
                 // collapsing all selections on init
                 if(this.user.selections) {
                     this.user.selections.forEach((e) => { this.isCollapsed[e.id] = true })

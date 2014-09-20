@@ -91,6 +91,12 @@ body {
 	opacity: .45;
 }
 
+#canvas {
+	height: 0px;
+	width: 0px;
+	position: absolute;
+}
+
 
 /** GLYPHS */
 .glyphicon-rotate {

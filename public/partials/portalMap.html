@@ -1,3 +1,4 @@
+<canvas-dir id="canvas-dir"></canvas-dir>
 <div ng-show="!vm.ready" class="loading text-center">
 	<img src="/public/img/layout/loading.gif" class="loadingImg" alt="loading..." />
 </div>
@@ -104,7 +105,7 @@
 </div>
 <div class="row" ng-show="vm.ready">
 	<div class="col-sm-2">&nbsp;</div>
-	<div class="col-sm-2 text-center" 
+	<div class="col-sm-2 text-center" id="{{ database.name }}-database"
 		ng-repeat="database in vm.configService.config.databases" 
 		ng-if="(database.type == 'simulation') && !(database.tree | isEmpty)">
 		<div ng-show="vm.ready">
@@ -140,7 +141,7 @@
 	</div>
 </div>
 <div class="row" ng-show="vm.ready">
-	<div class="col-sm-2 text-center">
+	<div class="col-sm-2 text-center" id="MY-DATA">
 		<button type="button" class="btn btn-warning btn-map"
 			ui-sref="app.portal.userdata()" 
 			tooltip="Show saved Userdata"
@@ -171,7 +172,7 @@
 </div>
 <div class="row" ng-show="vm.ready">
 	<div class="col-sm-2">&nbsp;</div>
-	<div class="col-sm-2 text-center" 
+	<div class="col-sm-2 text-center" id="{{ database.name }}-service"
 		ng-repeat="database in vm.configService.config.databases" 
 		ng-if="(database.type == 'simulation') && !(database.methods | isEmpty)">
 		<div ng-show="vm.ready">

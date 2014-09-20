@@ -19,7 +19,7 @@ var portal;
             this.name = 'app';
             this.abstract = true;
             this.controller = portal.ConfigCtrl;
-            this.template = '<div ui-view/>';
+            this.template = '<div id="main" ui-view/>';
             this.resolve = {
                 config: [
                     'configService',
@@ -1208,23 +1208,18 @@ var portal;
                 return e.type == 'simulation';
             }).forEach(function (e) {
                 // initialise portal map disablers
-                _this.configService.aliveMap[e.id] = false;
+                /*this.configService.aliveMap[e.id] = false*/
+                _this.configService.aliveMap[e.id] = true;
                 _this.configService.filterMap[e.id] = true;
-
                 // calling isAlive
-                _this.configService.isAlive(e);
-            });
+                /*this.configService.isAlive(e)*/             });
 
             // @TODO this routine must be changed (if we use filters in parallel)
             // set interval to check if methods are still alive => every 10 minutes (600k ms)
-            this.interval(function () {
-                return _this.configService.config.databases.filter(function (e) {
-                    return e.type == 'simulation';
-                }).forEach(function (e) {
-                    _this.configService.isAlive(e);
-                });
-            }, 600000);
-
+            /*this.interval(() => this.configService.config.databases
+            .filter((e) => e.type == 'simulation')
+            .forEach((e) => {
+            this.configService.isAlive(e) }), 600000)*/
             // @TODO user info comes from the server in the future (add in resolver too)
             this.userService.user = new portal.User(this.userService.createId());
 
@@ -2130,6 +2125,7 @@ var portal;
             // active tabs (first by default)
             this.tabsActive = [];
             this.isResRead = {};
+            this.isSampAble = false;
             this.registryService = registryService;
             this.methodsService = methodsService;
             this.userService = userService;
@@ -2171,6 +2167,14 @@ var portal;
 
             // watch event when all content is loaded into the dir
             this.myScope.$watch('$includeContentLoaded', function (e) {
+                if (_this.sampService.clients) {
+                    for (var id in _this.sampService.clients) {
+                        var subs = _this.sampService.clients[id].subs;
+                        if (subs.hasOwnProperty('table.load.votable'))
+                            _this.isSampAble = true;
+                    }
+                }
+
                 if (_this.user.selections) {
                     _this.user.selections.forEach(function (e) {
                         _this.isCollapsed[e.id] = true;
@@ -2910,6 +2914,118 @@ else {
     })();
     portal.MethodsDir = MethodsDir;
 })(portal || (portal = {}));
+/// <reference path='../_all.ts' />
+var portal;
+(function (portal) {
+    'use strict';
+
+    var CanvasDir = (function () {
+        function CanvasDir($timeout, configService) {
+            var _this = this;
+            this.activeDb = null;
+            this.configService = configService;
+            this.timeout = $timeout;
+
+            this.template = '<canvas id="canvas"></canvas>';
+            this.restrict = 'E';
+            this.link = function ($scope, element, attributes) {
+                return _this.linkFn($scope, element, attributes);
+            };
+        }
+        CanvasDir.prototype.injection = function () {
+            return [
+                '$timeout',
+                'configService',
+                function ($timeout, configService) {
+                    return new CanvasDir($timeout, configService);
+                }
+            ];
+        };
+
+        CanvasDir.prototype.linkFn = function ($scope, element, attributes) {
+            var _this = this;
+            $scope.$watch('windowWidth', function (newVal, oldVal) {
+                _this.timeout(function () {
+                    return _this.handleResize(element);
+                });
+            });
+            //@TODO we need to a some broadcaster watcher here
+        };
+
+        CanvasDir.prototype.handleResize = function (element) {
+            this.main = $("#main").offset();
+            element.offset(this.main);
+            element.css("zIndex", "0");
+
+            this.height = $("#main").height() + 1;
+            this.width = $("#main").width() + 1;
+            $("#canvas").height(this.height);
+            $("#canvas").width(this.width);
+
+            var canvas = document.getElementById('canvas');
+            canvas.height = this.height;
+            canvas.width = this.width;
+
+            if (this.activeDb) {
+                this.database = $("#" + this.activeDb + "-database").offset();
+                this.elemH = $("#" + this.activeDb + "-database").outerHeight(true);
+                this.elemW = $("#" + this.activeDb + "-database").outerWidth(true);
+                this.service = $("#" + this.activeDb + "#SINP-service").offset();
+                this.myData = $('#MY-DATA').offset();
+
+                var ctx = canvas.getContext('2d');
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = "#000000";
+                ctx.beginPath();
+
+                // testing path from hyb to my data and services
+                // line top down + arrow
+                ctx.moveTo(this.database.left - this.main.left + this.elemW / 2, this.database.top - this.main.top + this.elemH);
+                ctx.lineTo(this.database.left - this.main.left + this.elemW / 2, this.service.top - this.main.top);
+                ctx.lineTo(this.database.left - this.main.left + this.elemW / 2 - 10, this.service.top - this.main.top - 10);
+                ctx.moveTo(this.database.left - this.main.left + this.elemW / 2, this.service.top - this.main.top);
+                ctx.lineTo(this.database.left - this.main.left + this.elemW / 2 + 10, this.service.top - this.main.top - 10);
+
+                // line to left + arrow
+                ctx.moveTo(this.database.left - this.main.left + this.elemW / 2, this.myData.top - this.main.top + this.elemH / 2);
+                ctx.lineTo(this.myData.left - this.main.left + this.elemW - 15, this.myData.top - this.main.top + this.elemH / 2);
+                ctx.lineTo(this.myData.left - this.main.left + this.elemW - 5, this.myData.top - this.main.top + this.elemH / 2 - 10);
+                ctx.moveTo(this.myData.left - this.main.left + this.elemW - 15, this.myData.top - this.main.top + this.elemH / 2);
+                ctx.lineTo(this.myData.left - this.main.left + this.elemW - 5, this.myData.top - this.main.top + this.elemH / 2 + 10);
+                ctx.stroke();
+                //this.timeout(() => { this.toggleCanvas(true) }, 1000)
+                //this.timeout(() => { this.toggleCanvas(false) }, 2000)
+            }
+        };
+
+        CanvasDir.prototype.drawMyDataPath = function (name) {
+        };
+
+        CanvasDir.prototype.drawServicePath = function (name) {
+        };
+
+        CanvasDir.prototype.drawToolPath = function () {
+        };
+
+        CanvasDir.prototype.clear = function () {
+            var canvas = document.getElementById('canvas');
+            if (canvas) {
+                var ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        };
+
+        CanvasDir.prototype.toggleCanvas = function (front) {
+            if (front) {
+                $("#canvas").hide();
+            } else {
+                $("#canvas").show();
+            }
+        };
+        return CanvasDir;
+    })();
+    portal.CanvasDir = CanvasDir;
+})(portal || (portal = {}));
 /// <reference path='_all.ts' />
 var portal;
 (function (portal) {
@@ -2946,6 +3062,7 @@ var portal;
     // is in SelectionDir.ts
     impexPortal.directive('memberDir', portal.MemberDir.prototype.injection());
     impexPortal.directive('methodsDir', portal.MethodsDir.prototype.injection());
+    impexPortal.directive('canvasDir', portal.CanvasDir.prototype.injection());
 
     impexPortal.config([
         '$stateProvider',

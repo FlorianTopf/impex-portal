@@ -70,7 +70,7 @@
 						ng-if="userdirvm.isSelSaved(sel.id) == true"
 						ng-click="userdirvm.deleteSelection(sel.id)">Delete</button>
 				</div>
-				<h4>Tree Selection {{ sel.id }}: {{ sel.type }}</h4>
+				<h4>Tree Selection: {{ sel.type }}</h4>
 				<p class="word-wrap">
 					<a target="_blank" ng-href="/registry/{{sel.type.toLowerCase()}}?id={{sel.elem.resourceId|encodeUri}}">
 						Download XML
@@ -87,7 +87,7 @@
 				<div class="pull-right">
 					<div class="btn-group">
   						<button style="width: 120px;" type="button" 
-  							ng-disabled="!userdirvm.window.isSampRegistered" 
+  							ng-disabled="!userdirvm.window.isSampRegistered || !userdirvm.isSampAble" 
   							class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
     						Delegate to&nbsp;&nbsp;<span class="caret"></span>
   						</button>
@@ -106,7 +106,7 @@
 					<button type="button" class="btn btn-danger btn-sm" 
 						ng-click="userdirvm.deleteVOTable(vot)">Delete</button>
 				</div>
-				<h4>VOTable {{ vot.id }}</h4>
+				<h4>VOTable</h4>
 				<p class="word-wrap">
 					<selection-dir selection="vot"></selection-dir>
 				</p>
@@ -134,7 +134,7 @@
 					<button type="button" class="btn btn-danger btn-sm" 
 						ng-click="userdirvm.deleteResult(res.id)">Delete</button>
 				</div>
-				<h4>Service Result {{ res.id }}: {{ res.method.replace('/methods', '') }}</h4>
+				<h4>Service Result: {{ res.method.replace('/methods', '') }}</h4>
 				<p class="word-wrap">
 					<selection-dir selection="res"></selection-dir>
 				</p>

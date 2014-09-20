@@ -26,6 +26,7 @@ module portal {
     // is in SelectionDir.ts
     impexPortal.directive('memberDir', MemberDir.prototype.injection())
     impexPortal.directive('methodsDir', MethodsDir.prototype.injection())
+    impexPortal.directive('canvasDir', CanvasDir.prototype.injection())
      
    
     impexPortal.config(['$stateProvider', '$urlRouterProvider', 
