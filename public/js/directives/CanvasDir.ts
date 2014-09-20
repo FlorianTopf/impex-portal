@@ -76,7 +76,7 @@ module portal {
             ctx.lineWidth = 2
             ctx.strokeStyle = "#000000"
             ctx.beginPath()
-            // testing path from hyb to my data and services
+            // testing path from database to my data and services
             // line top down + arrow
             ctx.moveTo(this.database.left-this.main.left+this.elemW/2, this.database.top-this.main.top+this.elemH)
             ctx.lineTo(this.database.left-this.main.left+this.elemW/2, this.service.top-this.main.top)
