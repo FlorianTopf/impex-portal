@@ -154,7 +154,90 @@
 			<span class="pull-right">My Data</span>
 		</button>
 	</div>
-	<div class="col-sm-2 col-sm-offset-8 text-center">
+	<div class="col-sm-2">
+		<div class="row path-icon">
+			<button ng-show="vm.activeDatabase == 'FMI-HYBRID'" 
+				style="margin-right: 30%;" type="button" 
+				class="close pull-right" ng-click="vm.resetPath()"
+				tooltip="Clear active path"
+				tooltip-placement="right">
+				<span aria-hidden="true">&times;</span>
+				<span class="sr-only">Close</span>
+			</button>
+		</div>
+		<div class="row path-icon">
+			<span ng-hide="vm.activeDatabase == null" 
+				style="font-size: 20px; margin-left: 5%;" class="glyphicon glyphicon-saved pull-left">
+			</span>
+		</div>
+		<div class="row path-icon">
+			<span ng-show="vm.activeDatabase == 'FMI-HYBRID'" 
+				style="margin-right: 30%; margin-top: 20%; font-size: 20px;" 
+				class="glyphicon glyphicon-import pull-right">
+			</span>
+		</div>
+	</div>
+	<div class="col-sm-2">
+		<div class="row path-icon">
+			<button ng-show="vm.activeDatabase == 'FMI-GUMICS'" 
+				style="margin-right: 30%;" type="button" 
+				class="close pull-right" ng-click="vm.resetPath()"
+				tooltip="Clear active path"
+				tooltip-placement="right">
+				<span aria-hidden="true">&times;</span>
+				<span class="sr-only">Close</span>
+			</button>
+		</div>
+		<div class="row path-icon">
+		</div>
+		<div class="row path-icon">
+			<span ng-show="vm.activeDatabase == 'FMI-GUMICS'" 
+				style="margin-right: 30%; margin-top: 20%; font-size: 20px;" 
+				class="glyphicon glyphicon-import pull-right">
+			</span>
+		</div>
+	</div>
+	<div class="col-sm-2">
+		<div class="row path-icon">
+			<button ng-show="vm.activeDatabase == 'LATMOS'" 
+				style="margin-right: 30%;" type="button" 
+				class="close pull-right" ng-click="vm.resetPath()"
+				tooltip="Clear active path"
+				tooltip-placement="right">
+				<span aria-hidden="true">&times;</span>
+				<span class="sr-only">Close</span>
+			</button>
+		</div>
+		<div class="row path-icon">
+		</div>
+		<div class="row path-icon">
+			<span ng-show="vm.activeDatabase == 'LATMOS'" 
+				style="margin-right: 30%; margin-top: 20%; font-size: 20px;" 
+				class="glyphicon glyphicon-import pull-right">
+			</span>
+		</div>
+	</div>
+	<div class="col-sm-2">
+		<div class="row path-icon">
+			<button ng-show="vm.activeDatabase == 'SINP'" 
+				style="margin-right: 30%;" type="button" 
+				class="close pull-right" ng-click="vm.resetPath()"
+				tooltip="Clear active path"
+				tooltip-placement="right">
+				<span aria-hidden="true">&times;</span>
+				<span class="sr-only">Close</span>
+			</button>
+		</div>
+		<div class="row path-icon">
+		</div>
+		<div class="row path-icon">
+			<span ng-show="vm.activeDatabase == 'SINP'" 
+				style="margin-right: 30%; margin-top: 20%; font-size: 20px;" 
+				class="glyphicon glyphicon-import pull-right">
+			</span>
+		</div>
+	</div>
+	<div class="col-sm-2 text-center">
 		<a class="btn btn-danger btn-map"
 			ng-href="{{ vm.configService.config.tools[1].url }}" target="_blank"
 			tooltip="Open {{ vm.configService.config.tools[1].name }} tool"

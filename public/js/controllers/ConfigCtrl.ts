@@ -35,17 +35,18 @@ module portal {
                 .filter((e) => e.type == 'simulation')
                 .forEach((e) => { 
                     // initialise portal map disablers
-                    this.configService.aliveMap[e.id] = false 
+                    /*this.configService.aliveMap[e.id] = false*/
+                    this.configService.aliveMap[e.id] = true
                     this.configService.filterMap[e.id] = true
                     // calling isAlive
-                    this.configService.isAlive(e) })
+                    /*this.configService.isAlive(e)*/ })
             
             // @TODO this routine must be changed (if we use filters in parallel)
             // set interval to check if methods are still alive => every 10 minutes (600k ms)
-            this.interval(() => this.configService.config.databases
+            /*this.interval(() => this.configService.config.databases
                 .filter((e) => e.type == 'simulation')
                 .forEach((e) => { 
-                    this.configService.isAlive(e) }), 600000)
+                    this.configService.isAlive(e) }), 600000)*/
             
             // @TODO user info comes from the server in the future (add in resolver too) 
             this.userService.user = new User(this.userService.createId())

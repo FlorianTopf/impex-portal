@@ -158,6 +158,18 @@ object AMDAMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result must beRight // result must be successful
 
         }
+        
+        "respond to isAlive" in {
+	  	  
+	  	   val amda = new Methods_AMDASoapBindings with Soap11Clients with DispatchHttpClients {}
+	  	   
+	  	   val result = amda.service.isAlive()
+	  	   
+	  	   result.fold(f => println(f), b => b must beTrue)
+	  	   result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], Boolean]]
+	  	   result must beRight
+	  	   
+	  	}
   }
   
 }

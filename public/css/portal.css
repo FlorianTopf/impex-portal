@@ -1,3 +1,4 @@
+/** @TODO add tag types where it makes sense */
 /** GENERAL/MAP */
 html, body {
 	height: 100%;
@@ -83,12 +84,20 @@ body {
   	transition: opacity .15s linear;
 }
 
-.modal-header .close {
+button.close {
 	font-size: 30px;
+}
+
+button.close:active, button.close:focus  {
+	outline: 0;
 }
 
 .btn.disabled, .btn[disabled] {
 	opacity: .45;
+}
+
+.path-icon {
+	height: 50px;
 }
 
 #canvas {
@@ -400,6 +409,10 @@ button.dropdown-toggle {
 	.btn-map img {
 		width: 60px;
 		height: 60px;
+	}
+	
+	.path-icon {
+		height: 40px;
 	}
 	
 	.map-heading, .inline-heading {

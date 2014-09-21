@@ -949,8 +949,9 @@ var portal;
             this.selectables['spase://IMPEX/Repository/SINP'] = ['SimulationModel', 'NumericalOutput'];
         }
         RegistryService.prototype.notify = function (status, id) {
-            if (status == 'success')
+            if (status == 'success') {
                 this.scope.$broadcast('database-success', id);
+            }
         };
 
         RegistryService.prototype.Repository = function () {
@@ -1264,6 +1265,10 @@ var portal;
             this.isFilterLoading = false;
             this.isFilterSelected = false;
             this.isSampCollapsed = true;
+            // active path from database
+            this.activeDatabase = null;
+            // active path from service
+            this.activeService = null;
             this.scope = $scope;
             this.scope.vm = this;
             this.window = $window;
@@ -1311,21 +1316,29 @@ var portal;
                 this.window.onbeforeunload = onBeforeUnloadHandler;
             }
 
-            // @TODO here we will activate the action paths
-            this.scope.$on('service-loading', function (e, id) {
-                console.log('service loading at ' + id);
-            });
-
+            // @TODO here we will activate the action paths (+ symbols)
+            //this.scope.$on('service-loading', (e, id: string) => {
+            //    console.log('service loading at '+id)
+            //})
+            //this.scope.$on('service-error', (e, id: string) => {
+            //    console.log('service error at '+id)
+            //})
+            // just for testing
+            //this.activeDatabase = 'SINP'
             this.scope.$on('service-success', function (e, id) {
                 console.log('service success at ' + id);
-            });
+                _this.activeDatabase = null;
 
-            this.scope.$on('service-error', function (e, id) {
-                console.log('service error at ' + id);
+                // add symbols
+                _this.activeService = _this.configService.getDatabase(id).name;
             });
 
             this.scope.$on('database-success', function (e, id) {
                 console.log('database success at ' + id);
+                _this.activeService = null;
+
+                // add symbols
+                _this.activeDatabase = _this.configService.getDatabase(id).name;
             });
         }
         //public notImplemented() {
@@ -1433,6 +1446,12 @@ else
                 console.log("Error " + e);
             };
             this.sampService.connector.runWithConnection(send, error);
+        };
+
+        PortalCtrl.prototype.resetPath = function () {
+            this.activeDatabase = null;
+            this.activeDatabase = null;
+            this.scope.$broadcast('clear-paths');
         };
         PortalCtrl.$inject = [
             '$scope',
@@ -2922,7 +2941,10 @@ var portal;
     var CanvasDir = (function () {
         function CanvasDir($timeout, configService) {
             var _this = this;
-            this.activeDb = null;
+            // active path from database
+            this.activeDatabase = null;
+            // active path from service
+            this.activeService = null;
             this.configService = configService;
             this.timeout = $timeout;
 
@@ -2949,7 +2971,19 @@ var portal;
                     return _this.handleResize(element);
                 });
             });
+
             //@TODO we need to a some broadcaster watcher here
+            $scope.$on('database-success', function (e, id) {
+                var dbName = _this.configService.getDatabase(id).name;
+                _this.activeDatabase = dbName;
+                _this.drawDatabasePath(dbName);
+            });
+
+            $scope.$on('clear-paths', function (e) {
+                _this.activeDatabase = null;
+                _this.activeService = null;
+                _this.clear();
+            });
         };
 
         CanvasDir.prototype.handleResize = function (element) {
@@ -2966,47 +3000,47 @@ var portal;
             canvas.height = this.height;
             canvas.width = this.width;
 
-            this.activeDb = 'SINP';
-
-            if (this.activeDb) {
-                this.database = $("#" + this.activeDb + "-database").offset();
-                this.elemH = $("#" + this.activeDb + "-database").outerHeight(true);
-                this.elemW = $("#" + this.activeDb + "-database").outerWidth(true);
-                this.service = $("#" + this.activeDb + "-service").offset();
-                this.myData = $('#MY-DATA').offset();
-
-                var ctx = canvas.getContext('2d');
-                ctx.lineWidth = 2;
-                ctx.strokeStyle = "#000000";
-                ctx.beginPath();
-
-                // testing path from database to my data and services
-                // line top down + arrow
-                ctx.moveTo(this.database.left - this.main.left + this.elemW / 2, this.database.top - this.main.top + this.elemH);
-                ctx.lineTo(this.database.left - this.main.left + this.elemW / 2, this.service.top - this.main.top);
-                ctx.lineTo(this.database.left - this.main.left + this.elemW / 2 - 10, this.service.top - this.main.top - 10);
-                ctx.moveTo(this.database.left - this.main.left + this.elemW / 2, this.service.top - this.main.top);
-                ctx.lineTo(this.database.left - this.main.left + this.elemW / 2 + 10, this.service.top - this.main.top - 10);
-
-                // line to left + arrow
-                ctx.moveTo(this.database.left - this.main.left + this.elemW / 2, this.myData.top - this.main.top + this.elemH / 2);
-                ctx.lineTo(this.myData.left - this.main.left + this.elemW - 15, this.myData.top - this.main.top + this.elemH / 2);
-                ctx.lineTo(this.myData.left - this.main.left + this.elemW - 5, this.myData.top - this.main.top + this.elemH / 2 - 10);
-                ctx.moveTo(this.myData.left - this.main.left + this.elemW - 15, this.myData.top - this.main.top + this.elemH / 2);
-                ctx.lineTo(this.myData.left - this.main.left + this.elemW - 5, this.myData.top - this.main.top + this.elemH / 2 + 10);
-                ctx.stroke();
-                //this.timeout(() => { this.toggleCanvas(true) }, 1000)
-                //this.timeout(() => { this.toggleCanvas(false) }, 2000)
+            if (this.activeDatabase) {
+                this.drawDatabasePath(this.activeDatabase);
+            } else if (this.activeService) {
             }
+            //this.timeout(() => { this.toggleCanvas(true) }, 1000)
+            //this.timeout(() => { this.toggleCanvas(false) }, 2000)
         };
 
-        CanvasDir.prototype.drawMyDataPath = function (name) {
+        CanvasDir.prototype.drawDatabasePath = function (name) {
+            this.database = $("#" + this.activeDatabase + "-database").offset();
+            this.elemH = $("#" + this.activeDatabase + "-database").outerHeight(true);
+            this.elemW = $("#" + this.activeDatabase + "-database").outerWidth(true);
+            this.service = $("#" + this.activeDatabase + "-service").offset();
+            this.myData = $('#MY-DATA').offset();
+
+            // clear canvas before
+            this.clear();
+            var canvas = document.getElementById('canvas');
+            var ctx = canvas.getContext('2d');
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#000000";
+            ctx.beginPath();
+
+            // testing path from database to my data and services
+            // line top down + arrow
+            ctx.moveTo(this.database.left - this.main.left + this.elemW / 2, this.database.top - this.main.top + this.elemH);
+            ctx.lineTo(this.database.left - this.main.left + this.elemW / 2, this.service.top - this.main.top);
+            ctx.lineTo(this.database.left - this.main.left + this.elemW / 2 - 10, this.service.top - this.main.top - 10);
+            ctx.moveTo(this.database.left - this.main.left + this.elemW / 2, this.service.top - this.main.top);
+            ctx.lineTo(this.database.left - this.main.left + this.elemW / 2 + 10, this.service.top - this.main.top - 10);
+
+            // line to left + arrow
+            ctx.moveTo(this.database.left - this.main.left + this.elemW / 2, this.myData.top - this.main.top + this.elemH / 2);
+            ctx.lineTo(this.myData.left - this.main.left + this.elemW - 15, this.myData.top - this.main.top + this.elemH / 2);
+            ctx.lineTo(this.myData.left - this.main.left + this.elemW - 5, this.myData.top - this.main.top + this.elemH / 2 - 10);
+            ctx.moveTo(this.myData.left - this.main.left + this.elemW - 15, this.myData.top - this.main.top + this.elemH / 2);
+            ctx.lineTo(this.myData.left - this.main.left + this.elemW - 5, this.myData.top - this.main.top + this.elemH / 2 + 10);
+            ctx.stroke();
         };
 
         CanvasDir.prototype.drawServicePath = function (name) {
-        };
-
-        CanvasDir.prototype.drawToolPath = function () {
         };
 
         CanvasDir.prototype.clear = function () {

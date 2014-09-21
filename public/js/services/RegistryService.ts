@@ -41,8 +41,9 @@ module portal {
         }
         
         public notify(status: string, id: string) {
-             if(status == 'success')
+             if(status == 'success') {
                 this.scope.$broadcast('database-success', id)
+              }
         }
         
         public Repository(): IRegistryResource {

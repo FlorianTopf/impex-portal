@@ -23,16 +23,16 @@ GET		/api-docs/registry			controllers.ApiHelpController.getResource(path = "/reg
 GET		/registry					controllers.Registry.registry(fmt: String ?= "xml")
 # simulations
 GET 	/registry/simulations	    controllers.Registry.simulations(fmt: String ?= "xml")
-GET		/registry/observations		controllers.Registry.observations(fmt: String ?= "xml")
 GET		/registry/repository		controllers.Registry.repository(fmt: String ?= "xml")
 GET		/registry/simulationmodel	controllers.Registry.simulationmodel(fmt: String ?= "xml", r: String ?= "false")
 GET		/registry/simulationrun  	controllers.Registry.simulationrun(fmt: String ?= "xml", r: String ?= "false")
 GET		/registry/numericaloutput  	controllers.Registry.numericaloutput(fmt: String ?= "xml", r: String ?= "false")
 GET		/registry/granule		  	controllers.Registry.granule(fmt: String ?= "xml", r: String ?= "false")
-# observations
-GET 	/registry/observatory		controllers.Registry.observatory(fmt: String ?= "xml", r: String ?= "false")
-GET		/registry/instrument		controllers.Registry.instrument(fmt: String ?= "xml", r: String ?= "false")
-GET		/registry/numericaldata		controllers.Registry.numericaldata(fmt: String ?= "xml", r: String ?= "false")
+# observations => @FIXME excluded (datamodel changed again (9.2014)
+#GET		/registry/observations		controllers.Registry.observations(fmt: String ?= "xml")
+#GET 	/registry/observatory		controllers.Registry.observatory(fmt: String ?= "xml", r: String ?= "false")
+#GET		/registry/instrument		controllers.Registry.instrument(fmt: String ?= "xml", r: String ?= "false")
+#GET		/registry/numericaldata		controllers.Registry.numericaldata(fmt: String ?= "xml", r: String ?= "false")
 
 # methods routes
 GET		/api-docs/methods			controllers.ApiHelpController.getResource(path = "/methods")

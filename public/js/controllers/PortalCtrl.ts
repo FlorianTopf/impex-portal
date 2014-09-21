@@ -57,6 +57,10 @@ module portal {
         public isFilterLoading: boolean = false
         public isFilterSelected: boolean = false
         public isSampCollapsed: boolean = true
+        // active path from database
+        public activeDatabase: string = null
+        // active path from service
+        public activeService: string = null
 
       
         static $inject: Array<string> = ['$scope', '$window', '$timeout', 'configService', 
@@ -111,21 +115,30 @@ module portal {
                 this.window.onbeforeunload = onBeforeUnloadHandler
             }
             
-            // @TODO here we will activate the action paths
-            this.scope.$on('service-loading', (e, id: string) => { 
-                console.log('service loading at '+id)
-            })
+            // @TODO here we will activate the action paths (+ symbols)
+            //this.scope.$on('service-loading', (e, id: string) => { 
+            //    console.log('service loading at '+id)
+            //})
+            
+            //this.scope.$on('service-error', (e, id: string) => { 
+            //    console.log('service error at '+id)
+            //})
+            
+            // just for testing
+            //this.activeDatabase = 'SINP'
             
             this.scope.$on('service-success', (e, id: string) => {
                 console.log('service success at '+id)
+                this.activeDatabase = null
+                // add symbols
+                this.activeService = this.configService.getDatabase(id).name
             })
-            
-            this.scope.$on('service-error', (e, id: string) => { 
-                console.log('service error at '+id)
-            })
-            
+ 
             this.scope.$on('database-success', (e, id: string) => {
                 console.log('database success at '+id)
+                this.activeService = null
+                // add symbols
+                this.activeDatabase = this.configService.getDatabase(id).name
             })
             
         }
@@ -234,6 +247,12 @@ module portal {
                 console.log("Error "+e)
             }
             this.sampService.connector.runWithConnection(send, error)
+        }
+        
+        public resetPath() {
+            this.activeDatabase = null
+            this.activeDatabase = null
+            this.scope.$broadcast('clear-paths')
         }
         
 

@@ -3,7 +3,7 @@
 module portal {
     'use strict';
 
-    export class CanvasDir {
+    export class CanvasDir implements ng.IDirective {
 
         public injection(): any[] {
             return [
@@ -22,7 +22,10 @@ module portal {
         private height: number
         private elemH: number
         private elemW: number
-        private activeDb: string = null
+        // active path from database
+        private activeDatabase: string = null
+        // active path from service
+        private activeService: string = null
         private main: JQueryCoordinates
         private database: JQueryCoordinates
         private service: JQueryCoordinates
@@ -46,6 +49,17 @@ module portal {
             })
             
             //@TODO we need to a some broadcaster watcher here
+            $scope.$on('database-success', (e, id: string) => {
+                var dbName = this.configService.getDatabase(id).name
+                this.activeDatabase = dbName
+                this.drawDatabasePath(dbName)
+            })
+            
+            $scope.$on('clear-paths', (e) => {
+                this.activeDatabase = null
+                this.activeService = null
+                this.clear()
+            })
             
         }
 
@@ -63,15 +77,29 @@ module portal {
             canvas.height = this.height
             canvas.width = this.width
             
-            this.activeDb = 'SINP'
+            // just for testing
+            //this.activeDatabase = 'SINP'
             
-            if(this.activeDb) {
-            this.database = $("#"+this.activeDb+"-database").offset()
-            this.elemH = $("#"+this.activeDb+"-database").outerHeight(true)
-            this.elemW = $("#"+this.activeDb+"-database").outerWidth(true)
-            this.service = $("#"+this.activeDb+"-service").offset()
+            if(this.activeDatabase) {
+                this.drawDatabasePath(this.activeDatabase)  
+            } else if(this.activeService) {
+            
+            
+            }
+            //this.timeout(() => { this.toggleCanvas(true) }, 1000)
+            //this.timeout(() => { this.toggleCanvas(false) }, 2000)
+        }
+        
+        private drawDatabasePath(name: string) {
+            this.database = $("#"+this.activeDatabase+"-database").offset()
+            this.elemH = $("#"+this.activeDatabase+"-database").outerHeight(true)
+            this.elemW = $("#"+this.activeDatabase+"-database").outerWidth(true)
+            this.service = $("#"+this.activeDatabase+"-service").offset()
             this.myData = $('#MY-DATA').offset() 
             
+            // clear canvas before
+            this.clear()
+            var canvas = <HTMLCanvasElement>document.getElementById('canvas')
             var ctx = canvas.getContext('2d')
             ctx.lineWidth = 2
             ctx.strokeStyle = "#000000"
@@ -90,20 +118,9 @@ module portal {
             ctx.moveTo(this.myData.left-this.main.left+this.elemW-15, this.myData.top-this.main.top+this.elemH/2)
             ctx.lineTo(this.myData.left-this.main.left+this.elemW-5, this.myData.top-this.main.top+this.elemH/2+10)
             ctx.stroke()
-            //this.timeout(() => { this.toggleCanvas(true) }, 1000)
-            //this.timeout(() => { this.toggleCanvas(false) }, 2000)
-            }
-        }
-        
-        private drawMyDataPath(name: string) {
-        
         }
         
         private drawServicePath(name: string) {
-        
-        }
-        
-        private drawToolPath() {
         
         }
         
