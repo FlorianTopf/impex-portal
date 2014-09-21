@@ -22,7 +22,7 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
   
   "FMI Methods binding" should {
     
-        /*"respond to getDataPointValue" in {
+        "respond to getDataPointValue" in {
            
            val fmi = new Methods_FMISoapBindings with Soap11Clients with DispatchHttpClients {}
            
@@ -122,7 +122,7 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
            result must beRight // result must be successful
           
-        }*/
+        }
         
         
         "respond to getVOTableURL" in {
@@ -166,7 +166,7 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
         }
         
         
-        /*"respond to getMostRelevantRun" in {
+        "respond to getMostRelevantRun" in {
           
            val fmi = new Methods_FMISoapBindings with Soap11Clients with DispatchHttpClients {}
            
@@ -355,7 +355,7 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	   result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], Boolean]]
 	  	   result must beRight
 	  	   
-	  	}*/
+	  	}
         
 	  	
   }

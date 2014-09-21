@@ -7,6 +7,11 @@
                     <xs:sequence/>
                 </xs:complexType>
             </xs:element>
+            <xs:element name="emptyAlive">
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType>
+            </xs:element>
             <xs:element type="tns:getTimeTablesList" name="getTimeTablesList"/>
             <xs:element type="tns:getTimeTablesListResponse" name="getTimeTablesListResponse"/>
 
@@ -19,17 +24,21 @@
             <xs:element type="tns:getParameter" name="getParameter"/>
             <xs:element type="tns:getParameterResponse" name="getParameterResponse"/>
             
+             <xs:element type="tns:getDataset" name="getDataset"/>
+            <xs:element type="tns:getDatasetResponse" name="getDatasetResponse"/>
+            
             <xs:element type="tns:getOrbites" name="getOrbites"/>
             <xs:element type="tns:getOrbitesResponse" name="getOrbitesResponse"/> 
 
             <xs:element type="tns:getObsDataTreeResponse" name="getObsDataTreeResponse"/>
-
+            
+            <xs:element type="xs:boolean" name="alive"/>
+            
             <xs:complexType name="getObsDataTreeResponse">
                 <xs:sequence>
                     <xs:element type="xs:boolean" maxOccurs="1" minOccurs="0" name="success">
                         <xs:annotation>
-                            <xs:documentation>Url of TimeTables storage file with TimeTables
-                                ID's.</xs:documentation>
+                            <xs:documentation>If methode is OK success = true, else success = false</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element maxOccurs="1" minOccurs="1" type="tns:WorkSpace" name="WorkSpace">
@@ -81,8 +90,7 @@
                 <xs:sequence>
                     <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="userID">
                         <xs:annotation>
-                            <xs:documentation>ID of AMDA user storing in the 3DView. Must
-                                TBD</xs:documentation>
+                            <xs:documentation>ID of AMDA user</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="password">
@@ -632,7 +640,7 @@
                     <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="parameterID">
                         <xs:annotation>
                             <xs:documentation>Id of parameter defined in
-                                AmdaUserTree.xml</xs:documentation>
+                                Amda LocalParams.xml</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element maxOccurs="1" minOccurs="0" type="xs:float" name="sampling">
@@ -706,6 +714,94 @@
                 </xs:sequence>
             </xs:complexType>
             
+             <xs:complexType name="getDataset">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="startTime">
+                        <xs:annotation>
+                            <xs:documentation>Start time in ISO 8601 format</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="stopTime">
+                        <xs:annotation>
+                            <xs:documentation>Stop time in ISO 8601 format</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="datasetID">
+                        <xs:annotation>
+                            <xs:documentation>Id of Data Sets defined in 
+                                Amda LocalParams.xml</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:float" name="sampling">
+                        <xs:annotation>
+                            <xs:documentation>Sampling or average time in sec</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="userID">
+                        <xs:annotation>
+                            <xs:documentation>ID of AMDA user. For
+                                public data is optional. </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="password">
+                        <xs:annotation>
+                            <xs:documentation>Crypt Password of AMDA user.
+                                Must TBD encryption types Required for predefined parameters.
+                            </xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" name="outputFormat">
+                        <xs:annotation>
+                            <xs:documentation> Choice is possible between the 3 formats: netCDF,
+                                ASCII and VOTable. If the format is not specified it will be netCDF
+                                by default</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="netCDF"/>
+                                <xs:enumeration value="VOTable"/>
+                                <xs:enumeration value="ASCII"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" name="timeFormat">
+                        <xs:annotation>
+                            <xs:documentation> Choice is possible between the two formats: ISO 8601
+                                or unixtime. If the format is not specified it will be ISO 8601 by
+                                default</xs:documentation>
+                        </xs:annotation>
+                        <xs:simpleType>
+                            <xs:restriction base="xs:string">
+                                <xs:enumeration value="ISO8601"/>
+                                <xs:enumeration value="unixtime"/>
+                            </xs:restriction>
+                        </xs:simpleType>
+                    </xs:element>
+                    <xs:element type="xs:integer" maxOccurs="1" minOccurs="0" name="gzip">
+                        <xs:annotation>
+                            <xs:documentation>1 to compress data with gzip (0 by
+                                default)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="getDatasetResponse">
+                <xs:sequence>
+                    <xs:element type="xs:boolean" maxOccurs="1" minOccurs="0" name="success">
+                        <xs:annotation>
+                            <xs:documentation>Url of TimeTables storage file with TimeTables
+                                ID's.</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:anyURI" name="dataFileURLs" minOccurs="0" maxOccurs="unbounded">
+                        <xs:annotation>
+                            <xs:documentation>URLs of results data files. If not URLs - not data for
+                                required parameters</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>           
             <xs:complexType name="getOrbites">
                 <xs:sequence>
                     <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="startTime">
@@ -865,6 +961,14 @@
 
     
 
+    <wsdl:message name="isAlive">
+        <wsdl:part element="tns:emptyAlive" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="isAliveResponse">
+        <wsdl:part element="tns:alive" name="parameters"> </wsdl:part>
+    </wsdl:message>
+    
     <wsdl:message name="getObsDataTree">
         <wsdl:part element="tns:emptyElement" name="parameters"> </wsdl:part>
     </wsdl:message>
@@ -897,6 +1001,15 @@
         <wsdl:part element="tns:getParameterResponse" name="parameters"> </wsdl:part>
     </wsdl:message>
 
+    <wsdl:message name="getDataset">
+        <wsdl:part element="tns:getDataset" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getDatasetResponse">
+        <wsdl:part element="tns:getDatasetResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+
     <wsdl:message name="getOrbites">
         <wsdl:part element="tns:getOrbites" name="parameters"> </wsdl:part>
     </wsdl:message>
@@ -917,6 +1030,11 @@
     
 
     <wsdl:portType name="Methods_AMDA">
+         <wsdl:operation name="isAlive">
+            <wsdl:input message="tns:isAlive"> </wsdl:input>
+            <wsdl:output message="tns:isAliveResponse"> </wsdl:output>
+        </wsdl:operation>
+         
         <wsdl:operation name="getObsDataTree">
             <wsdl:input message="tns:getObsDataTree"> </wsdl:input>
             <wsdl:output message="tns:getObsDataTreeResponse"> </wsdl:output>
@@ -937,6 +1055,11 @@
             <wsdl:output message="tns:getParameterResponse"> </wsdl:output>
         </wsdl:operation>
 
+        <wsdl:operation name="getDataset">
+            <wsdl:input message="tns:getDataset"> </wsdl:input>
+            <wsdl:output message="tns:getDatasetResponse"> </wsdl:output>
+        </wsdl:operation>
+        
         <wsdl:operation name="getOrbites">
             <wsdl:input message="tns:getOrbites"> </wsdl:input>
             <wsdl:output message="tns:getOrbitesResponse"> </wsdl:output>
@@ -953,7 +1076,17 @@
 
     <wsdl:binding type="tns:Methods_AMDA" name="Methods_AMDASoapBinding">
         <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-
+        
+         <wsdl:operation name="isAlive">
+            <soap:operation style="document" soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        
         <wsdl:operation name="getObsDataTree">
             <soap:operation style="document" soapAction=""/>
             <wsdl:input>
@@ -985,6 +1118,16 @@
         </wsdl:operation>
 
         <wsdl:operation name="getParameter">
+            <soap:operation style="document" soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+
+        <wsdl:operation name="getDataset">
             <soap:operation style="document" soapAction=""/>
             <wsdl:input>
                 <soap:body use="literal"/>

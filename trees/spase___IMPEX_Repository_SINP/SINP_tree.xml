@@ -7,6 +7,7 @@
       <ResourceName>Static model for Earth</ResourceName>
       <ReleaseDate>2012-09-21T00:00:00.000</ReleaseDate>
       <Description>Paraboloid model calculates the magnetic fields in the Earth's magnetosphere depending on external conditions in solar wind and on geomagnetic activity level.</Description>
+      <Acknowledgement>We request that the user contacts SINP Paraboloid Model developers before publishing or presenting results obtained with the use of the model. We request that the user offers co-authorship for the developers and acknowledgements for the original model. Contacts at the Moscow State University: Alexeev I.I.(alexeev@dec1.sinp.msu.ru) or Kalegaev V.V.(klg@dec1.sinp.msu.ru)</Acknowledgement>
       <Contact>
         <PersonID>SINP</PersonID>
         <Role>DataProducer</Role>
