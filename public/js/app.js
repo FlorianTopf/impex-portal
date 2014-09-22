@@ -867,8 +867,8 @@ var portal;
             this.url = '/';
             this.config = null;
             this.aliveMap = {};
-            this.filterRegions = [];
             this.filterMap = {};
+            this.filterRegions = [];
             // creates an action descriptor
             this.configAction = {
                 method: 'GET',
@@ -931,6 +931,7 @@ var portal;
         function RegistryService($rootScope, $resource) {
             this.url = '/';
             this.isFilterSet = false;
+            // defines currently selected filter
             this.selectedFilter = {};
             // cache for the elements (identified by request id)
             this.cachedElements = {};
@@ -948,12 +949,6 @@ var portal;
             this.selectables['spase://IMPEX/Repository/LATMOS'] = ['SimulationRun', 'NumericalOutput'];
             this.selectables['spase://IMPEX/Repository/SINP'] = ['SimulationModel', 'NumericalOutput'];
         }
-        RegistryService.prototype.notify = function (status, id) {
-            if (status == 'success') {
-                this.scope.$broadcast('database-success', id);
-            }
-        };
-
         RegistryService.prototype.Repository = function () {
             return this.resource(this.url + 'registry/repository?', { id: '@id', fmt: '@fmt' }, { getRepository: this.registryAction });
         };
@@ -972,6 +967,12 @@ var portal;
 
         RegistryService.prototype.Granule = function () {
             return this.resource(this.url + 'registry/granule?', { id: '@id', fmt: '@fmt' }, { getGranule: this.registryAction });
+        };
+
+        RegistryService.prototype.notify = function (status, id) {
+            if (status == 'success') {
+                this.scope.$broadcast('database-success', id);
+            }
         };
         RegistryService.$inject = ['$rootScope', '$resource'];
         return RegistryService;
@@ -995,7 +996,7 @@ var portal;
             this.showSuccess = {};
             this.unreadResults = 0;
             // action descriptor for GET methods actions
-            this.methodsAction = {
+            this.getMethodAction = {
                 method: 'GET',
                 isArray: false
             };
@@ -1022,27 +1023,7 @@ var portal;
         }
         // generic method for requesting API
         MethodsService.prototype.MethodsAPI = function () {
-            return this.resource(this.url + 'api-docs/methods', {}, { getMethods: this.methodsAction });
-        };
-
-        MethodsService.prototype.notify = function (status, id) {
-            if (status == 'loading') {
-                this.loading[id] = true;
-                this.showError[id] = false;
-                this.showSuccess[id] = false;
-                this.scope.$broadcast('service-loading', id);
-                this.growl.info(this.status);
-            } else if (status == 'success') {
-                this.loading[id] = false;
-                this.showSuccess[id] = true;
-                this.scope.$broadcast('service-success', id);
-                this.growl.success(this.status);
-            } else if (status == 'error') {
-                this.loading[id] = false;
-                this.showError[id] = true;
-                this.scope.$broadcast('service-error', id);
-                this.growl.error(this.status);
-            }
+            return this.resource(this.url + 'api-docs/methods', {}, { getMethods: this.getMethodAction });
         };
 
         MethodsService.prototype.getMethodsAPI = function () {
@@ -1069,7 +1050,27 @@ else
 
         // generic method for requesting standard services (GET + params / POST)
         MethodsService.prototype.requestMethod = function (path, params) {
-            return this.resource(path, params, { getMethod: this.methodsAction, postMethod: this.postMethodAction });
+            return this.resource(path, params, { getMethod: this.getMethodAction, postMethod: this.postMethodAction });
+        };
+
+        MethodsService.prototype.notify = function (status, id) {
+            if (status == 'loading') {
+                this.loading[id] = true;
+                this.showError[id] = false;
+                this.showSuccess[id] = false;
+                this.scope.$broadcast('service-loading', id);
+                this.growl.info(this.status);
+            } else if (status == 'success') {
+                this.loading[id] = false;
+                this.showSuccess[id] = true;
+                this.scope.$broadcast('service-success', id);
+                this.growl.success(this.status);
+            } else if (status == 'error') {
+                this.loading[id] = false;
+                this.showError[id] = true;
+                this.scope.$broadcast('service-error', id);
+                this.growl.error(this.status);
+            }
         };
         MethodsService.$inject = ['$rootScope', '$resource', 'growl'];
         return MethodsService;
@@ -1109,13 +1110,8 @@ var portal;
             this.sessionStorage.$default({
                 methods: {}
             });
-
             this.resource = $resource;
         }
-        UserService.prototype.createId = function () {
-            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1) + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
-        };
-
         // returns the resource handler for userdata
         UserService.prototype.UserData = function () {
             return this.resource(this.url + 'userdata/:name', { name: '@name' }, {
@@ -1132,6 +1128,11 @@ var portal;
         // calls delete on a specific userdata file
         UserService.prototype.deleteUserData = function (name) {
             return this.UserData().delete({}, { 'name': name });
+        };
+
+        // used for creating internal ids
+        UserService.prototype.createId = function () {
+            return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1) + Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
         };
         UserService.$inject = ['$localStorage', '$sessionStorage', '$resource'];
         return UserService;
@@ -1166,7 +1167,6 @@ var portal;
                 console.log('Shutdown ' + senderId + ' ' + JSON.stringify(message));
                 _this.window.isSampRegistered = false;
             };
-
             var baseUrl = this.window.location.href.toString().replace(new RegExp('[^/]*$'), '').replace('#/', '');
             var meta = {
                 'samp.name': 'IMPExPortal',

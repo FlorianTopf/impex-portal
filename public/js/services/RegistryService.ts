@@ -18,19 +18,15 @@ module portal {
         private resource: ng.resource.IResourceService
         private scope: ng.IRootScopeService
         private url: string = '/'
+        
         public isFilterSet: boolean = false
+        // defines currently selected filter
         public selectedFilter: IBooleanMap = {}
         // cache for the elements (identified by request id)
         public cachedElements: IElementArrayMap = {}
         // defines which elements are selectables in the registry
         public selectables: IArrayMap = {}
         
-        // action descriptor for registry actions
-        private registryAction: ng.resource.IActionDescriptor = {
-            method: 'GET',
-            isArray: false
-        }
-          
         constructor($rootScope: ng.IRootScopeService, $resource: ng.resource.IResourceService) {
             this.resource = $resource
             this.scope = $rootScope
@@ -40,10 +36,10 @@ module portal {
             this.selectables['spase://IMPEX/Repository/SINP'] = [ 'SimulationModel', 'NumericalOutput' ]
         }
         
-        public notify(status: string, id: string) {
-             if(status == 'success') {
-                this.scope.$broadcast('database-success', id)
-              }
+        // action descriptor for registry actions
+        private registryAction: ng.resource.IActionDescriptor = {
+            method: 'GET',
+            isArray: false
         }
         
         public Repository(): IRegistryResource {
@@ -75,7 +71,12 @@ module portal {
                 { id: '@id', fmt: '@fmt' },
                 { getGranule: this.registryAction })
         }
-
+    
+        public notify(status: string, id: string) {
+             if(status == 'success') {
+                this.scope.$broadcast('database-success', id)
+              }
+        }
         
     }
 }

@@ -11,6 +11,7 @@ module portal {
         // we must use any here (to access global vars)
         private window: any
         private callHandler: any = null
+        
         public clientTracker: any = null
         public connector: any = null
         public clients: Object = {}
@@ -31,22 +32,19 @@ module portal {
                console.log('Shutdown '+senderId+' '+JSON.stringify(message))
                this.window.isSampRegistered = false
            }
-            
            var baseUrl = this.window.location.href.toString()
-           .replace(new RegExp('[^/]*$'), '').replace('#/','')
-            var meta = {
-                'samp.name': 'IMPExPortal',
-                'samp.description': 'Simple VOTable distributor',
-                'samp.icon.url': baseUrl + 'public/img/clientIcon.gif',
-                'author.mail': 'florian.topf@gmail.com',
-                'author.name': 'Florian Topf'
-            }
-            var subs = this.clientTracker.calculateSubscriptions()
-            // init connection
-            this.connector = new samp.Connector("IMPExPortal", meta, this.clientTracker, subs)
+               .replace(new RegExp('[^/]*$'), '').replace('#/','')
+           var meta = {
+               'samp.name': 'IMPExPortal',
+               'samp.description': 'Simple VOTable distributor',
+               'samp.icon.url': baseUrl + 'public/img/clientIcon.gif',
+               'author.mail': 'florian.topf@gmail.com',
+               'author.name': 'Florian Topf'
+           }
+           var subs = this.clientTracker.calculateSubscriptions()
+           // init connection
+           this.connector = new samp.Connector("IMPExPortal", meta, this.clientTracker, subs)
         }
         
-  
     }
-
 }

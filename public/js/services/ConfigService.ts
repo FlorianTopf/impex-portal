@@ -14,21 +14,22 @@ module portal {
         private resource: ng.resource.IResourceService
         private http: ng.IHttpService
         private url: string = '/'
+        
         public config: IConfig = null
         public aliveMap: IBooleanMap = {}
-        public filterRegions: Array<string> = []
         public filterMap: IBooleanMap = {}
+        public filterRegions: Array<string> = []
+        
+        constructor($resource: ng.resource.IResourceService, $http: ng.IHttpService) {
+            this.resource = $resource
+            this.http = $http
+        }
         
         // creates an action descriptor
         private configAction: ng.resource.IActionDescriptor = {
             method: 'GET',
             isArray: false
         }  
-        
-        constructor($resource: ng.resource.IResourceService, $http: ng.IHttpService) {
-            this.resource = $resource
-            this.http = $http
-        }
 
         // returns the resource handler 
         public Config(): IConfigResource {
@@ -71,8 +72,7 @@ module portal {
         
         public filterRegion(name: String): ng.IHttpPromise<Array<string>> {
             return this.http.get(this.url+'filter/region/'+name, { timeout: 10000})
-        }
-        
+        }  
 
     }
 }

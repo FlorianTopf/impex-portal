@@ -14,22 +14,12 @@ module portal {
 
         private resource: ng.resource.IResourceService
         private url: string = '/'
+        
     	public user: User = null
         public localStorage: any = null
         public sessionStorage: any = null
 
-         // creates an action descriptor for list
-        private userListAction: ng.resource.IActionDescriptor = {
-            method: 'GET',
-            isArray: true
-        }  
-        
-         // creates an action descriptor for delete
-        private userDeleteAction: ng.resource.IActionDescriptor = {
-            method: 'DELETE'
-        }
-        
-    	constructor($localStorage, $sessionStorage, $resource) {
+        constructor($localStorage, $sessionStorage, $resource) {
             this.localStorage = $localStorage
             this.sessionStorage = $sessionStorage
             // initialise needed keys (doesn't overwrite existing ones)
@@ -40,18 +30,19 @@ module portal {
             // saves current method state
             this.sessionStorage.$default({
                 methods: {}
-            })
-            
+            })      
             this.resource = $resource
         }
         
-        public createId(): string {
-            return Math.floor((1 + Math.random()) * 0x10000)
-               .toString(16)
-               .substring(1)+
-                Math.floor((1 + Math.random()) * 0x10000)
-               .toString(16)
-               .substring(1)
+         // creates an action descriptor for list
+        private userListAction: ng.resource.IActionDescriptor = {
+            method: 'GET',
+            isArray: true
+        }  
+        
+         // creates an action descriptor for delete
+        private userDeleteAction: ng.resource.IActionDescriptor = {
+            method: 'DELETE'
         }
         
         // returns the resource handler for userdata
@@ -70,6 +61,16 @@ module portal {
         // calls delete on a specific userdata file
         public deleteUserData(name: string): IUserData {
             return this.UserData().delete({}, { 'name': name })
+        }
+        
+        // used for creating internal ids
+        public createId(): string {
+            return Math.floor((1 + Math.random()) * 0x10000)
+               .toString(16)
+               .substring(1)+
+                Math.floor((1 + Math.random()) * 0x10000)
+               .toString(16)
+               .substring(1)
         }
         
     }

@@ -21,6 +21,7 @@ module portal {
         private resource: ng.resource.IResourceService
         private url: string = '/'
         private growl: any
+        
         public methods: ISwagger = null    
         // special applyables for SINP models/outputs
         public applyableModels: IArrayMap = {}
@@ -30,8 +31,23 @@ module portal {
         public showSuccess: IBooleanMap = {}
         public unreadResults: number = 0
         
+        constructor($rootScope: ng.IRootScopeService, $resource: ng.resource.IResourceService, growl: any) {
+            this.resource = $resource
+            this.growl = growl
+            this.scope = $rootScope
+            
+            // fill manual applyables for SINP (no API info available)
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = 
+            ['calculateDataPointValue', 'calculateDataPointValueSpacecraft', 'calculateDataPointValueFixedTime', 
+                'calculateFieldline', 'calculateCube', 'calculateFieldline', 'getSurfaceSINP']
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Mercury/OnFly'] = 
+                ['calculateDataPointValueNercury', 'calculateCubeMercury']
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Saturn/OnFly'] = 
+                ['calculateDataPointValueSaturn', 'calculateCubeSaturn']
+        }
+        
         // action descriptor for GET methods actions
-        private methodsAction: ng.resource.IActionDescriptor = {
+        private getMethodAction: ng.resource.IActionDescriptor = {
             method: 'GET',
             isArray: false
         }
@@ -44,40 +60,7 @@ module portal {
         // generic method for requesting API
         private MethodsAPI(): IMethodsAPI {
             return <IMethodsAPI> this.resource(this.url+'api-docs/methods', 
-                {}, { getMethods: this.methodsAction })
-        }
-          
-        constructor($rootScope: ng.IRootScopeService, $resource: ng.resource.IResourceService, growl: any) {
-            this.resource = $resource
-            this.growl = growl
-            this.scope = $rootScope
-            
-            // fill manual applyables for SINP (no API info available)
-            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = 
-            ['calculateDataPointValue', 'calculateDataPointValueSpacecraft', 'calculateDataPointValueFixedTime', 
-                'calculateFieldline', 'calculateCube', 'calculateFieldline', 'getSurfaceSINP']
-            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Mercury/OnFly'] = ['calculateDataPointValueNercury', 'calculateCubeMercury']
-            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Saturn/OnFly'] = ['calculateDataPointValueSaturn', 'calculateCubeSaturn']
-        }
-        
-        public notify(status: string, id: string) {
-            if(status == 'loading') {
-                this.loading[id] = true
-                this.showError[id] = false
-                this.showSuccess[id] = false
-                this.scope.$broadcast('service-loading', id)
-                this.growl.info(this.status)
-            } else if(status == 'success') {
-                this.loading[id] = false
-                this.showSuccess[id] = true
-                this.scope.$broadcast('service-success', id)
-                this.growl.success(this.status)
-            } else if(status == 'error') {
-                this.loading[id] = false
-                this.showError[id] = true
-                this.scope.$broadcast('service-error', id)
-                this.growl.error(this.status)
-            }
+                {}, { getMethods: this.getMethodAction })
         }
         
         public getMethodsAPI(): ng.IPromise<ISwagger> {
@@ -107,9 +90,28 @@ module portal {
         // generic method for requesting standard services (GET + params / POST)
         public requestMethod(path: string, params?: Object): IMethods {
             return <IMethods> this.resource(path, params,
-                { getMethod: this.methodsAction, postMethod: this.postMethodAction})
+                { getMethod: this.getMethodAction, postMethod: this.postMethodAction})
         }   
         
+        public notify(status: string, id: string) {
+            if(status == 'loading') {
+                this.loading[id] = true
+                this.showError[id] = false
+                this.showSuccess[id] = false
+                this.scope.$broadcast('service-loading', id)
+                this.growl.info(this.status)
+            } else if(status == 'success') {
+                this.loading[id] = false
+                this.showSuccess[id] = true
+                this.scope.$broadcast('service-success', id)
+                this.growl.success(this.status)
+            } else if(status == 'error') {
+                this.loading[id] = false
+                this.showError[id] = true
+                this.scope.$broadcast('service-error', id)
+                this.growl.error(this.status)
+            }
+        }
         
     }
 }
