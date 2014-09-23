@@ -95,22 +95,23 @@ module portal {
         
         public notify(status: string, id: string) {
             if(status == 'loading') {
+                this.status = 'Loading data from service'
                 this.loading[id] = true
                 this.showError[id] = false
                 this.showSuccess[id] = false
-                this.scope.$broadcast('service-loading', id)
                 this.growl.info(this.status)
+            } else if(status == 'error') {
+                this.loading[id] = false
+                this.showError[id] = true
+                this.growl.error(this.status)
             } else if(status == 'success') {
+                this.status = 'Added service result to user data'
+                this.unreadResults++
                 this.loading[id] = false
                 this.showSuccess[id] = true
                 this.scope.$broadcast('service-success', id)
                 this.growl.success(this.status)
-            } else if(status == 'error') {
-                this.loading[id] = false
-                this.showError[id] = true
-                this.scope.$broadcast('service-error', id)
-                this.growl.error(this.status)
-            }
+            } 
         }
         
     }

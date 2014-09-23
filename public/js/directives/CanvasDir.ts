@@ -30,6 +30,7 @@ module portal {
         private database: JQueryCoordinates
         private service: JQueryCoordinates
         private myData: JQueryCoordinates
+        private tools: JQueryCoordinates
 
         private configService: portal.ConfigService
         private timeout: ng.ITimeoutService
@@ -48,17 +49,30 @@ module portal {
                 this.timeout(() => this.handleResize(element))
             })
             
-            //@TODO we need to a some broadcaster watcher here
             $scope.$on('database-success', (e, id: string) => {
                 var dbName = this.configService.getDatabase(id).name
                 this.activeDatabase = dbName
-                this.drawDatabasePath(dbName)
+                this.drawDatabasePath()
+            })
+            
+            $scope.$on('service-success', (e, id: string) => {
+                var dbName = this.configService.getDatabase(id).name
+                this.activeService = dbName
+                this.drawServicePath()
             })
             
             $scope.$on('clear-paths', (e) => {
                 this.activeDatabase = null
                 this.activeService = null
                 this.clear()
+            })
+            
+            $scope.$on('draw-paths', (e) => {
+                this.toggleCanvas(true)
+                this.timeout(() => { 
+                    this.toggleCanvas(false)
+                    this.handleResize(element)
+                } , 350)
             })
             
         }
@@ -68,8 +82,8 @@ module portal {
             element.offset(this.main)
             element.css("zIndex", "0")
 
-            this.height = $("#main").height()+1
-            this.width = $("#main").width()+1
+            this.height = $("#main").height()
+            this.width = $("#main").width()
             $("#canvas").height(this.height)
             $("#canvas").width(this.width)
             
@@ -79,24 +93,23 @@ module portal {
             
             // just for testing
             //this.activeDatabase = 'SINP'
+            //this.activeService = 'FMI-HYBRID'
             
             if(this.activeDatabase) {
-                this.drawDatabasePath(this.activeDatabase)  
+                this.drawDatabasePath()  
             } else if(this.activeService) {
-            
+                this.drawServicePath()
             
             }
-            //this.timeout(() => { this.toggleCanvas(true) }, 1000)
-            //this.timeout(() => { this.toggleCanvas(false) }, 2000)
         }
         
-        private drawDatabasePath(name: string) {
+        private drawDatabasePath() {
             this.database = $("#"+this.activeDatabase+"-database").offset()
             this.elemH = $("#"+this.activeDatabase+"-database").outerHeight(true)
             this.elemW = $("#"+this.activeDatabase+"-database").outerWidth(true)
             this.service = $("#"+this.activeDatabase+"-service").offset()
             this.myData = $('#MY-DATA').offset() 
-            
+            //console.log(JSON.stringify(this.myData)+' '+this.elemH+' '+this.elemW)
             // clear canvas before
             this.clear()
             var canvas = <HTMLCanvasElement>document.getElementById('canvas')
@@ -104,13 +117,13 @@ module portal {
             ctx.lineWidth = 2
             ctx.strokeStyle = "#000000"
             ctx.beginPath()
-            // testing path from database to my data and services
+            // path from database to my data and services
             // line top down + arrow
             ctx.moveTo(this.database.left-this.main.left+this.elemW/2, this.database.top-this.main.top+this.elemH)
-            ctx.lineTo(this.database.left-this.main.left+this.elemW/2, this.service.top-this.main.top)
-            ctx.lineTo(this.database.left-this.main.left+this.elemW/2-10, this.service.top-this.main.top-10)
-            ctx.moveTo(this.database.left-this.main.left+this.elemW/2, this.service.top-this.main.top)
-            ctx.lineTo(this.database.left-this.main.left+this.elemW/2+10, this.service.top-this.main.top-10)
+            ctx.lineTo(this.database.left-this.main.left+this.elemW/2, this.service.top-this.main.top-5)
+            ctx.lineTo(this.database.left-this.main.left+this.elemW/2-10, this.service.top-this.main.top-15)
+            ctx.moveTo(this.database.left-this.main.left+this.elemW/2, this.service.top-this.main.top-5)
+            ctx.lineTo(this.database.left-this.main.left+this.elemW/2+10, this.service.top-this.main.top-15)
             // line to left + arrow
             ctx.moveTo(this.database.left-this.main.left+this.elemW/2, this.myData.top-this.main.top+this.elemH/2)
             ctx.lineTo(this.myData.left-this.main.left+this.elemW-15, this.myData.top-this.main.top+this.elemH/2)
@@ -120,11 +133,36 @@ module portal {
             ctx.stroke()
         }
         
-        private drawServicePath(name: string) {
-        
+        private drawServicePath() {
+            this.service = $("#"+this.activeService+"-service").offset()
+            this.elemH = $("#"+this.activeService+"-database").outerHeight(true)
+            this.elemW = $("#"+this.activeService+"-database").outerWidth(true)
+            this.tools = $('#TOOLS').offset()
+            this.myData = $('#MY-DATA').offset() 
+            // clear canvas before
+            this.clear()
+            var canvas = <HTMLCanvasElement>document.getElementById('canvas')
+            var ctx = canvas.getContext('2d')
+            ctx.lineWidth = 2
+            ctx.strokeStyle = "#000000"
+            ctx.beginPath()
+            // line to top and left + arrow
+            ctx.moveTo(this.service.left-this.main.left+this.elemW/2, this.service.top-this.main.top)
+            ctx.lineTo(this.service.left-this.main.left+this.elemW/2, this.myData.top-this.main.top+this.elemH/2)
+            ctx.lineTo(this.myData.left-this.main.left+this.elemW-15, this.myData.top-this.main.top+this.elemH/2)
+            ctx.lineTo(this.myData.left-this.main.left+this.elemW-5, this.myData.top-this.main.top+this.elemH/2-10)
+            ctx.moveTo(this.myData.left-this.main.left+this.elemW-15, this.myData.top-this.main.top+this.elemH/2)
+            ctx.lineTo(this.myData.left-this.main.left+this.elemW-5, this.myData.top-this.main.top+this.elemH/2+10)
+            // line to right + arrow
+            ctx.moveTo(this.service.left-this.main.left+this.elemW/2, this.myData.top-this.main.top+this.elemH/2)
+            ctx.lineTo(this.tools.left-this.main.left, this.myData.top-this.main.top+this.elemH/2)
+            ctx.lineTo(this.tools.left-this.main.left-10, this.myData.top-this.main.top+this.elemH/2-10)
+            ctx.moveTo(this.tools.left-this.main.left, this.myData.top-this.main.top+this.elemH/2)
+            ctx.lineTo(this.tools.left-this.main.left-10, this.myData.top-this.main.top+this.elemH/2+10)
+            ctx.stroke()
+            
         }
         
-
         private clear() {
             var canvas = <HTMLCanvasElement>document.getElementById('canvas')
             if(canvas) {
@@ -133,9 +171,8 @@ module portal {
             }
         }
 
-
-        private toggleCanvas(front: boolean) {
-            if(front) {
+        private toggleCanvas(hide: boolean) {
+            if(hide) {
                 $("#canvas").hide()
             } else {
                 $("#canvas").show()

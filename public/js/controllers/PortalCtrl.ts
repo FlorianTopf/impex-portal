@@ -115,17 +115,9 @@ module portal {
                 this.window.onbeforeunload = onBeforeUnloadHandler
             }
             
-            // @TODO here we will activate the action paths (+ symbols)
-            //this.scope.$on('service-loading', (e, id: string) => { 
-            //    console.log('service loading at '+id)
-            //})
-            
-            //this.scope.$on('service-error', (e, id: string) => { 
-            //    console.log('service error at '+id)
-            //})
-            
             // just for testing
             //this.activeDatabase = 'SINP'
+            //this.activeService = 'FMI-HYBRID'
             
             this.scope.$on('service-success', (e, id: string) => {
                 console.log('service success at '+id)
@@ -146,6 +138,11 @@ module portal {
         //public notImplemented() {
         //    this.window.alert('This functionality is not yet implemented.')
         //}
+        
+        public toggleFilter() {
+            this.isFilterCollapsed = !this.isFilterCollapsed
+            this.scope.$broadcast('draw-paths')
+        }
         
         public selectFilter(region: string) {
             this.registryService.selectedFilter[region] = 
@@ -207,8 +204,13 @@ module portal {
             }
         }
         
-        // @FIXME not working optimal on register 
-        // (delay because of isSampRegistered global var)
+        public toggleSamp() {
+            this.isSampCollapsed = !this.isSampCollapsed
+            if(this.isFilterCollapsed)
+                this.scope.$broadcast('draw-paths')
+        }
+        
+        // @FIXME delay because of isSampRegistered is a global var
         public registerSamp() {
             this.growl.warning('Contacting SAMP hub, please wait...')
             //this.sampConnector.register()
@@ -251,7 +253,7 @@ module portal {
         
         public resetPath() {
             this.activeDatabase = null
-            this.activeDatabase = null
+            this.activeService = null
             this.scope.$broadcast('clear-paths')
         }
         

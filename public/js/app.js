@@ -1055,21 +1055,22 @@ else
 
         MethodsService.prototype.notify = function (status, id) {
             if (status == 'loading') {
+                this.status = 'Loading data from service';
                 this.loading[id] = true;
                 this.showError[id] = false;
                 this.showSuccess[id] = false;
-                this.scope.$broadcast('service-loading', id);
                 this.growl.info(this.status);
+            } else if (status == 'error') {
+                this.loading[id] = false;
+                this.showError[id] = true;
+                this.growl.error(this.status);
             } else if (status == 'success') {
+                this.status = 'Added service result to user data';
+                this.unreadResults++;
                 this.loading[id] = false;
                 this.showSuccess[id] = true;
                 this.scope.$broadcast('service-success', id);
                 this.growl.success(this.status);
-            } else if (status == 'error') {
-                this.loading[id] = false;
-                this.showError[id] = true;
-                this.scope.$broadcast('service-error', id);
-                this.growl.error(this.status);
             }
         };
         MethodsService.$inject = ['$rootScope', '$resource', 'growl'];
@@ -1316,15 +1317,9 @@ var portal;
                 this.window.onbeforeunload = onBeforeUnloadHandler;
             }
 
-            // @TODO here we will activate the action paths (+ symbols)
-            //this.scope.$on('service-loading', (e, id: string) => {
-            //    console.log('service loading at '+id)
-            //})
-            //this.scope.$on('service-error', (e, id: string) => {
-            //    console.log('service error at '+id)
-            //})
             // just for testing
             //this.activeDatabase = 'SINP'
+            //this.activeService = 'FMI-HYBRID'
             this.scope.$on('service-success', function (e, id) {
                 console.log('service success at ' + id);
                 _this.activeDatabase = null;
@@ -1344,6 +1339,11 @@ var portal;
         //public notImplemented() {
         //    this.window.alert('This functionality is not yet implemented.')
         //}
+        PortalCtrl.prototype.toggleFilter = function () {
+            this.isFilterCollapsed = !this.isFilterCollapsed;
+            this.scope.$broadcast('draw-paths');
+        };
+
         PortalCtrl.prototype.selectFilter = function (region) {
             this.registryService.selectedFilter[region] = !this.registryService.selectedFilter[region];
             this.isFilterSelected = false;
@@ -1402,8 +1402,13 @@ else
             }
         };
 
-        // @FIXME not working optimal on register
-        // (delay because of isSampRegistered global var)
+        PortalCtrl.prototype.toggleSamp = function () {
+            this.isSampCollapsed = !this.isSampCollapsed;
+            if (this.isFilterCollapsed)
+                this.scope.$broadcast('draw-paths');
+        };
+
+        // @FIXME delay because of isSampRegistered is a global var
         PortalCtrl.prototype.registerSamp = function () {
             this.growl.warning('Contacting SAMP hub, please wait...');
 
@@ -1450,7 +1455,7 @@ else
 
         PortalCtrl.prototype.resetPath = function () {
             this.activeDatabase = null;
-            this.activeDatabase = null;
+            this.activeService = null;
             this.scope.$broadcast('clear-paths');
         };
         PortalCtrl.$inject = [
@@ -1721,8 +1726,6 @@ else
             // refresh localStorage
             this.userService.localStorage.results = this.userService.user.results;
             this.scope.$broadcast('update-results', id);
-            this.methodsService.status = 'Added service result to user data';
-            this.methodsService.unreadResults++;
 
             // system notification
             this.methodsService.notify('success', this.database.id);
@@ -1746,8 +1749,6 @@ else
         MethodsCtrl.prototype.submitMethod = function () {
             var _this = this;
             //console.log('submitted '+this.currentMethod.path+' '+this.request['id'])
-            this.methodsService.status = 'Loading data from service';
-
             // system notification
             this.methodsService.notify('loading', this.database.id);
 
@@ -2972,17 +2973,30 @@ var portal;
                 });
             });
 
-            //@TODO we need to a some broadcaster watcher here
             $scope.$on('database-success', function (e, id) {
                 var dbName = _this.configService.getDatabase(id).name;
                 _this.activeDatabase = dbName;
-                _this.drawDatabasePath(dbName);
+                _this.drawDatabasePath();
+            });
+
+            $scope.$on('service-success', function (e, id) {
+                var dbName = _this.configService.getDatabase(id).name;
+                _this.activeService = dbName;
+                _this.drawServicePath();
             });
 
             $scope.$on('clear-paths', function (e) {
                 _this.activeDatabase = null;
                 _this.activeService = null;
                 _this.clear();
+            });
+
+            $scope.$on('draw-paths', function (e) {
+                _this.toggleCanvas(true);
+                _this.timeout(function () {
+                    _this.toggleCanvas(false);
+                    _this.handleResize(element);
+                }, 350);
             });
         };
 
@@ -2991,8 +3005,8 @@ var portal;
             element.offset(this.main);
             element.css("zIndex", "0");
 
-            this.height = $("#main").height() + 1;
-            this.width = $("#main").width() + 1;
+            this.height = $("#main").height();
+            this.width = $("#main").width();
             $("#canvas").height(this.height);
             $("#canvas").width(this.width);
 
@@ -3001,20 +3015,20 @@ var portal;
             canvas.width = this.width;
 
             if (this.activeDatabase) {
-                this.drawDatabasePath(this.activeDatabase);
+                this.drawDatabasePath();
             } else if (this.activeService) {
+                this.drawServicePath();
             }
-            //this.timeout(() => { this.toggleCanvas(true) }, 1000)
-            //this.timeout(() => { this.toggleCanvas(false) }, 2000)
         };
 
-        CanvasDir.prototype.drawDatabasePath = function (name) {
+        CanvasDir.prototype.drawDatabasePath = function () {
             this.database = $("#" + this.activeDatabase + "-database").offset();
             this.elemH = $("#" + this.activeDatabase + "-database").outerHeight(true);
             this.elemW = $("#" + this.activeDatabase + "-database").outerWidth(true);
             this.service = $("#" + this.activeDatabase + "-service").offset();
             this.myData = $('#MY-DATA').offset();
 
+            //console.log(JSON.stringify(this.myData)+' '+this.elemH+' '+this.elemW)
             // clear canvas before
             this.clear();
             var canvas = document.getElementById('canvas');
@@ -3023,13 +3037,13 @@ var portal;
             ctx.strokeStyle = "#000000";
             ctx.beginPath();
 
-            // testing path from database to my data and services
+            // path from database to my data and services
             // line top down + arrow
             ctx.moveTo(this.database.left - this.main.left + this.elemW / 2, this.database.top - this.main.top + this.elemH);
-            ctx.lineTo(this.database.left - this.main.left + this.elemW / 2, this.service.top - this.main.top);
-            ctx.lineTo(this.database.left - this.main.left + this.elemW / 2 - 10, this.service.top - this.main.top - 10);
-            ctx.moveTo(this.database.left - this.main.left + this.elemW / 2, this.service.top - this.main.top);
-            ctx.lineTo(this.database.left - this.main.left + this.elemW / 2 + 10, this.service.top - this.main.top - 10);
+            ctx.lineTo(this.database.left - this.main.left + this.elemW / 2, this.service.top - this.main.top - 5);
+            ctx.lineTo(this.database.left - this.main.left + this.elemW / 2 - 10, this.service.top - this.main.top - 15);
+            ctx.moveTo(this.database.left - this.main.left + this.elemW / 2, this.service.top - this.main.top - 5);
+            ctx.lineTo(this.database.left - this.main.left + this.elemW / 2 + 10, this.service.top - this.main.top - 15);
 
             // line to left + arrow
             ctx.moveTo(this.database.left - this.main.left + this.elemW / 2, this.myData.top - this.main.top + this.elemH / 2);
@@ -3040,7 +3054,36 @@ var portal;
             ctx.stroke();
         };
 
-        CanvasDir.prototype.drawServicePath = function (name) {
+        CanvasDir.prototype.drawServicePath = function () {
+            this.service = $("#" + this.activeService + "-service").offset();
+            this.elemH = $("#" + this.activeService + "-database").outerHeight(true);
+            this.elemW = $("#" + this.activeService + "-database").outerWidth(true);
+            this.tools = $('#TOOLS').offset();
+            this.myData = $('#MY-DATA').offset();
+
+            // clear canvas before
+            this.clear();
+            var canvas = document.getElementById('canvas');
+            var ctx = canvas.getContext('2d');
+            ctx.lineWidth = 2;
+            ctx.strokeStyle = "#000000";
+            ctx.beginPath();
+
+            // line to top and left + arrow
+            ctx.moveTo(this.service.left - this.main.left + this.elemW / 2, this.service.top - this.main.top);
+            ctx.lineTo(this.service.left - this.main.left + this.elemW / 2, this.myData.top - this.main.top + this.elemH / 2);
+            ctx.lineTo(this.myData.left - this.main.left + this.elemW - 15, this.myData.top - this.main.top + this.elemH / 2);
+            ctx.lineTo(this.myData.left - this.main.left + this.elemW - 5, this.myData.top - this.main.top + this.elemH / 2 - 10);
+            ctx.moveTo(this.myData.left - this.main.left + this.elemW - 15, this.myData.top - this.main.top + this.elemH / 2);
+            ctx.lineTo(this.myData.left - this.main.left + this.elemW - 5, this.myData.top - this.main.top + this.elemH / 2 + 10);
+
+            // line to right + arrow
+            ctx.moveTo(this.service.left - this.main.left + this.elemW / 2, this.myData.top - this.main.top + this.elemH / 2);
+            ctx.lineTo(this.tools.left - this.main.left, this.myData.top - this.main.top + this.elemH / 2);
+            ctx.lineTo(this.tools.left - this.main.left - 10, this.myData.top - this.main.top + this.elemH / 2 - 10);
+            ctx.moveTo(this.tools.left - this.main.left, this.myData.top - this.main.top + this.elemH / 2);
+            ctx.lineTo(this.tools.left - this.main.left - 10, this.myData.top - this.main.top + this.elemH / 2 + 10);
+            ctx.stroke();
         };
 
         CanvasDir.prototype.clear = function () {
@@ -3051,8 +3094,8 @@ var portal;
             }
         };
 
-        CanvasDir.prototype.toggleCanvas = function (front) {
-            if (front) {
+        CanvasDir.prototype.toggleCanvas = function (hide) {
+            if (hide) {
                 $("#canvas").hide();
             } else {
                 $("#canvas").show();

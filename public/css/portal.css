@@ -1,6 +1,7 @@
 /** @TODO add tag types where it makes sense */
 /** GENERAL/MAP */
-html, body {
+html, 
+body {
 	height: 100%;
 	width: 100%;
 }
@@ -77,22 +78,61 @@ body {
 	min-height: 400px;
 }
 
-.modal.fade .modal-dialog, .modal.in .modal-dialog {
+.modal.fade .modal-dialog, 
+.modal.in .modal-dialog {
 	-webkit-transform: translate(0, 0);
   	-ms-transform: translate(0, 0);
   	transform: translate(0, 0);
   	transition: opacity .15s linear;
 }
 
-button.close {
+.modal-header button.close, 
+button.close-path {
 	font-size: 30px;
 }
 
-button.close:active, button.close:focus  {
+button.close-srv {
+	margin-right: 30%; 
+	margin-top: 20%;
+}
+
+button.close-db {
+	margin-right: 30%;
+}
+
+.modal-header button.close:active, 
+.modal-header button.close:focus,
+button.close-path:active,
+button.close-path:focus  {
 	outline: 0;
 }
 
-.btn.disabled, .btn[disabled] {
+button.close-path {
+  -webkit-appearance: none;
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  float: right;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  filter: alpha(opacity=20);
+  opacity: .4;
+}
+
+button.close-path:hover,
+button.close-path:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  filter: alpha(opacity=50);
+  opacity: .8;
+}
+
+.btn.disabled, 
+.btn[disabled] {
 	opacity: .45;
 }
 
@@ -149,7 +189,10 @@ button.close:active, button.close:focus  {
 }
 
 /* hack for angular-ui bootstrap */
-.nav, .pagination, .carousel, .panel-title a { cursor: pointer; cursor: hand; }
+.nav, 
+.pagination, 
+.carousel, 
+.panel-title a { cursor: pointer; cursor: hand; }
 
 .error {
 	color: red;
@@ -415,7 +458,8 @@ button.dropdown-toggle {
 		height: 40px;
 	}
 	
-	.map-heading, .inline-heading {
+	.map-heading, 
+	.inline-heading {
 		font-size: 25px;
 	}
 	
@@ -447,7 +491,8 @@ button.dropdown-toggle {
 		height: 80px;
 	}
 	
-	.map-heading, .inline-heading {
+	.map-heading, 
+	.inline-heading {
 		font-size: 30px;
 	}
 	

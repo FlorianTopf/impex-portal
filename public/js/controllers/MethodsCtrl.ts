@@ -103,8 +103,6 @@ module portal {
             // refresh localStorage
             this.userService.localStorage.results = this.userService.user.results
             this.scope.$broadcast('update-results', id)
-            this.methodsService.status = 'Added service result to user data'
-            this.methodsService.unreadResults++
             // system notification
             this.methodsService.notify('success', this.database.id)
         }
@@ -126,7 +124,6 @@ module portal {
         // method for submission
         public submitMethod() {
             //console.log('submitted '+this.currentMethod.path+' '+this.request['id'])
-            this.methodsService.status = 'Loading data from service'
             // system notification
             this.methodsService.notify('loading', this.database.id)
 
