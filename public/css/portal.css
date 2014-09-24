@@ -131,6 +131,38 @@ button.close-path:focus {
   opacity: .8;
 }
 
+button.import-db, 
+button.import-srv,
+button.saved {
+	font-size: 20px;
+	border: none; 
+	background: none;
+	padding: 0;
+}
+
+button.saved {
+	margin-left: 5%;
+}
+
+button.import-db {
+	margin-right: 28%; 
+	margin-top: 20%; 
+}
+
+button.import-srv {
+	margin-right: 10%;
+}
+
+button.import-db:hover,
+button.import-db:focus,
+button.import-srv:hover,
+button.import-srv:focus,
+button.saved:hover,
+button.saved:focus {
+	cursor: default;
+	outline: 0;	
+}
+
 .btn.disabled, 
 .btn[disabled] {
 	opacity: .45;

@@ -41,7 +41,8 @@
 	</div>
 </div>
 <div class="row" ng-show="vm.ready">
-	<div class="col-sm-4" collapse="vm.isFilterCollapsed">
+	<div class="col-sm-4" id="filter-collapse" 
+		collapse="vm.isFilterCollapsed">
 		<div class="well well-lg filter-box">
 			<div class="btn-group-vertical btn-group-filter">
 				<button type="button" class="btn btn-default btn-sm"
@@ -61,9 +62,8 @@
 			</div>
 		</div>
 	</div>
-	<div class="col-sm-4 col-sm-offset-8" 
-		ng-class="{ 'col-sm-offset-8': vm.isFilterCollapsed,
-			'col-sm-offset-4': !vm.isFilterCollapsed }"
+	<div class="col-sm-4 col-sm-offset-8" id="samp-collapse"
+		ng-class="{ 'col-sm-offset-8': vm.isFilterCollapsed, 'col-sm-offset-4': !vm.isFilterCollapsed }"
 		collapse="vm.isSampCollapsed">
 		<div class="well well-lg filter-box">
 			<div class="btn-group">
@@ -145,7 +145,7 @@
 		<button type="button" class="btn btn-warning btn-map"
 			ui-sref="app.portal.userdata()" 
 			tooltip="Show saved Userdata"
-			tooltip-placement="right">
+			tooltip-placement="bottom">
 			<span ng-show="vm.methodsService.unreadResults > 0" class="badge pull-left map-badge">
 				{{ vm.methodsService.unreadResults }}
 			</span>
@@ -165,15 +165,23 @@
 			</button>
 		</div>
 		<div class="row path-icon">
-			<span ng-show="vm.activeDatabase || vm.activeService" 
-				style="font-size: 20px; margin-left: 5%;" class="glyphicon glyphicon-saved pull-left">
-			</span>
+			<button ng-show="vm.activeDatabase" 
+				class="glyphicon glyphicon-saved saved pull-left"
+				tooltip="Selection is available in My Data"
+				tooltip-placement="right">
+			</button>
+			<button ng-show="vm.activeService" 
+				class="glyphicon glyphicon-saved saved pull-left"
+				tooltip="Result is available in My Data"
+				tooltip-placement="right">
+			</button>
 		</div>
 		<div class="row path-icon">
-			<span ng-show="vm.activeDatabase == 'FMI-HYBRID'" 
-				style="margin-right: 30%; margin-top: 20%; font-size: 20px;" 
-				class="glyphicon glyphicon-import pull-right">
-			</span>
+			<button ng-show="vm.activeDatabase == 'FMI-HYBRID'" type="button"
+				class="glyphicon glyphicon-import import-db pull-right"
+				tooltip="Selection can be used with Data Access"
+				tooltip-placement="right">
+			</button>
 			<button ng-show="vm.activeService == 'FMI-HYBRID'" type="button" 
 				class="close-path close-srv pull-right" ng-click="vm.resetPath()"
 				tooltip="Clear active path"
@@ -196,10 +204,11 @@
 		<div class="row path-icon">
 		</div>
 		<div class="row path-icon">
-			<span ng-show="vm.activeDatabase == 'FMI-GUMICS'" 
-				style="margin-right: 30%; margin-top: 20%; font-size: 20px;" 
-				class="glyphicon glyphicon-import pull-right">
-			</span>
+			<button ng-show="vm.activeDatabase == 'FMI-GUMICS'" type="button"
+				class="glyphicon glyphicon-import import-db pull-right"
+				tooltip="Selection can be used with Data Access"
+				tooltip-placement="right">
+			</button>
 			<button ng-show="vm.activeService == 'FMI-GUMICS'" type="button" 
 				class="close-path close-srv pull-right" ng-click="vm.resetPath()"
 				tooltip="Clear active path"
@@ -222,10 +231,11 @@
 		<div class="row path-icon">
 		</div>
 		<div class="row path-icon">
-			<span ng-show="vm.activeDatabase == 'LATMOS'" 
-				style="margin-right: 30%; margin-top: 20%; font-size: 20px;" 
-				class="glyphicon glyphicon-import pull-right">
-			</span>
+			<button ng-show="vm.activeDatabase == 'LATMOS'" type="button"
+				class="glyphicon glyphicon-import import-db pull-right"
+				tooltip="Selection can be used with Data Access"
+				tooltip-placement="right">
+			</button>
 			<button ng-show="vm.activeService == 'LATMOS'" type="button" 
 				class="close-path close-srv pull-right" ng-click="vm.resetPath()"
 				tooltip="Clear active path"
@@ -240,36 +250,38 @@
 			<button ng-show="vm.activeDatabase == 'SINP'" type="button" 
 				class="close-path close-db pull-right" ng-click="vm.resetPath()"
 				tooltip="Clear active path"
-				tooltip-placement="right">
+				tooltip-placement="left">
 				<span aria-hidden="true">&times;</span>
 				<span class="sr-only">Close</span>
 			</button>
 		</div>
 		<div class="row path-icon">
-			<span ng-show="vm.activeService" 
-				style="margin-right: 10%; font-size: 20px;" 
-				class="glyphicon glyphicon-import pull-right">
-			</span>
+			<button ng-show="vm.activeService" 
+				class="glyphicon glyphicon-import import-srv pull-right"
+				tooltip="Result can be used with SAMP"
+				tooltip-placement="left">
+			</button>
+		</div>
+		<div class="row path-icon">
+			<button ng-show="vm.activeDatabase == 'SINP'" type="button"
+				class="glyphicon glyphicon-import import-db pull-right"
+				tooltip="Selection can be used with Data Access"
+				tooltip-placement="left">
+			</button>
 			<button ng-show="vm.activeService == 'SINP'" type="button" 
 				class="close-path close-srv pull-right" ng-click="vm.resetPath()"
 				tooltip="Clear active path"
-				tooltip-placement="right">
+				tooltip-placement="left">
 				<span aria-hidden="true">&times;</span>
 				<span class="sr-only">Close</span>
 			</button>
-		</div>
-		<div class="row path-icon">
-			<span ng-show="vm.activeDatabase == 'SINP'" 
-				style="margin-right: 30%; margin-top: 20%; font-size: 20px;" 
-				class="glyphicon glyphicon-import pull-right">
-			</span>
 		</div>
 	</div>
 	<div class="col-sm-2 text-center" id="TOOLS">
 		<a class="btn btn-danger btn-map"
 			ng-href="{{ vm.configService.config.tools[1].url }}" target="_blank"
 			tooltip="Open {{ vm.configService.config.tools[1].name }} tool"
-			tooltip-placement="left">
+			tooltip-placement="bottom">
 			<br/>
 			<img src="public/img/layout/tool.png"/><br/>
 			<span class="pull-right tool-heading">
@@ -315,7 +327,7 @@
 		<a class="btn btn-danger btn-map" 
 			ng-href="{{ vm.configService.config.tools[2].url }}" target="_blank"
 			tooltip="Open {{ vm.configService.config.tools[2].name }} tool"
-			tooltip-placement="top">
+			tooltip-placement="bottom">
 			<br/>
 			<img src="public/img/layout/tool.png"/><br/>
 			<span class="pull-right tool-heading">

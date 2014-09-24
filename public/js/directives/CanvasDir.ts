@@ -50,14 +50,12 @@ module portal {
             })
             
             $scope.$on('database-success', (e, id: string) => {
-                var dbName = this.configService.getDatabase(id).name
-                this.activeDatabase = dbName
+                this.activeDatabase = this.configService.getDatabase(id).name
                 this.drawDatabasePath()
             })
             
             $scope.$on('service-success', (e, id: string) => {
-                var dbName = this.configService.getDatabase(id).name
-                this.activeService = dbName
+                this.activeService = this.configService.getDatabase(id).name
                 this.drawServicePath()
             })
             
@@ -69,10 +67,12 @@ module portal {
             
             $scope.$on('draw-paths', (e) => {
                 this.toggleCanvas(true)
-                this.timeout(() => { 
-                    this.toggleCanvas(false)
-                    this.handleResize(element)
-                } , 350)
+                $("#filter-collapse, #samp-collapse").one(
+                    'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', 
+                    () => {
+                        this.toggleCanvas(false)
+                        this.handleResize(element) 
+                })
             })
             
         }
@@ -92,8 +92,8 @@ module portal {
             canvas.width = this.width
             
             // just for testing
-            //this.activeDatabase = 'SINP'
-            //this.activeService = 'FMI-HYBRID'
+            //this.activeDatabase = 'FMI-HYBRID'
+            //this.activeService = 'SINP'
             
             if(this.activeDatabase) {
                 this.drawDatabasePath()  
@@ -159,8 +159,7 @@ module portal {
             ctx.lineTo(this.tools.left-this.main.left-10, this.myData.top-this.main.top+this.elemH/2-10)
             ctx.moveTo(this.tools.left-this.main.left, this.myData.top-this.main.top+this.elemH/2)
             ctx.lineTo(this.tools.left-this.main.left-10, this.myData.top-this.main.top+this.elemH/2+10)
-            ctx.stroke()
-            
+            ctx.stroke()  
         }
         
         private clear() {

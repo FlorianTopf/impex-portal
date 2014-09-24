@@ -1318,8 +1318,8 @@ var portal;
             }
 
             // just for testing
-            //this.activeDatabase = 'SINP'
-            //this.activeService = 'FMI-HYBRID'
+            //this.activeDatabase = 'FMI-HYBRID'
+            //this.activeService = 'SINP'
             this.scope.$on('service-success', function (e, id) {
                 console.log('service success at ' + id);
                 _this.activeDatabase = null;
@@ -2974,14 +2974,12 @@ var portal;
             });
 
             $scope.$on('database-success', function (e, id) {
-                var dbName = _this.configService.getDatabase(id).name;
-                _this.activeDatabase = dbName;
+                _this.activeDatabase = _this.configService.getDatabase(id).name;
                 _this.drawDatabasePath();
             });
 
             $scope.$on('service-success', function (e, id) {
-                var dbName = _this.configService.getDatabase(id).name;
-                _this.activeService = dbName;
+                _this.activeService = _this.configService.getDatabase(id).name;
                 _this.drawServicePath();
             });
 
@@ -2993,10 +2991,10 @@ var portal;
 
             $scope.$on('draw-paths', function (e) {
                 _this.toggleCanvas(true);
-                _this.timeout(function () {
+                $("#filter-collapse, #samp-collapse").one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function () {
                     _this.toggleCanvas(false);
                     _this.handleResize(element);
-                }, 350);
+                });
             });
         };
 

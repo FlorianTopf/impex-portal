@@ -116,8 +116,8 @@ module portal {
             }
             
             // just for testing
-            //this.activeDatabase = 'SINP'
-            //this.activeService = 'FMI-HYBRID'
+            //this.activeDatabase = 'FMI-HYBRID'
+            //this.activeService = 'SINP'
             
             this.scope.$on('service-success', (e, id: string) => {
                 console.log('service success at '+id)
