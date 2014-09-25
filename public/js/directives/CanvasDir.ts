@@ -99,7 +99,6 @@ module portal {
                 this.drawDatabasePath()  
             } else if(this.activeService) {
                 this.drawServicePath()
-            
             }
         }
         

@@ -14,7 +14,8 @@
 	<div ng-show="datavm.selectedFiles != null" class="margin-t-5">
 		<div class="sel-file" ng-repeat="f in datavm.selectedFiles">
 			<span class="progress" ng-show="datavm.progress[$index] >= 0">					
-				<div style="width:{{datavm.progress[$index]}}%">{{datavm.progress[$index]}}%</div>
+				<div class="progress-bar" role="progressbar" aria-valuenow="{{datavm.progress[$index]}}" 
+					aria-valuemin="0" aria-valuemax="100" style="width:{{datavm.progress[$index]}}%">{{datavm.progress[$index]}}%</div>
 			</span>
 			<span class="file-info">{{ f.name }} - size: {{ f.size }}B - type: {{ f.type }}</span>
 		</div>

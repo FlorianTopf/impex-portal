@@ -353,7 +353,7 @@ button.dropdown-toggle {
 	color: grey;
 }
 
-.progress {
+/*.progress {
 	display: inline-block;
 	width: 100px;	
 	border: 3px groove #CCC;
@@ -364,7 +364,7 @@ button.dropdown-toggle {
 	font-size: smaller;
 	background: orange;
 	width: 0;
-}
+}*/
 
 .file-info {
 	vertical-align: top;
