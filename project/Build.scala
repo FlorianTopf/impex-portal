@@ -20,9 +20,11 @@ object ApplicationBuild extends Build {
     "org.scala-lang.modules" %% "scala-async" % "0.9.0-M4",
     "com.wordnik" %% "swagger-play2" % "1.3.4",
     "com.wordnik" %% "swagger-play2-utils" % "1.3.4",
-    "org.scalatest" %%"scalatest" % "1.9.1" % "test",
+    "org.scalatest" %% "scalatest" % "1.9.1" % "test",
     "com.typesafe.akka" %% "akka-testkit" % "2.2.0" % "test",
-    "org.mockito" % "mockito-all" % "1.9.5"
+    "org.mockito" % "mockito-all" % "1.9.5",
+    "com.typesafe" %% "play-plugins-mailer" % "2.2.0",
+    "net.tanesha.recaptcha4j" % "recaptcha4j" % "0.0.7"
   )
 
   val main = play.Project(appName, appVersion, appDependencies).settings(

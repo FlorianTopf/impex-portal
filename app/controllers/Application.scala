@@ -4,7 +4,9 @@ import models.actor._
 import models.binding._
 import models.actor.ConfigService._
 import models.enums._
+import models.provider._
 import views.html._
+import play.api.Play.current
 import play.api.mvc._
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
@@ -18,7 +20,7 @@ import org.bson.types.ObjectId
 import java.io.File
 import scala.concurrent._
 import java.io.FileNotFoundException
-import play.Play
+import com.typesafe.plugin._
 
 
 object Application extends BaseController {
@@ -28,6 +30,69 @@ object Application extends BaseController {
   
   // route for swagger ui
   def apiview = Action { Ok(views.html.apiview()) }
+  
+  // feedback mailer
+  // @TODO check if config is available!
+  def feedback = PortalAction { implicit request =>
+    val mail = use[MailerPlugin].email
+    //println(request.body.asFormUrlEncoded)
+    
+    //@TODO if parameters are not present return this
+    //Ok(Json.obj("success" -> false, "message" -> "Please fill out the form completely."))
+    try {
+    	val subject = request.body.asFormUrlEncoded.get("inputSubject")(0)
+    	val email = request.body.asFormUrlEncoded.get("inputEmail")(0)
+    	val name = request.body.asFormUrlEncoded.get("inputName")(0)
+    	val tool = request.body.asFormUrlEncoded.get("inputTool")(0)
+    	val message = request.body.asFormUrlEncoded.get("inputMessage")(0)
+    	val challenge = request.body.asFormUrlEncoded.get("captcha[challenge]")(0)
+    	val response = request.body.asFormUrlEncoded.get("captcha[response]")(0)
+    	// we need the remote ip for the captcha
+    	val remoteIp = request.remoteAddress
+    	
+    	val isValid: Boolean = CaptchaProvider.check(remoteIp, challenge , response)
+    	//println(subject+" "+email+" "+name+" "+tool+" "+message+" "+challenge+" "+remoteIp)
+    	
+    	isValid match {
+    	  case true => {
+    	    mail.setSubject("[IMPEx Feedback]["+tool+"]")
+    		// recipient 
+    		mail.setRecipient("Florian Topf <florian.topf@oeaw.ac.at>")
+    		// set google support group as CC
+    		//mail.setCc("IMPEx Support <impex-support@googlegroups.com>")
+    		//or use a list
+    		//mail.setBcc(List("Dummy <example@example.org>", "Dummy2 <example@example.org>"):_*)
+    		// from is the e-mail from the form
+    		mail.setFrom(email)
+    		
+    		val html = <html> 
+    		<p> Name: {name} <br/>
+    	    Email: {email} <br/>
+    	    Tool: {tool} <br/>
+    	    Subject: {subject} <br/>
+    	    Message : {message}<br/>
+    	    </p></html>
+    		
+    		//sends html
+    		mail.sendHtml(html.toString())
+    		//sends text/text
+    		//mail.send(message)
+    		//sends both text and html
+    		//mail.send( "text", "<html>html</html>")*/
+    	    Ok(Json.obj("success" -> true, "message" -> "Thanks! We have received your message."))
+    	  }
+    	  case _ => {
+    	    Ok(Json.obj("success" -> false, "message" -> "Message could not be sent. Captcha Invalid."))
+    	  } 
+    	}
+      
+    } catch {
+      case e: Throwable => {
+        println(e)
+        Ok(Json.obj("success" -> false, "message" -> "Message could not be sent. Mailer Error."))
+      }
+    }
+  }
   
   // route for testing
   def test = PortalAction.async { implicit request =>
@@ -104,13 +169,12 @@ object Application extends BaseController {
     Ok(views.html.uploadTest()).withSession("id" -> request.sessionId) 
   }
   
-  // @TODO refactor all responses for userdata actions
   // route for upload forms
   def addFileUserData = PortalAction.async(parse.multipartFormData) { implicit request =>
     request.body.file("votable").map(_.ref) match {
       case Some(votable) => {
         val name = request.body.file("votable").map(_.filename).get
-        val host = Play.application().configuration().getString("swagger.api.basepath")
+        val host = current.configuration.getString("swagger.api.basepath").get
         UserService.addFileUserData(request.sessionId, votable, name) map { data =>
           val json = Json.obj("id" -> JsString(data.id), "name" -> JsString(name),
               "url" -> JsString(host+"/userdata/"+data.name))
@@ -125,7 +189,7 @@ object Application extends BaseController {
   def addXMLUserData = PortalAction.async { implicit request =>
     request.body.asXml.map(_.asInstanceOf[Node]) match {
       case Some(votable) => { 
-        val host = Play.application().configuration().getString("swagger.api.basepath")
+        val host = current.configuration.getString("swagger.api.basepath").get
         UserService.addXMLUserData(request.sessionId, votable) map { data => 
           val json = Json.obj("id" -> JsString(data.id), 
               "url" -> JsString(host+"/userdata/"+data.name))
@@ -141,7 +205,7 @@ object Application extends BaseController {
     val future = UserService.getUserData(request.sessionId)
     future map { files => 
       val json = Json.toJson(files map { data => 
-        val host = Play.application().configuration().getString("swagger.api.basepath")
+        val host = current.configuration.getString("swagger.api.basepath").get
         Json.obj("id" -> JsString(data.id), 
             "name" -> JsString(data.name.replace("-"+data.id, "")),
         "url" -> JsString(host+"/userdata/"+data.name))

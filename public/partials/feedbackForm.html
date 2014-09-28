@@ -1,0 +1,70 @@
+<div ng-show="!vm.ready" class="loading text-center">
+	<img src="/public/img/layout/loading.gif" class="loadingImg" alt="loading..." />
+</div>
+<div class="row" ng-show="vm.ready">
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title">Feedback Form</h2>
+			</div>
+			<div class="panel-body">
+				<form class="form-horizontal" role="form" method="post" action="" name="feedbackForm" ng-submit="vm.submitFeedback(feedbackForm)" >
+					<div class="form-group" ng-class="{ 'has-error': feedbackForm.inputName.$invalid && vm.submitted }">
+						<label for="inputName" class="col-sm-2 control-label">Name</label>
+						<div class="col-sm-10">
+							<input ng-model="vm.feedbackForm.inputName" 
+								type="text" class="form-control" id="inputName" name="inputName" placeholder="Your Name" required>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error': feedbackForm.inputEmail.$invalid && vm.submitted }">
+                        <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+                        <div class="col-sm-10">
+                            <input ng-model="vm.feedbackForm.inputEmail" 
+                            	type="email" class="form-control" id="inputEmail" name="inputEmail" placeholder="Your Email" required>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error': feedbackForm.inputSubject.$invalid && vm.submitted }">
+                        <label for="inputSubject" class="col-sm-2 control-label">Subject</label>
+                        <div class="col-sm-10">
+                            <input ng-model="vm.feedbackForm.inputSubject" 
+                            	type="text" class="form-control" id="inputSubject" name="inputSubject" placeholder="Subject Message" required>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error': feedbackForm.inputTool.$invalid && vm.submitted }">
+                        <label for="inputTool" class="col-sm-2 control-label">Tool</label>
+                        <div class="col-sm-10">
+                            <select ng-options="tool for tool in vm.feedbackTools" 
+                            	ng-init="vm.feedbackForm.inputTool=vm.feedbackTools[0]" ng-model="vm.feedbackForm.inputTool" 
+                            	class="form-control" id="inputTool" name="inputTool" required>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group" ng-class="{ 'has-error': feedbackForm.inputMessage.$invalid && vm.submitted }">
+                        <label for="inputMessage" class="col-sm-2 control-label">Message</label>
+                        <div class="col-sm-10">
+                            <textarea ng-model="vm.feedbackForm.inputMessage" class="form-control" 
+                            	rows="4" id="inputMessage" name="inputMessage" placeholder="Your message..." required></textarea>
+                        </div>
+                    </div>
+                	<div class="form-group">
+                    	<label class="col-sm-2 control-label">Captcha</label>
+                    	<div class="col-sm-10">
+                    		<div lang="en" re-captcha ng-model="vm.feedbackForm.captcha"></div>
+                    	</div>
+                	</div>
+                    <div class="form-group">
+                        <div class="col-sm-offset-2 col-sm-10">
+                            <button type="submit" class="btn btn-default" ng-disabled="vm.submitButtonDisabled">
+                                Send Message
+                            </button>
+                            <div ng-show="vm.sendingFeedback" style="display: inline-block;">
+								<img src="/public/img/throbber.gif" alt="loading..."/>
+							</div>
+                        </div>
+                    </div>
+                </form>
+                <p ng-class="vm.result" style="padding: 15px; margin: 0;">{{ vm.resultMessage }}</p>
+            </div>
+        </div>
+    </div>
+</div>

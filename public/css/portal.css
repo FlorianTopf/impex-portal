@@ -353,20 +353,20 @@ button.dropdown-toggle {
 	color: grey;
 }
 
-/*.progress {
-	display: inline-block;
-	width: 100px;	
-	border: 3px groove #CCC;
-	margin-bottom: 0;
+.progress {
+	margin-bottom: 10px;
+	width: 49%; 
+	float: left; 
+	margin-left: 1%;
 }
 
-.progress div {
-	font-size: smaller;
-	background: orange;
-	width: 0;
-}*/
-
 .file-info {
+	width: 48%; 
+	float: right; 
+	margin-left: 2%;
+}
+
+.file-info span {
 	vertical-align: top;
 	line-height: 20px;
 }
@@ -425,6 +425,10 @@ button.dropdown-toggle {
 
 .margin-r-10 {
 	margin-right: 10px;
+}
+
+.margin-t-10 {
+	margin-top: 10px;
 }
 
 .word-wrap {

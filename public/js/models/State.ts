@@ -120,4 +120,14 @@ module portal {
     
     }
     
+    export class Feedback implements ng.ui.IState {
+        public name: string = 'app.feedback'
+        public url: string =  '/feedback'
+        public templateUrl: string =  '/public/partials/feedbackForm.html'
+        public controller: any = PortalCtrl
+    
+        constructor(){}
+    
+    }
+    
 }

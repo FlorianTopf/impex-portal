@@ -13,7 +13,8 @@
     "angular-ui-router": "~0.2.10",
     "danialfarid-angular-file-upload": "~1.6.5",
     "angular-bootstrap-datetimepicker": "0.2.4",
-    "angular-encode-uri": "~1.0.0"
+    "angular-encode-uri": "~1.0.0",
+    "angular-re-captcha": "~0.0.3"
   },
   "homepage": "https://github.com/FlorianTopf/impex-portal",
   "authors": [

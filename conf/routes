@@ -14,6 +14,9 @@ GET		/api-docs					controllers.ApiHelpController.getResources
 # route for swagger ui
 GET		/api-view					controllers.Application.apiview
 
+# feedback route
+POST	/feedback					controllers.Application.feedback
+
 # config routes
 GET		/api-docs/config			controllers.ApiHelpController.getResource(path = "/config")
 GET		/config						controllers.Config.config(fmt: String ?= "xml")
@@ -28,11 +31,11 @@ GET		/registry/simulationmodel	controllers.Registry.simulationmodel(fmt: String 
 GET		/registry/simulationrun  	controllers.Registry.simulationrun(fmt: String ?= "xml", r: String ?= "false")
 GET		/registry/numericaloutput  	controllers.Registry.numericaloutput(fmt: String ?= "xml", r: String ?= "false")
 GET		/registry/granule		  	controllers.Registry.granule(fmt: String ?= "xml", r: String ?= "false")
-# observations => @FIXME excluded (datamodel changed again (9.2014)
-#GET		/registry/observations		controllers.Registry.observations(fmt: String ?= "xml")
+# observations => @FIXME excluded (datamodel changed again (Sept. 2014)
+#GET	/registry/observations		controllers.Registry.observations(fmt: String ?= "xml")
 #GET 	/registry/observatory		controllers.Registry.observatory(fmt: String ?= "xml", r: String ?= "false")
-#GET		/registry/instrument		controllers.Registry.instrument(fmt: String ?= "xml", r: String ?= "false")
-#GET		/registry/numericaldata		controllers.Registry.numericaldata(fmt: String ?= "xml", r: String ?= "false")
+#GET	/registry/instrument		controllers.Registry.instrument(fmt: String ?= "xml", r: String ?= "false")
+#GET	/registry/numericaldata		controllers.Registry.numericaldata(fmt: String ?= "xml", r: String ?= "false")
 
 # methods routes
 GET		/api-docs/methods			controllers.ApiHelpController.getResource(path = "/methods")

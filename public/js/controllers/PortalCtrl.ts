@@ -6,6 +6,11 @@ module portal {
     export interface IPortalScope extends ng.IScope {
         vm: PortalCtrl
     }
+    
+    export interface ITools {
+        name: string
+        value: string
+    }
         
     // needed for external SAMP lib
     declare var samp: any
@@ -16,6 +21,7 @@ module portal {
         // we must use any here (to access global vars)
         private window: any
         private timeout: ng.ITimeoutService
+        private http: ng.IHttpService
         private state: ng.ui.IStateService
         private growl: any
         
@@ -61,18 +67,28 @@ module portal {
         public activeDatabase: string = null
         // active path from service
         public activeService: string = null
+        // for the feedback form
+        public result: string = 'hidden'
+        public resultMessage: string = null
+        public feedbackForm: any = null
+        public submitted: Boolean = false
+        public submitButtonDisabled: Boolean = false
+        public sendingFeedback: Boolean = false
+        public feedbackTools: Array<string> = ['IMPEx Portal', 'IMPEx Website', '3DView', 'AMDA', 'CLWEB', 'FMI HWA', 'LATHYS']
 
-      
-        static $inject: Array<string> = ['$scope', '$window', '$timeout', 'configService', 
+
+        static $inject: Array<string> = ['$scope', '$window', '$timeout', '$http', 'configService', 
             'methodsService', 'registryService', 'sampService', '$state', 'growl']
 
-        constructor($scope: IPortalScope, $window: any, $timeout: ng.ITimeoutService, configService: portal.ConfigService, 
+        constructor($scope: IPortalScope, $window: any, $timeout: ng.ITimeoutService, 
+            $http: ng.IHttpService, configService: portal.ConfigService, 
             methodsService: portal.MethodsService, registryService: portal.RegistryService, 
             sampService: portal.SampService, $state: ng.ui.IStateService, growl: any) { 
             this.scope = $scope
             this.scope.vm = this
             this.window = $window
             this.timeout = $timeout
+            this.http = $http
             this.configService = configService
             this.methodsService = methodsService
             this.registryService = registryService
@@ -255,6 +271,45 @@ module portal {
             this.activeDatabase = null
             this.activeService = null
             this.scope.$broadcast('clear-paths')
+        }
+        
+        
+        //feedback form submit
+        public submitFeedback(feedback: any) {
+            //console.log(JSON.stringify(feedback))
+            this.submitted = true
+            this.submitButtonDisabled = true
+            this.result = 'hidden'
+            if (feedback.$valid) {
+                this.sendingFeedback = true
+                this.http({
+                    method  : 'POST',
+                    url     : '/feedback',
+                    //param method from jQuery
+                    data    : $.param(this.feedbackForm),  
+                    //set the headers so angular passing info as form data (not request payload)
+                    headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
+                }).success((data: any, status: any) => {
+                    //console.log(data)
+                    if (data.success) { //success comes from the return json object
+                        this.submitButtonDisabled = true
+                        this.resultMessage = data.message
+                        this.result = 'bg-success'
+                    } else {
+                        // @FUNKY reloading over the window scope
+                        this.window.Recaptcha.reload()
+                        this.submitButtonDisabled = false
+                        this.resultMessage = data.message
+                        this.result = 'bg-danger'
+                    }
+                    this.sendingFeedback = false
+                })
+                // error case!
+            } else {
+                this.submitButtonDisabled = false
+                this.resultMessage = 'Failed: Please fill out all the fields.'
+                this.result = 'bg-danger'
+            }
         }
         
 

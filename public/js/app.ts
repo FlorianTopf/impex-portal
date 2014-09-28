@@ -4,7 +4,7 @@ module portal {
     'use strict';
 
     var impexPortal: ng.IModule = angular.module('portal', ['ui.bootstrap', 'ui.bootstrap.datetimepicker', 'ui.router', 
-        'ngResource', 'ngStorage', 'angularFileUpload', 'angular-growl', 'rt.encodeuri'])
+        'ngResource', 'ngStorage', 'angularFileUpload', 'angular-growl', 'rt.encodeuri', 'reCAPTCHA'])
     
  
     impexPortal.service('configService', ConfigService)
@@ -39,9 +39,9 @@ module portal {
                 state(new Registry()).
                 state(new Methods()).
                 state(new MyData()).
-            state(new Databases())
-            
-            
+            state(new Databases()).
+            state(new Feedback())
+                 
     }])
     
     // global tooltip config
@@ -54,10 +54,19 @@ module portal {
     }])
     
     // global growl config
-    impexPortal.config(['growlProvider', function(growlProvider) {
-        growlProvider.globalTimeToLive(5000);
-        growlProvider.onlyUniqueMessages(false);
+    impexPortal.config(['growlProvider', (growlProvider) => {
+        growlProvider.globalTimeToLive(5000)
+        growlProvider.onlyUniqueMessages(false)
     }])
+    
+    impexPortal.config(['reCAPTCHAProvider', (reCAPTCHAProvider) => {
+        // required, please use your own key :)
+        reCAPTCHAProvider.setPublicKey('6LcWC_sSAAAAAP6nV13f9yYzGvH-BuFXsJwV_PLy')
+        // optional
+        reCAPTCHAProvider.setOptions({
+            theme: 'clean'
+         })
+     }])
     
      // custom filter for checking if an array is empty
     impexPortal.filter('isEmpty', () => {

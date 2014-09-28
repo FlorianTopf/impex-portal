@@ -1,0 +1,18 @@
+{
+  "author": "Steffen Müller",
+  "name": "angular-re-captcha",
+  "description": "reCaptcha directive for angularjs",
+  "version": "0.0.2",
+  "homepage": "https://github.com/mllrsohn/angular-re-captcha",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mllrsohn/angular-re-captcha"
+  },
+  "main": "./angular-re-captcha.js",
+  "dependencies": {
+    "angular": "~1.2.9"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.2.9"
+  }
+}

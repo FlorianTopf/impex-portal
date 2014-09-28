@@ -136,6 +136,17 @@ var portal;
         return Databases;
     })();
     portal.Databases = Databases;
+
+    var Feedback = (function () {
+        function Feedback() {
+            this.name = 'app.feedback';
+            this.url = '/feedback';
+            this.templateUrl = '/public/partials/feedbackForm.html';
+            this.controller = portal.PortalCtrl;
+        }
+        return Feedback;
+    })();
+    portal.Feedback = Feedback;
 })(portal || (portal = {}));
 /// <reference path='../_all.ts' />
 var portal;
@@ -1254,7 +1265,7 @@ var portal;
     'use strict';
 
     var PortalCtrl = (function () {
-        function PortalCtrl($scope, $window, $timeout, configService, methodsService, registryService, sampService, $state, growl) {
+        function PortalCtrl($scope, $window, $timeout, $http, configService, methodsService, registryService, sampService, $state, growl) {
             var _this = this;
             this.ready = false;
             this.databasesTooltip = 'Within the different IMPEx-databases, you can browse the trees of all<br/>' + 'service providers for getting an overview of all available data and its metadata.<br/>' + 'Suitable tree elements can be selected and will then be stored automatically in<br/>' + 'the &ldquo;My Data&rdquo; dialog for their further usage in the &ldquo;Data Access&rdquo; area.<br/>' + 'Please be aware that only the selections of the respective database will be<br/>' + 'visible in the Databases and Data Access dialogs of the IMPEx Portal.';
@@ -1270,10 +1281,19 @@ var portal;
             this.activeDatabase = null;
             // active path from service
             this.activeService = null;
+            // for the feedback form
+            this.result = 'hidden';
+            this.resultMessage = null;
+            this.feedbackForm = null;
+            this.submitted = false;
+            this.submitButtonDisabled = false;
+            this.sendingFeedback = false;
+            this.feedbackTools = ['IMPEx Portal', 'IMPEx Website', '3DView', 'AMDA', 'CLWEB', 'FMI HWA', 'LATHYS'];
             this.scope = $scope;
             this.scope.vm = this;
             this.window = $window;
             this.timeout = $timeout;
+            this.http = $http;
             this.configService = configService;
             this.methodsService = methodsService;
             this.registryService = registryService;
@@ -1458,10 +1478,49 @@ else
             this.activeService = null;
             this.scope.$broadcast('clear-paths');
         };
+
+        //feedback form submit
+        PortalCtrl.prototype.submitFeedback = function (feedback) {
+            var _this = this;
+            //console.log(JSON.stringify(feedback))
+            this.submitted = true;
+            this.submitButtonDisabled = true;
+            this.result = 'hidden';
+            if (feedback.$valid) {
+                this.sendingFeedback = true;
+                this.http({
+                    method: 'POST',
+                    url: '/feedback',
+                    //param method from jQuery
+                    data: $.param(this.feedbackForm),
+                    //set the headers so angular passing info as form data (not request payload)
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+                }).success(function (data, status) {
+                    if (data.success) {
+                        _this.submitButtonDisabled = true;
+                        _this.resultMessage = data.message;
+                        _this.result = 'bg-success';
+                    } else {
+                        // @FUNKY reloading over the window scope
+                        _this.window.Recaptcha.reload();
+                        _this.submitButtonDisabled = false;
+                        _this.resultMessage = data.message;
+                        _this.result = 'bg-danger';
+                    }
+                    _this.sendingFeedback = false;
+                });
+                // error case!
+            } else {
+                this.submitButtonDisabled = false;
+                this.resultMessage = 'Failed: Please fill out all the fields.';
+                this.result = 'bg-danger';
+            }
+        };
         PortalCtrl.$inject = [
             '$scope',
             '$window',
             '$timeout',
+            '$http',
             'configService',
             'methodsService',
             'registryService',
@@ -3116,7 +3175,8 @@ var portal;
         'ngStorage',
         'angularFileUpload',
         'angular-growl',
-        'rt.encodeuri'
+        'rt.encodeuri',
+        'reCAPTCHA'
     ]);
 
     impexPortal.service('configService', portal.ConfigService);
@@ -3147,7 +3207,7 @@ var portal;
         function ($stateProvider, $urlRouterProvider) {
             $urlRouterProvider.otherwise('/portal');
 
-            $stateProvider.state(new portal.App()).state(new portal.Portal()).state(new portal.Registry()).state(new portal.Methods()).state(new portal.MyData()).state(new portal.Databases());
+            $stateProvider.state(new portal.App()).state(new portal.Portal()).state(new portal.Registry()).state(new portal.Methods()).state(new portal.MyData()).state(new portal.Databases()).state(new portal.Feedback());
         }
     ]);
 
@@ -3170,6 +3230,19 @@ var portal;
         function (growlProvider) {
             growlProvider.globalTimeToLive(5000);
             growlProvider.onlyUniqueMessages(false);
+        }
+    ]);
+
+    impexPortal.config([
+        'reCAPTCHAProvider',
+        function (reCAPTCHAProvider) {
+            // required, please use your own key :)
+            reCAPTCHAProvider.setPublicKey('6LcWC_sSAAAAAP6nV13f9yYzGvH-BuFXsJwV_PLy');
+
+            // optional
+            reCAPTCHAProvider.setOptions({
+                theme: 'clean'
+            });
         }
     ]);
 
