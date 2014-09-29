@@ -8,6 +8,19 @@
 				<h2 class="panel-title">Support Form</h2>
 			</div>
 			<div class="panel-body">
+				<div class="row">
+					<div class="col-sm-12">
+						<p><strong>Welcome to the IMPEx Helpdesk</strong> - 
+							If you are encountering problems using IMPEx tools or 
+							have suggestions and comments, <br/>
+							please use the support form below.
+						</p>
+						<ul style="margin-bottom: 25px;">
+							<li>Provide your Name and a valid reply address.</li>
+							<li>Select the tool your request is related to.</li>
+						</ul>
+					</div>
+				</div>
 				<form class="form-horizontal" role="form" method="post" action="" name="feedbackForm" ng-submit="vm.submitFeedback(feedbackForm)" >
 					<div class="form-group" ng-class="{ 'has-error': feedbackForm.inputName.$invalid && vm.submitted }">
 						<label for="inputName" class="col-sm-2 control-label">Name</label>
@@ -75,19 +88,19 @@
 				<h2 class="panel-title">Support Group</h2>
 			</div>
 			<div class="panel-body">
-			<iframe id="forum_embed"
-  				src="javascript:void(0)"
-  				scrolling="no"
-  				frameborder="0"
-  				width="100%"
-  				height="700">
-			</iframe>
-			<script type="text/javascript">
-  				document.getElementById('forum_embed').src =
-     			'https://groups.google.com/forum/embed/?place=forum/impex-support'
-     			+ '&showsearch=true&showpopout=true&showtabs=false'
-     			+ '&parenturl='+ encodeURIComponent(window.location.href);
-			</script>
+				<iframe id="forum_embed"
+  					src="javascript:void(0)"
+  					scrolling="no"
+  					frameborder="0"
+  					width="100%"
+  					height="700">
+				</iframe>
+				<script type="text/javascript">
+  					document.getElementById('forum_embed').src =
+     				'https://groups.google.com/forum/embed/?place=forum/impex-support'
+     				+ '&showsearch=true&showpopout=true&showtabs=false'
+     				+ '&parenturl='+ encodeURIComponent('http://impex-portal.oeaw.ac.at/#/feedback');
+				</script>
             </div>
         </div>
     </div>

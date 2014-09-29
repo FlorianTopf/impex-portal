@@ -24,11 +24,15 @@
 			ng-hide="!vm.registryService.isFilterSet || vm.isFilterLoading">RESET</button>
 	</div>
 	<div class="col-sm-4">&nbsp;</div>
-	<div class="col-sm-2 text-center">
-		<button type="button" class="btn btn-default"
+	<div class="col-sm-2">
+		<button type="button" class="btn btn-default pull-right"
 			ng-class="{ 'btn-default': !vm.window.isSampRegistered, 
 					    'btn-success': vm.window.isSampRegistered }"
 			ng-click="vm.toggleSamp()">INIT SAMP</button>
+		<button class="glyphicon glyphicon-info-sign info-button pull-right" 
+			tooltip-html-unsafe="{{ vm.sampTooltip }}"  
+			tooltip-trigger="focus" 
+			tooltip-placement="left"></button>
 	</div>
 </div>
 <div class="row" ng-show="vm.ready">
@@ -36,8 +40,9 @@
 		<span class="glyphicon glyphicon-arrow-down arrow-sign"></span>
 	</div>
 	<div class="col-sm-9">&nbsp;</div>
-	<div class="col-sm-2 text-center">
-		<span class="glyphicon glyphicon-arrow-down arrow-sign"></span>
+	<div class="col-sm-2 text-right">
+		<span class="glyphicon glyphicon-arrow-down arrow-sign"
+			style="margin-right: 22%;"></span>
 	</div>
 </div>
 <div class="row" ng-show="vm.ready">

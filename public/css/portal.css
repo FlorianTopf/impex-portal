@@ -271,6 +271,7 @@ button.saved:focus {
 button.info-button {
 	font-size: 22px; 
 	margin-left: 3px; 
+	margin-right: 3px;
 	border: none; 
 	background: none;
 }
@@ -502,6 +503,7 @@ button.dropdown-toggle {
 	button.info-button {
 		font-size: 22px;
 		margin-left: 3px;
+		margin-right: 3px;
 	}
 	
 	/* @TODO this must be responsive */
@@ -535,6 +537,7 @@ button.dropdown-toggle {
 	button.info-button {
 		font-size: 25px;
 		margin-left: 5px;
+		margin-right: 5px;
 	}
 
 	.loadingImg { 

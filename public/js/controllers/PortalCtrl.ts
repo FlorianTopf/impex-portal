@@ -59,6 +59,11 @@ module portal {
         public filterTooltip: string = 'This function can be used to filter IMPEx databases and services via<br/>'+
             'customized criteria.<br/>'+
             'Those who do not fit the criteria will be deactivated.'
+        public sampTooltip: string = 'If a SAMP hub is already installed and started at the local device,<br/>'+
+            'one has to click on &ldquo;Register&rdquo; to connect the IMPEx portal to it.<br/>'+ 
+            'If no hub is available at the local device, a JAVA based hub can be<br/>'+
+            'downloaded via clicking on &ldquo;Download SAMP Hub&rdquo;.'
+            
         public isFilterCollapsed: boolean = true
         public isFilterLoading: boolean = false
         public isFilterSelected: boolean = false
