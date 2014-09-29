@@ -79,8 +79,7 @@ object CORSHeaders {
       "Access-Control-Allow-Credentials" -> "true",
       "Access-Control-Allow-Methods" -> "GET, POST, PUT, DELETE, OPTIONS",
       "Access-Control-Allow-Headers" -> "Content-Type, X-Requested-With, Accept",
-      "Access-Control-Max-Age" -> (60 * 60 * 24).toString,
-      "X-Frame-Options" -> "ALLOW-FROM https://groups.google.com"//,
+      "Access-Control-Max-Age" -> (60 * 60 * 24).toString//,
       // we should not dictate the content type
       //"Content-Type" -> "application/json; charset=utf-8"
       ))
