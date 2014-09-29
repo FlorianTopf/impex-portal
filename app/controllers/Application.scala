@@ -49,21 +49,25 @@ object Application extends BaseController {
     	val response = request.body.asFormUrlEncoded.get("captcha[response]")(0)
     	// we need the remote ip for the captcha
     	val remoteIp = request.remoteAddress
+    	val impex = "IMPEx Support <impex-support@googlegroups.com>"
+    	val user = name+"<"+email+">"
     	
     	val isValid: Boolean = CaptchaProvider.check(remoteIp, challenge , response)
     	//println(subject+" "+email+" "+name+" "+tool+" "+message+" "+challenge+" "+remoteIp)
     	
     	isValid match {
     	  case true => {
-    	    mail.setSubject("[IMPEx Feedback]["+tool+"]")
+    	    mail.setSubject("[IMPEx Helpdesk] ["+tool+"]")
     		// recipient 
-    		mail.setRecipient("Florian Topf <florian.topf@oeaw.ac.at>")
+    		//mail.setRecipient("Florian Topf <florian.topf@oeaw.ac.at>")
     		// set google support group as CC
-    		//mail.setCc("IMPEx Support <impex-support@googlegroups.com>")
+    		mail.setRecipient(impex)
+    		mail.setReplyTo(email)
+    		//mail.setReplyTo(impex)
     		//or use a list
     		//mail.setBcc(List("Dummy <example@example.org>", "Dummy2 <example@example.org>"):_*)
     		// from is the e-mail from the form
-    		mail.setFrom(email)
+    		mail.setFrom(user)
     		
     		val html = <html> 
     		<p> Name: {name} <br/>

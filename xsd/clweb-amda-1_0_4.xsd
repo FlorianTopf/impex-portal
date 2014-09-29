@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <xs:element name="dataRoot">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="dataCenter"/>
+      </xs:sequence>
+      <xs:attributeGroup ref="xml:idopt"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dataCenter">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element maxOccurs="unbounded" ref="simulationModel"/>
+        <xs:element maxOccurs="unbounded" ref="mission"/>
+      </xs:choice>
+      <xs:attribute name="available" type="xs:string"/>
+      <xs:attribute name="desc" use="required"/>
+      <xs:attribute name="group"/>
+      <xs:attribute name="id1" type="xs:string"/>
+      <xs:attribute name="isSimulation" type="xs:boolean"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attributeGroup ref="xml:id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="mission">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element maxOccurs="unbounded" ref="simulationModel"/>
+        <xs:element maxOccurs="unbounded" ref="instrument"/>
+        <xs:element maxOccurs="unbounded" ref="observatory"/>
+        <xs:element maxOccurs="unbounded" ref="group"/>
+      </xs:choice>
+      <xs:attribute name="att"/>
+      <xs:attribute name="available" type="xs:string"/>
+      <xs:attribute name="desc" use="required"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="rank" type="xs:string"/>
+      <xs:attribute name="target" type="xs:string"/>
+      <xs:attribute name="targets" type="xs:string"/>
+      <xs:attributeGroup ref="xml:id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="observatory">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="instrument"/>
+      </xs:sequence>
+      <xs:attribute name="att" use="required"/>
+      <xs:attribute name="desc" use="required"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+      <xs:attribute name="restricted" use="required"/>
+      <xs:attributeGroup ref="xml:id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="group">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="instrument"/>
+      </xs:sequence>
+      <xs:attribute name="att" use="required"/>
+      <xs:attribute name="desc" use="required"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+      <xs:attribute name="restricted" use="required"/>
+      <xs:attributeGroup ref="xml:id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="simulationModel">
+    <xs:complexType>
+      <xs:choice>
+        <xs:element maxOccurs="unbounded" ref="parameter"/>
+        <xs:element maxOccurs="unbounded" ref="runID"/>
+        <xs:element maxOccurs="unbounded" ref="instrument"/>
+      </xs:choice>
+      <xs:attribute name="att"/>
+      <xs:attribute name="desc" use="required"/>
+      <xs:attribute name="name" use="required" type="xs:string"/>
+      <xs:attribute name="restricted"/>
+      <xs:attributeGroup ref="xml:id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="runID">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="dataset"/>
+      </xs:sequence>
+      <xs:attribute name="FieldValue_Bx"/>
+      <xs:attribute name="FieldValue_By"/>
+      <xs:attribute name="FieldValue_Bz"/>
+      <xs:attribute name="GridCellSize_X" type="xs:decimal"/>
+      <xs:attribute name="GridCellSize_Y" type="xs:decimal"/>
+      <xs:attribute name="GridCellSize_Z" type="xs:decimal"/>
+      <xs:attribute name="LikelihoodRating" use="required" type="xs:string"/>
+      <xs:attribute name="ReleaseDate" use="required" type="xs:dateTime"/>
+      <xs:attribute name="SimulationType" use="required" type="xs:string"/>
+      <xs:attribute name="SolarUVFlux"/>
+      <xs:attribute name="Solar_Wind_H-Density"/>
+      <xs:attribute name="Solar_Wind_H-FlowSpeed"/>
+      <xs:attribute name="Solar_Wind_H-Temperature"/>
+      <xs:attribute name="Solar_Wind_He-Density"/>
+      <xs:attribute name="Solar_Wind_He-FlowSpeed"/>
+      <xs:attribute name="Solar_Wind_He-Temperature"/>
+      <xs:attribute name="Solar_Wind_electrons-Density"/>
+      <xs:attribute name="Solar_Wind_electrons-FlowSpeed"/>
+      <xs:attribute name="Solar_Wind_electrons-Temperature"/>
+      <xs:attribute name="TemporalDependence" use="required" type="xs:string"/>
+      <xs:attribute name="desc" use="required"/>
+      <xs:attribute name="isDeletable" type="xs:boolean"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attributeGroup ref="xml:id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="instrument">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="datasetGroup"/>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="dataset"/>
+      </xs:sequence>
+      <xs:attribute name="att"/>
+      <xs:attribute name="desc" use="required"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="restricted"/>
+      <xs:attributeGroup ref="xml:id2"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="datasetGroup">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="dataset"/>
+      </xs:sequence>
+      <xs:attribute name="att" use="required"/>
+      <xs:attribute name="desc" use="required"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="restricted" use="required"/>
+      <xs:attributeGroup ref="xml:id"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="parameter">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" maxOccurs="unbounded" ref="component"/>
+      </xs:sequence>
+      <xs:attribute name="desc"/>
+      <xs:attribute name="display_type"/>
+      <xs:attribute name="labels"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="needsArgs" type="xs:integer"/>
+      <xs:attribute name="parentID" type="xs:anyURI"/>
+      <xs:attribute name="size" type="xs:integer"/>
+      <xs:attribute name="units"/>
+      <xs:attribute name="var"/>
+      <xs:attributeGroup ref="xml:id1"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="component">
+    <xs:complexType>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="parentID" type="xs:anyURI"/>
+      <xs:attribute name="var" type="xs:NCName"/>
+      <xs:attributeGroup ref="xml:id1"/>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="dataset">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element maxOccurs="unbounded" ref="parameter"/>
+      </xs:sequence>
+      <xs:attribute name="AccessURL" type="xs:anyURI"/>
+      <xs:attribute name="SimulatedRegion" type="xs:NCName"/>
+      <xs:attribute name="att"/>
+      <xs:attribute name="coordinateSystem" type="xs:NCName"/>
+      <xs:attribute name="dataSource" type="xs:anyURI"/>
+      <xs:attribute name="dataStart"/>
+      <xs:attribute name="dataStop"/>
+      <xs:attribute name="desc"/>
+      <xs:attribute name="domainUnits" type="xs:NCName"/>
+      <xs:attribute name="maxSampling"/>
+      <xs:attribute name="name" use="required"/>
+      <xs:attribute name="rem_id" type="xs:NCName"/>
+      <xs:attribute name="restricted"/>
+      <xs:attribute name="sampling"/>
+      <xs:attribute name="start" type="xs:dateTime"/>
+      <xs:attribute name="stop" type="xs:dateTime"/>
+      <xs:attribute name="target"/>
+      <xs:attributeGroup ref="xml:id1"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

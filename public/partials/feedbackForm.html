@@ -5,7 +5,7 @@
 	<div class="col-sm-12">
 		<div class="panel panel-default">
 			<div class="panel-heading">
-				<h2 class="panel-title">Feedback Form</h2>
+				<h2 class="panel-title">Support Form</h2>
 			</div>
 			<div class="panel-body">
 				<form class="form-horizontal" role="form" method="post" action="" name="feedbackForm" ng-submit="vm.submitFeedback(feedbackForm)" >
@@ -64,6 +64,30 @@
                     </div>
                 </form>
                 <p ng-class="vm.result" style="padding: 15px; margin: 0;">{{ vm.resultMessage }}</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" ng-show="vm.ready">
+	<div class="col-sm-12">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h2 class="panel-title">Support Group</h2>
+			</div>
+			<div class="panel-body">
+			<iframe id="forum_embed"
+  				src="javascript:void(0)"
+  				scrolling="no"
+  				frameborder="0"
+  				width="100%"
+  				height="700">
+			</iframe>
+			<script type="text/javascript">
+  				document.getElementById('forum_embed').src =
+     			'https://groups.google.com/forum/embed/?place=forum/impex-support'
+     			+ '&showsearch=true&showpopout=true&showtabs=false&output=embed';
+     			+ '&parenturl='+encodeURIComponent("http://impex-portal.oeaw.ac.at/#/feedback"); //+ encodeURIComponent(window.location.href);
+			</script>
             </div>
         </div>
     </div>

@@ -14,6 +14,8 @@ import java.net.URI
 import java.io._
 import scalaxb.DataRecord
 import scala.util.{Success, Failure}
+import org.joda.time._
+import scalaxb.ParserFailure
 
 
 // basic trait for data provider actors (sim / obs)
@@ -21,6 +23,10 @@ trait DataProvider {
   var metadata: Database
   var trees: Seq[NodeSeq] = Seq()
   var methods: Seq[NodeSeq] = Seq()
+  var lastUpdate: DateTime = DateTime.now()
+  var isInvalid: Boolean = false
+  var isNotFound: Boolean = false
+  var lastError: Option[DateTime] = None
 
   // predefined methods
   protected def getMetaData: Database = metadata
@@ -46,33 +52,60 @@ trait DataProvider {
     methods = getFiles(methodsURLs, "methods")
   }
   
+  // @TODO we need to introduce some status variables
   private def getFiles(URLs: Seq[URI], folder: String): Seq[NodeSeq] = { 
     URLs map { URL => 
       // encoding the id to represent a correct folder name
       val id: String = UrlProvider.encodeURI(getMetaData.id)
       val fileName: String = PathProvider.getPath(folder, id, URL.toString)
       
-      // @TODO we do not download in DEVELOPMENT
       val fileDir = new File(folder+"/"+id)
       if(!fileDir.exists) fileDir.mkdir()
       val file = new File(fileName)
       if(!file.exists) file.createNewFile()
       
-      // sometimes there is no file (e.g. at AMDA)
+      // @TODO sometimes there is no file (e.g. at AMDA)
       // this must be recreated by calling getObsDataTree
       val promise = WS.url(URL.toString).get()
       
       try {
+        isNotFound = false
+      	isInvalid = false
+      	lastError = None
         val result = Await.result(promise, 1.minute).xml
+        val oldFile = scala.xml.XML.load(fileName)
+        // @TODO validating the simulation trees (later name != "CLWEB")
+        // => put disabled list in application.conf
+      	if(metadata.typeValue == Simulation && folder == "tree") {
+      		println("Simulation Tree")
+        	val spase = scalaxb.fromXML[Spase](result)
+        }
+        // if the file has changed => update timestamp
+        if(oldFile != result) { 
+        	lastUpdate = DateTime.now()
+        }
+
         scala.xml.XML.save(fileName, result, "UTF-8")
         result
       } catch {
+        // happens if there is a request timeout
         case e: TimeoutException => {
           println("timeout: fallback on local file at "+getMetaData.name)
+          isNotFound = true
           scala.xml.XML.load(fileName)
         }
-        case _: Throwable => {
+        // happens if the file is not available remotely (404)
+        case e: SAXParseException => {
           println("file not found: excluding file at "+getMetaData.name)
+          isNotFound = true
+          lastError = Some(DateTime.now())
+          scala.xml.XML.load(fileName)
+        }
+        // happens if the file cannot be validated against data binding
+        case e: ParserFailure => {
+          println("file invalid: excluding file at "+getMetaData.name)
+          isInvalid = true
+          lastError = Some(DateTime.now())
           scala.xml.XML.load(fileName)
         }
       }
