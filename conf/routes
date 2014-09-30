@@ -31,16 +31,16 @@ GET		/registry/simulationmodel	controllers.Registry.simulationmodel(fmt: String 
 GET		/registry/simulationrun  	controllers.Registry.simulationrun(fmt: String ?= "xml", r: String ?= "false")
 GET		/registry/numericaloutput  	controllers.Registry.numericaloutput(fmt: String ?= "xml", r: String ?= "false")
 GET		/registry/granule		  	controllers.Registry.granule(fmt: String ?= "xml", r: String ?= "false")
-# observations => @FIXME excluded (datamodel changed again (Sept. 2014)
-#GET	/registry/observations		controllers.Registry.observations(fmt: String ?= "xml")
-#GET 	/registry/observatory		controllers.Registry.observatory(fmt: String ?= "xml", r: String ?= "false")
-#GET	/registry/instrument		controllers.Registry.instrument(fmt: String ?= "xml", r: String ?= "false")
-#GET	/registry/numericaldata		controllers.Registry.numericaldata(fmt: String ?= "xml", r: String ?= "false")
+# observations
+GET		/registry/observations		controllers.Registry.observations(fmt: String ?= "xml")
+GET 	/registry/observatory		controllers.Registry.observatory(fmt: String ?= "xml", r: String ?= "false")
+GET		/registry/instrument		controllers.Registry.instrument(fmt: String ?= "xml", r: String ?= "false")
+GET		/registry/numericaldata		controllers.Registry.numericaldata(fmt: String ?= "xml", r: String ?= "false")
 
 # methods routes
 GET		/api-docs/methods			controllers.ApiHelpController.getResource(path = "/methods")
 # WSDLs 
-GET		/methods/:dbName			controllers.WSDLMethods.methods(dbName: String)
+GET		/methods/:dbName		controllers.WSDLMethods.methods(dbName: String)
 # taverna WSDLs 
 GET		/methods/taverna/:dbName	controllers.WSDLMethods.methodsTaverna(dbName: String)
 # sinp methods 

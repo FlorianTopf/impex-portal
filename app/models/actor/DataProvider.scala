@@ -32,9 +32,28 @@ trait DataProvider {
   protected def getMetaData: Database = metadata
   protected def getTrees: Seq[NodeSeq] = trees
   protected def getMethods: Seq[NodeSeq] = methods
-  protected def getTreeObjects: Spase
-  protected def getTreeObjects(element: String): Seq[DataRecord[Any]]
-  protected def getRepository(id: Option[String] = None): Spase
+  protected def getTreeObjects: Spase = {
+    val spase = getTrees flatMap { tree =>
+    	scalaxb.fromXML[Spase](tree).ResourceEntity
+  	}
+    Spase(Number2u462u462, spase, "en")
+  }
+  
+  protected def getTreeObjects(element: String): Seq[DataRecord[Any]] = {
+    getTreeObjects.ResourceEntity.filter(_.key.get == element)
+  }
+  
+  protected def getRepository(id: Option[String]): Spase = {
+    //println("RepositoryID="+id)
+    val records = getTreeObjects("Repository") map {
+	  repo => scalaxb.fromXML[Repository](repo.as[NodeSeq])
+    }
+    val repos = id match {
+      case Some(id) => records.filter(_.ResourceID.contains(id))
+      case None => records
+    }
+	Spase(Number2u462u462, repos.map(r => DataRecord(None, Some("Repository"), r)), "en")
+  }
   
   protected def initData: Unit = {
     val dns: String = getMetaData.databaseoption.head.value
@@ -52,46 +71,49 @@ trait DataProvider {
     methods = getFiles(methodsURLs, "methods")
   }
   
-  // @TODO we need to introduce some status variables
   private def getFiles(URLs: Seq[URI], folder: String): Seq[NodeSeq] = { 
+    // resetting status variables
+    isNotFound = false
+    isInvalid = false
+    lastError = None
+    
     URLs map { URL => 
       // encoding the id to represent a correct folder name
       val id: String = UrlProvider.encodeURI(getMetaData.id)
       val fileName: String = PathProvider.getPath(folder, id, URL.toString)
-      
-      val fileDir = new File(folder+"/"+id)
-      if(!fileDir.exists) fileDir.mkdir()
-      val file = new File(fileName)
-      if(!file.exists) file.createNewFile()
-      
-      // @TODO sometimes there is no file (e.g. at AMDA)
-      // this must be recreated by calling getObsDataTree
+      //println(fileName)
       val promise = WS.url(URL.toString).get()
-      
-      try {
-        isNotFound = false
-      	isInvalid = false
-      	lastError = None
+
+      try {     
+        // resolving the promise
         val result = Await.result(promise, 1.minute).xml
-        val oldFile = scala.xml.XML.load(fileName)
-        // @TODO validating the simulation trees (later name != "CLWEB")
-        // => put disabled list in application.conf
+        
+        // checking the file system
+      	val fileDir = new File(folder+"/"+id)
+        if(!fileDir.exists) fileDir.mkdir()
+        val file = new File(fileName)
+        if(!file.exists || file.length() == 0) {
+           file.createNewFile()
+        } else {
+           val oldFile = scala.xml.XML.load(fileName)
+           if(oldFile != result) { 
+        	 lastUpdate = DateTime.now()
+           } 
+        }
+        
+        // @TODO validating only the simulation trees
       	if(metadata.typeValue == Simulation && folder == "tree") {
       		println("Simulation Tree")
         	val spase = scalaxb.fromXML[Spase](result)
         }
-        // if the file has changed => update timestamp
-        if(oldFile != result) { 
-        	lastUpdate = DateTime.now()
-        }
-
+      	
         scala.xml.XML.save(fileName, result, "UTF-8")
-        result
+        result 
       } catch {
         // happens if there is a request timeout
         case e: TimeoutException => {
           println("timeout: fallback on local file at "+getMetaData.name)
-          isNotFound = true
+          isNotFound = true 
           scala.xml.XML.load(fileName)
         }
         // happens if the file is not available remotely (404)

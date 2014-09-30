@@ -53,6 +53,9 @@ object Spase {
             case r: Granule => Json.obj("granule" -> d.as[Granule])
           }
         }
+        case Some("Observatory") => Json.obj("observatory" -> d.as[Observatory])
+        case Some("Instrument") => Json.obj("instrument" -> d.as[Instrument])
+        case Some("NumericalData") => Json.obj("numericalData" -> d.as[NumericalData])
         // should never happen
         case _ => JsNull
       }
@@ -765,5 +768,86 @@ object Spase {
     def writes(s: EnumSourceType) = JsString(s.toString)
   }
   
+  
+  // writer for observatory
+  implicit val observatoryWrites: Writes[Observatory] = new Writes[Observatory] {
+    def writes(o: Observatory): JsValue = {
+      Json.obj(
+          "resourceId" -> o.ResourceID,
+          "resourceHeader" -> o.ResourceHeader,
+          "location" -> o.Location,
+          "observatoryGroupId" -> o.ObservatoryGroupID//,
+          /*"operatingSpan" -> o.OperatingSpan,
+          "extension" -> o.Extension */
+      )
+    }
+  }
+  
+  implicit val locationWrites: Writes[Location] = new Writes[Location] {
+    def writes(l: Location): JsValue = {
+      Json.obj(
+          "observatoryRegion" -> l.ObservatoryRegion,
+          "coordinateSystem" -> l.CoordinateSystemName//,
+          /* "elevation" -> l.Elevation,
+          "latitude" -> l.Latitude,
+          "longitude" -> l.Longitude */
+      )
+    }
+  }
+  
+  implicit val enumRegionWrites: Writes[EnumRegion] = new Writes[EnumRegion] {
+    def writes(r: EnumRegion): JsValue = JsString(r.toString)
+  }
+  
+  
+  // writes for instrument
+  implicit val instrumentWrites: Writes[Instrument] = new Writes[Instrument] {
+    def writes(i: Instrument): JsValue = {
+      Json.obj(
+          "resourceId" -> i.ResourceID,
+          "resourceHeader" -> i.ResourceHeader,
+          "instrumentType" -> i.InstrumentType,
+          "investigationName" -> i.InvestigationName,
+          "observatoryId" -> i.ObservatoryID,
+          "caveats" -> i.Caveats//,
+          /* "extension" -> i.Extension,
+          "operatingSpan" -> i.OperatingSpan */
+      )
+    }
+  }
+  
+  implicit val enumInstrumentTypeWrites: Writes[EnumInstrumentType] = new Writes[EnumInstrumentType] {
+    def writes(i: EnumInstrumentType): JsValue = JsString(i.toString)
+  }
+  
+  
+  // writer for numerical data
+  implicit val numericalDataWrites: Writes[NumericalData] = new Writes[NumericalData] {
+    def writes(n: NumericalData): JsValue = {
+      Json.obj(
+          "resourceId" -> n.ResourceID,
+          "resourceHeader" -> n.ResourceHeader,
+          "accessInformation" -> n.AccessInformation,
+          "instrumentId" -> n.InstrumentID,
+          "measurementType" -> n.MeasurementType,
+          "temporalDescription" -> n.TemporalDescription,
+          "parameter" -> n.Parameter,
+          "inputResourcId" -> n.InputResourceID,
+          "observedRegion" -> n.ObservedRegion,
+          "caveats" -> n.Caveats,
+          "spectralRange" -> n.SpectralRange,
+          "keyword" -> n.Keyword,
+          "processingLevel" -> n.ProcessingLevel,
+          "providerProcessingLevel" -> n.ProviderProcessingLevel,
+          "providerResourceName" -> n.ProviderResourceName,
+          "providerVersion" -> n.ProviderVersion//,
+          /* "extension" -> n.Extension */
+      )
+    }
+  }
+  
+  implicit val enumProcessingLevelWrites: Writes[EnumProcessingLevel] = new Writes[EnumProcessingLevel] {
+    def writes(p: EnumProcessingLevel): JsValue = JsString(p.toString)
+  }
   
 }

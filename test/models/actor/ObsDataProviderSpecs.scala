@@ -17,7 +17,7 @@ import scala.xml.NodeSeq
 import java.util.Random
 // only single imports possible
 import models.actor.DataProvider.{ 
-  GetTree, GetMethods, 
+  GetTree, GetMethods,
   GetElement, ERepository, 
   EObservatory, EInstrument, 
   ENumericalData
@@ -27,11 +27,11 @@ import models.actor.DataProvider.{
 // @TODO check the content of the Spase elements more
 object ObsDataProviderSpecs extends Specification with Mockito {
 
-    // test info
+    // test info => @fIXME only for AMDA!
   	val rand = new Random(java.lang.System.currentTimeMillis)
     val config = scalaxb.fromXML[Impexconfiguration](scala.xml.XML.loadFile("conf/configuration.xml"))
 	val databases = config.impexconfigurationoption.filter(_.key.get == "database").map(
-	    _.as[Database]).filter(d => d.typeValue == Observation)
+	    _.as[Database]).filter(d => d.typeValue == Observation && d.name == "AMDA")
 
     "ObsDataProvider" should {
         
@@ -111,11 +111,11 @@ object ObsDataProviderSpecs extends Specification with Mockito {
                 val future = actor ? GetElement(EInstrument, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
                 val instruments = 
-                  result.ResourceEntity.filter(p => p.key == Some("Instrument")).map(_.as[InstrumentType])
+                  result.ResourceEntity.filter(p => p.key == Some("Instrument")).map(_.as[Instrument])
                 
                 actor must beAnInstanceOf[ActorSelection]  
                 result must beAnInstanceOf[Spase]
-                instruments must beAnInstanceOf[Seq[InstrumentType]]
+                instruments must beAnInstanceOf[Seq[Instrument]]
             }
         }
         

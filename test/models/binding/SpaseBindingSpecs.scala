@@ -21,15 +21,13 @@ object SpaseBindingSpecs extends org.specs2.mutable.Specification with Mockito {
     // test info
   	val rand = new Random(java.lang.System.currentTimeMillis)
     val config = scalaxb.fromXML[Impexconfiguration](scala.xml.XML.loadFile("conf/configuration.xml"))
-	val databases = config.impexconfigurationoption.filter(_.key.get == "database").map(
-	    _.as[Database]).filter(d => d.typeValue == Simulation)
+	val databases = config.impexconfigurationoption.filter(_.key.get == "database").map(_.as[Database])
   
     "SpaseBinding" should {
         
         "marshall all available XML files" in {
-          databases map { database => 
+          databases.filter(d => d.typeValue == Simulation) map { database => 
             val id: String = UrlProvider.encodeURI(database.id)
-            // @FIXME taking only one random tree from one database
             val fileName: String = PathProvider.getPath("trees", 
               id, database.tree(rand.nextInt(database.tree.length))) 
             val spase = scalaxb.fromXML[Spase](scala.xml.XML.loadFile(fileName))
@@ -40,6 +38,19 @@ object SpaseBindingSpecs extends org.specs2.mutable.Specification with Mockito {
             
           }
 
+        }
+        
+        "marshall AMDA XML file" in {
+          val amda = databases.filter(d => d.name == "AMDA").head
+          val id: String = UrlProvider.encodeURI(amda.id)
+          val fileName: String = PathProvider.getPath("trees", 
+              id, amda.tree(rand.nextInt(amda.tree.length)))
+              
+          val spase = scalaxb.fromXML[Spase](scala.xml.XML.loadFile(fileName))
+           
+          spase must beAnInstanceOf[Spase]
+          scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")) must beAnInstanceOf[NodeSeq]
+          Json.toJson(spase) must beAnInstanceOf[JsValue]  
         }
 
         

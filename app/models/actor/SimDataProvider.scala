@@ -29,29 +29,6 @@ extends Actor with DataProvider {
     case UpdateData => sender ! updateData
   }
   
-  protected def getTreeObjects: Spase = {
-    val spase = getTrees flatMap { tree =>
-    	scalaxb.fromXML[Spase](tree).ResourceEntity
-  	}
-    Spase(Number2u462u462, spase, "en")
-  }
-  
-  protected def getTreeObjects(element: String): Seq[DataRecord[Any]] = {
-    getTreeObjects.ResourceEntity.filter(_.key.get == element.toString)
-  }
-  
-  protected def getRepository(id: Option[String]): Spase = {
-    //println("RepositoryID="+id)
-    val records = getTreeObjects("Repository") map {
-	  repo => scalaxb.fromXML[Repository](repo.as[NodeSeq])
-    }
-    val repos = id match {
-      case Some(id) => records.filter(_.ResourceID.contains(id))
-      case None => records
-    }
-	Spase(Number2u462u462, repos.map(r => DataRecord(None, Some("Repository"), r)), "en")
-  }
-  
   private def getSimulationModel(id: Option[String], r: Boolean): Spase = {
     val records = getTreeObjects("SimulationModel") map {
       _.as[SimulationModel]
@@ -79,7 +56,7 @@ extends Actor with DataProvider {
       case None => records
     }
     if(r == true) {
-      //println("ModelID="+runs.head.Model.ModelID)
+      //println("ModelID="+records.head.Model.ModelID)
       val rRecords = getSimulationModel(Some(runs.head.Model.ModelID), true).ResourceEntity++
       		runs.map(r => DataRecord(None, Some("SimulationRun"), r))
       Spase(Number2u462u462, rRecords, "en")	  

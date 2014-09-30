@@ -133,7 +133,7 @@ object Registry extends BaseController {
   @ApiOperation(
       value = "get simulation models", 
       nickname = "getSimulationModel",
-      notes = "returns the simulation model elements of all databases", 
+      notes = "returns the simulation model elements of simulation databases", 
       httpMethod = "GET")
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "unkown element")))
@@ -168,7 +168,7 @@ object Registry extends BaseController {
   @ApiOperation(
       value = "get simulation runs", 
       nickname = "getSimulationRun",
-      notes = "returns the simulation run elements of all databases", 
+      notes = "returns the simulation run elements of simulation databases", 
       httpMethod = "GET")
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "unkown element")))
@@ -203,7 +203,7 @@ object Registry extends BaseController {
   @ApiOperation(
       value = "get numerical outputs", 
       nickname = "getNumericalOutput",
-      notes = "returns the numerical output elements of all databases", 
+      notes = "returns the numerical output elements of simulation databases", 
       httpMethod = "GET")
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "unkown element")))
@@ -238,7 +238,7 @@ object Registry extends BaseController {
   @ApiOperation(
       value = "get granules", 
       nickname = "getGranule",
-      notes = "returns the granule elements of all databases", 
+      notes = "returns the granule elements of simulation databases", 
       httpMethod = "GET")
   @ApiResponses(Array(
     new ApiResponse(code = 400, message = "unkown element")))
@@ -269,35 +269,107 @@ object Registry extends BaseController {
     }
   }
   
-  // @TODO really return recursive
-  def observatory(fmt: String = "xml", r: String = "false") = PortalAction.async { implicit request => 
-    val future = RegistryService.getObservatory(request.req.get("id"), false)
-    future map { _ match {
-        case Left(spase) => 
+  @GET
+  @ApiOperation(
+      value = "get observatories", 
+      nickname = "getObservatory",
+      notes = "returns the observatory elements of observation databases", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "unkown element")))
+  @Path("/observatory")
+  @ApiImplicitParams(Array(
+    new ApiImplicitParam(
+        name = "id", 
+        value = "database id stored in the config, repository id or observatory id from a tree", 
+        // provide default value for swagger-ui stability
+        defaultValue = "spase://IMPEX/Repository/AMDA",
+        required = false, 
+        dataType = "string", 
+        paramType = "query")))
+  def observatory(
+      @ApiParam(value = "format in XML or JSON")
+      @QueryParam("fmt")
+      @DefaultValue("xml") fmt: String = "xml", 
+      @ApiParam(value = "recursive tree including all ancestor elements")
+      @QueryParam("r")
+      @DefaultValue("false") r: String = "false") = PortalAction.async { implicit request => 
+    val future = RegistryService.getObservatory(request.req.get("id"), r)
+    future.map { (_, fmt.toLowerCase) match {
+        case (Left(spase), "json") => Ok(Json.toJson(spase))
+        case (Left(spase), _) => 
           Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
-        case Right(error) => BadRequest(Json.toJson(error))
+        case (Right(error), _) => BadRequest(Json.toJson(error))
       }
     }  
   }
   
-  // @TODO really return recursive
-  def instrument(fmt: String = "xml", r: String = "false") = PortalAction.async { implicit request => 
-    val future = RegistryService.getInstrument(request.req.get("id"), false)
-    future map { _ match {
-        case Left(spase) => 
+  @GET
+  @ApiOperation(
+      value = "get instruments", 
+      nickname = "getInstrument",
+      notes = "returns the instrument elements of observation databases", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "unkown element")))
+  @Path("/instrument")
+  @ApiImplicitParams(Array(
+    new ApiImplicitParam(
+        name = "id", 
+        value = "database id stored in the config, observatory id or instrument id from a tree", 
+        // provide default value for swagger-ui stability
+        defaultValue = "spase://IMPEX/Repository/AMDA",
+        required = false, 
+        dataType = "string", 
+        paramType = "query")))
+  def instrument(
+      @ApiParam(value = "format in XML or JSON")
+      @QueryParam("fmt")
+      @DefaultValue("xml") fmt: String = "xml", 
+      @ApiParam(value = "recursive tree including all ancestor elements")
+      @QueryParam("r")
+      @DefaultValue("false") r: String = "false") = PortalAction.async { implicit request => 
+    val future = RegistryService.getInstrument(request.req.get("id"), r)
+    future.map { (_, fmt.toLowerCase) match {
+        case (Left(spase), "json") => Ok(Json.toJson(spase))
+        case (Left(spase), _) => 
           Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
-        case Right(error) => BadRequest(Json.toJson(error))
+        case (Right(error), _) => BadRequest(Json.toJson(error))
       }
     }  
   }
   
-  // @TODO really return recursive
-  def numericaldata(fmt: String = "xml", r: String = "false") = PortalAction.async { implicit request => 
-    val future = RegistryService.getNumericalData(request.req.get("id"), false)
-    future map { _ match {
-        case Left(spase) => 
+  @GET
+  @ApiOperation(
+      value = "get numerical data", 
+      nickname = "getNumericalData",
+      notes = "returns the numerical data elements of observation databases", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "unkown element")))
+  @Path("/instrument")
+  @ApiImplicitParams(Array(
+    new ApiImplicitParam(
+        name = "id", 
+        value = "database id stored in the config, instrument id or numerical data id from a tree", 
+        // provide default value for swagger-ui stability
+        defaultValue = "spase://IMPEX/Repository/AMDA",
+        required = false, 
+        dataType = "string", 
+        paramType = "query")))
+  def numericaldata(
+      @ApiParam(value = "format in XML or JSON")
+      @QueryParam("fmt")
+      @DefaultValue("xml") fmt: String = "xml", 
+      @ApiParam(value = "recursive tree including all ancestor elements")
+      @QueryParam("r")
+      @DefaultValue("false") r: String = "false") = PortalAction.async { implicit request => 
+    val future = RegistryService.getNumericalData(request.req.get("id"), r)
+    future.map { (_, fmt.toLowerCase) match {
+        case (Left(spase), "json") => Ok(Json.toJson(spase))
+        case (Left(spase), _) => 
           Ok(scalaxb.toXML[Spase](spase, "Spase", scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
-        case Right(error) => BadRequest(Json.toJson(error))
+        case (Right(error), _) => BadRequest(Json.toJson(error))
       }
     }  
   }

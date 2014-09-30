@@ -41,7 +41,7 @@ object RegistryServiceSpecs extends Specification with Mockito {
                 val randomProvider1 = databases(rand.nextInt(databases.length))
                 val future1 = RegistryService.getTree(Some(randomProvider1.id.toString))
                 val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
-                val future2 = RegistryService.getTree(Some("impex://TEST"))
+                val future2 = RegistryService.getTree(Some("spase://TEST"))
                 val result2 = Await.result(future2.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
                 val randomProvider3 = databases(rand.nextInt(databases.length))
                 val future3 = RegistryService.getMethods(Some(randomProvider3.name.toString))
@@ -85,7 +85,7 @@ object RegistryServiceSpecs extends Specification with Mockito {
                
                 val future1 = RegistryService.getRepository(Some(databases(rand.nextInt(databases.length)).id.toString))
                 val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
-                val future2 = RegistryService.getRepository(Some("impex://TEST"))
+                val future2 = RegistryService.getRepository(Some("spase://TEST"))
                 val result2 = Await.result(future2.mapTo[Either[Spase, RequestError]], DurationInt(10) second)       
                 
                 result1 must beLeft
@@ -111,7 +111,7 @@ object RegistryServiceSpecs extends Specification with Mockito {
                
                 val future1 = RegistryService.getSimulationModel(Some("spase://IMPEX/Repository/FMI/GUMICS"), false)
                 val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
-                val future2 = RegistryService.getSimulationModel(Some("impex://TEST"), false)
+                val future2 = RegistryService.getSimulationModel(Some("spase://TEST"), false)
                 val result2 = Await.result(future2.mapTo[Either[Spase, RequestError]], DurationInt(10) second)       
                 val future3 = RegistryService.getSimulationModel(Some("spase://IMPEX/Repository/AMDA"), false)
                 val result3 = Await.result(future3.mapTo[Either[Spase, RequestError]], DurationInt(10) second)  
@@ -144,7 +144,7 @@ object RegistryServiceSpecs extends Specification with Mockito {
                
                 val future1 = RegistryService.getSimulationRun(Some("spase://IMPEX/SimulationModel/SINP/Earth/Static"), false)
                 val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
-                val future2 = RegistryService.getSimulationRun(Some("impex://TEST"), false)
+                val future2 = RegistryService.getSimulationRun(Some("spase://TEST"), false)
                 val result2 = Await.result(future2.mapTo[Either[Spase, RequestError]], DurationInt(10) second)  
                 val future3 = RegistryService.getSimulationRun(Some("spase://IMPEX/Repository/AMDA"), false)
                 val result3 = Await.result(future3.mapTo[Either[Spase, RequestError]], DurationInt(10) second)  
@@ -159,6 +159,7 @@ object RegistryServiceSpecs extends Specification with Mockito {
                   case Left(spase) => spase must beAnInstanceOf[Spase]
                   case Right(error) => error must beAnInstanceOf[RequestError]
                 }
+                result3 must beRight
                 result3 match {
                   case Left(spase) => spase must beAnInstanceOf[Spase]
                   case Right(error) => error must beAnInstanceOf[RequestError]
@@ -176,7 +177,7 @@ object RegistryServiceSpecs extends Specification with Mockito {
                
                 val future1 = RegistryService.getNumericalOutput(Some("spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_14_01_13"), false)
                 val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
-                val future2 = RegistryService.getNumericalOutput(Some("impex://TEST"), false)
+                val future2 = RegistryService.getNumericalOutput(Some("spase://TEST"), false)
                 val result2 = Await.result(future2.mapTo[Either[Spase, RequestError]], DurationInt(10) second)  
                 val future3 = RegistryService.getNumericalOutput(Some("spase://IMPEX/Repository/AMDA"), false)
                 val result3 = Await.result(future3.mapTo[Either[Spase, RequestError]], DurationInt(10) second)  
@@ -191,6 +192,7 @@ object RegistryServiceSpecs extends Specification with Mockito {
                   case Left(spase) => spase must beAnInstanceOf[Spase]
                   case Right(error) => error must beAnInstanceOf[RequestError]
                 }
+                result3 must beRight
                 result3 match {
                   case Left(spase) => spase must beAnInstanceOf[Spase]
                   case Right(error) => error must beAnInstanceOf[RequestError]
@@ -208,7 +210,7 @@ object RegistryServiceSpecs extends Specification with Mockito {
                
                 val future1 = RegistryService.getGranule(Some("spase://IMPEX/Granule/LATMOS/Hybrid/Mars_14_01_13/Mag/2D/XY"), false)
                 val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
-                val future2 = RegistryService.getGranule(Some("impex://TEST"), false)
+                val future2 = RegistryService.getGranule(Some("spase://TEST"), false)
                 val result2 = Await.result(future2.mapTo[Either[Spase, RequestError]], DurationInt(10) second)   
                 val future3 = RegistryService.getGranule(Some("spase://IMPEX/Repository/AMDA"), false)
                 val result3 = Await.result(future3.mapTo[Either[Spase, RequestError]], DurationInt(10) second)  
@@ -223,6 +225,7 @@ object RegistryServiceSpecs extends Specification with Mockito {
                   case Left(spase) => spase must beAnInstanceOf[Spase]
                   case Right(error) => error must beAnInstanceOf[RequestError]
                 }
+                result3 must beRight
                 result3 match {
                   case Left(spase) => spase must beAnInstanceOf[Spase]
                   case Right(error) => error must beAnInstanceOf[RequestError]
@@ -230,7 +233,104 @@ object RegistryServiceSpecs extends Specification with Mockito {
             }
         }
         
-        // @TODO extend with observation test cases
+        "fetch observatories" in {
+        	val app = new FakeApplication
+        	running(app) {
+                implicit val actorSystem = Akka.system(app)
+                val configActorRef = TestActorRef(new ConfigService, name = "config")
+                val registryActorRef = TestActorRef((new RegistryService(databases)), name = "registry")
+                val registryActor = actorSystem.actorSelection("user/registry")
+                
+                val future1 = RegistryService.getObservatory(Some("spase://IMPEX/Observatory/AMDA/ACE"), false)
+                val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
+                val future2 = RegistryService.getObservatory(Some("spase://TEST"), false)
+                val result2 = Await.result(future2.mapTo[Either[Spase, RequestError]], DurationInt(10) second)   
+                val future3 = RegistryService.getObservatory(Some("spase://IMPEX/Repository/LATMOS"), false)
+                val result3 = Await.result(future3.mapTo[Either[Spase, RequestError]], DurationInt(10) second)  
+                
+                result1 must beLeft
+                result1 match {
+                  case Left(spase) => spase must beAnInstanceOf[Spase]
+                  case Right(error) => error must beAnInstanceOf[RequestError]
+                }
+                result2 must beRight
+                result2 match {
+                  case Left(spase) => spase must beAnInstanceOf[Spase]
+                  case Right(error) => error must beAnInstanceOf[RequestError]
+                }
+                result3 must beRight
+                result3 match {
+                  case Left(spase) => spase must beAnInstanceOf[Spase]
+                  case Right(error) => error must beAnInstanceOf[RequestError]
+                }
+            }
+        }
+        
+        "fetch instruments" in {
+        	val app = new FakeApplication
+        	running(app) {
+                implicit val actorSystem = Akka.system(app)
+                val configActorRef = TestActorRef(new ConfigService, name = "config")
+                val registryActorRef = TestActorRef((new RegistryService(databases)), name = "registry")
+                val registryActor = actorSystem.actorSelection("user/registry")
+                
+                val future1 = RegistryService.getInstrument(Some("spase://IMPEX/Instrument/AMDA/ACE/Ephemeris"), false)
+                val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
+                val future2 = RegistryService.getInstrument(Some("spase://TEST"), false)
+                val result2 = Await.result(future2.mapTo[Either[Spase, RequestError]], DurationInt(10) second)   
+                val future3 = RegistryService.getInstrument(Some("spase://IMPEX/Repository/LATMOS"), false)
+                val result3 = Await.result(future3.mapTo[Either[Spase, RequestError]], DurationInt(10) second)  
+                
+                result1 must beLeft
+                result1 match {
+                  case Left(spase) => spase must beAnInstanceOf[Spase]
+                  case Right(error) => error must beAnInstanceOf[RequestError]
+                }
+                result2 must beRight
+                result2 match {
+                  case Left(spase) => spase must beAnInstanceOf[Spase]
+                  case Right(error) => error must beAnInstanceOf[RequestError]
+                }
+                result3 must beRight
+                result3 match {
+                  case Left(spase) => spase must beAnInstanceOf[Spase]
+                  case Right(error) => error must beAnInstanceOf[RequestError]
+                }
+            }
+        }
+        
+        "fetch numericaldata" in {
+        	val app = new FakeApplication
+        	running(app) {
+                implicit val actorSystem = Akka.system(app)
+                val configActorRef = TestActorRef(new ConfigService, name = "config")
+                val registryActorRef = TestActorRef((new RegistryService(databases)), name = "registry")
+                val registryActor = actorSystem.actorSelection("user/registry")
+            
+                val future1 = RegistryService.getNumericalData(Some("spase://IMPEX/NumericalData/AMDA/Giotto/RPA/gio-rpa1-corr"), false)
+                val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
+                val future2 = RegistryService.getNumericalData(Some("spase://TEST"), false)
+                val result2 = Await.result(future2.mapTo[Either[Spase, RequestError]], DurationInt(10) second)   
+                val future3 = RegistryService.getNumericalData(Some("spase://IMPEX/Repository/LATMOS"), false)
+                val result3 = Await.result(future3.mapTo[Either[Spase, RequestError]], DurationInt(10) second)  
+                
+                result1 must beLeft
+                result1 match {
+                  case Left(spase) => spase must beAnInstanceOf[Spase]
+                  case Right(error) => error must beAnInstanceOf[RequestError]
+                }
+                result2 must beRight
+                result2 match {
+                  case Left(spase) => spase must beAnInstanceOf[Spase]
+                  case Right(error) => error must beAnInstanceOf[RequestError]
+                }
+                result3 must beRight
+                result3 match {
+                  case Left(spase) => spase must beAnInstanceOf[Spase]
+                  case Right(error) => error must beAnInstanceOf[RequestError]
+                }
+            }
+        }
         
     }
 }

@@ -7,7 +7,6 @@ import models.binding._
 import java.util.Random
 
 // @TODO extend default timeout (how?)
-// @TODO extend resourceId tests
 class RegistrySpecs extends Specification {
   
 	// test info
@@ -97,7 +96,7 @@ class RegistrySpecs extends Specification {
         	}
         }
         
-        "respond one repository route+unkown id with error" in {
+        "respond on repository route+unkown id with error" in {
         	running(FakeApplication()) {
         	  val result = route(FakeRequest(GET, "/registry/repository?id=boum"))
         	  result must beSome
@@ -160,7 +159,58 @@ class RegistrySpecs extends Specification {
         	}
         } 
         
+        "respond on observatory route GET+id with XML" in {
+        	running(FakeApplication()) {
+        	  val randomProvider = observations(rand.nextInt(observations.length))
+        	  val result = route(FakeRequest(GET, "/registry/observatory?id="+randomProvider.id.toString))
+        	  result must beSome
+        	  status(result.get) must equalTo(OK)
+        	  contentType(result.get) must beSome("application/xml")
+        	}
+        }
+        
+        "respond on observatory route GET+id with JSON" in {
+        	running(FakeApplication()) {
+        	  val randomProvider = observations(rand.nextInt(observations.length))
+        	  val result = route(FakeRequest(GET, "/registry/observatory?id="+randomProvider.id.toString+"&fmt=json"))
+        	  result must beSome
+        	  status(result.get) must equalTo(OK)
+        	  contentType(result.get) must beSome("application/json")
+        	}
+        }
+        
+        "respond on observatory route GET+wrong id with error" in {
+        	running(FakeApplication()) {
+        	  val randomProvider = simulations(rand.nextInt(simulations.length))
+        	  val result = route(FakeRequest(GET, "/registry/observatory?id="+randomProvider.id.toString))
+        	  result must beSome
+        	  status(result.get) must equalTo(BAD_REQUEST)
+        	  contentType(result.get) must beSome("application/json")
+        	  contentAsString(result.get) must contain("404")
+        	  contentAsString(result.get) must contain("unknown element")
+        	}
+        }
+        
+        "respond on observatory route GET+id+r with XML" in {
+        	running(FakeApplication()) {
+        	  val randomProvider = observations(rand.nextInt(observations.length))
+        	  val result = route(FakeRequest(GET, "/registry/observatory?id="+randomProvider.id.toString+"&r=true"))
+        	  result must beSome
+        	  status(result.get) must equalTo(OK)
+        	  contentType(result.get) must beSome("application/xml")
+        	}
+        } 
+        
+        "respond on observatory route GET+id+r with JSON" in {
+        	running(FakeApplication()) {
+          	  val randomProvider = observations(rand.nextInt(observations.length))
+        	  val result = route(FakeRequest(GET, "/registry/observatory?id="+randomProvider.id.toString+"&r=true&fmt=json"))
+        	  result must beSome
+        	  status(result.get) must equalTo(OK)
+        	  contentType(result.get) must beSome("application/json")
+        	}
+        }
+        
         // @TODO add more test cases for the registry
-
     }
 }
