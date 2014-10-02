@@ -89,8 +89,8 @@ object FMIMethods extends MethodsController {
     val interpolation = request.req.get("interpolation_method").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointValueFMI(
-        validateInterpolation(interpolation), // interpolation method
-        validateFiletype(filetype) // output filetype
+        interpolation, // interpolation method
+        filetype // output filetype
     )
     
     val result = fmi.service.getDataPointValue(
@@ -197,8 +197,8 @@ object FMIMethods extends MethodsController {
     val interpolation = request.req.get("interpolation_method").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointValueFMI(
-        validateInterpolation(interpolation), // interpolation method
-        validateFiletype(filetype) // output filetype
+        interpolation, // interpolation method
+        filetype // output filetype
     )
            
     val result = fmi.service.getDataPointValueSpacecraft(
@@ -302,16 +302,16 @@ object FMIMethods extends MethodsController {
     val interpolation = request.req.get("interpolation_method").getOrElse("")
     
     val extraParams = ExtraParams_getSurfaceFMI(
-        validateOptDouble(resolution), // resolution
-        validateFiletype(filetype), // output filetype
-        validateInterpolation(interpolation) // interpolation method
+        resolution, // resolution
+        filetype, // output filetype
+        interpolation // interpolation method
     )
            
     val result = fmi.service.getSurface(
         id, // resoureId
         validateOptStringSeq(variable), // variable
-        validateFloatSeq(planePoint), // plane point
-        validateFloatSeq(planeVector), // plane normal vector
+        planePoint, // plane point
+        planeVector, // plane normal vector
         Some(extraParams) // extra params
     ) 
     
@@ -329,7 +329,7 @@ object FMIMethods extends MethodsController {
   
   
   // @FIXME the request data type is not displayed correctly 
-  // (maybe remove it from the API view, or wait for new swagger release)
+  // (wait for new swagger release)
   @POST
   @ApiOperation(
       value = "getVOTableURL at FMI", 
@@ -770,12 +770,12 @@ object FMIMethods extends MethodsController {
     val stopCondRegion = request.req.get("stop_cond_region")
     
     val extraParams = ExtraParams_getFieldLineFMI(
-        validateDirection(direction), // direction
-        validateOptDouble(stepSize), // step size
-        validateOptBigInt(maxSteps),//Some(BigInt(100)), // max steps 
-        validateOptDouble(stopCondRadius),//Some(0.0), // stop condition radius 
-        validateOptFloatSeq(stopCondRegion), // stop condition region 
-        validateFiletype(filetype) // output filetype
+        direction, // direction
+        stepSize, // step size
+        maxSteps,//Some(BigInt(100)), // max steps 
+        stopCondRadius,//Some(0.0), // stop condition radius 
+        stopCondRegion, // stop condition region 
+        filetype // output filetype
     )
           
     val result = fmi.service.getFieldLine(
@@ -886,13 +886,13 @@ object FMIMethods extends MethodsController {
     val stopCondRegion = request.req.get("stop_cond_region")
     
     val extraParams = ExtraParams_getParticleTrajectory(
-        validateDirection(direction), // direction
-        validateOptDouble(stepSize),//Some(1.0), // step size
-        validateOptBigInt(maxSteps),//Some(BigInt(200)), // max steps
-        validateOptDouble(stopCondRadius),//Some(0.0), // stop condition radius
-        validateOptFloatSeq(stopCondRegion), // stop condition region
-        validateInterpolation(interpolation), // interpolation method
-        validateFiletype(filetype) // output filetype
+        direction, // direction
+        stepSize,//Some(1.0), // step size
+        maxSteps,//Some(BigInt(200)), // max steps
+        stopCondRadius,//Some(0.0), // stop condition radius
+        stopCondRegion, // stop condition region
+        interpolation, // interpolation method
+        filetype // output filetype
     )
           
     val result = fmi.service.getParticleTrajectory(
@@ -973,8 +973,8 @@ object FMIMethods extends MethodsController {
     val interpolation = request.req.get("interpolation_method").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointSpectraFMI(
-        validateInterpolation(interpolation), // interpolation method
-        validateFiletype(filetype), // output filetype
+        interpolation, // interpolation method
+        filetype, // output filetype
         validateOptStringSeq(energyChannel) // energy channel
     )
            
@@ -1081,8 +1081,8 @@ object FMIMethods extends MethodsController {
     val interpolation = request.req.get("interpolation_method").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointSpectraFMI(
-        validateInterpolation(interpolation), // interpolation method
-        validateFiletype(filetype), // output filetype
+        interpolation, // interpolation method
+        filetype, // output filetype
         validateOptStringSeq(energyChannel) // energy channel
     )
            

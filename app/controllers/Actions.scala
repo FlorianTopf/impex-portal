@@ -15,7 +15,8 @@ import scala.language.implicitConversions
 
 
 class BaseController extends Controller {
-
+  implicit def str2bool(s: String): Boolean = s.equals("true")
+  
   // @TODO needed for preflight request of some browsers
   def options(entity: Any*) = CORS {
     Action { implicit request =>
@@ -88,11 +89,11 @@ object CORSHeaders {
 
 }
 
-// @TODO make implicits out of it
+
 class MethodsController extends BaseController {
   
   // helper method for validating the output filetype 
-  def validateFiletype(filetype: String): Option[OutputFormatType] = {
+  implicit def validateFiletype(filetype: String): Option[OutputFormatType] = {
     try {
       Some(OutputFormatType.fromString(filetype, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
     } catch {
@@ -129,7 +130,7 @@ class MethodsController extends BaseController {
   } 
   
   // helper method for validating float sequences
-  def validateFloatSeq(floats: String): Seq[Float] = {
+  implicit def validateFloatSeq(floats: String): Seq[Float] = {
     try {
       floats.split(",").map(_.toFloat)      
     } catch {
@@ -148,7 +149,7 @@ class MethodsController extends BaseController {
     
   }
   
-  def validateOptFloatSeq(floats: Option[String]): Option[Seq[Float]] = {
+  implicit def validateOptFloatSeq(floats: Option[String]): Option[Seq[Float]] = {
     try {
       floats match {
         case Some(f) => Some(f.split(",").map(_.toFloat))
@@ -180,7 +181,7 @@ class MethodsController extends BaseController {
     }
   }
   
-  def validateOptDouble(double: Option[String]): Option[Double] = {
+  implicit def validateOptDouble(double: Option[String]): Option[Double] = {
     try {
       double match {
         case Some(d) => Some(d.toDouble)
@@ -192,7 +193,7 @@ class MethodsController extends BaseController {
     }
   }
   
-  def validateOptBigInt(bigInt: Option[String]): Option[BigInt] = {
+  implicit def validateOptBigInt(bigInt: Option[String]): Option[BigInt] = {
     try {
       bigInt match {
         case Some(b) => Some(BigInt(b))
@@ -205,7 +206,7 @@ class MethodsController extends BaseController {
   }
   
   // helper method for validating directions
-  def validateDirection(direction: String): Option[EnumDirection] = {
+  implicit def validateDirection(direction: String): Option[EnumDirection] = {
     try {
       Some(EnumDirection.fromString(direction, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
     } catch {
@@ -215,7 +216,7 @@ class MethodsController extends BaseController {
   }
   
   // helper method for validating interpolation methods
-  def validateInterpolation(interpolation: String): Option[EnumInterpolation] = {
+  implicit def validateInterpolation(interpolation: String): Option[EnumInterpolation] = {
     try {
       Some(EnumInterpolation.fromString(interpolation, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
     } catch {

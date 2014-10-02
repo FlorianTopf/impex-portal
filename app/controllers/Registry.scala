@@ -25,7 +25,6 @@ import scala.language.implicitConversions
 @Path("/registry")
 @Produces(Array(APPLICATION_XML, APPLICATION_JSON))
 object Registry extends BaseController {
-  implicit def str2bool(s: String): Boolean = s.equals("true")
   
   @GET
   @ApiOperation(

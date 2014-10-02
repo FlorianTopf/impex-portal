@@ -24,7 +24,6 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 	Some("xml") -> "http://www.w3.org/XML/1998/namespace",
 	Some("xs") -> "http://www.w3.org/2001/XMLSchema",
 	Some("xsi") -> "http://www.w3.org/2001/XMLSchema-instance")
-  //implicit lazy val BindingEnumDirectionTypeFormat: scalaxb.XMLFormat[models.binding.EnumDirectionType] = new DefaultBindingEnumDirectionTypeFormat {}
   implicit lazy val BindingOutputFormatTypeFormat: scalaxb.XMLFormat[models.binding.OutputFormatType] = new DefaultBindingOutputFormatTypeFormat {}
   implicit lazy val BindingEnumInterpolationFormat: scalaxb.XMLFormat[models.binding.EnumInterpolation] = new DefaultBindingEnumInterpolationFormat {}
   implicit lazy val BindingSpacecraftTypeFormat: scalaxb.XMLFormat[models.binding.SpacecraftType] = new DefaultBindingSpacecraftTypeFormat {}
@@ -46,8 +45,6 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingSW_parameterFormat: scalaxb.XMLFormat[models.binding.SW_parameter] = new DefaultBindingSW_parameterFormat {}
   implicit lazy val BindingVOTableURLFormat: scalaxb.XMLFormat[models.binding.VOTableURL] = new DefaultBindingVOTableURLFormat {}
   implicit lazy val BindingVOTable_fieldFormat: scalaxb.XMLFormat[models.binding.VOTable_field] = new DefaultBindingVOTable_fieldFormat {}
-  //implicit lazy val BindingOutputFormatFormat: scalaxb.XMLFormat[models.binding.OutputFormat] = new DefaultBindingOutputFormatFormat {}
-  //implicit lazy val BindingSpacecraftFormat: scalaxb.XMLFormat[models.binding.Spacecraft] = new DefaultBindingSpacecraftFormat {}
   // LATMOS methods
   implicit lazy val BindingDataPointValueLATMOSFormat: scalaxb.XMLFormat[models.binding.DataPointValueLATMOS] = new DefaultBindingDataPointValueLATMOSFormat {}
   implicit lazy val BindingExtraParams_getDataPointValueLATMOSFormat: scalaxb.XMLFormat[models.binding.ExtraParams_getDataPointValueLATMOS] = new DefaultBindingExtraParams_getDataPointValueLATMOSFormat {}
@@ -110,34 +107,18 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingParameterTypeFormat: scalaxb.XMLFormat[models.binding.ParameterType] = new DefaultBindingParameterTypeFormat {}
   implicit lazy val BindingComponentFormat: scalaxb.XMLFormat[models.binding.Component] = new DefaultBindingComponentFormat {}
   // AMDA/ CLWEB specific types (methods)
-  //implicit lazy val BindingEmptyElement2Format: scalaxb.XMLFormat[models.binding.EmptyElement2] = new DefaultBindingEmptyElement2Format {}
-  //implicit lazy val BindingEmptyAliveFormat: scalaxb.XMLFormat[models.binding.EmptyAlive] = new DefaultBindingEmptyAliveFormat {}
   implicit lazy val BindingGetObsDataTreeResponseAMDAFormat: scalaxb.XMLFormat[models.binding.GetObsDataTreeResponseAMDA] = new DefaultBindingGetObsDataTreeResponseAMDAFormat {}
-  //implicit lazy val BindingGetTimeTablesListTypeFormat: scalaxb.XMLFormat[models.binding.GetTimeTablesListType] = new DefaultBindingGetTimeTablesListTypeFormat {}
-  //implicit lazy val BindingGetTimeTablesListResponseTypeFormat: scalaxb.XMLFormat[models.binding.GetTimeTablesListResponseType] = new DefaultBindingGetTimeTablesListResponseTypeFormat {}
   implicit lazy val BindingGetParameterListFormat: scalaxb.XMLFormat[models.binding.GetParameterList] = new DefaultBindingGetParameterListFormat {}
   implicit lazy val BindingGetParameterListResponseFormat: scalaxb.XMLFormat[models.binding.GetParameterListResponse] = new DefaultBindingGetParameterListResponseFormat {}
   implicit lazy val BindingEnumSpacecraftFormat: scalaxb.XMLFormat[models.binding.EnumSpacecraft] = new DefaultBindingEnumSpacecraftFormat {}
   implicit lazy val BindingWorkSpaceValueFormat: scalaxb.XMLFormat[models.binding.WorkSpaceValue] = new DefaultBindingWorkSpaceValueFormat {}
-  //implicit lazy val BindingEnumCoordinateSystemNameFormat: scalaxb.XMLFormat[models.binding.EnumCoordinateSystemName] = new DefaultBindingEnumCoordinateSystemNameFormat {}
   implicit lazy val BindingParameterListFormat: scalaxb.XMLFormat[models.binding.ParameterList] = new DefaultBindingParameterListFormat {}
   implicit lazy val BindingWorkSpaceFormat: scalaxb.XMLFormat[models.binding.WorkSpace] = new DefaultBindingWorkSpaceFormat {}
-  //implicit lazy val BindingOutputFormatTypeFormat: scalaxb.XMLFormat[models.binding.OutputFormatType] = new DefaultBindingOutputFormatTypeFormat {}
-  //implicit lazy val BindingTimeFormatTypeFormat: scalaxb.XMLFormat[models.binding.TimeFormatType] = new DefaultBindingTimeFormatTypeFormat {}
-  //implicit lazy val BindingGetParameterTypeFormat: scalaxb.XMLFormat[models.binding.GetParameterType] = new DefaultBindingGetParameterTypeFormat {}
-  //implicit lazy val BindingGetParameterResponseTypeFormat: scalaxb.XMLFormat[models.binding.GetParameterResponseType] = new DefaultBindingGetParameterResponseTypeFormat {}
-  //implicit lazy val BindingOutputFormatType2Format: scalaxb.XMLFormat[models.binding.OutputFormatType2] = new DefaultBindingOutputFormatType2Format {}
-  //implicit lazy val BindingTimeFormatType2Format: scalaxb.XMLFormat[models.binding.TimeFormatType2] = new DefaultBindingTimeFormatType2Format {}
   implicit lazy val BindingGetDatasetFormat: scalaxb.XMLFormat[models.binding.GetDataset] = new DefaultBindingGetDatasetFormat {}
   implicit lazy val BindingGetDatasetResponseFormat: scalaxb.XMLFormat[models.binding.GetDatasetResponse] = new DefaultBindingGetDatasetResponseFormat {}
   implicit lazy val BindingUnitsFormat: scalaxb.XMLFormat[models.binding.Units] = new DefaultBindingUnitsFormat {}
-  //implicit lazy val BindingOutputFormatType3Format: scalaxb.XMLFormat[models.binding.OutputFormatType3] = new DefaultBindingOutputFormatType3Format {}
-  //implicit lazy val BindingTimeFormatType3Format: scalaxb.XMLFormat[models.binding.TimeFormatType3] = new DefaultBindingTimeFormatType3Format {}
   implicit lazy val BindingGetOrbitesFormat: scalaxb.XMLFormat[models.binding.GetOrbites] = new DefaultBindingGetOrbitesFormat {}
   implicit lazy val BindingGetOrbitesResponseFormat: scalaxb.XMLFormat[models.binding.GetOrbitesResponse] = new DefaultBindingGetOrbitesResponseFormat {}
-  //implicit lazy val BindingGetTimeTableTypeFormat: scalaxb.XMLFormat[models.binding.GetTimeTableType] = new DefaultBindingGetTimeTableTypeFormat {}
-  //implicit lazy val BindingGetTimeTableResponseTypeFormat: scalaxb.XMLFormat[models.binding.GetTimeTableResponseType] = new DefaultBindingGetTimeTableResponseTypeFormat {}
-  //implicit lazy val BindingEmptyElementFormat: scalaxb.XMLFormat[models.binding.EmptyElement] = new DefaultBindingEmptyElementFormat {}
   implicit lazy val BindingGetObsDataTreeResponseCLWEBFormat: scalaxb.XMLFormat[models.binding.GetObsDataTreeResponseCLWEB] = new DefaultBindingGetObsDataTreeResponseCLWEBFormat {}
   implicit lazy val BindingGetTimeTablesListFormat: scalaxb.XMLFormat[models.binding.GetTimeTablesList] = new DefaultBindingGetTimeTablesListFormat {}
   implicit lazy val BindingGetTimeTablesListResponseFormat: scalaxb.XMLFormat[models.binding.GetTimeTablesListResponse] = new DefaultBindingGetTimeTablesListResponseFormat {}
@@ -313,22 +294,6 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingResourceSequence1Format: scalaxb.XMLFormat[models.binding.ResourceSequence1] = new DefaultBindingResourceSequence1Format {}
   implicit lazy val BindingVersionFormat: scalaxb.XMLFormat[models.binding.Version] = new DefaultBindingVersionFormat {}
   implicit lazy val BindingVOTABLEFormat: scalaxb.XMLFormat[models.binding.VOTABLE] = new DefaultBindingVOTABLEFormat {}
-
-  /*def buildBindingEnumDirectionTypeFormat = new DefaultBindingEnumDirectionTypeFormat {}
-  trait DefaultBindingEnumDirectionTypeFormat extends scalaxb.XMLFormat[models.binding.EnumDirectionType] {
-    val targetNamespace: Option[String] = Some("http://impex-fp7.fmi.fi")
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.EnumDirectionType] = seq match {
-      case elem: scala.xml.Elem => Right(models.binding.EnumDirectionType.fromString(elem.text, elem.scope))
-      case _ => Right(models.binding.EnumDirectionType.fromString(seq.text, scala.xml.TopScope))
-    }
-    
-    def writes(__obj: models.binding.EnumDirectionType, __namespace: Option[String], __elementLabel: Option[String],
-        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
-      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
-  }*/
 
   def buildBindingOutputFormatTypeFormat = new DefaultBindingOutputFormatTypeFormat {}
   trait DefaultBindingOutputFormatTypeFormat extends scalaxb.XMLFormat[models.binding.OutputFormatType] {
@@ -910,39 +875,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     }
   }
 
-
-  /*def buildBindingOutputFormatFormat = new DefaultBindingOutputFormatFormat {}
-  trait DefaultBindingOutputFormatFormat extends scalaxb.XMLFormat[models.binding.OutputFormat] {
-    val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.OutputFormat] = seq match {
-      case elem: scala.xml.Elem => Right(models.binding.OutputFormat.fromString(elem.text, elem.scope))
-      case _ => Right(models.binding.OutputFormat.fromString(seq.text, scala.xml.TopScope))
-    }
-    
-    def writes(__obj: models.binding.OutputFormat, __namespace: Option[String], __elementLabel: Option[String],
-        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
-      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
-  }
-
-  def buildBindingSpacecraftFormat = new DefaultBindingSpacecraftFormat {}
-  trait DefaultBindingSpacecraftFormat extends scalaxb.XMLFormat[models.binding.Spacecraft] {
-    val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.Spacecraft] = seq match {
-      case elem: scala.xml.Elem => Right(models.binding.Spacecraft.fromString(elem.text, elem.scope))
-      case _ => Right(models.binding.Spacecraft.fromString(seq.text, scala.xml.TopScope))
-    }
-    
-    def writes(__obj: models.binding.Spacecraft, __namespace: Option[String], __elementLabel: Option[String],
-        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
-      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
-  }*/
-
+  
   trait DefaultBindingDataPointValueLATMOSFormat extends scalaxb.ElemNameParser[models.binding.DataPointValueLATMOS] {
     val targetNamespace: Option[String] = Some("http://impex.latmos.ipsl.fr")
     
@@ -1289,39 +1222,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     }
   }
 
-
-  /*def buildBindingOutputFormatType2Format = new DefaultBindingOutputFormatType2Format {}
-  trait DefaultBindingOutputFormatType2Format extends scalaxb.XMLFormat[models.binding.OutputFormatType2] {
-    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.OutputFormatType2] = seq match {
-      case elem: scala.xml.Elem => Right(models.binding.OutputFormatType2.fromString(elem.text, elem.scope))
-      case _ => Right(models.binding.OutputFormatType2.fromString(seq.text, scala.xml.TopScope))
-    }
-    
-    def writes(__obj: models.binding.OutputFormatType2, __namespace: Option[String], __elementLabel: Option[String],
-        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
-      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
-  }
-
-  def buildBindingInterpolationFormat = new DefaultBindingInterpolationFormat {}
-  trait DefaultBindingInterpolationFormat extends scalaxb.XMLFormat[models.binding.Interpolation] {
-    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.Interpolation] = seq match {
-      case elem: scala.xml.Elem => Right(models.binding.Interpolation.fromString(elem.text, elem.scope))
-      case _ => Right(models.binding.Interpolation.fromString(seq.text, scala.xml.TopScope))
-    }
-    
-    def writes(__obj: models.binding.Interpolation, __namespace: Option[String], __elementLabel: Option[String],
-        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
-      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
-  }*/
-
+  
   def buildBindingSpacecraftTypeSINPFormat = new DefaultBindingSpacecraftTypeSINPFormat {}
   trait DefaultBindingSpacecraftTypeSINPFormat extends scalaxb.XMLFormat[models.binding.SpacecraftTypeSINP] {
     val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
@@ -2626,38 +2527,8 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
 
   }
+
   
-  
-  /*trait DefaultBindingEmptyElement2Format extends scalaxb.XMLFormat[models.binding.EmptyElement2] with scalaxb.CanWriteChildNodes[models.binding.EmptyElement2] {
-    val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
-    import scalaxb.ElemName._
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.EmptyElement2] = seq match {
-      case node: scala.xml.Node => Right(models.binding.EmptyElement2())
-      case _ => Left("reads failed: seq must be scala.xml.Node")
-    }
-    
-    def writesChildNodes(__obj: models.binding.EmptyElement2, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Nil
-
-
-  }*/
-
-  /*trait DefaultBindingEmptyAliveFormat extends scalaxb.XMLFormat[models.binding.EmptyAlive] with scalaxb.CanWriteChildNodes[models.binding.EmptyAlive] {
-    val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
-    import scalaxb.ElemName._
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.EmptyAlive] = seq match {
-      case node: scala.xml.Node => Right(models.binding.EmptyAlive())
-      case _ => Left("reads failed: seq must be scala.xml.Node")
-    }
-    
-    def writesChildNodes(__obj: models.binding.EmptyAlive, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Nil
-
-
-  }*/
-
   trait DefaultBindingGetObsDataTreeResponseAMDAFormat extends scalaxb.ElemNameParser[models.binding.GetObsDataTreeResponseAMDA] {
     val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
     
@@ -2675,42 +2546,6 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         scalaxb.toXML[models.binding.WorkSpace](__obj.WorkSpace, None, Some("WorkSpace"), __scope, false))
 
   }
-
-  /*trait DefaultBindingGetTimeTablesListTypeFormat extends scalaxb.ElemNameParser[models.binding.GetTimeTablesListType] {
-    val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
-    
-    override def typeName: Option[String] = Some("getTimeTablesList")
-
-    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.GetTimeTablesListType] =
-      phrase(opt(scalaxb.ElemName(None, "userID")) ~ 
-      opt(scalaxb.ElemName(None, "password")) ^^
-      { case p1 ~ p2 =>
-      models.binding.GetTimeTablesListType(p1.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        p2.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
-    
-    def writesChildNodes(__obj: models.binding.GetTimeTablesListType, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(__obj.userID map { scalaxb.toXML[String](_, None, Some("userID"), __scope, false) } getOrElse {Nil},
-        __obj.password map { scalaxb.toXML[String](_, None, Some("password"), __scope, false) } getOrElse {Nil})
-
-  }*/
-
-  /*trait DefaultBindingGetTimeTablesListResponseTypeFormat extends scalaxb.ElemNameParser[models.binding.GetTimeTablesListResponseType] {
-    val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
-    
-    override def typeName: Option[String] = Some("getTimeTablesListResponse")
-
-    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.GetTimeTablesListResponseType] =
-      phrase(opt(scalaxb.ElemName(None, "success")) ~ 
-      opt(scalaxb.ElemName(None, "TimeTablesList")) ^^
-      { case p1 ~ p2 =>
-      models.binding.GetTimeTablesListResponseType(p1.headOption map { scalaxb.fromXML[Boolean](_, scalaxb.ElemName(node) :: stack) },
-        p2.headOption map { scalaxb.fromXML[java.net.URI](_, scalaxb.ElemName(node) :: stack) }) })
-    
-    def writesChildNodes(__obj: models.binding.GetTimeTablesListResponseType, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(__obj.success map { scalaxb.toXML[Boolean](_, None, Some("success"), __scope, false) } getOrElse {Nil},
-        __obj.TimeTablesList map { scalaxb.toXML[java.net.URI](_, None, Some("TimeTablesList"), __scope, false) } getOrElse {Nil})
-
-  }*/
 
   trait DefaultBindingGetParameterListFormat extends scalaxb.ElemNameParser[models.binding.GetParameterList] {
     val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
@@ -2780,22 +2615,6 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
-  /*def buildBindingEnumCoordinateSystemNameFormat = new DefaultBindingEnumCoordinateSystemNameFormat {}
-  trait DefaultBindingEnumCoordinateSystemNameFormat extends scalaxb.XMLFormat[models.binding.EnumCoordinateSystemName] {
-    val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.EnumCoordinateSystemName] = seq match {
-      case elem: scala.xml.Elem => Right(models.binding.EnumCoordinateSystemName.fromString(elem.text, elem.scope))
-      case _ => Right(models.binding.EnumCoordinateSystemName.fromString(seq.text, scala.xml.TopScope))
-    }
-    
-    def writes(__obj: models.binding.EnumCoordinateSystemName, __namespace: Option[String], __elementLabel: Option[String],
-        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
-      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
-  }*/
-
   trait DefaultBindingParameterListFormat extends scalaxb.ElemNameParser[models.binding.ParameterList] {
     val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
     
@@ -2834,127 +2653,6 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __obj.RemoteDataBaseParameters map { scalaxb.toXML[java.net.URI](_, None, Some("RemoteDataBaseParameters"), __scope, false) } getOrElse {Nil})
 
   }
-
-  /*def buildBindingOutputFormatTypeFormat = new DefaultBindingOutputFormatTypeFormat {}
-  trait DefaultBindingOutputFormatTypeFormat extends scalaxb.XMLFormat[models.binding.OutputFormatType] {
-    val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.OutputFormatType] = seq match {
-      case elem: scala.xml.Elem => Right(models.binding.OutputFormatType.fromString(elem.text, elem.scope))
-      case _ => Right(models.binding.OutputFormatType.fromString(seq.text, scala.xml.TopScope))
-    }
-    
-    def writes(__obj: models.binding.OutputFormatType, __namespace: Option[String], __elementLabel: Option[String],
-        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
-      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
-  }*/
-
-  /*def buildBindingTimeFormatTypeFormat = new DefaultBindingTimeFormatTypeFormat {}
-  trait DefaultBindingTimeFormatTypeFormat extends scalaxb.XMLFormat[models.binding.TimeFormatType] {
-    val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.TimeFormatType] = seq match {
-      case elem: scala.xml.Elem => Right(models.binding.TimeFormatType.fromString(elem.text, elem.scope))
-      case _ => Right(models.binding.TimeFormatType.fromString(seq.text, scala.xml.TopScope))
-    }
-    
-    def writes(__obj: models.binding.TimeFormatType, __namespace: Option[String], __elementLabel: Option[String],
-        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
-      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
-  }*/
-
-  /*trait DefaultBindingGetParameterTypeFormat extends scalaxb.ElemNameParser[models.binding.GetParameterType] {
-    val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
-    
-    override def typeName: Option[String] = Some("getParameter")
-
-    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.GetParameterType] =
-      phrase((scalaxb.ElemName(None, "startTime")) ~ 
-      (scalaxb.ElemName(None, "stopTime")) ~ 
-      (scalaxb.ElemName(None, "parameterID")) ~ 
-      opt(scalaxb.ElemName(None, "sampling")) ~ 
-      opt(scalaxb.ElemName(None, "userID")) ~ 
-      opt(scalaxb.ElemName(None, "password")) ~ 
-      opt(scalaxb.ElemName(None, "outputFormat")) ~ 
-      opt(scalaxb.ElemName(None, "timeFormat")) ~ 
-      opt(scalaxb.ElemName(None, "gzip")) ^^
-      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 ~ p9 =>
-      models.binding.GetParameterType(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
-        scalaxb.fromXML[String](p2, scalaxb.ElemName(node) :: stack),
-        scalaxb.fromXML[String](p3, scalaxb.ElemName(node) :: stack),
-        p4.headOption map { scalaxb.fromXML[Float](_, scalaxb.ElemName(node) :: stack) },
-        p5.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        p6.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        p7.headOption map { scalaxb.fromXML[models.binding.OutputFormat](_, scalaxb.ElemName(node) :: stack) },
-        p8.headOption map { scalaxb.fromXML[models.binding.TimeFormat](_, scalaxb.ElemName(node) :: stack) },
-        p9.headOption map { scalaxb.fromXML[BigInt](_, scalaxb.ElemName(node) :: stack) }) })
-    
-    def writesChildNodes(__obj: models.binding.GetParameterType, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(scalaxb.toXML[String](__obj.startTime, None, Some("startTime"), __scope, false),
-        scalaxb.toXML[String](__obj.stopTime, None, Some("stopTime"), __scope, false),
-        scalaxb.toXML[String](__obj.parameterID, None, Some("parameterID"), __scope, false),
-        __obj.sampling map { scalaxb.toXML[Float](_, None, Some("sampling"), __scope, false) } getOrElse {Nil},
-        __obj.userID map { scalaxb.toXML[String](_, None, Some("userID"), __scope, false) } getOrElse {Nil},
-        __obj.password map { scalaxb.toXML[String](_, None, Some("password"), __scope, false) } getOrElse {Nil},
-        __obj.outputFormat map { scalaxb.toXML[models.binding.OutputFormat](_, None, Some("outputFormat"), __scope, false) } getOrElse {Nil},
-        __obj.timeFormat map { scalaxb.toXML[models.binding.TimeFormat](_, None, Some("timeFormat"), __scope, false) } getOrElse {Nil},
-        __obj.gzip map { scalaxb.toXML[BigInt](_, None, Some("gzip"), __scope, false) } getOrElse {Nil})
-
-  }*/
-
-  /*trait DefaultBindingGetParameterResponseTypeFormat extends scalaxb.ElemNameParser[models.binding.GetParameterResponseType] {
-    val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
-    
-    override def typeName: Option[String] = Some("getParameterResponse")
-
-    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.GetParameterResponseType] =
-      phrase(opt(scalaxb.ElemName(None, "success")) ~ 
-      rep(scalaxb.ElemName(None, "dataFileURLs")) ^^
-      { case p1 ~ p2 =>
-      models.binding.GetParameterResponseType(p1.headOption map { scalaxb.fromXML[Boolean](_, scalaxb.ElemName(node) :: stack) },
-        p2.toSeq map { scalaxb.fromXML[java.net.URI](_, scalaxb.ElemName(node) :: stack) }) })
-    
-    def writesChildNodes(__obj: models.binding.GetParameterResponseType, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(__obj.success map { scalaxb.toXML[Boolean](_, None, Some("success"), __scope, false) } getOrElse {Nil},
-        __obj.dataFileURLs flatMap { scalaxb.toXML[java.net.URI](_, None, Some("dataFileURLs"), __scope, false) })
-
-  }*/
-
-  /*def buildBindingOutputFormatType2Format = new DefaultBindingOutputFormatType2Format {}
-  trait DefaultBindingOutputFormatType2Format extends scalaxb.XMLFormat[models.binding.OutputFormatType2] {
-    val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.OutputFormatType2] = seq match {
-      case elem: scala.xml.Elem => Right(models.binding.OutputFormatType2.fromString(elem.text, elem.scope))
-      case _ => Right(models.binding.OutputFormatType2.fromString(seq.text, scala.xml.TopScope))
-    }
-    
-    def writes(__obj: models.binding.OutputFormatType2, __namespace: Option[String], __elementLabel: Option[String],
-        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
-      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
-  }*/
-
-  /*def buildBindingTimeFormatType2Format = new DefaultBindingTimeFormatType2Format {}
-  trait DefaultBindingTimeFormatType2Format extends scalaxb.XMLFormat[models.binding.TimeFormatType2] {
-    val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.TimeFormatType2] = seq match {
-      case elem: scala.xml.Elem => Right(models.binding.TimeFormatType2.fromString(elem.text, elem.scope))
-      case _ => Right(models.binding.TimeFormatType2.fromString(seq.text, scala.xml.TopScope))
-    }
-    
-    def writes(__obj: models.binding.TimeFormatType2, __namespace: Option[String], __elementLabel: Option[String],
-        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
-      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
-  }*/
 
   trait DefaultBindingGetDatasetFormat extends scalaxb.ElemNameParser[models.binding.GetDataset] {
     val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
@@ -3029,38 +2727,6 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
 
-  /*def buildBindingOutputFormatType3Format = new DefaultBindingOutputFormatType3Format {}
-  trait DefaultBindingOutputFormatType3Format extends scalaxb.XMLFormat[models.binding.OutputFormatType3] {
-    val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.OutputFormatType3] = seq match {
-      case elem: scala.xml.Elem => Right(models.binding.OutputFormatType3.fromString(elem.text, elem.scope))
-      case _ => Right(models.binding.OutputFormatType3.fromString(seq.text, scala.xml.TopScope))
-    }
-    
-    def writes(__obj: models.binding.OutputFormatType3, __namespace: Option[String], __elementLabel: Option[String],
-        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
-      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
-  }*/
-
-  /*def buildBindingTimeFormatType3Format = new DefaultBindingTimeFormatType3Format {}
-  trait DefaultBindingTimeFormatType3Format extends scalaxb.XMLFormat[models.binding.TimeFormatType3] {
-    val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.TimeFormatType3] = seq match {
-      case elem: scala.xml.Elem => Right(models.binding.TimeFormatType3.fromString(elem.text, elem.scope))
-      case _ => Right(models.binding.TimeFormatType3.fromString(seq.text, scala.xml.TopScope))
-    }
-    
-    def writes(__obj: models.binding.TimeFormatType3, __namespace: Option[String], __elementLabel: Option[String],
-        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
-      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
-        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
-  }*/
-
   trait DefaultBindingGetOrbitesFormat extends scalaxb.ElemNameParser[models.binding.GetOrbites] {
     val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
     
@@ -3124,50 +2790,10 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   }
 
-  /*trait DefaultBindingGetTimeTableTypeFormat extends scalaxb.ElemNameParser[models.binding.GetTimeTableType] {
-    val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
-    
-    override def typeName: Option[String] = Some("getTimeTable")
-
-    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.GetTimeTableType] =
-      phrase(opt(scalaxb.ElemName(None, "userID")) ~ 
-      opt(scalaxb.ElemName(None, "password")) ~ 
-      (scalaxb.ElemName(None, "ttID")) ^^
-      { case p1 ~ p2 ~ p3 =>
-      models.binding.GetTimeTableType(p1.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        p2.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        scalaxb.fromXML[String](p3, scalaxb.ElemName(node) :: stack)) })
-    
-    def writesChildNodes(__obj: models.binding.GetTimeTableType, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(__obj.userID map { scalaxb.toXML[String](_, None, Some("userID"), __scope, false) } getOrElse {Nil},
-        __obj.password map { scalaxb.toXML[String](_, None, Some("password"), __scope, false) } getOrElse {Nil},
-        scalaxb.toXML[String](__obj.ttID, None, Some("ttID"), __scope, false))
-
-  }*/
-
-  /*trait DefaultBindingGetTimeTableResponseTypeFormat extends scalaxb.ElemNameParser[models.binding.GetTimeTableResponseType] {
-    val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
-    
-    override def typeName: Option[String] = Some("getTimeTableResponse")
-
-    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.GetTimeTableResponseType] =
-      phrase(opt(scalaxb.ElemName(None, "success")) ~ 
-      (scalaxb.ElemName(None, "ttFileURL")) ^^
-      { case p1 ~ p2 =>
-      models.binding.GetTimeTableResponseType(p1.headOption map { scalaxb.fromXML[Boolean](_, scalaxb.ElemName(node) :: stack) },
-        scalaxb.fromXML[java.net.URI](p2, scalaxb.ElemName(node) :: stack)) })
-    
-    def writesChildNodes(__obj: models.binding.GetTimeTableResponseType, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Seq.concat(__obj.success map { scalaxb.toXML[Boolean](_, None, Some("success"), __scope, false) } getOrElse {Nil},
-        scalaxb.toXML[java.net.URI](__obj.ttFileURL, None, Some("ttFileURL"), __scope, false))
-
-  }*/
-
-
   trait Methods_AMDASoapBindings { this: scalaxb.Soap11Clients =>
     lazy val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
     lazy val service: models.binding.Methods_AMDA = new Methods_AMDASoapBinding {}
-    def baseAddress = new java.net.URI("http://cdpp1.cesr.fr/AMDA-NG/php/AMDA_METHODS_WSDL.php")
+    def baseAddress = new java.net.URI("http://apus.cesr.fr/AMDA-WS/php/AMDA_METHODS_WSDL.php")
 
     trait Methods_AMDASoapBinding extends models.binding.Methods_AMDA {
       def isAlive(): Either[scalaxb.Soap11Fault[Any], Boolean] = 
@@ -3229,21 +2855,6 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     }
   }
 
-
-  /*trait DefaultBindingEmptyElementFormat extends scalaxb.XMLFormat[models.binding.EmptyElement] with scalaxb.CanWriteChildNodes[models.binding.EmptyElement] {
-    val targetNamespace: Option[String] = Some("http://clweb.cesr.fr")
-    import scalaxb.ElemName._
-    
-    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.EmptyElement] = seq match {
-      case node: scala.xml.Node => Right(models.binding.EmptyElement())
-      case _ => Left("reads failed: seq must be scala.xml.Node")
-    }
-    
-    def writesChildNodes(__obj: models.binding.EmptyElement, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
-      Nil
-
-
-  }*/
 
   trait DefaultBindingGetObsDataTreeResponseCLWEBFormat extends scalaxb.ElemNameParser[models.binding.GetObsDataTreeResponseCLWEB] {
     val targetNamespace: Option[String] = Some("http://clweb.cesr.fr")

@@ -78,7 +78,7 @@ object SINPMethods extends MethodsController {
     val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointValueSINP(
-        validateFiletype(filetype), // output filetype
+        filetype, // output filetype
         None // interpolation method (only linear)
     )
     
@@ -197,12 +197,12 @@ object SINPMethods extends MethodsController {
     ) */
           
     val extraParams = ExtraParams_calculateDataPointValueFixedTime(
-        validateOptDouble(swD),//Some(4.0), // sw density
-        validateOptDouble(swV),//Some(400.0), // sw velocity 
+        swD,//Some(4.0), // sw density
+        swV,//Some(400.0), // sw velocity 
         imf_b, // imf b 
-        validateOptDouble(dst),//Some(30.0), // dst
-        validateOptDouble(al),//Some(150.0), // al
-        validateFiletype(filetype) // output filetype
+        dst,//Some(30.0), // dst
+        al,//Some(150.0), // al
+        filetype // output filetype
     )
         	
     val result = sinp.service.calculateDataPointValueFixedTime(
@@ -272,7 +272,7 @@ object SINPMethods extends MethodsController {
     val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_calculateDataPointValue(
-        validateFiletype(filetype) // output filetype
+        filetype // output filetype
     )
           
     val result = sinp.service.calculateDataPointValue(
@@ -357,7 +357,7 @@ object SINPMethods extends MethodsController {
     val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_calculateDataPointValueSpacecraft(
-        validateFiletype(filetype) // output filetype
+        filetype // output filetype
     )
           
     val result = sinp.service.calculateDataPointValueSpacecraft(
@@ -449,9 +449,9 @@ object SINPMethods extends MethodsController {
     val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_calculateFieldLine(
-        validateOptDouble(lineLength), // line length 
-	  	validateOptDouble(stepSize), // step size 
-        validateFiletype(filetype) // output filetype
+        lineLength, // line length 
+	  	stepSize, // step size 
+        filetype // output filetype
 	)
 	  	  
 	val result = sinp.service.calculateFieldLine(
@@ -569,12 +569,12 @@ object SINPMethods extends MethodsController {
     )*/
 	
 	val extraParams = ExtraParams_calculateCube(
-	    validateOptDouble(swD),//Some(5.0), // sw density
-	    validateOptDouble(swV),//Some(800.0), // sw velocity
+	    swD,//Some(5.0), // sw density
+	    swV,//Some(800.0), // sw velocity
 	    imf_b, // imf b
-	    validateOptDouble(dst),//Some(-23.0), // dst
-	    validateOptDouble(al),//Some(-1117.0), // al
-        validateFiletype(filetype) // output filetype
+	    dst,//Some(-23.0), // dst
+	    al,//Some(-1117.0), // al
+        filetype // output filetype
 	)
 	
 	// @TODO add cube parameters as GET
@@ -697,13 +697,13 @@ object SINPMethods extends MethodsController {
     )*/
 	
 	val extraParams = ExtraParams_calculateCubeMercury(
-	    validateOptDouble(bd),//Some(196.0), // bd
-	  	validateOptDouble(flux),//Some(4.0), // flux
-	  	validateOptDouble(rss),//Some(1.5), // rss
-	  	validateOptDouble(r2),//Some(1.5), // r2
-	  	validateOptDouble(dz),//Some(0.0), // dz
+	    bd,//Some(196.0), // bd
+	  	flux,//Some(4.0), // flux
+	  	rss,//Some(1.5), // rss
+	  	r2,//Some(1.5), // r2
+	  	dz,//Some(0.0), // dz
 	  	imf_b, // imf b
-        validateFiletype(filetype) // output filetype
+        filetype // output filetype
 	)
 	  	  
 	val result = sinp.service.calculateCubeMercury(
@@ -818,12 +818,12 @@ object SINPMethods extends MethodsController {
     ) */
     
     val extraParams = ExtraParams_calculateDataPointValueMercury(
-        validateFiletype(filetype), // output filetype
-        validateOptDouble(bd),//Some(-196.0), // bd
-        validateOptDouble(flux),//Some(131.0), // flux
-        validateOptDouble(rss),//Some(1.35), // rss
-        validateOptDouble(r2),//Some(1.32), // r2
-        validateOptDouble(dz),//Some(0.0), // dz
+        filetype, // output filetype
+        bd,//Some(-196.0), // bd
+        flux,//Some(131.0), // flux
+        rss,//Some(1.35), // rss
+        r2,//Some(1.32), // r2
+        dz,//Some(0.0), // dz
         imf_b // imf b
     )
 	  	  
@@ -959,14 +959,14 @@ object SINPMethods extends MethodsController {
     )*/
     
     val extraParams = ExtraParams_calculateCubeSaturn(
-	    validateOptDouble(bdc),//Some(3.0), // bdc
-	    validateOptDouble(bt),//Some(-7.0), // bt
-	    validateOptDouble(rd2),//Some(6.5), // rd2
-	    validateOptDouble(rd1),//Some(15.0), // rd1
-	    validateOptDouble(r2),//Some(18.0), // r2
+	    bdc,//Some(3.0), // bdc
+	    bt,//Some(-7.0), // bt
+	    rd2,//Some(6.5), // rd2
+	    rd1,//Some(15.0), // rd1
+	    r2,//Some(18.0), // r2
 	    validateOptDouble(rss),//Some(22.0), // rss
 	    imf_b, // imf b
-        validateFiletype(filetype) // output filetype
+        filetype // output filetype
 	)
 	
 	// @TODO add cube parameters as GET
@@ -1104,13 +1104,13 @@ object SINPMethods extends MethodsController {
     )*/
 	 
 	val extraParams = ExtraParams_calculateDataPointValueSaturn(
-        validateFiletype(filetype), // output filetype
-	  	validateOptDouble(bdc),//Some(3.0), // bdc
-	  	validateOptDouble(bt),//Some(-7.0), // bt
-	  	validateOptDouble(rd2),//Some(6.5), // rd2
-	  	validateOptDouble(rd1),//Some(15.0), // rd1
-	  	validateOptDouble(r2),//Some(18.0), // r2
-	  	validateOptDouble(rss),//Some(22.0), // rss
+        filetype, // output filetype
+	  	bdc,//Some(3.0), // bdc
+	  	bt,//Some(-7.0), // bt
+	  	rd2,//Some(6.5), // rd2
+	  	rd1,//Some(15.0), // rd1
+	  	r2,//Some(18.0), // r2
+	  	rss,//Some(22.0), // rss
 	  	imf_b // imf b
 	)
 	  	   
@@ -1197,15 +1197,15 @@ object SINPMethods extends MethodsController {
     val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getSurfaceSINP(
-        validateOptDouble(resolution),//Some(0.2), // resolution
-        validateFiletype(filetype) // output filetype
+        resolution,//Some(0.2), // resolution
+        filetype // output filetype
     )
            
     val result = sinp.service.getSurface(
         id, // resourceId
         validateOptStringSeq(variable), // variable
-        validateFloatSeq(plane_point), // plane point
-        validateFloatSeq(plane_n_vector), // plane normal vector
+        plane_point, // plane point
+        plane_n_vector, // plane normal vector
         Some(extraParams) // extra params
     )
     

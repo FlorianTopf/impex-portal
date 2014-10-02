@@ -87,8 +87,8 @@ object LATMOSMethods extends MethodsController {
     val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointValueLATMOS(
-        validateOptDouble(imf), // imf clockangle
-        validateFiletype(filetype) // output filetype
+        imf, // imf clockangle
+        filetype // output filetype
     )
     
     val result = latmos.service.getDataPointValue(
@@ -189,8 +189,8 @@ object LATMOSMethods extends MethodsController {
     val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointValueLATMOS(
-        validateOptDouble(imf),//Some(120.0), // imf clockangle 
-        validateFiletype(filetype) // output filetype
+        imf,//Some(120.0), // imf clockangle 
+        filetype // output filetype
     )
                   
     val result = latmos.service.getDataPointValueSpacecraft(
@@ -289,16 +289,16 @@ object LATMOSMethods extends MethodsController {
     val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getSurfaceLATMOS(
-        validateOptDouble(resolution), // resolution 
-        validateOptDouble(imf),//Some(0.0), // imf clockangle 
-        validateFiletype(filetype) // output filetype
+        resolution, // resolution 
+        imf,//Some(0.0), // imf clockangle 
+        filetype // output filetype
     )
            
     val result = latmos.service.getSurface(
         id, // resourceId
         validateOptStringSeq(variable), // variable 
-        validateFloatSeq(plane_point), // plane point
-        validateFloatSeq(plane_n_vector), // plane normal vector
+        plane_point, // plane point
+        plane_n_vector, // plane normal vector
         Some(extraParams) // extra params
     )
     
@@ -453,9 +453,9 @@ object LATMOSMethods extends MethodsController {
     val stepSize = request.req.get("step_size")
     
     val extraParams = ExtraParams_getFieldLineLATMOS(
-        validateDirection(direction), // direction
-        validateOptDouble(stepSize), // stepsize 
-        validateFiletype(filetype) // output filetype
+        direction, // direction
+        stepSize, // stepsize 
+        filetype // output filetype
     )
      
     val result = latmos.service.getFieldLine(
@@ -530,8 +530,8 @@ object LATMOSMethods extends MethodsController {
     val energyChannel = request.req.get("energy_channel")
     
     val extraParams = ExtraParams_getDataPointSpectraLATMOS(
-        validateOptDouble(imf), // imf clockangle 
-        validateFiletype(filetype), // output filetype
+        imf, // imf clockangle 
+        filetype, // output filetype
         validateOptStringSeq(energyChannel) // energy channel 
     )
            
@@ -631,8 +631,8 @@ object LATMOSMethods extends MethodsController {
     val energyChannel = request.req.get("energy_channel")
     
     val extraParams = ExtraParams_getDataPointSpectraLATMOS(
-        validateOptDouble(imf), // imf clockangle 
-        validateFiletype(filetype), // output filetype
+        imf, // imf clockangle 
+        filetype, // output filetype
         validateOptStringSeq(energyChannel) // energy channel 
     )
            
