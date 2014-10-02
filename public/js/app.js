@@ -1289,7 +1289,7 @@ var portal;
             this.submitted = false;
             this.submitButtonDisabled = false;
             this.sendingFeedback = false;
-            this.feedbackTools = ['IMPEx Portal', 'IMPEx Website', '3DView', 'AMDA', 'CLWEB', 'FMI HWA', 'LATHYS'];
+            this.feedbackTools = ['IMPEx Portal', 'IMPEx Website', '3DView', 'AMDA', 'CLWEB', 'SINP Model', 'FMI HWA', 'LATHYS'];
             this.scope = $scope;
             this.scope.vm = this;
             this.window = $window;

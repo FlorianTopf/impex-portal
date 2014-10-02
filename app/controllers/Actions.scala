@@ -11,6 +11,7 @@ import models.binding._
 import models.enums._
 import soapenvelope11._
 import org.bson.types.ObjectId
+import scala.language.implicitConversions
 
 
 class BaseController extends Controller {
@@ -87,7 +88,7 @@ object CORSHeaders {
 
 }
 
-
+// @TODO make implicits out of it
 class MethodsController extends BaseController {
   
   // helper method for validating the output filetype 
@@ -100,6 +101,33 @@ class MethodsController extends BaseController {
     }
   }
   
+  implicit def validateOutputFormat(format: Option[String]): Option[OutputFormat] = {
+    try {
+      format.map(OutputFormat.fromString(_, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+    } catch {
+      // just use VOTable if a match error occurs
+      case e: MatchError => Some(VOTableFormat)
+    }
+  } 
+  
+  implicit def validateTimeFormat(format: Option[String]): Option[TimeFormat] = {
+    try {
+      format.map(TimeFormat.fromString(_, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+    } catch {
+      // just use ISO8601 if a match error occurs
+      case e: MatchError => Some(ISO8601)
+    }
+  } 
+  
+  implicit def validateUnit(unit: Option[String]): Option[Units] = {
+    try {
+      unit.map(Units.fromString(_, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
+    } catch {
+      // just use km (default) if a match error occurs
+      case e: MatchError => Some(Km)
+    }
+  } 
+  
   // helper method for validating float sequences
   def validateFloatSeq(floats: String): Seq[Float] = {
     try {
@@ -108,6 +136,16 @@ class MethodsController extends BaseController {
       // @FIXME in any error case return empty sequence
       case _: Throwable => Seq()
     }
+  }
+  
+  implicit def validateOptFloat(float: Option[String]): Option[Float] = {
+    try {
+      float.map(_.toFloat)
+    } catch {
+      // @FIXME in any error case return none
+      case _: Throwable => None     
+    }
+    
   }
   
   def validateOptFloatSeq(floats: Option[String]): Option[Seq[Float]] = {

@@ -40,7 +40,7 @@ GET		/registry/numericaldata		controllers.Registry.numericaldata(fmt: String ?= 
 # methods routes
 GET		/api-docs/methods			controllers.ApiHelpController.getResource(path = "/methods")
 # WSDLs 
-GET		/methods/:dbName		controllers.WSDLMethods.methods(dbName: String)
+GET		/methods/:dbName			controllers.WSDLMethods.methods(dbName: String)
 # taverna WSDLs 
 GET		/methods/taverna/:dbName	controllers.WSDLMethods.methodsTaverna(dbName: String)
 # sinp methods 
@@ -76,6 +76,12 @@ GET		/methods/FMI/getFieldLine							controllers.FMIMethods.getFieldLine
 GET		/methods/FMI/getParticleTrajectory					controllers.FMIMethods.getParticleTrajectory
 GET		/methods/FMI/getDataPointSpectra					controllers.FMIMethods.getDataPointSpectra
 GET		/methods/FMI/getDataPointSpectraSpacecraft			controllers.FMIMethods.getDataPointSpectraSpacecraft
+# amda methods
+GET		/methods/AMDA/getTimeTableList						controllers.AMDAMethods.getTimeTableList
+GET		/methods/AMDA/getTimeTable							controllers.AMDAMethods.getTimeTable
+GET		/methods/AMDA/getParameterList						controllers.AMDAMethods.getParameterList
+GET		/methods/AMDA/getParameter							controllers.AMDAMethods.getParameter
+GET		/methods/AMDA/getOrbits								controllers.AMDAMethods.getOrbits
 
 # userdata routes
 POST	/userdata					controllers.Application.addFileUserData

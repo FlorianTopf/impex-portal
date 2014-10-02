@@ -1,5 +1,7 @@
 package models.binding
 
+
+// is shared among all providers
 case class EmptyElement()
 
 trait EnumDirection

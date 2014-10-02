@@ -57,7 +57,7 @@ object Application extends BaseController {
     	
     	isValid match {
     	  case true => {
-    	    mail.setSubject("[IMPEx Helpdesk] ["+tool+"]")
+    	    mail.setSubject("["+tool+"] "+subject)
     		// recipient 
     		//mail.setRecipient("Florian Topf <florian.topf@oeaw.ac.at>")
     		// set google support group as CC

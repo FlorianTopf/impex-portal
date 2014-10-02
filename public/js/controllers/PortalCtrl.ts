@@ -79,7 +79,7 @@ module portal {
         public submitted: Boolean = false
         public submitButtonDisabled: Boolean = false
         public sendingFeedback: Boolean = false
-        public feedbackTools: Array<string> = ['IMPEx Portal', 'IMPEx Website', '3DView', 'AMDA', 'CLWEB', 'FMI HWA', 'LATHYS']
+        public feedbackTools: Array<string> = ['IMPEx Portal', 'IMPEx Website', '3DView', 'AMDA', 'CLWEB', 'SINP Model', 'FMI HWA', 'LATHYS']
 
 
         static $inject: Array<string> = ['$scope', '$window', '$timeout', '$http', 'configService', 

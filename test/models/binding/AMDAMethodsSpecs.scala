@@ -5,13 +5,9 @@ import play.api.test.Helpers._
 import play.api.test._
 import scalaxb._
 import java.net.URI
-import models.provider.TimeProvider
-import models.binding._
 import play.api.libs.ws._
 import scala.concurrent.Await
 import scala.concurrent.duration._
-import akka.util.Timeout
-import scala.xml.NodeSeq
 
 
 // all test parameters are taken from ICD v1.5 (5.9.2014)
@@ -26,10 +22,9 @@ object AMDAMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            val result = amda.service.getTimeTablesList(Some("impex"), None)
 
            result.fold(f => println(f), u => {
-             
                println("Result URL: "+u.TimeTablesList)
                u.success.get must beTrue
-               u.TimeTablesList.get must beAnInstanceOf[java.net.URI]
+               u.TimeTablesList.get must beAnInstanceOf[URI]
             })
           
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], models.binding.GetTimeTablesListResponse]]
@@ -47,7 +42,7 @@ object AMDAMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result.fold(f => println(f), u => {
                println("Result URL: "+u.ttFileURL)
                u.success.get must beTrue
-               u.ttFileURL must beAnInstanceOf[java.net.URI]
+               u.ttFileURL must beAnInstanceOf[URI]
             })
           
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], models.binding.GetTimeTableResponse]]
@@ -65,8 +60,8 @@ object AMDAMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result.fold(f => println(f), u => {
                println("Result URL: "+u.ParameterList.LocalDataBaseParameters+' '+u.ParameterList.RemoteDataBaseParameters)
                u.success.get must beTrue
-               u.ParameterList.LocalDataBaseParameters.get must beAnInstanceOf[java.net.URI]
-               u.ParameterList.RemoteDataBaseParameters.get must beAnInstanceOf[java.net.URI]
+               u.ParameterList.LocalDataBaseParameters.get must beAnInstanceOf[URI]
+               u.ParameterList.RemoteDataBaseParameters.get must beAnInstanceOf[URI]
             })
           
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], models.binding.GetParameterListResponse]]
@@ -87,13 +82,13 @@ object AMDAMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
                None, // userId
                None, // password
                Some(VOTableFormat), // output format
-               None, // time format
+               Some(ISO8601), // time format
                None) // gzip
 
            result.fold(f => println(f), u => {
                println("Result URLs: "+u.dataFileURLs)
                u.success.get must beTrue
-               u.dataFileURLs must beAnInstanceOf[Seq[java.net.URI]]  
+               u.dataFileURLs must beAnInstanceOf[Seq[URI]]  
                u.dataFileURLs.map((u) => {
                  val promise = WS.url(u.toString).get()
                  val result = Await.result(promise, Duration(2, "minute")).xml
@@ -106,7 +101,7 @@ object AMDAMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            
         }
        
-       
+       // not really needed in the API
        "respond to getObsDataTree" in {
            
            val amda = new Methods_AMDASoapBindings with Soap11Clients with DispatchHttpClients {}
@@ -116,8 +111,8 @@ object AMDAMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result.fold(f => println(f), u => {
                println("Result URL: "+u.WorkSpace.LocalDataBaseParameters+" "+u.WorkSpace.RemoteDataBaseParameters)
                u.success.get must beTrue
-               u.WorkSpace.LocalDataBaseParameters.get must beAnInstanceOf[java.net.URI]
-               u.WorkSpace.RemoteDataBaseParameters.get must beAnInstanceOf[java.net.URI]  
+               u.WorkSpace.LocalDataBaseParameters.get must beAnInstanceOf[URI]
+               u.WorkSpace.RemoteDataBaseParameters.get must beAnInstanceOf[URI]  
             })
           
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], models.binding.GetObsDataTreeResponseAMDA]]
@@ -131,22 +126,22 @@ object AMDAMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            val amda = new Methods_AMDASoapBindings with Soap11Clients with DispatchHttpClients {}
            
            val result = amda.service.getOrbites(
-               "2007-03-15T00:00", // starttime
-               "2007-03-16T00:00",  // stoptime
-               VEXType, // spacecraft
-               VSO, // coordinate system
-               Some(Rv), // units 
+               "2000-03-15T00:00", // starttime
+               "2000-03-16T00:00",  // stoptime
+               ACEType, // spacecraft
+               GSM, // coordinate system
+               Some(Re), // units 
                Some(60), // sampling
-               Some("impex"), // userId
+               None,//Some("impex"), // userId
                None, // password
                Some(VOTableFormat), // output format
-               None, // time format
+               Some(ISO8601), // time format
                None) // gzip
              
            result.fold(f => println(f), u => {
                println("Result URsL: "+u.dataFileURLs)  
                u.success.get must beTrue
-               u.dataFileURLs must beAnInstanceOf[Seq[java.net.URI]]
+               u.dataFileURLs must beAnInstanceOf[Seq[URI]]
                u.dataFileURLs.map((u) => {
                  val promise = WS.url(u.toString).get()
                  val result = Await.result(promise, Duration(2, "minute")).xml
@@ -158,6 +153,7 @@ object AMDAMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result must beRight // result must be successful
 
         }
+        
         
         "respond to isAlive" in {
 	  	  

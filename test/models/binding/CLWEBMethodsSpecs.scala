@@ -5,13 +5,9 @@ import play.api.test.Helpers._
 import play.api.test._
 import scalaxb._
 import java.net.URI
-import models.provider.TimeProvider
-import models.binding._
 import play.api.libs.ws._
 import scala.concurrent.Await
 import scala.concurrent.duration._
-import akka.util.Timeout
-import scala.xml.NodeSeq
 
 
 // @TODO no ICD existing
@@ -29,7 +25,7 @@ object CLWEBMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
              
                println("Result URL: "+u.TimeTablesList)
                u.success.get must beTrue
-               u.TimeTablesList.get must beAnInstanceOf[java.net.URI]
+               u.TimeTablesList.get must beAnInstanceOf[URI]
             })
           
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], models.binding.GetTimeTablesListResponse]]
@@ -47,7 +43,7 @@ object CLWEBMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result.fold(f => println(f), u => {
                println("Result URL: "+u.ttFileURL)
                u.success.get must beTrue
-               u.ttFileURL must beAnInstanceOf[java.net.URI]
+               u.ttFileURL must beAnInstanceOf[URI]
             })
           
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], models.binding.GetTimeTableResponse]]
@@ -74,7 +70,7 @@ object CLWEBMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result.fold(f => println(f), u => {
                println("Result URLs: "+u.dataFileURLs)
                u.success.get must beTrue
-               u.dataFileURLs must beAnInstanceOf[Seq[java.net.URI]]  
+               u.dataFileURLs must beAnInstanceOf[Seq[URI]]  
                u.dataFileURLs.map((u) => {
                  val promise = WS.url(u.toString).get()
                  val result = Await.result(promise, Duration(2, "minute")).xml
@@ -87,7 +83,7 @@ object CLWEBMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            
         }
        
-       
+       // not really needed in the API
        "respond to getObsDataTree" in {
            
            val clweb = new Methods_CLWEBSoapBindings with Soap11Clients with DispatchHttpClients {}
@@ -97,7 +93,7 @@ object CLWEBMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result.fold(f => println(f), u => {
                println("Result URL: "+u.Tree)
                u.success.get must beTrue
-               u.Tree must beAnInstanceOf[java.net.URI]
+               u.Tree must beAnInstanceOf[URI]
             })
           
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], models.binding.GetObsDataTreeResponseCLWEB]]
