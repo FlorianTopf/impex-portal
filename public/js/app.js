@@ -1214,6 +1214,11 @@ var portal;
             this.state = $state;
             this.configService.config = config;
 
+            // only use those of the config which are enabled for the portal
+            this.configService.config.databases = config.databases.filter(function (d) {
+                return d.portal;
+            });
+
             // read all regions at startup (@TODO set an interval for refresh?)
             this.configService.filterRegions = regions.data;
 

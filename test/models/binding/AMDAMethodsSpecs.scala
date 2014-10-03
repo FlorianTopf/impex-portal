@@ -30,7 +30,7 @@ object AMDAMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], models.binding.GetTimeTablesListResponse]]
            result must beRight // result must be successful
            
-        }
+       }
        
        
        "respond to getTimeTable" in {
@@ -48,9 +48,9 @@ object AMDAMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], models.binding.GetTimeTableResponse]]
            result must beRight // result must be successful
            
-        }
+       }
        
-       
+       // not really needed in the API
        "respond to getParameterList" in {
            
            val amda = new Methods_AMDASoapBindings with Soap11Clients with DispatchHttpClients {}
@@ -67,7 +67,7 @@ object AMDAMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], models.binding.GetParameterListResponse]]
            result must beRight // result must be successful
            
-        }
+       }
        
        
        "respond to getParameter" in {
@@ -99,7 +99,7 @@ object AMDAMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], models.binding.GetParameterResponse]]
            result must beRight // result must be successful
            
-        }
+       }
        
        // not really needed in the API
        "respond to getObsDataTree" in {
@@ -118,10 +118,42 @@ object AMDAMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], models.binding.GetObsDataTreeResponseAMDA]]
            result must beRight // result must be successful
            
-        }
+       }
+       
+       // not really usable in the API
+       "respond to getDataset" in {
+         
+    	   val amda = new Methods_AMDASoapBindings with Soap11Clients with DispatchHttpClients {}
+         
+    	   val result = amda.service.getDataset(
+    	       "2007-03-15T00:00", // starttime
+               "2007-03-16T00:00", // stoptime
+               "vex:orb:all", // dataset id
+               Some(60), // sampling
+               None, // userId
+               None, // password 
+               Some(VOTableFormat), // output format
+               Some(ISO8601), // time format 
+               None) // gzip
+        
+           result.fold(f => println(f), u => {
+               println("Result URLs: "+u.dataFileURLs)
+               u.success.get must beTrue
+               u.dataFileURLs must beAnInstanceOf[Seq[URI]]  
+               u.dataFileURLs.map((u) => {
+                 val promise = WS.url(u.toString).get()
+                 val result = Await.result(promise, Duration(2, "minute")).xml
+                 scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+               })
+           })
+          
+           result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], models.binding.GetDatasetResponse]]
+           result must beRight // result must be successful
+             
+       }
        
        
-        "respond to getOrbites" in {
+       "respond to getOrbites" in {
           
            val amda = new Methods_AMDASoapBindings with Soap11Clients with DispatchHttpClients {}
            
