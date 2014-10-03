@@ -41,7 +41,7 @@ object SpaseBindingSpecs extends org.specs2.mutable.Specification with Mockito {
         }
         
         "marshall AMDA XML file" in {
-          val amda = databases.filter(d => d.name == "AMDA").head
+          val amda = databases.find(d => d.name == "AMDA").get
           val id: String = UrlProvider.encodeURI(amda.id)
           val fileName: String = PathProvider.getPath("trees", 
               id, amda.tree(rand.nextInt(amda.tree.length)))
