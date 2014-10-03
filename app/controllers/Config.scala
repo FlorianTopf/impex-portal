@@ -11,6 +11,7 @@ import com.wordnik.swagger.core.util.ScalaJsonUtil
 import javax.ws.rs._
 import javax.ws.rs.core.MediaType._
 
+
 @Api(
     value = "/config", 
     description = "operations for extracting the IMPEx configuration")

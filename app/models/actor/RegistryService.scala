@@ -2,6 +2,7 @@ package models.actor
 
 import models.binding._
 import models.enums._
+import models.provider._
 import play.libs._
 import play.api.libs.concurrent.Execution.Implicits._
 import scala.concurrent._
@@ -13,8 +14,7 @@ import akka.util.Timeout
 import akka.actor.SupervisorStrategy._
 import scalaxb.DataRecord
 import java.net.URI
-import models.provider._
-import play.api.libs.ws._
+
 
 class RegistryService(val databases: Seq[Database]) extends Actor {  
   import models.actor.RegistryService._
@@ -112,9 +112,8 @@ object RegistryService {
                 case _ => Left(s)
               }}  
             }
-            // @FIXME generic element must always exist (only Repository/Simulation atm)
-            //case (e: GenElement, _) => (provider ? msg).mapTo[Spase] map { Left(_) }
-            case (e: GenElement, Simulation) => (provider ? msg).mapTo[Spase] map { Left(_) }
+            // generic element must always exist
+            case (e: GenElement, _) => (provider ? msg).mapTo[Spase] map { Left(_) }
             case _ => future { Right(RequestError(ERequestError.UNKNOWN_ENTITY)) }
           }   
         }
@@ -148,8 +147,7 @@ object RegistryService {
       databases <- ConfigService.request(GetRegistryDatabases).mapTo[Seq[Database]]
       provider <- {
         id match {
-          // @FIXME this is only available for simulations for now!
-          case Some(id) if databases.exists(d => id.contains(d.id.toString) && d.typeValue == Simulation) => {
+          case Some(id) if databases.exists(d => id.contains(d.id.toString)) => {
             val provider: ActorSelection = getChild(databases.find(d => id.contains(d.id.toString)).get.id)
             (provider ? GetTree).mapTo[Spase] map { Left(_) }
           }
@@ -157,9 +155,8 @@ object RegistryService {
           case Some(id) if databases.exists(d => id.contains(d.id.toString) && d.typeValue == Observation) => {
             future { Right(RequestError(ERequestError.NOT_IMPLEMENTED)) }
           }
-          // @FIXME this is only available for simulations for now!
           case None => { 
-            val result = Future.sequence(getChilds(databases.filter(d => d.typeValue == Simulation)) map { provider =>
+            val result = Future.sequence(getChilds(databases) map { provider =>
         	 	(provider ? GetTree).mapTo[Spase] map { _.ResourceEntity }
         	})
         	result.map(records => Left(Spase(Number2u462u462, records.flatten, "en")))

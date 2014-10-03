@@ -1,20 +1,20 @@
 package controllers
 
+import models.binding._
+import models.provider._
+import models.enums._
 import play.api.mvc._
+import play.api.libs.json._
+import scala.language.postfixOps
 import com.wordnik.swagger.core._
 import com.wordnik.swagger.annotations._
 import com.wordnik.swagger.core.util.ScalaJsonUtil
 import javax.ws.rs._
 import javax.ws.rs.core.MediaType._
 import scalaxb._
-import models.binding._
-import models.provider._
-import models.enums._
-import java.net.URI
-import play.api.libs.json._
-import java.text.ParseException
 import soapenvelope11._
-import scala.language.postfixOps
+import java.net.URI
+import java.text.ParseException
 
 
 @Api(

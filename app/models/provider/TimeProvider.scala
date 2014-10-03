@@ -4,6 +4,7 @@ import java.util.{GregorianCalendar, Date}
 import javax.xml.datatype._
 import java.text.SimpleDateFormat
 
+
 object TimeProvider {
   def getISONow: XMLGregorianCalendar = {
     val gregorianCalendar = new GregorianCalendar()

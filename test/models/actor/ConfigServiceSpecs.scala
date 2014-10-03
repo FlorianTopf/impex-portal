@@ -98,7 +98,7 @@ object ConfigServiceSpecs extends Specification with Mockito {
                 implicit val actorSystem = Akka.system(app)
                 val actorRef = TestActorRef(new ConfigService, name = "config")
                 val actor = actorSystem.actorSelection("user/config")
-                val future = actor ? GetDatabaseById(new URI("impex://LATMOS"))
+                val future = actor ? GetDatabaseById(new URI("spase://IMPEX/Repository/LATMOS"))
                 val database = Await.result(future.mapTo[Database], DurationInt(10) second)
                 
                 database must beAnInstanceOf[Database]

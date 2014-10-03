@@ -3,6 +3,7 @@ package models.enums
 import play.api.libs.json._
 import play.api.libs.functional.syntax._
 
+
 case class RequestError(code: ERequestError.Value)
 
 object ERequestError extends Enumeration {

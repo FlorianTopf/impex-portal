@@ -93,7 +93,7 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            val fmi = new Methods_FMISoapBindings with Soap11Clients with DispatchHttpClients {}
            
            val extraParams = ExtraParams_getSurfaceFMI(
-               None, // resolution (@TODO TO BE TESTED)
+               None, // resolution @TODO TO BE TESTED
                Some(VOTableType), // output filetype
                Some(LinearValue) // interpolation method
            )
@@ -224,10 +224,10 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            
            val extraParams = ExtraParams_getFieldLineFMI(
                Some(Forward), // direction
-               None, // step size (@TODO TO BE TESTED)
+               None, // step size @TODO TO BE TESTED
                Some(BigInt(100)), // max steps
                Some(0), // stop condition radius
-               None, //Some(stopConditionRegion), // stop condition region (@TODO TO BE TESTED)
+               None, //Some(stopConditionRegion), // stop condition region @TODO TO BE TESTED
         	   Some(VOTableType) // output filetype
            )
           
@@ -260,8 +260,8 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
                Some(1), // step size
                Some(BigInt(200)), // max steps
                Some(0), // stop condition radius
-               None, // stop condition region (@TODO TO BE TESTED)
-               None, // interpolation method (@TODO TO BE TESTED)
+               None, // stop condition region @TODO TO BE TESTED
+               None, // interpolation method @TODO TO BE TESTED
                Some(VOTableType) // output filetype
            )
           
@@ -289,9 +289,9 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            val fmi = new Methods_FMISoapBindings with Soap11Clients with DispatchHttpClients {}
            
            val extraParams = ExtraParams_getDataPointSpectraFMI(
-               None, // interpolation method (@TODO TO BE TESTED)
+               None, // interpolation method @TODO TO BE TESTED
                Some(VOTableType), // output filetype
-               None // energy channel (@TODO BE TESTED)
+               None // energy channel @TODO BE TESTED
            )
            
            val result = fmi.service.getDataPointSpectra(
@@ -318,9 +318,9 @@ object FMIMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
            val fmi = new Methods_FMISoapBindings with Soap11Clients with DispatchHttpClients {}
            
            val extraParams = ExtraParams_getDataPointSpectraFMI(
-               None, // interpolation method (@TODO TO BE TESTED)
+               None, // interpolation method @TODO TO BE TESTED
                Some(VOTableType), // output filetype
-               None // energy channel (@TODO TO BE TESTED)
+               None // energy channel @TODO TO BE TESTED
            )
            
            val result = fmi.service.getDataPointSpectraSpacecraft(

@@ -3,20 +3,14 @@ package controllers
 import models.actor._
 import models.binding._
 import models.enums._
-import views.html._
 import play.api.mvc._
-import play.libs.Akka
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
-import scala.xml._
-import akka.actor._
-import akka.pattern.ask
 import com.wordnik.swagger.core._
 import com.wordnik.swagger.annotations._
 import com.wordnik.swagger.core.util.ScalaJsonUtil
 import javax.ws.rs._
 import javax.ws.rs.core.MediaType._
-import scala.language.implicitConversions
 
 
 @Api(
@@ -25,6 +19,46 @@ import scala.language.implicitConversions
 @Path("/registry")
 @Produces(Array(APPLICATION_XML, APPLICATION_JSON))
 object Registry extends BaseController {
+
+  // get a list of all stored regions in the registry
+  def getRegions() = PortalAction.async { implicit request => 
+    val future = RegistryService.getNumericalOutput(None, false)
+    future.map { _ match {
+        case Left(spase) => { 
+          val regions = spase.ResourceEntity.flatMap{ r => 
+            val run = r.as[NumericalOutput]
+            run.SimulatedRegion
+          }
+          // we return the base without appendices
+          // maybe introduce empty error case
+          Ok(Json.toJson(regions.map(_.replace(".Magnetosphere", "")).distinct))
+        }
+        case Right(error) => BadRequest(Json.toJson(error))
+      }
+    } 
+  }
+  
+  // filter regions and return a list of repository ids
+  def filterRegion(regionName: String) = PortalAction.async { implicit request =>
+    val future = RegistryService.getNumericalOutput(None, false)
+    future.map { _ match {
+        case Left(spase) => { 
+          val regions = spase.ResourceEntity.flatMap{ r => 
+            val run = r.as[NumericalOutput]
+            // matches e.g. Earth => Earth, Earth.Magnetosphere
+            if(run.AccessInformation.length > 0 && 
+                run.SimulatedRegion.filter(p => p.contains(regionName)).length > 0) {
+              Some(run.AccessInformation.head.RepositoryID)
+            } else
+              None
+          }
+          // maybe introduce empty error case
+          Ok(Json.toJson(regions.distinct))
+        }
+        case Right(error) => BadRequest(Json.toJson(error))
+      }
+    }
+  }
   
   @GET
   @ApiOperation(

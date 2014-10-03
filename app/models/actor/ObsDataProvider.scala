@@ -9,13 +9,13 @@ import scala.concurrent._
 import scala.concurrent.duration._
 import scalaxb.DataRecord
 import java.util.{
+  Calendar,
   Date,
   GregorianCalendar}
 import java.text.{
   DateFormat, SimpleDateFormat
 }
 import javax.xml.datatype._
-import java.util.Calendar
 
 
 class ObsDataProvider(var metadata: Database) 

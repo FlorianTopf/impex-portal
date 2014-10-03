@@ -23,7 +23,6 @@ import models.actor.DataProvider.{
 }
 
 // actor tests need empty onStart routine  
-// @TODO check the content of the Spase elements more
 object SimDataProviderSpecs extends Specification with Mockito {
 
     // test info
@@ -89,11 +88,11 @@ object SimDataProviderSpecs extends Specification with Mockito {
                 val future = actor ? GetElement(ESimulationModel, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
                 val repositories = 
-                  result.ResourceEntity.filter(p => p.key == Some("SimulationModel")).map(_.as[SimulationModelType])
+                  result.ResourceEntity.filter(p => p.key == Some("SimulationModel")).map(_.as[SimulationModel])
                 
                 actor must beAnInstanceOf[ActorSelection]  
                 result must beAnInstanceOf[Spase]
-                repositories must beAnInstanceOf[Seq[SimulationModelType]]
+                repositories must beAnInstanceOf[Seq[SimulationModel]]
             }
         }
         
@@ -159,7 +158,6 @@ object SimDataProviderSpecs extends Specification with Mockito {
                 repositories must beAnInstanceOf[Seq[Granule]]
             }
         }
-        
-        //@TODO test interface for updating trees
+      
     }
 }

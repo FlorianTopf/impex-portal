@@ -9,6 +9,7 @@ import scala.concurrent._
 import scala.concurrent.duration._
 import scalaxb.DataRecord
 
+
 class SimDataProvider(var metadata: Database) 
 extends Actor with DataProvider {
   import models.actor.ConfigService._

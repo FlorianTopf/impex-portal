@@ -15,7 +15,7 @@ GET		/api-docs					controllers.ApiHelpController.getResources
 GET		/api-view					controllers.Application.apiview
 
 # feedback route
-POST	/feedback					controllers.Application.feedback
+POST	/feedback					controllers.Feedback.sendForm
 
 # config routes
 GET		/api-docs/config			controllers.ApiHelpController.getResource(path = "/config")
@@ -36,6 +36,9 @@ GET		/registry/observations		controllers.Registry.observations(fmt: String ?= "x
 GET 	/registry/observatory		controllers.Registry.observatory(fmt: String ?= "xml", r: String ?= "false")
 GET		/registry/instrument		controllers.Registry.instrument(fmt: String ?= "xml", r: String ?= "false")
 GET		/registry/numericaldata		controllers.Registry.numericaldata(fmt: String ?= "xml", r: String ?= "false")
+# filters
+GET		/filter/region				controllers.Registry.getRegions
+GET		/filter/region/:regionName	controllers.Registry.filterRegion(regionName: String)
 
 # methods routes
 GET		/api-docs/methods			controllers.ApiHelpController.getResource(path = "/methods")
@@ -84,18 +87,13 @@ GET		/methods/AMDA/getParameter							controllers.AMDAMethods.getParameter
 GET		/methods/AMDA/getOrbits								controllers.AMDAMethods.getOrbits
 
 # userdata routes
-POST	/userdata					controllers.Application.addFileUserData
-#POST	/userdata					controllers.Application.addXMLUserData
-GET		/userdata				    controllers.Application.listUserdata
-GET		/userdata/:fileName			controllers.Application.getUserdata(fileName: String)
-DELETE	/userdata/:fileName			controllers.Application.deleteUserData(fileName: String)
-
-# filter routes
-GET		/filter/region				controllers.Application.getRegions
-GET		/filter/region/:regionName	controllers.Application.filterRegion(regionName: String)
+POST	/userdata					controllers.UserData.addFileUserData
+#POST	/userdata					controllers.UserData.addXMLUserData
+GET		/userdata				    controllers.UserData.listUserdata
+GET		/userdata/:fileName			controllers.UserData.getUserdata(fileName: String)
+DELETE	/userdata/:fileName			controllers.UserData.deleteUserData(fileName: String)
 
 # general testing routes
-GET		/test						controllers.Application.test
-GET		/uploader					controllers.Application.uploadTest
-
+#GET		/test						controllers.Application.test
+#GET		/uploader					controllers.Application.uploadTest
 

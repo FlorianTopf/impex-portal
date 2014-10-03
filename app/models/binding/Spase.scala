@@ -1,10 +1,10 @@
 package models.binding
 
 import play.api.libs.json._
-import models.binding._
 import scala.xml._
 import javax.xml.datatype._
 import java.net.URI
+
 
 /** 
                Space Physics Archive Search and Extract (SPASE).
@@ -39,7 +39,12 @@ object Spase {
             case r: Repository => Json.obj("repository" -> d.as[Repository])
           }
         }
-        case Some("SimulationModel") => Json.obj("simulationModel" -> d.as[SimulationModel])
+        case Some("SimulationModel") => { 
+          d.value match {
+            case n: NodeSeq => Json.obj("simulationModel" -> scalaxb.fromXML[SimulationModel](d.as[NodeSeq]))
+            case r: SimulationModel => Json.obj("simulationModel" -> d.as[SimulationModel])
+          }
+        }
         case Some("SimulationRun") => { 
           d.value match {
             case n: NodeSeq => Json.obj("simulationRun" -> scalaxb.fromXML[SimulationRun](d.as[NodeSeq]))
@@ -53,9 +58,24 @@ object Spase {
             case r: Granule => Json.obj("granule" -> d.as[Granule])
           }
         }
-        case Some("Observatory") => Json.obj("observatory" -> d.as[Observatory])
-        case Some("Instrument") => Json.obj("instrument" -> d.as[Instrument])
-        case Some("NumericalData") => Json.obj("numericalData" -> d.as[NumericalData])
+        case Some("Observatory") => { 
+          d.value match {
+            case n: NodeSeq => Json.obj("observatory" -> scalaxb.fromXML[Observatory](d.as[NodeSeq]))
+            case r: Observatory => Json.obj("observatory" -> d.as[Observatory])
+          }
+        } 
+        case Some("Instrument") => { 
+          d.value match {
+            case n: NodeSeq => Json.obj("instrument" -> scalaxb.fromXML[Instrument](d.as[NodeSeq]))
+            case r: Instrument => Json.obj("instrument" -> d.as[Instrument])
+          }
+        } 
+        case Some("NumericalData") => { 
+          d.value match {
+            case n: NodeSeq => Json.obj("numericaldata" -> scalaxb.fromXML[NumericalData](d.as[NodeSeq]))
+            case r: NumericalData => Json.obj("numericaldata" -> d.as[NumericalData])
+          }
+        } 
         // should never happen
         case _ => JsNull
       }
@@ -724,11 +744,11 @@ object Spase {
     }
   }
   
-  // stopDate makes problems => see hack below
+  // @TODO stopDate makes problems => see hack below
   implicit val timeSpanWrites: Writes[TimeSpan] = new Writes[TimeSpan] {
     def writes(t: TimeSpan): JsValue = {
       Json.obj("startDate" -> t.StartDate, 
-          "stopDate" -> scalaxb.fromXML[XMLGregorianCalendar](t.StopDateEntity.as[NodeSeq]), 
+          "stopDate" -> scalaxb.fromXML[String](t.StopDateEntity.as[NodeSeq]), 
           "note" -> t.Note)
     }
   }

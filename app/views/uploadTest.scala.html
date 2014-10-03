@@ -10,7 +10,7 @@
   <title>VOTable upload</title>
 </head>
 <body>
-	@helper.form(action = routes.Application.addFileUserData, 'enctype -> "multipart/form-data") {   
+	@helper.form(action = routes.UserData.addFileUserData, 'enctype -> "multipart/form-data") {   
     	<input type="file" name="votable" accept="text/xml">
     	<p><input type="submit"></p> 
 	}

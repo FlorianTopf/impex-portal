@@ -1,11 +1,12 @@
 package models.provider
 
+import play.api.Play.current
+import play.api.Logger
 import java.util.Properties
 import net.tanesha.recaptcha.ReCaptchaFactory
 import net.tanesha.recaptcha.ReCaptchaImpl
 import net.tanesha.recaptcha.ReCaptchaResponse
-import play.api.Play.current
-import play.api.Logger
+
 
 object CaptchaProvider {
   def privateKey(): String = {

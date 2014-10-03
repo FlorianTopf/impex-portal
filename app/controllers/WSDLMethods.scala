@@ -1,6 +1,5 @@
 package controllers
 
-import models.actor.RegistryService
 import models.actor.ConfigService._
 import models.binding.Database
 import models.enums._
@@ -8,7 +7,6 @@ import models.provider._
 import play.api.mvc._
 import play.api.libs.json._
 import play.api.libs.concurrent.Execution.Implicits._
-import scala.xml._
 import scala.concurrent._
 import com.wordnik.swagger.core._
 import com.wordnik.swagger.annotations._
@@ -17,6 +15,7 @@ import javax.ws.rs._
 import javax.ws.rs.core.MediaType._
 import java.net.URI
 import java.io.FileNotFoundException
+
 
 @Api(
     value = "/methods", 

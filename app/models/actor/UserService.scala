@@ -1,25 +1,24 @@
 package models.actor
 
 import play.libs._
+import play.api.libs.Files._
 import play.api.libs.concurrent.Execution.Implicits._
+import scala.xml._
 import scala.concurrent._
 import scala.concurrent.duration._
 import akka.actor._
 import akka.pattern._
 import akka.util.Timeout
-import org.bson.types.ObjectId
-import play.libs.Akka
 import java.io.File
-import scala.xml._
-import play.api.libs.Files._
-import org.apache.commons.io.FileUtils
 import java.io.FileNotFoundException
+import org.bson.types.ObjectId
+import org.apache.commons.io.FileUtils
 
 
 case class AddXMLData(xml: Node)
 case class AddFileData(file: TemporaryFile, name: String)
 case class DeleteUserData(name: String)
-case class UserData(id: String, name: String)
+case class UserData(id: ObjectId, name: String)
 case object GetUserData
 case object StopUserService
 
@@ -36,7 +35,7 @@ class UserService(val userId: ObjectId) extends Actor {
        // fetch all existing files
        val exFiles = fileDir.listFiles.filter(_.getName.endsWith(".xml"))
        files++=exFiles map { f => 
-         UserData(f.getName().split("-").last.replace(".xml", ""), f.getName())
+         UserData(new ObjectId(f.getName().split("-").last.replace(".xml", "")), f.getName())
        }
      }
      else {
@@ -52,7 +51,7 @@ class UserService(val userId: ObjectId) extends Actor {
     	val file = new File("userdata/"+userId+"/"+fileName)
     	if(!file.exists) file.createNewFile()
     	// here we add the fileName
-    	val userdata = UserData(dataId.toString, fileName)
+    	val userdata = UserData(dataId, fileName)
     	files++=Seq(userdata)
     	// here we save the content
     	scala.xml.XML.save("userdata/"+userId+"/"+fileName, xml, "UTF-8")
@@ -63,7 +62,7 @@ class UserService(val userId: ObjectId) extends Actor {
     	val fileName = name.replace(".xml", "")+"-"+dataId+".xml"
     	file.moveTo(new File("userdata/"+userId+"/"+fileName))
     	// here we add the fileName
-    	val userdata = UserData(dataId.toString, fileName)
+    	val userdata = UserData(dataId, fileName)
     	files++=Seq(userdata)
     	sender ! userdata
     }

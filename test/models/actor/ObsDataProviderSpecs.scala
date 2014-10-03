@@ -24,10 +24,9 @@ import models.actor.DataProvider.{
 }
 
 // actor tests need empty onStart routine  
-// @TODO check the content of the Spase elements more
 object ObsDataProviderSpecs extends Specification with Mockito {
 
-    // test info => @fIXME only for AMDA!
+    // test info => only for AMDA!
   	val rand = new Random(java.lang.System.currentTimeMillis)
     val config = scalaxb.fromXML[Impexconfiguration](scala.xml.XML.loadFile("conf/configuration.xml"))
 	val databases = config.impexconfigurationoption.filter(_.key.get == "database").map(

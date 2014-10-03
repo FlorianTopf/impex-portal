@@ -5,6 +5,7 @@ import play.api.libs.functional.syntax._
 import java.net.URI
 import com.fasterxml.jackson.core.JsonParseException
 
+
 case class ServiceResponse(code: EServiceResponse.Value, message: String, request: Map[String, String])
 
 object EServiceResponse extends Enumeration {

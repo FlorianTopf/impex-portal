@@ -1,6 +1,7 @@
 package models.actor
 
 import models.binding._
+import models.enums._
 import play.api.Play._
 import play.api.libs.json._
 import play.api.libs.concurrent._
@@ -11,7 +12,6 @@ import scala.concurrent._
 import scala.concurrent.duration._
 import scala.xml._
 import java.net.URI
-import models.enums._
 
 
 class ConfigService extends Actor {

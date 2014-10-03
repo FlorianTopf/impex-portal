@@ -1,5 +1,7 @@
 package controllers
 
+import models.binding._
+import models.enums._
 import play.api.mvc._
 import play.api.mvc.Results._
 import play.api.mvc.BodyParsers._
@@ -7,11 +9,9 @@ import play.api.libs.json._
 import play.api.Play.current
 import play.api.cache._
 import scala.concurrent.Future
-import models.binding._
-import models.enums._
+import scala.language.implicitConversions
 import soapenvelope11._
 import org.bson.types.ObjectId
-import scala.language.implicitConversions
 
 
 class BaseController extends Controller {
@@ -115,8 +115,7 @@ class MethodsController extends BaseController {
     try {
       format.map(TimeFormat.fromString(_, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
     } catch {
-      // just use ISO8601 if a match error occurs
-      case e: MatchError => Some(ISO8601)
+      case e: MatchError => None
     }
   } 
   
@@ -124,8 +123,7 @@ class MethodsController extends BaseController {
     try {
       unit.map(Units.fromString(_, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
     } catch {
-      // just use km (default) if a match error occurs
-      case e: MatchError => Some(Km)
+      case e: MatchError => None
     }
   } 
   
@@ -143,7 +141,6 @@ class MethodsController extends BaseController {
     try {
       float.map(_.toFloat)
     } catch {
-      // @FIXME in any error case return none
       case _: Throwable => None     
     }
     
@@ -156,7 +153,6 @@ class MethodsController extends BaseController {
         case None => None
       }
     } catch {
-      // @FIXME in any error case return none
       case _: Throwable => None
     }
   }
@@ -168,7 +164,6 @@ class MethodsController extends BaseController {
         case None => None
       }
     } catch {
-      // @FIXME in any error case return none
       case _: Throwable => None
     }
   }
@@ -188,7 +183,6 @@ class MethodsController extends BaseController {
         case None => None
       }
     } catch {
-      // @FIXME in any error case return none
       case _: Throwable => None
     }
   }
@@ -200,7 +194,6 @@ class MethodsController extends BaseController {
         case None => None
       }
     } catch {
-      // @FIXME in any error case return none
       case _: Throwable => None
     }
   }
@@ -210,7 +203,6 @@ class MethodsController extends BaseController {
     try {
       Some(EnumDirection.fromString(direction, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
     } catch {
-      // just use None if something wrong is entered
       case _: MatchError => None
     }
   }
@@ -220,7 +212,6 @@ class MethodsController extends BaseController {
     try {
       Some(EnumInterpolation.fromString(interpolation, scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")))
     } catch {
-      // just use None if something wrong is entered
       case _: MatchError => None
     }
   }

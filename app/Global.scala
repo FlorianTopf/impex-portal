@@ -7,6 +7,7 @@ import scala.concurrent.duration._
 import akka.actor._
 import akka.util.Timeout
 
+
 object Global extends GlobalSettings {
   override def onStart(app: play.api.Application) {
 
@@ -20,6 +21,6 @@ object Global extends GlobalSettings {
 
     Akka.system.actorOf(Props(new RegistryService(databases)), name = "registry")
 
-  } 
+  }
 
 }

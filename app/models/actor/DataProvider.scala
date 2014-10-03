@@ -7,15 +7,17 @@ import scala.xml._
 import scala.concurrent._
 import scala.concurrent.duration._
 import scala.concurrent.ExecutionContext.Implicits._
+import scala.util.{Success, Failure}
 import akka.actor._
 import akka.pattern.ask
 import akka.util.Timeout
 import java.net.URI
 import java.io._
-import scalaxb.DataRecord
-import scala.util.{Success, Failure}
+import scalaxb.{
+  DataRecord,
+  ParserFailure
+}
 import org.joda.time._
-import scalaxb.ParserFailure
 
 
 // basic trait for data provider actors (sim / obs)
@@ -101,9 +103,9 @@ trait DataProvider {
            } 
         }
         
-        // @TODO validating only the simulation trees
-      	if(metadata.typeValue == Simulation && folder == "tree") {
-      		println("Simulation Tree")
+        // only the portal trees are validated
+      	if(metadata.portal && folder == "tree") {
+      		println("Spase Tree")
         	val spase = scalaxb.fromXML[Spase](result)
         }
       	
@@ -185,7 +187,7 @@ object DataProvider {
       val r: Boolean = false
   )
   
-  // @TODO we need that later for updating the trees dynamically (on admin request)
+  // @TODO we need that for updating the trees dynamically (on admin request)
   def updateData(provider: ActorSelection) = {
     (provider ? UpdateData)
   }
