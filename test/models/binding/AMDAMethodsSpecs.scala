@@ -129,7 +129,7 @@ object AMDAMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
                "2000-03-15T00:00", // starttime
                "2000-03-16T00:00",  // stoptime
                ACEType, // spacecraft
-               GSM, // coordinate system
+               GSMType, // coordinate system
                Some(Re), // units 
                Some(60), // sampling
                None,//Some("impex"), // userId

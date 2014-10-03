@@ -15,6 +15,7 @@ import scala.xml.NodeSeq
 import java.net.URI
 import models.actor.ConfigService.{
   GetConfig, GetDatabases, 
+  GetRegistryDatabases,
   GetDatabaseById,
   GetDatabaseType
 }
@@ -58,6 +59,19 @@ object ConfigServiceSpecs extends Specification with Mockito {
                 val actorRef = TestActorRef(new ConfigService, name = "config")
                 val actor = actorSystem.actorSelection("user/config")
                 val future = actor ? GetDatabases
+                val databases = Await.result(future.mapTo[Seq[Database]], DurationInt(10) second)
+                
+                databases must beAnInstanceOf[Seq[Database]]
+            }
+        }
+        
+        "get database objects for registry" in {
+            val app = new FakeApplication
+            running(app) {
+                implicit val actorSystem = Akka.system(app)
+                val actorRef = TestActorRef(new ConfigService, name = "config")
+                val actor = actorSystem.actorSelection("user/config")
+                val future = actor ? GetRegistryDatabases
                 val databases = Await.result(future.mapTo[Seq[Database]], DurationInt(10) second)
                 
                 databases must beAnInstanceOf[Seq[Database]]

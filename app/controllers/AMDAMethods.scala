@@ -419,7 +419,7 @@ object AMDAMethods extends MethodsController {
         EnumSpacecraft.fromString( // spacecraft
             spacecraft, 
             scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")),
-        EnumCoordinateSystemName.fromString( // coordinate system
+        EnumCoordinateSystemType.fromString( // coordinate system
             coordSystem, 
             scalaxb.toScope(None -> "http://impex-fp7.oeaw.ac.at")), 
         units, // units 

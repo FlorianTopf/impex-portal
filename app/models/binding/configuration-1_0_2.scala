@@ -12,7 +12,8 @@ case class Database(name: String,
   protocol: Seq[String] = Nil,
   info: String,
   typeValue: models.binding.Databasetype,
-  id: java.net.URI) extends ImpexconfigurationOption
+  id: java.net.URI,
+  portal: Boolean) extends ImpexconfigurationOption
 
 trait DatabaseOption
 
@@ -62,7 +63,7 @@ object Impexconfiguration {
   
   implicit val databaseWrites: Writes[Database] = new Writes[Database] {
     def writes(d: Database): JsValue =  
-      Json.obj("id" -> d.id.toString, "type" -> d.typeValue.toString, "name" -> d.name, "description" -> d.description, "dns" -> d.databaseoption, 
+      Json.obj("id" -> d.id.toString, "type" -> d.typeValue.toString, "portal" -> d.portal, "name" -> d.name, "description" -> d.description, "dns" -> d.databaseoption, 
           "methods" -> d.methods, "tree" -> d.tree, "protocol" -> d.protocol, "info" -> d.info)
   }
 

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- IMPEx configuration file -->
-<!-- updated 2014-09-30T13:55:00 UTC-->
-<impexconfiguration xsi:schemaLocation="http://www.impex.org/2012/configuration.xsd http://impex-fp7.oeaw.ac.at/xsd/configuration-1_0_1.xsd" xmlns="http://www.impex.org/2012/configuration.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-  <database id="spase://IMPEX/Repository/FMI/HYB" type="simulation">
+<!-- updated 2014-09-03T13:55:00 UTC-->
+<impexconfiguration xsi:schemaLocation="http://www.impex.org/2012/configuration.xsd http://impex-fp7.oeaw.ac.at/xsd/configuration-1_0_2.xsd" xmlns="http://www.impex.org/2012/configuration.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <database id="spase://IMPEX/Repository/FMI/HYB" type="simulation" portal="true">
     <name>FMI-HYBRID</name>
     <description>FMI Hybrid web archive</description>
     <dns>impex-fp7.fmi.fi</dns>
@@ -11,7 +11,7 @@
     <protocol>http</protocol>
     <info>http://hwa.fmi.fi/beta/login.php</info>
   </database>
-  <database id="spase://IMPEX/Repository/FMI/GUMICS" type="simulation">
+  <database id="spase://IMPEX/Repository/FMI/GUMICS" type="simulation" portal="true" >
     <name>FMI-GUMICS</name>
     <description>FMI MHD web archive</description>
     <dns>impex-fp7.fmi.fi</dns>
@@ -20,7 +20,7 @@
     <protocol>http</protocol>
     <info>http://hwa.fmi.fi/beta/login.php</info>
   </database>
-  <database id="spase://IMPEX/Repository/LATMOS" type="simulation">
+  <database id="spase://IMPEX/Repository/LATMOS" type="simulation" portal="true" >
     <name>LATMOS</name>
     <description>LATMOS Hybrid simulations</description>
     <dns>impex.latmos.ipsl.fr</dns>
@@ -29,7 +29,7 @@
     <protocol>http</protocol>
     <info>http://impex.latmos.ipsl.fr/LatHyS.htm</info>
   </database>
-  <database id="spase://IMPEX/Repository/SINP" type="simulation">
+  <database id="spase://IMPEX/Repository/SINP" type="simulation" portal="true" >
     <name>SINP</name>
     <description>SINP Paraboloid Model simulations</description>
     <dns>smdc.sinp.msu.ru</dns>
@@ -65,16 +65,16 @@
     <protocol>http</protocol>
     <info/>
   </database-->
-  <database id="spase://IMPEX/Repository/AMDA" type="observation">
+  <database id="spase://IMPEX/Repository/AMDA" type="observation" portal="true" >
     <name>AMDA</name>
     <description>AMDA observational database</description>
-    <dns>apus.cesr.fr</dns>
-    <methods>/AMDA-IMPEX/public/wsdl/Methods_AMDA.wsdl</methods>
-    <tree>/AMDA-IMPEX/public/trees/spase_amda_tree-1_0_0.xml</tree>
+    <dns>cdpp1.cesr.fr</dns>
+    <methods>/AMDA-NG/public/wsdl/Methods_AMDA.wsdl</methods>
+    <tree>/AMDA-NG/public/impex/spase_amda_tree-1_0_0.xml</tree>
     <protocol>http</protocol>
     <info>http://clweb.cesr.fr/webservice.html</info>
   </database>
-  <!-- database id="spase://IMPEX/Repository/CLWEB" type="observation">
+  <database id="spase://IMPEX/Repository/CLWEB" type="observation" portal="false">
     <name>CLWeb</name>
     <description>CLWeb observational databases</description>
     <dns>clweb.cesr.fr</dns>
@@ -82,7 +82,7 @@
     <tree>/clweb_tree.xml</tree>
     <protocol>http</protocol>
     <info>http://clweb.cesr.fr/webservice.html</info>
-  </database-->
+  </database>
   <tool>
     <name>AMDA</name>
     <description>Multi-mission data analysis tool for space plasma physics</description>

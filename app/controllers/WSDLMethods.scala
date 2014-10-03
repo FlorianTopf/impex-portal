@@ -38,18 +38,27 @@ object WSDLMethods extends BaseController {
   def methods(
       @ApiParam(value = "database name stored in the configuration", 
           defaultValue = "FMI-HYBRID") @PathParam("dbName") dbName: String) = PortalAction.async {
-    val future = RegistryService.getMethods(Some(dbName))
-    future.map { _ match {
-      case Left(methods) => { 
-        if(!methods.isEmpty)
-            // there is always only one methods file
-        	Ok(methods.head)
-        else
-            // if there are no methods return error 501
-        	BadRequest(Json.toJson(RequestError(ERequestError.NOT_IMPLEMENTED)))
+    for {
+      databases <- models.actor.ConfigService.request(GetDatabases).mapTo[Seq[Database]]
+      provider <- Some(dbName) match {
+        case Some(name) if(databases.exists(d => name == d.name)) => {
+          val db: Database = databases.find(d => name == d.name).get
+          val rId: String = UrlProvider.encodeURI(db.id)
+          val fileName: String = PathProvider.getPath("methods", rId, db.methods.head)
+          future { 
+            try { 
+              Left(scala.xml.XML.load(fileName))
+            } catch {
+              case e: FileNotFoundException => Right(RequestError(ERequestError.NOT_IMPLEMENTED))
+            }
+          }
+        }
+        case _ => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
       }
+    } yield provider match {
+      case Left(methods) => Ok(methods)
       case Right(error) => BadRequest(Json.toJson(error))
-    }}
+    }
   }
   
   // INTERMEDIATE: Returns modified WSDL files for Taverna

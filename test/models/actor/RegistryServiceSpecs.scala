@@ -43,11 +43,6 @@ object RegistryServiceSpecs extends Specification with Mockito {
                 val result1 = Await.result(future1.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
                 val future2 = RegistryService.getTree(Some("spase://TEST"))
                 val result2 = Await.result(future2.mapTo[Either[Spase, RequestError]], DurationInt(10) second)
-                val randomProvider3 = databases(rand.nextInt(databases.length))
-                val future3 = RegistryService.getMethods(Some(randomProvider3.name.toString))
-                val result3 = Await.result(future3.mapTo[Either[Seq[NodeSeq], RequestError]], DurationInt(10) second)
-                val future4 = RegistryService.getMethods(Some("TEST"))
-                val result4 = Await.result(future4.mapTo[Either[Seq[NodeSeq], RequestError]], DurationInt(10) second)
                 
                 if(randomProvider1.typeValue == Simulation)
                   result1 must beLeft
@@ -62,16 +57,6 @@ object RegistryServiceSpecs extends Specification with Mockito {
                   case Left(spase) => spase must beAnInstanceOf[Spase]
                   case Right(error) => error must beAnInstanceOf[RequestError]
                 }
-                result3 must beLeft
-                result3 match {
-                  case Left(xml) => xml must beAnInstanceOf[Seq[NodeSeq]]
-                  case Right(error) => error must beAnInstanceOf[RequestError]
-                }
-                result4 must beRight
-                result4 match {
-                  case Left(xml) => xml must beAnInstanceOf[Seq[NodeSeq]]
-                  case Right(error) => error must beAnInstanceOf[RequestError]
-                } 
             }
         }
         

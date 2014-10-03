@@ -14,6 +14,7 @@ module portal {
             public id: string,
             public type: string,
             public name: string, 
+            public portal: boolean,
             public description: string,
             public dns: Array<string>,
             public methods: Array<string>,

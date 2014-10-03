@@ -21,6 +21,7 @@
             </xs:sequence>
             <xs:attribute name="type" use="required" type="imp:databasetype"/>
             <xs:attribute name="id" use="required" type="xs:anyURI"/>
+            <xs:attribute name="portal" use="required" type="xs:boolean"/>
           </xs:complexType>
         </xs:element>
         <xs:element name="tool">

@@ -23,21 +23,29 @@ class ConfigService extends Actor {
       case "json" => sender ! getConfigJSON
       case _ => sender ! Json.toJson(RequestError(ERequestError.UNKNOWN_MSG))
     }
-    // not used in the REST interface of the portal
+    // used to init actors and return WSDLs
     case GetDatabases => sender ! getDatabases
+    // used for registry service
+    case GetRegistryDatabases => sender ! getPortalDatabases
     case GetDatabaseType(dt: Databasetype) => sender ! getDatabaseType(dt)
     case GetDatabaseById(id: URI) => sender ! getDatabaseById(id)
   }
 
   private def getConfigXML: NodeSeq = scala.xml.XML.loadFile("conf/configuration.xml")
 
+  // only for the API
   private def getConfig: Impexconfiguration = scalaxb.fromXML[Impexconfiguration](getConfigXML)
   
   private def getConfigJSON: JsValue = Json.toJson(getConfig)
 
   private def getDatabases: Seq[Database] = {
-    val databases = getConfig.impexconfigurationoption.filter(_.key.get == "database")
-    databases map (_.as[Database])
+    val databases = getConfig.impexconfigurationoption.filter((e) => e.key.get == "database")
+    databases.map(_.as[Database])
+  }
+  
+  // used for registry service
+  private def getPortalDatabases: Seq[Database] = {
+    getDatabases.filter(_.portal == true)
   }
 
   private def getDatabaseType(dType: Databasetype): Seq[Database] = {
@@ -56,8 +64,9 @@ object ConfigService {
   // message formats
   trait ConfigMessage
   case class GetConfig(val fmt: String = "xml") extends ConfigMessage
-  // not used in the REST interface of the portal
   case object GetDatabases extends ConfigMessage
+  // used for registry service
+  case object GetRegistryDatabases extends ConfigMessage
   case class GetDatabaseType(val dtype: Databasetype) extends ConfigMessage
   case class GetDatabaseById(val id: URI) extends ConfigMessage
 

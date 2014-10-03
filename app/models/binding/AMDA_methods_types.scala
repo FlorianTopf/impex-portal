@@ -144,8 +144,93 @@ case object UserDefinedParameters extends WorkSpaceValue { override def toString
 case object LocalDataBaseParameters extends WorkSpaceValue { override def toString = "LocalDataBaseParameters" }
 case object RemoteDataBaseParameters extends WorkSpaceValue { override def toString = "RemoteDataBaseParameters" }
 
-// is available in SPASE DM
-/*trait EnumCoordinateSystemName*/
+// is a little bit diffferent than in SPASE DM
+trait EnumCoordinateSystemType
+
+object EnumCoordinateSystemType {
+  def fromString(value: String, scope: scala.xml.NamespaceBinding): EnumCoordinateSystemType = value match {
+    case "CPHIO" => CPHIOType
+    case "GPHIO" => GPHIOType
+    case "IPHIO" => IPHIOType
+    case "EPHIO" => EPHIOType
+    case "Equatorial" => EquatorialType
+    case "CGM" => CGMType
+    case "Carrington" => CarringtonType
+    case "DM" => DMType
+    case "GEI" => GEIType
+    case "GEO" => GEOType
+    case "GSE" => GSEType
+    case "GSEQ" => GSEQType
+    case "GSM" => GSMType
+    case "HAE" => HAEType
+    case "HCC" => HCCType
+    case "HCI" => HCIType
+    case "HCR" => HCRType
+    case "HEE" => HEEType
+    case "HEEQ" => HEEQType
+    case "HG" => HGType
+    case "HGI" => HGIType
+    case "HPC" => HPCType
+    case "HPR" => HPRType
+    case "J2000" => J2000Type
+    case "LGM" => LGMType
+    case "MAG" => MAGType
+    case "MFA" => MFAType
+    case "RTN" => RTNType
+    case "SC" => SCType
+    case "SE" => SEType
+    case "SM" => SMType
+    case "SR" => SRType
+    case "SR2" => SR2Type
+    case "SSE" => SSEType
+    case "SSE_L" => SSE_LType
+    case "SpacecraftOrbitPlane" => SpacecraftOrbitPlaneType
+    case "WGS84" => WGS84Type
+    case "MSO" => MSOType
+    case "VSO" => VSOType
+
+  }
+}
+
+case object CPHIOType extends EnumCoordinateSystemType { override def toString = "CPHIO" }
+case object GPHIOType extends EnumCoordinateSystemType { override def toString = "GPHIO" }
+case object IPHIOType extends EnumCoordinateSystemType { override def toString = "IPHIO" }
+case object EPHIOType extends EnumCoordinateSystemType { override def toString = "EPHIO" }
+case object EquatorialType extends EnumCoordinateSystemType { override def toString = "Equatorial" }
+case object CGMType extends EnumCoordinateSystemType { override def toString = "CGM" }
+case object CarringtonType extends EnumCoordinateSystemType { override def toString = "Carrington" }
+case object DMType extends EnumCoordinateSystemType { override def toString = "DM" }
+case object GEIType extends EnumCoordinateSystemType { override def toString = "GEI" }
+case object GEOType extends EnumCoordinateSystemType { override def toString = "GEO" }
+case object GSEType extends EnumCoordinateSystemType { override def toString = "GSE" }
+case object GSEQType extends EnumCoordinateSystemType { override def toString = "GSEQ" }
+case object GSMType extends EnumCoordinateSystemType { override def toString = "GSM" }
+case object HAEType extends EnumCoordinateSystemType { override def toString = "HAE" }
+case object HCCType extends EnumCoordinateSystemType { override def toString = "HCC" }
+case object HCIType extends EnumCoordinateSystemType { override def toString = "HCI" }
+case object HCRType extends EnumCoordinateSystemType { override def toString = "HCR" }
+case object HEEType extends EnumCoordinateSystemType { override def toString = "HEE" }
+case object HEEQType extends EnumCoordinateSystemType { override def toString = "HEEQ" }
+case object HGType extends EnumCoordinateSystemType { override def toString = "HG" }
+case object HGIType extends EnumCoordinateSystemType { override def toString = "HGI" }
+case object HPCType extends EnumCoordinateSystemType { override def toString = "HPC" }
+case object HPRType extends EnumCoordinateSystemType { override def toString = "HPR" }
+case object J2000Type extends EnumCoordinateSystemType { override def toString = "J2000" }
+case object LGMType extends EnumCoordinateSystemType { override def toString = "LGM" }
+case object MAGType extends EnumCoordinateSystemType { override def toString = "MAG" }
+case object MFAType extends EnumCoordinateSystemType { override def toString = "MFA" }
+case object RTNType extends EnumCoordinateSystemType { override def toString = "RTN" }
+case object SCType extends EnumCoordinateSystemType { override def toString = "SC" }
+case object SEType extends EnumCoordinateSystemType { override def toString = "SE" }
+case object SMType extends EnumCoordinateSystemType { override def toString = "SM" }
+case object SRType extends EnumCoordinateSystemType { override def toString = "SR" }
+case object SR2Type extends EnumCoordinateSystemType { override def toString = "SR2" }
+case object SSEType extends EnumCoordinateSystemType { override def toString = "SSE" }
+case object SSE_LType extends EnumCoordinateSystemType { override def toString = "SSE_L" }
+case object SpacecraftOrbitPlaneType extends EnumCoordinateSystemType { override def toString = "SpacecraftOrbitPlane" }
+case object WGS84Type extends EnumCoordinateSystemType { override def toString = "WGS84" }
+case object MSOType extends EnumCoordinateSystemType { override def toString = "MSO" }
+case object VSOType extends EnumCoordinateSystemType { override def toString = "VSO" }
 
 
 case class ParameterList(UserDefinedParameters: Option[java.net.URI] = None,
@@ -265,7 +350,7 @@ case object AU extends Units { override def toString = "AU" }
 case class GetOrbites(startTime: String,
   stopTime: String,
   spacecraft: models.binding.EnumSpacecraft,
-  coordinateSystem: models.binding.EnumCoordinateSystemName,
+  coordinateSystem: models.binding.EnumCoordinateSystemType,
   units: Option[models.binding.Units] = None,
   sampling: Option[Float] = None,
   userID: Option[String] = None,

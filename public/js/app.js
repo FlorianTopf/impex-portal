@@ -154,10 +154,11 @@ var portal;
     'use strict';
 
     var Database = (function () {
-        function Database(id, type, name, description, dns, methods, tree, protocol, info) {
+        function Database(id, type, name, portal, description, dns, methods, tree, protocol, info) {
             this.id = id;
             this.type = type;
             this.name = name;
+            this.portal = portal;
             this.description = description;
             this.dns = dns;
             this.methods = methods;

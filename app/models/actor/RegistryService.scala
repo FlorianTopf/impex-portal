@@ -94,7 +94,7 @@ object RegistryService {
     implicit val timeout = Timeout(1.minute)
     //println("ResourceID="+msg.id)
     for {
-      databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
+      databases <- ConfigService.request(GetRegistryDatabases).mapTo[Seq[Database]]
       provider <- msg.id match {
         case Some(id) if(databases.exists(d => validateId(msg, d.id))) => {
           val db: Database = databases.find(d => validateId(msg, d.id)).get
@@ -145,7 +145,7 @@ object RegistryService {
   def getTree(id: Option[String] = None): Future[Either[Spase, RequestError]] = {
     implicit val timeout = Timeout(1.minute)
     for {
-      databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
+      databases <- ConfigService.request(GetRegistryDatabases).mapTo[Seq[Database]]
       provider <- {
         id match {
           // @FIXME this is only available for simulations for now!
@@ -164,23 +164,6 @@ object RegistryService {
         	})
         	result.map(records => Left(Spase(Number2u462u462, records.flatten, "en")))
           }
-          case _ => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
-        }
-      }
-    } yield provider
-  }
-
-  def getMethods(name: Option[String] = None): Future[Either[Seq[NodeSeq], RequestError]] = {
-    implicit val timeout = Timeout(10.seconds)
-    for {
-      databases <- ConfigService.request(GetDatabases).mapTo[Seq[Database]]
-      provider <- {
-        name match {
-          case Some(name) if databases.exists(d => name == d.name) => {
-            val provider: ActorSelection = getChild(databases.find(d => name == d.name).get.id)
-            (provider ? GetMethods).mapTo[Seq[NodeSeq]] map { Left(_) } 
-          }
-          // if no id is provided, just return an error
           case _ => future { Right(RequestError(ERequestError.UNKNOWN_PROVIDER)) }
         }
       }

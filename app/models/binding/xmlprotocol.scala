@@ -58,8 +58,6 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingFieldLineLATMOSFormat: scalaxb.XMLFormat[models.binding.FieldLineLATMOS] = new DefaultBindingFieldLineLATMOSFormat {}
   implicit lazy val BindingExtraParams_getFieldLineLATMOSFormat: scalaxb.XMLFormat[models.binding.ExtraParams_getFieldLineLATMOS] = new DefaultBindingExtraParams_getFieldLineLATMOSFormat {}
   implicit lazy val BindingEnumDirectionFormat: scalaxb.XMLFormat[models.binding.EnumDirection] = new DefaultBindingEnumDirectionFormat {}
-  //implicit lazy val BindingOutputFormatType2Format: scalaxb.XMLFormat[models.binding.OutputFormatType2] = new DefaultBindingOutputFormatType2Format {}
-  //implicit lazy val BindingInterpolationFormat: scalaxb.XMLFormat[models.binding.Interpolation] = new DefaultBindingInterpolationFormat {}
   // SINP methods and types
   implicit lazy val BindingSpacecraftTypeSINPFormat: scalaxb.XMLFormat[models.binding.SpacecraftTypeSINP] = new DefaultBindingSpacecraftTypeSINPFormat {}
   implicit lazy val BindingListOfDoubleFormat: scalaxb.XMLFormat[models.binding.ListOfDouble] = new DefaultBindingListOfDoubleFormat {}
@@ -112,6 +110,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingGetParameterListResponseFormat: scalaxb.XMLFormat[models.binding.GetParameterListResponse] = new DefaultBindingGetParameterListResponseFormat {}
   implicit lazy val BindingEnumSpacecraftFormat: scalaxb.XMLFormat[models.binding.EnumSpacecraft] = new DefaultBindingEnumSpacecraftFormat {}
   implicit lazy val BindingWorkSpaceValueFormat: scalaxb.XMLFormat[models.binding.WorkSpaceValue] = new DefaultBindingWorkSpaceValueFormat {}
+  implicit lazy val BindingEnumCoordinateSystemTypeFormat: scalaxb.XMLFormat[models.binding.EnumCoordinateSystemType] = new DefaultBindingEnumCoordinateSystemTypeFormat {}
   implicit lazy val BindingParameterListFormat: scalaxb.XMLFormat[models.binding.ParameterList] = new DefaultBindingParameterListFormat {}
   implicit lazy val BindingWorkSpaceFormat: scalaxb.XMLFormat[models.binding.WorkSpace] = new DefaultBindingWorkSpaceFormat {}
   implicit lazy val BindingGetDatasetFormat: scalaxb.XMLFormat[models.binding.GetDataset] = new DefaultBindingGetDatasetFormat {}
@@ -2614,6 +2613,22 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __elementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, false, scala.xml.Text(__obj.toString))
   }
+  
+  def buildBindingEnumCoordinateSystemTypeFormat = new DefaultBindingEnumCoordinateSystemTypeFormat {}
+  trait DefaultBindingEnumCoordinateSystemTypeFormat extends scalaxb.XMLFormat[models.binding.EnumCoordinateSystemType] {
+    val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
+    
+    def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, models.binding.EnumCoordinateSystemType] = seq match {
+      case elem: scala.xml.Elem => Right(models.binding.EnumCoordinateSystemType.fromString(elem.text, elem.scope))
+      case _ => Right(models.binding.EnumCoordinateSystemType.fromString(seq.text, scala.xml.TopScope))
+    }
+    
+    def writes(__obj: models.binding.EnumCoordinateSystemType, __namespace: Option[String], __elementLabel: Option[String],
+        __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
+      scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
+        __elementLabel getOrElse { sys.error("missing element label.") },
+        scala.xml.Null, __scope, scala.xml.Text(__obj.toString))
+  }
 
   trait DefaultBindingParameterListFormat extends scalaxb.ElemNameParser[models.binding.ParameterList] {
     val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
@@ -2748,7 +2763,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       models.binding.GetOrbites(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
         scalaxb.fromXML[String](p2, scalaxb.ElemName(node) :: stack),
         scalaxb.fromXML[models.binding.EnumSpacecraft](p3, scalaxb.ElemName(node) :: stack),
-        scalaxb.fromXML[models.binding.EnumCoordinateSystemName](p4, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[models.binding.EnumCoordinateSystemType](p4, scalaxb.ElemName(node) :: stack),
         p5.headOption map { scalaxb.fromXML[models.binding.Units](_, scalaxb.ElemName(node) :: stack) },
         p6.headOption map { scalaxb.fromXML[Float](_, scalaxb.ElemName(node) :: stack) },
         p7.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
@@ -2761,7 +2776,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       Seq.concat(scalaxb.toXML[String](__obj.startTime, None, Some("startTime"), __scope, false),
         scalaxb.toXML[String](__obj.stopTime, None, Some("stopTime"), __scope, false),
         scalaxb.toXML[models.binding.EnumSpacecraft](__obj.spacecraft, None, Some("spacecraft"), __scope, false),
-        scalaxb.toXML[models.binding.EnumCoordinateSystemName](__obj.coordinateSystem, None, Some("coordinateSystem"), __scope, false),
+        scalaxb.toXML[models.binding.EnumCoordinateSystemType](__obj.coordinateSystem, None, Some("coordinateSystem"), __scope, false),
         __obj.units map { scalaxb.toXML[models.binding.Units](_, None, Some("units"), __scope, false) } getOrElse {Nil},
         __obj.sampling map { scalaxb.toXML[Float](_, None, Some("sampling"), __scope, false) } getOrElse {Nil},
         __obj.userID map { scalaxb.toXML[String](_, None, Some("userID"), __scope, false) } getOrElse {Nil},
@@ -2793,8 +2808,9 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   trait Methods_AMDASoapBindings { this: scalaxb.Soap11Clients =>
     lazy val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
     lazy val service: models.binding.Methods_AMDA = new Methods_AMDASoapBinding {}
-    def baseAddress = new java.net.URI("http://apus.cesr.fr/AMDA-WS/php/AMDA_METHODS_WSDL.php")
-
+    //def baseAddress = new java.net.URI("http://apus.cesr.fr/AMDA-WS/php/AMDA_METHODS_WSDL.php")
+    def baseAddress = new java.net.URI("http://cdpp1.cesr.fr/AMDA-NG/php/AMDA_METHODS_WSDL.php")
+    
     trait Methods_AMDASoapBinding extends models.binding.Methods_AMDA {
       def isAlive(): Either[scalaxb.Soap11Fault[Any], Boolean] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.EmptyElement(), Some("http://cdpp-irap/IMPEX/v0.1"), "emptyAlive", defaultScope),
@@ -2838,7 +2854,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
           case Right((header, body)) =>
             Right(scalaxb.fromXML[models.binding.GetDatasetResponse](body.headOption getOrElse {body}))
         }
-      def getOrbites(startTime: String, stopTime: String, spacecraft: models.binding.EnumSpacecraft, coordinateSystem: models.binding.EnumCoordinateSystemName, units: Option[models.binding.Units], sampling: Option[Float], userID: Option[String], password: Option[String], outputFormat: Option[models.binding.OutputFormat], timeFormat: Option[models.binding.TimeFormat], gzip: Option[BigInt]): Either[scalaxb.Soap11Fault[Any], models.binding.GetOrbitesResponse] = 
+      def getOrbites(startTime: String, stopTime: String, spacecraft: models.binding.EnumSpacecraft, coordinateSystem: models.binding.EnumCoordinateSystemType, units: Option[models.binding.Units], sampling: Option[Float], userID: Option[String], password: Option[String], outputFormat: Option[models.binding.OutputFormat], timeFormat: Option[models.binding.TimeFormat], gzip: Option[BigInt]): Either[scalaxb.Soap11Fault[Any], models.binding.GetOrbitesResponse] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.GetOrbites(startTime, stopTime, spacecraft, coordinateSystem, units, sampling, userID, password, outputFormat, timeFormat, gzip), Some("http://cdpp-irap/IMPEX/v0.1"), "getOrbites", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI(""))) match {
           case Left(x)  => Left(x)
@@ -3100,12 +3116,14 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p6.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         scalaxb.fromXML[String](p7, scalaxb.ElemName(node) :: stack),
         scalaxb.fromXML[models.binding.Databasetype]((node \ "@type"), scalaxb.ElemName(node) :: stack),
-        scalaxb.fromXML[java.net.URI]((node \ "@id"), scalaxb.ElemName(node) :: stack)) })
+        scalaxb.fromXML[java.net.URI]((node \ "@id"), scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[Boolean]((node \ "@portal"), scalaxb.ElemName(node) :: stack)) })
     
     override def writesAttribute(__obj: models.binding.Database, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
       attr = scala.xml.Attribute(null, "type", __obj.typeValue.toString, attr)
       attr = scala.xml.Attribute(null, "id", __obj.id.toString, attr)
+      attr = scala.xml.Attribute(null, "portal", __obj.portal.toString, attr)
       attr
     }
 
