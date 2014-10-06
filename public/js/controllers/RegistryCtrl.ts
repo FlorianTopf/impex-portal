@@ -44,7 +44,12 @@ module portal {
             this.scope.$watch('this.database', 
                 () => {        
                     this.getRepository(this.database.id) 
-                    if(this.isFirstOpen) this.getSimulationModel(this.database.id)
+                    if(this.isFirstOpen) { 
+                        if(this.database.type == 'simulation')
+                            this.getSimulationModel(this.database.id)
+                        else if(this.database.type == 'observation')
+                            this.getObservatory(this.database.id)
+                    }
                 })
             
         }
@@ -156,6 +161,74 @@ module portal {
                 this.loading = false   
             }  
         }
+        
+        // takes repository id
+        public getObservatory(id: string) {
+            this.scope.$broadcast('clear-observatories')
+            this.loading = true
+            var cacheId = 'obs-'+id
+            if(!(cacheId in this.registryService.cachedElements)) {  
+                this.registryPromise = this.registryService.Observatory().get(
+                    { fmt: 'json', id: id }).$promise
+                this.registryPromise.then((spase: ISpase) => {
+                    this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.observatory)
+                    this.scope.$broadcast('update-observatories', cacheId)
+                    this.loading = false
+                })
+            } else {
+                this.scope.$broadcast('update-observatories', cacheId)
+                this.loading = false
+            }
+        }
+        
+        // takes observatory 
+        public getInstrument(element: SpaseElem) {
+            this.scope.$broadcast('clear-instruments', element)
+            this.loading = true
+            var cacheId = 'instr-'+element.resourceId
+            if(!(cacheId in this.registryService.cachedElements)) {  
+                this.registryPromise = this.registryService.Instrument().get(
+                    { fmt: 'json', id: element.resourceId }).$promise
+                this.registryPromise.then(
+                (spase: ISpase) => {
+                    this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.instrument)
+                    this.loading = false
+                    this.scope.$broadcast('update-instruments', cacheId)
+                }, 
+                (err: any) => { 
+                    this.scope.$broadcast('registry-error', 'no instrument found')
+                    this.loading = false 
+                })
+            } else {
+                this.scope.$broadcast('update-instruments', cacheId)
+                this.loading = false
+            }
+        }
+        
+        // takes instrument
+        public getNumericalData(element: SpaseElem) {
+            this.scope.$broadcast('clear-numerical-data', element)
+            this.loading = true
+            var cacheId = 'data-'+element.resourceId
+            if(!(cacheId in this.registryService.cachedElements)) {  
+                this.registryPromise = this.registryService.NumericalData().get(
+                    { fmt: 'json', id: element.resourceId }).$promise
+                this.registryPromise.then(
+                (spase: ISpase) => {
+                    this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.numericalData)
+                    this.loading = false
+                    this.scope.$broadcast('update-numerical-data', cacheId)
+                }, 
+                (err: any) => { 
+                    this.scope.$broadcast('registry-error', 'no numerical data found')
+                    this.loading = false 
+                })
+            } else {
+                this.scope.$broadcast('update-numerical-data', cacheId)
+                this.loading = false
+            }
+        }
+        
         
         // method for modal
         public saveRegistry(save: boolean) {

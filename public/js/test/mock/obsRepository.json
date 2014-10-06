@@ -1,0 +1,30 @@
+{
+  "version": "2.2.2",
+  "resources": [
+    {
+      "repository": {
+        "resourceId": "spase://IMPEX/Repository/AMDA",
+        "resourceHeader": {
+          "resourceName": "AMDA Analysis Tool",
+          "releaseDate": "2014-06-18T14:54:22Z",
+          "acknowledgement": null,
+          "description": "\n            ",
+          "contact": [
+            {
+              "personId": "spase://SMWG/Person/Vincent.Genot",
+              "role": [
+                "ProjectScientist"
+              ]
+            }
+          ],
+          "informationurl": []
+        },
+        "accessUrl": {
+          "url": "http://amda.cdpp.eu",
+          "productKey": []
+        }
+      }
+    }
+  ],
+  "lang": "en"
+}

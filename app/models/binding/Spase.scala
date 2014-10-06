@@ -340,6 +340,7 @@ object Spase {
           "simulatedRegion" -> i.SimulatedRegion,
           "qualifier" -> i.Qualifier, 
           "parameterQuantity" -> i.ParameterQuantity, 
+          "inputTableUrl" -> i.InputTableURL,
           "property" -> i.Property)
     }
   }
@@ -852,7 +853,7 @@ object Spase {
           "measurementType" -> n.MeasurementType,
           "temporalDescription" -> n.TemporalDescription,
           "parameter" -> n.Parameter,
-          "inputResourcId" -> n.InputResourceID,
+          "inputResourceId" -> n.InputResourceID,
           "observedRegion" -> n.ObservedRegion,
           "caveats" -> n.Caveats,
           "spectralRange" -> n.SpectralRange,

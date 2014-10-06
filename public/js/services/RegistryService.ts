@@ -10,6 +10,9 @@ module portal {
         getSimulationRun(): ISpase
         getNumericalOutput(): ISpase
         getGranule(): ISpase
+        getObservatory(): ISpase
+        getInstrument(): ISpase
+        getNumericalData(): ISpase
     }
     
     export class RegistryService {
@@ -43,33 +46,51 @@ module portal {
         }
         
         public Repository(): IRegistryResource {
-            return <IRegistryResource> this.resource(this.url+'registry/repository?', 
+            return <IRegistryResource> this.resource(this.url+'registry/repository', 
                 { id: '@id', fmt: '@fmt' },
                 { getRepository: this.registryAction })
         }
         
         public SimulationModel(): IRegistryResource {
-            return <IRegistryResource> this.resource(this.url+'registry/simulationmodel?',
+            return <IRegistryResource> this.resource(this.url+'registry/simulationmodel',
                 { id: '@id', fmt: '@fmt' },
                 { getSimulationModel: this.registryAction })
         }
 
         public SimulationRun(): IRegistryResource {
-            return <IRegistryResource> this.resource(this.url+'registry/simulationrun?',
+            return <IRegistryResource> this.resource(this.url+'registry/simulationrun',
                 { id: '@id', fmt: '@fmt' },
                 { getSimulationRun: this.registryAction })
         }
         
         public NumericalOutput(): IRegistryResource {
-            return <IRegistryResource> this.resource(this.url+'registry/numericaloutput?',
+            return <IRegistryResource> this.resource(this.url+'registry/numericaloutput',
                 { id: '@id', fmt: '@fmt' },
                 { getNumericalOutput: this.registryAction })
         }
         
         public Granule(): IRegistryResource {
-            return <IRegistryResource> this.resource(this.url+'registry/granule?',
+            return <IRegistryResource> this.resource(this.url+'registry/granule',
                 { id: '@id', fmt: '@fmt' },
                 { getGranule: this.registryAction })
+        }
+        
+        public Observatory():  IRegistryResource {
+            return <IRegistryResource> this.resource(this.url+'registry/observatory',
+                { id: '@id', fmt: '@fmt' },
+                { getObservatory: this.registryAction })
+        }
+        
+        public Instrument(): IRegistryResource {
+            return <IRegistryResource> this.resource(this.url+'registry/instrument',
+                { id: '@id', fmt: '@fmt' },
+                { getInstrument: this.registryAction })
+        }
+        
+        public NumericalData(): IRegistryResource {
+            return <IRegistryResource> this.resource(this.url+'registry/numericaldata',
+                { id: '@id', fmt: '@fmt' },
+                { getNumericalData: this.registryAction })
         }
     
         public notify(status: string, id: string) {

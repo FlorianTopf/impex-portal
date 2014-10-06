@@ -18,6 +18,9 @@ module portal {
         simulationRun?: SimulationRun
         numericalOutput?: NumericalOutput
         granule?: Granule
+        observatory?: Observatory
+        instrument?: Instrument
+        numericalData?: NumericalData
     }
 
     // base element
@@ -175,6 +178,7 @@ module portal {
             public simulatedRegion: Array<string>,
             public qualifier: Array<string>,
             public parameterQuantity: string,
+            public inputTableURL: string,
             public property: Array<Property>){}
     }
 
@@ -469,5 +473,56 @@ module portal {
             public startDate?: string,
             public stopDate?: string){ super(resourceId) }
     }    
-      
+    
+    
+    // observatory element
+    export class Observatory extends SpaseElem {
+        constructor(
+            public resourceId: string,
+            public resourceHeader: ResourceHeader,
+            public location: Location,
+            public observatoryGroupId: Array<string>){ super(resourceId) } 
+    }
+    
+    export class Location {
+        constructor(
+            public observatoryRegion: Array<string>,
+            public coordinateSystem: string){}
+    }
+    
+    
+    // instrument element
+    export class Instrument extends SpaseElem {
+        constructor(
+            public resourceId: string,
+            public resourceHeader: ResourceHeader,
+            public instrumentType: Array<string>,
+            public investigationName: Array<string>,
+            public observatoryId: string,
+            public caveats: string){ super(resourceId) }    
+    }
+    
+    
+    // instrument element
+    export class NumericalData extends SpaseElem {
+        constructor(
+            public resourceId: string,
+            public resourceHeader: ResourceHeader,
+            public accessInformation: Array<AccessInformation>,
+            public instrumentId: string,
+            public measurementType: Array<string>,
+            public temporalDescription: TemporalDescription,
+            public parameter: Array<ParameterType>,
+            public inputResouerceID: Array<string>,
+            public observedRegion: Array<string>,
+            public caveats: string,
+            public spectralRange: Array<string>,
+            public keyword: Array<string>,
+            public processingLevel: string,
+            public providerProcessingLevel: string,
+            public providerResourceName: string,
+            public providerVersion: string){ super(resourceId) }    
+    }
+    
+    
 }

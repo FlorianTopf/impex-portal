@@ -2,7 +2,7 @@
 
 // @TODO what about receiving broadcasts?
 describe('PortalCtrl', function() {
-	var path= '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/'
+	var path = '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/'
 		
 	var scope, window, timeout, cService, mService, rService, state, growlService, regs, $httpBackend;
 	
@@ -23,7 +23,7 @@ describe('PortalCtrl', function() {
 		
         jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock';
 		regs = getJSONFixture('regions.json');
-		$httpBackend.when('GET', '/config?&fmt=json').respond(getJSONFixture('config.json'));
+		$httpBackend.when('GET', '/config?fmt=json').respond(getJSONFixture('config.json'));
 		$httpBackend.when('GET', '/userdata').respond(getJSONFixture('userData.json'));
 		$httpBackend.when('GET', '/filter/region').respond(regs);
 		$httpBackend.when('GET', '/filter/region/'+regs.data[0]).respond(

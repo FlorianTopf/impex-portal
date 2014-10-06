@@ -1,7 +1,7 @@
 'use strict'
 
 describe('ConfigCtrl', function() {
-	var path= '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/'
+	var path = '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/'
 	
 	var scope, interval, cService, uService, state, cfg, uData, regs, $httpBackend, $q;
 	
@@ -11,7 +11,7 @@ describe('ConfigCtrl', function() {
 			userService, $state, $controller, _$httpBackend_) {
 
 		scope = $rootScope.$new();
-		interval = $interval
+		interval = $interval;
 		cService = configService;
 		uService = userService;
 		state = $state;
@@ -24,7 +24,7 @@ describe('ConfigCtrl', function() {
 		$httpBackend.when('GET', '/methods/FMI/isAlive').respond(true);
 		$httpBackend.when('GET', '/methods/LATMOS/isAlive').respond(true);
 		$httpBackend.when('GET', '/methods/SINP/isAlive').respond(true);
-		$httpBackend.when('GET', '/config?&fmt=json').respond(cfg);
+		$httpBackend.when('GET', '/config?fmt=json').respond(cfg);
 		$httpBackend.when('GET', '/userdata').respond(uData);
 		$httpBackend.when('GET', '/filter/region').respond(regs);
 		// just serve an empty result here 

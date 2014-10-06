@@ -1,0 +1,11 @@
+{
+    "id": "spase://IMPEX/Repository/AMDA",
+    "type": "observation",
+    "name": "AMDA",
+    "description": "AMDA observational database",
+    "dns": ["cdpp1.cesr.fr"],
+    "methods": ["/AMDA/php/AMDA_METHODS_WSDL.php?wsdl"],
+    "tree": ["/AMDA/data/WSRESULT/getObsDataTree_LocalParams.xml"],
+    "protocol": ["http"],
+    "info": "http://clweb.cesr.fr/webservice.html"
+}

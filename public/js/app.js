@@ -377,13 +377,14 @@ var portal;
     portal.InputField = InputField;
 
     var InputParameter = (function () {
-        function InputParameter(name, description, caveats, simulatedRegion, qualifier, parameterQuantity, property) {
+        function InputParameter(name, description, caveats, simulatedRegion, qualifier, parameterQuantity, inputTableURL, property) {
             this.name = name;
             this.description = description;
             this.caveats = caveats;
             this.simulatedRegion = simulatedRegion;
             this.qualifier = qualifier;
             this.parameterQuantity = parameterQuantity;
+            this.inputTableURL = inputTableURL;
             this.property = property;
         }
         return InputParameter;
@@ -764,6 +765,71 @@ var portal;
         return Granule;
     })(SpaseElem);
     portal.Granule = Granule;
+
+    // observatory element
+    var Observatory = (function (_super) {
+        __extends(Observatory, _super);
+        function Observatory(resourceId, resourceHeader, location, observatoryGroupId) {
+            _super.call(this, resourceId);
+            this.resourceId = resourceId;
+            this.resourceHeader = resourceHeader;
+            this.location = location;
+            this.observatoryGroupId = observatoryGroupId;
+        }
+        return Observatory;
+    })(SpaseElem);
+    portal.Observatory = Observatory;
+
+    var Location = (function () {
+        function Location(observatoryRegion, coordinateSystem) {
+            this.observatoryRegion = observatoryRegion;
+            this.coordinateSystem = coordinateSystem;
+        }
+        return Location;
+    })();
+    portal.Location = Location;
+
+    // instrument element
+    var Instrument = (function (_super) {
+        __extends(Instrument, _super);
+        function Instrument(resourceId, resourceHeader, instrumentType, investigationName, observatoryId, caveats) {
+            _super.call(this, resourceId);
+            this.resourceId = resourceId;
+            this.resourceHeader = resourceHeader;
+            this.instrumentType = instrumentType;
+            this.investigationName = investigationName;
+            this.observatoryId = observatoryId;
+            this.caveats = caveats;
+        }
+        return Instrument;
+    })(SpaseElem);
+    portal.Instrument = Instrument;
+
+    // instrument element
+    var NumericalData = (function (_super) {
+        __extends(NumericalData, _super);
+        function NumericalData(resourceId, resourceHeader, accessInformation, instrumentId, measurementType, temporalDescription, parameter, inputResouerceID, observedRegion, caveats, spectralRange, keyword, processingLevel, providerProcessingLevel, providerResourceName, providerVersion) {
+            _super.call(this, resourceId);
+            this.resourceId = resourceId;
+            this.resourceHeader = resourceHeader;
+            this.accessInformation = accessInformation;
+            this.instrumentId = instrumentId;
+            this.measurementType = measurementType;
+            this.temporalDescription = temporalDescription;
+            this.parameter = parameter;
+            this.inputResouerceID = inputResouerceID;
+            this.observedRegion = observedRegion;
+            this.caveats = caveats;
+            this.spectralRange = spectralRange;
+            this.keyword = keyword;
+            this.processingLevel = processingLevel;
+            this.providerProcessingLevel = providerProcessingLevel;
+            this.providerResourceName = providerResourceName;
+            this.providerVersion = providerVersion;
+        }
+        return NumericalData;
+    })(SpaseElem);
+    portal.NumericalData = NumericalData;
 })(portal || (portal = {}));
 /// <reference path='../_all.ts' />
 var portal;
@@ -891,7 +957,7 @@ var portal;
         }
         // returns the resource handler
         ConfigService.prototype.Config = function () {
-            return this.resource(this.url + 'config?', { fmt: '@fmt' }, { getConfig: this.configAction });
+            return this.resource(this.url + 'config', { fmt: '@fmt' }, { getConfig: this.configAction });
         };
 
         // returns promise for resource handler
@@ -962,23 +1028,35 @@ var portal;
             this.selectables['spase://IMPEX/Repository/SINP'] = ['SimulationModel', 'NumericalOutput'];
         }
         RegistryService.prototype.Repository = function () {
-            return this.resource(this.url + 'registry/repository?', { id: '@id', fmt: '@fmt' }, { getRepository: this.registryAction });
+            return this.resource(this.url + 'registry/repository', { id: '@id', fmt: '@fmt' }, { getRepository: this.registryAction });
         };
 
         RegistryService.prototype.SimulationModel = function () {
-            return this.resource(this.url + 'registry/simulationmodel?', { id: '@id', fmt: '@fmt' }, { getSimulationModel: this.registryAction });
+            return this.resource(this.url + 'registry/simulationmodel', { id: '@id', fmt: '@fmt' }, { getSimulationModel: this.registryAction });
         };
 
         RegistryService.prototype.SimulationRun = function () {
-            return this.resource(this.url + 'registry/simulationrun?', { id: '@id', fmt: '@fmt' }, { getSimulationRun: this.registryAction });
+            return this.resource(this.url + 'registry/simulationrun', { id: '@id', fmt: '@fmt' }, { getSimulationRun: this.registryAction });
         };
 
         RegistryService.prototype.NumericalOutput = function () {
-            return this.resource(this.url + 'registry/numericaloutput?', { id: '@id', fmt: '@fmt' }, { getNumericalOutput: this.registryAction });
+            return this.resource(this.url + 'registry/numericaloutput', { id: '@id', fmt: '@fmt' }, { getNumericalOutput: this.registryAction });
         };
 
         RegistryService.prototype.Granule = function () {
-            return this.resource(this.url + 'registry/granule?', { id: '@id', fmt: '@fmt' }, { getGranule: this.registryAction });
+            return this.resource(this.url + 'registry/granule', { id: '@id', fmt: '@fmt' }, { getGranule: this.registryAction });
+        };
+
+        RegistryService.prototype.Observatory = function () {
+            return this.resource(this.url + 'registry/observatory', { id: '@id', fmt: '@fmt' }, { getObservatory: this.registryAction });
+        };
+
+        RegistryService.prototype.Instrument = function () {
+            return this.resource(this.url + 'registry/instrument', { id: '@id', fmt: '@fmt' }, { getInstrument: this.registryAction });
+        };
+
+        RegistryService.prototype.NumericalData = function () {
+            return this.resource(this.url + 'registry/numericaldata', { id: '@id', fmt: '@fmt' }, { getNumericalData: this.registryAction });
         };
 
         RegistryService.prototype.notify = function (status, id) {
@@ -1564,8 +1642,12 @@ var portal;
             // (is changed each time modal is opened)
             this.scope.$watch('this.database', function () {
                 _this.getRepository(_this.database.id);
-                if (_this.isFirstOpen)
-                    _this.getSimulationModel(_this.database.id);
+                if (_this.isFirstOpen) {
+                    if (_this.database.type == 'simulation')
+                        _this.getSimulationModel(_this.database.id);
+else if (_this.database.type == 'observation')
+                        _this.getObservatory(_this.database.id);
+                }
             });
         }
         RegistryCtrl.prototype.getRepository = function (id) {
@@ -1676,6 +1758,75 @@ var portal;
                 });
             } else {
                 this.scope.$broadcast('update-granules', cacheId);
+                this.loading = false;
+            }
+        };
+
+        // takes repository id
+        RegistryCtrl.prototype.getObservatory = function (id) {
+            var _this = this;
+            this.scope.$broadcast('clear-observatories');
+            this.loading = true;
+            var cacheId = 'obs-' + id;
+            if (!(cacheId in this.registryService.cachedElements)) {
+                this.registryPromise = this.registryService.Observatory().get({ fmt: 'json', id: id }).$promise;
+                this.registryPromise.then(function (spase) {
+                    _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
+                        return r.observatory;
+                    });
+                    _this.scope.$broadcast('update-observatories', cacheId);
+                    _this.loading = false;
+                });
+            } else {
+                this.scope.$broadcast('update-observatories', cacheId);
+                this.loading = false;
+            }
+        };
+
+        // takes observatory
+        RegistryCtrl.prototype.getInstrument = function (element) {
+            var _this = this;
+            this.scope.$broadcast('clear-instruments', element);
+            this.loading = true;
+            var cacheId = 'instr-' + element.resourceId;
+            if (!(cacheId in this.registryService.cachedElements)) {
+                this.registryPromise = this.registryService.Instrument().get({ fmt: 'json', id: element.resourceId }).$promise;
+                this.registryPromise.then(function (spase) {
+                    _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
+                        return r.instrument;
+                    });
+                    _this.loading = false;
+                    _this.scope.$broadcast('update-instruments', cacheId);
+                }, function (err) {
+                    _this.scope.$broadcast('registry-error', 'no instrument found');
+                    _this.loading = false;
+                });
+            } else {
+                this.scope.$broadcast('update-instruments', cacheId);
+                this.loading = false;
+            }
+        };
+
+        // takes instrument
+        RegistryCtrl.prototype.getNumericalData = function (element) {
+            var _this = this;
+            this.scope.$broadcast('clear-numerical-data', element);
+            this.loading = true;
+            var cacheId = 'data-' + element.resourceId;
+            if (!(cacheId in this.registryService.cachedElements)) {
+                this.registryPromise = this.registryService.NumericalData().get({ fmt: 'json', id: element.resourceId }).$promise;
+                this.registryPromise.then(function (spase) {
+                    _this.registryService.cachedElements[cacheId] = spase.resources.map(function (r) {
+                        return r.numericalData;
+                    });
+                    _this.loading = false;
+                    _this.scope.$broadcast('update-numerical-data', cacheId);
+                }, function (err) {
+                    _this.scope.$broadcast('registry-error', 'no numerical data found');
+                    _this.loading = false;
+                });
+            } else {
+                this.scope.$broadcast('update-numerical-data', cacheId);
                 this.loading = false;
             }
         };

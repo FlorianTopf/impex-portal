@@ -1,0 +1,440 @@
+{
+    "version": "2.2.2",
+    "resources": [
+        {"numericaldata": {
+            "resourceId": "spase://IMPEX/NumericalData/AMDA/ACE/MFI/ace-mag-real",
+            "resourceHeader": {
+                "resourceName": "ACE Magnetic Field 60-Second Level 2 Data",
+                "releaseDate": "2014-07-08T15:48:29Z",
+                "acknowledgement": "\n            Please acknowledge the ACE/MAG instrument team and the ACE Science Center\n         ",
+                "description": "\n             ACE Magnetometer level 2 data, 60-second averages of field magnitude and GSE and GSM Cartesian components.             \n         ",
+                "contact": [{
+                    "personId": "spase://SMWG/Person/Elena.Budnik",
+                    "role": ["TechnicalContact"]
+                }],
+                "informationurl": [
+                    "\n               http://www.srl.caltech.edu/ACE/ASC/level2/mag_l2desc.html\n           ",
+                    "\n               http://www.srl.caltech.edu/ACE/ASC/level2/policy_lvl2.html\n            "
+                ]
+            },
+            "accessInformation": [{
+                "repositoryId": "spase://SMWG/Repository/CDPP/AMDA",
+                "availability": "Online",
+                "accessUrl": [{
+                    "url": "\n                http://amda.cdpp.eu\n            ",
+                    "productKey": []
+                }],
+                "format": "NetCDF",
+                "encoding": null,
+                "dataExtent": null
+            }],
+            "instrumentId": ["spase://IMPEX/Instrument/AMDA/ACE/MAG"],
+            "measurementType": ["MagneticField"],
+            "temporalDescription": {
+                "cadence": "PT60S",
+                "exposure": null,
+                "timespan": {
+                    "startDate": "2014-01-06T00:00:12Z",
+                    "stopDate": "2014-02-04T00:00:00Z",
+                    "note": []
+                }
+            },
+            "parameter": [
+                {
+                    "name": "Bmagnitude",
+                    "set": [],
+                    "parameterKey": "imf_real_mag",
+                    "description": "Magnetic field magnitude",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "nT",
+                    "unitsConversion": "1e-9>T",
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": "0.0",
+                    "validMax": "500.0",
+                    "fillValue": "-1.0E31",
+                    "property": [],
+                    "field": {
+                        "fieldQuantity": "Magnetic",
+                        "frequencyRange": null,
+                        "qualifier": [
+                            "Average",
+                            "Magnitude"
+                        ]
+                    }
+                },
+                {
+                    "name": "B GSE",
+                    "set": [],
+                    "parameterKey": "imf_real_gse",
+                    "description": "\n             Magnetic field vector in GSE Cartesian coordinates (60 sec)\n         ",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "nT",
+                    "unitsConversion": "1e-9>T",
+                    "coordinateSystem": {
+                        "coordinateRepresentation": "Cartesian",
+                        "coordinateSystem": "GSE"
+                    },
+                    "renderingHints": [],
+                    "structure": {
+                        "description": null,
+                        "element": [
+                            {
+                                "fillValue": "-1.0E31",
+                                "index": ["1"],
+                                "name": "Bx GSE",
+                                "parameterKey": "imf_real_gse(0)",
+                                "qualifier": ["Component.I"],
+                                "renderingHints": null,
+                                "units": null,
+                                "unitsConversion": null,
+                                "validMax": "65534.0",
+                                "validMin": "-65534.0"
+                            },
+                            {
+                                "fillValue": "-1.0E31",
+                                "index": ["2"],
+                                "name": "By GSE",
+                                "parameterKey": "imf_real_gse(1)",
+                                "qualifier": ["Component.J"],
+                                "renderingHints": null,
+                                "units": null,
+                                "unitsConversion": null,
+                                "validMax": "65534.0",
+                                "validMin": "-65534.0"
+                            },
+                            {
+                                "fillValue": "-1.0E31",
+                                "index": ["3"],
+                                "name": "Bz GSE",
+                                "parameterKey": "imf_real_gse(2)",
+                                "qualifier": ["Component.K"],
+                                "renderingHints": null,
+                                "units": null,
+                                "unitsConversion": null,
+                                "validMax": "65534.0",
+                                "validMin": "-65534.0"
+                            }
+                        ],
+                        "size": ["3"]
+                    },
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "field": {
+                        "fieldQuantity": "Magnetic",
+                        "frequencyRange": null,
+                        "qualifier": [
+                            "Vector",
+                            "Component.I",
+                            "Component.J",
+                            "Component.K"
+                        ]
+                    }
+                },
+                {
+                    "name": "B GSM",
+                    "set": [],
+                    "parameterKey": "imf_real_gsm",
+                    "description": "\n               Magnetic field vector in GSM Cartesian coordinates (60 sec)\n           ",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "nT",
+                    "unitsConversion": "1e-9>T",
+                    "coordinateSystem": {
+                        "coordinateRepresentation": "Cartesian",
+                        "coordinateSystem": "GSM"
+                    },
+                    "renderingHints": [],
+                    "structure": {
+                        "description": null,
+                        "element": [
+                            {
+                                "fillValue": "-1.0E31",
+                                "index": ["1"],
+                                "name": "Bx GSM",
+                                "parameterKey": "imf_real_gsm(0)",
+                                "qualifier": ["Component.I"],
+                                "renderingHints": null,
+                                "units": null,
+                                "unitsConversion": null,
+                                "validMax": "65534.0",
+                                "validMin": "-65534.0"
+                            },
+                            {
+                                "fillValue": "-1.0E31",
+                                "index": ["2"],
+                                "name": "By GSM",
+                                "parameterKey": "imf_real_gsm(1)",
+                                "qualifier": ["Component.J"],
+                                "renderingHints": null,
+                                "units": null,
+                                "unitsConversion": null,
+                                "validMax": "65534.0",
+                                "validMin": "-65534.0"
+                            },
+                            {
+                                "fillValue": "-1.0E31",
+                                "index": ["3"],
+                                "name": "Bz GSM",
+                                "parameterKey": "imf_real_gsm(2)",
+                                "qualifier": ["Component.K"],
+                                "renderingHints": null,
+                                "units": null,
+                                "unitsConversion": null,
+                                "validMax": "65534.0",
+                                "validMin": "-65534.0"
+                            }
+                        ],
+                        "size": ["3"]
+                    },
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "field": {
+                        "fieldQuantity": "Magnetic",
+                        "frequencyRange": null,
+                        "qualifier": [
+                            "Vector",
+                            "Component.I",
+                            "Component.J",
+                            "Component.K"
+                        ]
+                    }
+                }
+            ],
+            "inputResourceId": [],
+            "observedRegion": ["Heliosphere.NearEarth"],
+            "caveats": "\n          The quality of ACE level 2 data is such that it is suitable for serious scientific study. However, to avoid confusion and misunderstanding, it is recommended that users consult with the appropriate ACE team members before publishing work derived from the data. The ACE team has worked hard to ensure that the level 2 data are free from errors, but the team cannot accept responsibility for erroneous data, or for misunderstandings about how the data may be used. This is especially true if the appropriate ACE team members are not consulted before publication. At the very least, preprints should be forwarded to the ACE team before publication.\n      ",
+            "spectralRange": [],
+            "keyword": [],
+            "processingLevel": null,
+            "providerProcessingLevel": null,
+            "providerResourceName": null,
+            "providerVersion": null
+        }},
+        {"numericaldata": {
+            "resourceId": "spase://IMPEX/NumericalData/AMDA/ACE/MFI/ace-imf-all",
+            "resourceHeader": {
+                "resourceName": "ACE Magnetic Field 16-Second Level 2 Data",
+                "releaseDate": "2014-07-08T14:48:29Z",
+                "acknowledgement": "\n            Please acknowledge the ACE/MAG instrument team and the ACE Science Center\n         ",
+                "description": "\n             ACE Magnetometer level 2 data, 16-second averages of field magnitude and GSE and GSM Cartesian components.             \n         ",
+                "contact": [{
+                    "personId": "spase://SMWG/Person/Elena.Budnik",
+                    "role": ["TechnicalContact"]
+                }],
+                "informationurl": [
+                    "\n               http://www.srl.caltech.edu/ACE/ASC/level2/mag_l2desc.html\n           ",
+                    "\n               http://www.srl.caltech.edu/ACE/ASC/level2/policy_lvl2.html\n            "
+                ]
+            },
+            "accessInformation": [{
+                "repositoryId": "spase://SMWG/Repository/CDPP/AMDA",
+                "availability": "Online",
+                "accessUrl": [{
+                    "url": "\n                http://amda.cdpp.eu\n            ",
+                    "productKey": []
+                }],
+                "format": "NetCDF",
+                "encoding": null,
+                "dataExtent": null
+            }],
+            "instrumentId": ["spase://IMPEX/Instrument/AMDA/ACE/MAG"],
+            "measurementType": ["MagneticField"],
+            "temporalDescription": {
+                "cadence": "PT16S",
+                "exposure": null,
+                "timespan": {
+                    "startDate": "1997-09-02T00:00:12Z",
+                    "stopDate": "2013-08-31T00:00:00Z",
+                    "note": []
+                }
+            },
+            "parameter": [
+                {
+                    "name": "Bmagnitude",
+                    "set": [],
+                    "parameterKey": "imf_mag",
+                    "description": "Magnetic field magnitude",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "nT",
+                    "unitsConversion": "1e-9>T",
+                    "coordinateSystem": null,
+                    "renderingHints": [],
+                    "structure": null,
+                    "validMin": "0.0",
+                    "validMax": "500.0",
+                    "fillValue": "-1.0E31",
+                    "property": [],
+                    "field": {
+                        "fieldQuantity": "Magnetic",
+                        "frequencyRange": null,
+                        "qualifier": [
+                            "Average",
+                            "Magnitude"
+                        ]
+                    }
+                },
+                {
+                    "name": "B GSE",
+                    "set": [],
+                    "parameterKey": "imf",
+                    "description": "\n             Magnetic field vector in GSE Cartesian coordinates (16 sec)\n         ",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "nT",
+                    "unitsConversion": "1e-9>T",
+                    "coordinateSystem": {
+                        "coordinateRepresentation": "Cartesian",
+                        "coordinateSystem": "GSE"
+                    },
+                    "renderingHints": [],
+                    "structure": {
+                        "description": null,
+                        "element": [
+                            {
+                                "fillValue": "-1.0E31",
+                                "index": ["1"],
+                                "name": "Bx GSE",
+                                "parameterKey": "imf(0)",
+                                "qualifier": ["Component.I"],
+                                "renderingHints": null,
+                                "units": null,
+                                "unitsConversion": null,
+                                "validMax": "65534.0",
+                                "validMin": "-65534.0"
+                            },
+                            {
+                                "fillValue": "-1.0E31",
+                                "index": ["2"],
+                                "name": "By GSE",
+                                "parameterKey": "imf(1)",
+                                "qualifier": ["Component.J"],
+                                "renderingHints": null,
+                                "units": null,
+                                "unitsConversion": null,
+                                "validMax": "65534.0",
+                                "validMin": "-65534.0"
+                            },
+                            {
+                                "fillValue": "-1.0E31",
+                                "index": ["3"],
+                                "name": "Bz GSE",
+                                "parameterKey": "imf(2)",
+                                "qualifier": ["Component.K"],
+                                "renderingHints": null,
+                                "units": null,
+                                "unitsConversion": null,
+                                "validMax": "65534.0",
+                                "validMin": "-65534.0"
+                            }
+                        ],
+                        "size": ["3"]
+                    },
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "field": {
+                        "fieldQuantity": "Magnetic",
+                        "frequencyRange": null,
+                        "qualifier": [
+                            "Vector",
+                            "Component.I",
+                            "Component.J",
+                            "Component.K"
+                        ]
+                    }
+                },
+                {
+                    "name": "B GSM",
+                    "set": [],
+                    "parameterKey": "imf_gsm",
+                    "description": "\n               Magnetic field vector in GSM Cartesian coordinates (16 sec)\n           ",
+                    "caveats": null,
+                    "cadence": null,
+                    "units": "nT",
+                    "unitsConversion": "1e-9>T",
+                    "coordinateSystem": {
+                        "coordinateRepresentation": "Cartesian",
+                        "coordinateSystem": "GSM"
+                    },
+                    "renderingHints": [],
+                    "structure": {
+                        "description": null,
+                        "element": [
+                            {
+                                "fillValue": "-1.0E31",
+                                "index": ["1"],
+                                "name": "Bx GSM",
+                                "parameterKey": "imf_gsm(0)",
+                                "qualifier": ["Component.I"],
+                                "renderingHints": null,
+                                "units": null,
+                                "unitsConversion": null,
+                                "validMax": "65534.0",
+                                "validMin": "-65534.0"
+                            },
+                            {
+                                "fillValue": "-1.0E31",
+                                "index": ["2"],
+                                "name": "By GSM",
+                                "parameterKey": "imf_gsm(1)",
+                                "qualifier": ["Component.J"],
+                                "renderingHints": null,
+                                "units": null,
+                                "unitsConversion": null,
+                                "validMax": "65534.0",
+                                "validMin": "-65534.0"
+                            },
+                            {
+                                "fillValue": "-1.0E31",
+                                "index": ["3"],
+                                "name": "Bz GSM",
+                                "parameterKey": "imf_gsm(2)",
+                                "qualifier": ["Component.K"],
+                                "renderingHints": null,
+                                "units": null,
+                                "unitsConversion": null,
+                                "validMax": "65534.0",
+                                "validMin": "-65534.0"
+                            }
+                        ],
+                        "size": ["3"]
+                    },
+                    "validMin": null,
+                    "validMax": null,
+                    "fillValue": null,
+                    "property": [],
+                    "field": {
+                        "fieldQuantity": "Magnetic",
+                        "frequencyRange": null,
+                        "qualifier": [
+                            "Vector",
+                            "Component.I",
+                            "Component.J",
+                            "Component.K"
+                        ]
+                    }
+                }
+            ],
+            "inputResourceId": [],
+            "observedRegion": ["Heliosphere.NearEarth"],
+            "caveats": "\n          The quality of ACE level 2 data is such that it is suitable for serious scientific study. However, to avoid confusion and misunderstanding, it is recommended that users consult with the appropriate ACE team members before publishing work derived from the data. The ACE team has worked hard to ensure that the level 2 data are free from errors, but the team cannot accept responsibility for erroneous data, or for misunderstandings about how the data may be used. This is especially true if the appropriate ACE team members are not consulted before publication. At the very least, preprints should be forwarded to the ACE team before publication.\n      ",
+            "spectralRange": [],
+            "keyword": [],
+            "processingLevel": null,
+            "providerProcessingLevel": null,
+            "providerResourceName": null,
+            "providerVersion": null
+        }}
+    ],
+    "lang": "en"
+}

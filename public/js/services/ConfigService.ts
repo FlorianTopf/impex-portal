@@ -33,7 +33,7 @@ module portal {
 
         // returns the resource handler 
         public Config(): IConfigResource {
-            return <IConfigResource> this.resource(this.url+'config?', 
+            return <IConfigResource> this.resource(this.url+'config', 
                 { fmt: '@fmt' }, 
                 { getConfig: this.configAction })
         } 
