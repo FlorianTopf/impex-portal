@@ -61,4 +61,5 @@ describe('RegistrySvc', function() {
 		expect(scope.$broadcast).toHaveBeenCalledWith('database-success', id);
 	});
 	
+	
 });

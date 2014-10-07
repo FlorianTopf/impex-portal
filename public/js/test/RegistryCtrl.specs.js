@@ -3,8 +3,8 @@
 describe('RegistryCtrl on Simulations', function() {
 	var path = '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/'
 		
-	var scope, timeout, cService, rService, state, modalInstance, 
-		repoId, db, repos, models, runs, outputs, granuleInput, granule, $httpBackend;
+	var scope, timeout, cService, rService, state, modalInstance, db, 
+		repos, models, runs, outputs, granuleInput, granule, $httpBackend;
 	
 	beforeEach(angular.mock.module('portal'));
 	
@@ -29,7 +29,6 @@ describe('RegistryCtrl on Simulations', function() {
         spyOn(scope, '$broadcast');
 		
         jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock';
-		//repoId = 'spase://IMPEX/Repository/FMI/HYB';
 		//just mocking the configService getDatabase method
 		db = getJSONFixture('simDatabase.json');
 		cService.getDatabase = function(id){ return db; }
@@ -57,7 +56,7 @@ describe('RegistryCtrl on Simulations', function() {
 		$httpBackend.when('GET', '/registry/granule?fmt=json&id=spase:%2F%2FIMPEX%2FNumericalOutput%2FLATMOS%2FHybrid%2FMerc_02_10_13%2FHes%2F3D').respond(granule)
 		
 		$controller('registryCtrl', {$scope: scope, $timeout: timeout, configService: cService, 
-			registryService: rService, $state: state, $modalInstance: modalInstance, id: repoId});
+			registryService: rService, $state: state, $modalInstance: modalInstance, id: db.id});
 	}));
 	
 	it('should inject services', function(){
@@ -67,10 +66,20 @@ describe('RegistryCtrl on Simulations', function() {
 		expect(scope.regvm.state).toBeDefined();
 		expect(scope.regvm.modalInstance).toBeDefined();
 	});
+	
+	it('should init tooltip', function(){
+		expect(scope.regvm.registryTooltip).toBeDefined();
+	});
+	
+	it('should init status values', function(){
+		expect(scope.regvm.database).toBeDefined();
+        expect(scope.regvm.isFirstOpen).toBeTruthy();
+        expect(scope.regvm.initialising).toBeFalsy();
+        expect(scope.regvm.loading).toBeFalsy();
+	});
 
 	it('should init database object', function(){
 		$httpBackend.flush();
-		expect(scope.regvm.database).toBeDefined();
 		expect(scope.regvm.database).toEqual(db);
 	});
 	
@@ -148,8 +157,8 @@ describe('RegistryCtrl on Simulations', function() {
 describe('RegistryCtrl on Observations', function() {
 	var path = '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/'
 		
-	var scope, timeout, cService, rService, state, modalInstance, 
-		repoId, db, repos, obs, instr, data, $httpBackend;
+	var scope, timeout, cService, rService, state, modalInstance, db, 
+		repos, obs, instr, data, $httpBackend;
 	
 	beforeEach(angular.mock.module('portal'));
 	
@@ -197,7 +206,7 @@ describe('RegistryCtrl on Observations', function() {
 		$httpBackend.when('GET', 
 				'/registry/numericaldata?fmt=json&id=spase:%2F%2FIMPEX%2FInstrument%2FAMDA%2FACE%2FEphemeris').respond(data)
 		$controller('registryCtrl', {$scope: scope, $timeout: timeout, configService: cService, 
-			registryService: rService, $state: state, $modalInstance: modalInstance, id: repoId});
+			registryService: rService, $state: state, $modalInstance: modalInstance, id: db.id});
 	}));
 	
 	it('should inject services', function(){
@@ -207,10 +216,21 @@ describe('RegistryCtrl on Observations', function() {
 		expect(scope.regvm.state).toBeDefined();
 		expect(scope.regvm.modalInstance).toBeDefined();
 	});
+	
+	it('should init tooltip', function(){
+		expect(scope.regvm.registryTooltip).toBeDefined();
+	});
+	
+	it('should init status values', function(){
+		expect(scope.regvm.database).toBeDefined();
+        expect(scope.regvm.isFirstOpen).toBeTruthy();
+        expect(scope.regvm.initialising).toBeFalsy();
+        expect(scope.regvm.loading).toBeFalsy();
+	});
+
 
 	it('should init database object', function(){
 		$httpBackend.flush();
-		expect(scope.regvm.database).toBeDefined();
 		expect(scope.regvm.database).toEqual(db);
 	});
 	
@@ -270,9 +290,4 @@ describe('RegistryCtrl on Observations', function() {
 	
 	
 }); 
-
-
-
-
-
 

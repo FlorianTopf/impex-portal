@@ -1,0 +1,1008 @@
+[
+    {
+        "path": "/methods/FMI/getFieldLine",
+        "operations": [{
+            "method": "GET",
+            "summary": "getFieldLine at FMI",
+            "notes": "returns magnetic field lines of a given VOTable",
+            "type": "void",
+            "nickname": "getFieldLineFMI",
+            "authorizations": {},
+            "parameters": [
+                {
+                    "name": "id",
+                    "description": "NumericalOutput",
+                    "defaultValue": "spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg/Mag",
+                    "required": true,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "votable_url",
+                    "description": "VOTable URL",
+                    "defaultValue": "http://impex-fp7.fmi.fi/ws_tests/input/getFieldLine_input.vot",
+                    "required": true,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "variable",
+                    "description": "Parameter Keys",
+                    "required": false,
+                    "type": "list(string)",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "step_size",
+                    "description": "Step Size",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "max_steps",
+                    "description": "Max Steps",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int32",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "stop_cond_radius",
+                    "description": "Stop Condition Radius",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "stop_cond_region",
+                    "description": "Stop Condition Region",
+                    "required": false,
+                    "type": "list(float)",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "output_filetype",
+                    "description": "Output Filetype",
+                    "defaultValue": "VOTable",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "VOTable",
+                        "netCDF"
+                    ]
+                },
+                {
+                    "name": "direction",
+                    "description": "Direction",
+                    "defaultValue": "Both",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "Both",
+                        "Forward",
+                        "Backward"
+                    ]
+                }
+            ],
+            "responseMessages": [{
+                "code": 400,
+                "message": "request failed"
+            }]
+        }]
+    },
+    {
+        "path": "/methods/FMI/getParticleTrajectory",
+        "operations": [{
+            "method": "GET",
+            "summary": "getParticleTrajectory at FMI",
+            "notes": "returns the particle trajectory of a given VOTable",
+            "type": "void",
+            "nickname": "getParticleTrajectory",
+            "authorizations": {},
+            "parameters": [
+                {
+                    "name": "id",
+                    "description": "NumericalOutput",
+                    "defaultValue": "spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg/Mag",
+                    "required": true,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "votable_url",
+                    "description": "VOTable URL",
+                    "defaultValue": "http://impex-fp7.fmi.fi/ws_tests/input/getParticleTrajectory_input.vot",
+                    "required": true,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "step_size",
+                    "description": "Step Size",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "max_steps",
+                    "description": "Max Steps",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int32",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "stop_cond_radius",
+                    "description": "Stop Condition Radius",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "stop_cond_region",
+                    "description": "Stop Condition Region",
+                    "required": false,
+                    "type": "list(float)",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "output_filetype",
+                    "description": "Output Filetype",
+                    "defaultValue": "VOTable",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "VOTable",
+                        "netCDF"
+                    ]
+                },
+                {
+                    "name": "interpolation_method",
+                    "description": "Interpolation Method",
+                    "defaultValue": "Linear",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "Linear",
+                        "NearestGridPoint"
+                    ]
+                },
+                {
+                    "name": "direction",
+                    "description": "direction",
+                    "defaultValue": "Both",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "Both",
+                        "Forward",
+                        "Backward"
+                    ]
+                }
+            ],
+            "responseMessages": [{
+                "code": 400,
+                "message": "request failed"
+            }]
+        }]
+    },
+    {
+        "path": "/methods/FMI/getDataPointValueSpacecraft",
+        "operations": [{
+            "method": "GET",
+            "summary": "getDataPointValueSpacecraft at FMI",
+            "notes": "returns interpolated simulation parameters along a given spacecraft trajectory",
+            "type": "void",
+            "nickname": "getDataPointValueSpacecraftFMI",
+            "authorizations": {},
+            "parameters": [
+                {
+                    "name": "id",
+                    "description": "NumericalOutput",
+                    "defaultValue": "spase://IMPEX/NumericalOutput/FMI/GUMICS/earth/synth_stationary/solarmin/EARTH___n_T_Vx_Bx_By_Bz__7_100_600_3p_03_15m/tilt15p/H+_mstate",
+                    "required": true,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "spacecraft_name",
+                    "description": "Spacecraft Name",
+                    "defaultValue": "CLUSTER1",
+                    "required": true,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "MEX",
+                        "MGS",
+                        "VEX",
+                        "MAVEN",
+                        "MESSENGER",
+                        "CLUSTER1",
+                        "CLUSTER2",
+                        "CLUSTER3",
+                        "CLUSTER4",
+                        "IMP-8",
+                        "GEOTAIL",
+                        "POLAR"
+                    ]
+                },
+                {
+                    "name": "start_time",
+                    "description": "Start Time",
+                    "defaultValue": "2010-08-02T00:00:00",
+                    "required": true,
+                    "type": "dateTime",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "stop_time",
+                    "description": "Stop Time",
+                    "defaultValue": "2010-08-02T01:00:00",
+                    "required": true,
+                    "type": "dateTime",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sampling",
+                    "description": "Sampling",
+                    "defaultValue": "PT60S",
+                    "required": true,
+                    "type": "duration",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "variable",
+                    "description": "Parameter Keys",
+                    "required": false,
+                    "type": "list(string)",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "interpolation_method",
+                    "description": "Interpolation Method",
+                    "defaultValue": "Linear",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "Linear",
+                        "NearestGridPoint"
+                    ]
+                },
+                {
+                    "name": "output_filetype",
+                    "description": "Output Filetype",
+                    "defaultValue": "VOTable",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "VOTable",
+                        "netCDF"
+                    ]
+                }
+            ],
+            "responseMessages": [{
+                "code": 400,
+                "message": "request failed"
+            }]
+        }]
+    },
+    {
+        "path": "/methods/FMI/getDataPointValue",
+        "operations": [{
+            "method": "GET",
+            "summary": "getDataPointValue at FMI",
+            "notes": "returns interpolated simulation parameter of a given VOTable",
+            "type": "void",
+            "nickname": "getDataPointValueFMI",
+            "authorizations": {},
+            "parameters": [
+                {
+                    "name": "id",
+                    "description": "NumericalOutput",
+                    "defaultValue": "spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_20deg/Mag",
+                    "required": true,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "votable_url",
+                    "description": "VOTable URL",
+                    "defaultValue": "http://impex-fp7.fmi.fi/ws_tests/input/getDataPointValue_input.vot",
+                    "required": true,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "variable",
+                    "description": "Parameter Keys",
+                    "required": false,
+                    "type": "list(string)",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "interpolation_method",
+                    "description": "Interpolation Method",
+                    "defaultValue": "Linear",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "Linear",
+                        "NearestGridPoint"
+                    ]
+                },
+                {
+                    "name": "output_filetype",
+                    "description": "Output Filetype",
+                    "defaultValue": "VOTable",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "VOTable",
+                        "netCDF"
+                    ]
+                }
+            ],
+            "responseMessages": [{
+                "code": 400,
+                "message": "request failed"
+            }]
+        }]
+    },
+    {
+        "path": "/methods/FMI/getSurface",
+        "operations": [{
+            "method": "GET",
+            "summary": "getSurface at FMI",
+            "notes": "returns a surface of interpolated simulation parameters",
+            "type": "void",
+            "nickname": "getSurfaceFMI",
+            "authorizations": {},
+            "parameters": [
+                {
+                    "name": "id",
+                    "description": "NumericalOutput",
+                    "defaultValue": "spase://IMPEX/NumericalOutput/FMI/HYB/mars/Mars_testrun_lowres/O+_ave_hybstate",
+                    "required": true,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "plane_point",
+                    "description": "Plane Point",
+                    "defaultValue": "1.0,0.0,0.0",
+                    "required": true,
+                    "type": "list(float)",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "plane_normal_vector",
+                    "description": "Plane Normal Vector",
+                    "defaultValue": "3.7e6,0.0,0.0",
+                    "required": true,
+                    "type": "list(float)",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "variable",
+                    "description": "Parameter Keys",
+                    "required": false,
+                    "type": "list(string)",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "resolution",
+                    "description": "Resolution",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "interpolation_method",
+                    "description": "Interpolation Method",
+                    "defaultValue": "Linear",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "Linear",
+                        "NearestGridPoint"
+                    ]
+                },
+                {
+                    "name": "output_filetype",
+                    "description": "Output Filetype",
+                    "defaultValue": "VOTable",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "VOTable",
+                        "netCDF"
+                    ]
+                }
+            ],
+            "responseMessages": [{
+                "code": 400,
+                "message": "request failed"
+            }]
+        }]
+    },
+    {
+        "path": "/methods/FMI/getVOTableURL",
+        "operations": [{
+            "method": "POST",
+            "summary": "getVOTableURL at FMI",
+            "notes": "returns an URL to a VOTable XML file based on request JSON object",
+            "type": "void",
+            "nickname": "getVOTableURL",
+            "authorizations": {},
+            "parameters": [{
+                "name": "body",
+                "description": "VOTableURL object encoding the VOTable fields to be created",
+                "required": true,
+                "type": "VOTableURL",
+                "paramType": "body",
+                "allowMultiple": false
+            }],
+            "responseMessages": [{
+                "code": 400,
+                "message": "request failed"
+            }]
+        }]
+    },
+    {
+        "path": "/methods/FMI/getMostRelevantRun",
+        "operations": [{
+            "method": "GET",
+            "summary": "getMostRelevantRun at FMI",
+            "notes": "returns a surface of interpolated simulation parameters",
+            "type": "void",
+            "nickname": "getMostRelevantRun",
+            "authorizations": {},
+            "parameters": [
+                {
+                    "name": "object",
+                    "description": "Object",
+                    "defaultValue": "Earth",
+                    "required": true,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "run_count",
+                    "description": "Run Count",
+                    "defaultValue": "2",
+                    "required": false,
+                    "type": "integer",
+                    "format": "int32",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_density_value",
+                    "description": "SW Density [1/m^3]",
+                    "defaultValue": "5e6",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_density_weight",
+                    "description": "SW Density Weight",
+                    "defaultValue": "2",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_density_scale",
+                    "description": "SW Density Scale",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_density_fun",
+                    "description": "SW Density Function",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_temp_value",
+                    "description": "SW Temperature [K]",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_temp_weight",
+                    "description": "SW Temperature Weight",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_temp_scale",
+                    "description": "SW Temperature Scale",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_temp_fun",
+                    "description": "SW Temperature Function",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_utot_value",
+                    "description": "SW Total Velocity [m/s]",
+                    "defaultValue": "4.5e5",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_utot_weight",
+                    "description": "SW Total Velocity Weight",
+                    "defaultValue": "1",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_utot_scale",
+                    "description": "SW Total Velocity Scale",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_utot_fun",
+                    "description": "SW Total Velocity Function",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_bx_value",
+                    "description": "SW Bx [T]",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_bx_weight",
+                    "description": "SW Bx Weight",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_bx_scale",
+                    "description": "SW Bx Scale",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_bx_fun",
+                    "description": "SW Bx Function",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_by_value",
+                    "description": "SW By [T]",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_by_weight",
+                    "description": "SW By Weight",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_by_scale",
+                    "description": "SW By Scale",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_by_fun",
+                    "description": "SW By Function",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_bz_value",
+                    "description": "SW Bz [T]",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_bz_weight",
+                    "description": "SW Bz Weight",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_bz_scale",
+                    "description": "SW Bz Scale",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_bz_fun",
+                    "description": "SW Bz Function",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_btot_value",
+                    "description": "SW Total B [T]",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_btot_weight",
+                    "description": "SW Total B Weight",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_btot_scale",
+                    "description": "SW Total B Scale",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_btot_fun",
+                    "description": "SW Btot Function",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_fun_value",
+                    "description": "SW Function",
+                    "defaultValue": "0.5",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_fun_weight",
+                    "description": "SW Function Weight",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_fun_scale",
+                    "description": "SW Function Scale",
+                    "defaultValue": "1",
+                    "required": false,
+                    "type": "number",
+                    "format": "double",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sw_fun_fun",
+                    "description": "SW Function Function",
+                    "defaultValue": "abs(SW_Bx/SW_Btot)",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                }
+            ],
+            "responseMessages": [{
+                "code": 400,
+                "message": "request failed"
+            }]
+        }]
+    },
+    {
+        "path": "/methods/FMI/getDataPointSpectraSpacecraft",
+        "operations": [{
+            "method": "GET",
+            "summary": "getDataPointSpectraSpacecraft at FMI",
+            "notes": "returns spectra along a given spacecraft trajectory",
+            "type": "void",
+            "nickname": "getDataPointSpectraSpacecraftFMI",
+            "authorizations": {},
+            "parameters": [
+                {
+                    "name": "id",
+                    "description": "NumericalOutput",
+                    "defaultValue": "spase://IMPEX/NumericalOutput/FMI/HYB/venus/run01_venus_nominal_spectra_20140417/H+_spectra",
+                    "required": true,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "spacecraft_name",
+                    "description": "Spacecraft Name",
+                    "defaultValue": "VEX",
+                    "required": true,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "MEX",
+                        "MGS",
+                        "VEX",
+                        "MAVEN",
+                        "MESSENGER",
+                        "CLUSTER1",
+                        "CLUSTER2",
+                        "CLUSTER3",
+                        "CLUSTER4",
+                        "IMP-8",
+                        "GEOTAIL",
+                        "POLAR"
+                    ]
+                },
+                {
+                    "name": "start_time",
+                    "description": "Start Time",
+                    "defaultValue": "2010-08-02T06:00:00",
+                    "required": true,
+                    "type": "dateTime",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "stop_time",
+                    "description": "Stop Time",
+                    "defaultValue": "2010-08-02T09:00:00",
+                    "required": true,
+                    "type": "dateTime",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "sampling",
+                    "description": "Sampling",
+                    "defaultValue": "PT60S",
+                    "required": true,
+                    "type": "duration",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "energy_channel",
+                    "description": "Energy Channel",
+                    "required": false,
+                    "type": "list(string)",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "interpolation_method",
+                    "description": "Interpolation Method",
+                    "defaultValue": "Linear",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "Linear",
+                        "NearestGridPoint"
+                    ]
+                },
+                {
+                    "name": "output_filetype",
+                    "description": "Output Filetype",
+                    "defaultValue": "VOTable",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "VOTable",
+                        "netCDF"
+                    ]
+                }
+            ],
+            "responseMessages": [{
+                "code": 400,
+                "message": "request failed"
+            }]
+        }]
+    },
+    {
+        "path": "/methods/FMI/getDataPointSpectra",
+        "operations": [{
+            "method": "GET",
+            "summary": "getDataPointSpectra at FMI",
+            "notes": "returns spectra of a given VOTable",
+            "type": "void",
+            "nickname": "getDataPointSpectraFMI",
+            "authorizations": {},
+            "parameters": [
+                {
+                    "name": "id",
+                    "description": "NumericalOutput",
+                    "defaultValue": "spase://IMPEX/NumericalOutput/FMI/HYB/venus/run01_venus_nominal_spectra_20140417/H+_spectra",
+                    "required": true,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "votable_url",
+                    "description": "VOTable URL",
+                    "defaultValue": "http://impex-fp7.fmi.fi/ws_tests/input/getDataPointSpectra_input.vot",
+                    "required": true,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "energy_channel",
+                    "description": "Energy Channel",
+                    "required": false,
+                    "type": "list(string)",
+                    "paramType": "query",
+                    "allowMultiple": false
+                },
+                {
+                    "name": "interpolation_method",
+                    "description": "Interpolation Method",
+                    "defaultValue": "Linear",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "Linear",
+                        "NearestGridPoint"
+                    ]
+                },
+                {
+                    "name": "output_filetype",
+                    "description": "Output Filetype",
+                    "defaultValue": "VOTable",
+                    "required": false,
+                    "type": "string",
+                    "paramType": "query",
+                    "allowMultiple": false,
+                    "enum": [
+                        "VOTable",
+                        "netCDF"
+                    ]
+                }
+            ],
+            "responseMessages": [{
+                "code": 400,
+                "message": "request failed"
+            }]
+        }]
+    }
+]

@@ -208,10 +208,5 @@ describe('PortalCtrl', function() {
 	
 	// @TODO testing the feedback form submission
 	
+	
 }); 
-
-
-
-
-
-

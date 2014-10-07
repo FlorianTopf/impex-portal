@@ -1,0 +1,9 @@
+{"spase://IMPEX/Repository/FMI/HYB": {
+    "path": "/methods/FMI/getDataPointValue",
+    "params": {
+        "id": "spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_20deg/Mag",
+        "votable_url": "http://impex-fp7.fmi.fi/ws_tests/input/getDataPointValue_input.vot",
+        "interpolation_method": "Linear",
+        "output_filetype": "VOTable"
+    }
+}}

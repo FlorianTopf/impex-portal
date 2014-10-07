@@ -1855,16 +1855,16 @@ var portal;
     var MethodsCtrl = (function () {
         function MethodsCtrl($scope, $timeout, $window, configService, methodsService, userService, $state, $modalInstance, id) {
             var _this = this;
-            this.methods = [];
-            this.initialising = false;
-            this.status = '';
-            this.showError = false;
-            this.methodsTooltip = 'Select one of the stored elements, including uploaded VOTables,<br/>' + 'to be applied to the available methods of the IMPEx services.<br/>' + 'Please be aware that only those selections, which are applicable for the<br/>' + 'respective methods can be applied.';
             // helpers for methods modal
             this.dropdownStatus = {
                 isopen: false,
                 active: 'Choose Method'
             };
+            this.methods = [];
+            this.initialising = false;
+            this.status = '';
+            this.showError = false;
+            this.methodsTooltip = 'Select one of the stored elements, including uploaded VOTables,<br/>' + 'to be applied to the available methods of the IMPEx services.<br/>' + 'Please be aware that only those selections, which are applicable for the<br/>' + 'respective methods can be applied.';
             this.scope = $scope;
             $scope.methvm = this;
             this.timeout = $timeout;
@@ -1958,6 +1958,36 @@ else
             this.methodsService.notify('error', this.database.id);
         };
 
+        // retry if alert is cancelled
+        MethodsCtrl.prototype.retry = function () {
+            this.loadMethodsAPI();
+        };
+
+        // set a method active and forward info to directives
+        MethodsCtrl.prototype.setActive = function (method) {
+            var _this = this;
+            //console.log('set-active')
+            this.dropdownStatus.active = this.trimPath(method.path);
+
+            // here we need a delay (maybe we shift this somewhere else)
+            this.timeout(function () {
+                return _this.scope.$broadcast('set-method-active', method);
+            });
+        };
+
+        MethodsCtrl.prototype.isActive = function (path) {
+            return this.dropdownStatus.active == this.trimPath(path);
+        };
+
+        MethodsCtrl.prototype.getActive = function () {
+            return this.dropdownStatus.active;
+        };
+
+        MethodsCtrl.prototype.trimPath = function (path) {
+            var splitPath = path.split('/').reverse();
+            return splitPath[0];
+        };
+
         // method for submission
         MethodsCtrl.prototype.submitMethod = function () {
             var _this = this;
@@ -1992,36 +2022,6 @@ else
         // notifies dir to reset the request
         MethodsCtrl.prototype.resetMethod = function () {
             this.scope.$broadcast('reset-method-request');
-        };
-
-        // retry if alert is cancelled
-        MethodsCtrl.prototype.retry = function () {
-            this.loadMethodsAPI();
-        };
-
-        // set a method active and forward info to directives
-        MethodsCtrl.prototype.setActive = function (method) {
-            var _this = this;
-            //console.log('set-active')
-            this.dropdownStatus.active = this.trimPath(method.path);
-
-            // here we need a delay (maybe we shift this somewhere else)
-            this.timeout(function () {
-                return _this.scope.$broadcast('set-method-active', method);
-            });
-        };
-
-        MethodsCtrl.prototype.isActive = function (path) {
-            return this.dropdownStatus.active == this.trimPath(path);
-        };
-
-        MethodsCtrl.prototype.getActive = function () {
-            return this.dropdownStatus.active;
-        };
-
-        MethodsCtrl.prototype.trimPath = function (path) {
-            var splitPath = path.split('/').reverse();
-            return splitPath[0];
         };
 
         // method for modal

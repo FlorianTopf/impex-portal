@@ -19,6 +19,11 @@ module portal {
         private methodsPromise: ng.IPromise<any>
         private database: Database
         
+        // helpers for methods modal
+        public dropdownStatus = {
+            isopen: false,
+            active: 'Choose Method'
+        }
         public methods: Array<Api> = []
         public initialising: boolean = false
         public status: string = ''
@@ -121,6 +126,32 @@ module portal {
             this.methodsService.notify('error', this.database.id)
         }
         
+        // retry if alert is cancelled
+        public retry() {
+            this.loadMethodsAPI()
+        }
+        
+        // set a method active and forward info to directives
+        public setActive(method: Api) {
+            //console.log('set-active')
+            this.dropdownStatus.active = this.trimPath(method.path)
+            // here we need a delay (maybe we shift this somewhere else)
+            this.timeout(() => this.scope.$broadcast('set-method-active', method))
+        }
+        
+        public isActive(path: string): boolean {
+            return this.dropdownStatus.active == this.trimPath(path)
+        }
+        
+        public getActive(): string {
+            return this.dropdownStatus.active
+        }
+        
+        public trimPath(path: string): string {
+            var splitPath = path.split('/').reverse()
+            return splitPath[0]
+        }
+        
         // method for submission
         public submitMethod() {
             //console.log('submitted '+this.currentMethod.path+' '+this.request['id'])
@@ -151,38 +182,6 @@ module portal {
         // notifies dir to reset the request
         public resetMethod() {
             this.scope.$broadcast('reset-method-request')
-        }
-        
-        // retry if alert is cancelled
-        public retry() {
-            this.loadMethodsAPI()
-        }
-        
-        // helpers for methods modal
-        public dropdownStatus = {
-            isopen: false,
-            active: 'Choose Method'
-        }
-        
-        // set a method active and forward info to directives
-        public setActive(method: Api) {
-            //console.log('set-active')
-            this.dropdownStatus.active = this.trimPath(method.path)
-            // here we need a delay (maybe we shift this somewhere else)
-            this.timeout(() => this.scope.$broadcast('set-method-active', method))
-        }
-        
-        public isActive(path: string): boolean {
-            return this.dropdownStatus.active == this.trimPath(path)
-        }
-        
-        public getActive(): string {
-            return this.dropdownStatus.active
-        }
-        
-        public trimPath(path: string): string {
-            var splitPath = path.split('/').reverse()
-            return splitPath[0]
         }
         
         // method for modal

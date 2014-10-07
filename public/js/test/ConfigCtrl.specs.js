@@ -92,9 +92,3 @@ describe('ConfigCtrl', function() {
 	
 
 });
-
-
-
-
-
-
