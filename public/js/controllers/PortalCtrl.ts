@@ -19,7 +19,7 @@ module portal {
     export class PortalCtrl {
         private scope: portal.IPortalScope
         // we must use any here (to access global vars)
-        private window: any
+        private window: ng.IWindowService
         private timeout: ng.ITimeoutService
         private http: ng.IHttpService
         private state: ng.ui.IStateService
@@ -125,10 +125,7 @@ module portal {
             
             // unregister from SAMP when navigating away
             var onBeforeUnloadHandler = (e) => {
-                this.sampService.connector.unregister()
-                // accessing the global var
-                this.window.isSampRegistered = false 
-                this.sampService.clients = {}
+                this.unregisterSamp()
             }
             if (this.window.addEventListener) {
                 this.window.addEventListener('beforeunload', onBeforeUnloadHandler)
@@ -247,12 +244,11 @@ module portal {
                 isSampRegistered = false
             }
             this.sampService.connector.runWithConnection(send, error)
-            
         }
         
         public unregisterSamp() {
             this.sampService.connector.unregister()
-            this.window.isSampRegistered = false
+            this.window['isSampRegistered'] = false
             this.sampService.clients = {}
         }
         
@@ -278,9 +274,8 @@ module portal {
             this.scope.$broadcast('clear-paths')
         }
         
-        
         //feedback form submit
-        public submitFeedback(feedback: any) {
+        public submitFeedback(feedback: ng.IFormController) {
             //console.log(JSON.stringify(feedback))
             this.submitted = true
             this.submitButtonDisabled = true
@@ -302,7 +297,7 @@ module portal {
                         this.result = 'bg-success'
                     } else {
                         // @FUNKY reloading over the window scope
-                        this.window.Recaptcha.reload()
+                        this.window['Recaptcha'].reload()
                         this.submitButtonDisabled = false
                         this.resultMessage = data.message
                         this.result = 'bg-danger'

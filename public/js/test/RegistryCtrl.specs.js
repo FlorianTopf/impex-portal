@@ -55,14 +55,15 @@ describe('RegistryCtrl on Simulations', function() {
 		$httpBackend.when('GET', 
 				'/registry/numericaloutput?fmt=json&id=spase:%2F%2FIMPEX%2FSimulationRun%2FFMI%2FHYB%2Fvenus%2Fvenus_nominal_lowres_cx_20121120').respond(outputs)
 		$httpBackend.when('GET', '/registry/granule?fmt=json&id=spase:%2F%2FIMPEX%2FNumericalOutput%2FLATMOS%2FHybrid%2FMerc_02_10_13%2FHes%2F3D').respond(granule)
+		
 		$controller('registryCtrl', {$scope: scope, $timeout: timeout, configService: cService, 
 			registryService: rService, $state: state, $modalInstance: modalInstance, id: repoId});
 	}));
 	
 	it('should inject services', function(){
+		expect(scope.regvm.timeout).toBeDefined();
 		expect(scope.regvm.configService).toBeDefined();
 		expect(scope.regvm.registryService).toBeDefined();
-		expect(scope.regvm.timeout).toBeDefined();
 		expect(scope.regvm.state).toBeDefined();
 		expect(scope.regvm.modalInstance).toBeDefined();
 	});
@@ -200,9 +201,9 @@ describe('RegistryCtrl on Observations', function() {
 	}));
 	
 	it('should inject services', function(){
+		expect(scope.regvm.timeout).toBeDefined();
 		expect(scope.regvm.configService).toBeDefined();
 		expect(scope.regvm.registryService).toBeDefined();
-		expect(scope.regvm.timeout).toBeDefined();
 		expect(scope.regvm.state).toBeDefined();
 		expect(scope.regvm.modalInstance).toBeDefined();
 	});

@@ -1410,11 +1410,7 @@ var portal;
 
             // unregister from SAMP when navigating away
             var onBeforeUnloadHandler = function (e) {
-                _this.sampService.connector.unregister();
-
-                // accessing the global var
-                _this.window.isSampRegistered = false;
-                _this.sampService.clients = {};
+                _this.unregisterSamp();
             };
             if (this.window.addEventListener) {
                 this.window.addEventListener('beforeunload', onBeforeUnloadHandler);
@@ -1536,7 +1532,7 @@ else
 
         PortalCtrl.prototype.unregisterSamp = function () {
             this.sampService.connector.unregister();
-            this.window.isSampRegistered = false;
+            this.window['isSampRegistered'] = false;
             this.sampService.clients = {};
         };
 
@@ -1587,7 +1583,7 @@ else
                         _this.result = 'bg-success';
                     } else {
                         // @FUNKY reloading over the window scope
-                        _this.window.Recaptcha.reload();
+                        _this.window['Recaptcha'].reload();
                         _this.submitButtonDisabled = false;
                         _this.resultMessage = data.message;
                         _this.result = 'bg-danger';

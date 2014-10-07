@@ -1,7 +1,7 @@
 'use strict'
 
 describe('ConfigCtrl', function() {
-	var path = '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/'
+	var path = '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/';
 	
 	var scope, interval, cService, uService, state, cfg, uData, regs, $httpBackend, $q;
 	
