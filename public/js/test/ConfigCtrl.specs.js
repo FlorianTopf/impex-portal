@@ -3,7 +3,9 @@
 describe('ConfigCtrl', function() {
 	var path = '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/';
 	
-	var scope, interval, cService, uService, state, cfg, uData, regs, $httpBackend, $q;
+	var scope, interval, cService, uService, state, cfg, uData, regs, $httpBackend;
+	
+	beforeEach(module('templates'));
 	
 	beforeEach(angular.mock.module('portal'));
 	
@@ -21,14 +23,14 @@ describe('ConfigCtrl', function() {
 		cfg = getJSONFixture('config.json');
 		uData = getJSONFixture('userData.json');
 		regs = getJSONFixture('regions.json');
+		
 		$httpBackend.when('GET', '/methods/FMI/isAlive').respond(true);
 		$httpBackend.when('GET', '/methods/LATMOS/isAlive').respond(true);
 		$httpBackend.when('GET', '/methods/SINP/isAlive').respond(true);
+		$httpBackend.when('GET', '/methods/AMDA/isAlive').respond(true);
 		$httpBackend.when('GET', '/config?fmt=json').respond(cfg);
 		$httpBackend.when('GET', '/userdata').respond(uData);
 		$httpBackend.when('GET', '/filter/region').respond(regs);
-		// just serve an empty result here 
-		$httpBackend.when('GET', '/public/partials/portalMap.html').respond('');
 	
 		$controller('configCtrl', {$scope: scope, $interval: interval, configService: cService, 
 			userService: uService, $state: state, config: cfg, userData: uData, regions: regs});
@@ -79,7 +81,7 @@ describe('ConfigCtrl', function() {
 		expect(scope.vm.configService.filterMap).toBeDefined();
 		cfg.databases.forEach(function(d) {
 			// only simulations are used atm
-			if(d.type == 'simulation') {
+			if(d.portal == true) {
 				expect(scope.vm.configService.aliveMap[d.id]).toBeTruthy();
 				expect(scope.vm.configService.filterMap[d.id]).toBeTruthy();
 			} else {

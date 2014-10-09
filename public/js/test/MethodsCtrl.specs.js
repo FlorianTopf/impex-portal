@@ -6,6 +6,8 @@ describe('MethodsCtrl on Simulations', function() {
 	var scope, window, timeout, cService, mService, uService, state, modalInstance, 
 		repoId, db, methods, apiDocs, result, $httpBackend;
 	
+	beforeEach(module('templates'));
+	
 	beforeEach(angular.mock.module('portal'));
 	
 	beforeEach(angular.mock.inject(function($rootScope, $window, $timeout, configService, 
@@ -18,26 +20,29 @@ describe('MethodsCtrl on Simulations', function() {
 		mService = methodsService;
 		uService = userService
 		state = $state;
-		// Create a mock object using spies
+		// create a mock object using spies
 	    modalInstance = {                 
 	    	close: jasmine.createSpy('modalInstance.close'),
 	    	dismiss: jasmine.createSpy('modalInstance.dismiss'),
 	    	result: {
 	    	   then: jasmine.createSpy('modalInstance.result.then')
 	    	}
-	    };
+	    }
 		$httpBackend = _$httpBackend_;
+		
 		// spying on broadcast events
         spyOn(scope, '$broadcast');
 		
         jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock';
-		//just mocking the configService getDatabase method
 		db = getJSONFixture('simDatabase.json');
-		cService.getDatabase = function(id){ return db; }
 		methods = getJSONFixture('simMethods.json');
 		apiDocs = getJSONFixture('methods.json');
+		result = getJSONFixture('methodResult.json');
+		
+		// just mocking some methods
+		cService.getDatabase = function(id){ return db; }
 		mService.getMethods = function(db){ return methods; }
-		//just mocking the method stored in sessionstorage
+		// just mocking the method stored in sessionstorage
 		uService.sessionStorage.methods = getJSONFixture('sessionMethod.json');
 		// just mocking a userId
 		uService.createId = function(){ return '1234'; }
@@ -46,16 +51,13 @@ describe('MethodsCtrl on Simulations', function() {
 				results: []
 		}
 		
-		//just mock a method result
-		result = getJSONFixture('methodResult.json');
-		
-		$httpBackend.when('GET', '/config?fmt=json').respond(getJSONFixture('config.json'));
-		$httpBackend.when('GET', '/userdata').respond(getJSONFixture('userData.json'));
-		$httpBackend.when('GET', '/filter/region').respond(getJSONFixture('regions.json'));
+		// state init needs empty responses here
+		$httpBackend.when('GET', '/config?fmt=json').respond('');
+		$httpBackend.when('GET', '/userdata').respond('');
+		$httpBackend.when('GET', '/filter/region').respond('');
+		// serving the api docs
 		$httpBackend.when('GET', '/api-docs/methods').respond(apiDocs);
-		// just serve an empty result here 
-		$httpBackend.when('GET', '/public/partials/portalMap.html').respond('');
-		
+		// serving a result
 		$httpBackend.when('GET', '/methods/FMI/getDataPointValue?id=spase:%2F%2FIMPEX%2FNumericalOutput%2F'+
 				'FMI%2FHYB%2Fmars%2Fspiral_angle_runset_20130607_mars_20deg%2FMag&interpolation_method=Linear&'+
 				'output_filetype=VOTable&votable_url=http:%2F%2Fimpex-fp7.fmi.fi%2Fws_tests%2Finput%2FgetDataPointValue_input.vot').respond(result);

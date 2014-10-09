@@ -3,6 +3,7 @@
         {
             "id": "spase://IMPEX/Repository/FMI/HYB",
             "type": "simulation",
+            "portal": true,
             "name": "FMI-HYBRID",
             "description": "FMI Hybrid web archive",
             "dns": ["impex-fp7.fmi.fi"],
@@ -14,6 +15,7 @@
         {
             "id": "spase://IMPEX/Repository/FMI/GUMICS",
             "type": "simulation",
+            "portal": true,
             "name": "FMI-GUMICS",
             "description": "FMI MHD web archive",
             "dns": ["impex-fp7.fmi.fi"],
@@ -25,6 +27,7 @@
         {
             "id": "spase://IMPEX/Repository/LATMOS",
             "type": "simulation",
+            "portal": true,
             "name": "LATMOS",
             "description": "LATMOS Hybrid simulations",
             "dns": ["impex.latmos.ipsl.fr"],
@@ -36,6 +39,7 @@
         {
             "id": "spase://IMPEX/Repository/SINP",
             "type": "simulation",
+            "portal": true,
             "name": "SINP",
             "description": "SINP Paraboloid Model simulations",
             "dns": ["smdc.sinp.msu.ru"],
@@ -45,19 +49,33 @@
             "info": "http://smdc.sinp.msu.ru/index.py?nav=model-para"
         },
         {
+            "id": "spase://IMPEX/Repository/VMO",
+            "type": "simulation",
+            "portal": false,
+            "name": "UCLA",
+            "description": "UCLA simulations",
+            "dns": ["apus.cesr.fr"],
+            "methods": [""],
+            "tree": ["/AMDA-IMPEX/public/trees/Tree_UCLA.xml"],
+            "protocol": ["http"],
+            "info": ""
+        },
+        {
             "id": "spase://IMPEX/Repository/AMDA",
             "type": "observation",
+            "portal": true,
             "name": "AMDA",
             "description": "AMDA observational database",
             "dns": ["cdpp1.cesr.fr"],
-            "methods": ["/AMDA/php/AMDA_METHODS_WSDL.php?wsdl"],
-            "tree": ["/AMDA/data/WSRESULT/getObsDataTree_LocalParams.xml"],
+            "methods": ["/AMDA-NG/public/wsdl/Methods_AMDA.wsdl"],
+            "tree": ["/AMDA-NG/public/impex/spase_amda_tree-1_0_0.xml"],
             "protocol": ["http"],
             "info": "http://clweb.cesr.fr/webservice.html"
         },
         {
             "id": "spase://IMPEX/Repository/CLWEB",
             "type": "observation",
+            "portal": false,
             "name": "CLWeb",
             "description": "CLWeb observational databases",
             "dns": ["clweb.cesr.fr"],

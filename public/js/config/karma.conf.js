@@ -11,7 +11,6 @@ module.exports = function(config) {
     // frameworks to use
     frameworks: ['jasmine'],
 
-
     // list of files / patterns to load in the browser
     files: [
       '../libs/jquery.js',
@@ -21,8 +20,9 @@ module.exports = function(config) {
       '../libs/angular-mocks.js',
       '../libs/*.js',
       '../app.js',
-      '../test/*.specs.js',
       '../config/jasmine-jquery.js',
+      '../test/*.specs.js',
+  	  '../../partials/**/*.html',
       {pattern: '../test/mock/*.json', watched: true, served: true, included: false},
     ],
 
@@ -31,6 +31,22 @@ module.exports = function(config) {
     exclude: [
       
     ],
+    
+    // template preprocessors
+    preprocessors: {
+    	'../../partials/**/*.html': ['ng-html2js']
+    },
+  
+    ngHtml2JsPreprocessor: {
+    	// Paths by default are relative to DISK root, 
+    	// so we need to make them relative to this folder
+    	cacheIdFromPath : function(filepath) {
+    		 return filepath.replace("/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/", "/");
+        },
+    	// setting this option will create only a single module that contains templates
+    	// from all the files, so you can load them all with module('foo')
+    	moduleName: 'templates'
+    },
 
 
     // test results reporter to use

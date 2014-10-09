@@ -1,9 +1,11 @@
 'use strict'
 
-describe('RegistrySvc', function() {
+describe('RegistryService', function() {
 	var path = '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/'
 		
-	var scope, resource, rService, cfg, uData, regs, repos, models, runs, outputs, granule, $httpBackend, $q;
+	var scope, resource, rService, repos, models, runs, outputs, granule, $httpBackend;
+	
+	beforeEach(module('templates'));
 	
 	beforeEach(angular.mock.module('portal'));
 	
@@ -11,20 +13,19 @@ describe('RegistrySvc', function() {
 		scope = $rootScope;
 		rService = registryService;
 		$httpBackend = _$httpBackend_;
+		
 		// spying on broadcast events
         spyOn(scope, '$broadcast').andCallThrough();
 		
         jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock';
-		cfg = getJSONFixture('config.json');
-		uData = getJSONFixture('userData.json');
 		repos = getJSONFixture('simRepository.json');
 		
-		$httpBackend.when('GET', '/config?fmt=json').respond(cfg);
-		$httpBackend.when('GET', '/userdata').respond(uData);
-		$httpBackend.when('GET', '/filter/region').respond(regs);
+		// @TODO creation needs empty responses here
+		$httpBackend.when('GET', '/config?fmt=json').respond('');
+		$httpBackend.when('GET', '/userdata').respond('');
+		$httpBackend.when('GET', '/filter/region').respond('');
+		// return repositories
 		$httpBackend.when('GET', '/registry/repository?fmt=json&id=spase:%2F%2FIMPEX%2FRepository%2FFMI%2FHYB').respond(repos);
-		// just serve an empty result here 
-		$httpBackend.when('GET', '/public/partials/portalMap.html').respond('');
 	}));
 	
 	
@@ -47,10 +48,10 @@ describe('RegistrySvc', function() {
 
 	it('should fetch repository', function(){
 		var promise = rService.Repository().get({ fmt: 'json' , id: 'spase://IMPEX/Repository/FMI/HYB' }).$promise;
+		$httpBackend.flush();
 		promise.then(function(r){
 			expect(r.resources).toEqual(repos.resources)
 		});
-		$httpBackend.flush();
 	});
 	
 	// @TODO test the rest of resources (maybe not needed)

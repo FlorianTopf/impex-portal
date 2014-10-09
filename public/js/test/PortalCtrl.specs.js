@@ -4,14 +4,16 @@
 describe('PortalCtrl', function() {
 	var path = '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/';
 		
-	var scope, window, timeout, cService, mService, rService, sService, state, growlService, regs, $httpBackend;
+	var scope, window, timeout, cService, mService, rService, sService, state, growlService, regs, db, $httpBackend;
+	
+	beforeEach(module('templates'));
 	
 	beforeEach(angular.mock.module('portal'));
 	
 	beforeEach(angular.mock.inject(function($rootScope, $window, $timeout, configService, 
 			methodsService, registryService, sampService, $state, growl, $controller, _$httpBackend_) {
 
-		scope = $rootScope.$new();
+		scope = $rootScope;
 		timeout = $timeout;
 		window = $window;
 		cService = configService;
@@ -21,16 +23,24 @@ describe('PortalCtrl', function() {
 		state = $state;
 		growlService = growl;
 		$httpBackend = _$httpBackend_;
+		
 		// spying on broadcast events
         spyOn(scope, '$broadcast').andCallThrough();
+        spyOn(scope, '$on').andCallThrough();
         // spying on growl warning
         spyOn(growlService, 'warning');
-        // spying on samp caller (only against mock .andCallThrough() doesn't work)
+        // spying on samp caller (only against mock .andCallThrough() isn't testable)
         spyOn(sService.connector, 'runWithConnection');
         spyOn(sService.connector, 'unregister');
         
         jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock';
+		//just mocking the configService getDatabase method
+		db = getJSONFixture('simDatabase.json');
+		cService.getDatabase = function(id){ return db; }
+		// init filterMap (usually done in config resolve)
+		cService.filterMap = getJSONFixture('filterMap.json');
 		regs = getJSONFixture('regions.json');
+		
 		$httpBackend.when('GET', '/config?fmt=json').respond(getJSONFixture('config.json'));
 		$httpBackend.when('GET', '/userdata').respond(getJSONFixture('userData.json'));
 		$httpBackend.when('GET', '/filter/region').respond(regs);
@@ -38,10 +48,6 @@ describe('PortalCtrl', function() {
 				['spase://IMPEX/Repository/FMI/HYB']);
 		$httpBackend.when('GET', '/filter/region/'+regs.data[1]).respond(
 				['spase://IMPEX/Repository/FMI/HYB','spase://IMPEX/Repository/LATMOS']);
-		// init filterMap (usually done in config resolve)
-		cService.filterMap = getJSONFixture('filterMap.json');
-		// just serve an empty result here 
-		$httpBackend.when('GET', '/public/partials/portalMap.html').respond('');
 
 		$controller('portalCtrl', {$scope: scope, $window: window, $timeout: timeout, configService: cService, 
 			methodsService: mService, registryService: rService, $state: state, growl: growlService});
@@ -113,6 +119,24 @@ describe('PortalCtrl', function() {
 	it('should init selectable filters', function(){
         for(var r in scope.vm.configService.filterRegions)
             expect(scope.vm.registryService.selectedFilter[r]).toBeFalsy();
+	});
+	
+	it('should react on service-success broadcast', function(){
+		// simulating broadcast
+        scope.$broadcast('service-success', 'spase://IMPEX/Repository/FMI/HYB');
+		// scope $on must be called and local variables must be set
+		expect(scope.$on).toHaveBeenCalled();
+		expect(scope.vm.activeDatabase).toBeNull();
+		expect(scope.vm.activeService).toEqual(db.name);
+	});
+	
+	it('should react on database-success broadcast', function(){
+		// simulating broadcast
+        scope.$broadcast('database-success', 'spase://IMPEX/Repository/FMI/HYB');
+		// scope $on must be called and local variables must be set
+		expect(scope.$on).toHaveBeenCalled();
+		expect(scope.vm.activeDatabase).toEqual(db.name);
+		expect(scope.vm.activeService).toBeNull();
 	});
 	
 	it('should toogle filter collapsible', function(){
@@ -189,7 +213,6 @@ describe('PortalCtrl', function() {
         //spyOn(scope.vm, 'unregisterSamp');
 		// trigger the event
         scope.vm.window.onbeforeunload();
-
 		//expect(scope.vm.window.onbeforeunload).toHaveBeenCalled();
 		//expect(scope.vm.unregisterSamp).toHaveBeenCalled();
 		expect(scope.vm.window.isSampRegistered).toBeFalsy(); 
