@@ -2,6 +2,10 @@
 
 module portal {
     'use strict';
+    
+    export interface ICanvasDirScope extends ng.IScope {
+       canvasdirvm: CanvasDir
+    }
 
     export class CanvasDir implements ng.IDirective {
 
@@ -14,7 +18,7 @@ module portal {
             ]
         }
 
-        public link: ($scope: ng.IScope, element: JQuery, attributes: any) => any
+        public link: ($scope: portal.ICanvasDirScope, element: JQuery, attributes: any) => any
         public template: string
         public restrict: string
 
@@ -32,6 +36,7 @@ module portal {
         private myData: JQueryCoordinates
         private tools: JQueryCoordinates
 
+        private myScope: ICanvasDirScope
         private configService: portal.ConfigService
         private timeout: ng.ITimeoutService
 
@@ -41,31 +46,36 @@ module portal {
 
             this.template = '<canvas id="canvas"></canvas>'
             this.restrict = 'E'
-            this.link = ($scope: ng.IScope, element: JQuery, attributes: ng.IAttributes) => this.linkFn($scope, element, attributes)
+            this.link = ($scope: portal.ICanvasDirScope, element: JQuery, attributes: ng.IAttributes) => 
+                this.linkFn($scope, element, attributes)
         }
 
-        linkFn($scope: ng.IScope, element: JQuery, attributes: any): any {
-            $scope.$watch('windowWidth', (newVal, oldVal) => {
+        linkFn($scope: portal.ICanvasDirScope, element: JQuery, attributes: any): any {
+            this.myScope = $scope
+            $scope.canvasdirvm = this
+            
+            // will be called on init too
+            this.myScope.$watch('windowWidth', (newVal, oldVal) => {
                 this.timeout(() => this.handleResize(element))
             })
             
-            $scope.$on('database-success', (e, id: string) => {
+            this.myScope.$on('database-success', (e, id: string) => {
                 this.activeDatabase = this.configService.getDatabase(id).name
                 this.drawDatabasePath()
             })
             
-            $scope.$on('service-success', (e, id: string) => {
+            this.myScope.$on('service-success', (e, id: string) => {
                 this.activeService = this.configService.getDatabase(id).name
                 this.drawServicePath()
             })
             
-            $scope.$on('clear-paths', (e) => {
+            this.myScope.$on('clear-paths', (e) => {
                 this.activeDatabase = null
                 this.activeService = null
                 this.clear()
             })
             
-            $scope.$on('draw-paths', (e) => {
+            this.myScope.$on('draw-paths', (e) => {
                 this.toggleCanvas(true)
                 $("#filter-collapse, #samp-collapse").one(
                     'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', 
@@ -103,11 +113,13 @@ module portal {
         }
         
         private drawDatabasePath() {
+            this.main = $("#main").offset()
             this.database = $("#"+this.activeDatabase+"-database").offset()
-            this.elemH = $("#"+this.activeDatabase+"-database").outerHeight(true)
-            this.elemW = $("#"+this.activeDatabase+"-database").outerWidth(true)
             this.service = $("#"+this.activeDatabase+"-service").offset()
             this.myData = $('#MY-DATA').offset() 
+            this.elemH = $("#"+this.activeDatabase+"-database").outerHeight(true)
+            this.elemW = $("#"+this.activeDatabase+"-database").outerWidth(true)
+
             //console.log(JSON.stringify(this.myData)+' '+this.elemH+' '+this.elemW)
             // clear canvas before
             this.clear()
@@ -133,11 +145,13 @@ module portal {
         }
         
         private drawServicePath() {
+            this.main = $("#main").offset()
             this.service = $("#"+this.activeService+"-service").offset()
+            this.myData = $('#MY-DATA').offset() 
+            this.tools = $('#TOOLS').offset()
             this.elemH = $("#"+this.activeService+"-database").outerHeight(true)
             this.elemW = $("#"+this.activeService+"-database").outerWidth(true)
-            this.tools = $('#TOOLS').offset()
-            this.myData = $('#MY-DATA').offset() 
+
             // clear canvas before
             this.clear()
             var canvas = <HTMLCanvasElement>document.getElementById('canvas')

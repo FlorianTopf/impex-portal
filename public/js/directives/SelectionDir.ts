@@ -3,7 +3,7 @@
 module portal {
     'use strict';
     
-    //importing urlize function
+    // importing urlize function
     declare var urlize: any
     
     // @TODO implement loading visualisation

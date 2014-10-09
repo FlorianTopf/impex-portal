@@ -32,9 +32,9 @@ module portal {
             // read all regions at startup (@TODO set an interval for refresh?)
             this.configService.filterRegions = regions.data
             
-            // map only for simulation databases atm 
+            // map only for databses with portal flag equal true
             this.configService.config.databases
-                .filter((e) => e.type == 'simulation')
+                .filter((e) => e.portal == true)
                 .forEach((e) => { 
                     // initialise portal map disablers
                     /*this.configService.aliveMap[e.id] = false*/
@@ -46,7 +46,7 @@ module portal {
             // @TODO this routine must be changed (if we use filters in parallel)
             // set interval to check if methods are still alive => every 10 minutes (600k ms)
             /*this.interval(() => this.configService.config.databases
-                .filter((e) => e.type == 'simulation')
+                .filter((e) => e.portal == true)
                 .forEach((e) => { 
                     this.configService.isAlive(e) }), 600000)*/
             
