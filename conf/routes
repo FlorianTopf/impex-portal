@@ -80,6 +80,7 @@ GET		/methods/FMI/getParticleTrajectory					controllers.FMIMethods.getParticleTr
 GET		/methods/FMI/getDataPointSpectra					controllers.FMIMethods.getDataPointSpectra
 GET		/methods/FMI/getDataPointSpectraSpacecraft			controllers.FMIMethods.getDataPointSpectraSpacecraft
 # amda methods
+GET		/methods/AMDA/isAlive								controllers.AMDAMethods.isAlive
 GET		/methods/AMDA/getTimeTableList						controllers.AMDAMethods.getTimeTableList
 GET		/methods/AMDA/getTimeTable							controllers.AMDAMethods.getTimeTable
 GET		/methods/AMDA/getParameterList						controllers.AMDAMethods.getParameterList
