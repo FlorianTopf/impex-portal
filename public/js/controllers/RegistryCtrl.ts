@@ -73,7 +73,7 @@ module portal {
         
         // takes repository id
         public getSimulationModel(id: string) {
-            this.scope.$broadcast('clear-simulation-models')
+            this.scope.$broadcast('clear-registry-dir')
             this.loading = true
             var cacheId = 'model-'+id
             if(!(cacheId in this.registryService.cachedElements)) {  
@@ -164,7 +164,7 @@ module portal {
         
         // takes repository id
         public getObservatory(id: string) {
-            this.scope.$broadcast('clear-observatories')
+            this.scope.$broadcast('clear-registry-dir')
             this.loading = true
             var cacheId = 'obs-'+id
             if(!(cacheId in this.registryService.cachedElements)) {  

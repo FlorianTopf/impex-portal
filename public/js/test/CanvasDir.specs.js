@@ -72,7 +72,9 @@ describe('CanvasDir', function () {
 			var template = createDirective();
 			var templateAsHtml = template.html();
 			expect(templateAsHtml).toEqual('<canvas id="canvas"></canvas>');
-			expect(scope.configService.config).toEqual(cfg);
+			expect(scope.canvasdirvm.configService.config).toEqual(cfg);
+			expect(scope.canvasdirvm.activeDatabase).toBeNull();
+			expect(scope.canvasdirvm.activeService).toBeNull();
 		});
 		
 		it('should handle resize', function(){

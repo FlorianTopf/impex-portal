@@ -6,6 +6,8 @@ describe('RegistryCtrl on Simulations', function() {
 	var scope, timeout, cService, rService, state, modalInstance, db, 
 		repos, models, runs, outputs, granuleInput, granule, $httpBackend;
 	
+	beforeEach(module('templates'));
+	
 	beforeEach(angular.mock.module('portal'));
 	
 	beforeEach(angular.mock.inject(function($rootScope, $timeout, configService, 
@@ -16,35 +18,35 @@ describe('RegistryCtrl on Simulations', function() {
 		cService = configService;
 		rService = registryService;
 		state = $state;
-		// Create a mock object using spies
+		// create a mock object using spies
 	    modalInstance = {                 
 	    	close: jasmine.createSpy('modalInstance.close'),
 	    	dismiss: jasmine.createSpy('modalInstance.dismiss'),
 	    	result: {
 	    	   then: jasmine.createSpy('modalInstance.result.then')
 	    	}
-	    };
+	    }
 		$httpBackend = _$httpBackend_;
 		
 		// spying on broadcast events
         spyOn(scope, '$broadcast');
 		
         jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock';
-		//just mocking the configService getDatabase method
 		db = getJSONFixture('simDatabase.json');
-		cService.getDatabase = function(id){ return db; }
 		repos = getJSONFixture('simRepository.json');
 		models = getJSONFixture('simulationmodel.json');
 		runs = getJSONFixture('simulationrun.json');
 		outputs = getJSONFixture('numericaloutput.json');
 		granuleInput = getJSONFixture('granule-input.json');
 		granule = getJSONFixture('granule.json');
+		
+		// just mocking the configService getDatabase method
+		cService.getDatabase = function(id){ return db; }
 
-		$httpBackend.when('GET', '/config?fmt=json').respond(getJSONFixture('config.json'));
-		$httpBackend.when('GET', '/userdata').respond(getJSONFixture('userData.json'));
-		$httpBackend.when('GET', '/filter/region').respond(getJSONFixture('regions.json'));
-		// just serve an empty template here
-		$httpBackend.when('GET', '/public/partials/portalMap.html').respond('');
+		// state init needs empty responses here
+		$httpBackend.when('GET', '/config?fmt=json').respond('');
+		$httpBackend.when('GET', '/userdata').respond('');
+		$httpBackend.when('GET', '/filter/region').respond('');
 		
 		$httpBackend.when('GET', 
 				'/registry/repository?fmt=json&id=spase:%2F%2FIMPEX%2FRepository%2FFMI%2FHYB').respond(repos)
@@ -101,7 +103,7 @@ describe('RegistryCtrl on Simulations', function() {
 		expect(scope.regvm.registryService.cachedElements[cacheId]).toBeDefined();
 		var cacheElem = models.resources.map(function(r){ return r.simulationModel; });
 		expect(scope.regvm.registryService.cachedElements[cacheId]).toEqual(cacheElem);
-		expect(scope.$broadcast).toHaveBeenCalledWith('clear-simulation-models');
+		expect(scope.$broadcast).toHaveBeenCalledWith('clear-registry-dir');
 		expect(scope.$broadcast).toHaveBeenCalledWith('update-simulation-models', cacheId);
 	});
 	
@@ -161,6 +163,8 @@ describe('RegistryCtrl on Observations', function() {
 	var scope, timeout, cService, rService, state, modalInstance, db, 
 		repos, obs, instr, data, $httpBackend;
 	
+	beforeEach(module('templates'));
+	
 	beforeEach(angular.mock.module('portal'));
 	
 	beforeEach(angular.mock.inject(function($rootScope, $timeout, configService, 
@@ -178,25 +182,25 @@ describe('RegistryCtrl on Observations', function() {
 	    	result: {
 	    	   then: jasmine.createSpy('modalInstance.result.then')
 	    	}
-	    };
+	    }
 		$httpBackend = _$httpBackend_;
+	    
 		// spying on broadcast events
         spyOn(scope, '$broadcast');
 		
         jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock';
-		//just mocking the configService getDatabase method
 		db = getJSONFixture('obsDatabase.json');
-		cService.getDatabase = function(id){ return db; }
 		repos = getJSONFixture('obsRepository.json');
 		obs = getJSONFixture('observatory.json');
 		instr = getJSONFixture('instrument.json');
 		data = getJSONFixture('numericaldata.json');
+		
+		// just mocking the configService getDatabase method
+		cService.getDatabase = function(id){ return db; }
 
-		$httpBackend.when('GET', '/config?fmt=json').respond(getJSONFixture('config.json'));
-		$httpBackend.when('GET', '/userdata').respond(getJSONFixture('userData.json'));
-		$httpBackend.when('GET', '/filter/region').respond(getJSONFixture('regions.json'));
-		// just serve an empty result here 
-		$httpBackend.when('GET', '/public/partials/portalMap.html').respond('');
+		$httpBackend.when('GET', '/config?fmt=json').respond('');
+		$httpBackend.when('GET', '/userdata').respond('');
+		$httpBackend.when('GET', '/filter/region').respond('');
 		
 		$httpBackend.when('GET', 
 				'/registry/repository?fmt=json&id=spase:%2F%2FIMPEX%2FRepository%2FAMDA').respond(repos);
@@ -206,6 +210,7 @@ describe('RegistryCtrl on Observations', function() {
 				'/registry/instrument?fmt=json&id=spase:%2F%2FIMPEX%2FObservatory%2FAMDA%2FACE').respond(instr);
 		$httpBackend.when('GET', 
 				'/registry/numericaldata?fmt=json&id=spase:%2F%2FIMPEX%2FInstrument%2FAMDA%2FACE%2FEphemeris').respond(data)
+				
 		$controller('registryCtrl', {$scope: scope, $timeout: timeout, configService: cService, 
 			registryService: rService, $state: state, $modalInstance: modalInstance, id: db.id});
 	}));
@@ -229,7 +234,6 @@ describe('RegistryCtrl on Observations', function() {
         expect(scope.regvm.loading).toBeFalsy();
 	});
 
-
 	it('should init database object', function(){
 		$httpBackend.flush();
 		expect(scope.regvm.database).toEqual(db);
@@ -252,7 +256,7 @@ describe('RegistryCtrl on Observations', function() {
 		expect(scope.regvm.registryService.cachedElements[cacheId]).toBeDefined();
 		var cacheElem = obs.resources.map(function(r){ return r.observatory; });
 		expect(scope.regvm.registryService.cachedElements[cacheId]).toEqual(cacheElem);
-		expect(scope.$broadcast).toHaveBeenCalledWith('clear-observatories');
+		expect(scope.$broadcast).toHaveBeenCalledWith('clear-registry-dir');
 		expect(scope.$broadcast).toHaveBeenCalledWith('update-observatories', cacheId);
 	});
 	

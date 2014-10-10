@@ -34,15 +34,18 @@ describe('PortalCtrl', function() {
         spyOn(sService.connector, 'unregister');
         
         jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock';
-		//just mocking the configService getDatabase method
 		db = getJSONFixture('simDatabase.json');
-		cService.getDatabase = function(id){ return db; }
 		// init filterMap (usually done in config resolve)
 		cService.filterMap = getJSONFixture('filterMap.json');
 		regs = getJSONFixture('regions.json');
 		
-		$httpBackend.when('GET', '/config?fmt=json').respond(getJSONFixture('config.json'));
-		$httpBackend.when('GET', '/userdata').respond(getJSONFixture('userData.json'));
+		// just mocking the configService getDatabase method
+		cService.getDatabase = function(id){ return db; }
+		
+		// state init needs empty responses here
+		$httpBackend.when('GET', '/config?fmt=json').respond('');
+		$httpBackend.when('GET', '/userdata').respond('');
+		// mock filter
 		$httpBackend.when('GET', '/filter/region').respond(regs);
 		$httpBackend.when('GET', '/filter/region/'+regs.data[0]).respond(
 				['spase://IMPEX/Repository/FMI/HYB']);

@@ -22,14 +22,14 @@ module portal {
         public template: string
         public restrict: string
 
-        private width: number
-        private height: number
-        private elemH: number
-        private elemW: number
         // active path from database
         private activeDatabase: string = null
         // active path from service
         private activeService: string = null
+        private width: number
+        private height: number
+        private elemH: number
+        private elemW: number
         private main: JQueryCoordinates
         private database: JQueryCoordinates
         private service: JQueryCoordinates

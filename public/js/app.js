@@ -947,6 +947,7 @@ var portal;
             this.aliveMap = {};
             this.filterMap = {};
             this.filterRegions = [];
+            this.statusMap = {};
             // creates an action descriptor
             this.configAction = {
                 method: 'GET',
@@ -984,6 +985,16 @@ else
                 //console.log('Hello '+db.name+' '+this.aliveMap[db.id])
             }).error(function (data, status) {
                 _this.aliveMap[db.id] = false;
+            });
+        };
+
+        // Status routine
+        ConfigService.prototype.status = function () {
+            var _this = this;
+            this.http.get(this.url + 'registry/status', { timeout: 10000 }).success(function (data, status) {
+                _this.statusMap = data;
+            }).error(function (data, status) {
+                _this.statusMap = {};
             });
         };
 
@@ -1668,7 +1679,7 @@ else if (_this.database.type == 'observation')
         // takes repository id
         RegistryCtrl.prototype.getSimulationModel = function (id) {
             var _this = this;
-            this.scope.$broadcast('clear-simulation-models');
+            this.scope.$broadcast('clear-registry-dir');
             this.loading = true;
             var cacheId = 'model-' + id;
             if (!(cacheId in this.registryService.cachedElements)) {
@@ -1761,7 +1772,7 @@ else if (_this.database.type == 'observation')
         // takes repository id
         RegistryCtrl.prototype.getObservatory = function (id) {
             var _this = this;
-            this.scope.$broadcast('clear-observatories');
+            this.scope.$broadcast('clear-registry-dir');
             this.loading = true;
             var cacheId = 'obs-' + id;
             if (!(cacheId in this.registryService.cachedElements)) {
@@ -2177,13 +2188,16 @@ var portal;
             this.showError = false;
             this.status = '';
             this.repositoryId = null;
+            this.activeItems = {};
             // container for intermediate results
             this.repositories = [];
             this.simulationModels = [];
             this.simulationRuns = [];
             this.numericalOutputs = [];
             this.granules = [];
-            this.activeItems = {};
+            this.observatories = [];
+            this.instruments = [];
+            this.numericalData = [];
             this.registryService = registryService;
             this.userService = userService;
             this.templateUrl = '/public/partials/templates/registryDir.html';
@@ -2223,13 +2237,16 @@ var portal;
                 _this.status = '';
             });
 
-            this.myScope.$on('clear-simulation-models', function (e) {
+            this.myScope.$on('clear-registry-dir', function (e) {
                 _this.activeItems = {};
                 _this.showError = false;
                 _this.simulationModels = [];
                 _this.simulationRuns = [];
                 _this.numericalOutputs = [];
                 _this.granules = [];
+                _this.observatories = [];
+                _this.instruments = [];
+                _this.numericalData = [];
             });
 
             this.myScope.$on('clear-simulation-runs', function (e, element) {
@@ -2259,6 +2276,22 @@ var portal;
                 _this.granules = [];
             });
 
+            this.myScope.$on('clear-instruments', function (e, element) {
+                _this.setActive('Observatory', element);
+                _this.setInactive('Instrument');
+                _this.setInactive('NumericalData');
+                _this.showError = false;
+                _this.instruments = [];
+                _this.numericalData = [];
+            });
+
+            this.myScope.$on('clear-numerical-data', function (e, element) {
+                _this.setActive('Instrument', element);
+                _this.setInactive('NumericalData');
+                _this.showError = false;
+                _this.numericalData = [];
+            });
+
             this.myScope.$on('update-repositories', function (e, id) {
                 _this.repositories = _this.registryService.cachedElements[id].map(function (r) {
                     return r;
@@ -2277,8 +2310,8 @@ var portal;
                 });
 
                 // filtering the runs (when filter is active)
-                _this.simulationRuns = _this.simulationRuns.filter(function (e) {
-                    var matches = e.simulatedRegion.filter(function (r) {
+                _this.simulationRuns = _this.simulationRuns.filter(function (elem) {
+                    var matches = elem.simulatedRegion.filter(function (r) {
                         if (_this.registryService.selectedFilter[r] == true)
                             return true;
 else if (_this.registryService.isFilterSet == false)
@@ -2302,6 +2335,38 @@ else
                     return r;
                 });
             });
+
+            this.myScope.$on('update-observatories', function (e, id) {
+                _this.observatories = _this.registryService.cachedElements[id].map(function (r) {
+                    return r;
+                });
+
+                // filtering the observatories (when filter is active)
+                _this.observatories = _this.observatories.filter(function (elem) {
+                    var matches = elem.location.observatoryRegion.filter(function (r) {
+                        if (_this.registryService.selectedFilter[r] == true)
+                            return true;
+else if (_this.registryService.isFilterSet == false)
+                            return true;
+else
+                            return false;
+                    });
+                    if (matches.length > 0)
+                        return true;
+                });
+            });
+
+            this.myScope.$on('update-instruments', function (e, id) {
+                _this.instruments = _this.registryService.cachedElements[id].map(function (r) {
+                    return r;
+                });
+            });
+
+            this.myScope.$on('update-numerical-data', function (e, id) {
+                _this.numericalData = _this.registryService.cachedElements[id].map(function (r) {
+                    return r;
+                });
+            });
         };
 
         RegistryDir.prototype.setActive = function (type, element) {
@@ -2317,6 +2382,7 @@ else
             this.activeItems[type] = null;
         };
 
+        // needed within the html template
         RegistryDir.prototype.isActive = function (type, element) {
             return this.activeItems[type] === element;
         };

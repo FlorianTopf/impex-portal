@@ -25,16 +25,18 @@ module portal {
         public oneAtATime: boolean = true
         public showError: boolean = false
         public status: string = ''
-        
         public repositoryId: string = null
+        public activeItems: IElementMap = {}
         // container for intermediate results
         public repositories: Array<Repository> = []
         public simulationModels: Array<SimulationModel> = []
         public simulationRuns: Array<SimulationRun> = []
         public numericalOutputs: Array<NumericalOutput> = []
         public granules: Array<Granule> = []
-        public activeItems: IElementMap = {}
-        
+        public observatories: Array<Observatory> = []
+        public instruments: Array<Instrument> = []
+        public numericalData: Array<NumericalData> = []
+
         private myScope: IRegistryDirScope
         private registryService: portal.RegistryService
         private userService: portal.UserService
@@ -68,13 +70,16 @@ module portal {
                 this.status = ''
             })
             
-            this.myScope.$on('clear-simulation-models', (e) => {
+            this.myScope.$on('clear-registry-dir', (e) => {
                 this.activeItems = {}
                 this.showError = false
                 this.simulationModels = []
                 this.simulationRuns = []
                 this.numericalOutputs = []
                 this.granules = []
+                this.observatories = []
+                this.instruments = []
+                this.numericalData = []
             })
             
             this.myScope.$on('clear-simulation-runs', (e, element: SpaseElem) => {
@@ -103,6 +108,22 @@ module portal {
                 this.showError = false
                 this.granules = []
             })
+            
+            this.myScope.$on('clear-instruments', (e, element: SpaseElem) => {
+                this.setActive('Observatory', element)
+                this.setInactive('Instrument')
+                this.setInactive('NumericalData')
+                this.showError = false
+                this.instruments = []
+                this.numericalData = []
+            })
+            
+            this.myScope.$on('clear-numerical-data', (e, element: SpaseElem) => {
+                this.setActive('Instrument', element)
+                this.setInactive('NumericalData')
+                this.showError = false
+                this.numericalData = []
+            })
    
             this.myScope.$on('update-repositories', (e, id: string) => {
                 this.repositories = this.registryService.cachedElements[id].map((r) => <Repository>r)
@@ -115,16 +136,16 @@ module portal {
             this.myScope.$on('update-simulation-runs', (e, id: string) => {
                 this.simulationRuns = this.registryService.cachedElements[id].map((r) => <SimulationRun>r)
                 // filtering the runs (when filter is active)
-                this.simulationRuns = this.simulationRuns.filter((e) => {
-                    var matches = e.simulatedRegion.filter((r) => { 
+                this.simulationRuns = this.simulationRuns.filter((elem) => {
+                    var matches = elem.simulatedRegion.filter((r) => { 
                         if(this.registryService.selectedFilter[r] == true)
                             return true
                         else if(this.registryService.isFilterSet == false)
                             return true
-                        else
+                        else 
                             return false
                     })
-                    if(matches.length > 0)
+                    if(matches.length > 0) 
                         return true
                 })
             })
@@ -135,6 +156,31 @@ module portal {
             
             this.myScope.$on('update-granules', (e, id: string) => {
                 this.granules = this.registryService.cachedElements[id].map((r) => <Granule>r)
+            })
+            
+            this.myScope.$on('update-observatories', (e, id: string) => {
+                this.observatories = this.registryService.cachedElements[id].map((r) => <Observatory>r)
+                // filtering the observatories (when filter is active)
+                this.observatories = this.observatories.filter((elem) => {
+                    var matches = elem.location.observatoryRegion.filter((r) => {
+                        if(this.registryService.selectedFilter[r] == true)
+                            return true
+                        else if(this.registryService.isFilterSet == false)
+                            return true
+                        else 
+                            return false
+                    })
+                    if(matches.length > 0)
+                        return true
+                })
+            })
+            
+            this.myScope.$on('update-instruments', (e, id: string) => {
+                this.instruments = this.registryService.cachedElements[id].map((r) => <Instrument>r)
+            })
+            
+            this.myScope.$on('update-numerical-data', (e, id: string) => {
+                this.numericalData = this.registryService.cachedElements[id].map((r) => <NumericalData>r)
             })
             
         }
@@ -151,10 +197,11 @@ module portal {
             this.activeItems[type] = null
         }
         
+        // needed within the html template
         public isActive(type: string, element: SpaseElem): boolean {
             return this.activeItems[type] === element
         }
-       
+
         public trim(name: string, length: number = 25): string {
             if(name.length>length)
                  return name.slice(0, length).trim()+'...'
