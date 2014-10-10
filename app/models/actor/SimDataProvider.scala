@@ -28,6 +28,7 @@ extends Actor with DataProvider {
       case EGranule => sender ! getGranule(id, r)
     }
     case UpdateData => sender ! updateData
+    case GetStatus => sender ! getStatus
   }
   
   private def getSimulationModel(id: Option[String], r: Boolean): Spase = {

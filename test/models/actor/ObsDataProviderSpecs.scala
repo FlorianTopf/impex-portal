@@ -17,7 +17,7 @@ import scala.xml.NodeSeq
 import java.util.Random
 // only single imports possible
 import models.actor.DataProvider.{ 
-  GetTree, GetMethods,
+  GetTree, GetMethods, GetStatus,
   GetElement, ERepository, 
   EObservatory, EInstrument, 
   ENumericalData
@@ -26,11 +26,11 @@ import models.actor.DataProvider.{
 // actor tests need empty onStart routine  
 object ObsDataProviderSpecs extends Specification with Mockito {
 
-    // test info => only for AMDA!
+    // test info => only for portal == true
   	val rand = new Random(java.lang.System.currentTimeMillis)
     val config = scalaxb.fromXML[Impexconfiguration](scala.xml.XML.loadFile("conf/configuration.xml"))
-	val databases = config.impexconfigurationoption.filter(_.key.get == "database").map(
-	    _.as[Database]).filter(d => d.typeValue == Observation && d.name == "AMDA")
+	val databases = config.impexconfigurationoption.filter(_.key.get == "database")
+		.map(_.as[Database]).filter(d => d.typeValue == Observation && d.portal)
 
     "ObsDataProvider" should {
         
@@ -40,9 +40,7 @@ object ObsDataProviderSpecs extends Specification with Mockito {
                 implicit val actorSystem = Akka.system(app)
                 val database = databases(rand.nextInt(databases.length))
                 val actorId = UrlProvider.encodeURI(database.id)
-                val actorRef = TestActorRef(
-                    new ObsDataProvider(database), name = actorId
-                    ) 
+                val actorRef = TestActorRef(new ObsDataProvider(database), name = actorId) 
                 val actor = actorSystem.actorSelection("user/"+actorId)
                 val treeFuture = actor ? GetTree
                 val treeResult = Await.result(treeFuture.mapTo[Spase], DurationInt(10) second)
@@ -55,15 +53,29 @@ object ObsDataProviderSpecs extends Specification with Mockito {
             }
         }
         
+        "get status" in {
+          val app = new FakeApplication
+          running(app) {
+            implicit val actorSystem = Akka.system(app)
+            val database = databases(rand.nextInt(databases.length))
+            val actorId = UrlProvider.encodeURI(database.id)
+            val actorRef = TestActorRef(new ObsDataProvider(database), name = actorId) 
+            val actor = actorSystem.actorSelection("user/"+actorId)
+            val future = actor ? GetStatus
+            val result = Await.result(future.mapTo[DataProvider.Status], DurationInt(10) second)
+            
+            actor must beAnInstanceOf[ActorSelection]
+            result must beAnInstanceOf[DataProvider.Status]
+          }
+        }
+        
         "fetch repositories" in {
             val app = new FakeApplication
             running(app) {
                 implicit val actorSystem = Akka.system(app)
                 val database = databases(rand.nextInt(databases.length))
                 val actorId = UrlProvider.encodeURI(database.id)
-                val actorRef = TestActorRef(
-                    new ObsDataProvider(database), name = actorId
-                    ) 
+                val actorRef = TestActorRef(new ObsDataProvider(database), name = actorId) 
                 val actor = actorSystem.actorSelection("user/"+actorId)
                 val future = actor ? GetElement(ERepository, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
@@ -82,9 +94,7 @@ object ObsDataProviderSpecs extends Specification with Mockito {
                 implicit val actorSystem = Akka.system(app)
                 val database = databases(rand.nextInt(databases.length))
                 val actorId = UrlProvider.encodeURI(database.id)
-                val actorRef = TestActorRef(
-                    new ObsDataProvider(database), name = actorId
-                    ) 
+                val actorRef = TestActorRef(new ObsDataProvider(database), name = actorId) 
                 val actor = actorSystem.actorSelection("user/"+actorId)
                 val future = actor ? GetElement(EObservatory, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
@@ -103,9 +113,7 @@ object ObsDataProviderSpecs extends Specification with Mockito {
                 implicit val actorSystem = Akka.system(app)
                 val database = databases(rand.nextInt(databases.length))
                 val actorId = UrlProvider.encodeURI(database.id)
-                val actorRef = TestActorRef(
-                    new ObsDataProvider(database), name = actorId
-                    ) 
+                val actorRef = TestActorRef(new ObsDataProvider(database), name = actorId) 
                 val actor = actorSystem.actorSelection("user/"+actorId)
                 val future = actor ? GetElement(EInstrument, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
@@ -124,9 +132,7 @@ object ObsDataProviderSpecs extends Specification with Mockito {
                 implicit val actorSystem = Akka.system(app)
                 val database = databases(rand.nextInt(databases.length))
                 val actorId = UrlProvider.encodeURI(database.id)
-                val actorRef = TestActorRef(
-                    new ObsDataProvider(database), name = actorId
-                    ) 
+                val actorRef = TestActorRef(new ObsDataProvider(database), name = actorId) 
                 val actor = actorSystem.actorSelection("user/"+actorId)
                 val future = actor ? GetElement(ENumericalData, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)

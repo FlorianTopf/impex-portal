@@ -53,6 +53,8 @@ class RegistrySpecs extends Specification {
         	}
         } */
         
+        // @TODO status and filter tests missing
+        
         "respond on base route GET+id with XML" in {
         	running(FakeApplication()) {
         	  // @FIXME only for simproviders atm

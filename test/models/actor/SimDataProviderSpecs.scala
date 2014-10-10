@@ -16,7 +16,7 @@ import scala.concurrent.Await
 import scala.xml.NodeSeq
 import java.util.Random
 import models.actor.DataProvider.{ 
-  GetTree, GetMethods, 
+  GetTree, GetMethods, GetStatus,
   GetElement, ERepository, 
   ESimulationModel, ESimulationRun, 
   ENumericalOutput, EGranule
@@ -25,11 +25,11 @@ import models.actor.DataProvider.{
 // actor tests need empty onStart routine  
 object SimDataProviderSpecs extends Specification with Mockito {
 
-    // test info
+    // test info => only for portal == true
   	val rand = new Random(java.lang.System.currentTimeMillis)
     val config = scalaxb.fromXML[Impexconfiguration](scala.xml.XML.loadFile("conf/configuration.xml"))
-	val databases = config.impexconfigurationoption.filter(_.key.get == "database").map(
-	    _.as[Database]).filter(d => d.typeValue == Simulation)
+	val databases = config.impexconfigurationoption.filter(_.key.get == "database")
+		.map(_.as[Database]).filter(d => d.typeValue == Simulation && d.portal)
 
     "SimDataProvider" should {
         
@@ -39,9 +39,7 @@ object SimDataProviderSpecs extends Specification with Mockito {
                 implicit val actorSystem = Akka.system(app)
                 val database = databases(rand.nextInt(databases.length))
                 val actorId = UrlProvider.encodeURI(database.id)
-                val actorRef = TestActorRef(
-                    new SimDataProvider(database), name = actorId
-                    ) 
+                val actorRef = TestActorRef(new SimDataProvider(database), name = actorId) 
                 val actor = actorSystem.actorSelection("user/"+actorId)
                 val treeFuture = actor ? GetTree
                 val treeResult = Await.result(treeFuture.mapTo[Spase], DurationInt(10) second)
@@ -54,15 +52,29 @@ object SimDataProviderSpecs extends Specification with Mockito {
             }
         }
         
+        "get status" in {
+          val app = new FakeApplication
+          running(app) {
+            implicit val actorSystem = Akka.system(app)
+            val database = databases(rand.nextInt(databases.length))
+            val actorId = UrlProvider.encodeURI(database.id)
+            val actorRef = TestActorRef(new SimDataProvider(database), name = actorId) 
+            val actor = actorSystem.actorSelection("user/"+actorId)
+            val future = actor ? GetStatus
+            val result = Await.result(future.mapTo[DataProvider.Status], DurationInt(10) second)
+            
+            actor must beAnInstanceOf[ActorSelection]
+            result must beAnInstanceOf[DataProvider.Status]
+          }
+        }
+        
         "fetch repositories" in {
             val app = new FakeApplication
             running(app) {
                 implicit val actorSystem = Akka.system(app)
                 val database = databases(rand.nextInt(databases.length))
                 val actorId = UrlProvider.encodeURI(database.id)
-                val actorRef = TestActorRef(
-                    new SimDataProvider(database), name = actorId
-                    ) 
+                val actorRef = TestActorRef(new SimDataProvider(database), name = actorId) 
                 val actor = actorSystem.actorSelection("user/"+actorId)
                 val future = actor ? GetElement(ERepository, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
@@ -81,9 +93,7 @@ object SimDataProviderSpecs extends Specification with Mockito {
                 implicit val actorSystem = Akka.system(app)
                 val database = databases(rand.nextInt(databases.length))
                 val actorId = UrlProvider.encodeURI(database.id)
-                val actorRef = TestActorRef(
-                    new SimDataProvider(database), name = actorId
-                    ) 
+                val actorRef = TestActorRef(new SimDataProvider(database), name = actorId) 
                 val actor = actorSystem.actorSelection("user/"+actorId)
                 val future = actor ? GetElement(ESimulationModel, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
@@ -102,9 +112,7 @@ object SimDataProviderSpecs extends Specification with Mockito {
                 implicit val actorSystem = Akka.system(app)
                 val database = databases(rand.nextInt(databases.length))
                 val actorId = UrlProvider.encodeURI(database.id)
-                val actorRef = TestActorRef(
-                    new SimDataProvider(database), name = actorId
-                    ) 
+                val actorRef = TestActorRef(new SimDataProvider(database), name = actorId) 
                 val actor = actorSystem.actorSelection("user/"+actorId)
                 val future = actor ? GetElement(ESimulationRun, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
@@ -123,9 +131,7 @@ object SimDataProviderSpecs extends Specification with Mockito {
                 implicit val actorSystem = Akka.system(app)
                 val database = databases(rand.nextInt(databases.length))
                 val actorId = UrlProvider.encodeURI(database.id)
-                val actorRef = TestActorRef(
-                    new SimDataProvider(database), name = actorId
-                    ) 
+                val actorRef = TestActorRef(new SimDataProvider(database), name = actorId) 
                 val actor = actorSystem.actorSelection("user/"+actorId)
                 val future = actor ? GetElement(ENumericalOutput, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)
@@ -144,9 +150,7 @@ object SimDataProviderSpecs extends Specification with Mockito {
                 implicit val actorSystem = Akka.system(app)
                 val database = databases(rand.nextInt(databases.length))
                 val actorId = UrlProvider.encodeURI(database.id)
-                val actorRef = TestActorRef(
-                    new SimDataProvider(database), name = actorId
-                    ) 
+                val actorRef = TestActorRef(new SimDataProvider(database), name = actorId) 
                 val actor = actorSystem.actorSelection("user/"+actorId)
                 val future = actor ? GetElement(EGranule, None)
                 val result = Await.result(future.mapTo[Spase], DurationInt(10) second)

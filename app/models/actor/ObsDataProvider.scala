@@ -35,6 +35,7 @@ extends Actor with DataProvider {
       case ENumericalData => sender ! getNumericalData(id, r)
     }
     case UpdateData => sender ! updateData
+    case GetStatus => sender ! getStatus
   }
     
   private def getObservatory(id: Option[String], r: Boolean): Spase = {

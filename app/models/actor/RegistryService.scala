@@ -141,6 +141,18 @@ object RegistryService {
   } 
  
   // general methods
+  def getStatus(): Future[Seq[DataProvider.Status]] = {
+    implicit val timeout = Timeout(1.minute)
+    for {
+      databases <- ConfigService.request(GetRegistryDatabases).mapTo[Seq[Database]]
+      provider <- {
+        Future.sequence(getChilds(databases) map { provider =>
+	     	(provider ? GetStatus).mapTo[DataProvider.Status]
+	    })
+      }
+    } yield provider
+  }
+  
   def getTree(id: Option[String] = None): Future[Either[Spase, RequestError]] = {
     implicit val timeout = Timeout(1.minute)
     for {

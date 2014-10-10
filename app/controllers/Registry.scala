@@ -1,6 +1,7 @@
 package controllers
 
 import models.actor._
+import models.actor.DataProvider
 import models.binding._
 import models.enums._
 import play.api.mvc._
@@ -20,8 +21,15 @@ import javax.ws.rs.core.MediaType._
 @Produces(Array(APPLICATION_XML, APPLICATION_JSON))
 object Registry extends BaseController {
 
+  // gets update and validation status
+  def status() = PortalAction.async {
+    RegistryService.getStatus.map{ s => 
+      Ok(Json.toJson(s))
+    }
+  }
+
   // get a list of all stored regions in the registry
-  def getRegions() = PortalAction.async { implicit request => 
+  def getRegions() = PortalAction.async { 
     val future = RegistryService.getNumericalOutput(None, false)
     future.map { _ match {
         case Left(spase) => { 

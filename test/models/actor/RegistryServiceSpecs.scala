@@ -23,10 +23,11 @@ import models.actor.RegistryService.RegisterProvider
 // @TODO test recursion and check random resources in the tree
 object RegistryServiceSpecs extends Specification with Mockito {
   
-	// test info
+    // test info => only for portal == true
   	val rand = new Random(java.lang.System.currentTimeMillis)
 	val config = scalaxb.fromXML[Impexconfiguration](scala.xml.XML.loadFile("conf/configuration.xml"))
-	val databases = config.impexconfigurationoption.filter(_.key.get == "database").map(_.as[Database])
+	val databases = config.impexconfigurationoption.filter(d => d.key.get == "database")
+		.map(_.as[Database]).filter(d => d.portal)
 	
     "RegistryService" should {
     
@@ -58,6 +59,21 @@ object RegistryServiceSpecs extends Specification with Mockito {
                   case Right(error) => error must beAnInstanceOf[RequestError]
                 }
             }
+        }
+        
+        "get all statuses" in {
+        	val app = new FakeApplication
+        	running(app) {
+        		implicit val actorSystem = Akka.system(app)
+                val configActorRef = TestActorRef(new ConfigService, name = "config")
+                val registryActorRef = TestActorRef((new RegistryService(databases)), name = "registry")
+                val registryActor = actorSystem.actorSelection("user/registry")
+                
+                val future = RegistryService.getStatus()
+                val result = Await.result(future.mapTo[Seq[DataProvider.Status]], DurationInt(10) second)
+        	  
+                result must beAnInstanceOf[Seq[DataProvider.Status]]
+        	}
         }
         
         "fetch repositories" in {

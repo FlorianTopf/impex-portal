@@ -24,6 +24,7 @@ GET		/config						controllers.Config.config(fmt: String ?= "xml")
 # registry routes 
 GET		/api-docs/registry			controllers.ApiHelpController.getResource(path = "/registry")
 GET		/registry					controllers.Registry.registry(fmt: String ?= "xml")
+GET		/registry/status			controllers.Registry.status
 # simulations
 GET 	/registry/simulations	    controllers.Registry.simulations(fmt: String ?= "xml")
 GET		/registry/repository		controllers.Registry.repository(fmt: String ?= "xml")

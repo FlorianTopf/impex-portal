@@ -3,6 +3,7 @@ package models.actor
 import models.binding._
 import models.provider._
 import play.api.libs.ws._
+import play.api.libs.json._
 import scala.xml._
 import scala.concurrent._
 import scala.concurrent.duration._
@@ -39,6 +40,9 @@ trait DataProvider {
     	scalaxb.fromXML[Spase](tree).ResourceEntity
   	}
     Spase(Number2u462u462, spase, "en")
+  }
+  protected def getStatus: DataProvider.Status = {
+    DataProvider.Status(metadata.id, lastUpdate, lastError, isNotFound, isInvalid)
   }
   
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]] = {
@@ -162,6 +166,7 @@ object DataProvider {
   case object GetTree
   case object GetMethods  
   case object UpdateData 
+  case object GetStatus
   
   // elements of the data model
   trait Element
@@ -184,8 +189,25 @@ object DataProvider {
   case class GetElement(
       val dType: Element, 
       val id: Option[String], 
-      val r: Boolean = false
-  )
+      val r: Boolean = false)
+  
+  // status message
+  case class Status(
+      val id: java.net.URI,
+      val lastUpdate: DateTime,
+      val lastError: Option[DateTime],
+      val isNotFound: Boolean,
+      val isInvalid: Boolean)
+
+  implicit val statusWrites: Writes[Seq[Status]] = new Writes[Seq[Status]] {
+    def writes(s: Seq[Status]): JsValue = {
+      s.map(p => Json.obj(p.id.toString -> Json.obj(
+          "lastUpdate" -> p.lastUpdate.toString(),
+          "lastError" -> p.lastError.map(_.toString()),
+          "isNotFound" -> p.isNotFound,
+          "isInvalid" -> p.isInvalid))).reduce(_++_)
+    }
+  }
   
   // @TODO we need that for updating the trees dynamically (on admin request)
   def updateData(provider: ActorSelection) = {
