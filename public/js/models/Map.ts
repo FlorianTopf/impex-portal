@@ -22,5 +22,10 @@ module portal {
     export interface IElementArrayMap {
         [id: string]: Array<SpaseElem>
     }
+    
+    // string -> object map
+    export interface IObjectMap {
+        [id: string]: Object
+    }
 
 }
