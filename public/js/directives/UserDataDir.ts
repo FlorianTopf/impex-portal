@@ -47,6 +47,7 @@ module portal {
         public tabsActive: Array<boolean> = []
         public isResRead: IBooleanMap = {}
         public isSampAble: boolean = false
+        public isLogCollapsed: boolean = true
 
         private registryService: portal.RegistryService
         private methodsService: portal.MethodsService
@@ -122,10 +123,11 @@ module portal {
                     this.isResRead[latest.id] = true
                     this.methodsService.showSuccess[this.repositoryId] = false
                     this.methodsService.unreadResults--
+                // if there was an error in the last request => clear (per repository)
                 } else if (this.methodsService.showError[this.repositoryId] && 
                     this.state.current.name == 'app.portal.methods') {
                     this.methodsService.showError[this.repositoryId] = false
-                // if there are results not yet read (all in userdata state)
+                // if there are more results not yet read (all in userdata state)
                 } else if(this.methodsService.unreadResults > 0 && 
                     this.state.current.name == 'app.portal.userdata') {
                     this.tabsActive = [false, false, true] // selections, votables, results
@@ -138,9 +140,20 @@ module portal {
                 } else {
                     // init tabs
                     this.tabsActive = [true, false, false] // selections, votables, results
+                    // set active selection if we enter the right interface
+                    // otherwise clear active selections
+                    if(this.repositoryId){
+                        this.user.activeSelection.forEach((e) => {
+                            if(e.repositoryId == this.repositoryId){
+                                this.isCollapsed[e.id] = false
+                            } else {
+                                this.user.activeSelection = []
+                            }
+                     
+                        })
+                    }
                 }
-                // reset expanded selections  
-                this.user.activeSelection = []
+                
                 // reset applyables
                 this.applyableElements = []
                 this.applyableModel = null   

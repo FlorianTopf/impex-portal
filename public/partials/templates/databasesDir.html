@@ -1,7 +1,6 @@
 <table class="table table-striped">
 	<thead>
 		<tr>
-			<!-- th>ID</th-->
 			<th>NAME</th>
 			<th>TYPE</th>
 			<th>METHODS</th>
@@ -13,25 +12,30 @@
     </thead>
     <tbody>
 		<tr ng-repeat="database in dbdirvm.config.databases">
-			<!-- td>{{ database.id }}</td-->
-			<td>{{ database.name }}</td>
-			<td>{{ database.type }}</td>
-			<td>
+			<td class="col-md-2">{{ database.name }}</td>
+			<td class="col-md-2">{{ database.type }}</td>
+			<td class="col-md-2">
 				<span ng-repeat="method in database.methods">
 					<a ng-href="{{ database.protocol[0]+'://'+database.dns[0]+method }}">{{ method }}</a><br/>
 				</span>
 			</td>
-			<td>
+			<td class="col-md-2">
 				<span ng-repeat="tree in database.tree">
 					<a ng-href="{{ database.protocol[0]+'://'+database.dns[0]+tree }}">{{ tree }}</a><br/>
 				</span>
 			</td>
-			<td><span>{{ dbdirvm.statusMap[database.id].lastUpdate }}</span>
-				<span class="error" ng-if="dbdirvm.statusMap[database.id].lastError">{{ dbdirvm.statusMap[database.id].lastError }}</span></td>
-			<td><div ng-show="dbdirvm.statusMap[database.id]" class="alert status-alert" ng-class="{ 'alert-success': !dbdirvm.statusMap[database.id].isInvalid, 
-				'alert-danger': dbdirvm.statusMap[database.id].isInvalid }"></div></td>
-			<td><div ng-show="dbdirvm.statusMap[database.id]" class="alert status-alert" ng-class="{ 'alert-success': !dbdirvm.statusMap[database.id].isNotFound, 
-				'alert-danger': dbdirvm.statusMap[database.id].isNotFound }"></div></td>
+			<td class="col-md-2">
+				<span>{{ dbdirvm.statusMap[database.id].lastUpdate }}</span>
+				<span class="error" ng-if="dbdirvm.statusMap[database.id].lastError">{{ dbdirvm.statusMap[database.id].lastError }}</span>
+			</td>
+			<td class="col-md-1">
+				<div ng-show="dbdirvm.statusMap[database.id]" class="alert status-alert" ng-class="{ 'alert-success': !dbdirvm.statusMap[database.id].isInvalid, 
+					'alert-danger': dbdirvm.statusMap[database.id].isInvalid }"></div>
+			</td>
+			<td class="col-md-1">
+				<div ng-show="dbdirvm.statusMap[database.id]" class="alert status-alert" ng-class="{ 'alert-success': !dbdirvm.statusMap[database.id].isNotFound, 
+					'alert-danger': dbdirvm.statusMap[database.id].isNotFound }"></div>
+			</td>
 		</tr>
 	</tbody>
 </table>

@@ -72,9 +72,8 @@ module portal {
                     this.growl.success('Added votable to user data')
                 })
             }).error((response) => {
-                if (response.status > 0) { 
-                    this.growl.error(response.status + ': ' + response.data)
-                }
+                this.progress[i] = 0
+                this.growl.error(response)
             }).progress((evt) => {
                 this.progress[i] = Math.min(100, 100.0 * evt.loaded / evt.total)
             })

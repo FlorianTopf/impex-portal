@@ -37,6 +37,9 @@ module portal {
             this.selectables['spase://IMPEX/Repository/FMI/GUMICS'] = [ 'NumericalOutput' ]
             this.selectables['spase://IMPEX/Repository/LATMOS'] = [ 'SimulationRun', 'NumericalOutput' ]
             this.selectables['spase://IMPEX/Repository/SINP'] = [ 'SimulationModel', 'NumericalOutput' ]
+            // @TODO late we should be able to select Observatories too (for getOrbits)
+            //this.selectables['spase://IMPEX/Repository/AMDA'] = [ 'Observatory', 'NumericalData' ]
+            this.selectables['spase://IMPEX/Repository/AMDA'] = [ 'NumericalData' ]
         }
         
         // action descriptor for registry actions

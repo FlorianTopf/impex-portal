@@ -145,3 +145,32 @@
 <div class="row">
 	<div class="col-sm-12">&nbsp;</div>
 </div>
+<div class="row">
+	<div class="col-sm-2">
+		<button type="button" class="btn" 
+			ng-disabled="userdirvm.methodsService.responseLog | isEmpty"
+			ng-class="{ 'btn-warning': userdirvm.isLogCollapsed, 
+					    'btn-success': !userdirvm.isLogCollapsed  }"
+			ng-click="userdirvm.isLogCollapsed = !userdirvm.isLogCollapsed">Service Log</button>
+	</div>
+	<div class="col-sm-10" collapse="userdirvm.isLogCollapsed">
+		<div class="well well-sm">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>TIME</th>
+						<th>MESSAGE</th>
+						<th>ORIGIN</th>
+					</tr>
+    			</thead>
+    			<tbody>
+					<tr ng-repeat="entry in userdirvm.methodsService.responseLog">
+						<td class="col-md-4">{{ entry.timeStamp.toString() }}</td>
+						<td class="col-md-4">{{ entry.message }}</td>
+						<td class="col-md-4">{{ entry.origin }}</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

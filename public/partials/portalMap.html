@@ -6,7 +6,7 @@
 <div class="row" ng-show="vm.ready">
 	<div class="col-sm-1 text-center">
 		<button type="button" class="btn" 
-			ng-class="{ 'btn-default': !vm.registryService.isFilterSet|| vm.isFilterLoading, 
+			ng-class="{ 'btn-default': !vm.registryService.isFilterSet || vm.isFilterLoading, 
 					    'btn-success': vm.registryService.isFilterSet && !vm.isFilterLoading }"
 			ng-click="vm.toggleFilter()">FILTER</button>
 	</div>

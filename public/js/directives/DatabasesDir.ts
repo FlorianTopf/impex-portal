@@ -41,6 +41,11 @@ module portal {
             
             this.configService.getStatus().success((data: IStatusMap, status: any) => {
                 this.statusMap = data
+                for (var id in this.statusMap){
+                    this.statusMap[id].lastUpdate = new Date(this.statusMap[id].lastUpdate).toString()
+                    if(this.statusMap[id].lastError) 
+                       this.statusMap[id].lastUpdate = new Date(this.statusMap[id].lastError).toString()
+                }
                 //this.statusMap['spase://IMPEX/Repository/FMI/HYB'].lastError = "2014-10-11T01:01:26.226+02:00"
                 //this.statusMap['spase://IMPEX/Repository/FMI/HYB'].isInvalid = true
                 //this.statusMap['spase://IMPEX/Repository/LATMOS'].isNotFound = true

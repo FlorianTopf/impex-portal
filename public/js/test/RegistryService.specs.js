@@ -44,6 +44,7 @@ describe('RegistryService', function() {
 		expect(rService.selectables['spase://IMPEX/Repository/FMI/GUMICS']).toEqual(['NumericalOutput']);
 		expect(rService.selectables['spase://IMPEX/Repository/LATMOS']).toEqual(['SimulationRun','NumericalOutput']);
 		expect(rService.selectables['spase://IMPEX/Repository/SINP']).toEqual(['SimulationModel','NumericalOutput']);
+		expect(rService.selectables['spase://IMPEX/Repository/AMDA']).toEqual(['NumericalData']);
 	});
 
 	it('should fetch repository', function(){

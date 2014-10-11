@@ -23,6 +23,8 @@ import org.joda.time._
 
 // basic trait for data provider actors (sim / obs)
 trait DataProvider {
+  import models.actor.DataProvider._
+  
   var metadata: Database
   var trees: Seq[NodeSeq] = Seq()
   var methods: Seq[NodeSeq] = Seq()
@@ -35,14 +37,16 @@ trait DataProvider {
   protected def getMetaData: Database = metadata
   protected def getTrees: Seq[NodeSeq] = trees
   protected def getMethods: Seq[NodeSeq] = methods
+  
   protected def getTreeObjects: Spase = {
     val spase = getTrees flatMap { tree =>
     	scalaxb.fromXML[Spase](tree).ResourceEntity
   	}
     Spase(Number2u462u462, spase, "en")
   }
-  protected def getStatus: DataProvider.Status = {
-    DataProvider.Status(metadata.id, lastUpdate, lastError, isNotFound, isInvalid)
+  
+  protected def getStatus: Status = {
+    Status(metadata.id, lastUpdate, lastError, isNotFound, isInvalid)
   }
   
   protected def getTreeObjects(element: String): Seq[DataRecord[Any]] = {
@@ -73,6 +77,23 @@ trait DataProvider {
     println("methodsURL="+methodsURLs)
     println("}")
 
+    trees = getFiles(treeURLs, "trees")
+    methods = getFiles(methodsURLs, "methods")
+  }
+  
+  protected def updateData: Unit = {
+    import models.actor.ConfigService._
+    val future = ConfigService.request(GetDatabaseById(getMetaData.id)).mapTo[Database]
+    val Success(database: Database) = future.value.getOrElse(Success(getMetaData))
+    
+    val dns: String = database.databaseoption.head.value
+    val protocol: String = database.protocol.head
+    val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.tree)
+    val methodsURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.methods)   
+    
+    println("updating files from "+getMetaData.name)
+    
+    metadata = database
     trees = getFiles(treeURLs, "trees")
     methods = getFiles(methodsURLs, "methods")
   }
@@ -140,22 +161,7 @@ trait DataProvider {
     }
   }
   
-  protected def updateData: Unit = {
-    import models.actor.ConfigService._
-    val future = ConfigService.request(GetDatabaseById(getMetaData.id)).mapTo[Database]
-    val Success(database: Database) = future.value.getOrElse(Success(getMetaData))
-    
-    val dns: String = database.databaseoption.head.value
-    val protocol: String = database.protocol.head
-    val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.tree)
-    val methodsURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.methods)   
-    
-    println("updating files from "+getMetaData.name)
-    
-    metadata = database
-    trees = getFiles(treeURLs, "trees")
-    methods = getFiles(methodsURLs, "methods")
-  }
+
   
 }
 

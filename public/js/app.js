@@ -889,6 +889,17 @@ var portal;
 (function (portal) {
     'use strict';
 
+    // describes the response log message
+    var ResponseLog = (function () {
+        function ResponseLog(timeStamp, message, origin) {
+            this.timeStamp = timeStamp;
+            this.message = message;
+            this.origin = origin;
+        }
+        return ResponseLog;
+    })();
+    portal.ResponseLog = ResponseLog;
+
     // describe the status response
     var StatusResponse = (function () {
         function StatusResponse(lastUpdate, lastError, isNotFound, isInvalid) {
@@ -1044,6 +1055,10 @@ var portal;
             this.selectables['spase://IMPEX/Repository/FMI/GUMICS'] = ['NumericalOutput'];
             this.selectables['spase://IMPEX/Repository/LATMOS'] = ['SimulationRun', 'NumericalOutput'];
             this.selectables['spase://IMPEX/Repository/SINP'] = ['SimulationModel', 'NumericalOutput'];
+
+            // @TODO late we should be able to select Observatories too (for getOrbits)
+            //this.selectables['spase://IMPEX/Repository/AMDA'] = [ 'Observatory', 'NumericalData' ]
+            this.selectables['spase://IMPEX/Repository/AMDA'] = ['NumericalData'];
         }
         RegistryService.prototype.Repository = function () {
             return this.resource(this.url + 'registry/repository', { id: '@id', fmt: '@fmt' }, { getRepository: this.registryAction });
@@ -1099,6 +1114,7 @@ var portal;
             // special applyables for SINP models/outputs
             this.applyableModels = {};
             this.status = '';
+            this.responseLog = [];
             this.loading = {};
             this.showError = {};
             this.showSuccess = {};
@@ -1116,7 +1132,7 @@ var portal;
             this.growl = growl;
             this.scope = $rootScope;
 
-            // fill manual applyables for SINP (no API info available)
+            // @TODO fill manual applyables for SINP (no API info available)
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = [
                 'calculateDataPointValue',
                 'calculateDataPointValueSpacecraft',
@@ -1128,6 +1144,7 @@ var portal;
             ];
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Mercury/OnFly'] = ['calculateDataPointValueNercury', 'calculateCubeMercury'];
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Saturn/OnFly'] = ['calculateDataPointValueSaturn', 'calculateCubeSaturn'];
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Jupiter/OnFly'] = ['calculateDataPointValueJupiter', 'calculateCubeJupiter'];
         }
         // generic method for requesting API
         MethodsService.prototype.MethodsAPI = function () {
@@ -1172,6 +1189,7 @@ else
                 this.loading[id] = false;
                 this.showError[id] = true;
                 this.growl.error(this.status);
+                this.responseLog = [new portal.ResponseLog(new Date(), this.status, id)].concat(this.responseLog);
             } else if (status == 'success') {
                 this.status = 'Added service result to user data';
                 this.unreadResults++;
@@ -1179,7 +1197,9 @@ else
                 this.showSuccess[id] = true;
                 this.scope.$broadcast('service-success', id);
                 this.growl.success(this.status);
+                this.responseLog = [new portal.ResponseLog(new Date(), this.status, id)].concat(this.responseLog);
             }
+            //console.log(JSON.stringify(this.responseLog))
         };
         MethodsService.$inject = ['$rootScope', '$resource', 'growl'];
         return MethodsService;
@@ -2122,9 +2142,8 @@ var portal;
                     _this.growl.success('Added votable to user data');
                 });
             }).error(function (response) {
-                if (response.status > 0) {
-                    _this.growl.error(response.status + ': ' + response.data);
-                }
+                _this.progress[i] = 0;
+                _this.growl.error(response);
             }).progress(function (evt) {
                 _this.progress[i] = Math.min(100, 100.0 * evt.loaded / evt.total);
             });
@@ -2182,6 +2201,11 @@ var portal;
 
             this.configService.getStatus().success(function (data, status) {
                 _this.statusMap = data;
+                for (var id in _this.statusMap) {
+                    _this.statusMap[id].lastUpdate = new Date(_this.statusMap[id].lastUpdate).toString();
+                    if (_this.statusMap[id].lastError)
+                        _this.statusMap[id].lastUpdate = new Date(_this.statusMap[id].lastError).toString();
+                }
                 //this.statusMap['spase://IMPEX/Repository/FMI/HYB'].lastError = "2014-10-11T01:01:26.226+02:00"
                 //this.statusMap['spase://IMPEX/Repository/FMI/HYB'].isInvalid = true
                 //this.statusMap['spase://IMPEX/Repository/LATMOS'].isNotFound = true
@@ -2443,6 +2467,7 @@ var portal;
             this.tabsActive = [];
             this.isResRead = {};
             this.isSampAble = false;
+            this.isLogCollapsed = true;
             this.registryService = registryService;
             this.methodsService = methodsService;
             this.userService = userService;
@@ -2524,9 +2549,10 @@ var portal;
                     _this.isResRead[latest.id] = true;
                     _this.methodsService.showSuccess[_this.repositoryId] = false;
                     _this.methodsService.unreadResults--;
+                    // if there was an error in the last request => clear (per repository)
                 } else if (_this.methodsService.showError[_this.repositoryId] && _this.state.current.name == 'app.portal.methods') {
                     _this.methodsService.showError[_this.repositoryId] = false;
-                    // if there are results not yet read (all in userdata state)
+                    // if there are more results not yet read (all in userdata state)
                 } else if (_this.methodsService.unreadResults > 0 && _this.state.current.name == 'app.portal.userdata') {
                     _this.tabsActive = [false, false, true];
                     _this.isCollapsed[_this.user.results[0].id] = false;
@@ -2538,10 +2564,17 @@ var portal;
                 } else {
                     // init tabs
                     _this.tabsActive = [true, false, false];
-                }
 
-                // reset expanded selections
-                _this.user.activeSelection = [];
+                    if (_this.repositoryId) {
+                        _this.user.activeSelection.forEach(function (e) {
+                            if (e.repositoryId == _this.repositoryId) {
+                                _this.isCollapsed[e.id] = false;
+                            } else {
+                                _this.user.activeSelection = [];
+                            }
+                        });
+                    }
+                }
 
                 // reset applyables
                 _this.applyableElements = [];

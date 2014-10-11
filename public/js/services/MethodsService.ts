@@ -26,6 +26,7 @@ module portal {
         // special applyables for SINP models/outputs
         public applyableModels: IArrayMap = {}
         public status: string = ''
+        public responseLog: Array<ResponseLog> = [] 
         public loading: IBooleanMap = {}
         public showError: IBooleanMap = {} 
         public showSuccess: IBooleanMap = {}
@@ -36,7 +37,7 @@ module portal {
             this.growl = growl
             this.scope = $rootScope
             
-            // fill manual applyables for SINP (no API info available)
+            // @TODO fill manual applyables for SINP (no API info available)
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = 
             ['calculateDataPointValue', 'calculateDataPointValueSpacecraft', 'calculateDataPointValueFixedTime', 
                 'calculateFieldline', 'calculateCube', 'calculateFieldline', 'getSurfaceSINP']
@@ -44,6 +45,8 @@ module portal {
                 ['calculateDataPointValueNercury', 'calculateCubeMercury']
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Saturn/OnFly'] = 
                 ['calculateDataPointValueSaturn', 'calculateCubeSaturn']
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Jupiter/OnFly'] = 
+                ['calculateDataPointValueJupiter', 'calculateCubeJupiter']
         }
         
         // action descriptor for GET methods actions
@@ -104,6 +107,8 @@ module portal {
                 this.loading[id] = false
                 this.showError[id] = true
                 this.growl.error(this.status)
+                this.responseLog = 
+                    [new ResponseLog(new Date(), this.status, id)].concat(this.responseLog)
             } else if(status == 'success') {
                 this.status = 'Added service result to user data'
                 this.unreadResults++
@@ -111,7 +116,10 @@ module portal {
                 this.showSuccess[id] = true
                 this.scope.$broadcast('service-success', id)
                 this.growl.success(this.status)
+                this.responseLog = 
+                    [new ResponseLog(new Date(), this.status, id)].concat(this.responseLog)
             } 
+            //console.log(JSON.stringify(this.responseLog))
         }
         
     }

@@ -8,6 +8,8 @@ import scala.concurrent._
 import scala.xml._
 import java.io.File
 import models.actor._
+import scalaxb.ParserFailure
+import models.binding.VOTABLE
 
 
 object UserData extends BaseController {
@@ -18,11 +20,17 @@ object UserData extends BaseController {
       case Some(votable) => {
         val name = request.body.file("votable").map(_.filename).get
         val host = current.configuration.getString("swagger.api.basepath").get
-        UserService.addFileUserData(request.sessionId, votable, name) map { data =>
-          val json = Json.obj("id" -> JsString(data.id.toString), "name" -> JsString(name),
-              "url" -> JsString(host+"/userdata/"+data.name))
-          Ok(json).withSession("id" -> request.sessionId)
-        }   
+        try {
+          val vot = scalaxb.fromXML[VOTABLE](scala.xml.XML.loadFile(votable.file))
+          UserService.addFileUserData(request.sessionId, votable, name) map { data =>
+          	val json = Json.obj("id" -> JsString(data.id.toString), "name" -> JsString(name),
+          		"url" -> JsString(host+"/userdata/"+data.name))
+          	Ok(json).withSession("id" -> request.sessionId)
+          }
+        } catch {
+          case e: ParserFailure =>
+            future { BadRequest("File is not in VOTable format").withSession("id" -> request.sessionId) }
+        }
       }
       case None => future { BadRequest("Upload Failed").withSession("id" -> request.sessionId) }
     }
@@ -33,10 +41,16 @@ object UserData extends BaseController {
     request.body.asXml.map(_.asInstanceOf[Node]) match {
       case Some(votable) => { 
         val host = current.configuration.getString("swagger.api.basepath").get
-        UserService.addXMLUserData(request.sessionId, votable) map { data => 
-          val json = Json.obj("id" -> JsString(data.id.toString), 
-              "url" -> JsString(host+"/userdata/"+data.name))
-          Ok(json).withSession("id" -> request.sessionId)
+        try {
+            val vot = scalaxb.fromXML[VOTABLE](votable)
+        	UserService.addXMLUserData(request.sessionId, votable) map { data => 
+        		val json = Json.obj("id" -> JsString(data.id.toString), 
+        			"url" -> JsString(host+"/userdata/"+data.name))
+        		Ok(json).withSession("id" -> request.sessionId)
+        	}
+        } catch {
+          case e: ParserFailure =>
+            future { BadRequest("File is not in VOTable format").withSession("id" -> request.sessionId) }
         }
       }
       case None => future { BadRequest("Upload Failed").withSession("id" -> request.sessionId) }

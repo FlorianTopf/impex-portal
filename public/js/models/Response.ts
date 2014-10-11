@@ -11,6 +11,14 @@ module portal {
             request?: Object
     }
     
+    // describes the response log message
+    export class ResponseLog {
+        constructor(
+            public timeStamp: Date,
+            public message: string,
+            public origin: string){}
+    }
+    
     // describe the status response
     export class StatusResponse {
         constructor(
