@@ -11,4 +11,13 @@ module portal {
             request?: Object
     }
     
+    // describe the status response
+    export class StatusResponse {
+        constructor(
+            public lastUpdate: string,
+            public lastError: string,
+            public isNotFound: boolean,
+            public isInvalid: boolean){}
+    }
+    
 }

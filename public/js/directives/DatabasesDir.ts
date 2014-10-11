@@ -21,6 +21,7 @@ module portal {
     	public templateUrl: string
     	public restrict: string
         public config: IConfig
+        public statusMap: IStatusMap
 
         private myScope: portal.IDatabasesDirScope
         private configService: portal.ConfigService
@@ -37,6 +38,16 @@ module portal {
             $scope.dbdirvm = this
             this.myScope = $scope
             this.config = this.configService.config
+            
+            this.configService.getStatus().success((data: IStatusMap, status: any) => {
+                this.statusMap = data
+                //this.statusMap['spase://IMPEX/Repository/FMI/HYB'].lastError = "2014-10-11T01:01:26.226+02:00"
+                //this.statusMap['spase://IMPEX/Repository/FMI/HYB'].isInvalid = true
+                //this.statusMap['spase://IMPEX/Repository/LATMOS'].isNotFound = true
+                //console.log(JSON.stringify(this.statusMap))
+            }).error((data: any, status: any) => {
+                this.statusMap = {}
+            })
         }
     }
 

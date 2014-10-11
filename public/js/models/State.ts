@@ -115,7 +115,7 @@ module portal {
         public url: string =  '/databases'
         public templateUrl: string =  '/public/partials/databaseMap.html'
         public controller: any = PortalCtrl
-    
+        
         constructor(){}
     
     }

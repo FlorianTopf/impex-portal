@@ -1,0 +1,32 @@
+{
+    "spase://IMPEX/Repository/FMI/HYB": {
+        "lastUpdate": "2014-10-11T01:01:26.226+02:00",
+        "lastError": null,
+        "isNotFound": false,
+        "isInvalid": false
+    },
+    "spase://IMPEX/Repository/FMI/GUMICS": {
+        "lastUpdate": "2014-10-11T01:01:26.226+02:00",
+        "lastError": null,
+        "isNotFound": false,
+        "isInvalid": false
+    },
+    "spase://IMPEX/Repository/LATMOS": {
+        "lastUpdate": "2014-10-11T01:01:26.226+02:00",
+        "lastError": null,
+        "isNotFound": false,
+        "isInvalid": false
+    },
+    "spase://IMPEX/Repository/SINP": {
+        "lastUpdate": "2014-10-11T01:01:26.226+02:00",
+        "lastError": null,
+        "isNotFound": false,
+        "isInvalid": false
+    },
+    "spase://IMPEX/Repository/AMDA": {
+        "lastUpdate": "2014-10-11T01:01:26.226+02:00",
+        "lastError": null,
+        "isNotFound": false,
+        "isInvalid": false
+    }
+}

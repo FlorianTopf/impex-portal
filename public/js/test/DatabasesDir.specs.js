@@ -4,7 +4,7 @@ describe('DatabasesDir', function () {
 	beforeEach(angular.mock.module('portal'));
 	
 	describe('template', function(){
-		var $compile, scope, cService, $httpBackend;
+		var $compile, scope, cfg, statusMap, cService, $httpBackend;
 		
 		beforeEach(module('templates'));
 		
@@ -15,20 +15,35 @@ describe('DatabasesDir', function () {
 			$httpBackend = _$httpBackend_;
 			
 		    jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock';
-		    cfg = getJSONFixture('config.json')
+		    cfg = getJSONFixture('config.json');
+		    statusMap = getJSONFixture('statusMap.json');
 			cService.config = cfg;
+		    
+		    $httpBackend.when('GET', '/config?fmt=json').respond(cfg);
+		    $httpBackend.when('GET', '/registry/status').respond(statusMap);
 		}));
 		
-		it('should render the template with config info', inject(function(){
-			var template = $compile('<databases-dir></databases-dir>')(scope);
+		function createDirective(){
+			var template = $compile(angular.element('<databases-dir></databases-dir>'))(scope);
+			scope.$digest();
+			return template;
+		}
+		
+		it('should render the template with config/status info', inject(function(){
+			var template = createDirective();
+			// a little hack (promise doesn't get resolved?)
+			scope.dbdirvm.statusMap = statusMap;
 			scope.$digest();
 			var templateAsHtml = template.html();
-			
 			expect(scope.dbdirvm.config).toEqual(cfg);
 			for(var i in cfg.databases){
-				expect(templateAsHtml).toContain(cfg.databases[i].id);
-				expect(templateAsHtml).toContain(cfg.databases[i].type);
-				expect(templateAsHtml).toContain(cfg.databases[i].name);
+				if(cfg.databases[i].portal) {
+					expect(templateAsHtml).toContain(cfg.databases[i].tree);
+					expect(templateAsHtml).toContain(cfg.databases[i].methods);
+					expect(templateAsHtml).toContain(cfg.databases[i].type);
+					expect(templateAsHtml).toContain(cfg.databases[i].name);
+					expect(templateAsHtml).toContain(statusMap[cfg.databases[i].id].lastUpdate);
+				}
 			}
 		}));
 		

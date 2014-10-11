@@ -24,8 +24,8 @@ module portal {
     }
     
     // string -> object map
-    export interface IObjectMap {
-        [id: string]: Object
+    export interface IStatusMap {
+        [id: string]: StatusResponse
     }
 
 }

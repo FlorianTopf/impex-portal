@@ -19,7 +19,7 @@ module portal {
         public aliveMap: IBooleanMap = {}
         public filterMap: IBooleanMap = {}
         public filterRegions: Array<string> = []
-        public statusMap: IObjectMap = {}
+        //public statusMap: IStatusMap = {}
         
         constructor($resource: ng.resource.IResourceService, $http: ng.IHttpService) {
             this.resource = $resource
@@ -67,14 +67,8 @@ module portal {
         }
         
         // Status routine
-        public status() {
-            this.http.get(this.url+'registry/status', { timeout: 10000 })
-                .success((data: IObjectMap, status: any) => {
-                    this.statusMap = data
-                })
-                .error((data: any, status: any) => {
-                    this.statusMap = {}
-                })
+        public getStatus(): ng.IHttpPromise<IStatusMap> {
+            return this.http.get(this.url+'registry/status', { timeout: 10000 })
         }
         
         // Filter routines

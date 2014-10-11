@@ -888,6 +888,18 @@ var portal;
 var portal;
 (function (portal) {
     'use strict';
+
+    // describe the status response
+    var StatusResponse = (function () {
+        function StatusResponse(lastUpdate, lastError, isNotFound, isInvalid) {
+            this.lastUpdate = lastUpdate;
+            this.lastError = lastError;
+            this.isNotFound = isNotFound;
+            this.isInvalid = isInvalid;
+        }
+        return StatusResponse;
+    })();
+    portal.StatusResponse = StatusResponse;
 })(portal || (portal = {}));
 /// <reference path='../_all.ts' />
 var portal;
@@ -941,13 +953,13 @@ var portal;
     'use strict';
 
     var ConfigService = (function () {
+        //public statusMap: IStatusMap = {}
         function ConfigService($resource, $http) {
             this.url = '/';
             this.config = null;
             this.aliveMap = {};
             this.filterMap = {};
             this.filterRegions = [];
-            this.statusMap = {};
             // creates an action descriptor
             this.configAction = {
                 method: 'GET',
@@ -989,13 +1001,8 @@ else
         };
 
         // Status routine
-        ConfigService.prototype.status = function () {
-            var _this = this;
-            this.http.get(this.url + 'registry/status', { timeout: 10000 }).success(function (data, status) {
-                _this.statusMap = data;
-            }).error(function (data, status) {
-                _this.statusMap = {};
-            });
+        ConfigService.prototype.getStatus = function () {
+            return this.http.get(this.url + 'registry/status', { timeout: 10000 });
         };
 
         // Filter routines
@@ -2168,9 +2175,20 @@ var portal;
         };
 
         DatabasesDir.prototype.linkFn = function ($scope, element, attributes) {
+            var _this = this;
             $scope.dbdirvm = this;
             this.myScope = $scope;
             this.config = this.configService.config;
+
+            this.configService.getStatus().success(function (data, status) {
+                _this.statusMap = data;
+                //this.statusMap['spase://IMPEX/Repository/FMI/HYB'].lastError = "2014-10-11T01:01:26.226+02:00"
+                //this.statusMap['spase://IMPEX/Repository/FMI/HYB'].isInvalid = true
+                //this.statusMap['spase://IMPEX/Repository/LATMOS'].isNotFound = true
+                //console.log(JSON.stringify(this.statusMap))
+            }).error(function (data, status) {
+                _this.statusMap = {};
+            });
         };
         return DatabasesDir;
     })();
