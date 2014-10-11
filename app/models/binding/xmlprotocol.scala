@@ -2331,8 +2331,8 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   trait Methods_AMDASoapBindings { this: scalaxb.Soap11Clients =>
     lazy val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
     lazy val service: models.binding.Methods_AMDA = new Methods_AMDASoapBinding {}
-    //def baseAddress = new java.net.URI("http://apus.cesr.fr/AMDA-WS/php/AMDA_METHODS_WSDL.php")
-    def baseAddress = new java.net.URI("http://cdpp1.cesr.fr/AMDA-NG/php/AMDA_METHODS_WSDL.php")
+    def baseAddress = new java.net.URI("http://apus.cesr.fr/AMDA-WS/php/AMDA_METHODS_WSDL.php")
+    //def baseAddress = new java.net.URI("http://cdpp1.cesr.fr/AMDA-NG/php/AMDA_METHODS_WSDL.php")
     
     trait Methods_AMDASoapBinding extends models.binding.Methods_AMDA {
       def isAlive(): Either[scalaxb.Soap11Fault[Any], Boolean] = 
