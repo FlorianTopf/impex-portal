@@ -194,7 +194,7 @@ module portal {
         
         public updateRequestDate(paramName: string) {
             if(paramName in this.request) {
-                console.log(this.request[paramName])
+                //console.log(this.request[paramName])
                 var iso = new Date(this.request[paramName])
                 //this.request[paramName] = iso.toISOString()
                 // puts timezone => not sure if this is working at every provider

@@ -108,11 +108,11 @@
 			tooltip-placement="left"></button>
 	</div>
 </div>
-<div class="row" ng-show="vm.ready">
+<div class="row portal-row" ng-show="vm.ready">
 	<div class="col-sm-2">&nbsp;</div>
 	<div class="col-sm-2 text-center" id="{{ database.name }}-database"
 		ng-repeat="database in vm.configService.config.databases" 
-		ng-if="(database.type == 'simulation') && !(database.tree | isEmpty)">
+		ng-if="database.portal && !(database.tree | isEmpty)">
 		<div ng-show="vm.ready">
 			<button type="button" class="btn btn-primary btn-map" 
 				ui-sref="app.portal.registry({id:database.id})" 
@@ -145,7 +145,7 @@
 			tooltip-placement="right"></button>
 	</div>
 </div>
-<div class="row" ng-show="vm.ready">
+<div class="row portal-row" ng-show="vm.ready">
 	<div class="col-sm-2 text-center" id="MY-DATA">
 		<button type="button" class="btn btn-warning btn-map"
 			ui-sref="app.portal.userdata()" 
@@ -261,11 +261,6 @@
 			</button>
 		</div>
 		<div class="row path-icon">
-			<button ng-show="vm.activeService" 
-				class="glyphicon glyphicon-import import-srv pull-right"
-				tooltip="Result can be used with SAMP"
-				tooltip-placement="left">
-			</button>
 		</div>
 		<div class="row path-icon">
 			<button ng-show="vm.activeDatabase == 'SINP'" type="button"
@@ -274,6 +269,38 @@
 				tooltip-placement="left">
 			</button>
 			<button ng-show="vm.activeService == 'SINP'" type="button" 
+				class="close-path close-srv pull-right" ng-click="vm.resetPath()"
+				tooltip="Clear active path"
+				tooltip-placement="left">
+				<span aria-hidden="true">&times;</span>
+				<span class="sr-only">Close</span>
+			</button>
+		</div>
+	</div>
+	<div class="col-sm-2">
+		<div class="row path-icon">
+			<button ng-show="vm.activeDatabase == 'AMDA'" type="button" 
+				class="close-path close-db pull-right" ng-click="vm.resetPath()"
+				tooltip="Clear active path"
+				tooltip-placement="left">
+				<span aria-hidden="true">&times;</span>
+				<span class="sr-only">Close</span>
+			</button>
+		</div>
+		<div class="row path-icon">
+			<button ng-show="vm.activeService" 
+				class="glyphicon glyphicon-import import-srv pull-right"
+				tooltip="Result can be used with SAMP"
+				tooltip-placement="left">
+			</button>
+		</div>
+		<div class="row path-icon">
+			<button ng-show="vm.activeDatabase == 'AMDA'" type="button"
+				class="glyphicon glyphicon-import import-db pull-right"
+				tooltip="Selection can be used with Data Access"
+				tooltip-placement="left">
+			</button>
+			<button ng-show="vm.activeService == 'AMDA'" type="button" 
 				class="close-path close-srv pull-right" ng-click="vm.resetPath()"
 				tooltip="Clear active path"
 				tooltip-placement="left">
@@ -298,11 +325,11 @@
 <div class="row map-spacer" ng-show="vm.ready">
 	<div class="col-sm-12">&nbsp;</div>
 </div>
-<div class="row" ng-show="vm.ready">
+<div class="row portal-row" ng-show="vm.ready">
 	<div class="col-sm-2">&nbsp;</div>
 	<div class="col-sm-2 text-center" id="{{ database.name }}-service"
 		ng-repeat="database in vm.configService.config.databases" 
-		ng-if="(database.type == 'simulation') && !(database.methods | isEmpty)">
+		ng-if="database.portal && !(database.methods | isEmpty)">
 		<div ng-show="vm.ready">
 			<button type="button" class="btn btn-success btn-map"
 				ui-sref="app.portal.methods({id:database.id})" 

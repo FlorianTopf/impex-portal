@@ -24,6 +24,15 @@
 	    	<span class="elem-caption" ng-hide="regdirvm.granules | isEmpty">
 	    		Granules ({{ regdirvm.granules.length }})
 	    	</span>
+	    	<span class="elem-caption" ng-hide="regdirvm.observatories | isEmpty">
+	    		Observatories ({{ regdirvm.observatories.length }})
+	    	</span>
+	    	<span class="elem-caption" ng-hide="regdirvm.instruments | isEmpty">
+	    		Instruments ({{ regdirvm.instruments.length }})
+	    	</span>
+	    	<span class="elem-caption" ng-hide="regdirvm.numericalData | isEmpty">
+	    		Numerical Data ({{ regdirvm.numericalData.length }})
+	    	</span>
 	    </div>
   		<div class="btn-group-vertical btn-group-overflow" ng-hide="regdirvm.simulationModels | isEmpty">
 			<button type="button" class="btn btn-default btn-sm" 
@@ -58,13 +67,43 @@
 		<div class="btn-group-vertical btn-group-overflow" ng-hide="regdirvm.granules | isEmpty">		
 			<button type="button" class="btn btn-default btn-sm margin-r-10" 
 				ng-repeat="element in regdirvm.granules"
-				ng-class="{ active: regdirvm.isActive('Granule', element) }"
 				ng-click="regdirvm.setActive('Granule', element)"
+				ng-class="{ active: regdirvm.isActive('Granule', element) }"
 				tooltip-html-unsafe="{{ element.resourceId }}<br/>
 					Release date: {{ element.releaseDate }}">
 					{{ regdirvm.trim(element.resourceId) }}
 			</button> 
 		</div>
+  		<div class="btn-group-vertical btn-group-overflow" ng-hide="regdirvm.observatories | isEmpty">
+			<button type="button" class="btn btn-default btn-sm" 
+				ng-repeat="element in regdirvm.observatories" 
+				ng-click="regvm.getInstrument(element)" 
+				ng-class="{ active: regdirvm.isActive('Observatory', element) }"
+				tooltip-html-unsafe="{{ element.resourceHeader.resourceName }}<br/>
+					Release date: {{ element.resourceHeader.releaseDate }}">
+					{{ regdirvm.trim(element.resourceHeader.resourceName) }}
+			</button>
+		</div> 
+  		<div class="btn-group-vertical btn-group-overflow" ng-hide="regdirvm.instruments | isEmpty">
+			<button type="button" class="btn btn-default btn-sm" 
+				ng-repeat="element in regdirvm.instruments" 
+				ng-click="regvm.getNumericalData(element)" 
+				ng-class="{ active: regdirvm.isActive('Instrument', element) }"
+				tooltip-html-unsafe="{{ element.resourceHeader.resourceName }}<br/>
+					Release date: {{ element.resourceHeader.releaseDate }}">
+					{{ regdirvm.trim(element.resourceHeader.resourceName) }}
+			</button>
+		</div> 
+  		<div class="btn-group-vertical btn-group-overflow" ng-hide="regdirvm.numericalData | isEmpty">
+			<button type="button" class="btn btn-default btn-sm" 
+				ng-repeat="element in regdirvm.numericalData" 
+				ng-click="regdirvm.setActive('NumericalData', element)" 
+				ng-class="{ active: regdirvm.isActive('NumericalData', element) }"
+				tooltip-html-unsafe="{{ element.resourceHeader.resourceName }}<br/>
+					Release date: {{ element.resourceHeader.releaseDate }}">
+					{{ regdirvm.trim(element.resourceHeader.resourceName) }}
+			</button>
+		</div> 
 		<div class="btn-group-vertical" style="vertical-align: top;">
 			<div style="margin-left: 15px;" ng-if="regvm.loading" >
 				<img src="/public/img/layout/loading.gif" class="loadingImg-sm" alt="loading..." />

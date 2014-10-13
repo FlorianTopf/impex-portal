@@ -119,7 +119,6 @@ module portal {
             this.myData = $('#MY-DATA').offset() 
             this.elemH = $("#"+this.activeDatabase+"-database").outerHeight(true)
             this.elemW = $("#"+this.activeDatabase+"-database").outerWidth(true)
-
             //console.log(JSON.stringify(this.myData)+' '+this.elemH+' '+this.elemW)
             // clear canvas before
             this.clear()
@@ -137,10 +136,10 @@ module portal {
             ctx.lineTo(this.database.left-this.main.left+this.elemW/2+10, this.service.top-this.main.top-15)
             // line to left + arrow
             ctx.moveTo(this.database.left-this.main.left+this.elemW/2, this.myData.top-this.main.top+this.elemH/2)
-            ctx.lineTo(this.myData.left-this.main.left+this.elemW-15, this.myData.top-this.main.top+this.elemH/2)
-            ctx.lineTo(this.myData.left-this.main.left+this.elemW-5, this.myData.top-this.main.top+this.elemH/2-10)
-            ctx.moveTo(this.myData.left-this.main.left+this.elemW-15, this.myData.top-this.main.top+this.elemH/2)
-            ctx.lineTo(this.myData.left-this.main.left+this.elemW-5, this.myData.top-this.main.top+this.elemH/2+10)
+            ctx.lineTo(this.myData.left-this.main.left+this.elemW, this.myData.top-this.main.top+this.elemH/2)
+            ctx.lineTo(this.myData.left-this.main.left+this.elemW+10, this.myData.top-this.main.top+this.elemH/2-10)
+            ctx.moveTo(this.myData.left-this.main.left+this.elemW, this.myData.top-this.main.top+this.elemH/2)
+            ctx.lineTo(this.myData.left-this.main.left+this.elemW+10, this.myData.top-this.main.top+this.elemH/2+10)
             ctx.stroke()
         }
         
@@ -162,10 +161,10 @@ module portal {
             // line to top and left + arrow
             ctx.moveTo(this.service.left-this.main.left+this.elemW/2, this.service.top-this.main.top)
             ctx.lineTo(this.service.left-this.main.left+this.elemW/2, this.myData.top-this.main.top+this.elemH/2)
-            ctx.lineTo(this.myData.left-this.main.left+this.elemW-15, this.myData.top-this.main.top+this.elemH/2)
-            ctx.lineTo(this.myData.left-this.main.left+this.elemW-5, this.myData.top-this.main.top+this.elemH/2-10)
-            ctx.moveTo(this.myData.left-this.main.left+this.elemW-15, this.myData.top-this.main.top+this.elemH/2)
-            ctx.lineTo(this.myData.left-this.main.left+this.elemW-5, this.myData.top-this.main.top+this.elemH/2+10)
+            ctx.lineTo(this.myData.left-this.main.left+this.elemW, this.myData.top-this.main.top+this.elemH/2)
+            ctx.lineTo(this.myData.left-this.main.left+this.elemW+10, this.myData.top-this.main.top+this.elemH/2-10)
+            ctx.moveTo(this.myData.left-this.main.left+this.elemW, this.myData.top-this.main.top+this.elemH/2)
+            ctx.lineTo(this.myData.left-this.main.left+this.elemW+10, this.myData.top-this.main.top+this.elemH/2+10)
             // line to right + arrow
             ctx.moveTo(this.service.left-this.main.left+this.elemW/2, this.myData.top-this.main.top+this.elemH/2)
             ctx.lineTo(this.tools.left-this.main.left, this.myData.top-this.main.top+this.elemH/2)

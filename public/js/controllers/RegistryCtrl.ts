@@ -60,7 +60,7 @@ module portal {
             if(!(cacheId in this.registryService.cachedElements)) {  
                 this.registryPromise = this.registryService.Repository().get(
                     { fmt: 'json' , id: id }).$promise
-                this.registryPromise.then((spase) => {
+                this.registryPromise.then((spase: ISpase) => {
                     this.registryService.cachedElements[cacheId] = spase.resources.map((r) => r.repository)            
                     this.scope.$broadcast('update-repositories', cacheId)
                     this.initialising = false

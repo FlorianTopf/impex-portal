@@ -47,6 +47,8 @@ module portal {
                 ['calculateDataPointValueSaturn', 'calculateCubeSaturn']
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Jupiter/OnFly'] = 
                 ['calculateDataPointValueJupiter', 'calculateCubeJupiter']
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/GiantPlanet/OnFly'] = 
+                ['calculateDataPointValueGiantPlanets']
         }
         
         // action descriptor for GET methods actions

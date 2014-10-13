@@ -1145,6 +1145,7 @@ var portal;
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Mercury/OnFly'] = ['calculateDataPointValueNercury', 'calculateCubeMercury'];
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Saturn/OnFly'] = ['calculateDataPointValueSaturn', 'calculateCubeSaturn'];
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Jupiter/OnFly'] = ['calculateDataPointValueJupiter', 'calculateCubeJupiter'];
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/GiantPlanet/OnFly'] = ['calculateDataPointValueGiantPlanets'];
         }
         // generic method for requesting API
         MethodsService.prototype.MethodsAPI = function () {
@@ -3143,7 +3144,7 @@ var portal;
 
         MethodsDir.prototype.updateRequestDate = function (paramName) {
             if (paramName in this.request) {
-                console.log(this.request[paramName]);
+                //console.log(this.request[paramName])
                 var iso = new Date(this.request[paramName]);
 
                 //this.request[paramName] = iso.toISOString()
@@ -3380,10 +3381,10 @@ var portal;
 
             // line to left + arrow
             ctx.moveTo(this.database.left - this.main.left + this.elemW / 2, this.myData.top - this.main.top + this.elemH / 2);
-            ctx.lineTo(this.myData.left - this.main.left + this.elemW - 15, this.myData.top - this.main.top + this.elemH / 2);
-            ctx.lineTo(this.myData.left - this.main.left + this.elemW - 5, this.myData.top - this.main.top + this.elemH / 2 - 10);
-            ctx.moveTo(this.myData.left - this.main.left + this.elemW - 15, this.myData.top - this.main.top + this.elemH / 2);
-            ctx.lineTo(this.myData.left - this.main.left + this.elemW - 5, this.myData.top - this.main.top + this.elemH / 2 + 10);
+            ctx.lineTo(this.myData.left - this.main.left + this.elemW, this.myData.top - this.main.top + this.elemH / 2);
+            ctx.lineTo(this.myData.left - this.main.left + this.elemW + 10, this.myData.top - this.main.top + this.elemH / 2 - 10);
+            ctx.moveTo(this.myData.left - this.main.left + this.elemW, this.myData.top - this.main.top + this.elemH / 2);
+            ctx.lineTo(this.myData.left - this.main.left + this.elemW + 10, this.myData.top - this.main.top + this.elemH / 2 + 10);
             ctx.stroke();
         };
 
@@ -3406,10 +3407,10 @@ var portal;
             // line to top and left + arrow
             ctx.moveTo(this.service.left - this.main.left + this.elemW / 2, this.service.top - this.main.top);
             ctx.lineTo(this.service.left - this.main.left + this.elemW / 2, this.myData.top - this.main.top + this.elemH / 2);
-            ctx.lineTo(this.myData.left - this.main.left + this.elemW - 15, this.myData.top - this.main.top + this.elemH / 2);
-            ctx.lineTo(this.myData.left - this.main.left + this.elemW - 5, this.myData.top - this.main.top + this.elemH / 2 - 10);
-            ctx.moveTo(this.myData.left - this.main.left + this.elemW - 15, this.myData.top - this.main.top + this.elemH / 2);
-            ctx.lineTo(this.myData.left - this.main.left + this.elemW - 5, this.myData.top - this.main.top + this.elemH / 2 + 10);
+            ctx.lineTo(this.myData.left - this.main.left + this.elemW, this.myData.top - this.main.top + this.elemH / 2);
+            ctx.lineTo(this.myData.left - this.main.left + this.elemW + 10, this.myData.top - this.main.top + this.elemH / 2 - 10);
+            ctx.moveTo(this.myData.left - this.main.left + this.elemW, this.myData.top - this.main.top + this.elemH / 2);
+            ctx.lineTo(this.myData.left - this.main.left + this.elemW + 10, this.myData.top - this.main.top + this.elemH / 2 + 10);
 
             // line to right + arrow
             ctx.moveTo(this.service.left - this.main.left + this.elemW / 2, this.myData.top - this.main.top + this.elemH / 2);

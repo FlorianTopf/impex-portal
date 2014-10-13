@@ -72,8 +72,8 @@ object Spase {
         } 
         case Some("NumericalData") => { 
           d.value match {
-            case n: NodeSeq => Json.obj("numericaldata" -> scalaxb.fromXML[NumericalData](d.as[NodeSeq]))
-            case r: NumericalData => Json.obj("numericaldata" -> d.as[NumericalData])
+            case n: NodeSeq => Json.obj("numericalData" -> scalaxb.fromXML[NumericalData](d.as[NodeSeq]))
+            case r: NumericalData => Json.obj("numericalData" -> d.as[NumericalData])
           }
         } 
         // should never happen
