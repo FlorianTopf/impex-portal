@@ -2567,9 +2567,9 @@ var portal;
                     _this.tabsActive = [true, false, false];
 
                     if (_this.repositoryId) {
-                        _this.user.activeSelection.forEach(function (e) {
-                            if (e.repositoryId == _this.repositoryId) {
-                                _this.isCollapsed[e.id] = false;
+                        _this.user.activeSelection.forEach(function (s) {
+                            if (s.repositoryId == _this.repositoryId) {
+                                _this.isCollapsed[s.id] = false;
                             } else {
                                 _this.user.activeSelection = [];
                             }
@@ -2584,7 +2584,7 @@ var portal;
                 _this.isVOTApplyable = false;
             });
 
-            // comes from MethodsCtrl
+            // comes from MethodsDir
             this.myScope.$on('set-applyable-elements', function (e, elements) {
                 //console.log(elements)
                 //console.log('set-applyable-elements')
@@ -2592,40 +2592,36 @@ var portal;
                     return e.trim();
                 });
                 _this.isSelApplyable = false;
-                if (_this.user.activeSelection.length == 1) {
+                _this.user.activeSelection.forEach(function (s) {
                     _this.applyableElements.forEach(function (e) {
-                        if (_this.user.activeSelection[0].type == e)
+                        if (s.repositoryId == _this.repositoryId && s.type == e)
                             _this.isSelApplyable = true;
                     });
-                }
+                });
             });
 
-            // comes from MethodsCtrl
+            // comes from MethodsDir
             this.myScope.$on('set-applyable-votable', function (e, b) {
                 //console.log('set-applyable-votable')
                 _this.isVOTApplyable = b;
             });
 
-            // comes from MethodsCtrl => hack for SINP models/output
+            // comes from MethodsDir => hack for SINP models/output
             this.myScope.$on('set-applyable-models', function (e, m) {
                 //console.log(m)
                 //console.log('set-applyable-models')
                 _this.applyableModel = m;
-                if (_this.user.activeSelection.length == 1) {
-                    var element = _this.user.activeSelection[0];
-
+                _this.user.activeSelection.forEach(function (s) {
                     // we just check the onfly numerical output elements too
                     var output = _this.applyableModel.replace('SimulationModel', 'NumericalOutput');
-
-                    //var index = element.elem.resourceId.indexOf(output.replace('OnFly', ''))
-                    var index = element.elem.resourceId.indexOf(output);
-                    if (_this.applyableModel == element.elem.resourceId || index != -1)
+                    var index = s.elem.resourceId.indexOf(output);
+                    if (_this.applyableModel == s.elem.resourceId || index != -1)
                         _this.isSelApplyable = true;
-else if (_this.applyableModel == 'static' && element.elem.resourceId.indexOf('OnFly') == -1)
+else if (_this.applyableModel == 'static' && s.elem.resourceId.indexOf('OnFly') == -1)
                         _this.isSelApplyable = true;
 else
                         _this.isSelApplyable = false;
-                }
+                });
             });
 
             // comes from RegistryDir
@@ -2672,11 +2668,13 @@ else
                 if (this.state.current.name == 'app.portal.userdata') {
                     return false;
                     // hack for SINP models
-                } else if (type == 'SimulationModel' && this.repositoryId.indexOf('SINP') != -1 && this.user.activeSelection.length == 1) {
-                    if (this.user.activeSelection[0].elem.resourceId.indexOf('Static') != -1)
-                        return false;
-else
-                        return true;
+                } else if (type == 'SimulationModel' && this.repositoryId.indexOf('SINP') != -1 && this.user.activeSelection.length > 0) {
+                    var selectable = false;
+                    this.user.activeSelection.forEach(function (s) {
+                        if (s.elem.resourceId.indexOf('Static') == -1)
+                            selectable = true;
+                    });
+                    return selectable;
                 } else if (type == 'Granule') {
                     return true;
                 } else {
@@ -2720,8 +2718,6 @@ else
 
                     if (this.applyableModel) {
                         var output = this.applyableModel.replace('SimulationModel', 'NumericalOutput');
-
-                        //var index = selection.elem.resourceId.indexOf(output.replace('OnFly', ''))
                         var index = selection.elem.resourceId.indexOf(output);
                         if (this.applyableModel == selection.elem.resourceId || index != -1)
                             this.isSelApplyable = true;
@@ -2806,7 +2802,25 @@ else
 
         // method for applying a selection to the current method
         UserDataDir.prototype.applySelection = function (resourceId) {
-            this.myScope.$broadcast('apply-selection', resourceId);
+            var _this = this;
+            var keys = null;
+            this.user.activeSelection.forEach(function (s) {
+                if (s.repositoryId == _this.repositoryId && s.elem.resourceId == resourceId) {
+                    if (s.type == 'NumericalOutput') {
+                        var output = s.elem;
+                        keys = output.parameter.map(function (p) {
+                            return p.parameterKey;
+                        });
+                    }
+                    if (s.type == 'NumericalData') {
+                        var data = s.elem;
+                        keys = data.parameter.map(function (p) {
+                            return p.parameterKey;
+                        });
+                    }
+                }
+            });
+            this.myScope.$broadcast('apply-selection', resourceId, keys);
         };
 
         // method for applying a votable url to the current method
@@ -3011,8 +3025,8 @@ var portal;
                 _this.resetRequest();
             });
 
-            this.myScope.$on('apply-selection', function (e, id) {
-                _this.applySelection(id);
+            this.myScope.$on('apply-selection', function (e, id, keys) {
+                _this.applySelection(id, keys);
             });
 
             this.myScope.$on('apply-votable', function (e, url) {
@@ -3075,12 +3089,17 @@ var portal;
 
             if (this.method.operations[0].parameters.filter(function (e) {
                 return e.name == 'id';
-            }).length != 0) {
+            }).length > 0) {
                 // there is only one id param per method
                 var param = this.method.operations[0].parameters.filter(function (e) {
                     return e.name == 'id';
                 })[0];
                 this.myScope.$broadcast('set-applyable-elements', param.description);
+                // observational data (numericalData => parameterKey)
+            } else if (this.method.operations[0].parameters.filter(function (e) {
+                return e.name == 'parameterId';
+            }).length > 0) {
+                this.myScope.$broadcast('set-applyable-elements', 'NumericalData');
             } else {
                 // if there is no id, broadcast empty string
                 this.myScope.$broadcast('set-applyable-elements', '');
@@ -3088,7 +3107,7 @@ var portal;
 
             if (this.method.operations[0].parameters.filter(function (e) {
                 return e.name == 'votable_url';
-            }).length != 0) {
+            }).length > 0) {
                 this.myScope.$broadcast('set-applyable-votable', true);
             } else {
                 // if there is no url field return false
@@ -3109,9 +3128,20 @@ var portal;
         };
 
         // method for applying a selection to the current method
-        MethodsDir.prototype.applySelection = function (resourceId) {
+        MethodsDir.prototype.applySelection = function (resourceId, keys) {
             //console.log('applySelection '+resourceId)
             this.request['id'] = resourceId;
+            if (keys) {
+                if (this.repositoryId.indexOf('AMDA') != -1) {
+                    // creating a dropdown, by adding an enum to the parameter
+                    this.method.operations[0].parameters.filter(function (p) {
+                        return p.name == 'parameterId';
+                    })[0]['enum'] = keys;
+                    this.request['parameterId'] = keys[0];
+                } else {
+                    this.request['variable'] = keys.join(',');
+                }
+            }
         };
 
         // method for applying a votable url to the current method
@@ -3147,7 +3177,6 @@ var portal;
                 //console.log(this.request[paramName])
                 var iso = new Date(this.request[paramName]);
 
-                //this.request[paramName] = iso.toISOString()
                 // puts timezone => not sure if this is working at every provider
                 this.request[paramName] = moment(iso).format();
                 this.userService.sessionStorage.methods[this.repositoryId].params[paramName] = this.request[paramName];

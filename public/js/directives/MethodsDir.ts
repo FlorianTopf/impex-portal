@@ -67,8 +67,8 @@ module portal {
                 this.resetRequest()  
             })
             
-            this.myScope.$on('apply-selection', (e, id: string) => {
-                this.applySelection(id) 
+            this.myScope.$on('apply-selection', (e, id: string, keys: Array<string>) => {
+                this.applySelection(id, keys) 
             })
             
             this.myScope.$on('apply-votable', (e, url: string) => {
@@ -129,17 +129,20 @@ module portal {
             }
             
             // check if there is an id field and broadcast applyable elements
-            if(this.method.operations[0].parameters.filter((e) => e.name == 'id').length != 0) {
+            if(this.method.operations[0].parameters.filter((e) => e.name == 'id').length > 0) {
                 // there is only one id param per method 
                 var param = this.method.operations[0].parameters.filter((e) => e.name == 'id')[0]
                 this.myScope.$broadcast('set-applyable-elements', param.description)
+            // observational data (numericalData => parameterKey)
+            } else if(this.method.operations[0].parameters.filter((e) => e.name == 'parameterId').length > 0) {
+                this.myScope.$broadcast('set-applyable-elements', 'NumericalData')
             } else {
                 // if there is no id, broadcast empty string
                 this.myScope.$broadcast('set-applyable-elements', '')
             }
             
             // check if there is an url field and broadcast indication
-            if(this.method.operations[0].parameters.filter((e) => e.name == 'votable_url').length != 0) {
+            if(this.method.operations[0].parameters.filter((e) => e.name == 'votable_url').length > 0) {
                 this.myScope.$broadcast('set-applyable-votable', true)
             } else {
                 // if there is no url field return false
@@ -161,9 +164,19 @@ module portal {
         }
         
         // method for applying a selection to the current method
-        private applySelection(resourceId: string) {
+        private applySelection(resourceId: string, keys: Array<string>) {
             //console.log('applySelection '+resourceId)
             this.request['id'] = resourceId
+            if(keys) { 
+                if(this.repositoryId.indexOf('AMDA') != -1) {
+                    // creating a dropdown, by adding an enum to the parameter
+                    this.method.operations[0].parameters.filter(
+                        (p) => p.name == 'parameterId')[0]['enum'] = keys
+                    this.request['parameterId'] = keys[0]
+                } else {
+                    this.request['variable'] = keys.join(',')
+                }
+            }
         }
         
         // method for applying a votable url to the current method
@@ -196,7 +209,6 @@ module portal {
             if(paramName in this.request) {
                 //console.log(this.request[paramName])
                 var iso = new Date(this.request[paramName])
-                //this.request[paramName] = iso.toISOString()
                 // puts timezone => not sure if this is working at every provider
                 this.request[paramName] = moment(iso).format()
                 this.userService.sessionStorage.methods[this.repositoryId]

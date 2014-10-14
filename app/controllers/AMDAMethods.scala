@@ -30,7 +30,7 @@ object AMDAMethods extends MethodsController {
     future.fold((fault) => Ok(JsBoolean(false)), (alive) => Ok(JsBoolean(alive)))
   }
   
-  @GET
+  /*@GET
   @ApiOperation(
       value = "getTimeTableList at AMDA", 
       nickname = "getTimeTableListAMDA",
@@ -53,7 +53,7 @@ object AMDAMethods extends MethodsController {
         required = false, 
         dataType = "string", 
         paramType = "query")))
-  @Path("/getTimeTableList")
+  @Path("/getTimeTableList")*/
   def getTimeTableList = PortalAction { implicit request =>
     // optional
     val userId = request.req.get("userId")
@@ -73,7 +73,7 @@ object AMDAMethods extends MethodsController {
   }
   
   
-  @GET
+  /* @GET
   @ApiOperation(
       value = "getTimeTable at AMDA", 
       nickname = "getTimeTableAMDA",
@@ -103,7 +103,7 @@ object AMDAMethods extends MethodsController {
         required = false, 
         dataType = "string", 
         paramType = "query")))
-  @Path("/getTimeTable")
+  @Path("/getTimeTable") */
   def getTimeTable = PortalAction { implicit request =>
     try {
     // mandatory
@@ -131,7 +131,7 @@ object AMDAMethods extends MethodsController {
   }
   
 
-  @GET
+  /* @GET
   @ApiOperation(
       value = "getParameterList at AMDA", 
       nickname = "getParameterListAMDA",
@@ -154,7 +154,7 @@ object AMDAMethods extends MethodsController {
         required = false, 
         dataType = "string", 
         paramType = "query")))
-  @Path("/getParameterList")
+  @Path("/getParameterList") */
   def getParameterList = PortalAction { implicit request =>
     try {
     // mandatory
@@ -206,7 +206,7 @@ object AMDAMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "parameterId",
-        value = "Parameter Id",
+        value = "Parameter Key",
         defaultValue = "b_it",
         required = true,
         dataType = "string",
@@ -215,7 +215,7 @@ object AMDAMethods extends MethodsController {
         name = "sampling",
         value = "Sampling [s]",
         required = false,
-        dataType = "string",
+        dataType = "number",
         paramType = "query"),
     new ApiImplicitParam(
         name = "userId", 
@@ -324,27 +324,30 @@ object AMDAMethods extends MethodsController {
         required = true,
         dataType = "dateTime",
         paramType = "query"),
-    // @TODO there is a enum of possible values
+    // possible values from current ICD
     new ApiImplicitParam(
         name = "spacecraft",
         value = "Spacecraft Name",
         defaultValue = "VEX",
+        allowableValues = "Cassini_Public,Galileo,Voyager_1,Voyager_2,Pioneer_10,Pioneer_11,PVO,ACE,VEX,MEX,MGS,MAVEN,MESSENGER,ULYSSES,Stereo-A,Stereo-B,WIND,THEMIS-A,THEMIS-B,THEMIS-C,THEMIS-D,THEMIS-E,CLUSTER1,CLUSTER2,CLUSTER3,CLUSTER4,Doublestar1,IMP-8,GEOTAIL,POLAR,INTERBALL-Tail,ISEE-1,ISEE-2",
         required = true,
         dataType = "string",
         paramType = "query"),
-    // @TODO there is a enum of possible values
+    // possible values from current ICD
     new ApiImplicitParam(
         name = "coordinateSystem",
         value = "Coordinate System",
         defaultValue = "VSO",
+        allowableValues = "CPHIO,GPHIO,IPHIO,EPHIO,Equatorial,CGM,Carrington,DM,GEI,GEO,GSE,GSEQ,GSM,HAE,HCC,HCI,HCR,HEE,HEEQ,HG,HGI,HPC,HPR,J2000,LGM,MAG,MFA,RTN,SC,SE,SM,SR,SR2,SSE,SSE_L,SpacecraftOrbitPlane,WGS84,MSO,VSO",
         required = true,
         dataType = "string",
         paramType = "query"),
-    // @TODO there is a enum of possible values
+    // possible values from current ICD
     new ApiImplicitParam(
         name = "units",
         value = "Units",
         defaultValue = "Rv",
+        allowableValues = "km,Rs,Rj,Rca,Rga,Rio,Reu,Rv,Rm,Re,AU",
         required = false,
         dataType = "string",
         paramType = "query"),
@@ -352,7 +355,7 @@ object AMDAMethods extends MethodsController {
         name = "sampling",
         value = "Sampling [s]",
         required = false,
-        dataType = "string",
+        dataType = "number",
         paramType = "query"),
     new ApiImplicitParam(
         name = "userId", 

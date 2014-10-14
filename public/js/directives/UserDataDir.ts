@@ -143,9 +143,9 @@ module portal {
                     // set active selection if we enter the right interface
                     // otherwise clear active selections
                     if(this.repositoryId){
-                        this.user.activeSelection.forEach((e) => {
-                            if(e.repositoryId == this.repositoryId){
-                                this.isCollapsed[e.id] = false
+                        this.user.activeSelection.forEach((s) => {
+                            if(s.repositoryId == this.repositoryId){
+                                this.isCollapsed[s.id] = false
                             } else {
                                 this.user.activeSelection = []
                             }
@@ -153,7 +153,6 @@ module portal {
                         })
                     }
                 }
-                
                 // reset applyables
                 this.applyableElements = []
                 this.applyableModel = null   
@@ -161,46 +160,44 @@ module portal {
                 this.isVOTApplyable = false
             })
             
-            // comes from MethodsCtrl
+            // comes from MethodsDir
             this.myScope.$on('set-applyable-elements', (e, elements: string) => {
                //console.log(elements)
                //console.log('set-applyable-elements')
                this.applyableElements = elements.split(',').map((e) => e.trim())
                this.isSelApplyable = false
-               if(this.user.activeSelection.length == 1) {
+               this.user.activeSelection.forEach((s) => {
                     this.applyableElements.forEach((e) => {
                         //console.log('Element '+e)
-                        if(this.user.activeSelection[0].type == e)
+                        if(s.repositoryId == this.repositoryId && s.type == e)
                             this.isSelApplyable = true  
                     })
-               }
+               })
             })
             
-            // comes from MethodsCtrl
+            // comes from MethodsDir
             this.myScope.$on('set-applyable-votable', (e, b: boolean) => { 
                 //console.log('set-applyable-votable')
                 this.isVOTApplyable = b
             })
             
-            // comes from MethodsCtrl => hack for SINP models/output
+            // comes from MethodsDir => hack for SINP models/output
             this.myScope.$on('set-applyable-models', (e, m: string) => { 
                 //console.log(m)
                 //console.log('set-applyable-models')
                 this.applyableModel = m 
-                if(this.user.activeSelection.length == 1) {
-                    var element = this.user.activeSelection[0]
+                this.user.activeSelection.forEach((s) => {
                     // we just check the onfly numerical output elements too
                     var output = this.applyableModel.replace('SimulationModel', 'NumericalOutput')
-                    //var index = element.elem.resourceId.indexOf(output.replace('OnFly', ''))
-                    var index = element.elem.resourceId.indexOf(output)
-                    if(this.applyableModel == element.elem.resourceId || index != -1)
+                    var index = s.elem.resourceId.indexOf(output)
+                    if(this.applyableModel == s.elem.resourceId || index != -1)
                         this.isSelApplyable = true
                     else if(this.applyableModel == 'static' && 
-                        element.elem.resourceId.indexOf('OnFly') == -1)
+                        s.elem.resourceId.indexOf('OnFly') == -1)
                         this.isSelApplyable = true
                     else
                         this.isSelApplyable = false
-                }      
+                })    
             })
             
             // comes from RegistryDir
@@ -248,11 +245,13 @@ module portal {
                 // hack for SINP models
                 } else if(type == 'SimulationModel' && 
                     this.repositoryId.indexOf('SINP') != -1 && 
-                    this.user.activeSelection.length == 1) {
-                    if(this.user.activeSelection[0].elem.resourceId.indexOf('Static') != -1)
-                        return false
-                    else
-                        return true
+                    this.user.activeSelection.length > 0) {
+                    var selectable = false
+                    this.user.activeSelection.forEach((s) => { 
+                        if(s.elem.resourceId.indexOf('Static') == -1)
+                            selectable = true
+                    })
+                    return selectable
                 } else if(type == 'Granule') {
                     return true
                 } else {
@@ -289,7 +288,6 @@ module portal {
                     // hack for SINP models/outputs
                     if(this.applyableModel) {
                         var output = this.applyableModel.replace('SimulationModel', 'NumericalOutput')
-                        //var index = selection.elem.resourceId.indexOf(output.replace('OnFly', ''))
                         var index = selection.elem.resourceId.indexOf(output)
                         if(this.applyableModel == selection.elem.resourceId || index != -1)
                             this.isSelApplyable = true
@@ -366,7 +364,20 @@ module portal {
         
         // method for applying a selection to the current method
         public applySelection(resourceId: string) {
-            this.myScope.$broadcast('apply-selection', resourceId)
+            var keys = null
+            this.user.activeSelection.forEach((s) => {
+                if(s.repositoryId == this.repositoryId && s.elem.resourceId == resourceId) {
+                    if(s.type == 'NumericalOutput') {
+                        var output = <NumericalOutput>s.elem
+                        keys = output.parameter.map((p) => p.parameterKey)
+                    }
+                    if(s.type == 'NumericalData') {
+                        var data = <NumericalData>s.elem
+                        keys = data.parameter.map((p) => p.parameterKey)
+                    }
+                }
+            })
+            this.myScope.$broadcast('apply-selection', resourceId, keys)
         }
         
         // method for applying a votable url to the current method
