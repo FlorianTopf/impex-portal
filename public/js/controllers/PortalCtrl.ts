@@ -190,6 +190,7 @@ module portal {
             this.isFilterCollapsed = true
             this.isFilterLoading = true
             this.registryService.isFilterSet = false
+            this.growl.info("Loading filtered Map")
             var counter = 0
             var tempMap: IBooleanMap = {}
             for(var region in this.registryService.selectedFilter) {
@@ -211,6 +212,7 @@ module portal {
                             this.isFilterLoading = false
                             this.registryService.isFilterSet = true
                             //console.log(JSON.stringify(this.configService.filterMap))
+                            this.growl.success("Map filtered")
                         }
                     })
                     // @TODO what to do in an error case?

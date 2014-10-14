@@ -6,7 +6,7 @@
 		<tabset><tab heading="Tree Selections"
 			ng-hide="userdirvm.user.selections | filter:{ repositoryId:userdirvm.repositoryId } | isEmpty" 
 			active="userdirvm.tabsActive[0]">
-			<button type="button" class="btn btn-sm btn-danger" style="margin-top: 15px;"
+			<button type="button" class="btn btn-sm btn-danger clear-button
 				ng-click="userdirvm.clearData('selections')"
 				ng-hide="userdirvm.user.selections | filter:{ repositoryId:userdirvm.repositoryId } | isEmpty">
 				Clear Selections
@@ -22,7 +22,7 @@
 		</tab>
 		<tab heading="VOTables" ng-if="userdirvm.state.current.name != 'app.portal.registry'"
 			ng-hide="userdirvm.user.voTables | isEmpty" active="userdirvm.tabsActive[1]">
-			<button type="button" class="btn btn-sm btn-danger" style="margin-top: 15px;"
+			<button type="button" class="btn btn-sm btn-danger clear-button"
 				ng-click="userdirvm.clearData('votables')"
 				ng-hide="userdirvm.user.voTables | isEmpty" >
 				Clear VOTables
@@ -39,7 +39,7 @@
 		<tab heading="Service Results" 
 			ng-hide="userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId } | isEmpty" 
 			active="userdirvm.tabsActive[2]">
-			<button type="button" class="btn btn-sm btn-danger" style="margin-top: 15px;"
+			<button type="button" class="btn btn-sm btn-danger clear-button"
 				ng-click="userdirvm.clearData('results')"
 				ng-hide="userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId } | isEmpty">
 				Clear Results
@@ -86,9 +86,8 @@
 			<div class="well well-sm overflow-500">
 				<div class="pull-right">
 					<div class="btn-group">
-  						<button style="width: 120px;" type="button" 
-  							ng-disabled="!userdirvm.window.isSampRegistered || !userdirvm.isSampAble" 
-  							class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+  						<button type="button" ng-disabled="!userdirvm.window.isSampRegistered || !userdirvm.isSampAble" 
+  							class="btn btn-primary btn-sm delegate" data-toggle="dropdown">
     						Delegate to&nbsp;&nbsp;<span class="caret"></span>
   						</button>
   						<ul class="dropdown-menu" role="menu">
@@ -117,9 +116,9 @@
 			<div class="well well-sm overflow-500">
 				<div class="pull-right">
 					<div class="btn-group">
-  						<button style="width: 120px;" type="button" 
-  							ng-disabled="!userdirvm.window.isSampRegistered" 
-  							class="btn btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+  						<button type="button" ng-disabled="!userdirvm.window.isSampRegistered" 
+  							class="btn btn-primary btn-sm delegate" 
+  							data-toggle="dropdown">
     						Delegate to&nbsp;&nbsp;<span class="caret"></span>
   						</button>
   						<ul class="dropdown-menu" role="menu">

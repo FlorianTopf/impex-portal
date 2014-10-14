@@ -1512,6 +1512,7 @@ var portal;
             this.isFilterCollapsed = true;
             this.isFilterLoading = true;
             this.registryService.isFilterSet = false;
+            this.growl.info("Loading filtered Map");
             var counter = 0;
             var tempMap = {};
             for (var region in this.registryService.selectedFilter) {
@@ -1532,7 +1533,9 @@ else
                             }
                             _this.isFilterLoading = false;
                             _this.registryService.isFilterSet = true;
+
                             //console.log(JSON.stringify(this.configService.filterMap))
+                            _this.growl.success("Map filtered");
                         }
                     }).error(function (data, status) {
                         _this.isFilterLoading = false;
@@ -2268,16 +2271,17 @@ var portal;
                 _this.repositoryId = id;
             });
 
-            this.myScope.$on('registry-error', function (e, msg) {
-                _this.showError = true;
-                _this.status = msg;
-            });
-
             this.myScope.$watch('$includeContentLoaded', function (e) {
-                //console.log('RegistryDir loaded')
+                if (_this.registryService.isFilterSet)
+                    _this.userService.user.activeSelection = [];
                 _this.activeItems = {};
                 _this.showError = false;
                 _this.status = '';
+            });
+
+            this.myScope.$on('registry-error', function (e, msg) {
+                _this.showError = true;
+                _this.status = msg;
             });
 
             this.myScope.$on('clear-registry-dir', function (e) {
@@ -2345,6 +2349,17 @@ var portal;
                 _this.simulationModels = _this.registryService.cachedElements[id].map(function (r) {
                     return r;
                 });
+
+                // hack forfiltering models of sinp
+                _this.simulationModels = _this.simulationModels.filter(function (elem) {
+                    var region = elem.resourceHeader.resourceName.split(' ').reverse()[0];
+                    if (_this.registryService.selectedFilter[region])
+                        return true;
+else if (!_this.registryService.isFilterSet)
+                        return true;
+else
+                        return false;
+                });
             });
 
             this.myScope.$on('update-simulation-runs', function (e, id) {
@@ -2355,9 +2370,9 @@ var portal;
                 // filtering the runs (when filter is active)
                 _this.simulationRuns = _this.simulationRuns.filter(function (elem) {
                     var matches = elem.simulatedRegion.filter(function (r) {
-                        if (_this.registryService.selectedFilter[r] == true)
+                        if (_this.registryService.selectedFilter[r])
                             return true;
-else if (_this.registryService.isFilterSet == false)
+else if (!_this.registryService.isFilterSet)
                             return true;
 else
                             return false;
@@ -2387,9 +2402,9 @@ else
                 // filtering the observatories (when filter is active)
                 _this.observatories = _this.observatories.filter(function (elem) {
                     var matches = elem.location.observatoryRegion.filter(function (r) {
-                        if (_this.registryService.selectedFilter[r] == true)
+                        if (_this.registryService.selectedFilter[r.split('.')[0]])
                             return true;
-else if (_this.registryService.isFilterSet == false)
+else if (!_this.registryService.isFilterSet)
                             return true;
 else
                             return false;
@@ -3017,6 +3032,13 @@ var portal;
                 _this.repositoryId = id;
             });
 
+            this.myScope.$watch('$includeContentLoaded', function (e) {
+                if (!(_this.repositoryId in _this.userService.sessionStorage.methods)) {
+                    _this.method = null;
+                    _this.request = {};
+                }
+            });
+
             this.myScope.$on('set-method-active', function (e, method) {
                 _this.setMethod(method);
             });
@@ -3031,13 +3053,6 @@ var portal;
 
             this.myScope.$on('apply-votable', function (e, url) {
                 _this.applyVOTable(url);
-            });
-
-            this.myScope.$watch('$includeContentLoaded', function (e) {
-                if (!(_this.repositoryId in _this.userService.sessionStorage.methods)) {
-                    _this.method = null;
-                    _this.request = {};
-                }
             });
         };
 

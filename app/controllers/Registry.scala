@@ -23,47 +23,91 @@ object Registry extends BaseController {
 
   // gets update and validation status
   def status() = PortalAction.async {
-    RegistryService.getStatus.map{ s => 
-      Ok(Json.toJson(s))
-    }
+    RegistryService.getStatus.map(s => Ok(Json.toJson(s)))
   }
 
-  // get a list of all stored regions in the registry
+  @GET
+  @ApiOperation(
+      value = "get regions", 
+      nickname = "getRegions",
+      notes = "returns a list of all stored targets in the registry", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "unkown provider"), 
+    new ApiResponse(code = 400, message = "not implemented")))
   def getRegions() = PortalAction.async { 
-    val future = RegistryService.getNumericalOutput(None, false)
-    future.map { _ match {
-        case Left(spase) => { 
-          val regions = spase.ResourceEntity.flatMap{ r => 
-            val run = r.as[NumericalOutput]
-            run.SimulatedRegion
-          }
-          // we return the base without appendices
-          // maybe introduce empty error case
-          Ok(Json.toJson(regions.map(_.replace(".Magnetosphere", "")).distinct))
-        }
-        case Right(error) => BadRequest(Json.toJson(error))
+    for {
+      // we can take observatories/simulationruns here (is faster)
+      f1 <- RegistryService.getObservatory(None, false)
+      f2 <- RegistryService.getSimulationRun(None, false)
+    } yield { (f1, f2) match {
+      	case (Left(obs), Left(run)) => {
+      	   val obsRegions = obs.ResourceEntity.flatMap{ r => 
+      	     val obs = r.as[Observatory]
+      	     obs.Location.ObservatoryRegion.map(_.toString)
+      	   }
+      	   val runRegions = run.ResourceEntity.flatMap{ r => 
+             val run = r.as[SimulationRun]
+             run.SimulatedRegion
+      	   }
+      	   Ok(Json.toJson((obsRegions++runRegions).map(r => {
+      	     if(r.contains(".")) r.split("\\.").head
+      	     else r 
+      	     // @FIXME hack for AMDA (Asteroid is not needed atm)
+      	   }).distinct.filterNot(_.contains("Asteroid"))))
+      	}
+      	case (Right(error), _) => BadRequest(Json.toJson(error))
+      	case (_, Right(error)) => BadRequest(Json.toJson(error))
       }
-    } 
+    }
   }
   
-  // filter regions and return a list of repository ids
-  def filterRegion(regionName: String) = PortalAction.async { implicit request =>
-    val future = RegistryService.getNumericalOutput(None, false)
-    future.map { _ match {
-        case Left(spase) => { 
-          val regions = spase.ResourceEntity.flatMap{ r => 
+  @GET
+  @ApiOperation(
+      value = "filter region", 
+      nickname = "filterRegion",
+      notes = "returns a list of matching repositories to a given target", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 404, message = "unkown element")))
+  def filterRegion(
+      @ApiParam(
+          value = "name of region available in the registry",
+          defaultValue = "Earth")
+      @PathParam("regionName") regionName: String) = PortalAction.async { 
+	for {
+	  // we must take data and output here (we need repository reference)
+      f1 <- RegistryService.getNumericalData(None, false)
+      f2 <- RegistryService.getNumericalOutput(None, false)
+    } yield { (f1, f2) match {
+      	case (Left(data), Left(output)) => {
+      	   val dataRegions = data.ResourceEntity.flatMap{ r => 
+      	     val data = r.as[NumericalData]
+      	     // matches e.g. Earth => Earth, Earth.Magnetosphere
+      	     if(data.AccessInformation.length > 0 && 
+      	         data.ObservedRegion.filter(_.toString.contains(regionName)).length > 0)
+      	       // @FIXME just a hack for AMDA in the meantime
+      	       Some(data.AccessInformation.head.RepositoryID.
+      	           replace("spase://SMWG/Repository/CDPP/AMDA", "spase://IMPEX/Repository/AMDA"))
+      	     else
+      	       None
+      	   }
+      	   val outRegions = output.ResourceEntity.flatMap{ r => 
             val run = r.as[NumericalOutput]
             // matches e.g. Earth => Earth, Earth.Magnetosphere
             if(run.AccessInformation.length > 0 && 
-                run.SimulatedRegion.filter(p => p.contains(regionName)).length > 0) {
+                run.SimulatedRegion.filter(_.contains(regionName)).length > 0) {
               Some(run.AccessInformation.head.RepositoryID)
             } else
               None
-          }
-          // maybe introduce empty error case
-          Ok(Json.toJson(regions.distinct))
-        }
-        case Right(error) => BadRequest(Json.toJson(error))
+      	   }
+      	   (outRegions++dataRegions).distinct match {
+      	     case x::xs => Ok(Json.toJson(x::xs))
+      	     case Nil => BadRequest(Json.toJson(RequestError(ERequestError.UNKNOWN_ENTITY)))
+      	   }
+      	}
+      	case (Right(error), _) => BadRequest(Json.toJson(error))
+      	case (_, Right(error)) => BadRequest(Json.toJson(error))
       }
     }
   }

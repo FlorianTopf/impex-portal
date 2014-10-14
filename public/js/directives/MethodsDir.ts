@@ -59,6 +59,14 @@ module portal {
                 this.repositoryId = id
             })
             
+            this.myScope.$watch('$includeContentLoaded', (e) => {
+                //console.log('MethodsDir loaded')
+                if(!(this.repositoryId in this.userService.sessionStorage.methods)) {
+                    this.method = null
+                    this.request = {}
+                }
+            })
+            
             this.myScope.$on('set-method-active', (e, method: Api) => {
                 this.setMethod(method)
             })
@@ -73,14 +81,6 @@ module portal {
             
             this.myScope.$on('apply-votable', (e, url: string) => {
                 this.applyVOTable(url)
-            })
-            
-            this.myScope.$watch('$includeContentLoaded', (e) => {
-                //console.log('MethodsDir loaded')
-                if(!(this.repositoryId in this.userService.sessionStorage.methods)) {
-                    this.method = null
-                    this.request = {}
-                }
             })
         }
         

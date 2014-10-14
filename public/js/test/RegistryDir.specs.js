@@ -1,5 +1,6 @@
 'use strict'
 
+// @TODO add specs for active filters!
 describe('RegistryDir', function () {
 	var path = '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/';
 	
@@ -85,7 +86,6 @@ describe('RegistryDir', function () {
 		expect(scope.regdirvm.showError).toBeTruthy();
 	});
 	
-
 	
 	it('should react on update-repositories', function(){
 		var template = createDirective();
@@ -99,7 +99,6 @@ describe('RegistryDir', function () {
 		scope.$broadcast('update-simulation-models', 'model-123');
 		expect(scope.$on).toHaveBeenCalled();
 		expect(scope.regdirvm.simulationModels).toEqual(rService.cachedElements['model-123']);
-		
 	});
 	
 	it('should react on update-simulation-runs', function(){

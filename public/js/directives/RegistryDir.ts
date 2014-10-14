@@ -57,17 +57,19 @@ module portal {
             attributes.$observe('db', (id?: string)  => { 
                 this.repositoryId = id
             })
+            
+            this.myScope.$watch('$includeContentLoaded', (e) => {
+                //console.log('RegistryDir loaded')   
+                if(this.registryService.isFilterSet)
+                    this.userService.user.activeSelection = []
+                this.activeItems = {}
+                this.showError = false
+                this.status = ''
+            })
 
             this.myScope.$on('registry-error', (e, msg: string) => {
                 this.showError = true
                 this.status = msg
-            })
-            
-            this.myScope.$watch('$includeContentLoaded', (e) => {
-                //console.log('RegistryDir loaded')   
-                this.activeItems = {}
-                this.showError = false
-                this.status = ''
             })
             
             this.myScope.$on('clear-registry-dir', (e) => {
@@ -131,6 +133,16 @@ module portal {
             
             this.myScope.$on('update-simulation-models', (e, id: string) => {
                 this.simulationModels = this.registryService.cachedElements[id].map((r) => <SimulationModel>r)
+                // hack forfiltering models of sinp
+                this.simulationModels = this.simulationModels.filter((elem) => {
+                    var region = elem.resourceHeader.resourceName.split(' ').reverse()[0]
+                    if(this.registryService.selectedFilter[region])
+                        return true
+                    else if(!this.registryService.isFilterSet)
+                        return true
+                    else 
+                        return false
+                })
             })
             
             this.myScope.$on('update-simulation-runs', (e, id: string) => {
@@ -138,9 +150,9 @@ module portal {
                 // filtering the runs (when filter is active)
                 this.simulationRuns = this.simulationRuns.filter((elem) => {
                     var matches = elem.simulatedRegion.filter((r) => { 
-                        if(this.registryService.selectedFilter[r] == true)
+                        if(this.registryService.selectedFilter[r])
                             return true
-                        else if(this.registryService.isFilterSet == false)
+                        else if(!this.registryService.isFilterSet)
                             return true
                         else 
                             return false
@@ -163,9 +175,9 @@ module portal {
                 // filtering the observatories (when filter is active)
                 this.observatories = this.observatories.filter((elem) => {
                     var matches = elem.location.observatoryRegion.filter((r) => {
-                        if(this.registryService.selectedFilter[r] == true)
+                        if(this.registryService.selectedFilter[r.split('.')[0]])
                             return true
-                        else if(this.registryService.isFilterSet == false)
+                        else if(!this.registryService.isFilterSet)
                             return true
                         else 
                             return false

@@ -170,7 +170,7 @@ body {
 }
 
 .modal-body {
-	min-height: 400px;
+	min-height: 500px;
 }
 
 .modal.fade .modal-dialog, 
@@ -458,6 +458,8 @@ button.info-button {
 .btn-group-filter {
 	width: 120px;
 	vertical-align: top;
+	max-height: 200px;
+	overflow-y: scroll;
 }
 
 .elem-metadata {
@@ -536,6 +538,15 @@ button.dropdown-toggle {
 .file-info span {
 	vertical-align: top;
 	line-height: 20px;
+}
+
+button.clear-button {
+	margin-top: 15%;
+}
+
+button.delegate {
+	width: 120px;
+	text-align: left;
 }
 
 
