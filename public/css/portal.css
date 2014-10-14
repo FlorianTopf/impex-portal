@@ -1,4 +1,3 @@
-/** @TODO add tag types where it makes sense */
 /** GENERAL/MAP */
 html, 
 body {
@@ -10,20 +9,6 @@ body {
 	/* overflow-y: scroll; */
     -webkit-transform: translate3d(0, 0, 0);
     background: #ccffff;
-}
-
-/* BOOTSTRAP BASE OVERWRITES 
-   FOR PORTAL MAP */
-.portal-row .col-sm-2 {
-	padding-left: 5px;
-	padding-right: 5px;
-	
-}
-
-@media (min-width: 768px) {
-	.portal-row .col-sm-2 {
-		width: 14.1%
-	}
 }
 
 .head {
@@ -40,17 +25,90 @@ body {
 }
 
 .map-heading {
-	font-size: 25px;
 	margin-top: 10px; 
 	display: inline-block;
 }
 
 .inline-heading {
-	font-size: 25px;
 	display: inline-block;
 	margin-top: 0;
 	margin-bottom: 0;
 }
+
+.map-heading, 
+.inline-heading {
+	font-size: 20px;
+}
+
+@media(min-width: 992px) {	
+	.map-heading, 
+	.inline-heading {
+		font-size: 25px;
+	}
+}
+
+@media(min-width: 1200px) {	
+	.map-heading, 
+	.inline-heading {
+		font-size: 30px;
+	}
+}
+
+.portal-row .col-sm-2,
+.portal-row .col-sm-3,
+.portal-row .col-sm-4,
+.portal-row .col-sm-6,
+.portal-row .col-sm-7 {
+	float: left;
+}
+
+.portal-row .col-sm-2 {
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 14.1%;
+}
+
+.portal-row .btn {
+	min-width: 90px;
+}
+
+@media (max-width: 767px) {		
+	.portal-row .col-sm-7 {
+		width: 58.33333333%;
+	}
+	
+	.portal-row .col-sm-3 {
+		width: 25%;
+	}
+	
+	.portal-row .col-sm-4 {
+		width: 33.33333333%;
+	}
+	
+	.portal-row .col-sm-offset-8 {
+		margin-left: 66.66666667%;
+	}
+	
+	.portal-row .col-sm-6 {
+		width: 50%;
+	}
+}
+
+@media (max-width: 991px) {	
+	.portal-row .col-sm-2 {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	
+	.portal-row .btn {
+		font-size: 12px;
+	}
+}
+
+.nav, 
+.pagination, 
+.carousel, 
+.panel-title a { cursor: pointer; cursor: hand; }
 
 .btn-margin-left {
 	margin-left: 10%;
@@ -58,12 +116,35 @@ body {
 
 .btn-map {
 	width: 95%;
-	height: 125px;
 }
 
-.btn-map img {
-	width: 60px;
-	height: 60px;
+@media (max-width: 1199px) {
+	.btn-map {
+		height: 125px;
+	}
+	
+	.btn-map img {
+		width: 60px;
+		height: 60px;
+	}
+}
+
+@media (max-width: 991px) {
+	.btn-map img {
+		width: 50px;
+		height: 50px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.btn-map {
+		height: 150px;
+	}
+	
+	.btn-map img {
+		width: 80px;
+		height: 80px;
+	}
 }
 
 .filter-box {
@@ -103,6 +184,13 @@ body {
 .modal-header button.close, 
 button.close-path {
 	font-size: 30px;
+}
+
+@media (min-width: 992px) {
+	/* @TODO this must be responsive */
+  	.modal-lg {
+    	width: 992px;
+	}
 }
 
 button.close-srv {
@@ -167,6 +255,20 @@ button.import-srv {
 	margin-right: 18%;
 }
 
+@media (max-width: 1199px) {
+	button.import-srv,
+	button.saved {
+		margin-top: -5%;
+	}
+}
+
+@media (max-width: 990px) {
+	button.import-srv,
+	button.saved {
+		margin-top: -10%;
+	}
+}
+
 button.import-db:hover,
 button.import-db:focus,
 button.import-srv:hover,
@@ -184,6 +286,12 @@ button.saved:focus {
 
 .path-icon {
 	height: 50px;
+}
+
+@media (max-width: 1200px) {
+	.path-icon {
+		height: 40px;
+	}
 }
 
 #canvas {
@@ -234,12 +342,6 @@ button.saved:focus {
 	font-size: 20px;
 }
 
-/* hack for angular-ui bootstrap */
-.nav, 
-.pagination, 
-.carousel, 
-.panel-title a { cursor: pointer; cursor: hand; }
-
 .error {
 	color: red;
 	margin-top: 15px;
@@ -262,6 +364,36 @@ button.saved:focus {
 .loadingImg {
 	margin: auto;
 	position: relative;
+	width: 50px;
+	top: 100px;
+}
+
+@media (min-width: 768px) {
+	.loadingImg { 
+		width: 70px;
+		top: 120px;
+	}
+}
+
+@media (min-width: 992px) {
+	.loadingImg { 
+		width: 100px;
+		top: 125px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.loadingImg { 
+		width: 150px;
+		top: 150px;
+	}
+}
+
+@media (min-width: 1600px) {
+	.loadingImg { 
+		width: 200px;
+		top: 200px;
+	}
 }
 
 .loadingImg-sm {
@@ -282,18 +414,38 @@ button.saved:focus {
 	text-align: left;
 }
 
-button.info-button {
-	font-size: 22px; 
-	margin-left: 3px; 
-	margin-right: 3px;
-	border: none; 
-	background: none;
-}
-
 button.info-button:focus {
 	outline: 0;	
 }
 
+button.info-button {
+	border: none; 
+	background: none;	
+}
+
+@media (max-width: 767px) {	
+	button.info-button {
+		font-size: 18px;
+		margin-left: 2px;
+		margin-right: 2px;
+	}
+}
+
+@media (max-width: 1199px) {	
+	button.info-button {
+		font-size: 22px;
+		margin-left: 3px;
+		margin-right: 3px;
+	}
+}
+
+@media (min-width: 1200px) {	
+	button.info-button {
+		font-size: 25px;
+		margin-left: 5px;
+		margin-right: 5px;
+	}
+}
 
 /** REGISTRY ELEMENTS */
 .btn-group-overflow {
@@ -453,128 +605,5 @@ button.dropdown-toggle {
 .status-alert {
 	width: 100%;
 	height: 100%;
-}
-
-
-/** for all (max-width 480px) */
-@media (max-width: 480px) {
-	.container {
-		max-width: 480px;
-	}
-	
-	.loadingImg { 
-		width: 40px;
-		top: 70px;
-	}
-}
-
-
-/** for devices (max-width 480px) */
-@media (max-device-width: 480px) {
-	.container {
-		max-width: 468px;
-	}
-}
-
-/* for all (width: 480px - 767px) */
-@media (min-width: 481px) {
-	.loadingImg { 
-		width: 50px;
-		top: 100px;
-	}
-}
-
-
-/* for all (width: 768px - 991px) */
-@media (min-width: 768px) {	
-	.loadingImg { 
-		width: 70px;
-		top: 120px;
-	}
-}
-
-
-/* for all (width: 992px - 1199px) */
-@media (min-width: 992px) {
-	.loadingImg { 
-		width: 100px;
-		top: 125px;
-	}
-	
-	.btn-map {
-		height: 125px;
-	}
-	
-	.btn-map img {
-		width: 60px;
-		height: 60px;
-	}
-	
-	.path-icon {
-		height: 40px;
-	}
-	
-	.map-heading, 
-	.inline-heading {
-		font-size: 25px;
-	}
-	
-	button.info-button {
-		font-size: 22px;
-		margin-left: 3px;
-		margin-right: 3px;
-	}
-	
-	/* @TODO this must be responsive */
-  	.modal-lg {
-    	width: 992px;
-  	}
-
-}
-
-
-/* for all (width: 1200px - 1599px) */
-@media (min-width: 1200px) {
-  	.container {
-		max-width: 1178px;
-  	}
-  	
-	.btn-map {
-		height: 150px;
-	}
-	
-	.btn-map img {
-		width: 80px;
-		height: 80px;
-	}
-	
-	.map-heading, 
-	.inline-heading {
-		font-size: 30px;
-	}
-	
-	button.info-button {
-		font-size: 25px;
-		margin-left: 5px;
-		margin-right: 5px;
-	}
-
-	.loadingImg { 
-		width: 150px;
-		top: 150px;
-	}
-}
-
-
-/* for all (width: 1600px - xx) */
-@media (min-width: 1600px) {
-	.container {
-		max-width: 1578px;
-	}
-	
-	.loadingImg { 
-		width: 200px;
-		top: 200px;
-	}
 }
 

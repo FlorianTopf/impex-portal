@@ -3,14 +3,14 @@
 <div ng-show="!vm.ready" class="loading text-center">
 	<img src="/public/img/layout/loading.gif" class="loadingImg" alt="loading..." />
 </div>
-<div class="row" ng-show="vm.ready">
-	<div class="col-sm-1 text-center">
+<div class="row portal-row" ng-show="vm.ready">
+	<div class="col-sm-2 text-center">
 		<button type="button" class="btn" 
 			ng-class="{ 'btn-default': !vm.registryService.isFilterSet || vm.isFilterLoading, 
 					    'btn-success': vm.registryService.isFilterSet && !vm.isFilterLoading }"
 			ng-click="vm.toggleFilter()">FILTER</button>
 	</div>
-	<div class="col-sm-5">
+	<div class="col-sm-7">
 		<h2 class="inline-heading"><small>1. USE FILTERS ON RESOURCES</small></h2>
 		<button class="glyphicon glyphicon-info-sign info-button" 
 			tooltip-html-unsafe="{{ vm.filterTooltip }}"  
@@ -23,8 +23,7 @@
 			ng-click="vm.resetFilter()" 
 			ng-hide="!vm.registryService.isFilterSet || vm.isFilterLoading">RESET</button>
 	</div>
-	<div class="col-sm-4">&nbsp;</div>
-	<div class="col-sm-2">
+	<div class="col-sm-3">
 		<button type="button" class="btn btn-default pull-right"
 			ng-class="{ 'btn-default': !vm.window.isSampRegistered, 
 					    'btn-success': vm.window.isSampRegistered }"
@@ -35,12 +34,12 @@
 			tooltip-placement="left"></button>
 	</div>
 </div>
-<div class="row" ng-show="vm.ready">
-	<div class="col-sm-1 text-center">
+<div class="row portal-row" ng-show="vm.ready">
+	<div class="col-sm-2 text-center">
 		<span class="glyphicon glyphicon-arrow-down arrow-sign"></span>
 	</div>
-	<div class="col-sm-9">&nbsp;</div>
-	<div class="col-sm-2 text-right">
+	<div class="col-sm-7">&nbsp;</div>
+	<div class="col-sm-3 text-right">
 		<span class="glyphicon glyphicon-arrow-down arrow-sign"
 			style="margin-right: 22%;"></span>
 	</div>
@@ -92,7 +91,7 @@
 		</div>
 	</div>
 </div>
-<div class="row" ng-show="vm.ready">
+<div class="row portal-row" ng-show="vm.ready">
 	<div class="col-sm-6">
 		<h2 class="map-heading">Databases <small>2. SELECT A RESOURCE</small></h2>
 		<button class="glyphicon glyphicon-info-sign info-button" 

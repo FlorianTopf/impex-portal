@@ -56,23 +56,28 @@ module portal {
             
             // will be called on init too
             this.myScope.$watch('windowWidth', (newVal, oldVal) => {
-                this.timeout(() => this.handleResize(element))
+                this.timeout(() => {             
+                    this.clear()
+                    this.handleResize(element)
+                })
             })
             
             this.myScope.$on('database-success', (e, id: string) => {
+                this.clear()
                 this.activeDatabase = this.configService.getDatabase(id).name
                 this.drawDatabasePath()
             })
             
             this.myScope.$on('service-success', (e, id: string) => {
+                this.clear()
                 this.activeService = this.configService.getDatabase(id).name
                 this.drawServicePath()
             })
             
             this.myScope.$on('clear-paths', (e) => {
+                this.clear()
                 this.activeDatabase = null
                 this.activeService = null
-                this.clear()
             })
             
             this.myScope.$on('draw-paths', (e) => {
@@ -80,6 +85,7 @@ module portal {
                 $("#filter-collapse, #samp-collapse").one(
                     'transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', 
                     () => {
+                        this.clear()
                         this.toggleCanvas(false)
                         this.handleResize(element) 
                 })
@@ -107,7 +113,8 @@ module portal {
             
             if(this.activeDatabase) {
                 this.drawDatabasePath()  
-            } else if(this.activeService) {
+            } 
+            if(this.activeService) {
                 this.drawServicePath()
             }
         }
@@ -120,8 +127,7 @@ module portal {
             this.elemH = $("#"+this.activeDatabase+"-database").outerHeight(true)
             this.elemW = $("#"+this.activeDatabase+"-database").outerWidth(true)
             //console.log(JSON.stringify(this.myData)+' '+this.elemH+' '+this.elemW)
-            // clear canvas before
-            this.clear()
+            
             var canvas = <HTMLCanvasElement>document.getElementById('canvas')
             var ctx = canvas.getContext('2d')
             ctx.lineWidth = 2
@@ -150,9 +156,7 @@ module portal {
             this.tools = $('#TOOLS').offset()
             this.elemH = $("#"+this.activeService+"-database").outerHeight(true)
             this.elemW = $("#"+this.activeService+"-database").outerWidth(true)
-
-            // clear canvas before
-            this.clear()
+            
             var canvas = <HTMLCanvasElement>document.getElementById('canvas')
             var ctx = canvas.getContext('2d')
             ctx.lineWidth = 2

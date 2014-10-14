@@ -3304,29 +3304,33 @@ var portal;
             // will be called on init too
             this.myScope.$watch('windowWidth', function (newVal, oldVal) {
                 _this.timeout(function () {
-                    return _this.handleResize(element);
+                    _this.clear();
+                    _this.handleResize(element);
                 });
             });
 
             this.myScope.$on('database-success', function (e, id) {
+                _this.clear();
                 _this.activeDatabase = _this.configService.getDatabase(id).name;
                 _this.drawDatabasePath();
             });
 
             this.myScope.$on('service-success', function (e, id) {
+                _this.clear();
                 _this.activeService = _this.configService.getDatabase(id).name;
                 _this.drawServicePath();
             });
 
             this.myScope.$on('clear-paths', function (e) {
+                _this.clear();
                 _this.activeDatabase = null;
                 _this.activeService = null;
-                _this.clear();
             });
 
             this.myScope.$on('draw-paths', function (e) {
                 _this.toggleCanvas(true);
                 $("#filter-collapse, #samp-collapse").one('transitionend webkitTransitionEnd oTransitionEnd otransitionend MSTransitionEnd', function () {
+                    _this.clear();
                     _this.toggleCanvas(false);
                     _this.handleResize(element);
                 });
@@ -3349,7 +3353,8 @@ var portal;
 
             if (this.activeDatabase) {
                 this.drawDatabasePath();
-            } else if (this.activeService) {
+            }
+            if (this.activeService) {
                 this.drawServicePath();
             }
         };
@@ -3363,8 +3368,6 @@ var portal;
             this.elemW = $("#" + this.activeDatabase + "-database").outerWidth(true);
 
             //console.log(JSON.stringify(this.myData)+' '+this.elemH+' '+this.elemW)
-            // clear canvas before
-            this.clear();
             var canvas = document.getElementById('canvas');
             var ctx = canvas.getContext('2d');
             ctx.lineWidth = 2;
@@ -3396,8 +3399,6 @@ var portal;
             this.elemH = $("#" + this.activeService + "-database").outerHeight(true);
             this.elemW = $("#" + this.activeService + "-database").outerWidth(true);
 
-            // clear canvas before
-            this.clear();
             var canvas = document.getElementById('canvas');
             var ctx = canvas.getContext('2d');
             ctx.lineWidth = 2;
