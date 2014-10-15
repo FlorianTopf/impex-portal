@@ -56,11 +56,12 @@
 					{{ region }}
 				</button>
 			</div>
-			<div class="btn-group-vertical btn-group-filter btn-margin-left" 
-				ng-hide="!vm.isFilterSelected">
+			<div class="btn-group-vertical btn-group-filter btn-margin-left">
 				<button type="button" class="btn btn-primary btn-sm"
+					ng-disabled="!vm.isFilterSelected"
 					ng-click="vm.requestFilter()">OK</button>
 				<button type="button" class="btn btn-danger btn-sm"
+					ng-hide="!vm.registryService.isFilterSet && !vm.isFilterSelected""
 					ng-click="vm.resetFilter()">RESET</button>
 			</div>
 		</div>
