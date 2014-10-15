@@ -70,9 +70,9 @@ module portal {
             element.append('<strong>'+this.beautify($scope.name)+'</strong>&nbsp;:&nbsp;')
             if(angular.isArray($scope.member)) {
                 angular.forEach($scope.member, (m, i) => {
-                    if(angular.isString(m) || angular.isNumber(m))
-                        element.append(m+" ")
-                    else if(angular.isObject(m)) {
+                    if(angular.isNumber(m) || angular.isString(m)) {
+                        element.append(urlize(m, { target: '_blank' })+' ')
+                    } else if(angular.isObject(m)) {
                         // this is a really cool hack
                         this.compileService("<br/><selection-dir selection='"+JSON.stringify($scope.member[i])+"'></selection-dir>")
                             ($scope, (cloned?: JQuery, scope?: any): any => { element.append(cloned) })
@@ -82,7 +82,7 @@ module portal {
                 element.append("<br/><selection-dir selection='member'></selection-dir>")
                 this.compileService(element.contents())($scope)
             } else {
-                element.append(urlize($scope.member, { target: '_blank' })+'<br/>')
+                element.append(urlize($scope.member, { target: '_blank' }))
             }
         }
         

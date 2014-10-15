@@ -2958,9 +2958,9 @@ var portal;
             element.append('<strong>' + this.beautify($scope.name) + '</strong>&nbsp;:&nbsp;');
             if (angular.isArray($scope.member)) {
                 angular.forEach($scope.member, function (m, i) {
-                    if (angular.isString(m) || angular.isNumber(m))
-                        element.append(m + " ");
-else if (angular.isObject(m)) {
+                    if (angular.isNumber(m) || angular.isString(m)) {
+                        element.append(urlize(m, { target: '_blank' }) + ' ');
+                    } else if (angular.isObject(m)) {
                         // this is a really cool hack
                         _this.compileService("<br/><selection-dir selection='" + JSON.stringify($scope.member[i]) + "'></selection-dir>")($scope, function (cloned, scope) {
                             element.append(cloned);
@@ -2971,7 +2971,7 @@ else if (angular.isObject(m)) {
                 element.append("<br/><selection-dir selection='member'></selection-dir>");
                 this.compileService(element.contents())($scope);
             } else {
-                element.append(urlize($scope.member, { target: '_blank' }) + '<br/>');
+                element.append(urlize($scope.member, { target: '_blank' }));
             }
         };
 
