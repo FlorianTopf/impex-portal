@@ -2881,16 +2881,24 @@ else
             }
         };
 
-        // @TODO we must test if the Url is still valid (empty or not found)
+        // @TODO we must check if the Url is still valid (empty or not found)
         UserDataDir.prototype.sendToSamp = function (tableUrl, id) {
-            console.log('sending ' + tableUrl + ' ' + id);
-
+            //console.log('sending '+JSON.stringify(tableUrl)+' '+id)
             // broadcasts a table given a hub connection
             var send = function (connection) {
-                var msg = new samp.Message("table.load.votable", { "url": tableUrl });
+                if (tableUrl.hasOwnProperty('dataFileURLs')) {
+                    tableUrl.dataFileURLs.forEach(function (e) {
+                        var msg = new samp.Message("table.load.votable", { "url": e });
 
-                //connection.notifyAll([msg])
-                connection.notify([id, msg]);
+                        //connection.notifyAll([msg])
+                        connection.notify([id, msg]);
+                    });
+                } else {
+                    var msg = new samp.Message("table.load.votable", { "url": tableUrl });
+
+                    //connection.notifyAll([msg])
+                    connection.notify([id, msg]);
+                }
             };
 
             // in any error case call this

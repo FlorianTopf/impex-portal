@@ -419,14 +419,22 @@ module portal {
              }
         }
         
-        // @TODO we must test if the Url is still valid (empty or not found)
-        public sendToSamp(tableUrl: string, id: string) {
-            console.log('sending '+tableUrl+' '+id)
+        // @TODO we must check if the Url is still valid (empty or not found)
+        public sendToSamp(tableUrl: any, id: string) {
+            //console.log('sending '+JSON.stringify(tableUrl)+' '+id)
             // broadcasts a table given a hub connection
             var send = (connection) => {
-                var msg = new samp.Message("table.load.votable", { "url": tableUrl })
-                //connection.notifyAll([msg])
-                connection.notify([id, msg])
+                if(tableUrl.hasOwnProperty('dataFileURLs')) {
+                    tableUrl.dataFileURLs.forEach((e) => {
+                       var msg = new samp.Message("table.load.votable", { "url": e })
+                       //connection.notifyAll([msg])
+                       connection.notify([id, msg])                
+                    })
+                } else {
+                    var msg = new samp.Message("table.load.votable", { "url": tableUrl })
+                    //connection.notifyAll([msg])
+                    connection.notify([id, msg])
+                }
             }
             // in any error case call this
             var error = (e) => {
