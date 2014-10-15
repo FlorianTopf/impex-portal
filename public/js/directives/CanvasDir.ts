@@ -64,12 +64,14 @@ module portal {
             
             this.myScope.$on('database-success', (e, id: string) => {
                 this.clear()
+                this.activeService = null
                 this.activeDatabase = this.configService.getDatabase(id).name
                 this.drawDatabasePath()
             })
             
             this.myScope.$on('service-success', (e, id: string) => {
                 this.clear()
+                this.activeDatabase = null
                 this.activeService = this.configService.getDatabase(id).name
                 this.drawServicePath()
             })

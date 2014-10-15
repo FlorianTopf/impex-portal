@@ -54,18 +54,21 @@ body {
 	}
 }
 
+
+.portal-row .col-sm-1,
 .portal-row .col-sm-2,
 .portal-row .col-sm-3,
 .portal-row .col-sm-4,
 .portal-row .col-sm-6,
-.portal-row .col-sm-7 {
+.portal-row .col-sm-7,
+.portal-row .col-sm-9 {
 	float: left;
 }
 
 .portal-row .col-sm-2 {
 	padding-left: 5px;
 	padding-right: 5px;
-	width: 14.1%;
+	width: 14.28%;
 }
 
 .portal-row .btn {
@@ -73,8 +76,8 @@ body {
 }
 
 @media (max-width: 767px) {		
-	.portal-row .col-sm-7 {
-		width: 58.33333333%;
+	.portal-row .col-sm-1 {
+		width: 8.33333333%;
 	}
 	
 	.portal-row .col-sm-3 {
@@ -85,12 +88,20 @@ body {
 		width: 33.33333333%;
 	}
 	
-	.portal-row .col-sm-offset-8 {
-		margin-left: 66.66666667%;
-	}
-	
 	.portal-row .col-sm-6 {
 		width: 50%;
+	}
+	
+	.portal-row .col-sm-7 {
+		width: 58.33333333%;
+	}
+	
+	.portal-row .col-sm-9 {
+		width: 75%;
+	}
+	
+	.portal-row .col-sm-offset-8 {
+		margin-left: 66.66666667%;
 	}
 }
 
@@ -243,16 +254,16 @@ button.saved {
 }
 
 button.saved {
-	margin-left: 18%;
+	margin-left: 20%;
 }
 
 button.import-db {
-	margin-right: 28%; 
-	margin-top: 20%; 
+	margin-right: 30%; 
+	margin-top: 12%; 
 }
 
 button.import-srv {
-	margin-right: 18%;
+	margin-right: 20%;
 }
 
 @media (max-width: 1199px) {
@@ -459,7 +470,7 @@ button.info-button {
 	width: 120px;
 	vertical-align: top;
 	max-height: 200px;
-	overflow-y: scroll;
+	overflow-y: auto;
 }
 
 .elem-metadata {

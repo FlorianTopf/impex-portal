@@ -3355,12 +3355,14 @@ var portal;
 
             this.myScope.$on('database-success', function (e, id) {
                 _this.clear();
+                _this.activeService = null;
                 _this.activeDatabase = _this.configService.getDatabase(id).name;
                 _this.drawDatabasePath();
             });
 
             this.myScope.$on('service-success', function (e, id) {
                 _this.clear();
+                _this.activeDatabase = null;
                 _this.activeService = _this.configService.getDatabase(id).name;
                 _this.drawServicePath();
             });
