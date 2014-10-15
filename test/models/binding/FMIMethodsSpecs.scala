@@ -7,6 +7,7 @@ import scalaxb._
 import java.net.URI
 import models.provider.TimeProvider
 import models.binding._
+import play.api.Play.current
 import play.api.libs.ws._
 import scala.concurrent.Await
 import scala.concurrent.duration._

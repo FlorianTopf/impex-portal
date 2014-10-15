@@ -5,6 +5,7 @@ import play.api.test.Helpers._
 import play.api.test._
 import scalaxb._
 import java.net.URI
+import play.api.Play.current
 import play.api.libs.ws._
 import scala.concurrent.Await
 import scala.concurrent.duration._

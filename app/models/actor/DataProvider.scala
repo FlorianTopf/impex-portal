@@ -2,6 +2,7 @@ package models.actor
 
 import models.binding._
 import models.provider._
+import play.api.Play.current
 import play.api.libs.ws._
 import play.api.libs.json._
 import scala.xml._

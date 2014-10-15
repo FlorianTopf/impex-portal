@@ -7,7 +7,7 @@ import play.api.mvc.Results._
 import play.api.mvc.BodyParsers._
 import play.api.libs.json._
 import play.api.Play.current
-import play.api.cache._
+import play.api.cache.Cached
 import scala.concurrent.Future
 import scala.language.implicitConversions
 import soapenvelope11._
@@ -31,7 +31,7 @@ case class PortalRequest[A](val req: Map[String, String], val sessionId: String,
 
 // custom portal action
 object PortalAction extends ActionBuilder[PortalRequest] {
-  def invokeBlock[A](request: Request[A], block: (PortalRequest[A]) => Future[SimpleResult]) = {
+  def invokeBlock[A](request: Request[A], block: (PortalRequest[A]) => Future[Result]) = {
     val req: Map[String, String] = request.queryString.map { case (k, v) => k -> v.mkString }
     // creating or getting the session id
     val sessionId: String = request.session.get("id") match {
@@ -51,10 +51,10 @@ object PortalAction extends ActionBuilder[PortalRequest] {
 
 // cache wrapper
 case class CACHE[A](action: Action[A]) extends Action[A] {
-  def apply(request: Request[A]): Future[SimpleResult] = {
+  def apply(request: Request[A]): Future[Result] = {
     //println("caching: "+request.uri)
     // applying response cache (with uri identifier)
-    Cached(request => request.uri, 3600)(action)
+    Cached((request: RequestHeader) => request.uri, 3600)(action)
     action(request)
   }
  
@@ -64,7 +64,7 @@ case class CACHE[A](action: Action[A]) extends Action[A] {
 
 // cors wrapper
 case class CORS[A](action: Action[A]) extends Action[A] {
-  def apply(request: Request[A]): Future[SimpleResult] = {
+  def apply(request: Request[A]): Future[Result] = {
     CORSHeaders.withHeaders(action(request))
   }
 
@@ -76,7 +76,7 @@ case class CORS[A](action: Action[A]) extends Action[A] {
 object CORSHeaders {
   import play.api.libs.concurrent.Execution.Implicits._
   
-  def withHeaders(r: Future[SimpleResult]): Future[SimpleResult] = {
+  def withHeaders(r: Future[Result]): Future[Result] = {
     r.map(_.withHeaders("Access-Control-Allow-Origin" -> "*",
       "Access-Control-Allow-Credentials" -> "true",
       "Access-Control-Allow-Methods" -> "GET, POST, PUT, DELETE, OPTIONS",
@@ -230,7 +230,7 @@ class MethodsController extends BaseController {
   }
   
   // helper method which returns the default result of WS (URI or FAULT)
-  def returnDefaultResult(result: Either[scalaxb.Soap11Fault[Any], java.net.URI], request: Map[String, String]): SimpleResult = {
+  def returnDefaultResult(result: Either[scalaxb.Soap11Fault[Any], java.net.URI], request: Map[String, String]): Result = {
     result.fold(
         fault => BadRequest(Json.toJson(
             ServiceResponse(
