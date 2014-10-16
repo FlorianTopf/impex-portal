@@ -214,6 +214,7 @@ object AMDAMethods extends MethodsController {
     new ApiImplicitParam(
         name = "sampling",
         value = "Sampling [s]",
+        defaultValue = "60",
         required = false,
         dataType = "number",
         paramType = "query"),
@@ -354,6 +355,7 @@ object AMDAMethods extends MethodsController {
     new ApiImplicitParam(
         name = "sampling",
         value = "Sampling [s]",
+        defaultValue = "60",
         required = false,
         dataType = "number",
         paramType = "query"),

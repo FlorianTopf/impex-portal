@@ -269,11 +269,14 @@ case class CalculateCubeSaturn(ResourceID: String,
   StartTime: javax.xml.datatype.XMLGregorianCalendar,
   extraParams: Option[models.binding.ExtraParams_calculateCubeSaturn] = None, 
   Sampling: Option[Double] = None,
-  cube_size_array: Option[Cube_size_array] = None)
+  cube_size_array: Option[models.binding.Cube_size_array] = None)
 
 
 case class CalculateCubeJupiter(ResourceID: String,
-  extraParams: Option[models.binding.ExtraParams_calculateCubeJupiter] = None)
+  StartTime: javax.xml.datatype.XMLGregorianCalendar,
+  extraParams: Option[models.binding.ExtraParams_calculateCubeJupiter] = None,
+  Sampling: Option[Double] = None,
+  cube_size_array: Option[models.binding.Cube_size_array] = None)
 
   
 case class SurfaceSINP(ResourceID: String,

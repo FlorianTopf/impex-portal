@@ -438,7 +438,9 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	   
 	  	}
 	  	
+	  	// @TODO add jupiter tests (31.10.) and giant planets tests (31.12.)
 	  	
+	  
   }
   
 }

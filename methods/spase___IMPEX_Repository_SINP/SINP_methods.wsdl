@@ -1,989 +1,1018 @@
 <wsdl:definitions targetNamespace="http://smdc.sinp.msu.ru" name="SINP_methods" xmlns="http://smdc.sinp.msu.ru" xmlns:fr="http://impex.latmos.ipsl.fr" xmlns:vot="http://www.ivoa.net/xml/VOTable/v1.2" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 
-  <wsdl:types>
-    <xs:schema version="0.0" targetNamespace="http://smdc.sinp.msu.ru" elementFormDefault="unqualified" xmlns:vot="http://www.ivoa.net/xml/VOTable/v1.2" xmlns:idm="http://impex-fp7.oeaw.ac.at" xmlns="http://smdc.sinp.msu.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-      <xs:import schemaLocation="http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_1.xsd" namespace="http://impex-fp7.oeaw.ac.at"/>
-      <xs:import schemaLocation="http://www.ivoa.net/xml/VOTable/VOTable-1.2.xsd" namespace="http://www.ivoa.net/xml/VOTable/v1.2"/>
+    <wsdl:types>
+        <xs:schema version="0.0" targetNamespace="http://smdc.sinp.msu.ru" elementFormDefault="unqualified" xmlns:vot="http://www.ivoa.net/xml/VOTable/v1.2" xmlns:idm="http://impex-fp7.oeaw.ac.at" xmlns="http://smdc.sinp.msu.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+            <xs:import schemaLocation="http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_1.xsd" namespace="http://impex-fp7.oeaw.ac.at"/>
+            <xs:import schemaLocation="http://www.ivoa.net/xml/VOTable/VOTable-1.2.xsd" namespace="http://www.ivoa.net/xml/VOTable/v1.2"/>
 
-      
-      <xs:element type="idm:ResourceID" name="ResourceID"/>
-      <xs:element type="Variable" name="Variable"/>
-      <xs:element type="OutputFormat" name="OutputFileType"/>
-      <xs:element type="xs:anyURI" name="url_XYZ">
-        <xs:annotation>
-          <xs:documentation>URL of the ASCII file containing the 3D coordinates. The coordinate system must be GSM.</xs:documentation>
-        </xs:annotation>
-      </xs:element>
-      <xs:element type="xs:dateTime" name="StartTime"/>
-      <xs:element type="xs:dateTime" name="StopTime"/>
-      <xs:element type="xs:duration" name="Sampling"/>
-      <xs:element type="Population" name="Population"/>
-      <xs:element type="idm:PlanePoint" name="PlanePoint"/>
-      <xs:element type="idm:PlaneNormalVector" name="PlaneNormalVector"/>
-      <xs:element type="xs:double" name="Resolution"/>
-      <xs:element type="xs:double" name="StepSize"/>
-      <xs:element type="Spacecraft" name="Spacecraft_name"/>
-      <xs:element type="cube_size_array" name="cube_size_array"/>
-      <xs:element type="Interpolation" name="InterpolationMethod"/>
-      <xs:element type="ListOfDouble" name="ListOfDouble"/>
+            
+            <xs:element type="idm:ResourceID" name="ResourceID"/>
+            <xs:element type="Variable" name="Variable"/>
+            <xs:element type="OutputFormat" name="OutputFileType"/>
+            <xs:element type="xs:anyURI" name="url_XYZ">
+                <xs:annotation>
+                    <xs:documentation>URL of the ASCII file containing the 3D coordinates. The coordinate system must be GSM.</xs:documentation>
+                </xs:annotation>
+            </xs:element>
+            <xs:element type="xs:dateTime" name="StartTime"/>
+            <xs:element type="xs:dateTime" name="StopTime"/>
+            <xs:element type="xs:duration" name="Sampling"/>
+            <xs:element type="Population" name="Population"/>
+            <xs:element type="idm:PlanePoint" name="PlanePoint"/>
+            <xs:element type="idm:PlaneNormalVector" name="PlaneNormalVector"/>
+            <xs:element type="xs:double" name="Resolution"/>
+            <xs:element type="xs:double" name="StepSize"/>
+            <xs:element type="Spacecraft" name="Spacecraft_name"/>
+            <xs:element type="cube_size_array" name="cube_size_array"/>
+            <xs:element type="Interpolation" name="InterpolationMethod"/>
+            <xs:element type="ListOfDouble" name="ListOfDouble"/>
     
-      <xs:simpleType name="OutputFormat">
-        <xs:annotation>
-          <xs:documentation>
-            two formats supported
-          </xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="netCDF"/>
-          <xs:enumeration value="VOTable"/>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType name="Interpolation">
-        <xs:annotation>
-          <xs:documentation>
-            interpolation supported supported : right now only one
-          </xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-          <xs:enumeration value="linear"/>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType name="Population">
-        <xs:annotation>
-          <xs:documentation>List of population species from the selected NumericalOutput separated by a comma. Identified by the PopulationId. By default: all populations within the NumericalOutput are returned </xs:documentation>
-        </xs:annotation>
-        <xs:list itemType="idm:PopulationID"/>
-      </xs:simpleType>
-      <xs:simpleType name="Spacecraft">
-        <xs:annotation>
-          <xs:documentation>
-            Names of spacecrafts
-          </xs:documentation>
-        </xs:annotation>
-        <xs:restriction base="xs:string">
-			<xs:enumeration value="Cassini_Public"/>
-			<xs:enumeration value="Galileo"/>
-			<xs:enumeration value="Voyager_1"/>
-			<xs:enumeration value="Voyager_2"/>
-			<xs:enumeration value="Pioneer_10"/>
-			<xs:enumeration value="Pioneer_11"/>
-			<xs:enumeration value="PVO"/>
-			<xs:enumeration value="ACE"/>
-			<xs:enumeration value="VEX"/>
-			<xs:enumeration value="MEX"/>
-			<xs:enumeration value="MGS"/>
-			<xs:enumeration value="MAVEN"/>
-			<xs:enumeration value="MESSENGER"/>
-			<xs:enumeration value="ULYSSES"/>
-			<xs:enumeration value="Stereo-A"/>
-			<xs:enumeration value="Stereo-B"/>
-			<xs:enumeration value="WIND"/>
-			<xs:enumeration value="THEMIS-A"/>
-			<xs:enumeration value="THEMIS-B"/>
-			<xs:enumeration value="THEMIS-C"/>
-			<xs:enumeration value="THEMIS-D"/>
-			<xs:enumeration value="THEMIS-E"/>
-			<xs:enumeration value="CLUSTER1"/>
-			<xs:enumeration value="CLUSTER2"/>
-			<xs:enumeration value="CLUSTER3"/>
-			<xs:enumeration value="CLUSTER4"/>
-			<xs:enumeration value="DoubleStar1"/>
-			<xs:enumeration value="IMP-8"/>
-			<xs:enumeration value="GEOTAIL"/>
-			<xs:enumeration value="POLAR"/>
-			<xs:enumeration value="INTERBALL-Tail"/>
-			<xs:enumeration value="ISEE-1"/>
-			<xs:enumeration value="ISEE-2"/>
-        </xs:restriction>
-      </xs:simpleType>
-      <xs:simpleType name="Variable">
-        <xs:annotation>
-          <xs:documentation>List of individual parameters from the selected NumericalOutput and Simulation Run, separated by a comma. By default: SimulatedRegion from Simulation Run; TemporalDescription and all parameters within the NumericalOutput</xs:documentation>
-        </xs:annotation>
-        <xs:list itemType="idm:ParameterKey"/>
-      </xs:simpleType>
+            <xs:simpleType name="OutputFormat">
+                <xs:annotation>
+                    <xs:documentation>
+                        two formats supported
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="netCDF"/>
+                    <xs:enumeration value="VOTable"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType name="Interpolation">
+                <xs:annotation>
+                    <xs:documentation>
+                        interpolation supported supported : right now only one
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="linear"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType name="Population">
+                <xs:annotation>
+                    <xs:documentation>List of population species from the selected NumericalOutput separated by a comma. Identified by the PopulationId. By default: all populations within the NumericalOutput are returned </xs:documentation>
+                </xs:annotation>
+                <xs:list itemType="idm:PopulationID"/>
+            </xs:simpleType>
+            <xs:simpleType name="Spacecraft">
+                <xs:annotation>
+                    <xs:documentation>
+                        Names of spacecrafts
+                    </xs:documentation>
+                </xs:annotation>
+                <xs:restriction base="xs:string">
+                    <xs:enumeration value="Cassini_Public"/>
+                    <xs:enumeration value="Galileo"/>
+                    <xs:enumeration value="Voyager_1"/>
+                    <xs:enumeration value="Voyager_2"/>
+                    <xs:enumeration value="Pioneer_10"/>
+                    <xs:enumeration value="Pioneer_11"/>
+                    <xs:enumeration value="PVO"/>
+                    <xs:enumeration value="ACE"/>
+                    <xs:enumeration value="VEX"/>
+                    <xs:enumeration value="MEX"/>
+                    <xs:enumeration value="MGS"/>
+                    <xs:enumeration value="MAVEN"/>
+                    <xs:enumeration value="MESSENGER"/>
+                    <xs:enumeration value="ULYSSES"/>
+                    <xs:enumeration value="Stereo-A"/>
+                    <xs:enumeration value="Stereo-B"/>
+                    <xs:enumeration value="WIND"/>
+                    <xs:enumeration value="THEMIS-A"/>
+                    <xs:enumeration value="THEMIS-B"/>
+                    <xs:enumeration value="THEMIS-C"/>
+                    <xs:enumeration value="THEMIS-D"/>
+                    <xs:enumeration value="THEMIS-E"/>
+                    <xs:enumeration value="CLUSTER1"/>
+                    <xs:enumeration value="CLUSTER2"/>
+                    <xs:enumeration value="CLUSTER3"/>
+                    <xs:enumeration value="CLUSTER4"/>
+                    <xs:enumeration value="DoubleStar1"/>
+                    <xs:enumeration value="IMP-8"/>
+                    <xs:enumeration value="GEOTAIL"/>
+                    <xs:enumeration value="POLAR"/>
+                    <xs:enumeration value="INTERBALL-Tail"/>
+                    <xs:enumeration value="ISEE-1"/>
+                    <xs:enumeration value="ISEE-2"/>
+                </xs:restriction>
+            </xs:simpleType>
+            <xs:simpleType name="Variable">
+                <xs:annotation>
+                    <xs:documentation>List of individual parameters from the selected NumericalOutput and Simulation Run, separated by a comma. By default: SimulatedRegion from Simulation Run; TemporalDescription and all parameters within the NumericalOutput</xs:documentation>
+                </xs:annotation>
+                <xs:list itemType="idm:ParameterKey"/>
+            </xs:simpleType>
 
-      <xs:complexType name="ListOfDouble">
-        <xs:annotation>
-          <xs:documentation>x,y,z</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element type="xs:double" maxOccurs="1" minOccurs="0" name="x"/>
-          <xs:element type="xs:double" maxOccurs="1" minOccurs="0" name="y"/>
-          <xs:element type="xs:double" maxOccurs="1" minOccurs="0" name="z"/>
-        </xs:sequence>
-      </xs:complexType>
-      <xs:complexType name="cube_size_array">
-        <xs:annotation>
-          <xs:documentation>List with sizes of a cube</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element type="xs:integer" name="x_low" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:integer" name="x_high" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:integer" name="y_low" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:integer" name="y_high" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:integer" name="z_low" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:integer" name="z_high" maxOccurs="1" minOccurs="0"/>
-        </xs:sequence>
-      </xs:complexType>      
+            <xs:complexType name="ListOfDouble">
+                <xs:annotation>
+                    <xs:documentation>x,y,z</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element type="xs:double" maxOccurs="1" minOccurs="0" name="x"/>
+                    <xs:element type="xs:double" maxOccurs="1" minOccurs="0" name="y"/>
+                    <xs:element type="xs:double" maxOccurs="1" minOccurs="0" name="z"/>
+                </xs:sequence>
+            </xs:complexType>
+            <xs:complexType name="cube_size_array">
+                <xs:annotation>
+                    <xs:documentation>List with sizes of a cube</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element type="xs:integer" name="x_low" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:integer" name="x_high" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:integer" name="y_low" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:integer" name="y_high" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:integer" name="z_low" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:integer" name="z_high" maxOccurs="1" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>      
       
     
-      
-      
-      
-      <xs:complexType name="extraParams_getDataPointValue">
-        <xs:sequence>
-          <xs:element ref="OutputFileType" maxOccurs="1" minOccurs="0"/>
-          <xs:element ref="InterpolationMethod" maxOccurs="1" minOccurs="0"/>
-        </xs:sequence>
-      </xs:complexType>
+            
+            
+            
+            <xs:complexType name="extraParams_getDataPointValue">
+                <xs:sequence>
+                    <xs:element ref="OutputFileType" maxOccurs="1" minOccurs="0"/>
+                    <xs:element ref="InterpolationMethod" maxOccurs="1" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
 
-      
-      
-      <xs:complexType name="extraParams_calculateDataPointValueFixedTime">
-        <xs:annotation>
-          <xs:documentation>List of individual parameters: SW Density, SW Velocity, IMF_B (Bx,By,Bz), Dst, AL, BD, BT, RD2, RD1, R2, R1.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element type="xs:double" name="SWDensity" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="SWVelocity" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="Dst" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="AL" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
-        </xs:sequence>
-      </xs:complexType>
+            
+            
+            <xs:complexType name="extraParams_calculateDataPointValueFixedTime">
+                <xs:annotation>
+                    <xs:documentation>List of individual parameters: SW Density, SW Velocity, IMF_B (Bx,By,Bz), Dst, AL, BD, BT, RD2, RD1, R2, R1.</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element type="xs:double" name="SWDensity" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="SWVelocity" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="Dst" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="AL" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
 
+            
+            
+            <xs:complexType name="extraParams_calculateDataPointValue">
+                <xs:annotation>
+                    <xs:documentation>Only OutputFileType for now.</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element type="OutputFormat" maxOccurs="1" minOccurs="0" name="OutputFileType"/>
+                </xs:sequence>
+            </xs:complexType>
       
+            
+            
+            <xs:complexType name="extraParams_calculateDataPointValueMercury">
+                <xs:annotation>
+                    <xs:documentation> By default:'BD'=-196.0,'Flux'=131.0,'Rss'=1.35,'R2'=1.32,'DZ'=0.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Dipole field strength on the equator of the Mercury</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="Flux" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Magnetic field strength on the inner edge of the tail current</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Sub-solar magnetopause distance in Mercury radii (2439km)</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Distance to the inner edge of tail current sheet</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="DZ" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Northward shift of the dipole relative to the center of the Mercury</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Penetrated IMF components in HSM coord</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
       
-      <xs:complexType name="extraParams_calculateDataPointValue">
-        <xs:annotation>
-          <xs:documentation>Only OutputFileType for now.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element type="OutputFormat" maxOccurs="1" minOccurs="0" name="OutputFileType"/>
-        </xs:sequence>
-      </xs:complexType>
-      
-      
-      
-      <xs:complexType name="extraParams_calculateDataPointValueMercury">
-        <xs:annotation>
-          <xs:documentation> By default:'BD'=-196.0,'Flux'=131.0,'Rss'=1.35,'R2'=1.32,'DZ'=0.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
-        <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Dipole field strength on the equator of the Mercury</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="Flux" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Magnetic field strength on the inner edge of the tail current</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Sub-solar magnetopause distance in Mercury radii (2439km)</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Distance to the inner edge of tail current sheet</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="DZ" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Northward shift of the dipole relative to the center of the Mercury</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Penetrated IMF components in HSM coord</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:complexType>
-      
-      
-      
-      <xs:complexType name="extraParams_calculateDataPointValueSaturn">
-        <xs:annotation>
-          <xs:documentation>By default:'BDÐ¡'=3.0,'BT'=7.0,'RD2'=15.0,'RD1'=6.5,'Rss'=22.0,'R2'=18.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="BDC" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Magnetic field on the outer edge of MD</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="BT" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Magnetic field on the tail current inner edge</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="RD2" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Distance to the outer edge of MD</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="RD1" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Distance to the inner edge of MD</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Distance to the inner edge of tail current sheet</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Distance to the magnetopause subsolar point</xs:documentation>
-            </xs:annotation>
-          </xs:element>          
-          <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
-        </xs:sequence>
-      </xs:complexType>
+            
+            
+            <xs:complexType name="extraParams_calculateDataPointValueSaturn">
+                <xs:annotation>
+                    <xs:documentation>By default:'BDÐ¡'=3.0,'BT'=7.0,'RD2'=15.0,'RD1'=6.5,'Rss'=22.0,'R2'=18.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="BDC" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Magnetic field on the outer edge of MD</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="BT" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Magnetic field on the tail current inner edge</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="RD2" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Distance to the outer edge of MD</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="RD1" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Distance to the inner edge of MD</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Distance to the inner edge of tail current sheet</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Distance to the magnetopause subsolar point</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>          
+                    <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
 
+            
+            
+            <xs:complexType name="extraParams_calculateDataPointValueJupiter">
+                <xs:annotation>
+                    <xs:documentation/>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Dipole field strength on the equator of the Saturn</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="BDC" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Magnetic field on the outer edge of MD</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="BT" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Magnetic field on the tail current inner edge</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="RD2" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Distance to the outer edge of MD</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="RD1" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Distance to the inner edge of MD</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Distance to the inner edge of tail current sheet</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Distance to the magnetopause subsolar point</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
       
-      
-      <xs:complexType name="extraParams_calculateDataPointValueJupiter">
-        <xs:annotation>
-          <xs:documentation/>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
-        <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Dipole field strength on the equator of the Saturn</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="BDC" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Magnetic field on the outer edge of MD</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="BT" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Magnetic field on the tail current inner edge</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="RD2" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Distance to the outer edge of MD</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="RD1" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Distance to the inner edge of MD</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Distance to the inner edge of tail current sheet</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Distance to the magnetopause subsolar point</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:complexType>
-      
-      
-      
-      <xs:complexType name="extraParams_calculateDataPointValueSpacecraft">
-        <xs:annotation>
-          <xs:documentation>Only OutputFileType for now.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
-        </xs:sequence>
-      </xs:complexType>
+            
+            
+            <xs:complexType name="extraParams_calculateDataPointValueSpacecraft">
+                <xs:annotation>
+                    <xs:documentation>Only OutputFileType for now.</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
 
-      
-      
-      <xs:complexType name="extraParams_calculateFieldLine">
-        <xs:annotation>
-          <xs:documentation>Only OutputFileType for now.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element type="xs:double" name="LineLength" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="StepSize" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
-        </xs:sequence>
-      </xs:complexType>
+            
+            
+            <xs:complexType name="extraParams_calculateFieldLine">
+                <xs:annotation>
+                    <xs:documentation>Only OutputFileType for now.</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element type="xs:double" name="LineLength" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="StepSize" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
 
-      
-      
-      <xs:complexType name="extraParams_calculateCube">
-        <xs:annotation>
-          <xs:documentation>List of individual parameters:SW Density,SW Velocity,IMF_B(Bx,By,Bz),Dst,AL.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element type="xs:double" name="SWDensity" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="SWVelocity" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="Dst" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="AL" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0">
-		    <xs:annotation>
-            <xs:documentation>VOTable format should be used for less than 1500000 the number of points in the resulting cube. For larger cubes only NetCDF format should be used</xs:documentation>
-          </xs:annotation>
-		</xs:element>
-        </xs:sequence>
-      </xs:complexType>
+            
+            
+            <xs:complexType name="extraParams_calculateCube">
+                <xs:annotation>
+                    <xs:documentation>List of individual parameters:SW Density,SW Velocity,IMF_B(Bx,By,Bz),Dst,AL.</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element type="xs:double" name="SWDensity" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="SWVelocity" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="Dst" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="AL" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>VOTable format should be used for less than 1500000 the number of points in the resulting cube. For larger cubes only NetCDF format should be used</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
 
+            
+            
+            <xs:complexType name="extraParams_calculateCubeMercury">
+                <xs:annotation>
+                    <xs:documentation>List of parameters: BD,Flux,Rss,R2,DZ,IMF_B. By default:'BD'=-196.0,'Flux'=131.0,'Rss'=1.35,'R2'=1.32,'DZ'=0.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="Flux" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="DZ" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>VOTable format should be used for less than 1300000 the number of points in the resulting cube. For larger cubes only NetCDF format should be used</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
       
+            
+            
+            <xs:complexType name="extraParams_calculateCubeSaturn">
+                <xs:annotation>
+                    <xs:documentation>List of parameters: BDC, BT, RD2, RD1, R2, Rss, IMF_B. By default:'BDÐ¡'=3.0,'BT'=7.0,'RD2'=15.0,'RD1'=6.5,'Rss'=22.0,'R2'=18.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element type="xs:double" name="BDC" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="BT" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="RD2" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="RD1" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>VOTable format should be used for less than 1300000 the number of points in the resulting cube. For larger cubes only NetCDF format should be used</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
       
-      <xs:complexType name="extraParams_calculateCubeMercury">
-        <xs:annotation>
-          <xs:documentation>List of parameters: BD,Flux,Rss,R2,DZ,IMF_B. By default:'BD'=-196.0,'Flux'=131.0,'Rss'=1.35,'R2'=1.32,'DZ'=0.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="Flux" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="DZ" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0">
-		    <xs:annotation>
-            <xs:documentation>VOTable format should be used for less than 1300000 the number of points in the resulting cube. For larger cubes only NetCDF format should be used</xs:documentation>
-          </xs:annotation>
-		</xs:element>
-        </xs:sequence>
-      </xs:complexType>
-      
-       
-      
-      <xs:complexType name="extraParams_calculateCubeSaturn">
-        <xs:annotation>
-          <xs:documentation>List of parameters: BDC, BT, RD2, RD1, R2, Rss, IMF_B. By default:'BDÐ¡'=3.0,'BT'=7.0,'RD2'=15.0,'RD1'=6.5,'Rss'=22.0,'R2'=18.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element type="xs:double" name="BDC" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="BT" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="RD2" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="RD1" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0">
-		    <xs:annotation>
-            <xs:documentation>VOTable format should be used for less than 1300000 the number of points in the resulting cube. For larger cubes only NetCDF format should be used</xs:documentation>
-          </xs:annotation>
-		</xs:element>
-        </xs:sequence>
-      </xs:complexType>
-      
-      
-      
-      <xs:complexType name="extraParams_calculateCubeJupiter">
-        <xs:annotation>
-          <xs:documentation>List of parameters: BDC, BT, RD2, RD1, R2, Rss, IMF_B.</xs:documentation>
-        </xs:annotation>
-        <xs:sequence>
-          <xs:element type="xs:double" name="BDC" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="BT" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="RD2" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="RD1" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
-          <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0">
-		    <xs:annotation>
-            <xs:documentation>VOTable format should be used for less than 1300000 the number of points in the resulting cube. For larger cubes only NetCDF format should be used</xs:documentation>
-          </xs:annotation>
-		</xs:element>
-        </xs:sequence>
-      </xs:complexType>
+            
+            
+            <xs:complexType name="extraParams_calculateCubeJupiter">
+                <xs:annotation>
+                    <xs:documentation>List of parameters: BDC, BT, RD2, RD1, R2, Rss, IMF_B.</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element type="xs:double" name="BDC" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="BT" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="RD2" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="RD1" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>VOTable format should be used for less than 1300000 the number of points in the resulting cube. For larger cubes only NetCDF format should be used</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
 	
-	 
-	<xs:complexType name="extraParams_getSurface">
-		<xs:sequence>
-			<xs:element ref="Resolution" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Spatial resolution of the grid mesh</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-			<xs:element ref="OutputFileType" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>The output file format, selected by the user: NetCDF or VOTable</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-		</xs:sequence>
-	</xs:complexType>
+             
+            <xs:complexType name="extraParams_getSurface">
+                <xs:sequence>
+                    <xs:element ref="Resolution" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Spatial resolution of the grid mesh</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="OutputFileType" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>The output file format, selected by the user: NetCDF or VOTable</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
 	
-	
-	<xs:element name="emptyElement"> 
-		<xs:complexType>
-			<xs:sequence/>
-		</xs:complexType> 
-	</xs:element>
-	<xs:element type="xs:anyURI" name="anyURI"/>
-	<xs:element type="xs:boolean" name="boolean"/>
+            
+            <xs:element name="emptyElement"> 
+                <xs:complexType>
+                    <xs:sequence/>
+                </xs:complexType> 
+            </xs:element>
+            <xs:element type="xs:anyURI" name="anyURI"/>
+            <xs:element type="xs:boolean" name="boolean"/>
 
 
-      
+            
 
-      
-      <xs:element type="DataPointValue" name="getDataPointValue"/>
-      <xs:complexType name="DataPointValue">
-        <xs:sequence>
-          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>ResourceID of the NumericalOutput describing the 3D cube in which the interpolation is performed</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element ref="Variable" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation/>
-            </xs:annotation>
-          </xs:element>
-          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="0"/>
-          <xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointValue" name="extraParams">
-            <xs:annotation>
-              <xs:documentation>OutputFiletype, InterpolationMethod</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:complexType>
+            
+            <xs:element type="DataPointValue" name="getDataPointValue"/>
+            <xs:complexType name="DataPointValue">
+                <xs:sequence>
+                    <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>ResourceID of the NumericalOutput describing the 3D cube in which the interpolation is performed</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="Variable" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation/>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="0"/>
+                    <xs:element maxOccurs="1" minOccurs="0" type="extraParams_getDataPointValue" name="extraParams">
+                        <xs:annotation>
+                            <xs:documentation>OutputFiletype, InterpolationMethod</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
 
-      
-      <xs:element type="calculateDataPointValueFixedTime" name="calculateDataPointValueFixedTime"/>
-      <xs:complexType name="calculateDataPointValueFixedTime">
-        <xs:sequence>
-          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
-          <xs:element type="extraParams_calculateDataPointValueFixedTime" name="extraParams" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>For Earth: SW Density, SW Velocity, IMF_B(Bx, By, Bz), Dst, AL, OutputFiletype</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
-        </xs:sequence>
-      </xs:complexType>
+            
+            <xs:element type="calculateDataPointValueFixedTime" name="calculateDataPointValueFixedTime"/>
+            <xs:complexType name="calculateDataPointValueFixedTime">
+                <xs:sequence>
+                    <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+                    <xs:element type="extraParams_calculateDataPointValueFixedTime" name="extraParams" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>For Earth: SW Density, SW Velocity, IMF_B(Bx, By, Bz), Dst, AL, OutputFiletype</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
 
-      
-      <xs:element type="calculateDataPointValue" name="calculateDataPointValue"/>
-      <xs:complexType name="calculateDataPointValue">
-        <xs:sequence>
-          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="extraParams_calculateDataPointValue" name="extraParams" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>OutputFiletype only</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
-        </xs:sequence>
-      </xs:complexType>
+            
+            <xs:element type="calculateDataPointValue" name="calculateDataPointValue"/>
+            <xs:complexType name="calculateDataPointValue">
+                <xs:sequence>
+                    <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="extraParams_calculateDataPointValue" name="extraParams" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>OutputFiletype only</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
 
+            
+            <xs:element type="calculateDataPointValueMercury" name="calculateDataPointValueMercury"/>
+            <xs:complexType name="calculateDataPointValueMercury">
+                <xs:sequence>
+                    <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="extraParams_calculateDataPointValueMercury" name="extraParams" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>List of parameters: BD,Flux,Rss,R2,DZ,IMF_B; OutputFileType</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
       
-      <xs:element type="calculateDataPointValueMercury" name="calculateDataPointValueMercury"/>
-      <xs:complexType name="calculateDataPointValueMercury">
-        <xs:sequence>
-          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="extraParams_calculateDataPointValueMercury" name="extraParams" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>List of parameters: BD,Flux,Rss,R2,DZ,IMF_B; OutputFileType</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
-        </xs:sequence>
-      </xs:complexType>
+            
+            <xs:element type="calculateDataPointValueSaturn" name="calculateDataPointValueSaturn"/>
+            <xs:complexType name="calculateDataPointValueSaturn">
+                <xs:sequence>
+                    <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="extraParams_calculateDataPointValueSaturn" name="extraParams" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>List of parameters: BDÐ¡,BT,RD2,RD1,Rss,R2,IMF_B; OutputFiletype only</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
       
+            
+            <xs:element type="calculateDataPointValueJupiter" name="calculateDataPointValueJupiter"/>
+            <xs:complexType name="calculateDataPointValueJupiter">
+                <xs:sequence>
+                    <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="extraParams_calculateDataPointValueJupiter" name="extraParams" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>List of parameters: BDÐ¡,BT,RD2,RD1,Rss,R2,IMF_B; OutputFileType</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
       
-      <xs:element type="calculateDataPointValueSaturn" name="calculateDataPointValueSaturn"/>
-      <xs:complexType name="calculateDataPointValueSaturn">
-        <xs:sequence>
-          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="extraParams_calculateDataPointValueSaturn" name="extraParams" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>List of parameters: BDÐ¡,BT,RD2,RD1,Rss,R2,IMF_B; OutputFiletype only</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
-        </xs:sequence>
-      </xs:complexType>
-      
-      
-      <xs:element type="calculateDataPointValueJupiter" name="calculateDataPointValueJupiter"/>
-      <xs:complexType name="calculateDataPointValueJupiter">
-        <xs:sequence>
-          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="extraParams_calculateDataPointValueJupiter" name="extraParams" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>List of parameters: BDÐ¡,BT,RD2,RD1,Rss,R2,IMF_B; OutputFileType</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
-        </xs:sequence>
-      </xs:complexType>
-      
-      
-      <xs:element type="calculateDataPointValueSpacecraft" name="calculateDataPointValueSpacecraft"/>
-      <xs:complexType name="calculateDataPointValueSpacecraft">
-        <xs:sequence>
-          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element ref="Spacecraft_name" maxOccurs="1" minOccurs="1"/>
-          <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
-          <xs:element ref="StopTime" maxOccurs="1" minOccurs="1"/>
-          <xs:element ref="Sampling" maxOccurs="1" minOccurs="1"/>
-          <xs:element type="extraParams_calculateDataPointValueSpacecraft" name="extraParams" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>OutputFiletype only</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:complexType>
+            
+            <xs:element type="calculateDataPointValueSpacecraft" name="calculateDataPointValueSpacecraft"/>
+            <xs:complexType name="calculateDataPointValueSpacecraft">
+                <xs:sequence>
+                    <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="Spacecraft_name" maxOccurs="1" minOccurs="1"/>
+                    <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+                    <xs:element ref="StopTime" maxOccurs="1" minOccurs="1"/>
+                    <xs:element ref="Sampling" maxOccurs="1" minOccurs="1"/>
+                    <xs:element type="extraParams_calculateDataPointValueSpacecraft" name="extraParams" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>OutputFiletype only</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
 
+            
+            <xs:element type="calculateFieldLine" name="calculateFieldLine"/>
+            <xs:complexType name="calculateFieldLine">
+                <xs:sequence>
+                    <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+                    <xs:element type="extraParams_calculateFieldLine" name="extraParams" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>OutputFiletype only</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
       
-      <xs:element type="calculateFieldLine" name="calculateFieldLine"/>
-      <xs:complexType name="calculateFieldLine">
-        <xs:sequence>
-          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
-          <xs:element type="extraParams_calculateFieldLine" name="extraParams" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>OutputFiletype only</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
-        </xs:sequence>
-      </xs:complexType>
-      
-      
-      <xs:element type="calculateCube" name="calculateCube"/>
-      <xs:complexType name="calculateCube">
-        <xs:sequence>
-          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>ResourceID of a generic SimulationRun</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
-          <xs:element type="extraParams_calculateCube" name="extraParams" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>For Earth: SW Density, SW Velocity, IMF_B(Bx, By, Bz), Dst, AL; OutputFileType</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="xs:double" name="Sampling" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>StepSize in a cube. By default = 0.5 Re</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element ref="cube_size_array" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Size of the requested cube</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:complexType>
+            
+            <xs:element type="calculateCube" name="calculateCube"/>
+            <xs:complexType name="calculateCube">
+                <xs:sequence>
+                    <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>ResourceID of a generic SimulationRun</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+                    <xs:element type="extraParams_calculateCube" name="extraParams" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>For Earth: SW Density, SW Velocity, IMF_B(Bx, By, Bz), Dst, AL; OutputFileType</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="Sampling" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>StepSize in a cube. By default = 0.5 Re</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="cube_size_array" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Size of the requested cube</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
 
-      
-      <xs:element type="calculateCubeMercury" name="calculateCubeMercury"/>
-      <xs:complexType name="calculateCubeMercury">
-        <xs:sequence>
-          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>ResourceID of a generic SimulationRun</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="extraParams_calculateCubeMercury" name="extraParams" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>List of parameters: BD,Flux,Rss,R2,DZ,IMF_B; OutputFileType</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:complexType>
+            
+            <xs:element type="calculateCubeMercury" name="calculateCubeMercury"/>
+            <xs:complexType name="calculateCubeMercury">
+                <xs:sequence>
+                    <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>ResourceID of a generic SimulationRun</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="extraParams_calculateCubeMercury" name="extraParams" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>List of parameters: BD,Flux,Rss,R2,DZ,IMF_B; OutputFileType</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
 
-      
-      <xs:element type="calculateCubeSaturn" name="calculateCubeSaturn"/>
-      <xs:complexType name="calculateCubeSaturn">
-        <xs:sequence>
-          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>ResourceID of a generic SimulationRun</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-		  <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
-          <xs:element type="extraParams_calculateCubeSaturn" name="extraParams" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>List of parameters: BDC,BT,RD2,RD1,R2,Rss,IMF_B; OutputFileType</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-		  <xs:element type="xs:double" name="Sampling" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>StepSize in a cube. By default = 0.5 Re</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-		  <xs:element ref="cube_size_array" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>Size of the requested cube</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:complexType>
+            
+            <xs:element type="calculateCubeSaturn" name="calculateCubeSaturn"/>
+            <xs:complexType name="calculateCubeSaturn">
+                <xs:sequence>
+                    <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>ResourceID of a generic SimulationRun</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+                    <xs:element type="extraParams_calculateCubeSaturn" name="extraParams" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>List of parameters: BDC,BT,RD2,RD1,R2,Rss,IMF_B; OutputFileType</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="Sampling" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>StepSize in a cube. By default = 0.5 Re</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="cube_size_array" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Size of the requested cube</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
 
-      
-      <xs:element type="calculateCubeJupiter" name="calculateCubeJupiter"/>
-      <xs:complexType name="calculateCubeJupiter">
-        <xs:sequence>
-          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>ResourceID of a generic SimulationRun</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element type="extraParams_calculateCubeJupiter" name="extraParams" maxOccurs="1" minOccurs="0">
-            <xs:annotation>
-              <xs:documentation>List of parameters: BDC,BT,RD2,RD1,R2,Rss,IMF_B; OutputFileType</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:complexType>
+            
+            <xs:element type="calculateCubeJupiter" name="calculateCubeJupiter"/>
+            <xs:complexType name="calculateCubeJupiter">
+                <xs:sequence>
+                    <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>ResourceID of a generic SimulationRun</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+                    <xs:element type="extraParams_calculateCubeJupiter" name="extraParams" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>List of parameters: BDC,BT,RD2,RD1,R2,Rss,IMF_B; OutputFileType</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element type="xs:double" name="Sampling" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>StepSize in a cube. By default = 1.0 Re</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="cube_size_array" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Size of the requested cube</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
 	  
+            
+            <xs:element type="Surface" name="getSurface"/>
+            <xs:complexType name="Surface">
+                <xs:sequence>
+                    <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>ResourceID of the NumericalOutput describing the 3D cube in which the interpolation is performed</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="Variable" maxOccurs="1" minOccurs="0"/>
+                    <xs:element ref="PlaneNormalVector" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>3D components of a normalized vector normal to the requested plane</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="PlanePoint" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>A 3D coordinate indicating the position of one point in the plane requested. Coordinate of the point must be expressed in the Spase/SimulationRun/SimulationDomain/CoordinateSystem and with Space Coordinate label names</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="extraParams_getSurface" name="extraParams">
+                        <xs:annotation>
+                            <xs:documentation>Resolution,OutputFiletype</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
 	  
-      <xs:element type="Surface" name="getSurface"/>
-      <xs:complexType name="Surface">
-        <xs:sequence>
-          <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>ResourceID of the NumericalOutput describing the 3D cube in which the interpolation is performed</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element ref="Variable" maxOccurs="1" minOccurs="0"/>
-		  <xs:element ref="PlaneNormalVector" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>3D components of a normalized vector normal to the requested plane</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-		  <xs:element ref="PlanePoint" maxOccurs="1" minOccurs="1">
-            <xs:annotation>
-              <xs:documentation>A 3D coordinate indicating the position of one point in the plane requested. Coordinate of the point must be expressed in the Spase/SimulationRun/SimulationDomain/CoordinateSystem and with Space Coordinate label names</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-          <xs:element maxOccurs="1" minOccurs="0" type="extraParams_getSurface" name="extraParams">
-            <xs:annotation>
-              <xs:documentation>Resolution,OutputFiletype</xs:documentation>
-            </xs:annotation>
-          </xs:element>
-        </xs:sequence>
-      </xs:complexType>
-	  
 
-    </xs:schema>
-  </wsdl:types>
-  
-  
-  
-  
+        </xs:schema>
+    </wsdl:types>
+    
+    
+    
+    
 
-  
-  <wsdl:message name="DataPointValue_Request">
-    <wsdl:part element="getDataPointValue" name="parameters"/>
-  </wsdl:message>
+    
+    <wsdl:message name="DataPointValue_Request">
+        <wsdl:part element="getDataPointValue" name="parameters"/>
+    </wsdl:message>
 
-  
-  <wsdl:message name="calculateDataPointValueFixedTime_Request">
-    <wsdl:part element="calculateDataPointValueFixedTime" name="parameters"/>
-  </wsdl:message>
+    
+    <wsdl:message name="calculateDataPointValueFixedTime_Request">
+        <wsdl:part element="calculateDataPointValueFixedTime" name="parameters"/>
+    </wsdl:message>
 
-  
-  <wsdl:message name="calculateDataPointValue_Request">
-    <wsdl:part element="calculateDataPointValue" name="parameters"/>
-  </wsdl:message>
+    
+    <wsdl:message name="calculateDataPointValue_Request">
+        <wsdl:part element="calculateDataPointValue" name="parameters"/>
+    </wsdl:message>
 
+    
+    <wsdl:message name="calculateDataPointValueMercury_Request">
+        <wsdl:part element="calculateDataPointValueMercury" name="parameters"/>
+    </wsdl:message>
   
-  <wsdl:message name="calculateDataPointValueMercury_Request">
-    <wsdl:part element="calculateDataPointValueMercury" name="parameters"/>
-  </wsdl:message>
+    
+    <wsdl:message name="calculateDataPointValueSaturn_Request">
+        <wsdl:part element="calculateDataPointValueSaturn" name="parameters"/>
+    </wsdl:message>
   
-  
-  <wsdl:message name="calculateDataPointValueSaturn_Request">
-    <wsdl:part element="calculateDataPointValueSaturn" name="parameters"/>
-  </wsdl:message>
-  
-  
-  <wsdl:message name="calculateDataPointValueJupiter_Request">
-    <wsdl:part element="calculateDataPointValueJupiter" name="parameters"/>
-  </wsdl:message>
+    
+    <wsdl:message name="calculateDataPointValueJupiter_Request">
+        <wsdl:part element="calculateDataPointValueJupiter" name="parameters"/>
+    </wsdl:message>
 
-  
-  <wsdl:message name="calculateDataPointValueSpacecraft_Request">
-    <wsdl:part element="calculateDataPointValueSpacecraft" name="parameters"/>
-  </wsdl:message>
+    
+    <wsdl:message name="calculateDataPointValueSpacecraft_Request">
+        <wsdl:part element="calculateDataPointValueSpacecraft" name="parameters"/>
+    </wsdl:message>
 
+    
+    <wsdl:message name="calculateFieldLine_Request">
+        <wsdl:part element="calculateFieldLine" name="parameters"/>
+    </wsdl:message>
   
-  <wsdl:message name="calculateFieldLine_Request">
-    <wsdl:part element="calculateFieldLine" name="parameters"/>
-  </wsdl:message>
+    
+    <wsdl:message name="calculateCube_Request">
+        <wsdl:part element="calculateCube" name="parameters"/>
+    </wsdl:message>
   
+    
+    <wsdl:message name="calculateCubeMercury_Request">
+        <wsdl:part element="calculateCubeMercury" name="parameters"/>
+    </wsdl:message>
   
-  <wsdl:message name="calculateCube_Request">
-    <wsdl:part element="calculateCube" name="parameters"/>
-  </wsdl:message>
+    
+    <wsdl:message name="calculateCubeSaturn_Request">
+        <wsdl:part element="calculateCubeSaturn" name="parameters"/>
+    </wsdl:message>    
   
-  
-  <wsdl:message name="calculateCubeMercury_Request">
-    <wsdl:part element="calculateCubeMercury" name="parameters"/>
-  </wsdl:message>
-  
-  
-  <wsdl:message name="calculateCubeSaturn_Request">
-    <wsdl:part element="calculateCubeSaturn" name="parameters"/>
-  </wsdl:message>
+    
+    <wsdl:message name="calculateCubeJupiter_Request">
+        <wsdl:part element="calculateCubeJupiter" name="parameters"/>
+    </wsdl:message>
 
-  
-  <wsdl:message name="Surface_Request">
-		<wsdl:part element="getSurface" name="parameters"/>
-	</wsdl:message>
+    
+    <wsdl:message name="Surface_Request">
+        <wsdl:part element="getSurface" name="parameters"/>
+    </wsdl:message>
 	
-	
-	<wsdl:message name="isAlive_Request">
-	<wsdl:part element="emptyElement" name="parameters"/>
-	</wsdl:message>
+    
+    <wsdl:message name="isAlive_Request">
+        <wsdl:part element="emptyElement" name="parameters"/>
+    </wsdl:message>
 
-	
-	<wsdl:message name="isAlive_Response">
-	<wsdl:part element="boolean" name="parameters"/>
-	</wsdl:message>
+    
+    <wsdl:message name="isAlive_Response">
+        <wsdl:part element="boolean" name="parameters"/>
+    </wsdl:message>
   
-  
-  <wsdl:message name="Generic_Response">
-    <wsdl:part type="xs:anyURI" name="parameters"/>
-  </wsdl:message>
-
-
-  
-  
-  
-  
-
-  
-  <wsdl:portType name="Methods_SINP">
-    <wsdl:operation name="getDataPointValue">
-      <wsdl:input message="DataPointValue_Request"> </wsdl:input>
-      <wsdl:output message="Generic_Response"> </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateDataPointValueFixedTime">
-      <wsdl:input message="calculateDataPointValueFixedTime_Request"> </wsdl:input>
-      <wsdl:output message="Generic_Response"> </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateDataPointValue">
-      <wsdl:input message="calculateDataPointValue_Request"> </wsdl:input>
-      <wsdl:output message="Generic_Response"> </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateDataPointValueMercury">
-      <wsdl:input message="calculateDataPointValueMercury_Request"> </wsdl:input>
-      <wsdl:output message="Generic_Response"> </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateDataPointValueSaturn">
-      <wsdl:input message="calculateDataPointValueSaturn_Request"> </wsdl:input>
-      <wsdl:output message="Generic_Response"> </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateDataPointValueJupiter">
-      <wsdl:input message="calculateDataPointValueJupiter_Request"> </wsdl:input>
-      <wsdl:output message="Generic_Response"> </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateDataPointValueSpacecraft">
-      <wsdl:input message="calculateDataPointValueSpacecraft_Request"> </wsdl:input>
-      <wsdl:output message="Generic_Response"> </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateFieldLine">
-      <wsdl:input message="calculateFieldLine_Request"> </wsdl:input>
-      <wsdl:output message="Generic_Response"> </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateCube">
-      <wsdl:input message="calculateCube_Request"> </wsdl:input>
-      <wsdl:output message="Generic_Response"> </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateCubeMercury">
-      <wsdl:input message="calculateCubeMercury_Request"> </wsdl:input>
-      <wsdl:output message="Generic_Response"> </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateCubeSaturn">
-      <wsdl:input message="calculateCubeSaturn_Request"> </wsdl:input>
-      <wsdl:output message="Generic_Response"> </wsdl:output>
-    </wsdl:operation>
-	<wsdl:operation name="getSurface">
-		<wsdl:input message="Surface_Request"> </wsdl:input>
-		<wsdl:output message="Generic_Response"> </wsdl:output>
-	</wsdl:operation>
-	<wsdl:operation name="isAlive">
-	<wsdl:input message="isAlive_Request"/>
-	<wsdl:output message="isAlive_Response"/>
-	</wsdl:operation>
-  </wsdl:portType>
+    
+    <wsdl:message name="Generic_Response">
+        <wsdl:part type="xs:anyURI" name="parameters"/>
+    </wsdl:message>
 
 
-  
-  
-  
-  
+    
+    
+    
+    
 
-  <wsdl:binding type="Methods_SINP" name="Methods_SINPSoapBinding">
-    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
-    <wsdl:operation name="getDataPointValue">
-      <soap:operation soapAction="DataPointValue"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateDataPointValueFixedTime">
-      <soap:operation soapAction="calculateDataPointValueFixedTime"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateDataPointValue">
-      <soap:operation soapAction="calculateDataPointValue"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateDataPointValueSaturn">
-      <soap:operation soapAction="calculateDataPointValueSaturn"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateDataPointValueMercury">
-      <soap:operation soapAction="calculateDataPointValueMercury"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateDataPointValueJupiter">
-      <soap:operation soapAction="calculateDataPointValueJupiter"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateDataPointValueSpacecraft">
-      <soap:operation soapAction="calculateDataPointValueSpacecraft"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="calculateFieldLine">
-      <soap:operation soapAction="calculateFieldLine"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-      <wsdl:operation name="calculateCube">
-      <soap:operation soapAction="calculateCube"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-      <wsdl:operation name="calculateCubeMercury">
-      <soap:operation soapAction="calculateCubeMercury"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-	<wsdl:operation name="calculateCubeSaturn">
-      <soap:operation soapAction="calculateCubeSaturn"/>
-      <wsdl:input>
-        <soap:body use="literal"/>
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal"/>
-      </wsdl:output>
-    </wsdl:operation>
-	<wsdl:operation name="getSurface">
-		<soap:operation soapAction="Surface"/>
-		<wsdl:input>
-			<soap:body use="literal"/>
-		</wsdl:input>
-		<wsdl:output>
-			<soap:body use="literal"/>
-		</wsdl:output>
-	</wsdl:operation>
-	<wsdl:operation name="isAlive">
-		<soap:operation soapAction="Alive"/>
-		<wsdl:input>
-			<soap:body use="literal"/>
-		</wsdl:input>
-		<wsdl:output>
-			<soap:body use="literal"/>
-		</wsdl:output>
-	</wsdl:operation>
-  </wsdl:binding>
+    
+    <wsdl:portType name="Methods_SINP">
+        <wsdl:operation name="getDataPointValue">
+            <wsdl:input message="DataPointValue_Request"> </wsdl:input>
+            <wsdl:output message="Generic_Response"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateDataPointValueFixedTime">
+            <wsdl:input message="calculateDataPointValueFixedTime_Request"> </wsdl:input>
+            <wsdl:output message="Generic_Response"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateDataPointValue">
+            <wsdl:input message="calculateDataPointValue_Request"> </wsdl:input>
+            <wsdl:output message="Generic_Response"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateDataPointValueMercury">
+            <wsdl:input message="calculateDataPointValueMercury_Request"> </wsdl:input>
+            <wsdl:output message="Generic_Response"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateDataPointValueSaturn">
+            <wsdl:input message="calculateDataPointValueSaturn_Request"> </wsdl:input>
+            <wsdl:output message="Generic_Response"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateDataPointValueJupiter">
+            <wsdl:input message="calculateDataPointValueJupiter_Request"> </wsdl:input>
+            <wsdl:output message="Generic_Response"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateDataPointValueSpacecraft">
+            <wsdl:input message="calculateDataPointValueSpacecraft_Request"> </wsdl:input>
+            <wsdl:output message="Generic_Response"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateFieldLine">
+            <wsdl:input message="calculateFieldLine_Request"> </wsdl:input>
+            <wsdl:output message="Generic_Response"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateCube">
+            <wsdl:input message="calculateCube_Request"> </wsdl:input>
+            <wsdl:output message="Generic_Response"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateCubeMercury">
+            <wsdl:input message="calculateCubeMercury_Request"> </wsdl:input>
+            <wsdl:output message="Generic_Response"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateCubeSaturn">
+            <wsdl:input message="calculateCubeSaturn_Request"> </wsdl:input>
+            <wsdl:output message="Generic_Response"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateCubeJupiter">
+            <wsdl:input message="calculateCubeJupiter_Request"> </wsdl:input>
+            <wsdl:output message="Generic_Response"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getSurface">
+            <wsdl:input message="Surface_Request"> </wsdl:input>
+            <wsdl:output message="Generic_Response"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="isAlive">
+            <wsdl:input message="isAlive_Request"/>
+            <wsdl:output message="isAlive_Response"/>
+        </wsdl:operation>
+    </wsdl:portType>
 
 
-  
-  
-  
+    
+    
+    
+    
 
-  
-  <wsdl:service name="Methods_SINP">
-    <wsdl:port binding="Methods_SINPSoapBinding" name="Methods_SINP">
-      <soap:address location="http://smdc.sinp.msu.ru/impex/SINPWebServiceServer.php"/>
-    </wsdl:port>
-  </wsdl:service>
+    <wsdl:binding type="Methods_SINP" name="Methods_SINPSoapBinding">
+        <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="document"/>
+        <wsdl:operation name="getDataPointValue">
+            <soap:operation soapAction="DataPointValue"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateDataPointValueFixedTime">
+            <soap:operation soapAction="calculateDataPointValueFixedTime"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateDataPointValue">
+            <soap:operation soapAction="calculateDataPointValue"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateDataPointValueSaturn">
+            <soap:operation soapAction="calculateDataPointValueSaturn"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateDataPointValueMercury">
+            <soap:operation soapAction="calculateDataPointValueMercury"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateDataPointValueJupiter">
+            <soap:operation soapAction="calculateDataPointValueJupiter"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateDataPointValueSpacecraft">
+            <soap:operation soapAction="calculateDataPointValueSpacecraft"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateFieldLine">
+            <soap:operation soapAction="calculateFieldLine"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateCube">
+            <soap:operation soapAction="calculateCube"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateCubeMercury">
+            <soap:operation soapAction="calculateCubeMercury"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateCubeSaturn">
+            <soap:operation soapAction="calculateCubeSaturn"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateCubeJupiter">
+            <soap:operation soapAction="calculateCubeJupiter"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="getSurface">
+            <soap:operation soapAction="Surface"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="isAlive">
+            <soap:operation soapAction="Alive"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+    </wsdl:binding>
+
+
+    
+    
+    
+
+    
+    <wsdl:service name="Methods_SINP">
+        <wsdl:port binding="Methods_SINPSoapBinding" name="Methods_SINP">
+            <soap:address location="http://smdc.sinp.msu.ru/impex/SINPWebServiceServer.php"/>
+        </wsdl:port>
+    </wsdl:service>
 </wsdl:definitions>

@@ -89,6 +89,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingCalculateCubeFormat: scalaxb.XMLFormat[models.binding.CalculateCube] = new DefaultBindingCalculateCubeFormat {}
   implicit lazy val BindingCalculateCubeMercuryFormat: scalaxb.XMLFormat[models.binding.CalculateCubeMercury] = new DefaultBindingCalculateCubeMercuryFormat {}
   implicit lazy val BindingCalculateCubeSaturnFormat: scalaxb.XMLFormat[models.binding.CalculateCubeSaturn] = new DefaultBindingCalculateCubeSaturnFormat {}
+  implicit lazy val BindingCalculateCubeJupiterFormat: scalaxb.XMLFormat[models.binding.CalculateCubeJupiter] = new DefaultBindingCalculateCubeJupiterFormat {}
   implicit lazy val BindingSurfaceSINPFormat: scalaxb.XMLFormat[models.binding.SurfaceSINP] = new DefaultBindingSurfaceSINPFormat {}
   // AMDA/ CLWEB methods
   implicit lazy val BindingGetObsDataTreeResponseAMDAFormat: scalaxb.XMLFormat[models.binding.GetObsDataTreeResponseAMDA] = new DefaultBindingGetObsDataTreeResponseAMDAFormat {}
@@ -1911,14 +1912,23 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CalculateCubeJupiter] =
       phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
-      opt(scalaxb.ElemName(None, "extraParams")) ^^
-      { case p1 ~ p2 =>
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "StartTime")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ~ 
+      opt(scalaxb.ElemName(None, "Sampling")) ~ 
+      opt(scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "cube_size_array")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 =>
       models.binding.CalculateCubeJupiter(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
-        p2.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateCubeJupiter](_, scalaxb.ElemName(node) :: stack) }) })
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p2, scalaxb.ElemName(node) :: stack),
+        p3.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateCubeJupiter](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[models.binding.Cube_size_array](_, scalaxb.ElemName(node) :: stack) }) })
     
     def writesChildNodes(__obj: models.binding.CalculateCubeJupiter, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
       Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
-        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateCubeJupiter](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil})
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StartTime, Some("http://smdc.sinp.msu.ru"), Some("StartTime"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateCubeJupiter](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil},
+        __obj.Sampling map { scalaxb.toXML[Double](_, None, Some("Sampling"), __scope, false) } getOrElse {Nil},
+        __obj.cube_size_array map { scalaxb.toXML[models.binding.Cube_size_array](_, Some("http://smdc.sinp.msu.ru"), Some("cube_size_array"), __scope, false) } getOrElse {Nil})
 
   }
   
@@ -2032,6 +2042,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
             Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+     def calculateCubeJupiter(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateCubeJupiter], sampling: Option[Double], cube_size_array: Option[models.binding.Cube_size_array]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateCubeJupiter(resourceID, startTime, extraParams, sampling, cube_size_array), Some("http://smdc.sinp.msu.ru"), "calculateCubeJupiter", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateCubeJupiter"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
      def getSurface(resourceID: String, variable: Option[Seq[String]], planeNormalVector: Seq[Float], planePoint: Seq[Float], extraParams: Option[models.binding.ExtraParams_getSurfaceSINP]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.SurfaceSINP(resourceID, variable, planeNormalVector, planePoint, extraParams), Some("http://smdc.sinp.msu.ru"), "getSurface", defaultScope),
@@ -2331,8 +2348,8 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   trait Methods_AMDASoapBindings { this: scalaxb.Soap11Clients =>
     lazy val targetNamespace: Option[String] = Some("http://cdpp-irap/IMPEX/v0.1")
     lazy val service: models.binding.Methods_AMDA = new Methods_AMDASoapBinding {}
-    def baseAddress = new java.net.URI("http://apus.cesr.fr/AMDA-WS/php/AMDA_METHODS_WSDL.php")
-    //def baseAddress = new java.net.URI("http://cdpp1.cesr.fr/AMDA-NG/php/AMDA_METHODS_WSDL.php")
+    //def baseAddress = new java.net.URI("http://apus.cesr.fr/AMDA-WS/php/AMDA_METHODS_WSDL.php")
+    def baseAddress = new java.net.URI("http://cdpp1.cesr.fr/AMDA-NG/php/AMDA_METHODS_WSDL.php")
     
     trait Methods_AMDASoapBinding extends models.binding.Methods_AMDA {
       def isAlive(): Either[scalaxb.Soap11Fault[Any], Boolean] = 
