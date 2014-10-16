@@ -121,10 +121,6 @@ body {
 .carousel, 
 .panel-title a { cursor: pointer; cursor: hand; }
 
-.btn-margin-left {
-	margin-left: 10%;
-}
-
 .btn-map {
 	width: 95%;
 }
@@ -467,11 +463,33 @@ button.info-button {
 }
 
 .btn-group-filter {
-	width: 120px;
+	width: 45%;
 	vertical-align: top;
 	max-height: 200px;
 	overflow-y: auto;
 }
+
+@media (max-width: 767px) {	
+	#filter-collapse {
+		width: 33.33333333%;
+		float: left;
+	}
+	
+	.col-sm-offset-8 {
+		margin-left: 66.66666667%;
+	}
+	
+	.col-sm-offset-4 {
+		margin-left: 33.33333333%;
+	}
+	
+	#samp-collapse {
+		width: 33.33333333%;
+		float: left;
+	}
+}
+
+
 
 .elem-metadata {
 	display: block;
