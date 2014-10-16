@@ -4,7 +4,7 @@
 describe('RegistryDir', function () {
 	var path = '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/';
 	
-	var $compile, scope, timeout, simDb, obsDb, rService, uService, element, $httpBackend;
+	var $compile, scope, simDb, obsDb, rService, uService, element, $httpBackend;
 	
 	beforeEach(module('templates'));
 	
@@ -14,7 +14,6 @@ describe('RegistryDir', function () {
 			registryService, userService, _$httpBackend_) {
 		$compile = _$compile_;
 		scope = $rootScope.$new();
-		timeout = $timeout;
 		rService = registryService;
 		uService = userService;
 		$httpBackend = _$httpBackend_;
@@ -43,11 +42,6 @@ describe('RegistryDir', function () {
 		// test element 
 		element = angular.element('<registry-dir db="{{db}}"></registry-dir>');
 		
-	    // timeout.flush() needs empty responses here
-		$httpBackend.when('GET', '/config?fmt=json').respond('');
-		$httpBackend.when('GET', '/userdata').respond('');
-		$httpBackend.when('GET', '/filter/region').respond('');
-		
 	}));
 	
 	function createDirective(){
@@ -75,6 +69,8 @@ describe('RegistryDir', function () {
         expect(scope.regdirvm.observatories).toEqual([]);
         expect(scope.regdirvm.instruments).toEqual([]);
         expect(scope.regdirvm.numericalData).toEqual([]);
+		expect(scope.regdirvm.registryService).toEqual(rService)
+		expect(scope.regdirvm.userService).toEqual(uService)
 	});
 	
 	it('should react on registry error broadcast', function(){
