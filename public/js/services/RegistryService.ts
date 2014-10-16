@@ -96,11 +96,15 @@ module portal {
                 { getNumericalData: this.registryAction })
         }
     
-        public notify(status: string, id: string) {
+        public notify(status: string, id?: string) {
              if(status == 'success') {
                 this.scope.$broadcast('database-success', id)
               }
+              if(status == 'filtered') {
+                this.scope.$broadcast('registry-filtered')
+              }
         }
+
         
     }
 }

@@ -41,17 +41,20 @@ module portal {
             
             // watches changes of variable 
             // (is changed each time modal is opened)
-            this.scope.$watch('this.database', 
-                () => {        
-                    this.getRepository(this.database.id) 
-                    if(this.isFirstOpen) { 
-                        if(this.database.type == 'simulation')
-                            this.getSimulationModel(this.database.id)
-                        else if(this.database.type == 'observation')
-                            this.getObservatory(this.database.id)
-                    }
-                })
+            this.scope.$watch('this.database', () => this.initRegistry())
             
+            this.scope.$on('registry-filtered', () => this.initRegistry())
+            
+        }
+        
+        private initRegistry() {
+            this.getRepository(this.database.id) 
+            if(this.isFirstOpen) { 
+                if(this.database.type == 'simulation')
+                    this.getSimulationModel(this.database.id)
+                else if(this.database.type == 'observation')
+                    this.getObservatory(this.database.id)
+             }
         }
         
         public getRepository(id: string) {

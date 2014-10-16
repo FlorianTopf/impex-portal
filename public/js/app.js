@@ -1096,6 +1096,9 @@ var portal;
             if (status == 'success') {
                 this.scope.$broadcast('database-success', id);
             }
+            if (status == 'filtered') {
+                this.scope.$broadcast('registry-filtered');
+            }
         };
         RegistryService.$inject = ['$rootScope', '$resource'];
         return RegistryService;
@@ -1476,9 +1479,6 @@ var portal;
                 _this.activeDatabase = _this.configService.getDatabase(id).name;
             });
         }
-        //public notImplemented() {
-        //    this.window.alert('This functionality is not yet implemented.')
-        //}
         PortalCtrl.prototype.toggleFilter = function () {
             this.isFilterCollapsed = !this.isFilterCollapsed;
             this.scope.$broadcast('draw-paths');
@@ -1535,7 +1535,8 @@ else
                             _this.registryService.isFilterSet = true;
 
                             //console.log(JSON.stringify(this.configService.filterMap))
-                            _this.growl.success("Map filtered");
+                            _this.growl.success('Map filtered');
+                            _this.registryService.notify('filtered');
                         }
                     }).error(function (data, status) {
                         _this.isFilterLoading = false;
@@ -1679,15 +1680,23 @@ var portal;
             // watches changes of variable
             // (is changed each time modal is opened)
             this.scope.$watch('this.database', function () {
-                _this.getRepository(_this.database.id);
-                if (_this.isFirstOpen) {
-                    if (_this.database.type == 'simulation')
-                        _this.getSimulationModel(_this.database.id);
-else if (_this.database.type == 'observation')
-                        _this.getObservatory(_this.database.id);
-                }
+                return _this.initRegistry();
+            });
+
+            this.scope.$on('registry-filtered', function () {
+                return _this.initRegistry();
             });
         }
+        RegistryCtrl.prototype.initRegistry = function () {
+            this.getRepository(this.database.id);
+            if (this.isFirstOpen) {
+                if (this.database.type == 'simulation')
+                    this.getSimulationModel(this.database.id);
+else if (this.database.type == 'observation')
+                    this.getObservatory(this.database.id);
+            }
+        };
+
         RegistryCtrl.prototype.getRepository = function (id) {
             var _this = this;
             this.initialising = true;

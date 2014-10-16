@@ -153,10 +153,6 @@ module portal {
             
         }
         
-        //public notImplemented() {
-        //    this.window.alert('This functionality is not yet implemented.')
-        //}
-        
         public toggleFilter() {
             this.isFilterCollapsed = !this.isFilterCollapsed
             this.scope.$broadcast('draw-paths')
@@ -212,7 +208,8 @@ module portal {
                             this.isFilterLoading = false
                             this.registryService.isFilterSet = true
                             //console.log(JSON.stringify(this.configService.filterMap))
-                            this.growl.success("Map filtered")
+                            this.growl.success('Map filtered')
+                            this.registryService.notify('filtered')
                         }
                     })
                     // @TODO what to do in an error case?
