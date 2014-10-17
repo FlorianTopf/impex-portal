@@ -1347,18 +1347,24 @@ var portal;
                 return e.portal == true;
             }).forEach(function (e) {
                 // initialise portal map disablers
-                /*this.configService.aliveMap[e.id] = false*/
-                _this.configService.aliveMap[e.id] = true;
-                _this.configService.filterMap[e.id] = true;
-                // calling isAlive
-                /*this.configService.isAlive(e)*/             });
+                _this.configService.aliveMap[e.id] = false;
 
-            // @TODO this routine must be changed (if we use filters in parallel)
+                /*  this.configService.aliveMap[e.id] = true */
+                _this.configService.filterMap[e.id] = true;
+
+                // calling isAlive
+                _this.configService.isAlive(e);
+            });
+
             // set interval to check if methods are still alive => every 10 minutes (600k ms)
-            /*this.interval(() => this.configService.config.databases
-            .filter((e) => e.portal == true)
-            .forEach((e) => {
-            this.configService.isAlive(e) }), 600000)*/
+            this.interval(function () {
+                return _this.configService.config.databases.filter(function (e) {
+                    return e.portal == true;
+                }).forEach(function (e) {
+                    _this.configService.isAlive(e);
+                });
+            }, 600000);
+
             // @TODO user info comes from the server in the future (add in resolver too)
             this.userService.user = new portal.User(this.userService.createId());
 
@@ -3570,8 +3576,9 @@ var portal;
     impexPortal.config([
         'growlProvider',
         function (growlProvider) {
-            growlProvider.globalTimeToLive(5000);
+            growlProvider.globalTimeToLive(-1);
             growlProvider.onlyUniqueMessages(false);
+            growlProvider.globalPosition('top-right');
         }
     ]);
 

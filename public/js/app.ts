@@ -55,8 +55,9 @@ module portal {
     
     // global growl config
     impexPortal.config(['growlProvider', (growlProvider) => {
-        growlProvider.globalTimeToLive(5000)
+        growlProvider.globalTimeToLive(-1)
         growlProvider.onlyUniqueMessages(false)
+        growlProvider.globalPosition('top-right')
     }])
     
     impexPortal.config(['reCAPTCHAProvider', (reCAPTCHAProvider) => {

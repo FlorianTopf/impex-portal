@@ -11,6 +11,10 @@ body {
     background: #ccffff;
 }
 
+.growl-container.growl-fixed.top-right {
+	top: 5px;
+}
+
 .head {
 	margin-bottom: 5%;
 }

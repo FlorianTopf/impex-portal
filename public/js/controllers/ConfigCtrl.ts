@@ -37,11 +37,11 @@ module portal {
                 .filter((e) => e.portal == true)
                 .forEach((e) => { 
                     // initialise portal map disablers
-                    /*this.configService.aliveMap[e.id] = false*/
-                    this.configService.aliveMap[e.id] = true
+                    this.configService.aliveMap[e.id] = false
+                    /*  this.configService.aliveMap[e.id] = true */
                     this.configService.filterMap[e.id] = true
                     // calling isAlive
-                    /*this.configService.isAlive(e)*/ })
+                    this.configService.isAlive(e) })
             
             // set interval to check if methods are still alive => every 10 minutes (600k ms)
             this.interval(() => this.configService.config.databases
