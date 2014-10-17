@@ -1973,7 +1973,7 @@ var portal;
                 this.loadMethodsAPI();
 else {
                 this.showError = true;
-                if (error.status = 404)
+                if (error.status == 404)
                     this.status = error.status + ' resource not found';
 else
                     this.status = error.data + ' ' + error.status;
@@ -1998,7 +1998,7 @@ else
         MethodsCtrl.prototype.handleServiceError = function (error) {
             if (error.status == 404) {
                 this.methodsService.status = error.status + ' resource not found';
-            } else if (error.status == 500) {
+            } else if (error.status == 500 || error.status == 502) {
                 this.methodsService.status = error.status + ' internal server error';
             } else {
                 var response = error.data;
@@ -3543,7 +3543,7 @@ var portal;
     impexPortal.directive('methodsDir', portal.MethodsDir.prototype.injection());
     impexPortal.directive('canvasDir', portal.CanvasDir.prototype.injection());
 
-    impexPortal.config([
+    var routes = impexPortal.config([
         '$stateProvider',
         '$urlRouterProvider',
         function ($stateProvider, $urlRouterProvider) {

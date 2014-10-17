@@ -91,7 +91,7 @@ module portal {
                 this.loadMethodsAPI()
             else {
                 this.showError = true
-                if(error.status = 404)
+                if(error.status == 404)
                     this.status = error.status+' resource not found'
                 else
                     this.status = error.data+' '+error.status
@@ -116,7 +116,7 @@ module portal {
             //console.log('failure: '+error.status)
             if(error.status == 404) {
                 this.methodsService.status = error.status+' resource not found'
-            } else if(error.status == 500) {
+            } else if(error.status == 500 || error.status == 502) {
                 this.methodsService.status = error.status+' internal server error'   
             } else {
                 var response = <IResponse>error.data

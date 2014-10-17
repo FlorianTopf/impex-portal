@@ -6,7 +6,7 @@ module portal {
     var impexPortal: ng.IModule = angular.module('portal', ['ui.bootstrap', 'ui.bootstrap.datetimepicker', 'ui.router', 
         'ngResource', 'ngStorage', 'angularFileUpload', 'angular-growl', 'rt.encodeuri', 'reCAPTCHA'])
     
- 
+
     impexPortal.service('configService', ConfigService)
     impexPortal.service('registryService', RegistryService)
     impexPortal.service('methodsService', MethodsService)
@@ -27,9 +27,9 @@ module portal {
     impexPortal.directive('memberDir', MemberDir.prototype.injection())
     impexPortal.directive('methodsDir', MethodsDir.prototype.injection())
     impexPortal.directive('canvasDir', CanvasDir.prototype.injection())
-     
+           
    
-    impexPortal.config(['$stateProvider', '$urlRouterProvider', 
+    var routes = impexPortal.config(['$stateProvider', '$urlRouterProvider', 
         ($stateProvider: ng.ui.IStateProvider, $urlRouterProvider: ng.ui.IUrlRouterProvider) => {
         
         $urlRouterProvider.otherwise('/portal')
