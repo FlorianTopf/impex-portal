@@ -3576,7 +3576,7 @@ var portal;
     impexPortal.config([
         'growlProvider',
         function (growlProvider) {
-            growlProvider.globalTimeToLive(-1);
+            growlProvider.globalTimeToLive(5000);
             growlProvider.onlyUniqueMessages(false);
             growlProvider.globalPosition('top-right');
         }
