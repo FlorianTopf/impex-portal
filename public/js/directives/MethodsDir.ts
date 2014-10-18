@@ -166,7 +166,6 @@ module portal {
         // method for applying a selection to the current method
         private applySelection(resourceId: string, keys: Array<string>) {
             //console.log('applySelection '+resourceId)
-            this.request['id'] = resourceId
             if(keys) { 
                 if(this.repositoryId.indexOf('AMDA') != -1) {
                     // creating a dropdown, by adding an enum to the parameter
@@ -175,7 +174,11 @@ module portal {
                     this.request['parameterId'] = keys[0]
                 } else {
                     this.request['variable'] = keys.join(',')
+                    this.request['id'] = resourceId
                 }
+            }
+            else {
+                this.request['id'] = resourceId
             }
         }
         
@@ -234,11 +237,9 @@ module portal {
         
         // used for getVOTableURL form
         public updateVotableHeader(index: number) {
-            this.votableMetadata[index].map((m) => {
+            this.votableMetadata[index].forEach((m) => {
                 if(m.name == this.selected[index].name)
-                    return this.selected[index]
-                else
-                    return m
+                    m = this.selected[index]
             })
             this.updateVOtableRequest()
         }
@@ -265,7 +266,8 @@ module portal {
         // used for getVOTableURL form
         public addVotableColumn() {
             this.votableColumns++
-            this.votableRows.forEach((r) => r.push('Field-'+this.votableColumns))
+            this.votableRows.forEach((r, i) => 
+                r.push('Field-'+(i+1)+'-'+this.votableColumns))
             this.votableMetadata.push([
                 {name:'name', value:''}, 
                 {name:'ID', value:''},
@@ -295,7 +297,7 @@ module portal {
             this.votableRows = []    
             this.votableMetadata = []
             this.selected = []
-            this.updateVOtableRequest()
+            this.request['Fields'] = []
         }
         
         // used for getVOTableURL form

@@ -4,7 +4,7 @@
 describe('RegistryDir', function () {
 	var path = '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/';
 	
-	var $compile, scope, simDb, obsDb, rService, uService, element, $httpBackend;
+	var $compile, scope, simDb, obsDb, rService, uService, element, template, $httpBackend;
 	
 	beforeEach(module('templates'));
 	
@@ -41,7 +41,8 @@ describe('RegistryDir', function () {
 		
 		// test element 
 		element = angular.element('<registry-dir db="{{db}}"></registry-dir>');
-		
+		// compiled template
+		template = createDirective();
 	}));
 	
 	function createDirective(){
@@ -53,7 +54,6 @@ describe('RegistryDir', function () {
 	}
 	
 	it('should render the template and init variables', function(){
-		var template = createDirective();
 		var templateAsHtml = template.html();
 		expect(templateAsHtml).toContain('accordion');
         expect(scope.regdirvm.oneAtATime).toBeTruthy();
@@ -74,7 +74,6 @@ describe('RegistryDir', function () {
 	});
 	
 	it('should react on registry error broadcast', function(){
-		var template = createDirective();
 		var error = 'no numerical data found';
 		scope.$broadcast('registry-error', error);
 		expect(scope.$on).toHaveBeenCalled();
@@ -82,9 +81,7 @@ describe('RegistryDir', function () {
 		expect(scope.regdirvm.showError).toBeTruthy();
 	});
 	
-	
 	it('should react on update-repositories', function(){
-		var template = createDirective();
 		scope.$broadcast('update-repositories', 'repo-sim123');
 		expect(scope.$on).toHaveBeenCalled();
 		expect(scope.regdirvm.repositories).toEqual(rService.cachedElements['repo-sim123']);
@@ -98,35 +95,30 @@ describe('RegistryDir', function () {
 	});
 	
 	it('should react on update-simulation-runs', function(){
-		var template = createDirective();
 		scope.$broadcast('update-simulation-runs', 'run-123');
 		expect(scope.$on).toHaveBeenCalled();
 		expect(scope.regdirvm.simulationRuns).toEqual(rService.cachedElements['run-123']);
 	});
 	
 	it('should react on update-numerical-outputs', function(){
-		var template = createDirective();
 		scope.$broadcast('update-numerical-outputs', 'output-123');
 		expect(scope.$on).toHaveBeenCalled();
 		expect(scope.regdirvm.numericalOutputs).toEqual(rService.cachedElements['output-123']);
 	});
 	
 	it('should react on update-granules', function(){
-		var template = createDirective();
 		scope.$broadcast('update-granules', 'granule-123');
 		expect(scope.$on).toHaveBeenCalled();
 		expect(scope.regdirvm.granules).toEqual(rService.cachedElements['granule-123']);
 	});
 	
 	it('should react on update-observatories', function(){
-		var template = createDirective();
 		scope.$broadcast('update-observatories', 'obs-123');
 		expect(scope.$on).toHaveBeenCalled();
 		expect(scope.regdirvm.observatories).toEqual(rService.cachedElements['obs-123']);
 	});
 	
 	it('should react on update-instruments', function(){
-		var template = createDirective();
 		scope.$broadcast('update-instruments', 'instr-123');
 		expect(scope.$on).toHaveBeenCalled();
 		expect(scope.regdirvm.instruments).toEqual(rService.cachedElements['instr-123']);
@@ -134,7 +126,6 @@ describe('RegistryDir', function () {
 	});
 	
 	it('should react on update-numerical-data', function(){
-		var template = createDirective();
 		scope.$broadcast('update-numerical-data', 'data-123');
 		expect(scope.$on).toHaveBeenCalled();
 		expect(scope.regdirvm.numericalData).toEqual(rService.cachedElements['data-123']);

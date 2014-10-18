@@ -3167,8 +3167,6 @@ var portal;
 
         // method for applying a selection to the current method
         MethodsDir.prototype.applySelection = function (resourceId, keys) {
-            //console.log('applySelection '+resourceId)
-            this.request['id'] = resourceId;
             if (keys) {
                 if (this.repositoryId.indexOf('AMDA') != -1) {
                     // creating a dropdown, by adding an enum to the parameter
@@ -3178,7 +3176,10 @@ var portal;
                     this.request['parameterId'] = keys[0];
                 } else {
                     this.request['variable'] = keys.join(',');
+                    this.request['id'] = resourceId;
                 }
+            } else {
+                this.request['id'] = resourceId;
             }
         };
 
@@ -3241,11 +3242,9 @@ var portal;
         // used for getVOTableURL form
         MethodsDir.prototype.updateVotableHeader = function (index) {
             var _this = this;
-            this.votableMetadata[index].map(function (m) {
+            this.votableMetadata[index].forEach(function (m) {
                 if (m.name == _this.selected[index].name)
-                    return _this.selected[index];
-else
-                    return m;
+                    m = _this.selected[index];
             });
             this.updateVOtableRequest();
         };
@@ -3273,8 +3272,8 @@ else
         MethodsDir.prototype.addVotableColumn = function () {
             var _this = this;
             this.votableColumns++;
-            this.votableRows.forEach(function (r) {
-                return r.push('Field-' + _this.votableColumns);
+            this.votableRows.forEach(function (r, i) {
+                return r.push('Field-' + (i + 1) + '-' + _this.votableColumns);
             });
             this.votableMetadata.push([
                 { name: 'name', value: '' },
@@ -3308,7 +3307,7 @@ else {
             this.votableRows = [];
             this.votableMetadata = [];
             this.selected = [];
-            this.updateVOtableRequest();
+            this.request['Fields'] = [];
         };
 
         // used for getVOTableURL form

@@ -4,7 +4,7 @@ describe('CanvasDir', function () {
 	beforeEach(angular.mock.module('portal'));
 	
 	describe('template', function(){
-		var $compile, scope, timeout, cService, $httpBackend, element, canvas, ctx, cfg;
+		var $compile, scope, timeout, cService, $httpBackend, element, template, canvas, ctx, cfg;
 		
 		beforeEach(module('templates'));
 		
@@ -47,7 +47,10 @@ describe('CanvasDir', function () {
 	        
 			// spying on getElementById
 			document.getElementById = jasmine.createSpy('getElementById').andReturn(canvas);
+			// test element
 			element = angular.element('<canvas-dir id="canvas-dir"></canvas-dir>');
+			// compiled template
+			template = createDirective();
 			
 		    jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock';
 		    cfg = getJSONFixture('config.json');
@@ -58,7 +61,6 @@ describe('CanvasDir', function () {
 			$httpBackend.when('GET', '/config?fmt=json').respond('');
 			$httpBackend.when('GET', '/userdata').respond('');
 			$httpBackend.when('GET', '/filter/region').respond('');
-		    
 		}));
 		
 		function createDirective(){
@@ -69,7 +71,6 @@ describe('CanvasDir', function () {
 		}
 		
 		it('should render the template', function(){
-			var template = createDirective();
 			var templateAsHtml = template.html();
 			expect(templateAsHtml).toEqual('<canvas id="canvas"></canvas>');
 			expect(scope.canvasdirvm.configService.config).toEqual(cfg);
@@ -78,9 +79,9 @@ describe('CanvasDir', function () {
 		});
 		
 		it('should handle resize', function(){
-			var template = createDirective();
 			timeout.flush();
 			expect(scope.$watch).toHaveBeenCalled();
+	        expect(scope.canvasdirvm.clear).toHaveBeenCalled();
 			//scope.$digest();
 			expect(scope.canvasdirvm.main).toEqual({ left: 2, top: 2 });
 			expect(template.offset().top).toEqual(2);
@@ -92,7 +93,6 @@ describe('CanvasDir', function () {
 		});
 		
 		it('should react on database-success broadcast', function(){
-			var template = createDirective();
 		    scope.$broadcast('database-success', 'spase://IMPEX/Repository/FMI/HYB');
 		    expect(scope.$on).toHaveBeenCalled();
 		    expect(scope.canvasdirvm.clear).toHaveBeenCalled();
@@ -107,7 +107,6 @@ describe('CanvasDir', function () {
 		});
 		
 		it('should react on service-success broadcast', function(){
-			var template = createDirective();
 		    scope.$broadcast('service-success', 'spase://IMPEX/Repository/FMI/HYB');
 		    expect(scope.$on).toHaveBeenCalled();
 		    expect(scope.canvasdirvm.clear).toHaveBeenCalled();
@@ -121,11 +120,10 @@ describe('CanvasDir', function () {
 		});
 		
 		it('should clear paths on request', function(){
-			var template = createDirective();
 			scope.$broadcast('clear-paths');
+	        expect(scope.canvasdirvm.clear).toHaveBeenCalled();
 	        expect(scope.canvasdirvm.activeService).toBeNull();	
 	        expect(scope.canvasdirvm.activeDatabase).toBeNull();	
-	        expect(scope.canvasdirvm.clear).toHaveBeenCalled();
 		});
 		
 		

@@ -4,7 +4,7 @@ describe('DatabasesDir', function () {
 	beforeEach(angular.mock.module('portal'));
 	
 	describe('template', function(){
-		var $compile, scope, cfg, statusMap, cService, $httpBackend;
+		var $compile, scope, cfg, statusMap, cService, template, $httpBackend;
 		
 		beforeEach(module('templates'));
 		
@@ -21,6 +21,9 @@ describe('DatabasesDir', function () {
 		    
 		    $httpBackend.when('GET', '/config?fmt=json').respond(cfg);
 		    $httpBackend.when('GET', '/registry/status').respond(statusMap);
+		    
+		    // compiled template
+		    template = createDirective();
 		}));
 		
 		function createDirective(){
@@ -30,7 +33,6 @@ describe('DatabasesDir', function () {
 		}
 		
 		it('should render the template with config/status info', inject(function(){
-			var template = createDirective();
 			// a little hack (promise doesn't get resolved?)
 			scope.dbdirvm.statusMap = statusMap;
 			scope.$digest();

@@ -81,7 +81,7 @@ describe('MethodsCtrl on Simulations', function() {
 	});
 	
 	it('should init status values', function(){
-		expect(scope.methvm.database).toBeDefined();
+		expect(scope.methvm.database).toEqual(db);
 		expect(scope.methvm.methods).toBeDefined();
         expect(scope.methvm.status).toEqual('');
         expect(scope.methvm.initialising).toBeTruthy();

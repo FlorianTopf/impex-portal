@@ -1,7 +1,7 @@
 {
     "version": "2.2.2",
     "resources": [
-        {"numericaldata": {
+        {"numericalData": {
             "resourceId": "spase://IMPEX/NumericalData/AMDA/ACE/MFI/ace-mag-real",
             "resourceHeader": {
                 "resourceName": "ACE Magnetic Field 60-Second Level 2 Data",
@@ -218,7 +218,7 @@
             "providerResourceName": null,
             "providerVersion": null
         }},
-        {"numericaldata": {
+        {"numericalData": {
             "resourceId": "spase://IMPEX/NumericalData/AMDA/ACE/MFI/ace-imf-all",
             "resourceHeader": {
                 "resourceName": "ACE Magnetic Field 16-Second Level 2 Data",
