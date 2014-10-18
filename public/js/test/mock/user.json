@@ -1,0 +1,73 @@
+{
+    "id": "fdd0378c",
+    "results": [{
+        "repositoryId": "spase://IMPEX/Repository/FMI/HYB",
+        "id": "9dda50fa",
+        "method": "/methods/FMI/getVOTableURL",
+        "content": {
+            "code": 200,
+            "message": "http://impex-fp7.fmi.fi/ws/data/VOT_y7Ppf6dq0t.vot",
+            "request": {
+                "Table_name": "Table Name",
+                "Description": "Table Description",
+                "Fields": [
+                    {
+                        "data": [
+                            "Field-1-1",
+                            "Field-2-1",
+                            "Field-3-1"
+                        ],
+                        "name": "1"
+                    },
+                    {
+                        "data": [
+                            "Field-1-2",
+                            "Field-2-2",
+                            "Field-3-2"
+                        ],
+                        "name": "2"
+                    },
+                    {
+                        "data": [
+                            "Field-1-3",
+                            "Field-2-3",
+                            "Field-3-3"
+                        ],
+                        "name": "3"
+                    }
+                ]
+            }
+        }
+    }],
+    "selections": [{
+        "repositoryId": "spase://IMPEX/Repository/SINP",
+        "id": "defde9a2",
+        "type": "SimulationModel",
+        "elem": {
+            "resourceId": "spase://IMPEX/SimulationModel/SINP/Jupiter/OnFly",
+            "resourceHeader": {
+                "resourceName": "OnFly model for Jupiter",
+                "releaseDate": "2012-09-21T00:00:00.000",
+                "acknowledgement": null,
+                "description": "Paraboloid model calculates the magnetic field in the Jupiter's magnetosphere depending on external conditions in solar wind and on internal processes.",
+                "contact": [{
+                    "personId": "SINP",
+                    "role": ["DataProducer"]
+                }],
+                "informationurl": ["http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index"]
+            },
+            "versions": {"modelVersion": [{
+                "versionId": "3.1",
+                "releaseDate": "2012-09-21T00:00:00.000",
+                "description": "Public release"
+            }]},
+            "simulationType": "Paraboloid"
+        }
+    }],
+    "voTables": [{
+        "id": "54402e0a30041b4daf106ee1",
+        "name": "fmi_hyb_orbite_60sec.xml",
+        "url": "http://localhost:9000/userdata/fmi_hyb_orbite_60sec-54402e0a30041b4daf106ee1.xml"
+    }],
+    "activeSelection": []
+}

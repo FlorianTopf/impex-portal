@@ -34,6 +34,9 @@ module portal {
         public restrict: string
         public repositoryId: string = null
         public isCollapsed: IBooleanMap = {}
+        public isResRead: IBooleanMap = {}
+        // active tabs (first by default)
+        public tabsActive: Array<boolean> = [true, false, false] // selections, votables, results
         public selectables: Array<string> = []
         // currently applyable elements (actual method)
         public applyableElements: Array<string> = []
@@ -43,9 +46,6 @@ module portal {
         public isSelApplyable: boolean = false
         // flag if votable is applyable
         public isVOTApplyable: boolean = false
-        // active tabs (first by default)
-        public tabsActive: Array<boolean> = []
-        public isResRead: IBooleanMap = {}
         public isSampAble: boolean = false
         public isLogCollapsed: boolean = true
 
@@ -81,9 +81,16 @@ module portal {
             this.myScope = $scope
             this.user = this.userService.user
             
-            attributes.$observe('db', (id?: string)  => { 
-                this.selectables = this.registryService.selectables[id]
+            attributes.$observe('db', (id: string = null)  => { 
+                if(id){
+                  this.selectables = this.registryService.selectables[id]
+                }
                 this.repositoryId = id
+                // reset applyables
+                this.applyableElements = []
+                this.applyableModel = null   
+                this.isSelApplyable = false
+                this.isVOTApplyable = false
             })
             
             // watch event when all content is loaded into the dir
@@ -138,8 +145,6 @@ module portal {
                     }
                     this.methodsService.unreadResults--
                 } else {
-                    // init tabs
-                    this.tabsActive = [true, false, false] // selections, votables, results
                     // set active selection if we enter the right interface
                     // otherwise clear active selections
                     if(this.repositoryId){
@@ -149,15 +154,9 @@ module portal {
                             } else {
                                 this.user.activeSelection = []
                             }
-                     
                         })
                     }
                 }
-                // reset applyables
-                this.applyableElements = []
-                this.applyableModel = null   
-                this.isSelApplyable = false
-                this.isVOTApplyable = false
             })
             
             // comes from MethodsDir
@@ -206,7 +205,6 @@ module portal {
                 // set selections tab active
                 this.tabsActive = [true, false, false] // selections, votables, results
             })
-            
             
             // comes from UserDataCtrl
             this.myScope.$on('update-votables', (e, id: string) => {

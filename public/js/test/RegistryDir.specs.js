@@ -69,8 +69,8 @@ describe('RegistryDir', function () {
         expect(scope.regdirvm.observatories).toEqual([]);
         expect(scope.regdirvm.instruments).toEqual([]);
         expect(scope.regdirvm.numericalData).toEqual([]);
-		expect(scope.regdirvm.registryService).toEqual(rService)
-		expect(scope.regdirvm.userService).toEqual(uService)
+		expect(scope.regdirvm.registryService).toEqual(rService);
+		expect(scope.regdirvm.userService).toEqual(uService);
 	});
 	
 	it('should react on registry error broadcast', function(){

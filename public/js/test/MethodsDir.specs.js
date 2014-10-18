@@ -214,7 +214,7 @@ describe('MethodsDir', function() {
 		expect(scope.methdirvm.request['Fields'].length).toBe(3);
 		expect(scope.methdirvm.request['Fields'][0].data.length).toBe(3);
 		scope.methdirvm.resetVotable();
-        expect(scope.methdirvm.votableColumns).toEqual(null);
+        expect(scope.methdirvm.votableColumns).toBeNull();
         expect(scope.methdirvm.votableRows).toEqual([]);    
         expect(scope.methdirvm.votableMetadata).toEqual([]);
         expect(scope.methdirvm.selected).toEqual([]);

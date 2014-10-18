@@ -2485,6 +2485,9 @@ var portal;
             var _this = this;
             this.repositoryId = null;
             this.isCollapsed = {};
+            this.isResRead = {};
+            // active tabs (first by default)
+            this.tabsActive = [true, false, false];
             this.selectables = [];
             // currently applyable elements (actual method)
             this.applyableElements = [];
@@ -2494,9 +2497,6 @@ var portal;
             this.isSelApplyable = false;
             // flag if votable is applyable
             this.isVOTApplyable = false;
-            // active tabs (first by default)
-            this.tabsActive = [];
-            this.isResRead = {};
             this.isSampAble = false;
             this.isLogCollapsed = true;
             this.registryService = registryService;
@@ -2534,8 +2534,17 @@ var portal;
             this.user = this.userService.user;
 
             attributes.$observe('db', function (id) {
-                _this.selectables = _this.registryService.selectables[id];
+                if (typeof id === "undefined") { id = null; }
+                if (id) {
+                    _this.selectables = _this.registryService.selectables[id];
+                }
                 _this.repositoryId = id;
+
+                // reset applyables
+                _this.applyableElements = [];
+                _this.applyableModel = null;
+                _this.isSelApplyable = false;
+                _this.isVOTApplyable = false;
             });
 
             // watch event when all content is loaded into the dir
@@ -2593,9 +2602,6 @@ var portal;
                     }
                     _this.methodsService.unreadResults--;
                 } else {
-                    // init tabs
-                    _this.tabsActive = [true, false, false];
-
                     if (_this.repositoryId) {
                         _this.user.activeSelection.forEach(function (s) {
                             if (s.repositoryId == _this.repositoryId) {
@@ -2606,12 +2612,6 @@ var portal;
                         });
                     }
                 }
-
-                // reset applyables
-                _this.applyableElements = [];
-                _this.applyableModel = null;
-                _this.isSelApplyable = false;
-                _this.isVOTApplyable = false;
             });
 
             // comes from MethodsDir

@@ -4,7 +4,8 @@
 describe('PortalCtrl', function() {
 	var path = '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/';
 		
-	var scope, window, timeout, cService, mService, rService, sService, state, growlService, regs, db, $httpBackend;
+	var scope, window, timeout, cService, mService, rService, sService, state, 
+		growlService, regs, db, $httpBackend;
 	
 	beforeEach(module('templates'));
 	
