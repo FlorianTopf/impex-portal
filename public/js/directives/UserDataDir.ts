@@ -81,10 +81,13 @@ module portal {
             this.myScope = $scope
             this.user = this.userService.user
             
-            attributes.$observe('db', (id: string = null)  => { 
+            attributes.$observe('db', (id?: string)  => { 
                 if(id){
                   this.selectables = this.registryService.selectables[id]
+                } else {
+                  this.selectables = []
                 }
+                // must be undefined => so that filter works
                 this.repositoryId = id
                 // reset applyables
                 this.applyableElements = []

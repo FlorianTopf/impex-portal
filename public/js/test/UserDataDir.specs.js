@@ -54,7 +54,7 @@ describe('UserDataDir', function() {
 	it('should render the template and init variables', function(){
 		var templateAsHtml = template.html();
 		expect(templateAsHtml).toContain('nav-tabs');
-		expect(scope.userdirvm.repositoryId).toBeNull();
+		expect(scope.userdirvm.repositoryId).toBeUndefined();
 		expect(scope.userdirvm.isCollapsed).toEqual({ 
 			'defde9a2': true, 
 			'54402e0a30041b4daf106ee1': true, 

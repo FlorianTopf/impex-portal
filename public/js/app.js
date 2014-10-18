@@ -2534,10 +2534,13 @@ var portal;
             this.user = this.userService.user;
 
             attributes.$observe('db', function (id) {
-                if (typeof id === "undefined") { id = null; }
                 if (id) {
                     _this.selectables = _this.registryService.selectables[id];
+                } else {
+                    _this.selectables = [];
                 }
+
+                // must be undefined => so that filter works
                 _this.repositoryId = id;
 
                 // reset applyables
