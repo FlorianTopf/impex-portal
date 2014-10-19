@@ -82,7 +82,7 @@ describe('MethodsDir', function() {
 	
 	it('should react on reset-method-request', function(){
 		// just faking set-active broadcast
-		scope.methdirvm.method = apiDocs.apis[20];
+		scope.methdirvm.setMethod(apiDocs.apis[20]);
 		// just faking a request change
 		scope.methdirvm.request['id'] = 'blah';
 		//scope.$digest();
@@ -103,7 +103,7 @@ describe('MethodsDir', function() {
 	it('should react on apply-selection of observations', function(){
 		// just faking set-active broadcast
 		// 33 = AMDA method
-		scope.methdirvm.method = apiDocs.apis[33];
+		scope.methdirvm.setMethod(apiDocs.apis[33]);
 		// faking repository id
 		scope.methdirvm.repositoryId = 'spase://IMPEX/Repository/AMDA';
 		console.log(apiDocs.apis[33].path)
@@ -120,7 +120,7 @@ describe('MethodsDir', function() {
 	it('should react on apply-selection of simulations', function(){
 		// just faking set-active broadcast
 		// 20 = FMI method
-		scope.methdirvm.method = apiDocs.apis[20];
+		scope.methdirvm.setMethod(apiDocs.apis[20]);
 		var fakeOutput= output.resources[0].numericalOutput;
 		var fakeKeys = fakeOutput.parameter.map(function(p){ return p.parameterKey; });
 		scope.$broadcast('apply-selection', fakeOutput.resourceId, fakeKeys);
@@ -132,7 +132,7 @@ describe('MethodsDir', function() {
 	
 	it('should react on apply-votable', function(){
 		// just faking set-active broadcast
-		scope.methdirvm.method = apiDocs.apis[20];
+		scope.methdirvm.setMethod(apiDocs.apis[20]);
 		var url = 'http://localhost:9000/userdata/getDPS_FMI-53eea35b30048e2c8d9f344a.xml';
 		scope.$broadcast('apply-votable', url)
 		expect(scope.$on).toHaveBeenCalled();
@@ -141,7 +141,7 @@ describe('MethodsDir', function() {
 		
 	it('should update request in session on user action', function(){
 		// just faking set-active broadcast
-		scope.methdirvm.method = apiDocs.apis[20];
+		scope.methdirvm.setMethod(apiDocs.apis[20]);
 		var resourceId = output.resources[0].numericalOutput.resourceId
 		scope.methdirvm.request['id'] = resourceId
 		scope.methdirvm.updateRequest('id');
@@ -151,7 +151,7 @@ describe('MethodsDir', function() {
 
 	it('should update request date in sesson on user action', function () {
 		// just faking set-active broadcast
-		scope.methdirvm.method = apiDocs.apis[20];
+		scope.methdirvm.setMethod(apiDocs.apis[20]);
 		var time = "Mon Jan 15 1996 01:00:00 GMT+0100 (CET)";
 		var iso = new Date(time);
 		scope.methdirvm.request['start_time'] = time;

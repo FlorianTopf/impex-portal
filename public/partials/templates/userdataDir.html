@@ -6,7 +6,7 @@
 		<tabset><tab heading="Tree Selections"
 			ng-hide="userdirvm.user.selections | filter:{ repositoryId:userdirvm.repositoryId } | isEmpty" 
 			active="userdirvm.tabsActive[0]">
-			<button type="button" class="btn btn-sm btn-danger clear-button
+			<button type="button" class="btn btn-sm btn-danger clear-button"
 				ng-click="userdirvm.clearData('selections')"
 				ng-hide="userdirvm.user.selections | filter:{ repositoryId:userdirvm.repositoryId } | isEmpty">
 				Clear Selections

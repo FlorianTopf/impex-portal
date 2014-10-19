@@ -4,7 +4,7 @@ describe('UserDataDir', function() {
 	var path = '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/'
 		
 	var $compile, scope, rService, mService, uService, sService, user, window, state, growlService, 
-		element, template, $httpBackend;
+	element, template, simDb, selection, $httpBackend;
 	
 	beforeEach(module('templates'));
 	
@@ -32,50 +32,155 @@ describe('UserDataDir', function() {
         // just creating a mock user
         user = getJSONFixture('user.json');
         uService.user = user;
-        // setting a mock state
-        state.current.name = 'app.portal.userdata';
+        // needed for non-default states
+		simDb = getJSONFixture('simDatabase.json');
 		
-		// test element 
-		element = angular.element('<user-data-dir></user-data-dir>');
-		// compiled template
-		template = createDirective();
 	}));
-		
-	function createDirective(){
-		var template = $compile(element)(scope);
-		// setting the db attribute
-		//scope.db = null
-		scope.$digest();
-		return template;
-	}	
 	
-	// everything in $includeContentLoaded is done too!
-	// standard case without db filter
-	it('should render the template and init variables', function(){
-		var templateAsHtml = template.html();
-		expect(templateAsHtml).toContain('nav-tabs');
-		expect(scope.userdirvm.repositoryId).toBeUndefined();
-		expect(scope.userdirvm.isCollapsed).toEqual({ 
-			'defde9a2': true, 
-			'54402e0a30041b4daf106ee1': true, 
-			'9dda50fa': true });
-		expect(scope.userdirvm.isResRead).toEqual({ '9dda50fa': true });
-		expect(scope.userdirvm.tabsActive).toEqual([true, false, false]);
-		expect(scope.userdirvm.selectables.length).toBe(0);
-		expect(scope.userdirvm.applyableElements.length).toBe(0);
-		expect(scope.userdirvm.applyableModel).toBeNull();
-		expect(scope.userdirvm.isSelApplyable).toBeFalsy();
-		expect(scope.userdirvm.isVOTApplyable).toBeFalsy();
-		expect(scope.userdirvm.isSampAble).toBeFalsy();
-		expect(scope.userdirvm.isLogCollapsed).toBeTruthy();
-		expect(scope.userdirvm.user).toEqual(user);
-		expect(scope.userdirvm.registryService).toEqual(rService);
-		expect(scope.userdirvm.methodsService).toEqual(mService);
-		expect(scope.userdirvm.userService).toEqual(uService);
-		expect(scope.userdirvm.sampService).toEqual(sService);
-		expect(scope.userdirvm.window).toEqual(window);
-		expect(scope.userdirvm.state).toEqual(state);
-	});	
+	describe('default template', function() {		
+		beforeEach(function(){
+			// default element 
+			element = angular.element('<user-data-dir></user-data-dir>');
+	        // setting the mock state
+	        state.current.name = 'app.portal.userdata';
+			// compiled template
+	        template = createDefaultDirective();
+	        
+		});
+		
+		function createDefaultDirective(){
+			var template = $compile(element)(scope);
+			scope.$digest();
+			return template;
+		}
+		
+		// everything in $includeContentLoaded is done too!
+		// standard case without db filter @TODO add special cases (specific app states)
+		it('should render the template and init variables', function(){
+			var templateAsHtml = template.html();
+			expect(templateAsHtml).toContain('nav-tabs');
+			expect(scope.userdirvm.repositoryId).toBeUndefined();
+			// there no active (uncollapsed) selection in default
+			expect(scope.userdirvm.isCollapsed).toEqual({ 
+				'defde9a2': true, 
+				'54402e0a30041b4daf106ee1': true, 
+				'9dda50fa': true ,
+				'1c75698b': false });
+			expect(scope.userdirvm.isResRead).toEqual({ '9dda50fa': true });
+			expect(scope.userdirvm.tabsActive).toEqual([true, false, false]);
+			expect(scope.userdirvm.selectables).toEqual([]);
+			expect(scope.userdirvm.applyableElements).toEqual([]);
+			expect(scope.userdirvm.applyableModel).toBeNull();
+			expect(scope.userdirvm.isSelApplyable).toBeFalsy();
+			expect(scope.userdirvm.isVOTApplyable).toBeFalsy();
+			expect(scope.userdirvm.isSampAble).toBeFalsy();
+			expect(scope.userdirvm.isLogCollapsed).toBeTruthy();
+			expect(scope.userdirvm.user).toEqual(user);
+			expect(scope.userdirvm.registryService).toEqual(rService);
+			expect(scope.userdirvm.methodsService).toEqual(mService);
+			expect(scope.userdirvm.userService).toEqual(uService);
+			expect(scope.userdirvm.sampService).toEqual(sService);
+			expect(scope.userdirvm.window).toEqual(window);
+			expect(scope.userdirvm.state).toEqual(state);
+		});	
+		
+		
+	});
+	
+
+	describe('repository template in registry', function() {
+		beforeEach(function(){
+			// repository element
+			element = angular.element('<user-data-dir db="{{db}}"></user-data-dir>');
+	        // setting the mock state
+	        state.current.name = 'app.portal.registry';
+			// compiled repository template
+	        template = createRepositoryDirective();
+ 
+		});
+		
+		function createRepositoryDirective(){
+			var template = $compile(element)(scope);
+			scope.db = simDb.id;
+			scope.$digest();
+			return template;
+		}
+			
+		it('should render the template and init variables', function(){
+			var templateAsHtml = template.html();
+			expect(templateAsHtml).toContain('nav-tabs');
+			expect(scope.userdirvm.repositoryId).toEqual(simDb.id);
+			// there is a active (uncollapsed) selection
+			expect(scope.userdirvm.isCollapsed).toEqual({ 
+				'defde9a2': true, 
+				'54402e0a30041b4daf106ee1': true, 
+				'9dda50fa': true ,
+				'1c75698b': false });
+			expect(scope.userdirvm.isResRead).toEqual({ '9dda50fa': true });
+			expect(scope.userdirvm.tabsActive).toEqual([true, false, false]);
+			expect(scope.userdirvm.selectables).toEqual(['NumericalOutput']);
+			expect(scope.userdirvm.applyableElements).toEqual([]);
+			expect(scope.userdirvm.applyableModel).toBeNull();
+			expect(scope.userdirvm.isSelApplyable).toBeFalsy();
+			expect(scope.userdirvm.isVOTApplyable).toBeFalsy();
+			expect(scope.userdirvm.isSampAble).toBeFalsy();
+			expect(scope.userdirvm.isLogCollapsed).toBeTruthy();
+			expect(scope.userdirvm.user).toEqual(user);
+			expect(scope.userdirvm.registryService).toEqual(rService);
+			expect(scope.userdirvm.methodsService).toEqual(mService);
+			expect(scope.userdirvm.userService).toEqual(uService);
+			expect(scope.userdirvm.sampService).toEqual(sService);
+			expect(scope.userdirvm.window).toEqual(window);
+			expect(scope.userdirvm.state).toEqual(state);
+		});
+		
+		it('should react on set-applyable-elements', function(){
+			scope.$broadcast('set-applyable-elements', 'NumericalOutput');
+			expect(scope.$on).toHaveBeenCalled();
+			expect(scope.userdirvm.applyableElements).toEqual(['NumericalOutput'])
+			// everything works fine with the mock
+			expect(scope.userdirvm.isSelApplyable).toBeTruthy();
+		});
+		
+		it('should react on set-applyable-votable', function(){
+			scope.$broadcast('set-applyable-votable', true);
+			expect(scope.$on).toHaveBeenCalled();
+			expect(scope.userdirvm.isVOTApplyable).toBeTruthy();
+		});
+		
+		// @TODO only works if we use a sinp model as active element
+		/* it('should react on set-applyable-models', function(){
+			
+			
+		});*/
+		
+		it('should react on update-selections', function(){
+			var id = user.activeSelection[0].id;
+			scope.$broadcast('update-selections', id);
+			expect(scope.$on).toHaveBeenCalled();
+			expect(scope.userdirvm.isCollapsed[id]).toBeFalsy();
+		});
+		
+		it('should react on update-votables', function(){
+			var id = user.voTables[0].id;
+			scope.$broadcast('update-votables', id);
+			expect(scope.$on).toHaveBeenCalled();
+			expect(scope.userdirvm.isCollapsed[id]).toBeFalsy();
+			expect(scope.userdirvm.user.activeSelection).toEqual([]);
+		});
+		
+		if('should react on update-results', function(){
+			var id = user.results[0].id;
+			scope.$broadcast('update-results', id);
+			expect(scope.$on).toHaveBeenCalled();
+			expect(scope.userdirvm.isCollapsed[id]).toBeFalsy();
+			expect(scope.userdirvm.user.activeSelection).toEqual([]);
+		});
+		
+		// @TODO continue with isSelectable()
+
+		
+	});
 	
 	
 });

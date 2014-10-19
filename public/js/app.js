@@ -2588,7 +2588,7 @@ var portal;
                     })[0];
 
                     // the first is always the latest result
-                    _this.isCollapsed[latest.id] = false;
+                    _this.setCollapsedMap(latest.id);
                     _this.isResRead[latest.id] = true;
                     _this.methodsService.showSuccess[_this.repositoryId] = false;
                     _this.methodsService.unreadResults--;
@@ -2598,22 +2598,31 @@ var portal;
                     // if there are more results not yet read (all in userdata state)
                 } else if (_this.methodsService.unreadResults > 0 && _this.state.current.name == 'app.portal.userdata') {
                     _this.tabsActive = [false, false, true];
-                    _this.isCollapsed[_this.user.results[0].id] = false;
+                    _this.setCollapsedMap(_this.user.results[0].id);
                     _this.isResRead[_this.user.results[0].id] = true;
                     for (var i = 1; i < _this.methodsService.unreadResults; i++) {
                         _this.isResRead[_this.user.results[i].id] = false;
                     }
                     _this.methodsService.unreadResults--;
+                } else if (_this.state.current.name == 'app.portal.userdata') {
+                    // attention this is only applyable when there
+                    // is one active selection
+                    _this.user.activeSelection.forEach(function (s) {
+                        if (_this.isSelSaved(s.id))
+                            _this.setCollapsedMap(s.id);
+else
+                            _this.isCollapsed[s.id] = true;
+                    });
                 } else {
-                    if (_this.repositoryId) {
-                        _this.user.activeSelection.forEach(function (s) {
-                            if (s.repositoryId == _this.repositoryId) {
-                                _this.isCollapsed[s.id] = false;
-                            } else {
-                                _this.user.activeSelection = [];
-                            }
-                        });
-                    }
+                    // set active selection if we enter the right interface
+                    // otherwise clear active selections
+                    _this.user.activeSelection.forEach(function (s) {
+                        if (s.repositoryId == _this.repositoryId) {
+                            _this.setCollapsedMap(s.id);
+                        } else {
+                            _this.user.activeSelection = [];
+                        }
+                    });
                 }
             });
 
@@ -2697,11 +2706,10 @@ else
         };
 
         UserDataDir.prototype.isSelectable = function (type) {
-            if (angular.isDefined(this.selectables)) {
-                if (this.state.current.name == 'app.portal.userdata') {
-                    return false;
-                    // hack for SINP models
-                } else if (type == 'SimulationModel' && this.repositoryId.indexOf('SINP') != -1 && this.user.activeSelection.length > 0) {
+            if (this.state.current.name == 'app.portal.userdata') {
+                return false;
+            } else if (this.repositoryId) {
+                if (type == 'SimulationModel' && this.repositoryId.indexOf('SINP') != -1 && this.user.activeSelection.length > 0) {
                     var selectable = false;
                     this.user.activeSelection.forEach(function (s) {
                         if (s.elem.resourceId.indexOf('Static') == -1)
@@ -2869,12 +2877,19 @@ else
                     this.user.activeSelection = [];
 
                     if (this.state.current.name == 'app.portal.userdata') {
+                        this.user.selections.forEach(function (sel) {
+                            delete _this.isCollapsed[sel.id];
+                        });
                         this.user.selections = [];
                         this.userService.localStorage.selections = null;
                     } else {
-                        this.user.selections = this.user.selections.filter(function (s) {
+                        var repoSelections = this.user.selections.filter(function (s) {
                             return s.repositoryId != _this.repositoryId;
                         });
+                        repoSelections.forEach(function (sel) {
+                            delete _this.isCollapsed[sel.id];
+                        });
+                        this.user.selections = repoSelections;
                         this.userService.localStorage.selections = this.user.selections;
                     }
                 } else if (type == 'votables') {
@@ -2895,7 +2910,10 @@ else
                         this.userService.localStorage.results = this.user.results;
                     }
                 }
-                this.growl.info('Deleted all ' + type + ' from user data');
+                if (this.state.current.name == 'app.portal.userdata') {
+                    this.growl.info('Deleted all ' + type + ' from user data');
+                } else
+                    this.growl.info('Deleted all ' + type + ' of this database from user data');
             }
         };
 

@@ -82,10 +82,10 @@ module portal {
             this.user = this.userService.user
             
             attributes.$observe('db', (id?: string)  => { 
-                if(id){
-                  this.selectables = this.registryService.selectables[id]
+                if(id) {
+                    this.selectables = this.registryService.selectables[id]
                 } else {
-                  this.selectables = []
+                    this.selectables = []
                 }
                 // must be undefined => so that filter works
                 this.repositoryId = id
@@ -129,37 +129,45 @@ module portal {
                     // takes the latest from a specific repo
                     var latest = this.user.results.filter((r) => r.repositoryId == this.repositoryId)[0]
                     // the first is always the latest result
-                    this.isCollapsed[latest.id] = false
+                    this.setCollapsedMap(latest.id)
                     this.isResRead[latest.id] = true
                     this.methodsService.showSuccess[this.repositoryId] = false
                     this.methodsService.unreadResults--
                 // if there was an error in the last request => clear (per repository)
-                } else if (this.methodsService.showError[this.repositoryId] && 
+                } else if(this.methodsService.showError[this.repositoryId] && 
                     this.state.current.name == 'app.portal.methods') {
                     this.methodsService.showError[this.repositoryId] = false
                 // if there are more results not yet read (all in userdata state)
                 } else if(this.methodsService.unreadResults > 0 && 
                     this.state.current.name == 'app.portal.userdata') {
                     this.tabsActive = [false, false, true] // selections, votables, results
-                    this.isCollapsed[this.user.results[0].id] = false
+                    this.setCollapsedMap(this.user.results[0].id)
                     this.isResRead[this.user.results[0].id] = true
                     for(var i = 1; i < this.methodsService.unreadResults; i++){
                         this.isResRead[this.user.results[i].id] = false
                     }
                     this.methodsService.unreadResults--
+                } else if(this.state.current.name == 'app.portal.userdata') {
+                        // attention this is only applyable when there 
+                        // is one active selection
+                        this.user.activeSelection.forEach((s) => {
+                            if(this.isSelSaved(s.id))
+                                this.setCollapsedMap(s.id)
+                            else
+                                this.isCollapsed[s.id] = true
+                        })
                 } else {
                     // set active selection if we enter the right interface
                     // otherwise clear active selections
-                    if(this.repositoryId){
-                        this.user.activeSelection.forEach((s) => {
-                            if(s.repositoryId == this.repositoryId){
-                                this.isCollapsed[s.id] = false
-                            } else {
-                                this.user.activeSelection = []
-                            }
-                        })
-                    }
+                    this.user.activeSelection.forEach((s) => {
+                        if(s.repositoryId == this.repositoryId){
+                             this.setCollapsedMap(s.id)
+                         } else {
+                             this.user.activeSelection = []
+                         }
+                    })
                 }
+                
             })
             
             // comes from MethodsDir
@@ -239,12 +247,12 @@ module portal {
         }
         
         public isSelectable(type: string): boolean {
-            if(angular.isDefined(this.selectables)) {
-                // there is nothing to select in my data modal
-                if(this.state.current.name == 'app.portal.userdata') {
-                    return false
+            // there is nothing to select when no db is provided
+            if(this.state.current.name == 'app.portal.userdata') {
+                return false
+            } else if(this.repositoryId) {
                 // hack for SINP models
-                } else if(type == 'SimulationModel' && 
+                if(type == 'SimulationModel' && 
                     this.repositoryId.indexOf('SINP') != -1 && 
                     this.user.activeSelection.length > 0) {
                     var selectable = false
@@ -393,10 +401,17 @@ module portal {
                     this.user.activeSelection = []
                     // delete all
                     if(this.state.current.name == 'app.portal.userdata') {
+                        this.user.selections.forEach((sel) => {
+                            delete this.isCollapsed[sel.id]
+                        })
                         this.user.selections = []
                         this.userService.localStorage.selections = null
                     } else {
-                        this.user.selections = this.user.selections.filter((s) => s.repositoryId != this.repositoryId)
+                         var repoSelections = this.user.selections.filter((s) => s.repositoryId != this.repositoryId)
+                         repoSelections.forEach((sel) => {
+                            delete this.isCollapsed[sel.id]
+                        })
+                        this.user.selections = repoSelections
                         this.userService.localStorage.selections = this.user.selections
                     }
                 } else if(type == 'votables') {
@@ -416,7 +431,10 @@ module portal {
                         this.userService.localStorage.results = this.user.results
                     }
                 }
-                this.growl.info('Deleted all '+type+' from user data')
+                if(this.state.current.name == 'app.portal.userdata')  {
+                    this.growl.info('Deleted all '+type+' from user data')
+                } else
+                    this.growl.info('Deleted all '+type+' of this database from user data')
              }
         }
         
