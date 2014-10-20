@@ -55,7 +55,7 @@ describe('RegistryService', function() {
 		});
 	});
 	
-	// @TODO test the rest of resources (maybe not needed)
+	// @TODO test the rest of resources (not really needed)
 	
 	it('notify system on selection save', function(){
 		var id = 'spase://IMPEX/Repository/FMI/HYB';

@@ -94,10 +94,6 @@ object SINPMethods extends MethodsController {
       case e: NoSuchElementException => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "mandatory parameter missing", request.req)))
-      // @FIXME this is because there are errors not encoded as SOAP-FAULT
-      case e: RuntimeException =>
-        NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error", request.req)))
     }
   }
   
@@ -222,10 +218,6 @@ object SINPMethods extends MethodsController {
       case e @ (_:NumberFormatException) => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "illegal number provided", request.req)))
-      // @FIXME this is because there are errors not encoded as SOAP-FAULT
-      case e: RuntimeException =>
-        NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error", request.req)))
     }
   }
   
@@ -841,10 +833,6 @@ object SINPMethods extends MethodsController {
       case e @ (_:NumberFormatException) => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "illegal number provided", request.req)))
-      // @FIXME this is because there are errors not encoded as SOAP-FAULT
-      case e: RuntimeException =>
-        NotImplemented(Json.toJson(ServiceResponse(EServiceResponse.NOT_IMPLEMENTED, 
-                "unknown external web service error", request.req)))
     }
   }
   

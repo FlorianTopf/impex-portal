@@ -1005,7 +1005,6 @@ else
 
             this.http.get(this.url + 'methods/' + callName + '/isAlive', { timeout: 10000 }).success(function (data, status) {
                 _this.aliveMap[db.id] = data;
-                //console.log('Hello '+db.name+' '+this.aliveMap[db.id])
             }).error(function (data, status) {
                 _this.aliveMap[db.id] = false;
             });
@@ -1135,7 +1134,7 @@ var portal;
             this.growl = growl;
             this.scope = $rootScope;
 
-            // @TODO fill manual applyables for SINP (no API info available)
+            // fill manual applyables for SINP (no API info available)
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = [
                 'calculateDataPointValue',
                 'calculateDataPointValueSpacecraft',
@@ -1201,7 +1200,6 @@ else
                 this.growl.success(this.status);
                 this.responseLog = [new portal.ResponseLog(new Date(), this.status, id)].concat(this.responseLog);
             }
-            //console.log(JSON.stringify(this.responseLog))
         };
         MethodsService.$inject = ['$rootScope', '$resource', 'growl'];
         return MethodsService;
@@ -1288,14 +1286,14 @@ var portal;
 
             // generic call handler
             this.callHandler['samp.app.ping'] = function (senderId, message, isCall) {
-                console.log('Ping ' + senderId + ' ' + JSON.stringify(message));
+                //console.log('Ping '+senderId+' '+JSON.stringify(message))
             };
             this.callHandler['samp.hub.disconnect'] = function (senderId, message) {
-                console.log('Disconnect ' + senderId + ' ' + JSON.stringify(message));
+                //console.log('Disconnect '+senderId+' '+JSON.stringify(message))
                 _this.window.isSampRegistered = false;
             };
             this.callHandler['samp.hub.event.shutdown'] = function (senderId, message) {
-                console.log('Shutdown ' + senderId + ' ' + JSON.stringify(message));
+                //console.log('Shutdown '+senderId+' '+JSON.stringify(message))
                 _this.window.isSampRegistered = false;
             };
             var baseUrl = this.window.location.href.toString().replace(new RegExp('[^/]*$'), '').replace('#/', '');
@@ -1337,7 +1335,7 @@ var portal;
                 return d.portal;
             });
 
-            // read all regions at startup (@TODO set an interval for refresh?)
+            // read all regions at startup
             this.configService.filterRegions = regions.data;
 
             // map only for databses with portal flag equal true
@@ -1363,7 +1361,7 @@ var portal;
                 });
             }, 600000);
 
-            // @TODO user info comes from the server in the future (add in resolver too)
+            // only local user atm (could be resolved from the server in the future)
             this.userService.user = new portal.User(this.userService.createId());
 
             if (userData.length > 0)
@@ -1468,7 +1466,6 @@ var portal;
             //this.activeDatabase = 'FMI-HYBRID'
             //this.activeService = 'SINP'
             this.scope.$on('service-success', function (e, id) {
-                console.log('service success at ' + id);
                 _this.activeDatabase = null;
 
                 // add symbols
@@ -1476,7 +1473,6 @@ var portal;
             });
 
             this.scope.$on('database-success', function (e, id) {
-                console.log('database success at ' + id);
                 _this.activeService = null;
 
                 // add symbols
@@ -1508,7 +1504,6 @@ var portal;
             }
             this.registryService.isFilterSet = false;
             this.isFilterSelected = false;
-            //console.log(JSON.stringify(this.configService.filterMap))
         };
 
         PortalCtrl.prototype.requestFilter = function () {
@@ -1516,14 +1511,13 @@ var portal;
             this.isFilterCollapsed = true;
             this.isFilterLoading = true;
             this.registryService.isFilterSet = false;
-            this.growl.info("Loading filtered Map");
+            this.growl.info("Loading Filters");
             var counter = 0;
             var tempMap = {};
             for (var region in this.registryService.selectedFilter) {
                 if (this.registryService.selectedFilter[region]) {
                     counter++;
                     this.configService.filterRegion(region).success(function (data, status) {
-                        //console.log(data)
                         counter--;
                         data.forEach(function (e) {
                             tempMap[e] = true;
@@ -1537,14 +1531,13 @@ else
                             }
                             _this.isFilterLoading = false;
                             _this.registryService.isFilterSet = true;
-
-                            //console.log(JSON.stringify(this.configService.filterMap))
                             _this.growl.success('Map filtered');
                             _this.registryService.notify('filtered');
                         }
                     }).error(function (data, status) {
                         _this.isFilterLoading = false;
                         _this.registryService.isFilterSet = false;
+                        _this.growl.error("Filtering failed");
                     });
                 }
             }
@@ -1583,24 +1576,6 @@ else
             this.sampService.clients = {};
         };
 
-        // just for testing basic sending
-        PortalCtrl.prototype.sendToSamp = function () {
-            // URL of table to send.
-            var tableUrl = "http://impex-fp7.fmi.fi/ws/data/VOT_4kuZOr8ihD.vot";
-
-            // broadcasts a table given a hub connection
-            var send = function (connection) {
-                var msg = new samp.Message("table.load.votable", { "url": tableUrl });
-                connection.notifyAll([msg]);
-            };
-
-            // In any error case call this
-            var error = function (e) {
-                console.log("Error " + e);
-            };
-            this.sampService.connector.runWithConnection(send, error);
-        };
-
         PortalCtrl.prototype.resetPath = function () {
             this.activeDatabase = null;
             this.activeService = null;
@@ -1610,7 +1585,6 @@ else
         //feedback form submit
         PortalCtrl.prototype.submitFeedback = function (feedback) {
             var _this = this;
-            //console.log(JSON.stringify(feedback))
             this.submitted = true;
             this.submitButtonDisabled = true;
             this.result = 'hidden';
@@ -2227,10 +2201,6 @@ var portal;
                     if (_this.statusMap[id].lastError)
                         _this.statusMap[id].lastUpdate = new Date(_this.statusMap[id].lastError).toString();
                 }
-                //this.statusMap['spase://IMPEX/Repository/FMI/HYB'].lastError = "2014-10-11T01:01:26.226+02:00"
-                //this.statusMap['spase://IMPEX/Repository/FMI/HYB'].isInvalid = true
-                //this.statusMap['spase://IMPEX/Repository/LATMOS'].isNotFound = true
-                //console.log(JSON.stringify(this.statusMap))
             }).error(function (data, status) {
                 _this.statusMap = {};
             });
@@ -2740,7 +2710,7 @@ else
                 return false;
         };
 
-        // @TODO prevent saveSelection if there is already the same resource saved
+        // @TODO prevent saveSelection if there is already the same resourceid saved
         UserDataDir.prototype.saveSelection = function (id) {
             this.setCollapsedMap(id);
             this.user.selections = this.user.activeSelection.concat(this.user.selections);
@@ -2935,6 +2905,7 @@ else
 
         // @TODO we must check if the Url is still valid (empty or not found)
         UserDataDir.prototype.sendToSamp = function (tableUrl, clientId) {
+            var _this = this;
             //console.log('sending '+JSON.stringify(tableUrl)+' '+id)
             // broadcasts a table given a hub connection
             var send = function (connection) {
@@ -2951,7 +2922,7 @@ else
 
             // in any error case call this
             var error = function (e) {
-                console.log("Error " + e);
+                _this.growl.error("Error with SAMP " + e);
             };
             this.sampService.connector.runWithConnection(send, error);
         };
@@ -3218,7 +3189,6 @@ var portal;
 
         // method for applying a votable url to the current method
         MethodsDir.prototype.applyVOTable = function (url) {
-            //console.log('applyVOTable '+url)
             this.request['votable_url'] = url;
         };
 
@@ -3246,7 +3216,6 @@ var portal;
 
         MethodsDir.prototype.updateRequestDate = function (paramName) {
             if (paramName in this.request) {
-                //console.log(this.request[paramName])
                 var iso = new Date(this.request[paramName]);
 
                 // puts timezone => not sure if this is working at every provider
@@ -3468,7 +3437,6 @@ var portal;
             this.elemH = $("#" + this.activeDatabase + "-database").outerHeight(true);
             this.elemW = $("#" + this.activeDatabase + "-database").outerWidth(true);
 
-            //console.log(JSON.stringify(this.myData)+' '+this.elemH+' '+this.elemW)
             var canvas = document.getElementById('canvas');
             var ctx = canvas.getContext('2d');
             ctx.lineWidth = 2;

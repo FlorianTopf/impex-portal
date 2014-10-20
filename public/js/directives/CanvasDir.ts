@@ -128,7 +128,6 @@ module portal {
             this.myData = $('#MY-DATA').offset() 
             this.elemH = $("#"+this.activeDatabase+"-database").outerHeight(true)
             this.elemW = $("#"+this.activeDatabase+"-database").outerWidth(true)
-            //console.log(JSON.stringify(this.myData)+' '+this.elemH+' '+this.elemW)
             
             var canvas = <HTMLCanvasElement>document.getElementById('canvas')
             var ctx = canvas.getContext('2d')

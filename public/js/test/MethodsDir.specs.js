@@ -61,7 +61,7 @@ describe('MethodsDir', function() {
 	it('should react on set-method-active', function(){
 		// 20 = FMI method
 		scope.$broadcast('set-method-active', apiDocs.apis[20]);
-		console.log(apiDocs.apis[20].path);
+		//console.log(apiDocs.apis[20].path);
 		expect(scope.$on).toHaveBeenCalled();
 		expect(scope.methdirvm.method).toEqual(apiDocs.apis[20]);
 		var parameters = scope.methdirvm.method.operations[0].parameters;
@@ -106,7 +106,7 @@ describe('MethodsDir', function() {
 		scope.methdirvm.setMethod(apiDocs.apis[33]);
 		// faking repository id
 		scope.methdirvm.repositoryId = 'spase://IMPEX/Repository/AMDA';
-		console.log(apiDocs.apis[33].path)
+		//console.log(apiDocs.apis[33].path)
 		var fakeData = data.resources[0].numericalData;
 		var fakeKeys = fakeData.parameter.map(function(p){ return p.parameterKey; });
 		scope.$broadcast('apply-selection', fakeData.resourceId, fakeKeys);

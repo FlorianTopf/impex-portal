@@ -138,14 +138,12 @@ module portal {
             //this.activeService = 'SINP'
             
             this.scope.$on('service-success', (e, id: string) => {
-                console.log('service success at '+id)
                 this.activeDatabase = null
                 // add symbols
                 this.activeService = this.configService.getDatabase(id).name
             })
  
             this.scope.$on('database-success', (e, id: string) => {
-                console.log('database success at '+id)
                 this.activeService = null
                 // add symbols
                 this.activeDatabase = this.configService.getDatabase(id).name
@@ -179,14 +177,13 @@ module portal {
             }
             this.registryService.isFilterSet = false
             this.isFilterSelected = false
-            //console.log(JSON.stringify(this.configService.filterMap))
         }
         
         public requestFilter() {
             this.isFilterCollapsed = true
             this.isFilterLoading = true
             this.registryService.isFilterSet = false
-            this.growl.info("Loading filtered Map")
+            this.growl.info("Loading Filters")
             var counter = 0
             var tempMap: IBooleanMap = {}
             for(var region in this.registryService.selectedFilter) {
@@ -194,7 +191,6 @@ module portal {
                     counter++
                     this.configService.filterRegion(region)
                     .success((data: Array<string>, status: any) => { 
-                        //console.log(data)
                         counter--            
                         data.forEach((e) => { tempMap[e] = true })
                         if(counter == 0) {
@@ -207,15 +203,14 @@ module portal {
                             }
                             this.isFilterLoading = false
                             this.registryService.isFilterSet = true
-                            //console.log(JSON.stringify(this.configService.filterMap))
                             this.growl.success('Map filtered')
                             this.registryService.notify('filtered')
                         }
                     })
-                    // @TODO what to do in an error case?
                     .error((data: any, status: any) => {
                         this.isFilterLoading = false
                         this.registryService.isFilterSet = false
+                        this.growl.error("Filtering failed")
                     })
                 }
             }
@@ -251,22 +246,6 @@ module portal {
             this.sampService.clients = {}
         }
         
-        // just for testing basic sending
-        public sendToSamp() {
-            // URL of table to send.
-            var tableUrl = "http://impex-fp7.fmi.fi/ws/data/VOT_4kuZOr8ihD.vot"
-            // broadcasts a table given a hub connection
-            var send = (connection) => {
-                var msg = new samp.Message("table.load.votable", { "url": tableUrl })
-                connection.notifyAll([msg])
-            }
-            // In any error case call this
-            var error = (e) => {
-                console.log("Error "+e)
-            }
-            this.sampService.connector.runWithConnection(send, error)
-        }
-        
         public resetPath() {
             this.activeDatabase = null
             this.activeService = null
@@ -275,7 +254,6 @@ module portal {
         
         //feedback form submit
         public submitFeedback(feedback: ng.IFormController) {
-            //console.log(JSON.stringify(feedback))
             this.submitted = true
             this.submitButtonDisabled = true
             this.result = 'hidden'
@@ -289,7 +267,6 @@ module portal {
                     //set the headers so angular passing info as form data (not request payload)
                     headers : { 'Content-Type': 'application/x-www-form-urlencoded' } 
                 }).success((data: any, status: any) => {
-                    //console.log(data)
                     if (data.success) { //success comes from the return json object
                         this.submitButtonDisabled = true
                         this.resultMessage = data.message

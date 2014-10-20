@@ -69,7 +69,7 @@ object Feedback extends BaseController {
       
     } catch {
       case e: Throwable => {
-        println(e)
+        //println(e)
         Ok(Json.obj("success" -> false, "message" -> "Message could not be sent. Mailer Error."))
       }
     }

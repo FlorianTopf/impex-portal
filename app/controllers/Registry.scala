@@ -53,7 +53,7 @@ object Registry extends BaseController {
       	   Ok(Json.toJson((obsRegions++runRegions).map(r => {
       	     if(r.contains(".")) r.split("\\.").head
       	     else r 
-      	     // @FIXME hack for AMDA (Asteroid is not needed atm)
+      	     // @FIXME hack for AMDA (Asteroid Region is not valid atm)
       	   }).distinct.filterNot(_.contains("Asteroid"))))
       	}
       	case (Right(error), _) => BadRequest(Json.toJson(error))
@@ -86,7 +86,7 @@ object Registry extends BaseController {
       	     // matches e.g. Earth => Earth, Earth.Magnetosphere
       	     if(data.AccessInformation.length > 0 && 
       	         data.ObservedRegion.filter(_.toString.contains(regionName)).length > 0)
-      	       // @FIXME just a hack for AMDA in the meantime
+      	       // @FIXME just a hack for AMDA atm (DM inconsistency)
       	       Some(data.AccessInformation.head.RepositoryID.
       	           replace("spase://SMWG/Repository/CDPP/AMDA", "spase://IMPEX/Repository/AMDA"))
       	     else

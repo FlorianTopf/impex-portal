@@ -1,6 +1,6 @@
 'use strict'
 
-// @TODO what about receiving broadcasts?
+
 describe('PortalCtrl', function() {
 	var path = '/Users/floriantopf/Documents/CAMPUS02/MA-Courses/DAB/impex-portal/public/';
 		

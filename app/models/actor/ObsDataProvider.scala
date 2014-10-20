@@ -65,7 +65,7 @@ extends Actor with DataProvider {
       case None => records
     }
     if(r == true) {
-      println("ObservatoryID="+records.head.ObservatoryID)
+      //println("ObservatoryID="+records.head.ObservatoryID)
       val rRecords = getObservatory(Some(instr.head.ObservatoryID), true).ResourceEntity++
       		instr.map(r => DataRecord(None, Some("Instrument"), r))
       Spase(Number2u462u462, rRecords, "en")	  
@@ -84,7 +84,7 @@ extends Actor with DataProvider {
       case None => records
     }
     if(r == true) {
-      println("InstrumentID="+records.head.InstrumentID)
+      //println("InstrumentID="+records.head.InstrumentID)
       val rRecords = getInstrument(Some(records.head.InputResourceID.head), true).ResourceEntity++
             data.map(r => DataRecord(None, Some("NumericalData"), r))
       Spase(Number2u462u462, rRecords, "en")

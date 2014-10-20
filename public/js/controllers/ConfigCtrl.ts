@@ -29,7 +29,7 @@ module portal {
             this.configService.config = config
             // only use those of the config which are enabled for the portal
             this.configService.config.databases = config.databases.filter((d) => d.portal)
-            // read all regions at startup (@TODO set an interval for refresh?)
+            // read all regions at startup
             this.configService.filterRegions = regions.data
             
             // map only for databses with portal flag equal true
@@ -49,7 +49,7 @@ module portal {
                 .forEach((e) => { 
                     this.configService.isAlive(e) }), 600000)
             
-            // @TODO user info comes from the server in the future (add in resolver too) 
+            // only local user atm (could be resolved from the server in the future) 
             this.userService.user = new User(this.userService.createId())
             
             // loading stored votables from server

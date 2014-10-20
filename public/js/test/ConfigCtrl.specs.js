@@ -89,7 +89,6 @@ describe('ConfigCtrl', function() {
 				expect(scope.vm.configService.filterMap[d.id]).toBeUndefined();
 			}
 		})
-		//console.log(JSON.stringify(scope.vm.configService.filterMap))
 	});
 	
 

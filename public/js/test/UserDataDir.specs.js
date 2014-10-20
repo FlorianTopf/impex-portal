@@ -38,6 +38,7 @@ describe('UserDataDir', function() {
 		
 	}));
 	
+	// standard case without db filter 
 	describe('default template', function() {		
 		beforeEach(function(){
 			// default element 
@@ -56,8 +57,6 @@ describe('UserDataDir', function() {
 		}
 		
 		// everything in $includeContentLoaded is done too!
-		// standard case without db filter 
-		// @TODO add special cases (specific app states)
 		it('should be rendered and init variables', function(){
 			var templateAsHtml = template.html();
 			expect(templateAsHtml).toContain('nav-tabs');
@@ -94,7 +93,7 @@ describe('UserDataDir', function() {
 		
 	});
 	
-
+	// registry template with filter
 	describe('repository template in registry', function() {
 		beforeEach(function(){
 			// repository element
@@ -226,6 +225,14 @@ describe('UserDataDir', function() {
 			scope.userdirvm.saveSelection(selection.id);
 			expect(scope.userdirvm.user.selections[0]).toEqual(selection);
 			expect(scope.userdirvm.tabsActive).toEqual([true, false, false]);
+			expect(scope.userdirvm.isCollapsed).toEqual({ 
+				'defde9a2': true, 
+				'54402e0a30041b4daf106ee1': true,
+				'9dda50fa': true,
+				'240bf200' : true,
+				'1c75698b': true,
+				// saved selection is uncollapsed
+				'39026add': false});
 			expect(scope.userdirvm.growl.success).toHaveBeenCalled();
 			expect(scope.userdirvm.registryService.notify)
 				.toHaveBeenCalledWith('success', simDb.id)
@@ -235,6 +242,8 @@ describe('UserDataDir', function() {
 		// @TODO continue with toggleSelectionDetails()
 		
 	});
+	
+	// @TODO add methods template with filter
 	
 
 });

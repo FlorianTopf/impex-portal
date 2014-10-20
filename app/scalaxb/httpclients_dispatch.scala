@@ -5,7 +5,6 @@ trait DispatchHttpClients extends HttpClients {
 
   trait DispatchHttpClient extends HttpClient {
     import dispatch._
-    // @FIXME maybe not working
     import dispatch.Defaults
     val http = new Http()
     http.configure(_.setIdleConnectionTimeoutInMs(120000))

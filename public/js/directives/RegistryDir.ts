@@ -58,8 +58,7 @@ module portal {
                 this.repositoryId = id
             })
             
-            this.myScope.$watch('$includeContentLoaded', (e) => {
-                //console.log('RegistryDir loaded')   
+            this.myScope.$watch('$includeContentLoaded', (e) => {  
                 if(this.registryService.isFilterSet)
                     this.userService.user.activeSelection = []
                 this.activeItems = {}

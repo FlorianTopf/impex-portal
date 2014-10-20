@@ -60,7 +60,6 @@ module portal {
             })
             
             this.myScope.$watch('$includeContentLoaded', (e) => {
-                //console.log('MethodsDir loaded')
                 if(!(this.repositoryId in this.userService.sessionStorage.methods)) {
                     this.method = null
                     this.request = {}
@@ -151,7 +150,6 @@ module portal {
             
             // if there is method chosen at SINP, we must forward info about applyable models
             if(this.repositoryId.indexOf('SINP') != -1) {
-               //console.log(this.currentMethod.operations[0].nickname)
                for(var key in this.methodsService.applyableModels) {
                     var methods = this.methodsService.applyableModels[key]
                     var index = methods.indexOf(this.method.operations[0].nickname)
@@ -165,7 +163,6 @@ module portal {
         
         // method for applying a selection to the current method
         private applySelection(resourceId: string, keys: Array<string>) {
-            //console.log('applySelection '+resourceId)
             if(keys) { 
                 if(this.repositoryId.indexOf('AMDA') != -1) {
                     // creating a dropdown, by adding an enum to the parameter
@@ -184,7 +181,6 @@ module portal {
         
         // method for applying a votable url to the current method
         private applyVOTable(url: string) {
-            //console.log('applyVOTable '+url)
             this.request['votable_url'] = url
         }
         
@@ -210,7 +206,6 @@ module portal {
         
         public updateRequestDate(paramName: string) {
             if(paramName in this.request) {
-                //console.log(this.request[paramName])
                 var iso = new Date(this.request[paramName])
                 // puts timezone => not sure if this is working at every provider
                 this.request[paramName] = moment(iso).format()
