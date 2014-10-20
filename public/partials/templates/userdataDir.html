@@ -3,9 +3,8 @@
 </div>
 <div class="row">
 	<div class="col-sm-4">
-		<tabset><tab heading="Tree Selections"
-			ng-hide="userdirvm.user.selections | filter:{ repositoryId:userdirvm.repositoryId } | isEmpty" 
-			active="userdirvm.tabsActive[0]">
+		<tabset>
+		<tab heading="Tree Selections" active="userdirvm.tabsActive[0]">
 			<button type="button" class="btn btn-sm btn-danger clear-button"
 				ng-click="userdirvm.clearData('selections')"
 				ng-hide="userdirvm.user.selections | filter:{ repositoryId:userdirvm.repositoryId } | isEmpty">
@@ -22,8 +21,9 @@
 				</button>
 			</div>
 		</tab>
-		<tab heading="VOTables" ng-if="userdirvm.state.current.name != 'app.portal.registry'"
-			ng-hide="userdirvm.user.voTables | isEmpty" active="userdirvm.tabsActive[1]">
+		<tab heading="VOTables" 
+			ng-if="userdirvm.state.current.name != 'app.portal.registry'"
+			active="userdirvm.tabsActive[1]">
 			<button type="button" class="btn btn-sm btn-danger clear-button"
 				ng-click="userdirvm.clearData('votables')"
 				ng-hide="userdirvm.user.voTables | isEmpty" >
@@ -38,9 +38,7 @@
 				</button>
 			</div>
 		</tab>
-		<tab heading="Service Results" 
-			ng-hide="userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId } | isEmpty" 
-			active="userdirvm.tabsActive[2]">
+		<tab heading="Service Results" active="userdirvm.tabsActive[2]">
 			<button type="button" class="btn btn-sm btn-danger clear-button"
 				ng-click="userdirvm.clearData('results')"
 				ng-hide="userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId } | isEmpty">
@@ -56,7 +54,8 @@
 					{{ res.method.split('/').reverse()[0] }}<br/>{{ res.repositoryId }}
 				</button>
 			</div>
-		</tab></tabset>
+		</tab>
+		</tabset>
 	</div>
 	<div class="col-sm-8">
 		<div ng-repeat="sel in userdirvm.user.activeSelection" ng-hide="userdirvm.isCollapsed[sel.id]">

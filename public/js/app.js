@@ -1644,6 +1644,10 @@ else
                 this.result = 'bg-danger';
             }
         };
+
+        PortalCtrl.prototype.capitalize = function (name) {
+            return name.charAt(0).toUpperCase() + name.slice(1);
+        };
         PortalCtrl.$inject = [
             '$scope',
             '$window',
@@ -2736,6 +2740,7 @@ else
                 return false;
         };
 
+        // @TODO prevent saveSelection if there is already the same resource saved
         UserDataDir.prototype.saveSelection = function (id) {
             this.setCollapsedMap(id);
             this.user.selections = this.user.activeSelection.concat(this.user.selections);

@@ -277,6 +277,7 @@ module portal {
                 return false
         }
         
+        // @TODO prevent saveSelection if there is already the same resource saved
         public saveSelection(id: string) { 
             this.setCollapsedMap(id)
             this.user.selections = this.user.activeSelection.concat(this.user.selections)

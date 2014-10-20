@@ -120,7 +120,7 @@
 					(vm.configService.filterMap[database.id] == false)">
 				<span class="pull-left">{{ database.name }}</span><br/>
 				<img src="public/img/layout/database.png"/><br/>
-				<span class="pull-right">Simulations</span>
+				<span class="pull-right">{{ vm.capitalize(database.type)+'s' }}</span>
 			</button>
     	</div>
 	</div>
