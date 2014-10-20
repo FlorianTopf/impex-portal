@@ -7,7 +7,7 @@ Current Backend libraries used:
 - Scala: 2.10.4
 - Play: 2.3.5
 - Akka: 2.3.4
-- Scalaxb: 1.2.1
+- Scalaxb: 1.1.2
 - Swagger: 1.3.10
 
 Current Frontend libraries used:

@@ -20,7 +20,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 
   "SINP Methods binding" should {
         
-        "respond to getDataPointValue" in {
+        /* "respond to getDataPointValue" in {
         	
             val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
         	
@@ -436,10 +436,96 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  	   result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], Boolean]]
 	  	   result must beRight
 	  	   
-	  	}
+	  	}*/
 	  	
 	  	// @TODO add jupiter tests (31.10.) and giant planets tests (31.12.)
+	  	"respond to calculateCubeJupiter" in {
+	  	   val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
+	  	   
+	  	   val imf_b = ListOfDouble(
+	  	      Some(0.0), // x
+              Some(0.0), // y
+              Some(0.0) // z
+           ) 
+           
+           val extraParams = ExtraParams_calculateCubeJupiter(
+	  	       Some(2.5), // bdc
+	  	       Some(-2.5), // bt
+	  	       Some(80.0), // rd2
+	  	       Some(19.0), // rd1
+	  	       Some(80.0), // r2
+	  	       Some(100.0), // rss
+	  	       Some(imf_b), // imf b
+	  	       Some(VOTableType) // output filetype
+	  	   )
+	  	   
+	  	  val cubeSize = Cube_size_array(
+	  	      Some(BigInt(-450)), // x_low
+	  	      Some(BigInt(150)), // x_high
+	  	      Some(BigInt(-300)), // y_low
+	  	      Some(BigInt(300)), // y_high
+	  	      Some(BigInt(-300)), // z_low
+	  	      Some(BigInt(300)) // z_high
+	  	  )
+	  	   
+	  	  val result = sinp.service.calculateCubeJupiter(
+	  	      "spase://IMPEX/SimulationModel/SINP/Jupiter/OnFly",
+	  	      TimeProvider.getISODate("2008-09-10T12:00:00"), 
+	  	      Some(extraParams), 
+	  	      Some(10.0), 
+	  	      Some(cubeSize))
+	  	   
+           result.fold(f => println(f), u => {
+              println("Result URL: "+u)
+              //val promise = WS.url(u.toString).get()
+              //val result = Await.result(promise, Duration(1, "minute")).xml
+              //scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+           })
+	  	   
+	  	   result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
+	  	   result must beRight // result must be sucessful
+           
+	  	}
 	  	
+	  	/* "respond to calculateDataPointValueJupiter" in {
+	  	  
+	  	   val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
+	  	   
+	  	   val imf_b = ListOfDouble(
+	  	      Some(0.0), // x
+              Some(0.0), // y
+              Some(0.0) // z
+           ) 
+	  	   
+	  	   // @FIXME incorrect info in the WSDL (or ICD)
+	  	   val extraParams = ExtraParams_calculateDataPointValueJupiter(
+	  	       Some(VOTableType), // output filetype
+	  	       Some(3.0), // bd
+	  	       Some(-7.0), // bdc
+	  	       Some(6.5), // bt
+	  	       Some(15.0), // rd2
+	  	       Some(18.0), // rd1
+	  	       Some(22.0), // r2
+	  	       Some(imf_b) // rss
+	  	   )
+	  	   
+	  	   val result = sinp.service.calculateDataPointValueJupiter(
+	  	       "spase://IMPEX/SimulationModel/SINP/Saturn/OnFly", // resourceId
+	  	       Some(extraParams), // extra params
+	  	       new URI("http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_120points.vot") // url_xyz
+	  	   )
+	  	
+           result.fold(f => println(f), u => {
+               println("Result URL: "+u)
+               val promise = WS.url(u.toString).get()
+               val result = Await.result(promise, Duration(1, "minute")).xml
+               scalaxb.fromXML[VOTABLE](result) must beAnInstanceOf[VOTABLE]
+           })
+	  	   
+	  	   result must beAnInstanceOf[Either[scalaxb.Soap11Fault[Any], java.net.URI]]
+	  	   result must beRight // result must be sucessful
+	  	
+	  	}*/
 	  
   }
   

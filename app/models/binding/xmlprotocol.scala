@@ -2048,7 +2048,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateCubeJupiter"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
-            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem("", "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
         }
      def getSurface(resourceID: String, variable: Option[Seq[String]], planeNormalVector: Seq[Float], planePoint: Seq[Float], extraParams: Option[models.binding.ExtraParams_getSurfaceSINP]): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.SurfaceSINP(resourceID, variable, planeNormalVector, planePoint, extraParams), Some("http://smdc.sinp.msu.ru"), "getSurface", defaultScope),
