@@ -1,243 +1,261 @@
 {
     "id": "fdd0378c",
-    "results": [{
-        "repositoryId": "spase://IMPEX/Repository/FMI/HYB",
-        "id": "9dda50fa",
-        "method": "/methods/FMI/getVOTableURL",
-        "content": {
-            "code": 200,
-            "message": "http://impex-fp7.fmi.fi/ws/data/VOT_y7Ppf6dq0t.vot",
-            "request": {
-                "Table_name": "Table Name",
-                "Description": "Table Description",
-                "Fields": [
+    "results": [
+        {
+            "repositoryId": "spase://IMPEX/Repository/FMI/HYB",
+            "id": "9dda50fa",
+            "method": "/methods/FMI/getVOTableURL",
+            "content": {
+                "code": 200,
+                "message": "http://impex-fp7.fmi.fi/ws/data/VOT_y7Ppf6dq0t.vot",
+                "request": {
+                    "Table_name": "Table Name",
+                    "Description": "Table Description",
+                    "Fields": [
+                        {
+                            "data": [
+                                "Field-1-1",
+                                "Field-2-1",
+                                "Field-3-1"
+                            ],
+                            "name": "1"
+                        },
+                        {
+                            "data": [
+                                "Field-1-2",
+                                "Field-2-2",
+                                "Field-3-2"
+                            ],
+                            "name": "2"
+                        },
+                        {
+                            "data": [
+                                "Field-1-3",
+                                "Field-2-3",
+                                "Field-3-3"
+                            ],
+                            "name": "3"
+                        }
+                    ]
+                }
+            }
+        },
+        {
+            "repositoryId": "spase://IMPEX/Repository/SINP",
+            "id": "240bf200",
+            "method": "/methods/SINP/getDataPointValue",
+            "content": {
+                "code": 200,
+                "message": "http://dec1.sinp.msu.ru/~lucymu/paraboloid/try/getDPV_2003-11-20UT12_163.414.xml",
+                "request": {
+                    "id": "spase://IMPEX/NumericalOutput/SINP/Earth/2003-11-20UT12",
+                    "output_filetype": "VOTable",
+                    "votable_url": "http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_52points.vot"
+                }
+            }
+        }
+    ],
+    "selections": [
+        {
+            "repositoryId": "spase://IMPEX/Repository/SINP",
+            "id": "defde9a2",
+            "type": "SimulationModel",
+            "elem": {
+                "resourceId": "spase://IMPEX/SimulationModel/SINP/Jupiter/OnFly",
+                "resourceHeader": {
+                    "resourceName": "OnFly model for Jupiter",
+                    "releaseDate": "2012-09-21T00:00:00.000",
+                    "acknowledgement": null,
+                    "description": "Paraboloid model calculates the magnetic field in the Jupiter's magnetosphere depending on external conditions in solar wind and on internal processes.",
+                    "contact": [{
+                        "personId": "SINP",
+                        "role": ["DataProducer"]
+                    }],
+                    "informationurl": ["http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index"]
+                },
+                "versions": {"modelVersion": [{
+                    "versionId": "3.1",
+                    "releaseDate": "2012-09-21T00:00:00.000",
+                    "description": "Public release"
+                }]},
+                "simulationType": "Paraboloid"
+            }
+        },
+        {
+            "repositoryId": "spase://IMPEX/Repository/FMI/HYB",
+            "id": "1c75698b",
+            "type": "NumericalOutput",
+            "elem": {
+                "resourceId": "spase://IMPEX/NumericalOutput/FMI/HYB/venus/venus_nominal_lowres_cx_20121120/H+_ave_hybstate",
+                "resourceHeader": {
+                    "resourceName": "FMI_HYB_venus_venus_nominal_lowres_cx_20121120/H+_ave_hybstate",
+                    "releaseDate": "2013-01-22T09:06:21",
+                    "acknowledgement": null,
+                    "description": "H+ computed physical quantities",
+                    "contact": [{
+                        "personId": "FMI",
+                        "role": ["DataProducer"]
+                    }],
+                    "informationurl": []
+                },
+                "accessInformation": [{
+                    "repositoryId": "spase://IMPEX/Repository/FMI/HYB",
+                    "availability": "Offline",
+                    "accessUrl": [{
+                        "url": "",
+                        "productKey": ["/hwa/hcfiles/venus/venus_nominal_lowres_cx_20121120/H+_ave_hybstate_00400000.hc"]
+                    }],
+                    "format": "Binary",
+                    "encoding": "None",
+                    "dataExtent": {"quantity": 4751165}
+                }],
+                "measurementType": ["IonComposition"],
+                "spatialDescription": {
+                    "dimension": "3",
+                    "coordinateSystem": {
+                        "coordinateRepresentation": "Cartesian",
+                        "coordinateSystem": "VSO"
+                    },
+                    "coordinatesLabel": null,
+                    "units": "m"
+                },
+                "simulatedRegion": ["Venus"],
+                "inputResourceId": ["spase://IMPEX/SimulationRun/FMI/HYB/venus/venus_nominal_lowres_cx_20121120"],
+                "parameter": [
                     {
-                        "data": [
-                            "Field-1-1",
-                            "Field-2-1",
-                            "Field-3-1"
-                        ],
-                        "name": "1"
+                        "name": "H+ number density",
+                        "set": [],
+                        "parameterKey": "Density",
+                        "description": "H+ number density",
+                        "caveats": null,
+                        "cadence": null,
+                        "units": "m^-3",
+                        "unitsConversion": null,
+                        "coordinateSystem": null,
+                        "renderingHints": [],
+                        "structure": null,
+                        "validMin": null,
+                        "validMax": null,
+                        "fillValue": null,
+                        "property": [],
+                        "particle": {
+                            "populationId": "H+",
+                            "particleType": ["Proton"],
+                            "particleQuantitiy": "NumberDensity",
+                            "chemicalFormula": "H",
+                            "atomicNumber": [1],
+                            "populationMassNumber": [1.00728],
+                            "populationChargeState": [1]
+                        }
                     },
                     {
-                        "data": [
-                            "Field-1-2",
-                            "Field-2-2",
-                            "Field-3-2"
-                        ],
-                        "name": "2"
+                        "name": "H+ velocity",
+                        "set": [],
+                        "parameterKey": "Ux,Uy,Uz",
+                        "description": "H+ velocity",
+                        "caveats": null,
+                        "cadence": null,
+                        "units": "m/s",
+                        "unitsConversion": null,
+                        "coordinateSystem": null,
+                        "renderingHints": [],
+                        "structure": null,
+                        "validMin": null,
+                        "validMax": null,
+                        "fillValue": null,
+                        "property": [],
+                        "particle": {
+                            "populationId": "H+",
+                            "particleType": ["Proton"],
+                            "particleQuantitiy": "Velocity",
+                            "chemicalFormula": "H",
+                            "atomicNumber": [1],
+                            "populationMassNumber": [1.00728],
+                            "populationChargeState": [1]
+                        }
                     },
                     {
-                        "data": [
-                            "Field-1-3",
-                            "Field-2-3",
-                            "Field-3-3"
-                        ],
-                        "name": "3"
+                        "name": "H+ total velocity",
+                        "set": [],
+                        "parameterKey": "Utot",
+                        "description": "H+ total velocity",
+                        "caveats": null,
+                        "cadence": null,
+                        "units": "m/s",
+                        "unitsConversion": null,
+                        "coordinateSystem": null,
+                        "renderingHints": [],
+                        "structure": null,
+                        "validMin": null,
+                        "validMax": null,
+                        "fillValue": null,
+                        "property": [],
+                        "particle": {
+                            "populationId": "H+",
+                            "particleType": ["Proton"],
+                            "particleQuantitiy": "Velocity",
+                            "chemicalFormula": "H",
+                            "atomicNumber": [1],
+                            "populationMassNumber": [1.00728],
+                            "populationChargeState": [1]
+                        }
+                    },
+                    {
+                        "name": "H+ thermal pressure",
+                        "set": [],
+                        "parameterKey": "Pressure",
+                        "description": "H+ thermal pressure",
+                        "caveats": null,
+                        "cadence": null,
+                        "units": "Pa",
+                        "unitsConversion": null,
+                        "coordinateSystem": null,
+                        "renderingHints": [],
+                        "structure": null,
+                        "validMin": null,
+                        "validMax": null,
+                        "fillValue": null,
+                        "property": [],
+                        "particle": {
+                            "populationId": "H+",
+                            "particleType": ["Proton"],
+                            "particleQuantitiy": "Pressure",
+                            "chemicalFormula": "H",
+                            "atomicNumber": [1],
+                            "populationMassNumber": [1.00728],
+                            "populationChargeState": [1]
+                        }
+                    },
+                    {
+                        "name": "H+ temperature",
+                        "set": [],
+                        "parameterKey": "Temperature",
+                        "description": "H+ temperature",
+                        "caveats": null,
+                        "cadence": null,
+                        "units": "K",
+                        "unitsConversion": null,
+                        "coordinateSystem": null,
+                        "renderingHints": [],
+                        "structure": null,
+                        "validMin": null,
+                        "validMax": null,
+                        "fillValue": null,
+                        "property": [],
+                        "particle": {
+                            "populationId": "H+",
+                            "particleType": ["Proton"],
+                            "particleQuantitiy": "Temperature",
+                            "chemicalFormula": "H",
+                            "atomicNumber": [1],
+                            "populationMassNumber": [1.00728],
+                            "populationChargeState": [1]
+                        }
                     }
                 ]
             }
         }
-    }],
-    "selections": [{
-        "repositoryId": "spase://IMPEX/Repository/SINP",
-        "id": "defde9a2",
-        "type": "SimulationModel",
-        "elem": {
-            "resourceId": "spase://IMPEX/SimulationModel/SINP/Jupiter/OnFly",
-            "resourceHeader": {
-                "resourceName": "OnFly model for Jupiter",
-                "releaseDate": "2012-09-21T00:00:00.000",
-                "acknowledgement": null,
-                "description": "Paraboloid model calculates the magnetic field in the Jupiter's magnetosphere depending on external conditions in solar wind and on internal processes.",
-                "contact": [{
-                    "personId": "SINP",
-                    "role": ["DataProducer"]
-                }],
-                "informationurl": ["http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index"]
-            },
-            "versions": {"modelVersion": [{
-                "versionId": "3.1",
-                "releaseDate": "2012-09-21T00:00:00.000",
-                "description": "Public release"
-            }]},
-            "simulationType": "Paraboloid"
-        }
-    },
-    {
-        "repositoryId": "spase://IMPEX/Repository/FMI/HYB",
-        "id": "1c75698b",
-        "type": "NumericalOutput",
-        "elem": {
-            "resourceId": "spase://IMPEX/NumericalOutput/FMI/HYB/venus/venus_nominal_lowres_cx_20121120/H+_ave_hybstate",
-            "resourceHeader": {
-                "resourceName": "FMI_HYB_venus_venus_nominal_lowres_cx_20121120/H+_ave_hybstate",
-                "releaseDate": "2013-01-22T09:06:21",
-                "acknowledgement": null,
-                "description": "H+ computed physical quantities",
-                "contact": [{
-                    "personId": "FMI",
-                    "role": ["DataProducer"]
-                }],
-                "informationurl": []
-            },
-            "accessInformation": [{
-                "repositoryId": "spase://IMPEX/Repository/FMI/HYB",
-                "availability": "Offline",
-                "accessUrl": [{
-                    "url": "",
-                    "productKey": ["/hwa/hcfiles/venus/venus_nominal_lowres_cx_20121120/H+_ave_hybstate_00400000.hc"]
-                }],
-                "format": "Binary",
-                "encoding": "None",
-                "dataExtent": {"quantity": 4751165}
-            }],
-            "measurementType": ["IonComposition"],
-            "spatialDescription": {
-                "dimension": "3",
-                "coordinateSystem": {
-                    "coordinateRepresentation": "Cartesian",
-                    "coordinateSystem": "VSO"
-                },
-                "coordinatesLabel": null,
-                "units": "m"
-            },
-            "simulatedRegion": ["Venus"],
-            "inputResourceId": ["spase://IMPEX/SimulationRun/FMI/HYB/venus/venus_nominal_lowres_cx_20121120"],
-            "parameter": [
-                {
-                    "name": "H+ number density",
-                    "set": [],
-                    "parameterKey": "Density",
-                    "description": "H+ number density",
-                    "caveats": null,
-                    "cadence": null,
-                    "units": "m^-3",
-                    "unitsConversion": null,
-                    "coordinateSystem": null,
-                    "renderingHints": [],
-                    "structure": null,
-                    "validMin": null,
-                    "validMax": null,
-                    "fillValue": null,
-                    "property": [],
-                    "particle": {
-                        "populationId": "H+",
-                        "particleType": ["Proton"],
-                        "particleQuantitiy": "NumberDensity",
-                        "chemicalFormula": "H",
-                        "atomicNumber": [1],
-                        "populationMassNumber": [1.00728],
-                        "populationChargeState": [1]
-                    }
-                },
-                {
-                    "name": "H+ velocity",
-                    "set": [],
-                    "parameterKey": "Ux,Uy,Uz",
-                    "description": "H+ velocity",
-                    "caveats": null,
-                    "cadence": null,
-                    "units": "m/s",
-                    "unitsConversion": null,
-                    "coordinateSystem": null,
-                    "renderingHints": [],
-                    "structure": null,
-                    "validMin": null,
-                    "validMax": null,
-                    "fillValue": null,
-                    "property": [],
-                    "particle": {
-                        "populationId": "H+",
-                        "particleType": ["Proton"],
-                        "particleQuantitiy": "Velocity",
-                        "chemicalFormula": "H",
-                        "atomicNumber": [1],
-                        "populationMassNumber": [1.00728],
-                        "populationChargeState": [1]
-                    }
-                },
-                {
-                    "name": "H+ total velocity",
-                    "set": [],
-                    "parameterKey": "Utot",
-                    "description": "H+ total velocity",
-                    "caveats": null,
-                    "cadence": null,
-                    "units": "m/s",
-                    "unitsConversion": null,
-                    "coordinateSystem": null,
-                    "renderingHints": [],
-                    "structure": null,
-                    "validMin": null,
-                    "validMax": null,
-                    "fillValue": null,
-                    "property": [],
-                    "particle": {
-                        "populationId": "H+",
-                        "particleType": ["Proton"],
-                        "particleQuantitiy": "Velocity",
-                        "chemicalFormula": "H",
-                        "atomicNumber": [1],
-                        "populationMassNumber": [1.00728],
-                        "populationChargeState": [1]
-                    }
-                },
-                {
-                    "name": "H+ thermal pressure",
-                    "set": [],
-                    "parameterKey": "Pressure",
-                    "description": "H+ thermal pressure",
-                    "caveats": null,
-                    "cadence": null,
-                    "units": "Pa",
-                    "unitsConversion": null,
-                    "coordinateSystem": null,
-                    "renderingHints": [],
-                    "structure": null,
-                    "validMin": null,
-                    "validMax": null,
-                    "fillValue": null,
-                    "property": [],
-                    "particle": {
-                        "populationId": "H+",
-                        "particleType": ["Proton"],
-                        "particleQuantitiy": "Pressure",
-                        "chemicalFormula": "H",
-                        "atomicNumber": [1],
-                        "populationMassNumber": [1.00728],
-                        "populationChargeState": [1]
-                    }
-                },
-                {
-                    "name": "H+ temperature",
-                    "set": [],
-                    "parameterKey": "Temperature",
-                    "description": "H+ temperature",
-                    "caveats": null,
-                    "cadence": null,
-                    "units": "K",
-                    "unitsConversion": null,
-                    "coordinateSystem": null,
-                    "renderingHints": [],
-                    "structure": null,
-                    "validMin": null,
-                    "validMax": null,
-                    "fillValue": null,
-                    "property": [],
-                    "particle": {
-                        "populationId": "H+",
-                        "particleType": ["Proton"],
-                        "particleQuantitiy": "Temperature",
-                        "chemicalFormula": "H",
-                        "atomicNumber": [1],
-                        "populationMassNumber": [1.00728],
-                        "populationChargeState": [1]
-                    }
-                }
-            ]
-        }
-    }],
+    ],
     "voTables": [{
         "id": "54402e0a30041b4daf106ee1",
         "name": "fmi_hyb_orbite_60sec.xml",

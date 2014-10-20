@@ -149,8 +149,8 @@ module portal {
                 this.myScope.$broadcast('set-applyable-votable', false)
             }
             
-            // if there is a SINP method chosen, we must forward info about applyable models
-            if(this.method.path.indexOf('SINP') != -1) {
+            // if there is method chosen at SINP, we must forward info about applyable models
+            if(this.repositoryId.indexOf('SINP') != -1) {
                //console.log(this.currentMethod.operations[0].nickname)
                for(var key in this.methodsService.applyableModels) {
                     var methods = this.methodsService.applyableModels[key]
@@ -159,7 +159,7 @@ module portal {
                }
                // hack for all get methods of SINP (only static elements apply)
                if(this.method.operations[0].nickname.indexOf('get') != -1)
-                   this.myScope.$broadcast('set-applyable-models', 'static')
+                   this.myScope.$broadcast('set-applyable-models', 'Static')
             }
         }
         

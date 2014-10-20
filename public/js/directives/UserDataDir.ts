@@ -87,7 +87,7 @@ module portal {
                 } else {
                     this.selectables = []
                 }
-                // must be undefined => so that filter works
+                // must be undefined by default so that filter works
                 this.repositoryId = id
                 // reset applyables
                 this.applyableElements = []
@@ -98,7 +98,6 @@ module portal {
             
             // watch event when all content is loaded into the dir
             this.myScope.$watch('$includeContentLoaded', (e) => {          
-                //console.log('UserDataDir loaded')  
                 // check samp clients
                 if(this.sampService.clients) {
                     for(var id in this.sampService.clients){
@@ -106,22 +105,18 @@ module portal {
                         if(subs.hasOwnProperty('table.load.votable'))
                             this.isSampAble = true
                     }
-                }   
+                }  
+                 
                 // collapsing all selections on init
-                if(this.user.selections) {
-                    this.user.selections.forEach((e) => { this.isCollapsed[e.id] = true })
-                }
+                this.user.selections.forEach((e) => { this.isCollapsed[e.id] = true })
                 // collapsing all votables on init
-                if(this.user.voTables) {
-                    this.user.voTables.forEach((e) => { this.isCollapsed[e.id] = true })
-                }
+                this.user.voTables.forEach((e) => { this.isCollapsed[e.id] = true })
                 // collapsing all results on init / all are read by default
-                if(this.user.results) {
-                    this.user.results.forEach((e) => { 
+                this.user.results.forEach((e) => { 
                         this.isCollapsed[e.id] = true 
                         this.isResRead[e.id] = true
-                    })
-                }
+                })
+                
                 // if there is a successful result not yet read (per repository)
                 if(this.methodsService.showSuccess[this.repositoryId] && 
                     this.state.current.name == 'app.portal.methods') {
@@ -147,24 +142,32 @@ module portal {
                         this.isResRead[this.user.results[i].id] = false
                     }
                     this.methodsService.unreadResults--
-                } else if(this.state.current.name == 'app.portal.userdata') {
-                        // attention this is only applyable when there 
-                        // is one active selection
-                        this.user.activeSelection.forEach((s) => {
-                            if(this.isSelSaved(s.id))
-                                this.setCollapsedMap(s.id)
-                            else
-                                this.isCollapsed[s.id] = true
-                        })
-                } else {
-                    // set active selection if we enter the right interface
-                    // otherwise clear active selections
+                // set active selection if we enter the right registry
+                // otherwise clear active selections
+                } else if(this.state.current.name == 'app.portal.registry')  {
                     this.user.activeSelection.forEach((s) => {
-                        if(s.repositoryId == this.repositoryId){
+                        if(s.repositoryId == this.repositoryId)
                              this.setCollapsedMap(s.id)
-                         } else {
+                        else
                              this.user.activeSelection = []
-                         }
+                    })
+                // set active selection if we enter the right methods
+                // otherwise clear active selections
+                } else if(this.state.current.name == 'app.portal.methods') {
+                    this.user.activeSelection.forEach((s) => {
+                        if(s.repositoryId == this.repositoryId && this.isSelectable(s.type))
+                             this.setCollapsedMap(s.id)
+                        else 
+                             this.user.activeSelection = []
+                    })
+                // default behaviour: attention this is only applyable when there 
+                // is one active selection
+                } else {
+                    this.user.activeSelection.forEach((s) => {
+                        if(this.isSelSaved(s.id))
+                            this.setCollapsedMap(s.id)
+                        else
+                            this.isCollapsed[s.id] = true
                     })
                 }
                 
@@ -178,7 +181,6 @@ module portal {
                this.isSelApplyable = false
                this.user.activeSelection.forEach((s) => {
                     this.applyableElements.forEach((e) => {
-                        //console.log('Element '+e)
                         if(s.repositoryId == this.repositoryId && s.type == e)
                             this.isSelApplyable = true  
                     })
@@ -187,7 +189,6 @@ module portal {
             
             // comes from MethodsDir
             this.myScope.$on('set-applyable-votable', (e, b: boolean) => { 
-                //console.log('set-applyable-votable')
                 this.isVOTApplyable = b
             })
             
@@ -199,10 +200,11 @@ module portal {
                 this.user.activeSelection.forEach((s) => {
                     // we just check the onfly numerical output elements too
                     var output = this.applyableModel.replace('SimulationModel', 'NumericalOutput')
-                    var index = s.elem.resourceId.indexOf(output)
-                    if(this.applyableModel == s.elem.resourceId || index != -1)
+                    if(this.applyableModel == s.elem.resourceId)
                         this.isSelApplyable = true
-                    else if(this.applyableModel == 'static' && 
+                    else if(s.elem.resourceId.indexOf(output) != -1)
+                        this.isSelApplyable = true
+                    else if(this.applyableModel == 'Static' && 
                         s.elem.resourceId.indexOf('OnFly') == -1)
                         this.isSelApplyable = true
                     else
@@ -253,11 +255,10 @@ module portal {
             } else if(this.repositoryId) {
                 // hack for SINP models
                 if(type == 'SimulationModel' && 
-                    this.repositoryId.indexOf('SINP') != -1 && 
-                    this.user.activeSelection.length > 0) {
+                    this.repositoryId.indexOf('SINP') != -1) {
                     var selectable = false
                     this.user.activeSelection.forEach((s) => { 
-                        if(s.elem.resourceId.indexOf('Static') == -1)
+                        if(s.elem.resourceId.indexOf('OnFly') != -1)
                             selectable = true
                     })
                     return selectable
@@ -291,23 +292,24 @@ module portal {
             if(this.isCollapsed[id]) { // if it is closed 
                 this.setCollapsedMap(id)
                 // get selection
-                var selection = this.user.selections.filter((e) => e.id == id)[0]
-                if(this.applyableElements.indexOf(selection.type) != -1) {
+                var sel = this.user.selections.filter((e) => e.id == id)[0]
+                if(this.applyableElements.indexOf(sel.type) != -1) {
                     this.isSelApplyable = true  
                     // hack for SINP models/outputs
                     if(this.applyableModel) {
                         var output = this.applyableModel.replace('SimulationModel', 'NumericalOutput')
-                        var index = selection.elem.resourceId.indexOf(output)
-                        if(this.applyableModel == selection.elem.resourceId || index != -1)
+                        if(this.applyableModel == sel.elem.resourceId)
                             this.isSelApplyable = true
-                        else if(this.applyableModel == 'static' && 
-                            selection.elem.resourceId.indexOf('OnFly') == -1)
+                        else if(sel.elem.resourceId.indexOf(output) != -1)
+                            this.isSelApplyable = true
+                        else if(this.applyableModel == 'Static' && 
+                            sel.elem.resourceId.indexOf('OnFly') == -1)
                             this.isSelApplyable = true
                         else
                             this.isSelApplyable = false
                     }  
                 }
-                this.user.activeSelection = [selection] 
+                this.user.activeSelection = [sel] 
             } else {
                 // reset expanded selection
                 this.user.activeSelection = []
@@ -407,11 +409,11 @@ module portal {
                         this.user.selections = []
                         this.userService.localStorage.selections = null
                     } else {
-                         var repoSelections = this.user.selections.filter((s) => s.repositoryId != this.repositoryId)
-                         repoSelections.forEach((sel) => {
+                        var selections = this.user.selections.filter((s) => s.repositoryId != this.repositoryId)
+                        selections.forEach((sel) => {
                             delete this.isCollapsed[sel.id]
                         })
-                        this.user.selections = repoSelections
+                        this.user.selections = selections
                         this.userService.localStorage.selections = this.user.selections
                     }
                 } else if(type == 'votables') {
@@ -424,35 +426,40 @@ module portal {
                 } else if(type == 'results') {
                     // delete all
                     if(this.state.current.name == 'app.portal.userdata') {
+                        this.user.results.forEach((res) => {
+                            delete this.isCollapsed[res.id]
+                        })
                         this.user.results = []
                         this.userService.localStorage.results = null
                     } else {
-                        this.user.results = this.user.results.filter((s) => s.repositoryId != this.repositoryId)
+                        var results = this.user.results.filter((s) => s.repositoryId != this.repositoryId)
+                        results.forEach((res) => {
+                            delete this.isCollapsed[res.id]
+                        })
+                        this.user.results = results
                         this.userService.localStorage.results = this.user.results
                     }
                 }
                 if(this.state.current.name == 'app.portal.userdata')  {
                     this.growl.info('Deleted all '+type+' from user data')
                 } else
-                    this.growl.info('Deleted all '+type+' of this database from user data')
+                    this.growl.info('Deleted all '+type+' of '+this.repositoryId+' from user data')
              }
         }
         
         // @TODO we must check if the Url is still valid (empty or not found)
-        public sendToSamp(tableUrl: any, id: string) {
+        public sendToSamp(tableUrl: any, clientId: string) {
             //console.log('sending '+JSON.stringify(tableUrl)+' '+id)
             // broadcasts a table given a hub connection
             var send = (connection) => {
                 if(tableUrl.hasOwnProperty('dataFileURLs')) {
                     tableUrl.dataFileURLs.forEach((e) => {
                        var msg = new samp.Message("table.load.votable", { "url": e })
-                       //connection.notifyAll([msg])
-                       connection.notify([id, msg])                
+                       connection.notify([clientId, msg])                
                     })
                 } else {
                     var msg = new samp.Message("table.load.votable", { "url": tableUrl })
-                    //connection.notifyAll([msg])
-                    connection.notify([id, msg])
+                    connection.notify([clientId, msg])
                 }
             }
             // in any error case call this
@@ -464,5 +471,5 @@ module portal {
         
         
     }
-
+    
 }

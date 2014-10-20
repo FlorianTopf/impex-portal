@@ -34,6 +34,7 @@ describe('UserDataDir', function() {
         uService.user = user;
         // needed for non-default states
 		simDb = getJSONFixture('simDatabase.json');
+		selection = getJSONFixture('selection.json')
 		
 	}));
 	
@@ -55,8 +56,9 @@ describe('UserDataDir', function() {
 		}
 		
 		// everything in $includeContentLoaded is done too!
-		// standard case without db filter @TODO add special cases (specific app states)
-		it('should render the template and init variables', function(){
+		// standard case without db filter 
+		// @TODO add special cases (specific app states)
+		it('should be rendered and init variables', function(){
 			var templateAsHtml = template.html();
 			expect(templateAsHtml).toContain('nav-tabs');
 			expect(scope.userdirvm.repositoryId).toBeUndefined();
@@ -64,9 +66,11 @@ describe('UserDataDir', function() {
 			expect(scope.userdirvm.isCollapsed).toEqual({ 
 				'defde9a2': true, 
 				'54402e0a30041b4daf106ee1': true, 
-				'9dda50fa': true ,
+				'9dda50fa': true,
+				'240bf200' : true,
+				// active selection is uncollapsed
 				'1c75698b': false });
-			expect(scope.userdirvm.isResRead).toEqual({ '9dda50fa': true });
+			expect(scope.userdirvm.isResRead).toEqual({ '9dda50fa': true, '240bf200' : true });
 			expect(scope.userdirvm.tabsActive).toEqual([true, false, false]);
 			expect(scope.userdirvm.selectables).toEqual([]);
 			expect(scope.userdirvm.applyableElements).toEqual([]);
@@ -84,6 +88,9 @@ describe('UserDataDir', function() {
 			expect(scope.userdirvm.state).toEqual(state);
 		});	
 		
+		it('should correctly handle isSelectable', function(){
+			expect(scope.userdirvm.isSelectable('SimulationModel')).toBeFalsy();
+		});
 		
 	});
 	
@@ -96,7 +103,10 @@ describe('UserDataDir', function() {
 	        state.current.name = 'app.portal.registry';
 			// compiled repository template
 	        template = createRepositoryDirective();
- 
+
+	        // spying on growl success
+	        spyOn(growlService, 'success');
+	        spyOn(rService, 'notify');
 		});
 		
 		function createRepositoryDirective(){
@@ -106,7 +116,7 @@ describe('UserDataDir', function() {
 			return template;
 		}
 			
-		it('should render the template and init variables', function(){
+		it('should be rendered and init variables', function(){
 			var templateAsHtml = template.html();
 			expect(templateAsHtml).toContain('nav-tabs');
 			expect(scope.userdirvm.repositoryId).toEqual(simDb.id);
@@ -114,9 +124,11 @@ describe('UserDataDir', function() {
 			expect(scope.userdirvm.isCollapsed).toEqual({ 
 				'defde9a2': true, 
 				'54402e0a30041b4daf106ee1': true, 
-				'9dda50fa': true ,
+				'9dda50fa': true,
+				'240bf200' : true,
+				// active selection is uncollapsed 
 				'1c75698b': false });
-			expect(scope.userdirvm.isResRead).toEqual({ '9dda50fa': true });
+			expect(scope.userdirvm.isResRead).toEqual({ '9dda50fa': true, '240bf200' : true });
 			expect(scope.userdirvm.tabsActive).toEqual([true, false, false]);
 			expect(scope.userdirvm.selectables).toEqual(['NumericalOutput']);
 			expect(scope.userdirvm.applyableElements).toEqual([]);
@@ -159,6 +171,14 @@ describe('UserDataDir', function() {
 			scope.$broadcast('update-selections', id);
 			expect(scope.$on).toHaveBeenCalled();
 			expect(scope.userdirvm.isCollapsed[id]).toBeFalsy();
+			expect(scope.userdirvm.isCollapsed).toEqual({ 
+				'defde9a2': true, 
+				'54402e0a30041b4daf106ee1': true, 
+				'9dda50fa': true,
+				'240bf200' : true,
+				// active selection is uncollapsed 
+				'1c75698b': false });
+			expect(scope.userdirvm.user.activeSelection).toEqual(user.activeSelection);
 		});
 		
 		it('should react on update-votables', function(){
@@ -166,21 +186,55 @@ describe('UserDataDir', function() {
 			scope.$broadcast('update-votables', id);
 			expect(scope.$on).toHaveBeenCalled();
 			expect(scope.userdirvm.isCollapsed[id]).toBeFalsy();
+			expect(scope.userdirvm.isCollapsed).toEqual({ 
+				'defde9a2': true, 
+				// votable is uncollapsed 
+				'54402e0a30041b4daf106ee1': false, 
+				'9dda50fa': true,
+				'240bf200' : true,
+				'1c75698b': true});
 			expect(scope.userdirvm.user.activeSelection).toEqual([]);
 		});
 		
-		if('should react on update-results', function(){
+		it('should react on update-results', function(){
 			var id = user.results[0].id;
 			scope.$broadcast('update-results', id);
 			expect(scope.$on).toHaveBeenCalled();
 			expect(scope.userdirvm.isCollapsed[id]).toBeFalsy();
+			expect(scope.userdirvm.isCollapsed).toEqual({ 
+				'defde9a2': true, 
+				'54402e0a30041b4daf106ee1': true,
+				// result is uncollapsed
+				'9dda50fa': false,
+				'240bf200' : true,
+				'1c75698b': true});
 			expect(scope.userdirvm.user.activeSelection).toEqual([]);
 		});
 		
-		// @TODO continue with isSelectable()
-
+		it('should correctly handle isSelectable', function(){
+			expect(scope.userdirvm.isSelectable('SimulationModel')).toBeFalsy();
+			expect(scope.userdirvm.isSelectable('NumericalOutput')).toBeTruthy();
+		});
+		
+		it('should correctly handle isSelSaved', function(){
+			expect(scope.userdirvm.isSelSaved('1c75698b')).toBeTruthy();
+			expect(scope.userdirvm.isSelSaved('boum')).toBeFalsy();
+		});
+		
+		it('should save selection on user action', function(){
+			scope.userdirvm.user.activeSelection = [selection];
+			scope.userdirvm.saveSelection(selection.id);
+			expect(scope.userdirvm.user.selections[0]).toEqual(selection);
+			expect(scope.userdirvm.tabsActive).toEqual([true, false, false]);
+			expect(scope.userdirvm.growl.success).toHaveBeenCalled();
+			expect(scope.userdirvm.registryService.notify)
+				.toHaveBeenCalledWith('success', simDb.id)
+			
+		});
+		
+		// @TODO continue with toggleSelectionDetails()
 		
 	});
 	
-	
+
 });

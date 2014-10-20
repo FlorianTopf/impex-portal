@@ -28,8 +28,10 @@ describe('PortalCtrl', function() {
 		// spying on broadcast events
         spyOn(scope, '$broadcast').andCallThrough();
         spyOn(scope, '$on').andCallThrough();
-        // spying on growl warning
+        // spying on growl messages
         spyOn(growlService, 'warning');
+        spyOn(growlService, 'success');
+        spyOn(rService, 'notify');
         // spying on samp caller (only against mock .andCallThrough() isn't testable)
         spyOn(sService.connector, 'runWithConnection');
         spyOn(sService.connector, 'unregister');
@@ -185,6 +187,8 @@ describe('PortalCtrl', function() {
         expect(scope.vm.registryService.isFilterSet).toBeTruthy();
         expect(scope.vm.configService.filterMap['spase://IMPEX/Repository/FMI/HYB']).toBeTruthy();
         expect(scope.vm.configService.filterMap['spase://IMPEX/Repository/LATMOS']).toBeTruthy();
+        expect(scope.vm.growl.success).toHaveBeenCalled();
+        expect(scope.vm.registryService.notify).toHaveBeenCalledWith('filtered');
 	});
 	
 	it('should toggle samp collapsible', function(){

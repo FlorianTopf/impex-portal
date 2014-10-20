@@ -1141,11 +1141,9 @@ var portal;
                 'calculateDataPointValueSpacecraft',
                 'calculateDataPointValueFixedTime',
                 'calculateFieldline',
-                'calculateCube',
-                'calculateFieldline',
-                'getSurfaceSINP'
+                'calculateCube'
             ];
-            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Mercury/OnFly'] = ['calculateDataPointValueNercury', 'calculateCubeMercury'];
+            this.applyableModels['spase://IMPEX/SimulationModel/SINP/Mercury/OnFly'] = ['calculateDataPointValueMercury', 'calculateCubeMercury'];
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Saturn/OnFly'] = ['calculateDataPointValueSaturn', 'calculateCubeSaturn'];
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Jupiter/OnFly'] = ['calculateDataPointValueJupiter', 'calculateCubeJupiter'];
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/GiantPlanet/OnFly'] = ['calculateDataPointValueGiantPlanets'];
@@ -2540,7 +2538,7 @@ var portal;
                     _this.selectables = [];
                 }
 
-                // must be undefined => so that filter works
+                // must be undefined by default so that filter works
                 _this.repositoryId = id;
 
                 // reset applyables
@@ -2560,24 +2558,21 @@ var portal;
                     }
                 }
 
-                if (_this.user.selections) {
-                    _this.user.selections.forEach(function (e) {
-                        _this.isCollapsed[e.id] = true;
-                    });
-                }
+                // collapsing all selections on init
+                _this.user.selections.forEach(function (e) {
+                    _this.isCollapsed[e.id] = true;
+                });
 
-                if (_this.user.voTables) {
-                    _this.user.voTables.forEach(function (e) {
-                        _this.isCollapsed[e.id] = true;
-                    });
-                }
+                // collapsing all votables on init
+                _this.user.voTables.forEach(function (e) {
+                    _this.isCollapsed[e.id] = true;
+                });
 
-                if (_this.user.results) {
-                    _this.user.results.forEach(function (e) {
-                        _this.isCollapsed[e.id] = true;
-                        _this.isResRead[e.id] = true;
-                    });
-                }
+                // collapsing all results on init / all are read by default
+                _this.user.results.forEach(function (e) {
+                    _this.isCollapsed[e.id] = true;
+                    _this.isResRead[e.id] = true;
+                });
 
                 if (_this.methodsService.showSuccess[_this.repositoryId] && _this.state.current.name == 'app.portal.methods') {
                     _this.tabsActive = [false, false, true];
@@ -2604,24 +2599,32 @@ var portal;
                         _this.isResRead[_this.user.results[i].id] = false;
                     }
                     _this.methodsService.unreadResults--;
-                } else if (_this.state.current.name == 'app.portal.userdata') {
-                    // attention this is only applyable when there
+                    // set active selection if we enter the right registry
+                    // otherwise clear active selections
+                } else if (_this.state.current.name == 'app.portal.registry') {
+                    _this.user.activeSelection.forEach(function (s) {
+                        if (s.repositoryId == _this.repositoryId)
+                            _this.setCollapsedMap(s.id);
+else
+                            _this.user.activeSelection = [];
+                    });
+                    // set active selection if we enter the right methods
+                    // otherwise clear active selections
+                } else if (_this.state.current.name == 'app.portal.methods') {
+                    _this.user.activeSelection.forEach(function (s) {
+                        if (s.repositoryId == _this.repositoryId && _this.isSelectable(s.type))
+                            _this.setCollapsedMap(s.id);
+else
+                            _this.user.activeSelection = [];
+                    });
+                    // default behaviour: attention this is only applyable when there
                     // is one active selection
+                } else {
                     _this.user.activeSelection.forEach(function (s) {
                         if (_this.isSelSaved(s.id))
                             _this.setCollapsedMap(s.id);
 else
                             _this.isCollapsed[s.id] = true;
-                    });
-                } else {
-                    // set active selection if we enter the right interface
-                    // otherwise clear active selections
-                    _this.user.activeSelection.forEach(function (s) {
-                        if (s.repositoryId == _this.repositoryId) {
-                            _this.setCollapsedMap(s.id);
-                        } else {
-                            _this.user.activeSelection = [];
-                        }
                     });
                 }
             });
@@ -2644,7 +2647,6 @@ else
 
             // comes from MethodsDir
             this.myScope.$on('set-applyable-votable', function (e, b) {
-                //console.log('set-applyable-votable')
                 _this.isVOTApplyable = b;
             });
 
@@ -2656,10 +2658,11 @@ else
                 _this.user.activeSelection.forEach(function (s) {
                     // we just check the onfly numerical output elements too
                     var output = _this.applyableModel.replace('SimulationModel', 'NumericalOutput');
-                    var index = s.elem.resourceId.indexOf(output);
-                    if (_this.applyableModel == s.elem.resourceId || index != -1)
+                    if (_this.applyableModel == s.elem.resourceId)
                         _this.isSelApplyable = true;
-else if (_this.applyableModel == 'static' && s.elem.resourceId.indexOf('OnFly') == -1)
+else if (s.elem.resourceId.indexOf(output) != -1)
+                        _this.isSelApplyable = true;
+else if (_this.applyableModel == 'Static' && s.elem.resourceId.indexOf('OnFly') == -1)
                         _this.isSelApplyable = true;
 else
                         _this.isSelApplyable = false;
@@ -2709,10 +2712,10 @@ else
             if (this.state.current.name == 'app.portal.userdata') {
                 return false;
             } else if (this.repositoryId) {
-                if (type == 'SimulationModel' && this.repositoryId.indexOf('SINP') != -1 && this.user.activeSelection.length > 0) {
+                if (type == 'SimulationModel' && this.repositoryId.indexOf('SINP') != -1) {
                     var selectable = false;
                     this.user.activeSelection.forEach(function (s) {
-                        if (s.elem.resourceId.indexOf('Static') == -1)
+                        if (s.elem.resourceId.indexOf('OnFly') != -1)
                             selectable = true;
                     });
                     return selectable;
@@ -2751,24 +2754,25 @@ else
                 this.setCollapsedMap(id);
 
                 // get selection
-                var selection = this.user.selections.filter(function (e) {
+                var sel = this.user.selections.filter(function (e) {
                     return e.id == id;
                 })[0];
-                if (this.applyableElements.indexOf(selection.type) != -1) {
+                if (this.applyableElements.indexOf(sel.type) != -1) {
                     this.isSelApplyable = true;
 
                     if (this.applyableModel) {
                         var output = this.applyableModel.replace('SimulationModel', 'NumericalOutput');
-                        var index = selection.elem.resourceId.indexOf(output);
-                        if (this.applyableModel == selection.elem.resourceId || index != -1)
+                        if (this.applyableModel == sel.elem.resourceId)
                             this.isSelApplyable = true;
-else if (this.applyableModel == 'static' && selection.elem.resourceId.indexOf('OnFly') == -1)
+else if (sel.elem.resourceId.indexOf(output) != -1)
+                            this.isSelApplyable = true;
+else if (this.applyableModel == 'Static' && sel.elem.resourceId.indexOf('OnFly') == -1)
                             this.isSelApplyable = true;
 else
                             this.isSelApplyable = false;
                     }
                 }
-                this.user.activeSelection = [selection];
+                this.user.activeSelection = [sel];
             } else {
                 // reset expanded selection
                 this.user.activeSelection = [];
@@ -2883,13 +2887,13 @@ else
                         this.user.selections = [];
                         this.userService.localStorage.selections = null;
                     } else {
-                        var repoSelections = this.user.selections.filter(function (s) {
+                        var selections = this.user.selections.filter(function (s) {
                             return s.repositoryId != _this.repositoryId;
                         });
-                        repoSelections.forEach(function (sel) {
+                        selections.forEach(function (sel) {
                             delete _this.isCollapsed[sel.id];
                         });
-                        this.user.selections = repoSelections;
+                        this.user.selections = selections;
                         this.userService.localStorage.selections = this.user.selections;
                     }
                 } else if (type == 'votables') {
@@ -2901,39 +2905,42 @@ else
                     this.tabsActive = [true, false, false];
                 } else if (type == 'results') {
                     if (this.state.current.name == 'app.portal.userdata') {
+                        this.user.results.forEach(function (res) {
+                            delete _this.isCollapsed[res.id];
+                        });
                         this.user.results = [];
                         this.userService.localStorage.results = null;
                     } else {
-                        this.user.results = this.user.results.filter(function (s) {
+                        var results = this.user.results.filter(function (s) {
                             return s.repositoryId != _this.repositoryId;
                         });
+                        results.forEach(function (res) {
+                            delete _this.isCollapsed[res.id];
+                        });
+                        this.user.results = results;
                         this.userService.localStorage.results = this.user.results;
                     }
                 }
                 if (this.state.current.name == 'app.portal.userdata') {
                     this.growl.info('Deleted all ' + type + ' from user data');
                 } else
-                    this.growl.info('Deleted all ' + type + ' of this database from user data');
+                    this.growl.info('Deleted all ' + type + ' of ' + this.repositoryId + ' from user data');
             }
         };
 
         // @TODO we must check if the Url is still valid (empty or not found)
-        UserDataDir.prototype.sendToSamp = function (tableUrl, id) {
+        UserDataDir.prototype.sendToSamp = function (tableUrl, clientId) {
             //console.log('sending '+JSON.stringify(tableUrl)+' '+id)
             // broadcasts a table given a hub connection
             var send = function (connection) {
                 if (tableUrl.hasOwnProperty('dataFileURLs')) {
                     tableUrl.dataFileURLs.forEach(function (e) {
                         var msg = new samp.Message("table.load.votable", { "url": e });
-
-                        //connection.notifyAll([msg])
-                        connection.notify([id, msg]);
+                        connection.notify([clientId, msg]);
                     });
                 } else {
                     var msg = new samp.Message("table.load.votable", { "url": tableUrl });
-
-                    //connection.notifyAll([msg])
-                    connection.notify([id, msg]);
+                    connection.notify([clientId, msg]);
                 }
             };
 
@@ -3173,7 +3180,7 @@ var portal;
                 this.myScope.$broadcast('set-applyable-votable', false);
             }
 
-            if (this.method.path.indexOf('SINP') != -1) {
+            if (this.repositoryId.indexOf('SINP') != -1) {
                 for (var key in this.methodsService.applyableModels) {
                     var methods = this.methodsService.applyableModels[key];
                     var index = methods.indexOf(this.method.operations[0].nickname);
@@ -3182,7 +3189,7 @@ var portal;
                 }
 
                 if (this.method.operations[0].nickname.indexOf('get') != -1)
-                    this.myScope.$broadcast('set-applyable-models', 'static');
+                    this.myScope.$broadcast('set-applyable-models', 'Static');
             }
         };
 

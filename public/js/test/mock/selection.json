@@ -1,0 +1,26 @@
+{
+    "repositoryId": "spase://IMPEX/Repository/SINP",
+    "id": "39026add",
+    "type": "SimulationModel",
+    "elem": {
+        "resourceId": "spase://IMPEX/SimulationModel/SINP/Saturn/OnFly",
+        "resourceHeader": {
+            "resourceName": "OnFly model for Saturn",
+            "releaseDate": "2012-09-21T00:00:00.000",
+            "acknowledgement": null,
+            "description": "Paraboloid model calculates the magnetic fields in the Saturn's magnetosphere depending on external conditions in solar wind and on internal kronomagnetospheric processes.",
+            "contact": [{
+                "personId": "SINP",
+                "role": ["DataProducer"]
+            }],
+            "informationurl": ["http://smdc.sinp.msu.ru/index.py?nav=paraboloid/index"]
+        },
+        "versions": {"modelVersion": [{
+            "versionId": "3.1",
+            "releaseDate": "2012-09-21T00:00:00.000",
+            "description": "Public release"
+        }]},
+        "simulationType": "Paraboloid",
+        "$$hashKey": "06H"
+    }
+}
