@@ -193,10 +193,10 @@ module portal {
             })
             
             // comes from MethodsDir => hack for SINP models/output
-            this.myScope.$on('set-applyable-models', (e, m: string) => { 
+            this.myScope.$on('set-applyable-model', (e, model: string) => { 
                 //console.log(m)
-                //console.log('set-applyable-models')
-                this.applyableModel = m 
+                //console.log('set-applyable-model')
+                this.applyableModel = model
                 this.user.activeSelection.forEach((s) => {
                     // we just check the onfly numerical output elements too
                     var output = this.applyableModel.replace('SimulationModel', 'NumericalOutput')

@@ -37,7 +37,7 @@ module portal {
             this.growl = growl
             this.scope = $rootScope
             
-            // @TODO fill manual applyables for SINP (no API info available)
+            // fill manual applyables for SINP (no API info available)
             this.applyableModels['spase://IMPEX/SimulationModel/SINP/Earth/OnFly'] = 
             ['calculateDataPointValue', 'calculateDataPointValueSpacecraft', 'calculateDataPointValueFixedTime', 
                 'calculateFieldline', 'calculateCube']
@@ -121,7 +121,6 @@ module portal {
                 this.responseLog = 
                     [new ResponseLog(new Date(), this.status, id)].concat(this.responseLog)
             } 
-            //console.log(JSON.stringify(this.responseLog))
         }
         
     }

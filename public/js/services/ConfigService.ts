@@ -59,7 +59,6 @@ module portal {
            this.http.get(this.url+'methods/'+callName+'/isAlive', { timeout: 10000})
                .success((data: boolean, status: any) => { 
                    this.aliveMap[db.id] = data
-                   //console.log('Hello '+db.name+' '+this.aliveMap[db.id]) 
                })
                .error((data: any, status: any) => { 
                    this.aliveMap[db.id] = false 

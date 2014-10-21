@@ -160,7 +160,7 @@ describe('UserDataDir', function() {
 		});
 		
 		// @TODO only works if we use a sinp model as active element
-		/* it('should react on set-applyable-models', function(){
+		/* it('should react on set-applyable-model', function(){
 			
 			
 		});*/

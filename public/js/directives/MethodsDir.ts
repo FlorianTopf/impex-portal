@@ -153,11 +153,11 @@ module portal {
                for(var key in this.methodsService.applyableModels) {
                     var methods = this.methodsService.applyableModels[key]
                     var index = methods.indexOf(this.method.operations[0].nickname)
-                    if(index != -1) this.myScope.$broadcast('set-applyable-models', key) 
+                    if(index != -1) this.myScope.$broadcast('set-applyable-model', key) 
                }
                // hack for all get methods of SINP (only static elements apply)
                if(this.method.operations[0].nickname.indexOf('get') != -1)
-                   this.myScope.$broadcast('set-applyable-models', 'Static')
+                   this.myScope.$broadcast('set-applyable-model', 'Static')
             }
         }
         

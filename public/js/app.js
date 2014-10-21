@@ -1286,14 +1286,14 @@ var portal;
 
             // generic call handler
             this.callHandler['samp.app.ping'] = function (senderId, message, isCall) {
-                //console.log('Ping '+senderId+' '+JSON.stringify(message))
+                console.log('Ping ' + senderId + ' ' + JSON.stringify(message));
             };
             this.callHandler['samp.hub.disconnect'] = function (senderId, message) {
-                //console.log('Disconnect '+senderId+' '+JSON.stringify(message))
+                console.log('Disconnect ' + senderId + ' ' + JSON.stringify(message));
                 _this.window.isSampRegistered = false;
             };
             this.callHandler['samp.hub.event.shutdown'] = function (senderId, message) {
-                //console.log('Shutdown '+senderId+' '+JSON.stringify(message))
+                console.log('Shutdown ' + senderId + ' ' + JSON.stringify(message));
                 _this.window.isSampRegistered = false;
             };
             var baseUrl = this.window.location.href.toString().replace(new RegExp('[^/]*$'), '').replace('#/', '');
@@ -2625,10 +2625,10 @@ else
             });
 
             // comes from MethodsDir => hack for SINP models/output
-            this.myScope.$on('set-applyable-models', function (e, m) {
+            this.myScope.$on('set-applyable-model', function (e, model) {
                 //console.log(m)
-                //console.log('set-applyable-models')
-                _this.applyableModel = m;
+                //console.log('set-applyable-model')
+                _this.applyableModel = model;
                 _this.user.activeSelection.forEach(function (s) {
                     // we just check the onfly numerical output elements too
                     var output = _this.applyableModel.replace('SimulationModel', 'NumericalOutput');
@@ -3161,11 +3161,11 @@ var portal;
                     var methods = this.methodsService.applyableModels[key];
                     var index = methods.indexOf(this.method.operations[0].nickname);
                     if (index != -1)
-                        this.myScope.$broadcast('set-applyable-models', key);
+                        this.myScope.$broadcast('set-applyable-model', key);
                 }
 
                 if (this.method.operations[0].nickname.indexOf('get') != -1)
-                    this.myScope.$broadcast('set-applyable-models', 'Static');
+                    this.myScope.$broadcast('set-applyable-model', 'Static');
             }
         };
 
