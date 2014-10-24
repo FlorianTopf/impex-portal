@@ -315,14 +315,18 @@ describe('UserDataDir', function() {
 		// @TODO maybe check more here
 		it('should clear different data on user action', function(){
 			scope.userdirvm.clearData('selections');
+			expect(scope.userdirvm.user.activeSelection).toEqual([]);
 			// only one must be deleted (see current repository == FMI)
 			expect(scope.userdirvm.user.selections.length).toEqual(1);
-			expect(scope.userdirvm.user.activeSelection).toEqual([]);
 			scope.userdirvm.clearData('votables');
 			expect(scope.userdirvm.user.voTables).toEqual([]);
+			//expect(scope.userdirvm.isCollapsed[user.voTables[0].id]).toBeUndefined();
+			expect(scope.userdirvm.tabsActive).toEqual([true, false, false]);
 			scope.userdirvm.clearData('results');
 			expect(scope.userdirvm.user.results.length).toEqual(1);
+			expect(scope.userdirvm.tabsActive).toEqual([true, false, false]);
 			expect(scope.userdirvm.growl.info).toHaveBeenCalled();
+			
 		});
 		
 		/*it('should send data to samp on user action', function(){

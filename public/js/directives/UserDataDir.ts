@@ -417,11 +417,13 @@ module portal {
                         this.user.selections = []
                         this.userService.localStorage.selections = null
                     } else {
-                        var selections = this.user.selections.filter((s) => s.repositoryId != this.repositoryId)
-                        selections.forEach((sel) => {
+                        var removedSel = this.user.selections.filter(
+                            (s) => s.repositoryId == this.repositoryId)
+                        removedSel.forEach((sel) => {
                             delete this.isCollapsed[sel.id]
                         })
-                        this.user.selections = selections
+                        this.user.selections = this.user.selections.filter(
+                            (s) => s.repositoryId != this.repositoryId)
                         this.userService.localStorage.selections = this.user.selections
                     }
                 } else if(type == 'votables') {
@@ -440,13 +442,16 @@ module portal {
                         this.user.results = []
                         this.userService.localStorage.results = null
                     } else {
-                        var results = this.user.results.filter((s) => s.repositoryId != this.repositoryId)
-                        results.forEach((res) => {
+                        var removedRes = this.user.results.filter(
+                            (s) => s.repositoryId == this.repositoryId)
+                        removedRes.forEach((res) => {
                             delete this.isCollapsed[res.id]
                         })
-                        this.user.results = results
+                        this.user.results = this.user.results.filter(
+                            (s) => s.repositoryId != this.repositoryId)
                         this.userService.localStorage.results = this.user.results
                     }
+                    this.tabsActive = [true, false, false] // selections, votables, results
                 }
                 if(this.state.current.name == 'app.portal.userdata')  {
                     this.growl.info('Deleted all '+type+' from user data')

@@ -2867,13 +2867,15 @@ else if (angular.isString(msg))
                         this.user.selections = [];
                         this.userService.localStorage.selections = null;
                     } else {
-                        var selections = this.user.selections.filter(function (s) {
-                            return s.repositoryId != _this.repositoryId;
+                        var removedSel = this.user.selections.filter(function (s) {
+                            return s.repositoryId == _this.repositoryId;
                         });
-                        selections.forEach(function (sel) {
+                        removedSel.forEach(function (sel) {
                             delete _this.isCollapsed[sel.id];
                         });
-                        this.user.selections = selections;
+                        this.user.selections = this.user.selections.filter(function (s) {
+                            return s.repositoryId != _this.repositoryId;
+                        });
                         this.userService.localStorage.selections = this.user.selections;
                     }
                 } else if (type == 'votables') {
@@ -2891,15 +2893,18 @@ else if (angular.isString(msg))
                         this.user.results = [];
                         this.userService.localStorage.results = null;
                     } else {
-                        var results = this.user.results.filter(function (s) {
-                            return s.repositoryId != _this.repositoryId;
+                        var removedRes = this.user.results.filter(function (s) {
+                            return s.repositoryId == _this.repositoryId;
                         });
-                        results.forEach(function (res) {
+                        removedRes.forEach(function (res) {
                             delete _this.isCollapsed[res.id];
                         });
-                        this.user.results = results;
+                        this.user.results = this.user.results.filter(function (s) {
+                            return s.repositoryId != _this.repositoryId;
+                        });
                         this.userService.localStorage.results = this.user.results;
                     }
+                    this.tabsActive = [true, false, false];
                 }
                 if (this.state.current.name == 'app.portal.userdata') {
                     this.growl.info('Deleted all ' + type + ' from user data');
