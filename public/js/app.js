@@ -2746,6 +2746,8 @@ else if (this.applyableModel == 'Static' && sel.elem.resourceId.indexOf('OnFly')
 else
                             this.isSelApplyable = false;
                     }
+                } else {
+                    this.isSelApplyable = false;
                 }
                 this.user.activeSelection = [sel];
             } else {
@@ -2844,8 +2846,11 @@ else
         };
 
         // method for applying a votable url to the current method
-        UserDataDir.prototype.applyVOTable = function (url) {
-            this.myScope.$broadcast('apply-votable', url);
+        UserDataDir.prototype.applyVOTable = function (msg) {
+            if (msg.hasOwnProperty('dataFileURLs'))
+                this.myScope.$broadcast('apply-votable', msg['dataFileURLs']);
+else if (angular.isString(msg))
+                this.myScope.$broadcast('apply-votable', msg);
         };
 
         UserDataDir.prototype.clearData = function (type) {

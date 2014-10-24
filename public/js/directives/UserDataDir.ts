@@ -309,6 +309,8 @@ module portal {
                         else
                             this.isSelApplyable = false
                     }  
+                } else {
+                    this.isSelApplyable = false
                 }
                 this.user.activeSelection = [sel] 
             } else {
@@ -393,8 +395,13 @@ module portal {
         }
         
         // method for applying a votable url to the current method
-        public applyVOTable(url: string) {
-            this.myScope.$broadcast('apply-votable', url)
+        public applyVOTable(msg: any) {
+            //console.log("MSG: "+JSON.stringify(msg))
+            // this is a little hack for AMDA results (they can be applied too)
+            if(msg.hasOwnProperty('dataFileURLs'))
+                this.myScope.$broadcast('apply-votable', msg['dataFileURLs'])
+            else if(angular.isString(msg))
+                this.myScope.$broadcast('apply-votable', msg)
         }
         
         public clearData(type: string) {

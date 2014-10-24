@@ -8,7 +8,7 @@
 			<button type="button" class="btn btn-sm btn-danger clear-button"
 				ng-click="userdirvm.clearData('selections')"
 				ng-hide="userdirvm.user.selections | filter:{ repositoryId:userdirvm.repositoryId } | isEmpty">
-				Clear Selections
+				Clear all Selections <span ng-if="userdirvm.repositoryId">of this Provider</span>
 			</button>
 			<div class="btn-group-vertical overflow-400">
 				<button type="button" class="btn btn-sm btn-success" 
@@ -27,7 +27,7 @@
 			<button type="button" class="btn btn-sm btn-danger clear-button"
 				ng-click="userdirvm.clearData('votables')"
 				ng-hide="userdirvm.user.voTables | isEmpty" >
-				Clear VOTables
+				Clear all VOTables
 			</button>
 			<div class="btn-group-vertical overflow-400">
 				<button type="button" class="btn btn-success btn-sm" 
@@ -42,11 +42,24 @@
 			<button type="button" class="btn btn-sm btn-danger clear-button"
 				ng-click="userdirvm.clearData('results')"
 				ng-hide="userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId } | isEmpty">
-				Clear Results
+				Clear all Results <span ng-if="userdirvm.repositoryId">of this Provider</span>
 			</button>
 			<div class="btn-group-vertical overflow-400">
 				<button type="button" class="btn btn-sm" 
-					ng-repeat="res in userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId }"
+					ng-repeat="res in userdirvm.user.results"
+					ng-if="userdirvm.repositoryId"
+					ng-show="res.repositoryId == userdirvm.repositoryId || 
+						res.method.indexOf('AMDA') != -1"
+			    	ng-class="{ active: !userdirvm.isCollapsed[res.id], 
+			    		'btn-success': userdirvm.isResRead[res.id], 
+			    		'btn-info': !userdirvm.isResRead[res.id],
+			    		'btn-warning': res.method.indexOf('AMDA') != -1 }"
+					ng-click="userdirvm.toggleDetails(res.id)">
+					{{ res.method.split('/').reverse()[0] }}<br/>{{ res.repositoryId }}
+				</button>
+				<button type="button" class="btn btn-sm" 
+					ng-repeat="res in userdirvm.user.results"
+					ng-if="!userdirvm.repositoryId"
 			    	ng-class="{ active: !userdirvm.isCollapsed[res.id], 
 			    		'btn-success': userdirvm.isResRead[res.id], 
 			    		'btn-info': !userdirvm.isResRead[res.id] }"
@@ -112,7 +125,7 @@
 				</p>
 			</div>
 		</div>
-		<div ng-repeat="res in userdirvm.user.results | filter:{ repositoryId:userdirvm.repositoryId }" 
+		<div ng-repeat="res in userdirvm.user.results" 
 			ng-hide="userdirvm.isCollapsed[res.id]">
 			<div class="well well-sm overflow-500">
 				<div class="pull-right">
@@ -131,8 +144,11 @@
     						</li>
   						</ul>
 					</div>
+					<button type="button" class="btn btn-primary btn-sm"
+							ng-if="userdirvm.isVOTApplyable"
+							ng-click="userdirvm.applyVOTable(res.content.message)">Apply</button>
 					<button type="button" class="btn btn-danger btn-sm" 
-						ng-click="userdirvm.deleteResult(res.id)">Delete</button>
+						ng-click="userdirvm.deleteResult(res.id)">Delete</button>	
 				</div>
 				<h4>Service Result: {{ res.method.replace('/methods', '') }}</h4>
 				<p class="word-wrap">

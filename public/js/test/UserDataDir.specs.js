@@ -27,6 +27,7 @@ describe('UserDataDir', function() {
 		// spying on broadcast events
         spyOn(scope, '$broadcast').andCallThrough();
         spyOn(scope, '$on').andCallThrough();
+        spyOn(window, 'confirm').andReturn(true);
 		
         jasmine.getJSONFixtures().fixturesPath=path+'js/test/mock';
         // just creating a mock user
@@ -105,6 +106,7 @@ describe('UserDataDir', function() {
 
 	        // spying on growl success
 	        spyOn(growlService, 'success');
+	        spyOn(growlService, 'info');
 	        spyOn(rService, 'notify');
 		});
 		
@@ -224,6 +226,7 @@ describe('UserDataDir', function() {
 			scope.userdirvm.user.activeSelection = [selection];
 			scope.userdirvm.saveSelection(selection.id);
 			expect(scope.userdirvm.user.selections[0]).toEqual(selection);
+			expect(scope.userdirvm.user.selections.length).toBe(3);
 			expect(scope.userdirvm.tabsActive).toEqual([true, false, false]);
 			expect(scope.userdirvm.isCollapsed).toEqual({ 
 				'defde9a2': true, 
@@ -239,7 +242,94 @@ describe('UserDataDir', function() {
 			
 		});
 		
-		// @TODO continue with toggleSelectionDetails()
+		it('should toogle selection details on user action', function(){
+			// faking set-applyable-elements
+			scope.userdirvm.applyableElements = ['NumericalOutput'];
+			var selId = '1c75698b';
+			// was uncollapsed on init
+			scope.userdirvm.toggleSelectionDetails(selId);
+			expect(scope.userdirvm.isCollapsed[selId]).toBeTruthy();
+			expect(scope.userdirvm.user.activeSelection).toEqual([]);
+			expect(scope.userdirvm.isSelApplyable).toBeFalsy();
+			// was collapsed
+			scope.userdirvm.toggleSelectionDetails(selId);
+			expect(scope.userdirvm.isCollapsed[selId]).toBeFalsy();
+			for(var id in scope.userdirvm.isCollapsed){
+				if(id != selId) expect(scope.userdirvm.isCollapsed[id]).toBeTruthy();
+			}
+			expect(scope.userdirvm.isSelApplyable).toBeTruthy();
+			expect(scope.userdirvm.user.activeSelection).toEqual([user.selections[1]]);
+		});
+		
+		it('should toogle result/votable details on user action', function(){
+			var votId = '54402e0a30041b4daf106ee1';
+			// was collapsed on init
+			scope.userdirvm.toggleDetails(votId);
+			expect(scope.userdirvm.user.activeSelection).toEqual([]);
+			expect(scope.userdirvm.isCollapsed[votId]).toBeFalsy();
+			for (var id in scope.userdirvm.isCollapsed){
+				if(id != votId) expect(scope.userdirvm.isCollapsed[id]).toBeTruthy();
+			}
+			// @TODO check if the isRead routine works
+		});
+		
+		it('should delete selection on user action', function(){
+			var selId = 'defde9a2';
+			scope.userdirvm.deleteSelection(selId);
+			expect(scope.userdirvm.user.selections.length).toBe(1);
+			expect(scope.userdirvm.user.activeSelection).toEqual([]);
+			expect(scope.userdirvm.isCollapsed[selId]).toBeUndefined();
+			expect(scope.userdirvm.growl.info).toHaveBeenCalled();
+		});
+		
+		it('should delete votable on user action', function(){
+			var vot = user.voTables[0];
+			scope.userdirvm.deleteVOTable(vot);
+			expect(scope.userdirvm.user.voTables).toEqual([]);
+			expect(scope.userdirvm.isCollapsed[vot.id]).toBeUndefined();
+			expect(scope.userdirvm.growl.info).toHaveBeenCalled();
+		});
+		
+		it('should delete result on user action', function(){
+			var resId = '240bf200';
+			scope.userdirvm.deleteResult(resId);
+			expect(scope.userdirvm.user.results.length).toBe(1);
+			expect(scope.userdirvm.isCollapsed[resId]).toBeUndefined();
+			expect(scope.userdirvm.growl.info).toHaveBeenCalled();
+		});
+		
+		it('should apply selection on user action', function(){
+			var resourceId = user.selections[1].elem.resourceId;
+			scope.userdirvm.applySelection(resourceId);
+			expect(scope.$broadcast).toHaveBeenCalledWith(
+					'apply-selection', resourceId, 
+					['Density', 'Ux,Uy,Uz', 'Utot', 'Pressure', 'Temperature'])
+		});
+		
+		it('should apply votable on user action', function(){
+			var url = user.results[0].content.message;
+			scope.userdirvm.applyVOTable(url);
+			expect(scope.$broadcast).toHaveBeenCalledWith('apply-votable', url);
+		});
+		
+		// @TODO maybe check more here
+		it('should clear different data on user action', function(){
+			scope.userdirvm.clearData('selections');
+			// only one must be deleted (see current repository == FMI)
+			expect(scope.userdirvm.user.selections.length).toEqual(1);
+			expect(scope.userdirvm.user.activeSelection).toEqual([]);
+			scope.userdirvm.clearData('votables');
+			expect(scope.userdirvm.user.voTables).toEqual([]);
+			scope.userdirvm.clearData('results');
+			expect(scope.userdirvm.user.results.length).toEqual(1);
+			expect(scope.userdirvm.growl.info).toHaveBeenCalled();
+		});
+		
+		/*it('should send data to samp on user action', function(){
+			
+			
+		});*/
+		
 		
 	});
 	
