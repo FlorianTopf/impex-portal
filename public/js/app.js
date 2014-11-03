@@ -2337,16 +2337,17 @@ var portal;
                     return r;
                 });
 
-                // hack forfiltering models of sinp
-                _this.simulationModels = _this.simulationModels.filter(function (elem) {
-                    var region = elem.resourceHeader.resourceName.split(' ').reverse()[0];
-                    if (_this.registryService.selectedFilter[region])
-                        return true;
+                if (_this.repositoryId.indexOf('SINP') != -1) {
+                    _this.simulationModels = _this.simulationModels.filter(function (elem) {
+                        var region = elem.resourceHeader.resourceName.split(' ').reverse()[0];
+                        if (_this.registryService.selectedFilter[region])
+                            return true;
 else if (!_this.registryService.isFilterSet)
-                        return true;
+                            return true;
 else
-                        return false;
-                });
+                            return false;
+                    });
+                }
             });
 
             this.myScope.$on('update-simulation-runs', function (e, id) {

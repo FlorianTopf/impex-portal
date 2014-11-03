@@ -132,16 +132,18 @@ module portal {
             
             this.myScope.$on('update-simulation-models', (e, id: string) => {
                 this.simulationModels = this.registryService.cachedElements[id].map((r) => <SimulationModel>r)
-                // hack forfiltering models of sinp
-                this.simulationModels = this.simulationModels.filter((elem) => {
-                    var region = elem.resourceHeader.resourceName.split(' ').reverse()[0]
-                    if(this.registryService.selectedFilter[region])
-                        return true
-                    else if(!this.registryService.isFilterSet)
-                        return true
-                    else 
-                        return false
-                })
+                // hack for filtering models of sinp
+                if(this.repositoryId.indexOf('SINP') != -1) {
+                    this.simulationModels = this.simulationModels.filter((elem) => {
+                        var region = elem.resourceHeader.resourceName.split(' ').reverse()[0]
+                        if(this.registryService.selectedFilter[region])
+                            return true
+                        else if(!this.registryService.isFilterSet)
+                            return true
+                        else 
+                            return false
+                    })
+                }
             })
             
             this.myScope.$on('update-simulation-runs', (e, id: string) => {
