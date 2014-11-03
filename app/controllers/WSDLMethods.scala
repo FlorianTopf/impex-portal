@@ -19,7 +19,7 @@ import java.io.FileNotFoundException
 
 @Api(
     value = "/methods", 
-    description = "operations for using the IMPEx data acess services")
+    description = "operations for using the IMPEx data access services")
 @Path("/methods")
 @Produces(Array(APPLICATION_JSON, APPLICATION_XML))
 object WSDLMethods extends BaseController {
