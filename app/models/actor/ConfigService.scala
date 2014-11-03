@@ -43,15 +43,17 @@ class ConfigService extends Actor {
     databases.map(_.as[Database])
   }
   
-  // used for registry service
+  // used for registry service (only portal dbs allowed)
   private def getPortalDatabases: Seq[Database] = {
     getDatabases.filter(_.portal == true)
   }
-
+  
+  // used for registry service (only portal dbs allowed)
   private def getDatabaseType(dType: Databasetype): Seq[Database] = {
-    getDatabases.filter(_.typeValue == dType)
+    getPortalDatabases.filter(_.typeValue == dType)
   }
   
+  // used in data provider actor
   private def getDatabaseById(resID: URI): Database = {
     getDatabases.find(_.id == resID).get
   }

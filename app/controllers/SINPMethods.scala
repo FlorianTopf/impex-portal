@@ -17,7 +17,7 @@ import java.text.ParseException
 
 @Api(
     value = "/methods", 
-    description = "operations for using the IMPEx data acess services")
+    description = "operations for using the IMPEx data access services")
 @Path("/methods/SINP")
 @Produces(Array(APPLICATION_XML, APPLICATION_JSON))
 object SINPMethods extends MethodsController {
