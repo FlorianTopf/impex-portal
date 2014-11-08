@@ -1414,13 +1414,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_calculateDataPointValueJupiter] =
       phrase(opt(scalaxb.ElemName(None, "OutputFileType")) ~ 
-      opt(scalaxb.ElemName(None, "BD")) ~ 
       opt(scalaxb.ElemName(None, "BDC")) ~ 
       opt(scalaxb.ElemName(None, "BT")) ~ 
       opt(scalaxb.ElemName(None, "RD2")) ~ 
       opt(scalaxb.ElemName(None, "RD1")) ~ 
       opt(scalaxb.ElemName(None, "R2")) ~ 
-      opt(scalaxb.ElemName(None, "Rss")) ^^
+      opt(scalaxb.ElemName(None, "Rss")) ~
+      opt(scalaxb.ElemName(None, "IMF_B")) ^^
       { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 =>
       models.binding.ExtraParams_calculateDataPointValueJupiter(p1.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) },
         p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
@@ -1429,17 +1429,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p5.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
         p6.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
         p7.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
-        p8.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) }) })
+        p8.headOption map { scalaxb.fromXML[models.binding.ListOfDouble](_, scalaxb.ElemName(node) :: stack) }) })
     
     def writesChildNodes(__obj: models.binding.ExtraParams_calculateDataPointValueJupiter, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
       Seq.concat(__obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil},
-        __obj.BD map { scalaxb.toXML[Double](_, None, Some("BD"), __scope, false) } getOrElse {Nil},
         __obj.BDC map { scalaxb.toXML[Double](_, None, Some("BDC"), __scope, false) } getOrElse {Nil},
         __obj.BT map { scalaxb.toXML[Double](_, None, Some("BT"), __scope, false) } getOrElse {Nil},
         __obj.RD2 map { scalaxb.toXML[Double](_, None, Some("RD2"), __scope, false) } getOrElse {Nil},
         __obj.RD1 map { scalaxb.toXML[Double](_, None, Some("RD1"), __scope, false) } getOrElse {Nil},
         __obj.R2 map { scalaxb.toXML[Double](_, None, Some("R2"), __scope, false) } getOrElse {Nil},
-        __obj.Rss map { scalaxb.toXML[Double](_, None, Some("Rss"), __scope, false) } getOrElse {Nil})
+        __obj.Rss map { scalaxb.toXML[Double](_, None, Some("Rss"), __scope, false) } getOrElse {Nil},
+        __obj.IMF_B map { scalaxb.toXML[models.binding.ListOfDouble](_, None, Some("IMF_B"), __scope, false) } getOrElse {Nil})
 
   }
 

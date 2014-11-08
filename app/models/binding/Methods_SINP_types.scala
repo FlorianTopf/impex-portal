@@ -144,13 +144,13 @@ case class ExtraParams_calculateDataPointValueSaturn(OutputFileType: Option[mode
 /** 
 */
 case class ExtraParams_calculateDataPointValueJupiter(OutputFileType: Option[models.binding.OutputFormatType] = None,
-  BD: Option[Double] = None,
   BDC: Option[Double] = None,
   BT: Option[Double] = None,
   RD2: Option[Double] = None,
   RD1: Option[Double] = None,
   R2: Option[Double] = None,
-  Rss: Option[Double] = None)
+  Rss: Option[Double] = None,
+  IMF_B: Option[models.binding.ListOfDouble] = None)
 
 
 /** Only OutputFileType for now.

@@ -61,6 +61,7 @@ GET		/methods/SINP/calculateCubeSaturn					controllers.SINPMethods.calculateCube
 GET		/methods/SINP/calculateDataPointValueSaturn			controllers.SINPMethods.calculateDataPointValueSaturn
 GET		/methods/SINP/getSurface							controllers.SINPMethods.getSurface
 GET		/methods/SINP/calculateCubeJupiter					controllers.SINPMethods.calculateCubeJupiter
+GET		/methods/SINP/calculateDataPointValueJupiter		controllers.SINPMethods.calculateDataPointValueJupiter
 # latmos methods
 GET		/methods/LATMOS/isAlive								controllers.LATMOSMethods.isAlive
 GET		/methods/LATMOS/getDataPointValue					controllers.LATMOSMethods.getDataPointValue

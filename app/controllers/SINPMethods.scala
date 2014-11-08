@@ -14,7 +14,7 @@ import scalaxb._
 import java.net.URI
 import java.text.ParseException
 
-
+// @TODO add default values (and later ranges) which are given in the ICD
 @Api(
     value = "/methods", 
     description = "operations for using the IMPEx data access services")
@@ -1364,5 +1364,148 @@ object SINPMethods extends MethodsController {
     }
   }  
   
+  
+  
+  
+  @GET
+  @ApiOperation(
+      value = "calculateDataPointValueJupiter at SINP", 
+      nickname = "calculateDataPointValueJupiter",
+      notes = "returns interpolated magnetic field values for Saturn of a given VOTable", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "request failed")))
+  @ApiImplicitParams(Array(
+    new ApiImplicitParam(
+        name = "id", 
+        //value = "resource id", 
+        value = "SimulationModel, NumericalOutput",
+        defaultValue = "spase://IMPEX/SimulationModel/SINP/Jupiter/OnFly",
+        required = true, 
+        dataType = "string", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "votable_url",
+        value = "votable url",
+        defaultValue = "http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_120points.vot",
+        required = true,
+        dataType = "string",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "imf_b",
+        value = "IMF B [nT]",
+        defaultValue = "0,0,0",
+        required = false,
+        dataType = "list(double)",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "bdc", 
+        value = "BDC [nT]", 
+        defaultValue ="2.5",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "bt", 
+        value = "BT [nT]", 
+        defaultValue ="-2.5",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "rd2", 
+        value = "RD2 [Rs]", 
+        defaultValue ="80.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "rd1", 
+        value = "RD1 [Rs]", 
+        defaultValue ="19.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "r2", 
+        value = "R2 [Rs]", 
+        defaultValue ="100.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "rss", 
+        value = "RSS [Rs]", 
+        defaultValue ="80.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "output_filetype",
+        value = "output filetype",
+        defaultValue = "VOTable",
+        allowableValues = "VOTable,netCDF",
+        required = false,
+        dataType = "string",
+        paramType = "query")))
+  @Path("/calculateDataPointValueJupiter")
+  def calculateDataPointValueJupiter = PortalAction { implicit request =>
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val url = request.req.get("votable_url").get
+    // extra params
+    val imf = request.req.get("imf_b")
+    val bdc = request.req.get("bdc")
+    val bt = request.req.get("bt")
+    val rd2 = request.req.get("rd2")
+    val rd1 = request.req.get("rd1")
+    val r2 = request.req.get("r2")
+    val rss = request.req.get("rss")
+    val filetype = request.req.get("output_filetype").getOrElse("")
+
+    val imf_b = validateOptDoubleSeq(imf) match {
+      case Some(i) if(i.length == 3) => 
+        	Some(ListOfDouble(Some(i(0)), Some(i(1)), Some(i(2))))
+      case _ => None
+    } 
+	/*ListOfDouble(
+	    Some(0.0), // x
+        Some(0.0), // y
+        Some(0.0) // z
+    )*/
+	 
+	val extraParams = ExtraParams_calculateDataPointValueJupiter(
+        filetype, // output filetype
+	  	bdc,//Some(2.5), // bdc
+	  	bt,//Some(-2.5), // bt
+	  	rd2,//Some(80.0), // rd2
+	  	rd1,//Some(19.0), // rd1
+	  	r2,//Some(100.0), // r2
+	  	rss,//Some(80.0), // rss
+	  	imf_b // imf b
+	)
+	  	   
+	val result = sinp.service.calculateDataPointValueJupiter(
+	    id, // resourceId
+	  	Some(extraParams), // extra params
+	  	new URI(url) // votable_url
+	)
+	  	
+    returnDefaultResult(result, request.req)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing", request.req)))
+      case e @ (_:NumberFormatException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "illegal number provided", request.req)))
+    }
+     
+  }
+  
+  
+   
+   
   
 }

@@ -226,12 +226,12 @@
                     </xs:element>
                     <xs:element type="xs:double" name="RD2" maxOccurs="1" minOccurs="0">
                         <xs:annotation>
-                            <xs:documentation>Distance to the outer edge of MD</xs:documentation>
+                            <xs:documentation>Distance to the inner edge of MD</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element type="xs:double" name="RD1" maxOccurs="1" minOccurs="0">
                         <xs:annotation>
-                            <xs:documentation>Distance to the inner edge of MD</xs:documentation>
+                            <xs:documentation>Distance to the external edge of MD</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0">
@@ -256,11 +256,6 @@
                 </xs:annotation>
                 <xs:sequence>
                     <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
-                    <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="0">
-                        <xs:annotation>
-                            <xs:documentation>Dipole field strength on the equator of the Saturn</xs:documentation>
-                        </xs:annotation>
-                    </xs:element>
                     <xs:element type="xs:double" name="BDC" maxOccurs="1" minOccurs="0">
                         <xs:annotation>
                             <xs:documentation>Magnetic field on the outer edge of MD</xs:documentation>
@@ -273,12 +268,12 @@
                     </xs:element>
                     <xs:element type="xs:double" name="RD2" maxOccurs="1" minOccurs="0">
                         <xs:annotation>
-                            <xs:documentation>Distance to the outer edge of MD</xs:documentation>
+                            <xs:documentation>Distance to the inner edge of MD</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element type="xs:double" name="RD1" maxOccurs="1" minOccurs="0">
                         <xs:annotation>
-                            <xs:documentation>Distance to the inner edge of MD</xs:documentation>
+                            <xs:documentation>Distance to the external edge of MD</xs:documentation>
                         </xs:annotation>
                     </xs:element>
                     <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0">
@@ -291,6 +286,7 @@
                             <xs:documentation>Distance to the magnetopause subsolar point</xs:documentation>
                         </xs:annotation>
                     </xs:element>
+					<xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
                 </xs:sequence>
             </xs:complexType>
       
