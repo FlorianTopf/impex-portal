@@ -11,7 +11,7 @@
 
 
 		
-		<xs:import schemaLocation="http://impex-fp7.fmi.fi/ws/impex-1_0_1.xsd" namespace="http://impex-fp7.oeaw.ac.at"/>
+		<xs:import schemaLocation="http://impex-fp7.fmi.fi/ws/impex-1_0_2.xsd" namespace="http://impex-fp7.oeaw.ac.at"/>
 		<xs:import schemaLocation="http://impex-fp7.fmi.fi/ws/VOTable-1.2.xsd" namespace="http://www.ivoa.net/xml/VOTable/v1.2"/>
 
 
@@ -54,14 +54,14 @@
 			</xs:annotation>
 			<xs:list itemType="idm:ParameterKey"/>
 		</xs:simpleType>
-		
+
 		<xs:simpleType name="Population">
 			<xs:annotation>
 				<xs:documentation>List of population species from the selected NumericalOutput separated by a comma. Identified by the PopulationId. By default: all populations within the NumericalOutput are returned</xs:documentation>
 			</xs:annotation>
 			<xs:list itemType="idm:PopulationID"/>
 		</xs:simpleType>
-		
+
 		<xs:simpleType name="EnergyChannel">
 			<xs:annotation>
 				<xs:documentation>A list of Energy channel number (Ch0, Ch1, Ch2,...) separated by commas. The Energy of each energy channel is defined in the tree.xml. By default all energy channels are selected</xs:documentation>
@@ -361,7 +361,7 @@
 				<xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="function"/>
 			</xs:sequence>
 		</xs:complexType>
-		
+
 
 		
 		<xs:element type="VOTableURL" name="getVOTableURL"/>
@@ -389,7 +389,7 @@
 			<xs:sequence>
 				
 				<xs:element maxOccurs="1" minOccurs="1" type="listOfValues" name="data"/>
-				
+
 				
 				<xs:element maxOccurs="1" minOccurs="1" type="xs:token" name="name"/>
 				<xs:element maxOccurs="1" minOccurs="0" type="xs:ID" name="ID"/>
@@ -402,17 +402,17 @@
 				<xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="arraysize"/>
 			</xs:sequence>
 		</xs:complexType>
-		
+
 		<xs:simpleType name="listOfValues">
 			<xs:list itemType="xs:string"/>
 		</xs:simpleType>
+
+
 		
-		
-		
-		<xs:element name="emptyElement"> 
+		<xs:element name="emptyElement">
 			<xs:complexType>
 				<xs:sequence/>
-			</xs:complexType> 
+			</xs:complexType>
 		</xs:element>
 		<xs:element type="xs:anyURI" name="anyURI"/>
 		<xs:element type="xs:boolean" name="boolean"/>
@@ -606,7 +606,7 @@
 
 
 <wsdl:service name="Methods_FMI">
-	<wsdl:port binding="Methods_FMISoapBinding" name="Methods_FMI">    
+	<wsdl:port binding="Methods_FMISoapBinding" name="Methods_FMI">
 		<soap:address location="http://impex-fp7.fmi.fi/ws/Methods_FMI.php"/>
 	</wsdl:port>
 </wsdl:service>
