@@ -232,6 +232,11 @@ module portal {
             }
         }
         
+        public printModalTitle(): string {
+            return this.database.name+' '+
+                this.database.type.charAt(0).toUpperCase()+
+                this.database.type.slice(1)+'s'
+        }
         
         // method for modal
         public saveRegistry(save: boolean) {

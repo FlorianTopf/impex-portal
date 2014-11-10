@@ -1860,6 +1860,10 @@ else if (this.database.type == 'observation')
             }
         };
 
+        RegistryCtrl.prototype.printModalTitle = function () {
+            return this.database.name + ' ' + this.database.type.charAt(0).toUpperCase() + this.database.type.slice(1) + 's';
+        };
+
         // method for modal
         RegistryCtrl.prototype.saveRegistry = function (save) {
             if (save)
