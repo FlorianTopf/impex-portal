@@ -188,7 +188,7 @@ object EnumCoordinateSystemType {
     case "WGS84" => WGS84Type
     case "MSO" => MSOType
     case "VSO" => VSOType
-
+    case "KSM" => KSMType
   }
 }
 
@@ -231,6 +231,7 @@ case object SpacecraftOrbitPlaneType extends EnumCoordinateSystemType { override
 case object WGS84Type extends EnumCoordinateSystemType { override def toString = "WGS84" }
 case object MSOType extends EnumCoordinateSystemType { override def toString = "MSO" }
 case object VSOType extends EnumCoordinateSystemType { override def toString = "VSO" }
+case object KSMType extends EnumCoordinateSystemType { override def toString = "KSM" }
 
 
 case class ParameterList(UserDefinedParameters: Option[java.net.URI] = None,
