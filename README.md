@@ -2,6 +2,7 @@ impex-portal
 ============
 
 IMPEx portal for access to scientific Web services
+http://impex-portal.oeaw.ac.at
 
 Current Backend libraries used:
 - Scala: 2.10.4
