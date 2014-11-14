@@ -55,8 +55,8 @@ trait EnumSpacecraft
 
 object EnumSpacecraft {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): EnumSpacecraft = value match {
-    case "Cassini_Public" => Cassini_PublicType
-    case "Galileo" => GalileoType
+    case "CASSINI" => Cassini_PublicType
+    case "GALILEO" => GalileoType
     case "Voyager_1" => Voyager_1Type
     case "Voyager_2" => Voyager_2Type
     case "Pioneer_10" => Pioneer_10Type
@@ -69,8 +69,8 @@ object EnumSpacecraft {
     case "MAVEN" => MAVENType
     case "MESSENGER" => MESSENGERType
     case "ULYSSES" => ULYSSESType
-    case "Stereo-A" => Stereou45AType
-    case "Stereo-B" => Stereou45BType
+    case "STEREO-A" => Stereou45AType
+    case "STEREO-B" => Stereou45BType
     case "WIND" => WINDType
     case "THEMIS-A" => THEMISu45AType
     case "THEMIS-B" => THEMISu45BType
@@ -81,11 +81,11 @@ object EnumSpacecraft {
     case "CLUSTER2" => CLUSTER2Type
     case "CLUSTER3" => CLUSTER3Type
     case "CLUSTER4" => CLUSTER4Type
-    case "DoubleStar1" => DoubleStar1Type
+    case "DOUBLESTAR1" => DoubleStar1Type
     case "IMP-8" => IMPu458Type
     case "GEOTAIL" => GEOTAILType
     case "POLAR" => POLARType
-    case "INTERBALL-Tail" => INTERBALLu45TailType
+    case "INTERBALL-TAIL" => INTERBALLu45TailType
     case "ISEE-1" => ISEEu451Type
     case "ISEE-2" => ISEEu452Type
 
@@ -93,8 +93,8 @@ object EnumSpacecraft {
 }
 
 
-case object Cassini_PublicType extends EnumSpacecraft { override def toString = "Cassini_Public" }
-case object GalileoType extends EnumSpacecraft { override def toString = "Galileo" }
+case object Cassini_PublicType extends EnumSpacecraft { override def toString = "CASSINI" }
+case object GalileoType extends EnumSpacecraft { override def toString = "GALILEO" }
 case object Voyager_1Type extends EnumSpacecraft { override def toString = "Voyager_1" }
 case object Voyager_2Type extends EnumSpacecraft { override def toString = "Voyager_2" }
 case object Pioneer_10Type extends EnumSpacecraft { override def toString = "Pioneer_10" }
@@ -107,8 +107,8 @@ case object MGSType extends EnumSpacecraft { override def toString = "MGS" }
 case object MAVENType extends EnumSpacecraft { override def toString = "MAVEN" }
 case object MESSENGERType extends EnumSpacecraft { override def toString = "MESSENGER" }
 case object ULYSSESType extends EnumSpacecraft { override def toString = "ULYSSES" }
-case object Stereou45AType extends EnumSpacecraft { override def toString = "Stereo-A" }
-case object Stereou45BType extends EnumSpacecraft { override def toString = "Stereo-B" }
+case object Stereou45AType extends EnumSpacecraft { override def toString = "STEREO-A" }
+case object Stereou45BType extends EnumSpacecraft { override def toString = "STEREO-B" }
 case object WINDType extends EnumSpacecraft { override def toString = "WIND" }
 case object THEMISu45AType extends EnumSpacecraft { override def toString = "THEMIS-A" }
 case object THEMISu45BType extends EnumSpacecraft { override def toString = "THEMIS-B" }
@@ -119,11 +119,11 @@ case object CLUSTER1Type extends EnumSpacecraft { override def toString = "CLUST
 case object CLUSTER2Type extends EnumSpacecraft { override def toString = "CLUSTER2" }
 case object CLUSTER3Type extends EnumSpacecraft { override def toString = "CLUSTER3" }
 case object CLUSTER4Type extends EnumSpacecraft { override def toString = "CLUSTER4" }
-case object DoubleStar1Type extends EnumSpacecraft { override def toString = "DoubleStar1" }
+case object DoubleStar1Type extends EnumSpacecraft { override def toString = "DOUBLESTAR1" }
 case object IMPu458Type extends EnumSpacecraft { override def toString = "IMP-8" }
 case object GEOTAILType extends EnumSpacecraft { override def toString = "GEOTAIL" }
 case object POLARType extends EnumSpacecraft { override def toString = "POLAR" }
-case object INTERBALLu45TailType extends EnumSpacecraft { override def toString = "INTERBALL-Tail" }
+case object INTERBALLu45TailType extends EnumSpacecraft { override def toString = "INTERBALL-TAIL" }
 case object ISEEu451Type extends EnumSpacecraft { override def toString = "ISEE-1" }
 case object ISEEu452Type extends EnumSpacecraft { override def toString = "ISEE-2" }
 

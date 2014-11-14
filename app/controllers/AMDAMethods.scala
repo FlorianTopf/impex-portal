@@ -330,7 +330,7 @@ object AMDAMethods extends MethodsController {
         name = "spacecraft",
         value = "Spacecraft Name",
         defaultValue = "VEX",
-        allowableValues = "Cassini_Public,Galileo,Voyager_1,Voyager_2,Pioneer_10,Pioneer_11,PVO,ACE,VEX,MEX,MGS,MAVEN,MESSENGER,ULYSSES,Stereo-A,Stereo-B,WIND,THEMIS-A,THEMIS-B,THEMIS-C,THEMIS-D,THEMIS-E,CLUSTER1,CLUSTER2,CLUSTER3,CLUSTER4,Doublestar1,IMP-8,GEOTAIL,POLAR,INTERBALL-Tail,ISEE-1,ISEE-2",
+        allowableValues = "CASSINI,GALILEO,Voyager_1,Voyager_2,Pioneer_10,Pioneer_11,PVO,ACE,VEX,MEX,MGS,MAVEN,MESSENGER,ULYSSES,STEREO-A,STEREO-B,WIND,THEMIS-A,THEMIS-B,THEMIS-C,THEMIS-D,THEMIS-E,CLUSTER1,CLUSTER2,CLUSTER3,CLUSTER4,DOUBLESTAR1,IMP-8,GEOTAIL,POLAR,INTERBALL-TAIL,ISEE-1,ISEE-2",
         required = true,
         dataType = "string",
         paramType = "query"),

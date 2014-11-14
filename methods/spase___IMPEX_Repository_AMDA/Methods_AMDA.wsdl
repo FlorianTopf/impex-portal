@@ -122,8 +122,8 @@
 
             <xs:simpleType name="enumSpacecraft">
                 <xs:restriction base="xs:string">
-                    <xs:enumeration value="Cassini_Public"/>
-                    <xs:enumeration value="Galileo"/>
+                    <xs:enumeration value="CASSINI"/>
+                    <xs:enumeration value="GALILEO"/>
                     <xs:enumeration value="Voyager_1"/>
                     <xs:enumeration value="Voyager_2"/>
                     <xs:enumeration value="Pioneer_10"/>
@@ -136,8 +136,8 @@
                     <xs:enumeration value="MAVEN"/>
                     <xs:enumeration value="MESSENGER"/>
                     <xs:enumeration value="ULYSSES"/>
-                    <xs:enumeration value="Stereo-A"/>
-                    <xs:enumeration value="Stereo-B"/>
+                    <xs:enumeration value="STEREO-A"/>
+                    <xs:enumeration value="STEREO-B"/>
                     <xs:enumeration value="WIND"/>
                     <xs:enumeration value="THEMIS-A"/>
                     <xs:enumeration value="THEMIS-B"/>
@@ -148,11 +148,11 @@
                     <xs:enumeration value="CLUSTER2"/>
                     <xs:enumeration value="CLUSTER3"/>
                     <xs:enumeration value="CLUSTER4"/>
-                    <xs:enumeration value="DoubleStar1"/>
+                    <xs:enumeration value="DOUBLESTAR1"/>
                     <xs:enumeration value="IMP-8"/>
                     <xs:enumeration value="GEOTAIL"/>
                     <xs:enumeration value="POLAR"/>
-                    <xs:enumeration value="INTERBALL-Tail"/>
+                    <xs:enumeration value="INTERBALL-TAIL"/>
                     <xs:enumeration value="ISEE-1"/>
                     <xs:enumeration value="ISEE-2"/>
                 </xs:restriction>
