@@ -5252,8 +5252,8 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       opt(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Caveats")) ~ 
       rep(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "SimulatedRegion")) ~ 
       rep(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Qualifier")) ~ 
-      (scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "ParameterQuantity")) ~ 
       opt(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "InputTableURL")) ~ 
+      (scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "ParameterQuantity")) ~ 
       rep(scalaxb.ElemName(Some("http://impex-fp7.oeaw.ac.at"), "Property")) ^^
       { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 =>
       models.binding.InputParameter(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
@@ -5261,8 +5261,8 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p3.headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p4.toSeq map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         p5.toSeq map { scalaxb.fromXML[models.binding.EnumQualifier](_, scalaxb.ElemName(node) :: stack) },
-        scalaxb.fromXML[String](p6, scalaxb.ElemName(node) :: stack),
-        p7.headOption map { scalaxb.fromXML[java.net.URI](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[java.net.URI](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String](p7, scalaxb.ElemName(node) :: stack),
         p8.toSeq map { scalaxb.fromXML[models.binding.Property](_, scalaxb.ElemName(node) :: stack) }) })
     
     def writesChildNodes(__obj: models.binding.InputParameter, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =

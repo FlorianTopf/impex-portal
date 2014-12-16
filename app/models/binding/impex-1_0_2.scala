@@ -2296,8 +2296,8 @@ case class InputParameter(Name: String,
   Caveats: Option[String] = None,
   SimulatedRegion: Seq[String] = Nil,
   Qualifier: Seq[models.binding.EnumQualifier] = Nil,
-  ParameterQuantity: String,
   InputTableURL: Option[java.net.URI] = None,
+  ParameterQuantity: String,
   Property: Seq[models.binding.Property] = Nil)
 
 
