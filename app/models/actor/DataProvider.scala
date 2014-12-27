@@ -5,6 +5,7 @@ import models.provider._
 import play.api.Play.current
 import play.api.libs.ws._
 import play.api.libs.json._
+import play.api.Logger
 import scala.xml._
 import scala.concurrent._
 import scala.concurrent.duration._
@@ -20,6 +21,7 @@ import scalaxb.{
   ParserFailure
 }
 import org.joda.time._
+import java.net.ConnectException
 
 
 // basic trait for data provider actors (sim / obs)
@@ -72,11 +74,8 @@ trait DataProvider {
     val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, getMetaData.tree)
     val methodsURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, getMetaData.methods)
       
-    println("fetching files from "+getMetaData.name+":")
-    println("{")
-    println("treeURL="+treeURLs)
-    println("methodsURL="+methodsURLs)
-    println("}")
+    Logger.debug("\n fetching files from "+getMetaData.name+": \n { \n treeURL="+
+    		treeURLs+" \n methodsURL="+methodsURLs+" \n }")
 
     trees = getFiles(treeURLs, "trees")
     methods = getFiles(methodsURLs, "methods")
@@ -92,7 +91,7 @@ trait DataProvider {
     val treeURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.tree)
     val methodsURLs: Seq[URI] = UrlProvider.getUrls(protocol, dns, database.methods)   
     
-    println("updating files from "+getMetaData.name)
+    Logger.debug("\n updating files from "+getMetaData.name)
     
     metadata = database
     trees = getFiles(treeURLs, "trees")
@@ -130,30 +129,30 @@ trait DataProvider {
         }
         
         // only the portal trees are validated
-      	if(metadata.portal && folder == "tree") {
-      		println("Spase Tree")
+      	if(getMetaData.portal && folder == "trees") {
+      		Logger.debug("spase tree found at "+getMetaData.name)
         	val spase = scalaxb.fromXML[Spase](result)
         }
       	
         scala.xml.XML.save(fileName, result, "UTF-8")
         result 
       } catch {
-        // happens if there is a request timeout
-        case e: TimeoutException => {
-          println("timeout: fallback on local file at "+getMetaData.name)
+        // happens if there is a request timeout / remotely closed / connection refused error
+        case e @ (_:TimeoutException | _:IOException | _:ConnectException) => {
+          Logger.error("\n timeout: fallback on local file at "+getMetaData.name+" \n error: "+e)
           isNotFound = true 
           scala.xml.XML.load(fileName)
         }
         // happens if the file is not available remotely (404)
         case e: SAXParseException => {
-          println("file not found: excluding file at "+getMetaData.name)
+          Logger.error("\n file not found: excluding file at "+getMetaData.name)
           isNotFound = true
           lastError = Some(DateTime.now())
           scala.xml.XML.load(fileName)
         }
         // happens if the file cannot be validated against data binding
         case e: ParserFailure => {
-          println("file invalid: excluding file at "+getMetaData.name)
+          Logger.error("\n file invalid: excluding file at "+getMetaData.name)
           isInvalid = true
           lastError = Some(DateTime.now())
           scala.xml.XML.load(fileName)

@@ -86,9 +86,7 @@ object Registry extends BaseController {
       	     // matches e.g. Earth => Earth, Earth.Magnetosphere
       	     if(data.AccessInformation.length > 0 && 
       	         data.ObservedRegion.filter(_.toString.contains(regionName)).length > 0)
-      	       // @FIXME just a hack for AMDA atm (DM inconsistency)
-      	       Some(data.AccessInformation.head.RepositoryID.
-      	           replace("spase://SMWG/Repository/CDPP/AMDA", "spase://IMPEX/Repository/AMDA"))
+      	       Some(data.AccessInformation.head.RepositoryID)
       	     else
       	       None
       	   }

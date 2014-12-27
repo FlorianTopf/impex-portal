@@ -5,6 +5,7 @@ import models.provider._
 import models.enums._
 import play.api.mvc._
 import play.api.libs.json._
+import play.api.Logger
 import com.wordnik.swagger.core._
 import com.wordnik.swagger.annotations._
 import com.wordnik.swagger.core.util.ScalaJsonUtil
@@ -13,6 +14,8 @@ import javax.ws.rs.core.MediaType._
 import scalaxb._
 import java.net.URI
 import java.text.ParseException
+import java.util.concurrent.ExecutionException
+
 
 // @TODO add default values (and later ranges) which are given in the ICD
 @Api(
@@ -24,8 +27,16 @@ object SINPMethods extends MethodsController {
   val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
   
   def isAlive() = PortalAction {
-    val future = sinp.service.isAlive() 
-    future.fold((fault) => Ok(JsBoolean(false)), (alive) => Ok(JsBoolean(alive)) )
+    try {
+	  val future = sinp.service.isAlive() 
+	  future.fold((fault) => Ok(JsBoolean(false)),(alive) => Ok(JsBoolean(alive)))
+    } catch {
+      // happens if there is any error calling the WS
+      case e: ExecutionException => {
+        Logger.error("\n timeout: isAlive at SINP \n error: "+e)
+        Ok(JsBoolean(false))
+      }
+    }
   }
   
   @GET

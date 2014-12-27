@@ -6,6 +6,7 @@ import models.enums._
 import models.binding.VOTableURL._
 import play.api.mvc._
 import play.api.libs.json._
+import play.api.Logger
 import com.wordnik.swagger.core._
 import com.wordnik.swagger.annotations._
 import com.wordnik.swagger.core.util.ScalaJsonUtil
@@ -15,6 +16,7 @@ import scalaxb._
 import soapenvelope11._
 import java.net.URI
 import java.text.ParseException
+import java.util.concurrent.ExecutionException
 
 
 @Api(
@@ -26,8 +28,16 @@ object FMIMethods extends MethodsController {
   val fmi = new Methods_FMISoapBindings with Soap11Clients with DispatchHttpClients {}
 
   def isAlive() = PortalAction {
-    val future = fmi.service.isAlive() 
-    future.fold((fault) => Ok(JsBoolean(false)), (alive) => Ok(JsBoolean(alive)))
+    try {
+	  val future = fmi.service.isAlive() 
+	  future.fold((fault) => Ok(JsBoolean(false)),(alive) => Ok(JsBoolean(alive)))
+    } catch {
+      // happens if there is any error calling the WS
+      case e: ExecutionException => {
+        Logger.error("\n timeout: isAlive at SINP \n error: "+e)
+        Ok(JsBoolean(false))
+      }
+    }
   }
   
   @GET
