@@ -170,6 +170,12 @@ module portal {
                         (p) => p.name == 'parameterId')[0]['enum'] = keys
                     this.request['parameterId'] = keys[0]
                 } else {
+                    keys = keys.map((e) => {
+                        if(e.trim().indexOf(' ') != -1)
+                            return e.split(' ').join(',')
+                        else 
+                            return e.trim()
+                    })
                     this.request['variable'] = keys.join(',')
                     this.request['id'] = resourceId
                 }
