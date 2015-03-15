@@ -71,6 +71,9 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingExtraParams_calculateDataPointValueJupiterFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateDataPointValueJupiter] = new DefaultBindingExtraParams_calculateDataPointValueJupiterFormat {}
   implicit lazy val BindingExtraParams_calculateDataPointValueSpacecraftFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateDataPointValueSpacecraft] = new DefaultBindingExtraParams_calculateDataPointValueSpacecraftFormat {}
   implicit lazy val BindingExtraParams_calculateFieldLineFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateFieldLine] = new DefaultBindingExtraParams_calculateFieldLineFormat {}
+  implicit lazy val BindingExtraParams_calculateFieldLineSaturnFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateFieldLineSaturn] = new DefaultBindingExtraParams_calculateFieldLineSaturnFormat {}
+  implicit lazy val BindingExtraParams_calculateFieldLineJupiterFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateFieldLineJupiter] = new DefaultBindingExtraParams_calculateFieldLineJupiterFormat {}
+  implicit lazy val BindingExtraParams_calculateFieldLineMercuryFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateFieldLineMercury] = new DefaultBindingExtraParams_calculateFieldLineMercuryFormat {}
   implicit lazy val BindingExtraParams_calculateCubeFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateCube] = new DefaultBindingExtraParams_calculateCubeFormat {}
   implicit lazy val BindingExtraParams_calculateCubeMercuryFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateCubeMercury] = new DefaultBindingExtraParams_calculateCubeMercuryFormat {}
   implicit lazy val BindingExtraParams_calculateCubeSaturnFormat: scalaxb.XMLFormat[models.binding.ExtraParams_calculateCubeSaturn] = new DefaultBindingExtraParams_calculateCubeSaturnFormat {}
@@ -86,6 +89,9 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   implicit lazy val BindingCalculateDataPointValueJupiterFormat: scalaxb.XMLFormat[models.binding.CalculateDataPointValueJupiter] = new DefaultBindingCalculateDataPointValueJupiterFormat {}
   implicit lazy val BindingCalculateDataPointValueSpacecraftFormat: scalaxb.XMLFormat[models.binding.CalculateDataPointValueSpacecraft] = new DefaultBindingCalculateDataPointValueSpacecraftFormat {}
   implicit lazy val BindingCalculateFieldLineFormat: scalaxb.XMLFormat[models.binding.CalculateFieldLine] = new DefaultBindingCalculateFieldLineFormat {}
+  implicit lazy val BindingCalculateFieldLineSaturnFormat: scalaxb.XMLFormat[models.binding.CalculateFieldLineSaturn] = new DefaultBindingCalculateFieldLineSaturnFormat {}
+  implicit lazy val BindingCalculateFieldLineJupiterFormat: scalaxb.XMLFormat[models.binding.CalculateFieldLineJupiter] = new DefaultBindingCalculateFieldLineJupiterFormat {}
+  implicit lazy val BindingCalculateFieldLineMercuryFormat: scalaxb.XMLFormat[models.binding.CalculateFieldLineMercury] = new DefaultBindingCalculateFieldLineMercuryFormat {}
   implicit lazy val BindingCalculateCubeFormat: scalaxb.XMLFormat[models.binding.CalculateCube] = new DefaultBindingCalculateCubeFormat {}
   implicit lazy val BindingCalculateCubeMercuryFormat: scalaxb.XMLFormat[models.binding.CalculateCubeMercury] = new DefaultBindingCalculateCubeMercuryFormat {}
   implicit lazy val BindingCalculateCubeSaturnFormat: scalaxb.XMLFormat[models.binding.CalculateCubeSaturn] = new DefaultBindingCalculateCubeSaturnFormat {}
@@ -1478,7 +1484,130 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         __obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil})
 
   }
+  
+  trait DefaultBindingExtraParams_calculateFieldLineSaturnFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_calculateFieldLineSaturn] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("extraParams_calculateFieldLineSaturn")
 
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_calculateFieldLineSaturn] =
+      phrase(opt(scalaxb.ElemName(None, "OutputFileType")) ~ 
+      opt(scalaxb.ElemName(None, "BDC")) ~ 
+      opt(scalaxb.ElemName(None, "BT")) ~ 
+      opt(scalaxb.ElemName(None, "RD2")) ~ 
+      opt(scalaxb.ElemName(None, "RD1")) ~ 
+      opt(scalaxb.ElemName(None, "R2")) ~ 
+      opt(scalaxb.ElemName(None, "Rss")) ~ 
+      opt(scalaxb.ElemName(None, "IMF_B")) ~
+      opt(scalaxb.ElemName(None, "LineLength")) ~ 
+      opt(scalaxb.ElemName(None, "StepSize")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 ~ p9 ~ p10 =>
+      models.binding.ExtraParams_calculateFieldLineSaturn(p1.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p7.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p8.headOption map { scalaxb.fromXML[models.binding.ListOfDouble](_, scalaxb.ElemName(node) :: stack) },
+        p9.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p10.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_calculateFieldLineSaturn, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil},
+        __obj.BDC map { scalaxb.toXML[Double](_, None, Some("BDC"), __scope, false) } getOrElse {Nil},
+        __obj.BT map { scalaxb.toXML[Double](_, None, Some("BT"), __scope, false) } getOrElse {Nil},
+        __obj.RD2 map { scalaxb.toXML[Double](_, None, Some("RD2"), __scope, false) } getOrElse {Nil},
+        __obj.RD1 map { scalaxb.toXML[Double](_, None, Some("RD1"), __scope, false) } getOrElse {Nil},
+        __obj.R2 map { scalaxb.toXML[Double](_, None, Some("R2"), __scope, false) } getOrElse {Nil},
+        __obj.Rss map { scalaxb.toXML[Double](_, None, Some("Rss"), __scope, false) } getOrElse {Nil},
+        __obj.IMF_B map { scalaxb.toXML[models.binding.ListOfDouble](_, None, Some("IMF_B"), __scope, false) } getOrElse {Nil},
+        __obj.LineLength map { scalaxb.toXML[Double](_, None, Some("LineLength"), __scope, false) } getOrElse {Nil},
+        __obj.StepSize map { scalaxb.toXML[Double](_, None, Some("StepSize"), __scope, false) } getOrElse {Nil})
+
+  }
+  
+  trait DefaultBindingExtraParams_calculateFieldLineJupiterFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_calculateFieldLineJupiter] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("extraParams_calculateFieldLineJupiter")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_calculateFieldLineJupiter] =
+      phrase(opt(scalaxb.ElemName(None, "OutputFileType")) ~ 
+      opt(scalaxb.ElemName(None, "BDC")) ~ 
+      opt(scalaxb.ElemName(None, "BT")) ~ 
+      opt(scalaxb.ElemName(None, "RD2")) ~ 
+      opt(scalaxb.ElemName(None, "RD1")) ~ 
+      opt(scalaxb.ElemName(None, "R2")) ~ 
+      opt(scalaxb.ElemName(None, "Rss")) ~
+      opt(scalaxb.ElemName(None, "IMF_B")) ~
+      opt(scalaxb.ElemName(None, "LineLength")) ~ 
+      opt(scalaxb.ElemName(None, "StepSize")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 ~ p9 ~ p10 =>
+      models.binding.ExtraParams_calculateFieldLineJupiter(p1.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p7.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p8.headOption map { scalaxb.fromXML[models.binding.ListOfDouble](_, scalaxb.ElemName(node) :: stack) },
+        p9.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p10.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_calculateFieldLineJupiter, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil},
+        __obj.BDC map { scalaxb.toXML[Double](_, None, Some("BDC"), __scope, false) } getOrElse {Nil},
+        __obj.BT map { scalaxb.toXML[Double](_, None, Some("BT"), __scope, false) } getOrElse {Nil},
+        __obj.RD2 map { scalaxb.toXML[Double](_, None, Some("RD2"), __scope, false) } getOrElse {Nil},
+        __obj.RD1 map { scalaxb.toXML[Double](_, None, Some("RD1"), __scope, false) } getOrElse {Nil},
+        __obj.R2 map { scalaxb.toXML[Double](_, None, Some("R2"), __scope, false) } getOrElse {Nil},
+        __obj.Rss map { scalaxb.toXML[Double](_, None, Some("Rss"), __scope, false) } getOrElse {Nil},
+        __obj.IMF_B map { scalaxb.toXML[models.binding.ListOfDouble](_, None, Some("IMF_B"), __scope, false) } getOrElse {Nil},
+        __obj.LineLength map { scalaxb.toXML[Double](_, None, Some("LineLength"), __scope, false) } getOrElse {Nil},
+        __obj.StepSize map { scalaxb.toXML[Double](_, None, Some("StepSize"), __scope, false) } getOrElse {Nil})
+
+  }
+  
+  trait DefaultBindingExtraParams_calculateFieldLineMercuryFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_calculateFieldLineMercury] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("extraParams_calculateFieldLineMercury")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.ExtraParams_calculateFieldLineMercury] =
+      phrase(opt(scalaxb.ElemName(None, "OutputFileType")) ~ 
+      opt(scalaxb.ElemName(None, "BD")) ~ 
+      opt(scalaxb.ElemName(None, "Flux")) ~ 
+      opt(scalaxb.ElemName(None, "R2")) ~ 
+      opt(scalaxb.ElemName(None, "Rss")) ~ 
+      opt(scalaxb.ElemName(None, "DZ")) ~ 
+      opt(scalaxb.ElemName(None, "IMF_B")) ~ 
+      opt(scalaxb.ElemName(None, "LineLength")) ~ 
+      opt(scalaxb.ElemName(None, "StepSize")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 ~ p5 ~ p6 ~ p7 ~ p8 ~ p9 =>
+      models.binding.ExtraParams_calculateFieldLineMercury(p1.headOption map { scalaxb.fromXML[models.binding.OutputFormatType](_, scalaxb.ElemName(node) :: stack) },
+        p2.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p3.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p4.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p5.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p6.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p7.headOption map { scalaxb.fromXML[models.binding.ListOfDouble](_, scalaxb.ElemName(node) :: stack) },
+        p8.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) },
+        p9.headOption map { scalaxb.fromXML[Double](_, scalaxb.ElemName(node) :: stack) }) })
+    
+    def writesChildNodes(__obj: models.binding.ExtraParams_calculateFieldLineMercury, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(__obj.OutputFileType map { scalaxb.toXML[models.binding.OutputFormatType](_, None, Some("OutputFileType"), __scope, false) } getOrElse {Nil},
+        __obj.BD map { scalaxb.toXML[Double](_, None, Some("BD"), __scope, false) } getOrElse {Nil},
+        __obj.Flux map { scalaxb.toXML[Double](_, None, Some("Flux"), __scope, false) } getOrElse {Nil},
+        __obj.R2 map { scalaxb.toXML[Double](_, None, Some("R2"), __scope, false) } getOrElse {Nil},
+        __obj.Rss map { scalaxb.toXML[Double](_, None, Some("Rss"), __scope, false) } getOrElse {Nil},
+        __obj.DZ map { scalaxb.toXML[Double](_, None, Some("DZ"), __scope, false) } getOrElse {Nil},
+        __obj.IMF_B map { scalaxb.toXML[models.binding.ListOfDouble](_, None, Some("IMF_B"), __scope, false) } getOrElse {Nil},
+        __obj.LineLength map { scalaxb.toXML[Double](_, None, Some("LineLength"), __scope, false) } getOrElse {Nil},
+        __obj.StepSize map { scalaxb.toXML[Double](_, None, Some("StepSize"), __scope, false) } getOrElse {Nil})
+
+  }
+  
   trait DefaultBindingExtraParams_calculateCubeFormat extends scalaxb.ElemNameParser[models.binding.ExtraParams_calculateCube] {
     val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
     
@@ -1832,6 +1961,78 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://smdc.sinp.msu.ru"), Some("url_XYZ"), __scope, false))
 
   }
+  
+  trait DefaultBindingCalculateFieldLineSaturnFormat extends scalaxb.ElemNameParser[models.binding.CalculateFieldLineSaturn] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("calculateFieldLineSaturn")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CalculateFieldLineSaturn] =
+      phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "StartTime")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "url_XYZ")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 =>
+      models.binding.CalculateFieldLineSaturn(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p2, scalaxb.ElemName(node) :: stack),
+        p3.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateFieldLineSaturn](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI](p4, scalaxb.ElemName(node) :: stack)) })
+    
+    def writesChildNodes(__obj: models.binding.CalculateFieldLineSaturn, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StartTime, Some("http://smdc.sinp.msu.ru"), Some("StartTime"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateFieldLineSaturn](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://smdc.sinp.msu.ru"), Some("url_XYZ"), __scope, false))
+
+  }
+    
+  trait DefaultBindingCalculateFieldLineJupiterFormat extends scalaxb.ElemNameParser[models.binding.CalculateFieldLineJupiter] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("calculateFieldLineJupiter")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CalculateFieldLineJupiter] =
+      phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "StartTime")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "url_XYZ")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 =>
+      models.binding.CalculateFieldLineJupiter(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p2, scalaxb.ElemName(node) :: stack),
+        p3.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateFieldLineJupiter](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI](p4, scalaxb.ElemName(node) :: stack)) })
+    
+    def writesChildNodes(__obj: models.binding.CalculateFieldLineJupiter, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StartTime, Some("http://smdc.sinp.msu.ru"), Some("StartTime"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateFieldLineJupiter](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://smdc.sinp.msu.ru"), Some("url_XYZ"), __scope, false))
+
+  }
+      
+  trait DefaultBindingCalculateFieldLineMercuryFormat extends scalaxb.ElemNameParser[models.binding.CalculateFieldLineMercury] {
+    val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
+    
+    override def typeName: Option[String] = Some("calculateFieldLineMercury")
+
+    def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[models.binding.CalculateFieldLineMercury] =
+      phrase((scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "ResourceID")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "StartTime")) ~ 
+      opt(scalaxb.ElemName(None, "extraParams")) ~ 
+      (scalaxb.ElemName(Some("http://smdc.sinp.msu.ru"), "url_XYZ")) ^^
+      { case p1 ~ p2 ~ p3 ~ p4 =>
+      models.binding.CalculateFieldLineMercury(scalaxb.fromXML[String](p1, scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[javax.xml.datatype.XMLGregorianCalendar](p2, scalaxb.ElemName(node) :: stack),
+        p3.headOption map { scalaxb.fromXML[models.binding.ExtraParams_calculateFieldLineMercury](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[java.net.URI](p4, scalaxb.ElemName(node) :: stack)) })
+    
+    def writesChildNodes(__obj: models.binding.CalculateFieldLineMercury, __scope: scala.xml.NamespaceBinding): Seq[scala.xml.Node] =
+      Seq.concat(scalaxb.toXML[String](__obj.ResourceID, Some("http://smdc.sinp.msu.ru"), Some("ResourceID"), __scope, false),
+        scalaxb.toXML[javax.xml.datatype.XMLGregorianCalendar](__obj.StartTime, Some("http://smdc.sinp.msu.ru"), Some("StartTime"), __scope, false),
+        __obj.extraParams map { scalaxb.toXML[models.binding.ExtraParams_calculateFieldLineMercury](_, None, Some("extraParams"), __scope, false) } getOrElse {Nil},
+        scalaxb.toXML[java.net.URI](__obj.url_XYZ, Some("http://smdc.sinp.msu.ru"), Some("url_XYZ"), __scope, false))
+
+  }
 
   trait DefaultBindingCalculateCubeFormat extends scalaxb.ElemNameParser[models.binding.CalculateCube] {
     val targetNamespace: Option[String] = Some("http://smdc.sinp.msu.ru")
@@ -2018,6 +2219,27 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       def calculateFieldLine(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateFieldLine], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
         soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateFieldLine(resourceID, startTime, extraParams, url_XYZ), Some("http://smdc.sinp.msu.ru"), "calculateFieldLine", defaultScope),
             Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateFieldLine"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def calculateFieldLineSaturn(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateFieldLineSaturn], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateFieldLineSaturn(resourceID, startTime, extraParams, url_XYZ), Some("http://smdc.sinp.msu.ru"), "calculateFieldLineSaturn", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateFieldLineSaturn"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def calculateFieldLineJupiter(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateFieldLineJupiter], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateFieldLineJupiter(resourceID, startTime, extraParams, url_XYZ), Some("http://smdc.sinp.msu.ru"), "calculateFieldLineJupiter", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateFieldLineJupiter"))) match {
+          case Left(x)  => Left(x)
+          case Right((header, body)) =>
+            Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))
+        }
+      def calculateFieldLineMercury(resourceID: String, startTime: javax.xml.datatype.XMLGregorianCalendar, extraParams: Option[models.binding.ExtraParams_calculateFieldLineMercury], url_XYZ: java.net.URI): Either[scalaxb.Soap11Fault[Any], java.net.URI] = 
+        soapClient.requestResponse(scalaxb.toXML(models.binding.CalculateFieldLineMercury(resourceID, startTime, extraParams, url_XYZ), Some("http://smdc.sinp.msu.ru"), "calculateFieldLineMercury", defaultScope),
+            Nil, defaultScope, baseAddress, "POST", Some(new java.net.URI("calculateFieldLineMercury"))) match {
           case Left(x)  => Left(x)
           case Right((header, body)) =>
             Right(scalaxb.fromXML[java.net.URI](scala.xml.Elem(null, "Body", scala.xml.Null, defaultScope, false, body.toSeq: _*)))

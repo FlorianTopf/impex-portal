@@ -75,9 +75,15 @@
 						and VenusExpress. </xs:documentation>
 				</xs:annotation>
 				<xs:restriction base="xs:string">
-					<xs:enumeration value="MarsExpress"/>
-					<xs:enumeration value="MarsGlobalSurveyor"/>
-					<xs:enumeration value="VenusExpress"/>
+					<xs:enumeration value="MEX"/>
+					<xs:enumeration value="MGS"/>
+					<xs:enumeration value="VEX"/>
+					<xs:enumeration value="MAVEN"/>
+					<xs:enumeration value="MESSENGER"/>
+					<xs:enumeration value="MMO"/>
+					<xs:enumeration value="MPO"/>
+					<xs:enumeration value="JUICE"/>
+					<xs:enumeration value="Galileo"/>
 				</xs:restriction>
 			</xs:simpleType>
 

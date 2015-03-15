@@ -164,7 +164,48 @@ case class ExtraParams_calculateFieldLine(LineLength: Option[Double] = None,
   StepSize: Option[Double] = None,
   OutputFileType: Option[models.binding.OutputFormatType] = None)
 
-
+  
+/** Only OutputFileType for now.
+*/
+case class ExtraParams_calculateFieldLineSaturn(OutputFileType: Option[models.binding.OutputFormatType] = None,
+  BDC: Option[Double] = None,
+  BT: Option[Double] = None,
+  RD2: Option[Double] = None,
+  RD1: Option[Double] = None,
+  R2: Option[Double] = None,
+  Rss: Option[Double] = None,
+  IMF_B: Option[models.binding.ListOfDouble] = None,
+  LineLength: Option[Double] = None,
+  StepSize: Option[Double] = None)
+  
+  
+/** Only OutputFileType for now.
+*/
+case class ExtraParams_calculateFieldLineJupiter(OutputFileType: Option[models.binding.OutputFormatType] = None,
+  BDC: Option[Double] = None,
+  BT: Option[Double] = None,
+  RD2: Option[Double] = None,
+  RD1: Option[Double] = None,
+  R2: Option[Double] = None,
+  Rss: Option[Double] = None,
+  IMF_B: Option[models.binding.ListOfDouble] = None,
+  LineLength: Option[Double] = None,
+  StepSize: Option[Double] = None)  
+ 
+  
+  /** Only OutputFileType for now.
+*/
+case class ExtraParams_calculateFieldLineMercury(OutputFileType: Option[models.binding.OutputFormatType] = None,
+  BD: Option[Double] = None,
+  Flux: Option[Double] = None,
+  R2: Option[Double] = None,
+  Rss: Option[Double] = None,
+  DZ: Option[Double] = None,
+  IMF_B: Option[models.binding.ListOfDouble] = None,
+  LineLength: Option[Double] = None,
+  StepSize: Option[Double] = None)
+  
+  
 /** List of individual parameters:SW Density,SW Velocity,IMF_B(Bx,By,Bz),Dst,AL.
 */
 case class ExtraParams_calculateCube(SWDensity: Option[Double] = None,
@@ -252,7 +293,25 @@ case class CalculateFieldLine(ResourceID: String,
   StartTime: javax.xml.datatype.XMLGregorianCalendar,
   extraParams: Option[models.binding.ExtraParams_calculateFieldLine] = None,
   url_XYZ: java.net.URI)
-
+  
+  
+case class CalculateFieldLineJupiter(ResourceID: String,
+  StartTime: javax.xml.datatype.XMLGregorianCalendar,
+  extraParams: Option[models.binding.ExtraParams_calculateFieldLineJupiter] = None,
+  url_XYZ: java.net.URI)
+  
+  
+case class CalculateFieldLineMercury(ResourceID: String,
+  StartTime: javax.xml.datatype.XMLGregorianCalendar,
+  extraParams: Option[models.binding.ExtraParams_calculateFieldLineMercury] = None,
+  url_XYZ: java.net.URI)
+  
+  
+case class CalculateFieldLineSaturn(ResourceID: String,
+  StartTime: javax.xml.datatype.XMLGregorianCalendar,
+  extraParams: Option[models.binding.ExtraParams_calculateFieldLineSaturn] = None,
+  url_XYZ: java.net.URI)
+  
 
 case class CalculateCube(ResourceID: String,
   StartTime: javax.xml.datatype.XMLGregorianCalendar,

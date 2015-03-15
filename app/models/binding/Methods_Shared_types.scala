@@ -52,15 +52,21 @@ case object LinearValue extends EnumInterpolation { override def toString = "Lin
 
 trait SpacecraftType
 
-// only MEX / MGS / VEX used at LATMOS
+
 object SpacecraftType {
   def fromString(value: String, scope: scala.xml.NamespaceBinding): SpacecraftType = value match {
+    // used at LATMOS and FMI
     case "MEX" => MEXValue
     case "MGS" => MGSValue
     case "VEX" => VEXValue
-    // only used at FMI
     case "MAVEN" => MAVENValue
     case "MESSENGER" => MESSENGERValue
+    // only used at LATMOS
+    case "MMO" => MMOValue // BepiColombo part
+    case "MPO" => MPOValue // BepiColombo part
+    case "JUICE" => JuiceValue
+    case "Galileo" => GalileoValue
+    // only used at FMI
     case "CLUSTER1" => CLUSTER1Value
     case "CLUSTER2" => CLUSTER2Value
     case "CLUSTER3" => CLUSTER3Value
@@ -76,6 +82,10 @@ case object MGSValue extends SpacecraftType { override def toString = "MGS" }
 case object VEXValue extends SpacecraftType { override def toString = "VEX" }
 case object MAVENValue extends SpacecraftType { override def toString = "MAVEN" }
 case object MESSENGERValue extends SpacecraftType { override def toString = "MESSENGER" }
+case object MMOValue extends SpacecraftType { override def toString = "MMO" }
+case object MPOValue extends SpacecraftType { override def toString = "MPO" }
+case object JuiceValue extends SpacecraftType { override def toString = "JUICE" }
+case object GalileoValue extends SpacecraftType { override def toString = "Galileo" }
 case object CLUSTER1Value extends SpacecraftType { override def toString = "CLUSTER1" }
 case object CLUSTER2Value extends SpacecraftType { override def toString = "CLUSTER2" }
 case object CLUSTER3Value extends SpacecraftType { override def toString = "CLUSTER3" }

@@ -2,8 +2,9 @@
 
     <wsdl:types>
         <xs:schema version="0.0" targetNamespace="http://smdc.sinp.msu.ru" elementFormDefault="unqualified" xmlns:vot="http://www.ivoa.net/xml/VOTable/v1.2" xmlns:idm="http://impex-fp7.oeaw.ac.at" xmlns="http://smdc.sinp.msu.ru" xmlns:xs="http://www.w3.org/2001/XMLSchema">
-            <xs:import schemaLocation="http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_1.xsd" namespace="http://impex-fp7.oeaw.ac.at"/>
-            <xs:import schemaLocation="http://www.ivoa.net/xml/VOTable/VOTable-1.2.xsd" namespace="http://www.ivoa.net/xml/VOTable/v1.2"/>
+            <xs:import schemaLocation="http://impex-fp7.oeaw.ac.at/xsd/impex-1_0_2.xsd" namespace="http://impex-fp7.oeaw.ac.at"/>
+            
+			<xs:import schemaLocation="http://dec1.sinp.msu.ru/~lucymu/paraboloid/VOTable-1.2.xsd" namespace="http://www.ivoa.net/xml/VOTable/v1.2"/>
 
             
             <xs:element type="idm:ResourceID" name="ResourceID"/>
@@ -169,7 +170,7 @@
             
             <xs:complexType name="extraParams_calculateDataPointValueMercury">
                 <xs:annotation>
-                    <xs:documentation> By default:'BD'=-196.0,'Flux'=131.0,'Rss'=1.35,'R2'=1.32,'DZ'=0.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
+                    <xs:documentation> By default:'BD'=-196.0,'Flux'=4.0,'Rss'=1.35,'R2'=1.32,'DZ'=0.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
                     <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
@@ -286,7 +287,7 @@
                             <xs:documentation>Distance to the magnetopause subsolar point</xs:documentation>
                         </xs:annotation>
                     </xs:element>
-					<xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
                 </xs:sequence>
             </xs:complexType>
       
@@ -338,7 +339,7 @@
             
             <xs:complexType name="extraParams_calculateCubeMercury">
                 <xs:annotation>
-                    <xs:documentation>List of parameters: BD,Flux,Rss,R2,DZ,IMF_B. By default:'BD'=-196.0,'Flux'=131.0,'Rss'=1.35,'R2'=1.32,'DZ'=0.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
+                    <xs:documentation>List of parameters: BD,Flux,Rss,R2,DZ,IMF_B. By default:'BD'=-196.0,'Flux'=4.0,'Rss'=1.35,'R2'=1.32,'DZ'=0.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
                 </xs:annotation>
                 <xs:sequence>
                     <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="0"/>
@@ -412,6 +413,65 @@
                             <xs:documentation>The output file format, selected by the user: NetCDF or VOTable</xs:documentation>
                         </xs:annotation>
                     </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+            
+            
+            <xs:complexType name="extraParams_calculateFieldLineSaturn">
+                <xs:annotation>
+                    <xs:documentation>All extraParams are optional</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element default="3.0" type="xs:double" name="BDC" maxOccurs="1" minOccurs="0"/>
+                    <xs:element default="-7.0" type="xs:double" name="BT" maxOccurs="1" minOccurs="0"/>
+                    <xs:element default="6.5" type="xs:double" name="RD2" maxOccurs="1" minOccurs="0"/>
+                    <xs:element default="15.0" type="xs:double" name="RD1" maxOccurs="1" minOccurs="0"/>
+                    <xs:element default="18.0" type="xs:double" name="R2" maxOccurs="1" minOccurs="0"/>
+                    <xs:element default="22.0" type="xs:double" name="Rss" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="LineLength" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="StepSize" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            
+            
+            <xs:complexType name="extraParams_calculateFieldLineJupiter">
+                <xs:annotation>
+                    <xs:documentation>Only OutputFileType for now.</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element type="xs:double" name="BDC" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="BT" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="RD2" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="RD1" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="LineLength" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="StepSize" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            
+            
+            <xs:complexType name="extraParams_calculateFieldLineMercury">
+                <xs:annotation>
+                    <xs:documentation>Only OutputFileType for now.By default:'BD'=-196.0,'Flux'=4.0,'Rss'=1.35,'R2'=1.32,'DZ'=0.0,'IMF_B'=(0.0,0.0,0.0)</xs:documentation>
+                </xs:annotation>
+                <xs:sequence>
+                    <xs:element type="xs:double" name="BD" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="Flux" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="R2" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="Rss" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="DZ" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="ListOfDouble" name="IMF_B" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="LineLength" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="xs:double" name="StepSize" maxOccurs="1" minOccurs="0"/>
+                    <xs:element type="OutputFormat" name="OutputFileType" maxOccurs="1" minOccurs="0"/>
                 </xs:sequence>
             </xs:complexType>
 	
@@ -709,7 +769,63 @@
                     </xs:element>
                 </xs:sequence>
             </xs:complexType>
-	  
+
+            
+            <xs:element type="calculateFieldLineSaturn" name="calculateFieldLineSaturn"/>
+            <xs:complexType name="calculateFieldLineSaturn">
+                <xs:sequence>
+                    <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+                    <xs:element type="extraParams_calculateFieldLineSaturn" name="extraParams" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Saturn model parameters, step size, line length</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            
+            <xs:element type="calculateFieldLineMercury" name="calculateFieldLineMercury"/>
+            <xs:complexType name="calculateFieldLineMercury">
+                <xs:sequence>
+                    <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+                    <xs:element type="extraParams_calculateFieldLineMercury" name="extraParams" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Mercury model parameters, step size, line length</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
+
+            
+            <xs:element type="calculateFieldLineJupiter" name="calculateFieldLineJupiter"/>
+            <xs:complexType name="calculateFieldLineJupiter">
+                <xs:sequence>
+                    <xs:element ref="ResourceID" maxOccurs="1" minOccurs="1">
+                        <xs:annotation>
+                            <xs:documentation>ResourceID of a relevant SimulationModel</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="StartTime" maxOccurs="1" minOccurs="1"/>
+                    <xs:element type="extraParams_calculateFieldLineJupiter" name="extraParams" maxOccurs="1" minOccurs="0">
+                        <xs:annotation>
+                            <xs:documentation>Jupiter model parameters, step size, line length</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element ref="url_XYZ" maxOccurs="1" minOccurs="1"/>
+                </xs:sequence>
+            </xs:complexType>
 
         </xs:schema>
     </wsdl:types>
@@ -792,6 +908,21 @@
     <wsdl:message name="isAlive_Response">
         <wsdl:part element="boolean" name="parameters"/>
     </wsdl:message>
+
+    
+    <wsdl:message name="calculateFieldLineSaturn_Request">
+        <wsdl:part element="calculateFieldLineSaturn" name="parameters"/>
+    </wsdl:message>
+
+    
+    <wsdl:message name="calculateFieldLineMercury_Request">
+        <wsdl:part element="calculateFieldLineMercury" name="parameters"/>
+    </wsdl:message>
+
+    
+    <wsdl:message name="calculateFieldLineJupiter_Request">
+        <wsdl:part element="calculateFieldLineJupiter" name="parameters"/>
+    </wsdl:message>
   
     
     <wsdl:message name="Generic_Response">
@@ -856,6 +987,18 @@
         </wsdl:operation>
         <wsdl:operation name="getSurface">
             <wsdl:input message="Surface_Request"> </wsdl:input>
+            <wsdl:output message="Generic_Response"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateFieldLineSaturn">
+            <wsdl:input message="calculateFieldLineSaturn_Request"> </wsdl:input>
+            <wsdl:output message="Generic_Response"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateFieldLineMercury">
+            <wsdl:input message="calculateFieldLineMercury_Request"> </wsdl:input>
+            <wsdl:output message="Generic_Response"> </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateFieldLineJupiter">
+            <wsdl:input message="calculateFieldLineJupiter_Request"> </wsdl:input>
             <wsdl:output message="Generic_Response"> </wsdl:output>
         </wsdl:operation>
         <wsdl:operation name="isAlive">
@@ -982,6 +1125,33 @@
         </wsdl:operation>
         <wsdl:operation name="getSurface">
             <soap:operation soapAction="Surface"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateFieldLineSaturn">
+            <soap:operation soapAction="calculateFieldLineSaturn"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateFieldLineMercury">
+            <soap:operation soapAction="calculateFieldLineMercury"/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+        <wsdl:operation name="calculateFieldLineJupiter">
+            <soap:operation soapAction="calculateFieldLineJupiter"/>
             <wsdl:input>
                 <soap:body use="literal"/>
             </wsdl:input>
