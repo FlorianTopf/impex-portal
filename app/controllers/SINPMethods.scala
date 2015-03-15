@@ -701,7 +701,7 @@ object SINPMethods extends MethodsController {
 	
 	val extraParams = ExtraParams_calculateCubeMercury(
 	    bd,//Some(196.0), // bd
-	  	flux,//Some(4.0), // flux
+	  	flux,//Some(131.0), // flux
 	  	rss,//Some(1.5), // rss
 	  	r2,//Some(1.5), // r2
 	  	dz,//Some(0.0), // dz
@@ -823,7 +823,7 @@ object SINPMethods extends MethodsController {
     val extraParams = ExtraParams_calculateDataPointValueMercury(
         filetype, // output filetype
         bd,//Some(-196.0), // bd
-        flux,//Some(131.0), // flux
+        flux,//Some(4.0), // flux
         rss,//Some(1.35), // rss
         r2,//Some(1.32), // r2
         dz,//Some(0.0), // dz
