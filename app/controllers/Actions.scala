@@ -168,6 +168,17 @@ class MethodsController extends BaseController {
     }
   }
   
+  def validateOptBigIntSeq(bigInts: Option[String]): Option[Seq[BigInt]] = {
+    try {
+      bigInts match {
+        case Some(f) => Some(f.split(",").map(i => BigInt(i.toInt)))
+        case None => None
+      }
+    } catch {
+      case _: Throwable => None
+    }
+  }
+  
   // helper method for validation string sequences
   def validateOptStringSeq(strings: Option[String]): Option[Seq[String]] = {
     strings match {

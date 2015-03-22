@@ -26,6 +26,7 @@ import java.util.concurrent.ExecutionException
 object SINPMethods extends MethodsController {
   val sinp = new Methods_SINPSoapBindings with Soap11Clients with DispatchHttpClients {}
   
+  
   def isAlive() = PortalAction {
     try {
 	  val future = sinp.service.isAlive() 
@@ -39,6 +40,7 @@ object SINPMethods extends MethodsController {
     }
   }
   
+  
   @GET
   @ApiOperation(
       value = "getDataPointValue at SINP", 
@@ -50,7 +52,6 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/SINP/Earth/2003-11-20UT12",
         required = true, 
@@ -66,6 +67,7 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "variable",
         value = "Parameter Keys",
+        defaultValue = "Bx,By,Bz",
         required = false,
         dataType = "list(string)",
         paramType = "query"),
@@ -108,6 +110,7 @@ object SINPMethods extends MethodsController {
     }
   }
   
+  
   @GET
   @ApiOperation(
       value = "calculateDataPointValueFixedTime at SINP", 
@@ -119,7 +122,6 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/SINP/Earth/OnFly",
         required = true, 
@@ -142,30 +144,35 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "imf_b",
         value = "IMF B [nT]",
+        defaultValue = "-1.0,4.0,1.0",
         required = false,
         dataType = "list(double)",
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_density", 
         value = "SW Density [1/cm^3]", 
+        defaultValue = "4.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_velocity", 
         value = "SW Velocity [km/s]", 
+        defaultValue = "400.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "al", 
-        value = "Al [nT]", 
+        value = "Al [nT]",
+        defaultValue = "-150.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "dst", 
         value = "Dst [nT]", 
+        defaultValue = "-30.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
@@ -197,18 +204,13 @@ object SINPMethods extends MethodsController {
         	Some(ListOfDouble(Some(i(0)), Some(i(1)), Some(i(2))))
       case _ => None
     }
-    /* ListOfDouble(
-        Some(-1.0), // x
-        Some(4.0), // y
-        Some(1.0) // z
-    ) */
           
     val extraParams = ExtraParams_calculateDataPointValueFixedTime(
-        swD,//Some(4.0), // sw density
-        swV,//Some(400.0), // sw velocity 
+        swD, // sw density
+        swV, // sw velocity 
         imf_b, // imf b 
-        dst,//Some(30.0), // dst
-        al,//Some(150.0), // al
+        dst, // dst
+        al, // al
         filetype // output filetype
     )
         	
@@ -244,7 +246,6 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Earth/OnFly",
         required = true, 
@@ -304,7 +305,6 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Earth/OnFly",
         required = true, 
@@ -399,7 +399,6 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Earth/OnFly",
         required = true, 
@@ -422,12 +421,14 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
     	name = "line_length",
     	value = "Line Length",
+    	defaultValue = "50.0",
     	required = false,
     	dataType = "double",
     	paramType = "query"),
     new ApiImplicitParam(
     	name = "step_size",
     	value = "Step Size",
+    	defaultValue = "-0.5",
     	required = false,
     	dataType = "double",
     	paramType = "query"),
@@ -487,7 +488,6 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/SINP/Earth/OnFly",
         required = true, 
@@ -510,30 +510,35 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "imf_b",
         value = "IMF B [nT]",
+        defaultValue = "5.1,-8.9,4.5",
         required = false,
         dataType = "list(double)",
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_density", 
         value = "SW Density [1/cm^3]", 
+        defaultValue = "5.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "sw_velocity", 
         value = "SW Velocity [km/s]", 
+        defaultValue = "800.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "al", 
         value = "Al [nT]", 
+        defaultValue = "-1117.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "dst", 
         value = "Dst [nT]", 
+        defaultValue = "-23.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
@@ -544,6 +549,13 @@ object SINPMethods extends MethodsController {
         allowableValues = "VOTable,netCDF",
         required = false,
         dataType = "string",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "cube_size",
+        value = "x_low, x_high, y_low, y_high, z_low, z_high",
+        defaultValue = "-40,10,-15,15,-10,10",
+        required = false,
+        dataType = "list(int)",
         paramType = "query")))
   @Path("/calculateCube")
   def calculateCube = PortalAction { implicit request => 
@@ -559,43 +571,42 @@ object SINPMethods extends MethodsController {
     val dst = request.req.get("dst")
     val al = request.req.get("al")
     val filetype = request.req.get("output_filetype").getOrElse("")
+    val cube = request.req.get("cube_size")
     
     val imf_b = validateOptDoubleSeq(imf) match {
       case Some(i) if(i.length == 3) => 
-        	Some(ListOfDouble(Some(i(0)), Some(i(1)), Some(i(2))))
+        Some(ListOfDouble(Some(i(0)), Some(i(1)), Some(i(2))))
       case _ => None
     }
-    /*ListOfDouble(
-        Some(5.1), // x
-        Some(-8.9), // y
-        Some(4.5) // z
-    )*/
 	
 	val extraParams = ExtraParams_calculateCube(
-	    swD,//Some(5.0), // sw density
-	    swV,//Some(800.0), // sw velocity
+	    swD, // sw density
+	    swV, // sw velocity
 	    imf_b, // imf b
-	    dst,//Some(-23.0), // dst
-	    al,//Some(-1117.0), // al
+	    dst, // dst
+	    al, // al
         filetype // output filetype
 	)
-	
-	// @TODO add cube parameters as GET
-	val cubeSize = Cube_size_array(
-	    Some(BigInt(-40)), // x_low
-	    Some(BigInt(10)), // x_high
-	    Some(BigInt(-15)), // y_low
-	    Some(BigInt(15)), // y_high
-	    Some(BigInt(-10)), // z_low
-	    Some(BigInt(10)) // z_high
-	)
+		
+	val cubeSize = validateOptBigIntSeq(cube) match {
+	  case Some(i) if(i.length == 6) => 
+	    Some(Cube_size_array(
+	            Some(i(0)), 
+	            Some(i(1)), 
+	            Some(i(2)), 
+	            Some(i(3)), 
+	            Some(i(4)), 
+	            Some(i(5))
+	        ))
+	  case _ => None
+	}
 	  	  
 	val result = sinp.service.calculateCube(
 	  	id, // resourceId
 	  	TimeProvider.getISODate(startTime), // start time 
 	  	Some(extraParams), // extra params
 	  	Some(sampling.toDouble), // sampling 
-	    Some(cubeSize) // cube size
+	    cubeSize // cube size
 	)
     
     returnDefaultResult(result, request.req)
@@ -623,8 +634,7 @@ object SINPMethods extends MethodsController {
     new ApiResponse(code = 400, message = "request failed")))
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
-        name = "id", 
-        //value = "resource id", 
+        name = "id",  
         value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Mercury/OnFly",
         required = true, 
@@ -633,36 +643,42 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "imf_b",
         value = "IMF B [nT]",
+        defaultValue = "5.1,-8.9,4.5",
         required = false,
         dataType = "list(double)",
         paramType = "query"),
     new ApiImplicitParam(
         name = "bd", 
         value = "BD [nT]", 
+        defaultValue = "196.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "flux", 
-        value = "Flux [MWb]", 
+        value = "Flux [MWb]",
+        defaultValue = "131.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "rss", 
         value = "RSS [Rm]", 
+        defaultValue = "1.5",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "r2", 
         value = "R2 [Rm]", 
+        defaultValue = "1.5",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "dz", 
         value = "DZ [Rm]", 
+        defaultValue = "0.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
@@ -693,18 +709,13 @@ object SINPMethods extends MethodsController {
         	Some(ListOfDouble(Some(i(0)), Some(i(1)), Some(i(2))))
       case _ => None
     }  
-    /*ListOfDouble(
-        Some(5.1), // x
-        Some(-8.9), // y
-        Some(4.5) // z
-    )*/
 	
 	val extraParams = ExtraParams_calculateCubeMercury(
-	    bd,//Some(196.0), // bd
-	  	flux,//Some(131.0), // flux
-	  	rss,//Some(1.5), // rss
-	  	r2,//Some(1.5), // r2
-	  	dz,//Some(0.0), // dz
+	    bd, // bd
+	  	flux, // flux
+	  	rss, // rss
+	  	r2, // r2
+	  	dz, // dz
 	  	imf_b, // imf b
         filetype // output filetype
 	)
@@ -737,7 +748,6 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Mercury/OnFly",
         required = true, 
@@ -753,36 +763,42 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "imf_b",
         value = "IMF B [nT]",
+        defaultValue = "5.1,-8.9,4.5",
         required = false,
         dataType = "list(double)",
         paramType = "query"),
     new ApiImplicitParam(
         name = "bd", 
         value = "BD [nT]", 
+        defaultValue = "-196.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "flux", 
         value = "Flux [MWb]", 
+        defaultValue = "4.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "rss", 
         value = "RSS [Rm]", 
+        defaultValue = "1.35",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "r2", 
         value = "R2 [Rm]", 
+        defaultValue = "1.32",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "dz", 
         value = "DZ [Rm]", 
+        defaultValue = "0.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
@@ -814,19 +830,14 @@ object SINPMethods extends MethodsController {
         	Some(ListOfDouble(Some(i(0)), Some(i(1)), Some(i(2))))
       case _ => None
     }  
-    /*ListOfDouble(
-        Some(5.1), // x
-        Some(-8.9), // y
-        Some(4.5) // z
-    ) */
     
     val extraParams = ExtraParams_calculateDataPointValueMercury(
         filetype, // output filetype
-        bd,//Some(-196.0), // bd
-        flux,//Some(4.0), // flux
-        rss,//Some(1.35), // rss
-        r2,//Some(1.32), // r2
-        dz,//Some(0.0), // dz
+        bd, // bd
+        flux, // flux
+        rss, // rss
+        r2, // r2
+        dz, // dz
         imf_b // imf b
     )
 	  	  
@@ -859,7 +870,6 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Saturn/OnFly",
         required = true, 
@@ -882,42 +892,49 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "imf_b",
         value = "IMF B [nT]",
+        defaultValue = "0.0,0.0,0.0",
         required = false,
         dataType = "list(double)",
         paramType = "query"),
     new ApiImplicitParam(
         name = "bdc", 
         value = "BDC [nT]", 
+        defaultValue = "3.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "bt", 
         value = "BT [nT]", 
+        defaultValue = "-7.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "rd2", 
         value = "RD2 [Rs]", 
+        defaultValue = "6.5",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "rd1", 
-        value = "RD1 [Rs]", 
+        value = "RD1 [Rs]",
+        defaultValue = "15.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "r2", 
         value = "R2 [Rs]", 
+        defaultValue = "18.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "rss", 
         value = "RSS [Rs]", 
+        defaultValue = "22.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
@@ -928,6 +945,13 @@ object SINPMethods extends MethodsController {
         allowableValues = "VOTable,netCDF",
         required = false,
         dataType = "string",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "cube_size",
+        value = "x_low, x_high, y_low, y_high, z_low, z_high",
+        defaultValue = "-6,7,-3,3-3,3",
+        required = false,
+        dataType = "list(int)",
         paramType = "query")))
   @Path("/calculateCubeSaturn")
   def calculateCubeSaturn = PortalAction { implicit request => 
@@ -945,45 +969,44 @@ object SINPMethods extends MethodsController {
     val r2 = request.req.get("r2")
     val rss = request.req.get("rss")
     val filetype = request.req.get("output_filetype").getOrElse("")
+    val cube = request.req.get("cube_size")
     
     val imf_b = validateOptDoubleSeq(imf) match {
       case Some(i) if(i.length == 3) => 
         	Some(ListOfDouble(Some(i(0)), Some(i(1)), Some(i(2))))
       case _ => None
     }  
-    /*ListOfDouble(
-        Some(0.0), // x
-        Some(0.0), // y
-        Some(0.0) // z
-    )*/
     
     val extraParams = ExtraParams_calculateCubeSaturn(
-	    bdc,//Some(3.0), // bdc
-	    bt,//Some(-7.0), // bt
-	    rd2,//Some(6.5), // rd2
-	    rd1,//Some(15.0), // rd1
-	    r2,//Some(18.0), // r2
-	    rss,//Some(22.0), // rss
+	    bdc, // bdc
+	    bt, // bt
+	    rd2, // rd2
+	    rd1, // rd1
+	    r2, // r2
+	    rss, // rss
 	    imf_b, // imf b
         filetype // output filetype
 	)
 	
-	// @TODO add cube parameters as GET
-	val cubeSize = Cube_size_array(
-	    Some(BigInt(-6)), // x_low
-		Some(BigInt(7)), // x_high
-	  	Some(BigInt(-3)), // y_low
-	  	Some(BigInt(3)), // y_high
-	  	Some(BigInt(-3)), // z_low
-	  	Some(BigInt(3)) // z_high
-	)
+	val cubeSize = validateOptBigIntSeq(cube) match {
+	  case Some(i) if(i.length == 6) => 
+	    Some(Cube_size_array(
+	            Some(i(0)), 
+	            Some(i(1)), 
+	            Some(i(2)), 
+	            Some(i(3)), 
+	            Some(i(4)), 
+	            Some(i(5))
+	        ))
+	  case _ => None
+	}
 	  	   
 	val result = sinp.service.calculateCubeSaturn(
 	    id, // resourceId
 	  	TimeProvider.getISODate(startTime),  // start time
 	  	Some(extraParams), // extra params
 	  	Some(sampling.toDouble), // sampling 
-	  	Some(cubeSize) // cube size
+	  	cubeSize // cube size
 	)
     
     returnDefaultResult(result, request.req)
@@ -1012,7 +1035,6 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Saturn/OnFly",
         required = true, 
@@ -1028,42 +1050,49 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "imf_b",
         value = "IMF B [nT]",
+        defaultValue = "0.0,0.0,0.0",
         required = false,
         dataType = "list(double)",
         paramType = "query"),
     new ApiImplicitParam(
         name = "bdc", 
-        value = "BDC [nT]", 
+        value = "BDC [nT]",
+        defaultValue = "3.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "bt", 
         value = "BT [nT]", 
+        defaultValue = "-7.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "rd2", 
         value = "RD2 [Rs]", 
+        defaultValue = "6.5",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "rd1", 
-        value = "RD1 [Rs]", 
+        value = "RD1 [Rs]",
+        defaultValue = "15.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "r2", 
         value = "R2 [Rs]", 
+        defaultValue = "18.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "rss", 
         value = "RSS [Rs]", 
+        defaultValue = "22.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
@@ -1095,21 +1124,16 @@ object SINPMethods extends MethodsController {
       case Some(i) if(i.length == 3) => 
         	Some(ListOfDouble(Some(i(0)), Some(i(1)), Some(i(2))))
       case _ => None
-    } 
-	/*ListOfDouble(
-	    Some(0.0), // x
-        Some(0.0), // y
-        Some(0.0) // z
-    )*/
+    }
 	 
 	val extraParams = ExtraParams_calculateDataPointValueSaturn(
         filetype, // output filetype
-	  	bdc,//Some(3.0), // bdc
-	  	bt,//Some(-7.0), // bt
-	  	rd2,//Some(6.5), // rd2
-	  	rd1,//Some(15.0), // rd1
-	  	r2,//Some(18.0), // r2
-	  	rss,//Some(22.0), // rss
+	  	bdc, // bdc
+	  	bt, // bt
+	  	rd2, // rd2
+	  	rd1, // rd1
+	  	r2, // r2
+	  	rss, // rss
 	  	imf_b // imf b
 	)
 	  	   
@@ -1142,7 +1166,6 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/SINP/Earth/2003-11-20UT12",
         required = true, 
@@ -1165,12 +1188,14 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "variable",
         value = "Parameter Keys",
+        defaultValue = "Bx,By,Bz",
         required = false,
         dataType = "list(string)",
         paramType = "query"),
     new ApiImplicitParam(
         name = "resolution",
         value = "Resolution",
+        defaultValue = "0.2",
         required = false,
         dataType = "double",
         paramType = "query"),
@@ -1196,7 +1221,7 @@ object SINPMethods extends MethodsController {
     val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getSurfaceSINP(
-        resolution,//Some(0.2), // resolution
+        resolution, // resolution
         filetype // output filetype
     )
            
@@ -1250,7 +1275,7 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "imf_b",
         value = "IMF B [nT]",
-        defaultValue = "0,0,0",
+        defaultValue = "0.0,0.0,0.0",
         required = false,
         dataType = "list(double)",
         paramType = "query"),
@@ -1270,28 +1295,28 @@ object SINPMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "rd2", 
-        value = "RD2 [Rs]", 
+        value = "RD2 [Rj]", 
         defaultValue = "80.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "rd1", 
-        value = "RD1 [Rs]", 
+        value = "RD1 [Rj]", 
         defaultValue = "19.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "r2", 
-        value = "R2 [Rs]", 
+        value = "R2 [Rj]", 
         defaultValue = "100.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "rss", 
-        value = "RSS [Rs]", 
+        value = "RSS [Rj]", 
         defaultValue = "80.0",
         required = false, 
         dataType = "double", 
@@ -1303,6 +1328,13 @@ object SINPMethods extends MethodsController {
         allowableValues = "VOTable,netCDF",
         required = false,
         dataType = "string",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "cube_size",
+        value = "x_low, x_high, y_low, y_high, z_low, z_high",
+        defaultValue = "-450,150,-300,300,-300,300",
+        required = false,
+        dataType = "list(int)",
         paramType = "query")))
   @Path("/calculateCubeJupiter")
   def calculateCubeJupiter = PortalAction { implicit request => 
@@ -1320,45 +1352,44 @@ object SINPMethods extends MethodsController {
     val r2 = request.req.get("r2")
     val rss = request.req.get("rss")
     val filetype = request.req.get("output_filetype").getOrElse("")
+    val cube = request.req.get("cube_size")
     
     val imf_b = validateOptDoubleSeq(imf) match {
       case Some(i) if(i.length == 3) => 
         	Some(ListOfDouble(Some(i(0)), Some(i(1)), Some(i(2))))
       case _ => None
     }  
-    /*ListOfDouble(
-        Some(0.0), // x
-        Some(0.0), // y
-        Some(0.0) // z
-    )*/
     
     val extraParams = ExtraParams_calculateCubeJupiter(
-    	bdc, //Some(2.5), // bdc
-	  	bt, //Some(-2.5), // bt
-	  	rd2, //Some(80.0), // rd2
-	  	rd1, //Some(19.0), // rd1
-	  	r2, //Some(80.0), // r2
-	  	rss, //Some(100.0), // rss
+    	bdc, // bdc
+	  	bt, // bt
+	  	rd2, // rd2
+	  	rd1, // rd1
+	  	r2, // r2
+	  	rss, // rss
 	  	imf_b, // imf b
 	  	Some(VOTableType) // output filetype
 	)
 	
-	// @TODO add cube parameters as GET
-	val cubeSize = Cube_size_array(
-	  	Some(BigInt(-450)), // x_low
-	  	Some(BigInt(150)), // x_high
-	  	Some(BigInt(-300)), // y_low
-	  	Some(BigInt(300)), // y_high
-	  	Some(BigInt(-300)), // z_low
-	  	Some(BigInt(300)) // z_high
-	)
+	val cubeSize = validateOptBigIntSeq(cube) match {
+	  case Some(i) if(i.length == 6) => 
+	    Some(Cube_size_array(
+	            Some(i(0)), 
+	            Some(i(1)), 
+	            Some(i(2)), 
+	            Some(i(3)), 
+	            Some(i(4)), 
+	            Some(i(5))
+	        ))
+	  case _ => None
+	}
 	  	   
 	val result = sinp.service.calculateCubeJupiter(
 	    id, // resourceId
 	  	TimeProvider.getISODate(startTime),  // start time
 	  	Some(extraParams), // extra params
 	  	Some(sampling.toDouble), // sampling 
-	  	Some(cubeSize) // cube size
+	  	cubeSize // cube size
 	)
     
     returnDefaultResult(result, request.req)
@@ -1376,8 +1407,6 @@ object SINPMethods extends MethodsController {
   }  
   
   
-  
-  
   @GET
   @ApiOperation(
       value = "calculateDataPointValueJupiter at SINP", 
@@ -1389,7 +1418,6 @@ object SINPMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "SimulationModel, NumericalOutput",
         defaultValue = "spase://IMPEX/SimulationModel/SINP/Jupiter/OnFly",
         required = true, 
@@ -1405,7 +1433,7 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "imf_b",
         value = "IMF B [nT]",
-        defaultValue = "0,0,0",
+        defaultValue = "0.0,0.0,0.0",
         required = false,
         dataType = "list(double)",
         paramType = "query"),
@@ -1425,28 +1453,28 @@ object SINPMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "rd2", 
-        value = "RD2 [Rs]", 
+        value = "RD2 [Rj]", 
         defaultValue ="80.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "rd1", 
-        value = "RD1 [Rs]", 
+        value = "RD1 [Rj]", 
         defaultValue ="19.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "r2", 
-        value = "R2 [Rs]", 
+        value = "R2 [Rj]", 
         defaultValue ="100.0",
         required = false, 
         dataType = "double", 
         paramType = "query"),
     new ApiImplicitParam(
         name = "rss", 
-        value = "RSS [Rs]", 
+        value = "RSS [Rj]", 
         defaultValue ="80.0",
         required = false, 
         dataType = "double", 
@@ -1480,20 +1508,15 @@ object SINPMethods extends MethodsController {
         	Some(ListOfDouble(Some(i(0)), Some(i(1)), Some(i(2))))
       case _ => None
     } 
-	/*ListOfDouble(
-	    Some(0.0), // x
-        Some(0.0), // y
-        Some(0.0) // z
-    )*/
 	 
 	val extraParams = ExtraParams_calculateDataPointValueJupiter(
         filetype, // output filetype
-	  	bdc,//Some(2.5), // bdc
-	  	bt,//Some(-2.5), // bt
-	  	rd2,//Some(80.0), // rd2
-	  	rd1,//Some(19.0), // rd1
-	  	r2,//Some(100.0), // r2
-	  	rss,//Some(80.0), // rss
+	  	bdc, // bdc
+	  	bt, // bt
+	  	rd2, // rd2
+	  	rd1, // rd1
+	  	r2, // r2
+	  	rss, // rss
 	  	imf_b // imf b
 	)
 	  	   
@@ -1511,12 +1534,471 @@ object SINPMethods extends MethodsController {
       case e @ (_:NumberFormatException) => 
         BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
                 "illegal number provided", request.req)))
-    }
-     
+    }  
   }
   
   
-   
-   
+  @GET
+  @ApiOperation(
+      value = "calculateFieldLineSaturn at SINP", 
+      nickname = "calculateFieldLineSaturn",
+      notes = "calculates magnetic field lines for Saturn of a given VOTable", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "request failed")))
+  @ApiImplicitParams(Array(
+    new ApiImplicitParam(
+        name = "id", 
+        value = "SimulationModel, NumericalOutput",
+        defaultValue = "spase://IMPEX/SimulationModel/SINP/Saturn/OnFly",
+        required = true, 
+        dataType = "string", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "start_time",
+        value = "Start Time",
+        defaultValue = "2014-05-14T00:00:00",
+        required = true,
+        dataType = "dateTime",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "votable_url",
+        value = "votable url",
+        defaultValue = "http://dec1.sinp.msu.ru/~lucymu/paraboloid/Cassini_2014-05-14--17.xml",
+        required = true,
+        dataType = "string",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "imf_b",
+        value = "IMF B [nT]",
+        defaultValue = "0.0,0.0,0.0",
+        required = false,
+        dataType = "list(double)",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "bdc", 
+        value = "BDC [nT]", 
+        defaultValue ="3.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "bt", 
+        value = "BT [nT]", 
+        defaultValue ="-7.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "rd2", 
+        value = "RD2 [Rs]", 
+        defaultValue ="6.5",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "rd1", 
+        value = "RD1 [Rs]", 
+        defaultValue ="15.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "r2", 
+        value = "R2 [Rs]", 
+        defaultValue ="18.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "rss", 
+        value = "RSS [Rs]", 
+        defaultValue ="22.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "line_length", 
+        value = "Line Length [Rs]", 
+        defaultValue ="100.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "step_size", 
+        value = "Step Size [Rs]", 
+        defaultValue ="-0.2",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "output_filetype",
+        value = "output filetype",
+        defaultValue = "VOTable",
+        allowableValues = "VOTable,netCDF",
+        required = false,
+        dataType = "string",
+        paramType = "query")))
+  @Path("/calculateFieldLineSaturn")
+  def calculateFieldLineSaturn = PortalAction { implicit request =>
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val startTime = request.req.get("start_time").get
+    val url = request.req.get("votable_url").get
+    // extra params
+    val imf = request.req.get("imf_b")
+    val bdc = request.req.get("bdc")
+    val bt = request.req.get("bt")
+    val rd2 = request.req.get("rd2")
+    val rd1 = request.req.get("rd1")
+    val r2 = request.req.get("r2")
+    val rss = request.req.get("rss")
+    val lineLength = request.req.get("line_length")
+    val stepSize = request.req.get("step_size")
+    val filetype = request.req.get("output_filetype").getOrElse("")
+    
+    val imf_b = validateOptDoubleSeq(imf) match {
+      case Some(i) if(i.length == 3) => 
+        Some(ListOfDouble(Some(i(0)), Some(i(1)), Some(i(2))))
+      case _ => None
+    }
+	  			
+	val extraParams = ExtraParams_calculateFieldLineSaturn(
+	    filetype, // output filetype
+	    bdc, // bdc
+	    bt, // bt
+	  	rd2, // rd2
+	  	rd1, // rd1
+	  	r2, // r2
+	  	rss, // rss
+	  	imf_b, // imf_b
+	  	lineLength, // line_length
+	  	stepSize // step_size
+	)
+	  			
+	val result = sinp.service.calculateFieldLineSaturn(
+	  	id, // resourceId 
+	  	TimeProvider.getISODate(startTime), // start time
+	  	Some(extraParams), // extra params
+	  	new URI(url) // votable_url
+	)
+	  			
+	returnDefaultResult(result, request.req)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing", request.req)))
+      case e @ (_:ParseException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "time parameter not in ISO 8601 format", request.req)))
+    }  			
+  }
   
+  
+  @GET
+  @ApiOperation(
+      value = "calculateFieldLineJupiter at SINP", 
+      nickname = "calculateFieldLineJupiter",
+      notes = "calculates magnetic field lines for Jupiter of a given VOTable", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "request failed")))
+  @ApiImplicitParams(Array(
+    new ApiImplicitParam(
+        name = "id", 
+        value = "SimulationModel, NumericalOutput",
+        defaultValue = "spase://IMPEX/SimulationModel/SINP/Jupiter/OnFly",
+        required = true, 
+        dataType = "string", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "start_time",
+        value = "Start Time",
+        defaultValue = "2009-06-28T13:00:00",
+        required = true,
+        dataType = "dateTime",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "votable_url",
+        value = "votable url",
+        defaultValue = "http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_120points.vot",
+        required = true,
+        dataType = "string",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "imf_b",
+        value = "IMF B [nT]",
+        defaultValue = "0.0,0.0,0.0",
+        required = false,
+        dataType = "list(double)",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "bdc", 
+        value = "BDC [nT]", 
+        defaultValue ="2.5",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "bt", 
+        value = "BT [nT]", 
+        defaultValue ="-2.5",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "rd2", 
+        value = "RD2 [Rj]", 
+        defaultValue ="10.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "rd1", 
+        value = "RD1 [Rj]", 
+        defaultValue ="80.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "r2", 
+        value = "R2 [Rj]", 
+        defaultValue ="80.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "rss", 
+        value = "RSS [Rj]", 
+        defaultValue ="100.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "line_length", 
+        value = "Line Length [Rj]", 
+        defaultValue ="150.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "step_size", 
+        value = "Step Size [Rj]", 
+        defaultValue ="-0.5",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "output_filetype",
+        value = "output filetype",
+        defaultValue = "VOTable",
+        allowableValues = "VOTable,netCDF",
+        required = false,
+        dataType = "string",
+        paramType = "query")))
+  @Path("/calculateFieldLineJupiter")
+  def calculateFieldLineJupiter = PortalAction { implicit request => 
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val startTime = request.req.get("start_time").get
+    val url = request.req.get("votable_url").get
+    // extra params
+    val imf = request.req.get("imf_b")
+    val bdc = request.req.get("bdc")
+    val bt = request.req.get("bt")
+    val rd2 = request.req.get("rd2")
+    val rd1 = request.req.get("rd1")
+    val r2 = request.req.get("r2")
+    val rss = request.req.get("rss")
+    val lineLength = request.req.get("line_length")
+    val stepSize = request.req.get("step_size")
+    val filetype = request.req.get("output_filetype").getOrElse("")
+    
+    val imf_b = validateOptDoubleSeq(imf) match {
+      case Some(i) if(i.length == 3) => 
+        Some(ListOfDouble(Some(i(0)), Some(i(1)), Some(i(2))))
+      case _ => None
+    }
+    
+    val extraParams = ExtraParams_calculateFieldLineJupiter(
+        filetype, // output filetype
+	  	bdc, // bdc
+	  	bt, // bt
+	  	rd2, // rd2
+	  	rd1, // rd1
+	  	r2, // r2
+	  	rss, // rss
+	  	imf_b, // imf_b
+	  	lineLength, // line_length
+	  	stepSize // step_size
+	)
+    
+    val result = sinp.service.calculateFieldLineJupiter(
+	  id, // resourceId 
+	  TimeProvider.getISODate(startTime), // start time
+	  Some(extraParams), // extra params
+	  new URI(url) // votable_url
+	)
+      
+	returnDefaultResult(result, request.req)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing", request.req)))
+      case e @ (_:ParseException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "time parameter not in ISO 8601 format", request.req)))
+    }    
+  }
+  
+  
+  @GET
+  @ApiOperation(
+      value = "calculateFieldLineMercury at SINP", 
+      nickname = "calculateFieldLineMercury",
+      notes = "calculates magnetic field lines for Mercury of a given VOTable", 
+      httpMethod = "GET")
+  @ApiResponses(Array(
+    new ApiResponse(code = 400, message = "request failed")))
+  @ApiImplicitParams(Array(
+    new ApiImplicitParam(
+        name = "id", 
+        value = "SimulationModel, NumericalOutput",
+        defaultValue = "spase://IMPEX/SimulationModel/SINP/Mercury/OnFly",
+        required = true, 
+        dataType = "string", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "start_time",
+        value = "Start Time",
+        defaultValue = "2009-06-28T00:00:00",
+        required = true,
+        dataType = "dateTime",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "votable_url",
+        value = "votable url",
+        defaultValue = "http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_120points.vot",
+        required = true,
+        dataType = "string",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "imf_b",
+        value = "IMF B [nT]",
+        defaultValue = "0.0,0.0,0.0",
+        required = false,
+        dataType = "list(double)",
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "bd", 
+        value = "BD [nT]", 
+        defaultValue ="-196.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "flux", 
+        value = "Flux [MWb]", 
+        defaultValue ="4.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "rss", 
+        value = "RSS [Rm]", 
+        defaultValue ="1.35",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "r2", 
+        value = "R2 [Rm]", 
+        defaultValue ="1.32",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "dz", 
+        value = "DZ [Rm]", 
+        defaultValue = "0.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "line_length", 
+        value = "Line Length [Rm]", 
+        defaultValue ="100.0",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "step_size", 
+        value = "Step Size [Rm]", 
+        defaultValue ="-0.2",
+        required = false, 
+        dataType = "double", 
+        paramType = "query"),
+    new ApiImplicitParam(
+        name = "output_filetype",
+        value = "output filetype",
+        defaultValue = "VOTable",
+        allowableValues = "VOTable,netCDF",
+        required = false,
+        dataType = "string",
+        paramType = "query")))
+  @Path("/calculateFieldLineMercury")
+  def calculateFieldLineMercury = PortalAction { implicit request => 
+    try {
+    // mandatory parameters
+    val id = request.req.get("id").get
+    val startTime = request.req.get("start_time").get
+    val url = request.req.get("votable_url").get
+    // extra params
+    val imf = request.req.get("imf_b")
+    val bd = request.req.get("bd")
+    val flux = request.req.get("flux")
+    val rss = request.req.get("rss")
+    val r2 = request.req.get("r2")
+    val dz = request.req.get("dz")
+    val lineLength = request.req.get("line_length")
+    val stepSize = request.req.get("step_size")
+    val filetype = request.req.get("output_filetype").getOrElse("")
+    
+    val imf_b = validateOptDoubleSeq(imf) match {
+      case Some(i) if(i.length == 3) => 
+        	Some(ListOfDouble(Some(i(0)), Some(i(1)), Some(i(2))))
+      case _ => None
+    }  
+    
+    val extraParams = ExtraParams_calculateFieldLineMercury(
+        filetype, // output filetype
+	  	bd, // bd
+	  	flux, // flux
+	  	rss, // rss
+	  	r2, // r2
+	  	dz, // dz
+	  	imf_b, // imf_b
+	  	lineLength, // line_length
+	  	stepSize // step_size
+	)
+	  			
+	val result = sinp.service.calculateFieldLineMercury(
+	  id, // resourceId 
+	  TimeProvider.getISODate(startTime), // start time
+	  Some(extraParams), // extra params
+	  new URI(url) // votable_url
+	)
+	  			
+	returnDefaultResult(result, request.req)
+    } catch {
+      case e: NoSuchElementException => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "mandatory parameter missing", request.req)))
+      case e @ (_:NumberFormatException) => 
+        BadRequest(Json.toJson(ServiceResponse(EServiceResponse.BAD_REQUEST, 
+                "illegal number provided", request.req)))
+    }
+  } 
 }

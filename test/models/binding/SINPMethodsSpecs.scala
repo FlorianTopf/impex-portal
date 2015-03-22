@@ -552,7 +552,7 @@ object SINPMethodsSpecs extends org.specs2.mutable.Specification with Mockito {
 	  			    Some(6.5), // rd2
 	  			    Some(15.0), // rd1
 	  			    Some(18.0), // r2
-	  			    Some(22), // rss
+	  			    Some(22.0), // rss
 	  			    Some(imf_b), // imf_b
 	  			    Some(100.0), // line_length
 	  			    Some(-0.2) // step_size
