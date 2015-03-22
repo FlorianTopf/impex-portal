@@ -51,7 +51,6 @@ object FMIMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_20deg/Mag",
         required = true, 
@@ -67,6 +66,7 @@ object FMIMethods extends MethodsController {
     new ApiImplicitParam(
         name = "variable",
         value = "Parameter Keys",
+        defaultValue = "Bx,By,Bz,Btot",
         required = false,
         dataType = "list(string)",
         paramType = "query"),
@@ -134,7 +134,6 @@ object FMIMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/FMI/GUMICS/earth/synth_stationary/solarmin/EARTH___n_T_Vx_Bx_By_Bz__7_100_600_3p_03_15m/tilt15p/H+_mstate",
         required = true, 
@@ -172,6 +171,7 @@ object FMIMethods extends MethodsController {
     new ApiImplicitParam(
         name = "variable",
         value = "Parameter Keys",
+        defaultValue = "Density,Temperature,Pressure,Ux,Uy,Uz",
         required = false,
         dataType = "list(string)",
         paramType = "query"),
@@ -272,6 +272,7 @@ object FMIMethods extends MethodsController {
     new ApiImplicitParam(
         name = "variable",
         value = "Parameter Keys",
+        defaultValue = "Density,Temperature,Pressure,Ux,Uy,Uz",
         required = false,
         dataType = "list(string)",
         paramType = "query"),
@@ -704,7 +705,6 @@ object FMIMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg/Mag",
         required = true, 
@@ -720,6 +720,7 @@ object FMIMethods extends MethodsController {
     new ApiImplicitParam(
         name = "variable",
         value = "Parameter Keys",
+        defaultValue = "Bx,By,Bz,Btot",
         required = false,
         dataType = "list(string)",
         paramType = "query"),
@@ -732,12 +733,14 @@ object FMIMethods extends MethodsController {
     new ApiImplicitParam(
         name = "max_steps",
         value = "Max Steps",
+        defaultValue = "100",
         required = false,
         dataType = "integer",
         paramType = "query"),
     new ApiImplicitParam(
         name = "stop_cond_radius",
     	value = "Stop Condition Radius",
+    	defaultValue = "0.0",
     	required = false,
     	dataType = "double",
     	paramType = "query"),
@@ -819,7 +822,6 @@ object FMIMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/mars/spiral_angle_runset_20130607_mars_90deg/Mag",
         required = true, 
@@ -841,12 +843,14 @@ object FMIMethods extends MethodsController {
     new ApiImplicitParam(
         name = "max_steps",
         value = "Max Steps",
+        defaultValue = "200",
         required = false,
         dataType = "integer",
         paramType = "query"),
     new ApiImplicitParam(
         name = "stop_cond_radius",
     	value = "Stop Condition Radius",
+    	defaultValue = "0.0",
     	required = false,
     	dataType = "double",
     	paramType = "query"),
@@ -935,7 +939,6 @@ object FMIMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/venus/run01_venus_nominal_spectra_20140417/H+_spectra",
         required = true, 
@@ -951,6 +954,7 @@ object FMIMethods extends MethodsController {
     new ApiImplicitParam(
         name = "energy_channel",
         value = "Energy Channel",
+        defaultValue = "EnergySpectra",
         required = false,
         dataType = "list(string)",
         paramType = "query"),
@@ -1018,7 +1022,6 @@ object FMIMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/FMI/HYB/venus/run01_venus_nominal_spectra_20140417/H+_spectra",
         required = true, 
@@ -1056,6 +1059,7 @@ object FMIMethods extends MethodsController {
     new ApiImplicitParam(
         name = "energy_channel",
         value = "Energy Channel",
+        defaultValue = "EnergySpectra",
         required = false,
         dataType = "list(string)",
         paramType = "query"),

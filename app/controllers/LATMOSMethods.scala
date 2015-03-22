@@ -51,7 +51,6 @@ object LATMOSMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_13_02_13/Mag/3D",
         required = true, 
@@ -67,12 +66,14 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "variable",
         value = "Parameter Keys",
+        defaultValue = "Bx,By,Bz,Btot",
         required = false,
         dataType = "list(string)",
         paramType = "query"),
     new ApiImplicitParam(
         name = "imf_clockangle",
         value = "IMF Clockangle",
+        defaultValue = "90.0",
         required = false,
         dataType = "double",
         paramType = "query"),
@@ -128,7 +129,6 @@ object LATMOSMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_13_02_13/The/3D",
         required = true, 
@@ -166,12 +166,14 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "variable",
         value = "Parameter Keys",
+        defaultValue = "Ux,Uy,Uz,Utot",
         required = false,
         dataType = "list(string)",
         paramType = "query"),
     new ApiImplicitParam(
         name = "imf_clockangle",
         value = "IMF Clockangle",
+        defaultValue = "120.0",
         required = false,
         dataType = "double",
         paramType = "query"),
@@ -199,7 +201,7 @@ object LATMOSMethods extends MethodsController {
     val filetype = request.req.get("output_filetype").getOrElse("")
     
     val extraParams = ExtraParams_getDataPointValueLATMOS(
-        imf,//Some(120.0), // imf clockangle 
+        imf, // imf clockangle 
         filetype // output filetype
     )
                   
@@ -238,7 +240,6 @@ object LATMOSMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_13_02_13/The/3D",
         required = true, 
@@ -261,12 +262,14 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "variable",
         value = "Parameter Keys",
+        defaultValue = "Ux,Uy,Uz,Utot",
         required = false,
         dataType = "list(string)",
         paramType = "query"),
     new ApiImplicitParam(
         name = "imf_clockangle",
         value = "IMF Clockangle",
+        defaultValue = "90.0",
         required = false,
         dataType = "double",
         paramType = "query"),
@@ -300,7 +303,7 @@ object LATMOSMethods extends MethodsController {
     
     val extraParams = ExtraParams_getSurfaceLATMOS(
         resolution, // resolution 
-        imf,//Some(0.0), // imf clockangle 
+        imf, // imf clockangle 
         filetype // output filetype
     )
            
@@ -332,7 +335,6 @@ object LATMOSMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_14_01_13/Mag/MEX/0.0",
         required = true, 
@@ -384,7 +386,6 @@ object LATMOSMethods extends MethodsController {
            Ok(Json.toJson(ServiceResponseJson(EServiceResponse.OK, Json.toJson(result.map(_.toMap)) , request.req))) 
           //Ok(scalaxb.toXML[VOTABLE](votable, "VOTABLE", scalaxb.toScope(None -> "http://www.ivoa.net/xml/VOTable/v1.2")))
         }
-          
     )
     } catch {
       case e: NoSuchElementException => 
@@ -407,8 +408,7 @@ object LATMOSMethods extends MethodsController {
     new ApiResponse(code = 400, message = "request failed")))
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
-        name = "id", 
-        //value = "resource id", 
+        name = "id",  
         value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_13_02_13/Mag/3D",
         required = true, 
@@ -424,6 +424,7 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "variable",
         value = "Parameter Keys",
+        defaultValue = "Bx,By,Bz,Btot",
         required = false,
         dataType = "list(string)",
         paramType = "query"),
@@ -495,7 +496,6 @@ object LATMOSMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "SimulationRun, NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_14_03_14/IonSpectra",
         required = true, 
@@ -511,12 +511,14 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "imf_clockangle",
         value = "IMF Clockangle",
+        defaultValue = "90.0",
         required = false,
         dataType = "double",
         paramType = "query"),
     new ApiImplicitParam(
         name = "energy_channel",
         value = "Energy Channel",
+        defaultValue = "EnergySpectra",
         required = false,
         dataType = "list(string)",
         paramType = "query"),
@@ -571,7 +573,6 @@ object LATMOSMethods extends MethodsController {
   @ApiImplicitParams(Array(
     new ApiImplicitParam(
         name = "id", 
-        //value = "resource id", 
         value = "NumericalOutput",
         defaultValue = "spase://IMPEX/NumericalOutput/LATMOS/Hybrid/Mars_14_03_14/IonSpectra",
         required = true, 
@@ -609,12 +610,14 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "imf_clockangle",
         value = "IMF Clockangle",
+        defaultValue = "90.0",
         required = false,
         dataType = "double",
         paramType = "query"),
     new ApiImplicitParam(
         name = "energy_channel",
         value = "Energy Channel",
+        defaultValue = "EnergySpectra",
         required = false,
         dataType = "list(string)",
         paramType = "query"),
