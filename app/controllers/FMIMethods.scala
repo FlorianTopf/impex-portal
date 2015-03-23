@@ -393,9 +393,8 @@ object FMIMethods extends MethodsController {
     new ApiImplicitParam(
         name = "object", 
         value = "Object", 
-        // @TODO at the moment only earth is existing
-        // we need to add a dropdown later
-        defaultValue = "Earth", 
+        defaultValue = "Earth",
+        allowableValues = "Earth,Venus,Mars,Comet",
         required = true, 
         dataType = "string", 
         paramType = "query"),
