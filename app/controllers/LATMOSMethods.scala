@@ -276,6 +276,7 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "resolution",
         value = "Resolution",
+        defaultValue = "100.0",
         required = false,
         dataType = "double",
         paramType = "query"),
@@ -431,6 +432,8 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "step_size",
         value = "Step Size",
+        // @TODO add remaining value
+        defaultValue = "",
         required = false,
         dataType = "double",
         paramType = "query"),

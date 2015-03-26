@@ -5,15 +5,20 @@
 			<!-- @TODO here we add a directive if paramType == 'query' later -->
 			<div ng-if="parameter.paramType == 'query'" class="row form-group" 
 				ng-repeat="parameter in operation.parameters">	
-				<label class="col-sm-3 control-label" ng-if="parameter.name != 'id' && parameter.name != 'cube_size'">
-					{{ parameter.description }}
-				</label>
-				<label class="col-sm-3 control-label resource-id-label" ng-if="parameter.name == 'id'">
-					Resource Id <br/><small>{{ parameter.description }}</small>
-				</label>
-				<label class="col-sm-3 control-label resource-id-label" ng-if="parameter.name == 'cube_size'">
-					Cube Size <br/><sup>{{ parameter.description }}</sup>
-				</label>
+				<span ng-switch="parameter.name">
+					<label class="col-sm-3 control-label resource-id-label" ng-switch-when="id">
+						Resource Id <br/><small>{{ parameter.description }}</small>
+					</label>
+					<label class="col-sm-3 control-label resource-id-label" ng-switch-when="cube_size">
+						Cube Size <br/><sup>{{ parameter.description }}</sup>
+					</label>
+					<label class="col-sm-3 control-label resource-id-label" ng-switch-when="stop_cond_region">
+						Stop Condition Region <br/><sup>{{ parameter.description }}</sup>
+					</label>
+					<label class="col-sm-3 control-label" ng-switch-default>
+						{{ parameter.description }}
+					</label>
+				</span>
 				<div class="col-sm-7">
 				    <!-- string inputs -->
 					<input type="text" class="form-control input-sm" 

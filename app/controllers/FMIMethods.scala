@@ -279,6 +279,7 @@ object FMIMethods extends MethodsController {
     new ApiImplicitParam(
         name = "resolution",
         value = "Resolution",
+        defaultValue = "678700",
         required = false,
         dataType = "double",
         paramType = "query"),
@@ -726,6 +727,7 @@ object FMIMethods extends MethodsController {
     new ApiImplicitParam(
         name = "step_size",
         value = "Step Size",
+        defaultValue = "84750",
         required = false, 
         dataType = "double",
         paramType = "query"),
@@ -745,7 +747,8 @@ object FMIMethods extends MethodsController {
     	paramType = "query"),
     new ApiImplicitParam(
         name = "stop_cond_region",
-        value = "Stop Condition Region",
+        value = "x_min,x_max,y_min,y_max,z_min,z_max",
+        defaultValue = "-10170000,10170000,-13560000,13560000,-13560000,13560000",
         required = false,
         dataType = "list(float)",
         paramType = "query"),
@@ -836,6 +839,7 @@ object FMIMethods extends MethodsController {
     new ApiImplicitParam(
         name = "step_size",
         value = "Step Size",
+        defaultValue = "84750",
         required = false, 
         dataType = "double",
         paramType = "query"),
@@ -855,7 +859,8 @@ object FMIMethods extends MethodsController {
     	paramType = "query"),
     new ApiImplicitParam(
         name = "stop_cond_region",
-        value = "Stop Condition Region",
+        value = "x_min,x_max,y_min,y_max,z_min,z_max",
+        defaultValue = "-10170000,10170000,-13560000,13560000-13560000,13560000",
         required = false,
         dataType = "list(float)",
         paramType = "query"),

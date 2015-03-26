@@ -552,7 +552,7 @@ object SINPMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "cube_size",
-        value = "x_low, x_high, y_low, y_high, z_low, z_high",
+        value = "x_low,x_high,y_low,y_high,z_low,z_high",
         defaultValue = "-40,10,-15,15,-10,10",
         required = false,
         dataType = "list(int)",
@@ -948,7 +948,7 @@ object SINPMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "cube_size",
-        value = "x_low, x_high, y_low, y_high, z_low, z_high",
+        value = "x_low,x_high,y_low,y_high,z_low,z_high",
         defaultValue = "-6,7,-3,3-3,3",
         required = false,
         dataType = "list(int)",
@@ -1331,7 +1331,7 @@ object SINPMethods extends MethodsController {
         paramType = "query"),
     new ApiImplicitParam(
         name = "cube_size",
-        value = "x_low, x_high, y_low, y_high, z_low, z_high",
+        value = "x_low,x_high,y_low,y_high,z_low,z_high",
         defaultValue = "-450,150,-300,300,-300,300",
         required = false,
         dataType = "list(int)",
