@@ -10,7 +10,7 @@
 		<img src="/public/img/layout/loading.gif" class="loadingImg-sm" alt="loading..." />
 	</div>	
 	<h4>Upload VOTable files</h4>
-	<input type="file" ng-file-select="datavm.onFileSelect($files)" accept="text/xml" multiple onclick="this.value=null">
+	<input type="file" ng-file-select="datavm.onFileSelect($files)" accept="text/xml,application/x-votable+xml" multiple onclick="this.value=null">
 	<div ng-show="datavm.selectedFiles != null" class="margin-t-10">
 		<div class="sel-file row" ng-repeat="f in datavm.selectedFiles">
 			<div class="progress" ng-show="datavm.progress[$index] >= 0" style="">					
