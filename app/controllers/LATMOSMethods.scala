@@ -521,7 +521,7 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "energy_channel",
         value = "Energy Channel",
-        defaultValue = "EnergySpectra",
+        defaultValue = "Ch1,Ch2,Ch3,Ch4",
         required = false,
         dataType = "list(string)",
         paramType = "query"),
@@ -620,7 +620,7 @@ object LATMOSMethods extends MethodsController {
     new ApiImplicitParam(
         name = "energy_channel",
         value = "Energy Channel",
-        defaultValue = "EnergySpectra",
+        defaultValue = "Ch1,Ch2,Ch3,Ch4",
         required = false,
         dataType = "list(string)",
         paramType = "query"),

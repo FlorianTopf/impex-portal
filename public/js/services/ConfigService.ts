@@ -19,7 +19,6 @@ module portal {
         public aliveMap: IBooleanMap = {}
         public filterMap: IBooleanMap = {}
         public filterRegions: Array<string> = []
-        //public statusMap: IStatusMap = {}
         
         constructor($resource: ng.resource.IResourceService, $http: ng.IHttpService) {
             this.resource = $resource
