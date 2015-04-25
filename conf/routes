@@ -86,12 +86,12 @@ GET		/methods/FMI/getParticleTrajectory					controllers.FMIMethods.getParticleTr
 GET		/methods/FMI/getDataPointSpectra					controllers.FMIMethods.getDataPointSpectra
 GET		/methods/FMI/getDataPointSpectraSpacecraft			controllers.FMIMethods.getDataPointSpectraSpacecraft
 # amda methods
-GET		/methods/AMDA/isAlive								controllers.AMDAMethods.isAlive
-GET		/methods/AMDA/getTimeTableList						controllers.AMDAMethods.getTimeTableList
-GET		/methods/AMDA/getTimeTable							controllers.AMDAMethods.getTimeTable
-GET		/methods/AMDA/getParameterList						controllers.AMDAMethods.getParameterList
-GET		/methods/AMDA/getParameter							controllers.AMDAMethods.getParameter
-GET		/methods/AMDA/getOrbits								controllers.AMDAMethods.getOrbits
+GET		/methods/CDPP-AMDA/isAlive							controllers.AMDAMethods.isAlive
+GET		/methods/CDPP-AMDA/getTimeTableList					controllers.AMDAMethods.getTimeTableList
+GET		/methods/CDPP-AMDA/getTimeTable						controllers.AMDAMethods.getTimeTable
+GET		/methods/CDPP-AMDA/getParameterList					controllers.AMDAMethods.getParameterList
+GET		/methods/CDPP-AMDA/getParameter						controllers.AMDAMethods.getParameter
+GET		/methods/CDPP-AMDA/getOrbits						controllers.AMDAMethods.getOrbits
 
 # userdata routes
 POST	/userdata					controllers.UserData.addFileUserData
