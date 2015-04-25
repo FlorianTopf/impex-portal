@@ -325,25 +325,25 @@
 <div class="row portal-row" ng-show="vm.ready">
 	<div class="col-sm-2">&nbsp;</div>
 	<div class="col-sm-2 text-center" id="{{ database.name }}-service"
-		ng-repeat="database in vm.configService.config.databases" 
-		ng-if="database.portal && !(database.methods | isEmpty)">
+		ng-repeat="service in vm.configService.config.databases" 
+		ng-if="service.portal && !(service.methods | isEmpty)">
 		<div ng-show="vm.ready">
 			<button type="button" class="btn btn-success btn-map"
-				ui-sref="app.portal.methods({id:database.id})" 
-				tooltip="Show methods of {{ database.name }}"
+				ui-sref="app.portal.methods({id:service.id})" 
+				tooltip="Show methods of {{ service.name }}"
 				tooltip-placement="top"
-				ng-disabled="(vm.configService.aliveMap[database.id] == false) || 
-					(vm.configService.filterMap[database.id] == false)">
-				<span class="pull-left">{{ database.name }}</span>
-				<span ng-show="vm.methodsService.loading[database.id]"
+				ng-disabled="(vm.configService.aliveMap[service.id] == false) || 
+					(vm.configService.filterMap[service.id] == false)">
+				<span class="pull-left">{{ service.name }}</span>
+				<span ng-show="vm.methodsService.loading[service.id]"
 					class="pull-right glyphicon glyphicon-cog glyphicon-rotate">
 				</span>
-				<span ng-show="!vm.methodsService.loading[database.id] && 
-					vm.methodsService.showSuccess[database.id]"
+				<span ng-show="!vm.methodsService.loading[service.id] && 
+					vm.methodsService.showSuccess[service.id]"
 					class="pull-right glyphicon glyphicon-ok-sign glyphicon-static">
 				</span>
-				<span ng-show="!vm.methodsService.loading[database.id] && 
-					vm.methodsService.showError[database.id]"
+				<span ng-show="!vm.methodsService.loading[service.id] && 
+					vm.methodsService.showError[service.id]"
 					class="pull-right glyphicon glyphicon-ban-circle glyphicon-static">
 				</span>
 				<br/>

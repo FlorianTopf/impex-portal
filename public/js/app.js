@@ -964,7 +964,6 @@ var portal;
     'use strict';
 
     var ConfigService = (function () {
-        //public statusMap: IStatusMap = {}
         function ConfigService($resource, $http) {
             this.url = '/';
             this.config = null;
@@ -1417,7 +1416,7 @@ var portal;
             this.submitted = false;
             this.submitButtonDisabled = false;
             this.sendingFeedback = false;
-            this.feedbackTools = ['IMPEx Portal', 'IMPEx Website', '3DView', 'AMDA', 'CLWEB', 'SINP Model', 'FMI HWA', 'LATHYS'];
+            this.feedbackTools = ['IMPEx Portal', 'IMPEx Website', 'CDPP-3DView', 'CDPP-AMDA', 'IRAP-CLWEB', 'SINP Models', 'FMI HWA', 'LATHYS'];
             this.scope = $scope;
             this.scope.vm = this;
             this.window = $window;

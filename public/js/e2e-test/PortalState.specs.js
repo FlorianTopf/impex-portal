@@ -4,29 +4,27 @@
 
 describe('portal', function() {
 
-  browser.get('/');
+  describe('initial view', function() {
 
-  it('should automatically redirect to portal when location hash/fragment is empty', function() {
-    expect(browser.getLocationAbsUrl()).toMatch("/portal");
+    browser.get('/');
+    
+    it('should automatically redirect to portal when location hash/fragment is empty', function() {
+        expect(browser.getLocationAbsUrl()).toMatch("/portal");
+    });
+
+    it('should render initial view', function() {
+      var databases = element.all(by.repeater('database in vm.configService.config.databases'));
+      var services = element.all(by.repeater('service in vm.configService.config.databases'));
+      expect(databases.count()).toMatch(5);
+      expect(services.count()).toMatch(5);
+      expect(element.all(by.id('MY-DATA')).count()).toMatch(1);
+      expect(element.all())
+    });
+
   });
 
 
-  /* describe('view1', function() {
-
-    beforeEach(function() {
-      browser.get('index.html#/view1');
-    });
-
-
-    it('should render view1 when user navigates to /view1', function() {
-      expect(element.all(by.css('[ng-view] p')).first().getText()).
-        toMatch(/partial for view 1/);
-    });
-
-  });
-
-
-  describe('view2', function() {
+  /*describe('view2', function() {
 
     beforeEach(function() {
       browser.get('index.html#/view2');

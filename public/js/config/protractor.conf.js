@@ -5,11 +5,11 @@ exports.config = {
   
   baseUrl: 'http://localhost:9000/',
 
-  multiCapabilities: [{
+  multiCapabilities: [
+	{
 	  'browserName': 'chrome'
-	}, {
-	  'browserName': 'firefox'
-  }],
+	}
+  ],
 	  
   specs: [
       '../e2e-test/*.specs.js'
