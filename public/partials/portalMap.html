@@ -324,7 +324,7 @@
 </div>
 <div class="row portal-row" ng-show="vm.ready">
 	<div class="col-sm-2">&nbsp;</div>
-	<div class="col-sm-2 text-center" id="{{ database.name }}-service"
+	<div class="col-sm-2 text-center" id="{{ service.name }}-service"
 		ng-repeat="service in vm.configService.config.databases" 
 		ng-if="service.portal && !(service.methods | isEmpty)">
 		<div ng-show="vm.ready">
