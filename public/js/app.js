@@ -3598,7 +3598,7 @@ var portal;
         function (growlProvider) {
             growlProvider.globalTimeToLive(5000);
             growlProvider.onlyUniqueMessages(false);
-            growlProvider.globalPosition('top-right');
+            growlProvider.globalPosition('bottom-right');
         }
     ]);
 
