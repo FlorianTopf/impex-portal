@@ -27,6 +27,9 @@
              <xs:element type="tns:getDataset" name="getDataset"/>
             <xs:element type="tns:getDatasetResponse" name="getDatasetResponse"/>
             
+             <xs:element type="tns:getPlot" name="getPlot"/>
+            <xs:element type="tns:getPlotResponse" name="getPlotResponse"/>
+
             <xs:element type="tns:getOrbites" name="getOrbites"/>
             <xs:element type="tns:getOrbitesResponse" name="getOrbitesResponse"/> 
 
@@ -802,6 +805,53 @@
                     </xs:element>
                 </xs:sequence>
             </xs:complexType>           
+
+             <xs:complexType name="getPlot">
+                <xs:sequence>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="startTime">
+                        <xs:annotation>
+                            <xs:documentation>Start time in ISO 8601 format</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="stopTime">
+                        <xs:annotation>
+                            <xs:documentation>Stop time in ISO 8601 format</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="missionID">
+                        <xs:annotation>
+                            <xs:documentation>Id of mission defined in 
+                                Amda LocalParams.xml</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="userID">
+                        <xs:annotation>
+                            <xs:documentation>ID of AMDA user</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="0" type="xs:string" name="password">
+                        <xs:annotation>
+                            <xs:documentation>Password of AMDA</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>
+
+            <xs:complexType name="getPlotResponse">
+                <xs:sequence>
+                    <xs:element type="xs:boolean" maxOccurs="1" minOccurs="0" name="success">
+                        <xs:annotation>
+                            <xs:documentation>Url of png plot</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                    <xs:element maxOccurs="1" minOccurs="1" type="xs:anyURI" name="plotFileURL">
+                        <xs:annotation>
+                            <xs:documentation>URL of png file</xs:documentation>
+                        </xs:annotation>
+                    </xs:element>
+                </xs:sequence>
+            </xs:complexType>           
+
             <xs:complexType name="getOrbites">
                 <xs:sequence>
                     <xs:element maxOccurs="1" minOccurs="1" type="xs:string" name="startTime">
@@ -1009,6 +1059,14 @@
         <wsdl:part element="tns:getDatasetResponse" name="parameters"> </wsdl:part>
     </wsdl:message>
 
+    <wsdl:message name="getPlot">
+        <wsdl:part element="tns:getPlot" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
+    <wsdl:message name="getPlotResponse">
+        <wsdl:part element="tns:getPlotResponse" name="parameters"> </wsdl:part>
+    </wsdl:message>
+
 
     <wsdl:message name="getOrbites">
         <wsdl:part element="tns:getOrbites" name="parameters"> </wsdl:part>
@@ -1058,6 +1116,11 @@
         <wsdl:operation name="getDataset">
             <wsdl:input message="tns:getDataset"> </wsdl:input>
             <wsdl:output message="tns:getDatasetResponse"> </wsdl:output>
+        </wsdl:operation>
+        
+        <wsdl:operation name="getPlot">
+            <wsdl:input message="tns:getPlot"> </wsdl:input>
+            <wsdl:output message="tns:getPlotResponse"> </wsdl:output>
         </wsdl:operation>
         
         <wsdl:operation name="getOrbites">
@@ -1128,6 +1191,16 @@
         </wsdl:operation>
 
         <wsdl:operation name="getDataset">
+            <soap:operation style="document" soapAction=""/>
+            <wsdl:input>
+                <soap:body use="literal"/>
+            </wsdl:input>
+            <wsdl:output>
+                <soap:body use="literal"/>
+            </wsdl:output>
+        </wsdl:operation>
+ 
+        <wsdl:operation name="getPlot">
             <soap:operation style="document" soapAction=""/>
             <wsdl:input>
                 <soap:body use="literal"/>
