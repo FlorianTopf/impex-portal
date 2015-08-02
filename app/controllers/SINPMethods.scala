@@ -1722,7 +1722,7 @@ object SINPMethods extends MethodsController {
     new ApiImplicitParam(
         name = "votable_url",
         value = "votable url",
-        defaultValue = "http://dec1.sinp.msu.ru/~lucymu/paraboloid/points_calc_120points.vot",
+        defaultValue = "http://dec1.sinp.msu.ru/~lucymu/paraboloid/Galileo_2002-11-01--09_jse.xml",
         required = true,
         dataType = "string",
         paramType = "query"),

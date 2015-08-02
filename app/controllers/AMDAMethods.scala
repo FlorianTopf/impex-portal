@@ -349,7 +349,7 @@ object AMDAMethods extends MethodsController {
         name = "coordinateSystem",
         value = "Coordinate System",
         defaultValue = "VSO",
-        allowableValues = "CPHIO,GPHIO,IPHIO,EPHIO,Equatorial,CGM,Carrington,DM,GEI,GEO,GSE,GSEQ,GSM,HAE,HCC,HCI,HCR,HEE,HEEQ,HG,HGI,HPC,HPR,J2000,LGM,MAG,MFA,RTN,SC,SE,SM,SR,SR2,SSE,SSE_L,SpacecraftOrbitPlane,WGS84,MSO,VSO,KSM",
+        allowableValues = "CPHIO,GPHIO,IPHIO,EPHIO,Equatorial,CGM,Carrington,DM,GEI,GEO,GSE,GSEQ,GSM,HAE,HCC,HCI,HCR,HEE,HEEQ,HG,HGI,HPC,HPR,J2000,LGM,MAG,MFA,RTN,SC,SE,SM,SR,SR2,SSE,SSE_L,SpacecraftOrbitPlane,WGS84,MSO,VSO,JSM,JSE,IRC,SYS3,KSM,KRTP,KSO,MBF,CSEQ,CSE",
         required = true,
         dataType = "string",
         paramType = "query"),
